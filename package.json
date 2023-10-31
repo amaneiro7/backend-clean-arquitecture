@@ -1,0 +1,16 @@
+{
+  "name": "inventarioapp",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "server"
+  ],
+  "description": "device inventary app react express typescript clean arquitecture",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "amaneiro7 <amaneiro7@gmail.com>",
+  "license": "MIT"
+}

@@ -1,0 +1,94 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        primary: {
+          50: 'hsl(47, 100%, 96%)',
+          100: 'hsl(48, 100%, 91%)',
+          200: 'hsl(45, 100%, 82%)',
+          300: 'hsl(44, 100%, 71%)',
+          400: 'hsl(40, 100%, 60%)',
+          500: 'hsl(37, 100%, 52%)',
+          600: 'hsl(32, 100%, 50%)',
+          700: 'hsl(29, 98%, 40%)',
+          800: 'hsl(27, 87%, 34%)',
+          900: 'hsl(27, 83%, 28%)',
+          950: 'hsl(25, 89%, 15%)',
+          DEFAULT: 'hsl(32, 100%, 50%)'
+        },
+        secondary: {
+          50: 'hsl(194, 100%, 96%)',
+          100: 'hsl(196, 100%, 90%)',
+          200: 'hsl(194, 100%, 83%)',
+          300: 'hsl(191, 100%, 71%)',
+          400: 'hsl(194, 100%, 57%)',
+          500: 'hsl(200, 100%, 50%)',
+          600: 'hsl(210, 100%, 50%)',
+          700: 'hsl(217, 100%, 50%)',
+          800: 'hsl(218, 100%, 45%)',
+          900: 'hsl(215, 100%, 35%)',
+          950: 'hsl(213, 100%, 19%)',
+          DEFAULT: 'hsl(213, 100%, 19%)'
+        },
+        terciary: {
+          50: 'hsl(141, 100%, 97%)',
+          100: 'hsl(147, 100%, 92%)',
+          200: 'hsl(147, 100%, 85%)',
+          300: 'hsl(147, 100%, 73%)',
+          400: 'hsl(147, 92%, 58%)',
+          500: 'hsl(147, 94%, 45%)',
+          600: 'hsl(147, 100%, 36%)',
+          700: 'hsl(148, 95%, 33%)',
+          800: 'hsl(148, 85%, 24%)',
+          900: 'hsl(149, 81%, 20%)',
+          950: 'hsl(149, 100%, 10%)',
+          DEFAULT: 'hsl(148, 95%, 33%)'
+        },
+      }
+    },
+    fontFamily: {
+      'body': [
+        'Roboto',
+        'ui-sans-serif',
+        'system-ui',
+        '-apple-system',
+        'system-ui',
+        'Segoe UI',
+        'Roboto',
+        'Helvetica Neue',
+        'Arial',
+        'Noto Sans',
+        'sans-serif',
+        'Apple Color Emoji',
+        'Segoe UI Emoji',
+        'Segoe UI Symbol',
+        'Noto Color Emoji'
+      ],
+      'sans': [
+        'Roboto',
+        'ui-sans-serif',
+        'system-ui',
+        '-apple-system',
+        'system-ui',
+        'Segoe UI',
+        'Roboto',
+        'Helvetica Neue',
+        'Arial',
+        'Noto Sans',
+        'sans-serif',
+        'Apple Color Emoji',
+        'Segoe UI Emoji',
+        'Segoe UI Symbol',
+        'Noto Color Emoji'
+      ]
+    }
+  },
+  plugins: [],
+}
+

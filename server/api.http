@@ -1,0 +1,32 @@
+#### url de prueba
+GET http://localhost:3000/
+
+### obtener todas las categorias
+GET http://localhost:3000/api/v1/categories
+### Obtener por id
+GET http://localhost:3000/api/v1/categories/dcdd0fad-a94c-4810-8acc-5f108d3b18c3
+
+### obtener todas las marcas
+GET http://localhost:3000/api/v1/brands
+### Obtener por id
+GET http://localhost:3000/api/v1/brands/dcdd0fad-a94c-4810-8acc-5f108d3b18c3
+
+### Crear una marca con POST
+POST http://localhost:3000/api/v1/brands
+Content-Type: application/json
+
+{
+  "name": "Siragon"  
+}
+### Modificar una marca con POST
+PATCH  http://localhost:3000/api/v1/brands/92af3dc2-60ce-49aa-a8a5-1014d9b1b111
+Content-Type: application/json
+
+{
+  "name": "McAfede"  
+}
+
+### obtener todas las categorias
+GET http://localhost:3000/api/v1/models
+### obtener todas las categorias
+GET http://localhost:3000/api/v1/models/5c6dc78f-3591-44ec-bb72-7d5dbd46737d
