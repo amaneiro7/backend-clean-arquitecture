@@ -1,0 +1,2 @@
+### Obtener todos los valores de estados
+GET http://localhost:3000/api/v1/status
