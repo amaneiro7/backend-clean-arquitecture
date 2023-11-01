@@ -18,7 +18,6 @@ export class BrandService {
   }
 
   async create (payload: CreateBrand): Promise<Brand> {
-    console.log('Service', payload)
     // const { name } = payload
     return await this.store.create(payload)
   }

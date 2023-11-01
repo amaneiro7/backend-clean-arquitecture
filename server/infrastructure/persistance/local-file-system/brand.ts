@@ -32,7 +32,6 @@ export class BrandRepositoryInMemory implements BrandRepository {
   }
 
   create = async (payload: CreateBrand): Promise <Brand> => {
-    console.log('Infra', payload)
     const newBrand = {
       id: randomUUID(),
       ...payload
