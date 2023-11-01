@@ -1,11 +1,9 @@
 import { randomUUID } from 'node:crypto'
 import { type Id } from '../../../types/types'
-import { type UpdateModelSeries, type ModelSeries, type CreateModelSeries } from '../../../domain/entities/modelSeries.entity'
+import { type UpdateModelSeries, type ModelSeries, type CreateModelSeries, type ModelSeriesOutout } from '../../../domain/entities/modelSeries.entity'
 import { type ModelSeriesRepository } from '../../../domain/repositories/modelSeries.repository'
 import { brandService } from '../../../dependecies/brand.dependecies'
 import { categoryService } from '../../../dependecies/category.dependecies'
-import { type Brand } from '../../../domain/entities/brand.entity'
-import { type Category } from '../../../domain/entities/category.entity'
 
 const modelSeries: ModelSeries[] = [
   {
@@ -39,21 +37,14 @@ const modelSeries: ModelSeries[] = [
     brandId: 'dcdd0fad-a94c-4810-8acc-5f108d3b18c3'
   }
 ]
-
-export interface Output {
-  id: Id
-  name: string
-  brandId: Brand
-  categoryId: Category
-}
 export class ModelSeriesRepositoryInMemory implements ModelSeriesRepository {
-  getAll = async (): Promise<Output[]> => {
+  getAll = async (): Promise<ModelSeriesOutout[]> => {
     const data = await this.dataFormatter(modelSeries)
     return data
   }
 
-  dataFormatter = async (array: ModelSeries[]): Promise<Output[]> => {
-    const data: Output[] = []
+  dataFormatter = async (array: ModelSeries[]): Promise<ModelSeriesOutout[]> => {
+    const data: ModelSeriesOutout[] = []
     await Promise.all(array.map(async (model) => {
       const dataFormatting = await this.joinRelationalTables(model)
       data.push(dataFormatting)
@@ -61,20 +52,22 @@ export class ModelSeriesRepositoryInMemory implements ModelSeriesRepository {
     return data
   }
 
-  joinRelationalTables = async (model: ModelSeries): Promise<Output> => {
+  joinRelationalTables = async (model: ModelSeries): Promise<ModelSeriesOutout> => {
     const category = await categoryService.getOne({ id: model.categoryId })
     const brand = await brandService.getOne({ id: model.brandId })
     if (category === undefined || brand === undefined) {
       throw new Error('Error interno')
     }
-    return {
+    const data = {
       ...model,
-      categoryId: category,
-      brandId: brand
+      category,
+      brand
     }
+    const { categoryId, brandId, ...result } = data
+    return result
   }
 
-  getOne = async ({ id }: { id: Id }): Promise<Output | undefined> => {
+  getOne = async ({ id }: { id: Id }): Promise<ModelSeriesOutout | undefined> => {
     const modelSerie = modelSeries.find(modelSerie => modelSerie.id === id)
     if (modelSerie === undefined) {
       throw new Error('Error interno')
@@ -82,23 +75,25 @@ export class ModelSeriesRepositoryInMemory implements ModelSeriesRepository {
     return await this.joinRelationalTables(modelSerie)
   }
 
-  create = async (payload: CreateModelSeries): Promise <ModelSeries> => {
+  create = async (payload: CreateModelSeries): Promise <ModelSeriesOutout> => {
     const newModelSerie = {
       id: randomUUID(),
       ...payload
     }
     modelSeries.push(newModelSerie)
-    return newModelSerie
+    return await this.joinRelationalTables(newModelSerie)
   }
 
-  update = async (id: Id, payload: UpdateModelSeries): Promise<ModelSeries | undefined> => {
+  update = async (id: Id, payload: UpdateModelSeries): Promise<ModelSeriesOutout | undefined> => {
     const modelSerieIndex = modelSeries.findIndex(modelSerie => modelSerie.id === id)
-    if (modelSerieIndex === -1) return undefined
+    if (modelSerieIndex === -1) {
+      throw new Error('Error interno')
+    }
     modelSeries[modelSerieIndex] = {
       ...modelSeries[modelSerieIndex],
       ...payload
     }
 
-    return modelSeries[modelSerieIndex]
+    return await this.joinRelationalTables(modelSeries[modelSerieIndex])
   }
 }

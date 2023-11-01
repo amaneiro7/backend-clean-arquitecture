@@ -9,11 +9,9 @@ export interface ModelSeries {
   categoryId: Id
 }
 
-export interface ModelSeriesOutout {
-  id: Id
-  name: string
-  categoryId: Category
-  brandId: Brand
+export interface ModelSeriesOutout extends Omit<ModelSeries, 'brandId' | 'categoryId'> {
+  category: Category
+  brand: Brand
 }
 
 export interface CreateModelSeries extends Omit<ModelSeries, 'id'> {}
