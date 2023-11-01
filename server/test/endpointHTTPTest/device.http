@@ -1,0 +1,25 @@
+### obtener todas los device
+
+GET http://localhost:3000/api/v1/device
+### obtener todas las categorias
+GET http://localhost:3000/api/v1/device/5a94384b-2e4d-4cdf-96c9-0065bf7f92a9
+
+
+### Crear un nuevo modelo
+POST http://localhost:3000/api/v1/device
+Content-Type: application/json
+
+{
+  "activo": "212102",
+  "serial": "MXL7006802",
+  "status": "Operativo",
+  "modelId": "d3237ea9-2e2b-438b-a3d3-954a3ffae5f7"
+}
+### Modificar una marca con POST
+PATCH  http://localhost:3000/api/v1/device/5a94384b-2e4d-4cdf-96c9-0065bf7f92a9
+Content-Type: application/json
+
+{
+  "status": "Dañado"
+}
+

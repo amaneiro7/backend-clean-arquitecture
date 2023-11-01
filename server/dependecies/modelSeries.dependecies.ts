@@ -4,6 +4,6 @@ import { ModelSeriesController } from '../presentation/controllers/modelSeries.c
 
 const modelSeriesRepository = new ModelSeriesRepositoryInMemory()
 
-const modelSeriesService = new ModelSeriesService(modelSeriesRepository)
+export const modelSeriesService = new ModelSeriesService(modelSeriesRepository)
 
 export const modelSeriesController = new ModelSeriesController(modelSeriesService)

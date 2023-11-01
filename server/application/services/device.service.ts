@@ -1,15 +1,15 @@
-import { type CreateDevice, type Device, type UpdateDevice } from '../../domain/entities/device.entity'
+import { type DeviceOutput, type CreateDevice, type UpdateDevice } from '../../domain/entities/device.entity'
 import { type DeviceRepository } from '../../domain/repositories/device.repositories'
 import { type Id } from '../../types/types'
 
 export class DeviceService {
   constructor (private readonly store: DeviceRepository) {}
 
-  async getAll (): Promise<Device[]> {
+  async getAll (): Promise<DeviceOutput[]> {
     return await this.store.getAll()
   }
 
-  async getOne ({ id }: { id: Id }): Promise<Device | undefined> {
+  async getOne ({ id }: { id: Id }): Promise<DeviceOutput | undefined> {
     const data = await this.store.getOne({ id })
     if (data === undefined || data === null) {
       throw new Error('Device not Found')
@@ -17,12 +17,12 @@ export class DeviceService {
     return data
   }
 
-  async create (payload: CreateDevice): Promise<Device> {
+  async create (payload: CreateDevice): Promise<DeviceOutput> {
     // const { name } = payload
     return await this.store.create(payload)
   }
 
-  async update (id: Id, payload: UpdateDevice): Promise<Device | undefined> {
+  async update (id: Id, payload: UpdateDevice): Promise<DeviceOutput | undefined> {
     const DeviceToChange = await this.store.getOne({ id })
     if (DeviceToChange === undefined || DeviceToChange === null) {
       throw new Error('Device not Found')

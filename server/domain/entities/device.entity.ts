@@ -1,5 +1,5 @@
 import { type StatusValue, type Id } from '../../types/types'
-import { type ModelSeries } from './modelSeries.entity'
+import { type ModelSeriesOutout } from './modelSeries.entity'
 
 export interface Device {
   id: Id
@@ -9,8 +9,8 @@ export interface Device {
   modelId: Id
 }
 
-export interface DeviceOutout extends Omit<Device, 'modelId'> {
-  modelId: ModelSeries
+export interface DeviceOutput extends Omit<Device, 'modelId'> {
+  model: ModelSeriesOutout
 }
 
 export interface CreateDevice extends Omit<Device, 'id'> {}
