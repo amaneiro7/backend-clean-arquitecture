@@ -1,5 +1,12 @@
-import { type SafeParseReturnType } from 'zod'
+import { type ZodParsedType, type ZodError, type ZodType, type ZodObject } from 'zod'
 
-export function validatePartialDTO<T> ({ input, DTO }: { input: any, DTO: any }): SafeParseReturnType<T, T> {
+type Input = unknown
+
+interface Output<T> {
+  success: boolean
+  data?: T
+  error?: ZodError
+}
+export function validatePartialDTO<T extends ZodType<any>> ({ input, DTO }: { input: Input, DTO: ZodObject<Input> }): Output<ZodParsedType<T>> {
   return DTO.partial().safeParse(input)
 }

@@ -16,6 +16,7 @@ PATCH  http://localhost:3000/api/v1/brands/241bf55d-b649-4109-af7c-0e6890ded3fc
 Content-Type: application/json
 
 {
-  "name": 1
+  "name": "Siragon",
+  "names": "Siragon"
 }
 

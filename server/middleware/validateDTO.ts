@@ -1,5 +1,5 @@
-import { type SafeParseReturnType, type ZodType } from 'zod'
+import { type ZodType } from 'zod'
 
-export function validateDTO<T> ({ input, DTO }: { input: string, DTO: ZodType<T> }): SafeParseReturnType<T, T> {
+export function validateDTO<T> ({ input, DTO }: { input: unknown, DTO: ZodType<T> }): any {
   return DTO.safeParse(input)
 }
