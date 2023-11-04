@@ -1,0 +1,20 @@
+### obtener todas las marcas
+GET http://localhost:3000/api/v1/brands
+### Obtener por id
+GET http://localhost:3000/api/v1/brands/241bf55d-b649-4109-af7c-0e6890ded3fc
+
+### Crear una marca con POST
+POST http://localhost:3000/api/v1/brands
+Content-Type: application/json
+
+{
+  "name": "Siragon"
+}
+### Modificar una marca con POST
+PATCH  http://localhost:3000/api/v1/brands/241bf5c
+Content-Type: application/json
+
+{
+  "name": "Siragon"
+}
+

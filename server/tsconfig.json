@@ -114,7 +114,7 @@
   },
   "include": [
     "**/*.ts"
-, "src/db/config.js", "src/Services/items/test/core/repository/brand.test.js", "src/e2e/utils/seed.ts", "src/e2e/utils/umzug.ts", "src/e2e/utils/seeders/1-usersSeeder.ts", "src/config/index.ts", "src/e2e/utils/migrations/2-categoriesMigrations.ts.old", "src/e2e/utils/seeders/3-brandsSeeder.ts", "utils/readjJSON.js",  ],
+, "src/db/config.js", "src/Services/items/test/core/repository/brand.test.js", "src/e2e/utils/seed.ts", "src/e2e/utils/umzug.ts", "src/e2e/utils/seeders/1-usersSeeder.ts", "config/index.ts", "src/e2e/utils/migrations/2-categoriesMigrations.ts.old", "src/e2e/utils/seeders/3-brandsSeeder.ts", "src/utils/readjJSON.js",  ],
   "exclude": [
     "node_modules",
     "./dist"
