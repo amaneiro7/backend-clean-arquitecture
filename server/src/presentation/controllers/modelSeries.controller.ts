@@ -2,7 +2,6 @@
 import { type NextFunction, type Request, type Response } from 'express'
 import { type Id } from '../../types/types'
 import { type ModelSeriesService } from '../../application/services/modelSeries.service'
-import { type CreateModelSeries, type UpdateModelSeries } from '../../domain/entities/modelSeries.entity'
 
 export class ModelSeriesController {
   constructor (private readonly service: ModelSeriesService) {}
@@ -26,7 +25,7 @@ export class ModelSeriesController {
     }
   }
 
-  async create (req: Request<{ payload: CreateModelSeries }>, res: Response, next: NextFunction) {
+  async create (req: Request, res: Response, next: NextFunction) {
     try {
       const payload = req.body
       const newData = await this.service.create(payload)
@@ -36,7 +35,7 @@ export class ModelSeriesController {
     }
   }
 
-  async update (req: Request<{ id: Id, payload: UpdateModelSeries }>, res: Response, next: NextFunction) {
+  async update (req: Request<{ id: Id }>, res: Response, next: NextFunction) {
     try {
       const { id } = req.params
       const payload = req.body

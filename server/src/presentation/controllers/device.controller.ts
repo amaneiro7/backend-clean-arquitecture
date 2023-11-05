@@ -2,7 +2,6 @@
 import { type NextFunction, type Request, type Response } from 'express'
 import { type Id } from '../../types/types'
 import { type DeviceService } from '../../application/services/device.service'
-import { type CreateDevice, type UpdateDevice } from '../../domain/entities/device.entity'
 
 export class DeviceController {
   constructor (private readonly service: DeviceService) {}
@@ -26,7 +25,7 @@ export class DeviceController {
     }
   }
 
-  async create (req: Request<{ payload: CreateDevice }>, res: Response, next: NextFunction) {
+  async create (req: Request, res: Response, next: NextFunction) {
     try {
       const payload = req.body
       const newData = await this.service.create(payload)
@@ -36,7 +35,7 @@ export class DeviceController {
     }
   }
 
-  async update (req: Request<{ id: Id, payload: UpdateDevice }>, res: Response, next: NextFunction) {
+  async update (req: Request<{ id: Id }>, res: Response, next: NextFunction) {
     try {
       const { id } = req.params
       const payload = req.body

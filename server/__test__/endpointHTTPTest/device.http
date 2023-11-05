@@ -11,8 +11,7 @@ Content-Type: application/json
 
 {
   "activo": "212102",
-  "serial": "MXL7006802",
-  "status": "Operativo",
+  "serial": "MXL7006802",  
   "modelId": "d3237ea9-2e2b-438b-a3d3-954a3ffae5f7"
 }
 ### Modificar una marca con POST

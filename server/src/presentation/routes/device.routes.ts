@@ -1,14 +1,34 @@
 import { Router } from 'express'
 import { deviceController } from '../../dependecies/device.dependecies'
-import { validatorHandler } from '../../middleware/validatorHandler'
-import { createDeviceDTO } from '../dto/dto'
+import { createDeviceDTO, getIdDTO, updateDeviceDTO } from '../validators/dto'
+import { validatorParamsHandler } from '../validators/validatorParamsHandler'
+import validatorBodyHandler from '../validators/validatorBodyHandler'
 
-export const deviceRouter = Router()
+class DeviceRoutes {
+  router = Router()
 
-deviceRouter.get('/', deviceController.getAll.bind(deviceController))
-deviceRouter.post('/',
-  validatorHandler({ schema: createDeviceDTO, property: 'body' }),
-  deviceController.create.bind(deviceController))
+  constructor () {
+    this.initializeRoutes()
+  }
 
-deviceRouter.get('/:id', deviceController.getOne.bind(deviceController))
-deviceRouter.patch('/:id', deviceController.update.bind(deviceController))
+  initializeRoutes (): void {
+    this.router.route('/').get(deviceController.getAll.bind(deviceController))
+    this.router.route('/').post(
+      validatorBodyHandler(createDeviceDTO),
+      deviceController.create.bind(deviceController)
+    )
+
+    this.router.route('/:id').get(
+      validatorParamsHandler(getIdDTO),
+      deviceController.getOne.bind(deviceController)
+    )
+
+    this.router.route('/:id').patch(
+      validatorParamsHandler(getIdDTO),
+      validatorBodyHandler(updateDeviceDTO),
+      deviceController.update.bind(deviceController)
+    )
+  }
+}
+
+export const deviceRouter = new DeviceRoutes().router

@@ -1,6 +1,15 @@
 import { Router } from 'express'
 import { statusController } from '../../dependecies/status.dependecies'
 
-export const statusRouter = Router()
+class StatusRoutes {
+  router = Router()
+  constructor () {
+    this.initializeRoutes()
+  }
 
-statusRouter.get('/', statusController.getAll.bind(statusController))
+  initializeRoutes (): void {
+    this.router.route('/').get(statusController.getAll.bind(statusController))
+  }
+}
+
+export const statusRouter = new StatusRoutes().router

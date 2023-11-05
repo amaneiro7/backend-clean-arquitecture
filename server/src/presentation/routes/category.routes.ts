@@ -1,10 +1,21 @@
 import { Router } from 'express'
 import { categoryController } from '../../dependecies/category.dependecies'
-import { validatorHandler } from '../../middleware/validatorHandler'
-import { getIdDTO } from '../dto/dto'
+import { validatorParamsHandler } from '../validators/validatorParamsHandler'
+import { getIdDTO } from '../validators/dto'
 
-export const categoryRouter = Router()
+class CategoryRoutes {
+  router = Router()
 
-categoryRouter.get('/', categoryController.getAll.bind(categoryController))
-categoryRouter.get('/:id', validatorHandler({ schema: getIdDTO, property: 'params' }),
-  categoryController.getOne.bind(categoryController))
+  constructor () {
+    this.initializeRoutes()
+  }
+
+  initializeRoutes (): void {
+    this.router.route('/').get(categoryController.getAll.bind(categoryController))
+    this.router.route('/:id').get(
+      validatorParamsHandler(getIdDTO),
+      categoryController.getOne.bind(categoryController))
+  }
+}
+
+export const categoryRouter = new CategoryRoutes().router

@@ -8,7 +8,8 @@ POST http://localhost:3000/api/v1/brands
 Content-Type: application/json
 
 {
-  "name": "Siragon"
+  "name": "Siragon",
+  "other": "hjhj"
 }
 ### Modificar una marca con POST
 PATCH  http://localhost:3000/api/v1/brands/241bf5c

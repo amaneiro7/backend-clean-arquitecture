@@ -1,20 +1,39 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { Router } from 'express'
 import { brandController } from '../../dependecies/brand.dependecies'
-import { validatorHandler } from '../../middleware/validatorHandler'
-import { createDTO, getIdDTO, updateDTO } from '../dto/dto'
+// import { validatorHandler } from '../../middleware/validatorHandler'
+import { createDTO, getIdDTO, updateDTO } from '../validators/dto'
+import validatorBodyHandler from '../validators/validatorBodyHandler'
+import { validatorParamsHandler } from '../validators/validatorParamsHandler'
 
-export const brandRouter = Router()
+// export const brandRouter = Router()
 
-brandRouter.get('/', brandController.getAll)
-brandRouter.post('/',
-  validatorHandler({ schema: createDTO, property: 'body' }),
-  brandController.create)
+class BrandRoutes {
+  router = Router()
 
-brandRouter.get('/:id',
-  validatorHandler({ schema: getIdDTO, property: 'params' }),
-  brandController.getOne)
-brandRouter.patch('/:id',
-  validatorHandler({ schema: getIdDTO, property: 'params' }),
-  validatorHandler({ schema: updateDTO, property: 'body' }),
-  brandController.update)
+  constructor () {
+    this.initializeRoutes()
+  }
+
+  initializeRoutes (): void {
+    this.router.route('/').get(brandController.getAll.bind(brandController))
+
+    this.router.route('/').post(
+      validatorBodyHandler(createDTO),
+      brandController.create.bind(brandController)
+    )
+
+    this.router.route('/:id').get(
+      validatorParamsHandler(getIdDTO),
+      brandController.getOne.bind(brandController)
+    )
+
+    this.router.route('/:id').patch(
+      validatorParamsHandler(getIdDTO),
+      validatorBodyHandler(updateDTO),
+      brandController.update.bind(brandController)
+    )
+  }
+}
+
+export const brandRouter = new BrandRoutes().router

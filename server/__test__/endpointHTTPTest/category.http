@@ -1,4 +1,4 @@
 ### obtener todas las categorias
 GET http://localhost:3000/api/v1/categories
 ### Obtener por id
-GET http://localhost:3000/api/v1/categories/dcdd0fad-a94c-4810-8acc-5f108d3b18c3
+GET http://localhost:3000/api/v1/categories/dcdd0fdddad-a94c-4810-8acc-5f108d3b18c3

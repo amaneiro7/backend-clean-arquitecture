@@ -43,8 +43,8 @@ export const createDeviceDTO = Joi.object({
 export const updateDeviceDTO = Joi.object({
   serial: serial.optional(),
   activo: activo.optional(),
-  status: status.required(),
-  modelId: id.required()
+  status: status.optional(),
+  modelId: id.optional()
 })
 
 export const queryDto = Joi.object({
