@@ -6,7 +6,7 @@ import Routes from './presentation/routes/index.routes'
 import morgan from 'morgan'
 import helmet from 'helmet'
 import winston from 'winston'
-import { unCoughtErrorHandler } from './middleware/errorHandler'
+import { boomErrorHandler, unCoughtErrorHandler } from './middleware/errorHandler'
 
 export default class Server {
   constructor (app: Application) {
@@ -26,11 +26,12 @@ export default class Server {
     app.use(helmet())
     app.use(json())
     app.use(corsMiddleware())
-    app.use(unCoughtErrorHandler)
 
     app.get('/', (req: Request, res: Response) => {
       res.status(200).json('Servidor de inventarios')
     })
+    app.use(boomErrorHandler)
+    app.use(unCoughtErrorHandler)
   }
 }
 process.on('beforeExit', (err) => {

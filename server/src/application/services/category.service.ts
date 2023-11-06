@@ -1,3 +1,4 @@
+import { notFound } from '@hapi/boom'
 import { type Category } from '../../domain/entities/category.entity'
 import { type CategoryRepository } from '../../domain/repositories/category.repository'
 import { type Id } from '../../types/types'
@@ -10,6 +11,10 @@ export class CategoryService {
   }
 
   async getOne ({ id }: { id: Id }): Promise<Category | undefined> {
-    return await this.store.getOne({ id })
+    const data = await this.store.getOne({ id })
+    if (data === undefined) {
+      throw notFound('Categoria no encontrada')
+    }
+    return data
   }
 }

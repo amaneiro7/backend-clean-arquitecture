@@ -26,7 +26,6 @@ export class CategoryRepositoryInMemory implements CategoryRepository {
   }
 
   getOne = async ({ id }: { id: Id }): Promise<Category | undefined> => {
-    const category = categories.find(category => category.id === id)
-    return category
+    return categories.find(category => category.id === id)
   }
 }

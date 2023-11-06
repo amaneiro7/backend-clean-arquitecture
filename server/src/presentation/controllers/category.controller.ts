@@ -2,6 +2,7 @@
 import { type CategoryService } from '../../application/services/category.service'
 import { type NextFunction, type Request, type Response } from 'express'
 import { type Id } from '../../types/types'
+import { successResponses } from '../../utils/successResponse'
 
 export class CategoryController {
   constructor (private readonly service: CategoryService) {}
@@ -9,7 +10,7 @@ export class CategoryController {
   async getAll (req: Request, res: Response, next: NextFunction) {
     try {
       const data = await this.service.getAll()
-      res.status(200).json(data)
+      successResponses.success({ res, message: data })
     } catch (error) {
       next(error)
     }
@@ -19,7 +20,7 @@ export class CategoryController {
     try {
       const { id } = req.params
       const data = await this.service.getOne({ id })
-      res.status(200).json(data)
+      successResponses.success({ res, message: data })
     } catch (error) {
       next(error)
     }

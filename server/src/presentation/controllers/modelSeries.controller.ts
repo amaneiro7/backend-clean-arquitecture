@@ -2,6 +2,7 @@
 import { type NextFunction, type Request, type Response } from 'express'
 import { type Id } from '../../types/types'
 import { type ModelSeriesService } from '../../application/services/modelSeries.service'
+import { successResponses } from '../../utils/successResponse'
 
 export class ModelSeriesController {
   constructor (private readonly service: ModelSeriesService) {}
@@ -9,7 +10,7 @@ export class ModelSeriesController {
   async getAll (req: Request, res: Response, next: NextFunction) {
     try {
       const data = await this.service.getAll()
-      res.status(200).json(data)
+      successResponses.success({ res, message: data })
     } catch (error) {
       next(error)
     }
@@ -19,7 +20,7 @@ export class ModelSeriesController {
     try {
       const { id } = req.params
       const data = await this.service.getOne({ id })
-      res.status(200).json(data)
+      successResponses.success({ res, message: data })
     } catch (error) {
       next(error)
     }
@@ -29,7 +30,7 @@ export class ModelSeriesController {
     try {
       const payload = req.body
       const newData = await this.service.create(payload)
-      res.status(201).json(newData)
+      successResponses.created({ res, message: newData })
     } catch (error) {
       next(error)
     }
@@ -40,7 +41,7 @@ export class ModelSeriesController {
       const { id } = req.params
       const payload = req.body
       const newData = await this.service.update(id, payload)
-      res.status(201).json(newData)
+      successResponses.created({ res, message: newData })
     } catch (error) {
       next(error)
     }
