@@ -1,9 +1,11 @@
 import express, { type Application } from 'express'
-import Server from './src'
+import { createServer } from './src'
+// import Server from './src'
 
 const app: Application = express()
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const server: Server = new Server(app)
+// const server: Server = new Server(app)
+const server = createServer(app)
 const port: number = 3000
 
 app.listen(port, () => {

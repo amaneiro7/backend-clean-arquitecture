@@ -24,6 +24,7 @@ export function apiErrorHandler (
   res: Response,
   message: string
 ): void {
+  console.log('apiErrorHandler', err)
   const error: object = { Message: message, Request: req, Stack: err }
   winston.error(JSON.stringify(error))
   res.json({ Message: message })
@@ -35,7 +36,7 @@ export function boomErrorHandler (
   res: Response,
   next: NextFunction
 ): void {
-  console.log(err)
+  console.log('boomErrorHandler', err)
 
   if (isBoom(err)) {
     const { output } = err

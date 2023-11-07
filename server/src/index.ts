@@ -8,48 +8,59 @@ import helmet from 'helmet'
 import winston from 'winston'
 import { boomErrorHandler, unCoughtErrorHandler } from './middleware/errorHandler'
 
-export default class Server {
-  constructor (app: Application) {
-    this.config(app)
-    // eslint-disable-next-line no-new
-    new Routes(app)
-  }
+// export default class Server {
+//   constructor (app: Application) {
+//     this.config(app)
+//     // eslint-disable-next-line no-new
+//     new Routes(app)
+//   }
 
-  public config (app: Application): void {
-    const accessLogStream: WriteStream = fs.createWriteStream(
-      path.join(__dirname, './logs/access.log'),
-      { flags: 'a' }
-    )
-    app.use(morgan('combined', { stream: accessLogStream }))
-    app.use(urlencoded({ extended: true }))
-    app.disable('x-powered-by')
-    app.use(helmet())
-    app.use(json())
-    app.use(corsMiddleware())
+//   public config (app: Application): void {
+//     const accessLogStream: WriteStream = fs.createWriteStream(
+//       path.join(__dirname, './logs/access.log'),
+//       { flags: 'a' }
+//     )
+//     app.use(boomErrorHandler)
+//     app.use(unCoughtErrorHandler)
+//     app.use(morgan('combined', { stream: accessLogStream }))
+//     app.use(urlencoded({ extended: true }))
+//     app.disable('x-powered-by')
+//     app.use(helmet())
+//     app.use(json())
+//     app.use(corsMiddleware())
 
-    app.get('/', (req: Request, res: Response) => {
-      res.status(200).json('Servidor de inventarios')
-    })
-    app.use(boomErrorHandler)
-    app.use(unCoughtErrorHandler)
-  }
-}
-process.on('beforeExit', (err) => {
-  winston.error(JSON.stringify(err))
-  console.error(err)
-})
-// export const createApp = (): express.Express => {
-//   const app = express()
-
-//   app.use(express.json())
-//   app.use(corsMiddleware())
-//   app.disable('x-powered-by')
-
-//   app.get('/', (req: Request, res: Response) => {
-//     res.status(200).json('Servidor de inventarios')
-//   })
-
-//   new Routes(app)
-
-//   return app
+//     app.get('/', (req: Request, res: Response) => {
+//       res.status(200).json('Servidor de inventarios')
+//     })
+//   }
 // }
+// process.on('beforeExit', (err) => {
+//   winston.error(JSON.stringify(err))
+//   console.error(err)
+// })
+export const createServer = (app: Application): Application => {
+  app.use(json())
+  app.use(corsMiddleware())
+  app.disable('x-powered-by')
+
+  app.get('/', (req: Request, res: Response) => {
+    res.status(200).json('Servidor de inventarios')
+  })
+  // eslint-disable-next-line no-new
+  new Routes(app)
+
+  const accessLogStream: WriteStream = fs.createWriteStream(
+    path.join(__dirname, './logs/access.log'),
+    { flags: 'a' }
+  )
+  app.use(boomErrorHandler)
+  app.use(unCoughtErrorHandler)
+  app.use(morgan('combined', { stream: accessLogStream }))
+  app.use(urlencoded({ extended: true }))
+  app.disable('x-powered-by')
+  app.use(helmet())
+  app.use(json())
+  app.use(corsMiddleware())
+
+  return app
+}
