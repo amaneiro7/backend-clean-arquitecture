@@ -1,4 +1,4 @@
-import { badRequest, notFound } from '@hapi/boom'
+import { notFound } from '@hapi/boom'
 import { type CreateBrand, type Brand, type UpdateBrand } from '../../domain/entities/brand.entity'
 import { type BrandRepository } from '../../domain/repositories/brand.repository'
 import { type Id } from '../../types/types'
@@ -26,7 +26,7 @@ export class BrandService {
   async update (id: Id, payload: UpdateBrand): Promise<Brand | undefined> {
     const brandToChange = await this.store.getOne({ id })
     if (brandToChange === undefined || brandToChange === null) {
-      throw badRequest('Marca no encontrada')
+      throw notFound('Marca no encontrada')
     }
     // if (!payload?.name) {
     //   throw new Error('Falta informacion')

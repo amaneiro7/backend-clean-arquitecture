@@ -49,16 +49,16 @@ export const createServer = (app: Application): Application => {
   // eslint-disable-next-line no-new
   new Routes(app)
 
-  const accessLogStream: WriteStream = fs.createWriteStream(
-    path.join(__dirname, './logs/access.log'),
-    { flags: 'a' }
-  )
+  // const accessLogStream: WriteStream = fs.createWriteStream(
+  //   path.join(__dirname, './logs/access.log'),
+  //   { flags: 'a' }
+  // )
   app.use(boomErrorHandler)
   app.use(unCoughtErrorHandler)
-  app.use(morgan('combined', { stream: accessLogStream }))
+  // app.use(morgan('combined', { stream: accessLogStream }))
   app.use(urlencoded({ extended: true }))
   app.disable('x-powered-by')
-  app.use(helmet())
+  // app.use(helmet())
   app.use(json())
   app.use(corsMiddleware())
 

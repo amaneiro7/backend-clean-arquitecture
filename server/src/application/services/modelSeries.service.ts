@@ -1,3 +1,4 @@
+import { notFound } from '@hapi/boom'
 import { type ModelSeriesOutout, type CreateModelSeries, type UpdateModelSeries } from '../../domain/entities/modelSeries.entity'
 import { type ModelSeriesRepository } from '../../domain/repositories/modelSeries.repository'
 import { type Id } from '../../types/types'
@@ -12,7 +13,7 @@ export class ModelSeriesService {
   async getOne ({ id }: { id: Id }): Promise<ModelSeriesOutout | undefined> {
     const data = await this.store.getOne({ id })
     if (data === undefined || data === null) {
-      throw new Error('ModelSeries not Found')
+      throw notFound('Modelo no encontrado')
     }
     return data
   }
@@ -25,7 +26,7 @@ export class ModelSeriesService {
   async update (id: Id, payload: UpdateModelSeries): Promise<ModelSeriesOutout | undefined> {
     const ModelSeriesToChange = await this.store.getOne({ id })
     if (ModelSeriesToChange === undefined || ModelSeriesToChange === null) {
-      throw new Error('ModelSeries not Found')
+      throw notFound('Modelo no encontrado')
     }
     // if (!payload?.name) {
     //   throw new Error('Falta informacion')
