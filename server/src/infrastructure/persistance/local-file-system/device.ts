@@ -6,7 +6,7 @@ import { modelSeriesService } from '../../../dependecies/modelSeries.dependecies
 
 const device: Device[] = [
   {
-    id: '5a94384b-2e4d-4cdf-96c9-0065bf7f92a9',
+    id: '5a94384b-2e4d-4cdf-96c9-0065bf7f92a0',
     activo: '202370',
     serial: 'MXL5004170',
     status: 'Operativo',
