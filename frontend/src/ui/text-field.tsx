@@ -5,7 +5,7 @@ interface Props {
   type: string
   label: string
   placeholder: string
-  handle: (event: React.ChangeEvent<HTMLInputElement>) => void
+  handle?: (event: React.ChangeEvent<HTMLInputElement>) => void
   value: string
   isError?: boolean
   error?: string

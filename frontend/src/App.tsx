@@ -1,14 +1,30 @@
-import { TableCard } from './components/TableCard'
-import { useDevice } from './Hooks/useDevice'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import Login from './page/login.tsx'
+import Home from './page/home.tsx'
+import EditDevice from './page/edit_device.tsx'
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Home />
+  },
+  {
+    path: '/device/:deviceId',
+    element: <EditDevice/>
+  },
+  {
+    path: '/login',
+    element: <Login />
+  }
+])
 
 function App () {
-  const { device } = useDevice()
-
   return (
-    <>
-      <h1>Hello World</h1>
-      <TableCard device={device}/>
-    </>
+    <RouterProvider
+      router={router}
+      fallbackElement={'...Loading'}
+      future={{ v7_startTransition: true }}
+    />
   )
 }
 

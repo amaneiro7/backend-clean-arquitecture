@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { type Device } from '../types/types'
 
 interface Props {
@@ -13,7 +14,10 @@ export const TableCardList: React.FC<Props> = ({ item }) => {
         <td>{item.model.brand.name}</td>
         <td>{item.model.name}</td>
         <td className='sticky z-10 top-0 left-0'>
-        <a href='#'>Editar</a>
+        <Link to={`/device/${item.id}`}>
+          Editar
+        </Link>
+
         <a href='#'>Eliminar</a>
         </td>
     </>

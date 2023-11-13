@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { type Device } from '../types/types'
-import { fetchDevice } from '../utils/fetchDevice'
+import { fetchDevices } from '../utils/fetchDevices'
 
 export const useDevice = (): {
   device: Device[]
@@ -8,7 +8,7 @@ export const useDevice = (): {
   const [device, setDevice] = useState<Device[]>([])
 
   useEffect(() => {
-    fetchDevice()
+    fetchDevices()
       .then(devices => { setDevice(devices) })
       .catch(err => { console.error('useDevive', err) })
 
