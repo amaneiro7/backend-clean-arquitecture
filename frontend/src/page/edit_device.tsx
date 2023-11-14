@@ -17,21 +17,21 @@ function EditDevice () {
             <h1>EditProfile</h1>
             <form
                 action="submit"
-                className='w-full flex flex-col gap-4'
+                className='w-full h-screen flex flex-col gap-4'
             >
                 <FormInput
                     name={'serial'}
                     type='text'
                     label={'serial'}
-                    placeholder={device?.serial}
-                    value={device?.serial}
+                    // placeholder={device?.serial}
+                    defaultValue={device?.serial}
                 />
                 <FormInput
                     name={'activo'}
                     type='text'
                     label={'activo'}
-                    placeholder={device?.activo}
-                    value={device?.activo}
+                    // placeholder={device?.activo}
+                    defaultValue={device?.activo}
                 />
                 <select name='status'>
                     {status.map((item, index) => (
@@ -44,8 +44,8 @@ function EditDevice () {
                     name={'Modelo'}
                     type='text'
                     label={'Modelo'}
-                    placeholder={device?.model.name}
-                    value={device?.model.id}
+                    // placeholder={device?.model.name}
+                    defaultValue={device?.model.id}
                 />
 
             </form>
