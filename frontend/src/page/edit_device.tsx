@@ -3,6 +3,7 @@ import { useDeviceId } from '../Hooks/useDeviceId'
 import FormInput from '../ui/text-field'
 import { type Device } from '../types/types'
 import { useStatus } from '../Hooks/useStatus'
+import { FormContainer } from '../components/formContainer'
 
 function EditDevice () {
   const { deviceId } = useParams()
@@ -11,10 +12,7 @@ function EditDevice () {
   const { status } = useStatus()
 
   return (
-        <div
-            className='grid place-content-center gap-2 max-w-2xl'
-        >
-            <h1>EditProfile</h1>
+    <FormContainer title={'Editar'}>
             <form
                 action="submit"
                 className='w-full h-screen flex flex-col gap-4'
@@ -49,7 +47,7 @@ function EditDevice () {
                 />
 
             </form>
-        </div>
+    </FormContainer>
   )
 }
 
