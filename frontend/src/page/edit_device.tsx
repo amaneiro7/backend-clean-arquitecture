@@ -1,22 +1,30 @@
-import { useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useDeviceId } from '../Hooks/useDeviceId'
 import FormInput from '../ui/text-field'
 import { type Device } from '../types/types'
 import { useStatus } from '../Hooks/useStatus'
 import { FormContainer } from '../components/formContainer'
+import { FormContainer } from '../components/FormContainer'
+import { Suspense } from 'react'
+import { Select } from '../ui/select'
 
 function EditDevice () {
   const { deviceId } = useParams()
+  const location = useLocation()
+  const navigate = useNavigate()
 
   const { device, error } = useDeviceId({ deviceId })
   const { status } = useStatus()
 
+  const handleInput = (event: React.ChangeEvent<HTMLSelectElement>): void => {
+    console.log(event.target)
+  }
+
   return (
-    <FormContainer title={'Editar'}>
-            <form
-                action="submit"
-                className='w-full h-screen flex flex-col gap-4'
-            >
+    <FormContainer>
+            <form action="submit" >
+                <fieldset className='w-full h-screen flex flex-col gap-5'>
+                    <legend>Edita el Dispositivo</legend>
                 <FormInput
                     name={'serial'}
                     type='text'
@@ -31,13 +39,20 @@ function EditDevice () {
                     // placeholder={device?.activo}
                     defaultValue={device?.activo}
                 />
-                <select name='status'>
-                    {status.map((item, index) => (
-                        <option key={`${index}_${index}`} value={item}>{item}</option>
-                    ))
-
-                    }
-                </select>
+                <Suspense fallback='...Loading Select Options'>
+                    <div>
+                        <label htmlFor="Status">Estado del Dispositivo</label>
+                        <Select
+                            name='status'
+                            value={device?.status}
+                            options={status}
+                            onChange={handleInput}
+                            placeholder='-- Seleccione el Estado --'
+                            isDisabled={false}
+                            isAutoFocus={false}
+                        />
+                    </div>
+                </Suspense>
                 <FormInput
                     name={'Modelo'}
                     type='text'
@@ -45,7 +60,7 @@ function EditDevice () {
                     // placeholder={device?.model.name}
                     defaultValue={device?.model.id}
                 />
-
+                </fieldset>
             </form>
     </FormContainer>
   )
