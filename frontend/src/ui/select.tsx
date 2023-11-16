@@ -40,7 +40,7 @@ export const Select = ({
                 name={name}
                 onChange={onChange}
             >
-                <MenuItemMui value=''><em>{placeholder}</em></MenuItemMui>
+                <MenuItemMui value='' hidden disabled><em>{placeholder}</em></MenuItemMui>
                 {options?.map(elem =>
                     <MenuItemMui
                         key={elem.id}

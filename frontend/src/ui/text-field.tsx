@@ -11,7 +11,7 @@ interface Props {
   isError?: boolean
   error?: string
 }
-export default function FormInput ({ name, value, type, placeholder, defaultValue, label, isError = false, error }: Props) {
+export default function FormInput ({ name, value, type, placeholder, handle, defaultValue, label, isError = false, error }: Props) {
   return (
         <TextField
             required
@@ -20,6 +20,7 @@ export default function FormInput ({ name, value, type, placeholder, defaultValu
             value={value}
             label={label}
             type={type}
+            onChange={handle}
             placeholder={placeholder}
             autoComplete={name}
             defaultValue={defaultValue}

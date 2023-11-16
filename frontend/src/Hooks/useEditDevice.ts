@@ -29,9 +29,14 @@ const reducer = (state: State, action: Action): State => {
   }
   if (action.type === 'CHANGE_VALUE') {
     const { name, value } = action.payload
+    const newData = {
+      ...state.device,
+      [name]: value
+    }
+
     return {
       ...state,
-      [name]: value
+      device: newData
     }
   }
   if (action.type === 'START') {
@@ -63,6 +68,7 @@ const reducer = (state: State, action: Action): State => {
 export const useEditDevice = (): {
   device: Device
   loading: boolean
+  handleChange: (event) => void
 } => {
   const { deviceId } = useParams()
   const location = useLocation()
@@ -74,7 +80,7 @@ export const useEditDevice = (): {
       const { device } = location.state
       dispatch({ type: 'INIT_DEVICES', payload: { device } })
     } else {
-      import('../utils/fetchDeivce').then(async module => await module.fetchDevice({ deviceId }))
+      import('../utils/fetchDevice').then(async module => await module.fetchDevice({ deviceId }))
         .then(device => {
           dispatch({ type: 'INIT_DEVICES', payload: { device } })
         })
@@ -86,8 +92,14 @@ export const useEditDevice = (): {
     }
   }, [deviceId, location.state.devices])
 
+  const handleChange = (event: React.ChangeEvent<HTMLElement>) => {
+    const { name, value } = event.target
+    dispatch({ type: 'CHANGE_VALUE', payload: { name, value } })
+  }
+
   return {
     device,
-    loading
+    loading,
+    handleChange
   }
 }

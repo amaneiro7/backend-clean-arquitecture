@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { fetchStatus } from '../utils/fetchStatus'
 
-interface ReturnType {
+export interface ReturnType {
   id: Status
   name: Status
 }
