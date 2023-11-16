@@ -5,8 +5,8 @@ interface Props {
   type: string
   label: string
   placeholder: string
-  // handle?: (event: React.ChangeEvent<HTMLInputElement>) => void
-  // value: string
+  handle?: (event: React.ChangeEvent<HTMLInputElement>) => void
+  value: string
   defaultValue?: string
   isError?: boolean
   error?: string
@@ -22,7 +22,7 @@ export default function FormInput ({ name, type, placeholder, defaultValue, labe
             placeholder={placeholder}
             autoComplete={name}
             defaultValue={defaultValue}
-            color='warning'
+            color={isError ? 'warning' : 'primary'}
             error={isError}
             helperText={isError ? error : ''}
         />
