@@ -1,30 +1,47 @@
 import { useEffect, useReducer } from 'react'
 import { type Device } from '../types/types'
-import { fetchDevice } from '../utils/fetchDeivce'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 
 const initialState = {
-  devices: [],
+  device: [],
   loading: true
 }
 
 type Action =
-| { type: 'INIT_DEVICES', payload: { devices: Device[] } }
+| { type: 'INIT_DEVICES', payload: { device: Device } }
+| { type: 'CHANGE_VALUE', payload: { name: string, value: string } }
+| { type: 'START', payload: { loading: true } }
 
 interface State {
-  devices: Device[]
+  device: Device
   loading: boolean
 }
 
 const reducer = (state: State, action: Action): State => {
   if (action.type === 'INIT_DEVICES') {
-    const { devices } = action.payload
+    const { device } = action.payload
+
     return {
       ...state,
       loading: false,
-      devices
+      device
     }
   }
+  if (action.type === 'CHANGE_VALUE') {
+    const { name, value } = action.payload
+    return {
+      ...state,
+      [name]: value
+    }
+  }
+  if (action.type === 'START') {
+    const { loading } = action.payload
+    return {
+      ...state,
+      loading
+    }
+  }
+  return state
 }
 
 // const reducerObject = (state: State, payload) => ({
@@ -43,23 +60,34 @@ const reducer = (state: State, action: Action): State => {
 //   }
 // })
 
-export const useDevice = () => {
+export const useEditDevice = (): {
+  device: Device
+  loading: boolean
+} => {
   const { deviceId } = useParams()
   const location = useLocation()
-  const navigate = useNavigate()
-  const [state, dispatch] = useReducer(reducer, initialState)
+  // const navigate = useNavigate()
+  const [{ device, loading }, dispatch] = useReducer(reducer, initialState)
 
   useEffect(() => {
-    if (location.state?.device) {
-      dispatch({ type: 'INIT_DEVICES', payload: { devices } })
+    if (location.state?.devices) {
+      const { device } = location.state
+      dispatch({ type: 'INIT_DEVICES', payload: { device } })
     } else {
       import('../utils/fetchDeivce').then(async module => await module.fetchDevice({ deviceId }))
-        .then(devices => { dispatch({ type: 'INIT_DEVICES', payload: { devices } }) })
+        .then(device => {
+          dispatch({ type: 'INIT_DEVICES', payload: { device } })
+        })
         .catch(err => { console.error(err) })
     }
 
     return () => {
     //   setDevice(null)
     }
-  }, [deviceId])
+  }, [deviceId, location.state.devices])
+
+  return {
+    device,
+    loading
+  }
 }

@@ -1,13 +1,11 @@
 interface Props {
   children: React.ReactNode
-  title: string
+
 }
-export const FormContainer = ({ children, title }: Props) => {
+
+export const FormContainer = ({ children }: Props) => {
   return (
-        <section className="w-full h-screen grid place-content-center">
-            <div>
-              <h1>{title}</h1>
-            </div>
+        <section className="w-full grid place-content-center">
             {children}
         </section>
   )

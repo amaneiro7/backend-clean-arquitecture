@@ -11,12 +11,13 @@ interface Props {
   isError?: boolean
   error?: string
 }
-export default function FormInput ({ name, type, placeholder, defaultValue, label, isError = false, error }: Props) {
+export default function FormInput ({ name, value, type, placeholder, defaultValue, label, isError = false, error }: Props) {
   return (
         <TextField
             required
             fullWidth
             name={name}
+            value={value}
             label={label}
             type={type}
             placeholder={placeholder}
