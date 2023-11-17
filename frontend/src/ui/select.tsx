@@ -10,10 +10,6 @@ interface Props {
   options: Options[]
   onChange: ((event: SelectChangeEvent<string>, child: React.ReactNode) => void) | undefined
   placeholder: string
-  isDisabled: boolean
-  isAutoFocus: boolean
-  hidden: boolean
-  disabled: boolean
 }
 
 interface Options {

@@ -69,11 +69,12 @@ export const useEditDevice = (): {
   device: Device
   loading: boolean
   handleChange: (event) => void
-  handleSubmit: (event) => void
+  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void
+  handleClose: () => void
 } => {
   const { deviceId } = useParams()
   const location = useLocation()
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
   const [{ device, loading }, dispatch] = useReducer(reducer, initialState)
 
   useEffect(() => {
@@ -93,20 +94,32 @@ export const useEditDevice = (): {
     }
   }, [deviceId, location.state.devices])
 
-  const handleChange = (event: React.ChangeEvent<HTMLElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLFormElement>) => {
     const { name, value } = event.target
     dispatch({ type: 'CHANGE_VALUE', payload: { name, value } })
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault()
-    console.log(event.target)
+    const form = event.target as HTMLFormElement
+    const formData = new FormData(form)
+
+    const entries = formData.entries()
+    console.log(entries)
+    for (const entry of entries) {
+      console.log(entry)
+    }
+  }
+
+  const handleClose = () => {
+    navigate('/')
   }
 
   return {
     device,
     loading,
     handleChange,
-    handleSubmit
+    handleSubmit,
+    handleClose
   }
 }
