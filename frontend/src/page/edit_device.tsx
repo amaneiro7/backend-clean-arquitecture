@@ -7,9 +7,10 @@ import { useEditDevice } from '../Hooks/useEditDevice'
 import { useBrands } from '../Hooks/useBrand'
 import { useModels } from '../Hooks/useModels'
 import { useCategories } from '../Hooks/useCategories'
+import { Button } from '../ui/button'
 
 function EditDevice () {
-  const { device, loading, handleChange } = useEditDevice()
+  const { device, loading, handleChange, handleSubmit } = useEditDevice()
   const { categories } = useCategories()
   const { status } = useStatus()
   const { brands } = useBrands()
@@ -17,7 +18,7 @@ function EditDevice () {
 
   return (
     <FormContainer>
-            <form action="submit" className='w-[600px] h-screen flex justify-center border border-secondary'>
+            <form action="submit" onSubmit={handleSubmit} className='w-[600px] h-screen flex justify-center border border-secondary'>
                 <fieldset className='w-9/12 h-screen flex flex-col gap-5'>
                     <legend>Edita el Dispositivo</legend>
                     {loading && '...loading'}
@@ -79,6 +80,12 @@ function EditDevice () {
                                 />
                             </Suspense>
                     </>}
+                    <div>
+                        <Button
+                            type='submit'
+                            text='Guardar'
+                        />
+                    </div>
                 </fieldset>
             </form>
     </FormContainer>

@@ -1,7 +1,7 @@
 interface Props {
   text: string
   type: 'button' | 'submit' | 'reset' | undefined
-  handle: (event: React.MouseEventHandler<HTMLButtonElement>) => void
+  handle: ((event: React.MouseEventHandler<HTMLButtonElement>) => void) | undefined
 }
 export function Button ({ text, type, handle }: Props) {
   return (

@@ -69,6 +69,7 @@ export const useEditDevice = (): {
   device: Device
   loading: boolean
   handleChange: (event) => void
+  handleSubmit: (event) => void
 } => {
   const { deviceId } = useParams()
   const location = useLocation()
@@ -97,9 +98,15 @@ export const useEditDevice = (): {
     dispatch({ type: 'CHANGE_VALUE', payload: { name, value } })
   }
 
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    console.log(event.target)
+  }
+
   return {
     device,
     loading,
-    handleChange
+    handleChange,
+    handleSubmit
   }
 }
