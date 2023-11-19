@@ -70,10 +70,11 @@ export const useEditDevice = (): {
   loading: boolean
   handleChange: (event) => void
   handleSubmit: (event) => void
+  handleClose: () => void
 } => {
   const { deviceId } = useParams()
   const location = useLocation()
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
   const [{ device, loading }, dispatch] = useReducer(reducer, initialState)
 
   useEffect(() => {
@@ -103,10 +104,14 @@ export const useEditDevice = (): {
     console.log(event.target)
   }
 
+  const handleClose = () => {
+    navigate('/')
+  }
   return {
     device,
     loading,
     handleChange,
-    handleSubmit
+    handleSubmit,
+    handleClose
   }
 }

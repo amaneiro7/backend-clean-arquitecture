@@ -10,7 +10,7 @@ import { useCategories } from '../Hooks/useCategories'
 import { Button } from '../ui/button'
 
 function EditDevice () {
-  const { device, loading, handleChange, handleSubmit } = useEditDevice()
+  const { device, loading, handleChange, handleSubmit, handleClose } = useEditDevice()
   const { categories } = useCategories()
   const { status } = useStatus()
   const { brands } = useBrands()
@@ -18,9 +18,9 @@ function EditDevice () {
 
   return (
     <FormContainer>
-            <form action="submit" onSubmit={handleSubmit} className='w-[600px] h-screen flex justify-center border border-secondary'>
-                <fieldset className='w-9/12 h-screen flex flex-col gap-5'>
-                    <legend>Edita el Dispositivo</legend>
+            <form action="submit" onSubmit={handleSubmit} className='w-[600px] flex justify-center border border-secondary'>
+                <fieldset className='w-9/12 py-20 flex flex-col gap-5'>
+                    <legend className='mb-5'>Edita el Dispositivo</legend>
                     {loading && '...loading'}
                     {!loading && <>
                             <Suspense fallback='...Loading Select Options'>
@@ -80,8 +80,15 @@ function EditDevice () {
                                 />
                             </Suspense>
                     </>}
-                    <div>
+                    <div className='flex gap-5'>
                         <Button
+                            type='submit'
+                            color='cancel'
+                            text='Cerrar'
+                            handle={handleClose}
+                        />
+                        <Button
+                            color='action'
                             type='submit'
                             text='Guardar'
                         />
