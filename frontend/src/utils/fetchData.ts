@@ -6,7 +6,7 @@ export const fetchDatas = async ({ path }: { path: typeof UrlPaths[keyof typeof 
   const res = await fetch(apiUrl)
   if (!res.ok) {
     console.error('Error fetching data')
-    return []
+    throw new Error('Error fetching data')
   }
 
   const { body: data } = await res.json()

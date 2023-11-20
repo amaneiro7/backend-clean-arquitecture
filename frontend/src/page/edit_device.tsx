@@ -13,7 +13,7 @@ function EditDevice () {
   const { device, loading, handleChange, handleSubmit, handleClose } = useEditDevice()
   const { categories } = useCategories()
   const { status } = useStatus()
-  const { brands } = useBrands()
+  const { brands } = useBrands({ category: device.model.category.id })
   const { models } = useModels()
 
   return (
