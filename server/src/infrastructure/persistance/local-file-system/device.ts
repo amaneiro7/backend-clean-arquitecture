@@ -16,7 +16,7 @@ const device: Device[] = [
     id: '5a94384b-2e4d-4cdf-96c9-0065bf7f92a9',
     activo: 'AR001002030',
     serial: 'CNC7070702',
-    status: 'Operativo',
+    status: 'Dañado',
     modelId: 'd696340e-cc33-4320-be42-e58554f4bf51'
   }
 ]

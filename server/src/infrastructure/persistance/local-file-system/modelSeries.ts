@@ -31,7 +31,7 @@ const modelSeries: ModelSeries[] = [
     brandId: 'dcdd0fad-a94c-4810-8acc-5f108d3b18c3'
   },
   {
-    id: 'd696340e-cc33-4320-be42-e58554f4bf51',
+    id: 'd696340e-cc33-4320-be42-e58554f4bf58',
     name: 'LV 1710',
     categoryId: 'c8a7d63f-3b04-44d3-9d95-8782fd7dcfaf',
     brandId: 'dcdd0fad-a94c-4810-8acc-5f108d3b18c3'
