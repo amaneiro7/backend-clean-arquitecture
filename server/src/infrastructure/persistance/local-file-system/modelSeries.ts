@@ -35,6 +35,24 @@ const modelSeries: ModelSeries[] = [
     name: 'LV 1710',
     categoryId: 'c8a7d63f-3b04-44d3-9d95-8782fd7dcfaf',
     brandId: 'dcdd0fad-a94c-4810-8acc-5f108d3b18c3'
+  },
+  {
+    id: '9f95946f-be67-4ea5-bcef-86ce115618cc',
+    name: 'HightPrint 4915xe',
+    categoryId: '5ad1a235-0d9c-410a-b32b-220d91689a08',
+    brandId: '5ad1a235-0d9c-410a-b32b-220d91689a08'
+  },
+  {
+    id: '01a9328f-2554-4a5e-8c88-3375e3a1d88c',
+    name: 'HightPrint 4915+',
+    categoryId: '5ad1a235-0d9c-410a-b32b-220d91689a08',
+    brandId: '5ad1a235-0d9c-410a-b32b-220d91689a08'
+  },
+  {
+    id: 'e3d95984-c747-4acf-b29f-46d1f2dd23aa',
+    name: 'LaserJet P2015dn',
+    categoryId: '241bf55d-b649-4109-af7c-0e6890ded3fc',
+    brandId: 'dcdd0fad-a94c-4810-8acc-5f108d3b18c3'
   }
 ]
 export class ModelSeriesRepositoryInMemory implements ModelSeriesRepository {

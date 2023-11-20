@@ -3,8 +3,8 @@ import { type ModelSeriesOutout } from './modelSeries.entity'
 
 export interface Device {
   id: Id
-  serial: string
-  activo: string
+  serial: string | null
+  activo: string | null
   status: StatusValue
   modelId: Id
 }

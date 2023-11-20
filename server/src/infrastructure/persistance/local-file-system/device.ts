@@ -18,6 +18,34 @@ const device: Device[] = [
     serial: 'CNC7070702',
     status: 'Dañado',
     modelId: 'd696340e-cc33-4320-be42-e58554f4bf51'
+  },
+  {
+    id: '230b68a0-3fcc-44e8-90fe-f740237dc841',
+    activo: null,
+    serial: '5605209372',
+    status: 'Operativo',
+    modelId: '9f95946f-be67-4ea5-bcef-86ce115618cc'
+  },
+  {
+    id: 'd5c58353-3024-491b-8956-e0528391e94d',
+    activo: null,
+    serial: '5004095077',
+    status: 'Operativo',
+    modelId: '9f95946f-be67-4ea5-bcef-86ce115618cc'
+  },
+  {
+    id: 'e6e02d1b-2439-4b2c-bf2c-c48edb202af3',
+    activo: null,
+    serial: '5605274461',
+    status: 'Operativo',
+    modelId: '01a9328f-2554-4a5e-8c88-3375e3a1d88c'
+  },
+  {
+    id: '37dd1e98-8b43-4b9e-ac62-72ca37dabae7',
+    activo: null,
+    serial: 'CNBJS97096',
+    status: 'Operativo',
+    modelId: 'e3d95984-c747-4acf-b29f-46d1f2dd23aa'
   }
 ]
 export class DeviceRepositoryInMemory implements DeviceRepository {

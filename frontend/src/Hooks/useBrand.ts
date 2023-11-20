@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { fetchDatas } from '../utils/fetchData'
 import { type Brand } from '../types/types'
 
@@ -7,10 +7,7 @@ import { type Brand } from '../types/types'
 //   error: null
 
 // }
-interface Props {
-  category?: string | undefined
-}
-export const useBrands = ({ category = undefined }: Props) => {
+export const useBrands = () => {
   const [brands, setBrands] = useState<Brand[]>([])
   const [sorted, setSorted] = useState(false)
   const [error, setError] = useState(null)
@@ -21,8 +18,6 @@ export const useBrands = ({ category = undefined }: Props) => {
     setError(null)
     fetchDatas({ path: 'brands' })
       .then(data => {
-        console.log(data)
-
         setBrands(data)
       })
       .catch(err => {
@@ -34,17 +29,6 @@ export const useBrands = ({ category = undefined }: Props) => {
       setBrands([])
     }
   }, [])
-
-  const filterdBrands = useMemo(() => {
-    console.log('calculate FilteredBrands')
-
-    return category != null && category !== undefined
-      ? brands.filter(brand => {
-        return brand.id.includes(category)
-      })
-      : brands
-  }, [brands, category])
-  console.log(filterdBrands)
 
   return {
     brands

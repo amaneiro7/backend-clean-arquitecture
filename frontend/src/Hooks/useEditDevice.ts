@@ -1,6 +1,10 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-import { useEffect, useReducer } from 'react'
+import { useEffect, useMemo, useReducer } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { Device } from '../types/types'
+import { useCategories } from './useCategories'
+import { useBrands } from './useBrand'
+import { useModels } from './useModels'
 
 const initialState = {
   device: [],
@@ -10,11 +14,20 @@ const initialState = {
 const reducer = (state, action) => {
   if (action.type === 'INIT_DEVICES') {
     const { device } = action.payload
+    const deviceMapper = {
+      id: device.id,
+      activo: device.activo,
+      serial: device.serial,
+      status: device.status,
+      modelId: device.model.id,
+      brandId: device.model.brand.id,
+      categoryId: device.model.category.id
+    }
 
     return {
       ...state,
       loading: false,
-      device
+      device: deviceMapper
     }
   }
   if (action.payload === 'INIT_STATE') {
@@ -30,8 +43,6 @@ const reducer = (state, action) => {
       ...state.device,
       [name]: value
     }
-
-    console.log(newData)
 
     return {
       ...state,
@@ -53,6 +64,9 @@ export const useEditDevice = () => {
   const location = useLocation()
   const navigate = useNavigate()
   const [{ device, loading }, dispatch] = useReducer(reducer, initialState)
+  const { categories } = useCategories()
+  const { brands } = useBrands()
+  const { models } = useModels()
 
   useEffect(() => {
     if (location.state?.devices) {
@@ -67,14 +81,36 @@ export const useEditDevice = () => {
     }
 
     return () => {
-      dispatch({ type: 'NIT_STATE' })
+      dispatch({ type: 'INIT_STATE' })
     }
   }, [deviceId, location.state.devices])
 
+  const filterdBrands = useMemo(() => {
+    if (device?.categoryId) {
+      const filter = models.filter(brand => brand?.brand?.id === device?.brandId).map(elem => JSON.stringify(elem.brand))
+
+      const unique = [...new Set(filter)]
+      const res = JSON.parse(unique)
+
+      return (
+        res
+      )
+    }
+    return brands
+  }, [device?.categoryId])
+
+  // console.log(filterdBrands)
+
+  const filterdModels = useMemo(() => {
+    if (device.id) {
+      return (
+        models.filter(model => model.brand.id === device.brandId && model.category.id === device.categoryId)
+      )
+    }
+  }, [device?.brandId])
+
   const handleChange = (event) => {
     const { name, value } = event.target
-    console.log(event.target.value)
-
     dispatch({ type: 'CHANGE_VALUE', payload: { name, value } })
   }
 
@@ -96,6 +132,9 @@ export const useEditDevice = () => {
 
   return {
     device,
+    categories,
+    filterdBrands,
+    filterdModels,
     loading,
     handleChange,
     handleSubmit,

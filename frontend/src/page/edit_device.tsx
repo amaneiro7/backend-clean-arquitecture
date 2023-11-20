@@ -4,17 +4,21 @@ import { Suspense } from 'react'
 import { Select } from '../ui/select'
 import { FormContainer } from '../components/FormContainer'
 import { useEditDevice } from '../Hooks/useEditDevice'
-import { useBrands } from '../Hooks/useBrand'
-import { useModels } from '../Hooks/useModels'
-import { useCategories } from '../Hooks/useCategories'
 import { Button } from '../ui/button'
 
 function EditDevice () {
-  const { device, loading, handleChange, handleSubmit, handleClose } = useEditDevice()
-  const { categories } = useCategories()
+  const {
+    device,
+    loading,
+    categories,
+    filterdBrands,
+    filterdModels,
+    handleChange,
+    handleSubmit,
+    handleClose
+  } = useEditDevice()
+
   const { status } = useStatus()
-  const { brands } = useBrands({ category: device.model.category.id })
-  const { models } = useModels()
 
   return (
     <FormContainer>
@@ -25,8 +29,8 @@ function EditDevice () {
                     {!loading && <>
                             <Suspense fallback='...Loading Select Options'>
                                 <Select
-                                    name='categories'
-                                    value={device?.model.category.id}
+                                    name='categoryId'
+                                    value={device?.categoryId}
                                     label='Categorie del Dispositivo'
                                     options={categories}
                                     onChange={handleChange}
@@ -61,20 +65,20 @@ function EditDevice () {
                             </Suspense>
                             <Suspense fallback='...Loading Select Options'>
                                 <Select
-                                    name='brands'
-                                    value={device?.model.brand.id}
+                                    name='brandId'
+                                    value={device?.brandId}
                                     label='Marca del Dispositivo'
-                                    options={brands}
+                                    options={filterdBrands}
                                     onChange={handleChange}
                                     placeholder='-- Seleccione la Marca --'
                                 />
                             </Suspense>
                             <Suspense fallback='...Loading Select Options'>
                                 <Select
-                                    name='models'
-                                    value={device?.model.id}
+                                    name='modelId'
+                                    value={device?.modelId}
                                     label='Modelo del Dispositivo'
-                                    options={models}
+                                    options={filterdModels}
                                     onChange={handleChange}
                                     placeholder='-- Seleccione el Modelo --'
                                 />
