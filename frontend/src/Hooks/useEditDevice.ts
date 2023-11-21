@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { useEffect, useMemo, useReducer } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
-import { Device } from '../types/types'
+import { type Brand, Device } from '../types/types'
 import { useCategories } from './useCategories'
 import { useBrands } from './useBrand'
 import { useModels } from './useModels'
@@ -87,19 +87,14 @@ export const useEditDevice = () => {
 
   const filterdBrands = useMemo(() => {
     if (device?.categoryId) {
-      const filter = models.filter(brand => brand?.brand?.id === device?.brandId).map(elem => JSON.stringify(elem.brand))
-
-      const unique = [...new Set(filter)]
-      const res = JSON.parse(unique)
-
-      return (
-        res
-      )
+      const ids = {}
+      return models
+        .filter(brand => brand?.category?.id === device?.categoryId)
+        .map(elem => elem.brand)
+        .filter(brand => ids[brand.id] ? false : ids[brand.id] = true)
     }
     return brands
   }, [device?.categoryId])
-
-  // console.log(filterdBrands)
 
   const filterdModels = useMemo(() => {
     if (device.id) {
