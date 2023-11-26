@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
-import { fetchDatas } from '../utils/fetchData'
+import { getAll } from '../services/api'
 export const useCategories = () => {
   const [categories, setCategories] = useState([])
 
   useEffect(() => {
-    fetchDatas({ path: 'categories' })
+    getAll({ path: 'categories' })
       .then((data) => { setCategories(data) })
       .catch(err => { console.error('useCategories', err) })
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { fetchDatas } from '../utils/fetchData'
 import { type Brand } from '../types/types'
+import { getAll } from '../services/api'
 
 // const initialState = {
 //   loading: true,
@@ -16,7 +16,7 @@ export const useBrands = () => {
   useEffect(() => {
     setLoading(true)
     setError(null)
-    fetchDatas({ path: 'brands' })
+    getAll({ path: 'brands' })
       .then(data => {
         setBrands(data)
       })

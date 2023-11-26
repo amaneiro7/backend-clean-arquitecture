@@ -8,8 +8,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white;
     z-index: 10;
+    color: hsl(32, 100%, 50%);
 }
 
 .Loading {

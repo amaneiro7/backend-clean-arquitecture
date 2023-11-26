@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { fetchStatus } from '../utils/fetchStatus'
+import { getAll } from '../services/api'
 
 export interface ReturnType {
   id: Status
@@ -12,7 +13,7 @@ export const useStatus = () => {
   const [status, setStatus] = useState<ReturnType[]>([])
 
   useEffect(() => {
-    fetchStatus()
+    getAll({ path: 'status' })
       .then((data: Status[]) => {
         const res = data.map((elem): ReturnType => {
           return {

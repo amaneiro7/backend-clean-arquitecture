@@ -5,6 +5,7 @@ import { type Brand, Device } from '../types/types'
 import { useCategories } from './useCategories'
 import { useBrands } from './useBrand'
 import { useModels } from './useModels'
+import { update } from '../services/api'
 
 const initialState = {
   device: [],
@@ -73,7 +74,7 @@ export const useEditDevice = () => {
       const { device } = location.state
       dispatch({ type: 'INIT_DEVICES', payload: { device } })
     } else {
-      import('../utils/fetchDevice').then(async module => await module.fetchDevice({ deviceId }))
+      import('../services/api').then(async module => await module.getOne({ path: 'device', id: deviceId }))
         .then(device => {
           dispatch({ type: 'INIT_DEVICES', payload: { device } })
         })
@@ -109,16 +110,30 @@ export const useEditDevice = () => {
     dispatch({ type: 'CHANGE_VALUE', payload: { name, value } })
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
     const form = event.target
     const formData = new FormData(form)
 
     const entries = formData.entries()
-    console.log(entries)
+    const data = {}
     for (const entry of entries) {
-      console.log(entry)
+      if (isValidEntry(entry[0])) {
+        data[entry[0]] = entry[1]
+      }
     }
+
+    await update({ path: 'device', id: deviceId, data })
+    handleClose()
+  }
+
+  function isValidEntry (entryKey) {
+    return (
+      entryKey.includes('activo') ||
+      entryKey.includes('serial') ||
+      entryKey.includes('modelId') ||
+      entryKey.includes('status')
+    )
   }
 
   const handleClose = () => {
