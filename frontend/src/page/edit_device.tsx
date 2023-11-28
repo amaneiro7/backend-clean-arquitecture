@@ -87,7 +87,7 @@ function EditDevice () {
                     <div className='flex gap-5'>
                         <Button
                             type='submit'
-                            color='cancel'
+                            actionType=''
                             text='Cerrar'
                             handle={handleClose}
                         />
