@@ -84,15 +84,15 @@ function EditDevice () {
                                 />
                             </Suspense>
                     </>}
-                    <div className='flex gap-5'>
+                    <div className='flex gap-5 justify-around'>
                         <Button
                             type='submit'
-                            actionType=''
+                            actionType='CANCEL'
                             text='Cerrar'
                             handle={handleClose}
                         />
                         <Button
-                            color='action'
+                            actionType='SAVE'
                             type='submit'
                             text='Guardar'
                         />
