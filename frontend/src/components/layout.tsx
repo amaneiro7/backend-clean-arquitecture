@@ -1,3 +1,4 @@
+import { Copyright } from '../ui/copyright'
 import Header from './header'
 
 interface Props {
@@ -8,6 +9,7 @@ export const Layout = ({ children }: Props) => {
     <>
       <Header />
       { children }
+      <Copyright />
     </>
   )
 }

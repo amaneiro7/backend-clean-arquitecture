@@ -1,4 +1,4 @@
-import { TextField } from '../mui/TextField'
+import { TextField } from '../../mui/TextField'
 
 interface Props {
   name: string

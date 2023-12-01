@@ -5,6 +5,7 @@ import ErrorBoundary from './ErrorBoundary.tsx'
 import Loading from '../components/Loading/index.tsx'
 import { Suspense, lazy } from 'react'
 import EditDevice from '../page/edit_device.tsx'
+import NotFound from '../page/404.tsx'
 
 const Home = lazy(async () => await import('../page/home.tsx'))
 
@@ -17,6 +18,7 @@ function App () {
                 <Routes>
                   <Route path='/' element={<Home />}/>
                   <Route path='/device/:deviceId' element={<EditDevice/>} />
+                  <Route path='*' element={<NotFound/>} />
                 </Routes>
             </Layout>
           </BrowserRouter>
