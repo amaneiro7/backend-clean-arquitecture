@@ -3,6 +3,7 @@ import { useDevice } from '../Hooks/useDevice'
 import { TableCard } from '../components/TableCard'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../ui/button'
+import { SearchInputsHeader } from '../components/SearchInputsHeader'
 
 function Home () {
   const { device } = useDevice()
@@ -31,6 +32,7 @@ function Home () {
         actionType='SAVE'
         handle={exportExcel}
       />
+      <SearchInputsHeader />
       <TableCard device={device}/>
     </main>
   )
