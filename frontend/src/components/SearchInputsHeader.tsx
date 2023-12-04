@@ -1,11 +1,16 @@
 import { Suspense, useState } from 'react'
 import FormInput from '../ui/text-field'
 import { Select } from '../ui/select'
-import { useCategories } from '../Hooks/useCategories'
+import { useFormFieldData } from '../Hooks/useFormData'
 
 export const SearchInputsHeader = () => {
   const [serial, setSerial] = useState('')
-  const { categories } = useCategories()
+  const {
+    categories,
+    brands,
+    models,
+    status
+  } = useFormFieldData({})
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     event.preventDefault()
@@ -48,7 +53,7 @@ export const SearchInputsHeader = () => {
                     label='Status'
                     name='statusId'
                     onChange={handleChange}
-                    options={categories}
+                    options={status}
                     placeholder='-- Filtre por Estado --'
                     value=''
                 />
@@ -58,7 +63,7 @@ export const SearchInputsHeader = () => {
                     label='Marca'
                     name='marcaId'
                     onChange={handleChange}
-                    options={categories}
+                    options={brands}
                     placeholder='-- Filtre por Marca --'
                     value=''
                 />
@@ -68,7 +73,7 @@ export const SearchInputsHeader = () => {
                     label='Modelo'
                     name='modeloId'
                     onChange={handleChange}
-                    options={categories}
+                    options={models}
                     placeholder='-- Filtre por Modelo --'
                     value=''
                 />

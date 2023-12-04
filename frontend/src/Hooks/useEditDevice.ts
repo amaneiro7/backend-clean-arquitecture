@@ -127,7 +127,7 @@ export const useEditDevice = () => {
     handleClose()
   }
 
-  function isValidEntry (entryKey) {
+  function isValidEntry (entryKey: [string, FormDataEntryValue]) {
     return (
       entryKey.includes('activo') ||
       entryKey.includes('serial') ||

@@ -1,4 +1,3 @@
-import { useRef } from 'react'
 import { useDevice } from '../Hooks/useDevice'
 import { TableCard } from '../components/TableCard'
 import { useNavigate } from 'react-router-dom'
@@ -7,13 +6,7 @@ import { SearchInputsHeader } from '../components/SearchInputsHeader'
 
 function Home () {
   const { device } = useDevice()
-  const tableRef = useRef(null)
   const navigate = useNavigate()
-
-  const exportExcel = () => {
-    import('../Hooks/useExportExcel').then(module =>
-      module.exportExcel(tableRef.current))
-  }
 
   return (
     <main className='max-w-full h-full flex flex-col gap-5 p-5'>
@@ -25,12 +18,6 @@ function Home () {
         text='Agregar un nuevo item'
         actionType='ACTION'
         handle={() => { navigate('addnewdevice') }}
-      />
-      <Button
-        type='button'
-        text='Exportar'
-        actionType='SAVE'
-        handle={exportExcel}
       />
       <SearchInputsHeader />
       <TableCard device={device}/>
