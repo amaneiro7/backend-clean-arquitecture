@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { type Device } from '../types/types'
-// import { DeleteIcon } from '../ui/icon/DeleIcon'
-// import { EditIcon } from '../ui/icon/EditIcon'
+import { DeleteIcon } from '../ui/icon/DeleIcon'
+import { EditIcon } from '../ui/icon/EditIcon'
 
 interface Props {
   item: Device
@@ -22,13 +22,13 @@ export const TableCardList: React.FC<Props> = ({ item }) => {
               device: item
             }}
           >
-            {/* <EditIcon /> */}
-            Editar
+            <EditIcon />
+            {/* Editar */}
           </Link>
 
           <a href='#'>
-            {/* <DeleteIcon /> */}
-            Eliminar
+            <DeleteIcon />
+            {/* Eliminar */}
           </a>
         </td>
     </>
