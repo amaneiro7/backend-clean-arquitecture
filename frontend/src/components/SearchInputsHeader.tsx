@@ -29,6 +29,8 @@ export const SearchInputsHeader = ({ state, handleChange }: Props) => {
                     onChange={handleChange}
                     options={categories}
                     placeholder='-- Filtre por Categoria --'
+                    isHidden={true}
+                    isDisabled={false}
                     value={state.searchValueCategory.value}
                 />
             </Suspense>
@@ -59,6 +61,8 @@ export const SearchInputsHeader = ({ state, handleChange }: Props) => {
                     onChange={handleChange}
                     options={status}
                     placeholder='-- Filtre por Estado --'
+                    isHidden={false}
+                    isDisabled={false}
                     value={state.statusInput.value}
                     />
             </Suspense>
@@ -69,6 +73,8 @@ export const SearchInputsHeader = ({ state, handleChange }: Props) => {
                     onChange={handleChange}
                     options={brands}
                     placeholder='-- Filtre por Marca --'
+                    isHidden={false}
+                    isDisabled={false}
                     value={state.searchValueBrand.value}
                     />
             </Suspense>
@@ -79,6 +85,8 @@ export const SearchInputsHeader = ({ state, handleChange }: Props) => {
                     onChange={handleChange}
                     options={models}
                     placeholder='-- Filtre por Modelo --'
+                    isHidden={false}
+                    isDisabled={false}
                     value={state.searchValueModel.value}
                 />
             </Suspense>

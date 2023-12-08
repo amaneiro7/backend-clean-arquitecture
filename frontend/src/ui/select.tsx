@@ -8,6 +8,8 @@ interface Props {
   value: string
   label: string
   options: Options[]
+  isHidden?: boolean
+  isDisabled?: boolean
   onChange: ((event: SelectChangeEvent<string>, child: React.ReactNode) => void) | undefined
   placeholder: string
 }
@@ -22,6 +24,8 @@ export const Select = ({
   value,
   label,
   options,
+  isHidden = true,
+  isDisabled = true,
   onChange,
   placeholder
 }: Props) => {
@@ -36,7 +40,7 @@ export const Select = ({
                 name={name}
                 onChange={onChange}
             >
-                <MenuItemMui value='' hidden disabled><em>{placeholder}</em></MenuItemMui>
+                <MenuItemMui value='' hidden={isHidden} disabled={isDisabled}><em>{placeholder}</em></MenuItemMui>
                 {options?.map(elem =>
                     <MenuItemMui
                         key={elem.id}

@@ -1,6 +1,6 @@
 import { useDevice } from '../Hooks/useDevice'
 import { TableCard } from '../components/TableCard'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Button } from '../ui/button'
 import { SearchInputsHeader } from '../components/SearchInputsHeader'
 import { useReducer } from 'react'
@@ -68,15 +68,15 @@ function Home () {
   const [state, dispatch] = useReducer(reducer, initialState)
   const { device } = useDevice()
   const navigate = useNavigate()
-  const [searchParams, setSearchParams] = useSearchParams()
+  // const [searchParams, setSearchParams] = useSearchParams()
 
   const handleChange = ({ target }) => {
     const { name, value } = target
     dispatch({ type: actionType.changeValue, payload: { name, value } })
-    console.log(state[name].dbReferences)
-    const params = { [state[name].dbReferences]: value }
-    setSearchParams(params)
+    // const params = { [state[name].dbReferences]: value }
+    // setSearchParams(params)
   }
+
   return (
     <main className='max-w-full h-full flex flex-col gap-5 p-5'>
       <div>
