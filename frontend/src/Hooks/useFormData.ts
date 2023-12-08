@@ -5,18 +5,18 @@ import { useStatus } from './useStatus'
 import { useModels } from './useModels'
 
 interface Props {
-  categoryId?: string | number | undefined
-  brandId?: string | number | undefined
+  categoryId?: string | number
+  brandId?: string | number
 
 }
-export const useFormFieldData = ({ categoryId = undefined, brandId = undefined }: Props) => {
+export const useFormFieldData = ({ categoryId = '', brandId = '' }: Props) => {
   const { categories } = useCategories()
   const { brands } = useBrands()
   const { status } = useStatus()
   const { models } = useModels()
 
   const filterdBrands = useMemo(() => {
-    if (categoryId !== undefined) {
+    if (categoryId !== ' ') {
       const ids = {}
       return models
         .filter(brand => brand?.category?.id === categoryId)
@@ -27,7 +27,7 @@ export const useFormFieldData = ({ categoryId = undefined, brandId = undefined }
   }, [categoryId])
 
   const filterdModels = useMemo(() => {
-    if (categoryId !== undefined || brandId !== undefined) {
+    if (categoryId !== '' || brandId !== '') {
       return (
         models.filter(model => model.brand.id === brandId && model.category.id === categoryId)
       )
