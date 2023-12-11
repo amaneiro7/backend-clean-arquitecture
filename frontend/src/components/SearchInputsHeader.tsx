@@ -47,7 +47,7 @@ export const SearchInputsHeader = ({ state, handleChange }: Props) => {
             <Suspense>
                 <FormInput
                     label='Activo'
-                    name='activo'
+                    name='searchValueActivo'
                     placeholder='-- Filtre por Activo --'
                     type='text'
                     value={state.searchValueActivo.value}

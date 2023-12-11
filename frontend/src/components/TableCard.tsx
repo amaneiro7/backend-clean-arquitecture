@@ -1,10 +1,10 @@
-import { type Device } from '../types/types'
+import { type MappedDevice } from '../types/types'
 import { TableCardList } from './TablerCardList'
 
 interface Props {
-  device: Device[]
+  device: MappedDevice[]
 }
-export const TableCard: React.FC<Props> = ({ device }) => {
+const TableCard: React.FC<Props> = ({ device }) => {
   return (
     <>
     <div className='rounded-2xl p-6 m-4 border-2 border-solid shadow-md text-left'>
@@ -37,3 +37,5 @@ export const TableCard: React.FC<Props> = ({ device }) => {
     </>
   )
 }
+
+export default TableCard
