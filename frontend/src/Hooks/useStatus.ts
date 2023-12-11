@@ -1,29 +1,23 @@
 import { useEffect, useState } from 'react'
-import { fetchStatus } from '../utils/fetchStatus'
 import { getAll } from '../services/api'
-
-export interface ReturnType {
-  id: Status
-  name: Status
-}
-
-type Status = ['Operativo', 'Dañado']
+import { type Status } from '../types/types'
 
 export const useStatus = () => {
-  const [status, setStatus] = useState<ReturnType[]>([])
+  const [status, setStatus] = useState<Status[]>([])
+  const [error, setError] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
+    setLoading(true)
+    setError(null)
     getAll({ path: 'status' })
-      .then((data: Status[]) => {
-        const res = data.map((elem): ReturnType => {
-          return {
-            id: elem,
-            name: elem
-          }
-        })
-        setStatus(res)
+      .then(data => {
+        setStatus(data)
       })
-      .catch(err => { console.error('useStatus', err) })
+      .catch(err => {
+        setError(err)
+        console.error('useBrand', err)
+      })
 
     return () => {
       setStatus([])
@@ -31,6 +25,8 @@ export const useStatus = () => {
   }, [])
 
   return {
-    status
+    status,
+    loading,
+    error
   }
 }

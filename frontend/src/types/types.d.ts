@@ -11,6 +11,30 @@ export interface Device {
   status: Status
   model: Model
 }
+export interface MappedDevice {
+  id: string
+  activo: string
+  serial: string
+  status: Status
+  modelId: string
+  modelName: string
+  categoryId: string
+  categoryName: string
+  brandId: string
+  brandName: string
+}
+// export interface MappedDevice {
+//   id: string
+//   activo: string
+//   serial: string
+//   status: Status
+//   modelId: Pick<Model, 'id'>
+//   modelName: Pick<Model, 'name'>
+//   categoryId: Pick<Category, 'id'>
+//   categoryName: Pick<Category, 'name'>
+//   brandId: Pick<Brand, 'id'>
+//   brandName: Pick<Brand, 'name'>
+// }
 
 export interface Model {
   id: string
@@ -19,6 +43,10 @@ export interface Model {
   brand: Brand
 }
 
+export interface MappedModel {
+  id: string
+  name: string
+}
 export interface Brand {
   id: string
   name: string
@@ -28,7 +56,10 @@ export interface Category {
   name: string
 }
 
-export type Status = 'Operativo' | 'Dañado'
+export interface Status {
+  id: string
+  name: 'Operativo' | 'Dañado'
+}
 
 export interface SaveDevice {
   id: string
