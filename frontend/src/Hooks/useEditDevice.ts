@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { useEffect, useMemo, useReducer } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
-import { type Brand, Device } from '../types/types'
 import { useCategories } from './useCategories'
 import { useBrands } from './useBrand'
 import { useModels } from './useModels'

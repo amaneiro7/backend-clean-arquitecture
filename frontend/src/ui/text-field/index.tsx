@@ -1,3 +1,4 @@
+import { type SelectChangeEvent } from '@mui/material'
 import { TextField } from '../../mui/TextField'
 
 interface Props {
@@ -5,16 +6,17 @@ interface Props {
   type: string
   label: string
   placeholder: string
-  handle?: (event: React.ChangeEvent<HTMLInputElement>) => void
+  handle?: ((event: React.ChangeEvent<HTMLInputElement> | SelectChangeEvent<string> | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, child: React.ReactNode) => void) | undefined
   value: string
   defaultValue?: string
+  isRequired?: boolean
   isError?: boolean
   error?: string
 }
-export default function FormInput ({ name, value, type, placeholder, handle, defaultValue, label, isError = false, error }: Props) {
+export default function FormInput ({ name, value, type, placeholder, handle, defaultValue, label, isRequired = false, isError = false, error }: Props) {
   return (
         <TextField
-            required
+            required={isRequired}
             fullWidth
             name={name}
             value={value}

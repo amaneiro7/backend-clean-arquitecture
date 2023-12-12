@@ -6,7 +6,7 @@ import { type SelectChangeEvent } from '@mui/material'
 
 interface Props {
   state: any
-  handleChange: ((event: React.ChangeEvent<HTMLInputElement> | SelectChangeEvent<string>, child: React.ReactNode) => void) | undefined
+  handleChange: ((event: React.ChangeEvent<HTMLInputElement> | SelectChangeEvent<string> | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, child: React.ReactNode) => void) | undefined
 }
 
 export const SearchInputsHeader = ({ state, handleChange }: Props) => {
