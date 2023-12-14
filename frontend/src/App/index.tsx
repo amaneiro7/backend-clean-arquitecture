@@ -7,7 +7,7 @@ import { Layout } from '../components/layout.tsx'
 
 const Home = lazy(async () => await import('../page/home.tsx'))
 const AddNewDevice = lazy(async () => await import('../page/add_new_device'))
-const EditDevice = lazy(async () => await import('../page/edit_device'))
+const DeviceForm = lazy(async () => await import('../page/DeviceForm/index.tsx'))
 const NotFound = lazy(async () => await import('../page/404'))
 
 function App () {
@@ -18,7 +18,7 @@ function App () {
             <Layout>
                 <Routes>
                   <Route path='/' element={<Home />}/>
-                  <Route path='/device/:deviceId' element={<EditDevice/>} />
+                  <Route path='/device/:deviceId' element={<DeviceForm/>} />
                   <Route path='/addnewdevice' element={<AddNewDevice/>} />
                   <Route path='*' element={<NotFound/>} />
                 </Routes>

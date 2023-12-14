@@ -5,6 +5,7 @@ import { useCategories } from './useCategories'
 import { useBrands } from './useBrand'
 import { useModels } from './useModels'
 import { update } from '../services/api'
+import { useStatus } from './useStatus'
 
 const initialState = {
   device: [],
@@ -67,6 +68,7 @@ export const useEditDevice = () => {
   const { categories } = useCategories()
   const { brands } = useBrands()
   const { models } = useModels()
+  const { status } = useStatus()
 
   useEffect(() => {
     if (location.state?.devices) {
@@ -142,8 +144,9 @@ export const useEditDevice = () => {
   return {
     device,
     categories,
-    filterdBrands,
-    filterdModels,
+    status,
+    brands: filterdBrands,
+    models: filterdModels,
     loading,
     handleChange,
     handleSubmit,
