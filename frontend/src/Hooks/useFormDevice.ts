@@ -1,14 +1,19 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-import { useEffect, useMemo, useReducer } from 'react'
+import { useEffect, useReducer } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
-import { useCategories } from './useCategories'
-import { useBrands } from './useBrand'
-import { useModels } from './useModels'
 import { update } from '../services/api'
-import { useStatus } from './useStatus'
+import { useFormFieldData } from './useFormData'
 
 const initialState = {
-  device: [],
+  device: {
+    id: '',
+    activo: '',
+    serial: '',
+    status: '',
+    modelId: '',
+    brandId: '',
+    categoryId: ''
+  },
   loading: true
 }
 
@@ -34,7 +39,15 @@ const reducer = (state, action) => {
   if (action.payload === 'INIT_STATE') {
     return {
       ...state,
-      device: []
+      device: {
+        id: '',
+        activo: '',
+        serial: '',
+        status: '',
+        modelId: '',
+        brandId: '',
+        categoryId: ''
+      }
     }
   }
 
@@ -60,15 +73,12 @@ const reducer = (state, action) => {
   return state
 }
 
-export const useEditDevice = () => {
+export const useFormDevice = () => {
   const { deviceId } = useParams()
   const location = useLocation()
   const navigate = useNavigate()
   const [{ device, loading }, dispatch] = useReducer(reducer, initialState)
-  const { categories } = useCategories()
-  const { brands } = useBrands()
-  const { models } = useModels()
-  const { status } = useStatus()
+  const { brands, categories, models, status } = useFormFieldData({ brandId: device.brandId, categoryId: device.categoryId })
 
   useEffect(() => {
     if (location.state?.devices) {
@@ -86,25 +96,6 @@ export const useEditDevice = () => {
       dispatch({ type: 'INIT_STATE' })
     }
   }, [deviceId, location.state.devices])
-
-  const filterdBrands = useMemo(() => {
-    if (device?.categoryId) {
-      const ids = {}
-      return models
-        .filter(brand => brand?.category?.id === device?.categoryId)
-        .map(elem => elem.brand)
-        .filter(brand => ids[brand.id] ? false : ids[brand.id] = true)
-    }
-    return brands
-  }, [device?.categoryId])
-
-  const filterdModels = useMemo(() => {
-    if (device.id) {
-      return (
-        models.filter(model => model.brand.id === device.brandId && model.category.id === device.categoryId)
-      )
-    }
-  }, [device?.brandId])
 
   const handleChange = (event) => {
     const { name, value } = event.target
@@ -145,8 +136,8 @@ export const useEditDevice = () => {
     device,
     categories,
     status,
-    brands: filterdBrands,
-    models: filterdModels,
+    brands,
+    models,
     loading,
     handleChange,
     handleSubmit,

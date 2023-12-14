@@ -29,6 +29,8 @@ export const Select = ({
   onChange,
   placeholder
 }: Props) => {
+  console.log(value)
+
   return (
     <FormControl>
         <InputLabelMui id='simple-select-label'>{label}</InputLabelMui>

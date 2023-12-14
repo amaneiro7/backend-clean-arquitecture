@@ -16,7 +16,7 @@ export const useFormFieldData = ({ categoryId = '', brandId = '' }: Props) => {
   const { models } = useModels()
 
   const filterdBrands = useMemo(() => {
-    if (categoryId !== ' ') {
+    if (categoryId !== '') {
       const ids = {}
       return models
         .filter(brand => brand?.category?.id === categoryId)
@@ -24,21 +24,20 @@ export const useFormFieldData = ({ categoryId = '', brandId = '' }: Props) => {
         .filter(brand => (ids[brand.id]) ? false : ids[brand.id] = true)
     }
     return brands
-  }, [categoryId])
+  }, [brands, categoryId])
 
   const filterdModels = useMemo(() => {
-    if (categoryId !== '' || brandId !== '') {
-      return (
-        models.filter(model => model.brand.id === brandId && model.category.id === categoryId)
-      )
-    }
-    return models
-  }, [categoryId, brandId])
+    return models.filter(model => {
+      const categoryMatch = categoryId === '' || model.category.id === categoryId
+      const brandMatch = brandId === '' || model.brand.id === brandId
+      return categoryMatch && brandMatch
+    })
+  }, [models, categoryId, brandId])
 
   return {
     categories,
-    brands: filterdBrands,
+    brands: filterdBrands ?? brands,
     status,
-    models: filterdModels
+    models: filterdModels ?? models
   }
 }

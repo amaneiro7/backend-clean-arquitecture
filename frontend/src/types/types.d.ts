@@ -56,9 +56,10 @@ export interface Category {
   name: string
 }
 
-export interface Status {
-  id: string
-  name: 'Operativo' | 'Dañado'
+export type Status = 'Operativo' | 'Dañado'
+export interface MappedStatus {
+  id: Status
+  name: Status
 }
 
 export interface SaveDevice {

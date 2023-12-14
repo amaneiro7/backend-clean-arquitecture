@@ -1,7 +1,7 @@
 import FormInput from '../../ui/text-field'
 import { Suspense } from 'react'
 import { Select } from '../../ui/select'
-import { useEditDevice } from '../../Hooks/useEditDevice'
+import { useFormDevice } from '../../Hooks/useFormDevice'
 import { Button } from '../../ui/button'
 import { FormContainer } from '../../components/formContainer'
 
@@ -16,7 +16,7 @@ export const DeviceForm = () => {
     handleChange,
     handleSubmit,
     handleClose
-  } = useEditDevice()
+  } = useFormDevice()
 
   type InpustFormType = InpustFormSelect | InpustFormText
   interface InpustFormSelect {
@@ -66,7 +66,7 @@ export const DeviceForm = () => {
     {
       type: 'select',
       name: 'status',
-      value: device?.statusId,
+      value: device?.status,
       label: 'Estado del Dispositivo',
       options: status,
       onChange: handleChange,
@@ -134,64 +134,6 @@ export const DeviceForm = () => {
                             return null
                           }
                         })}
-                    </>}
-                    {!loading && <>
-                            {/* <Suspense fallback='...Loading Select Options'>
-                                <Select
-                                    name='categoryId'
-                                    value={device?.categoryId}
-                                    label='Categorie del Dispositivo'
-                                    options={categories}
-                                    onChange={handleChange}
-                                    placeholder='-- Seleccione la Categoria --'
-                                />
-                            </Suspense>
-                        <FormInput
-                                name={'serial'}
-                                type='text'
-                                label={'serial'}
-                                placeholder={device?.serial}
-                                value={device?.serial}
-                                handle={handleChange}
-                            /> */}
-                            {/* <FormInput
-                                name={'activo'}
-                                type='text'
-                                label={'activo'}
-                                placeholder={device?.activo}
-                                value={device?.activo}
-                                handle={handleChange}
-                            />
-                            <Suspense fallback='...Loading Select Options'>
-                                <Select
-                                    name='status'
-                                    value={device?.status}
-                                    label='Estado del Dispositivo'
-                                    options={status}
-                                    onChange={handleChange}
-                                    placeholder='-- Seleccione el Estado --'
-                                />
-                            </Suspense>
-                            <Suspense fallback='...Loading Select Options'>
-                                <Select
-                                    name='brandId'
-                                    value={device?.brandId}
-                                    label='Marca del Dispositivo'
-                                    options={filterdBrands}
-                                    onChange={handleChange}
-                                    placeholder='-- Seleccione la Marca --'
-                                />
-                            </Suspense>
-                            <Suspense fallback='...Loading Select Options'>
-                                <Select
-                                    name='modelId'
-                                    value={device?.modelId}
-                                    label='Modelo del Dispositivo'
-                                    options={filterdModels}
-                                    onChange={handleChange}
-                                    placeholder='-- Seleccione el Modelo --'
-                                />
-                            </Suspense> */}
                     </>}
                     <div className='flex gap-5 justify-around'>
                         <Button
