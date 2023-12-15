@@ -75,7 +75,6 @@ export const useGetSearch = () => {
     // return device.filter(item => Object.keys(searchedValue).every(key => item[key] === searchedValue[key]))
     return device.filter(item => Object.entries(searchedValue).every(entry => {
       const [key, value] = entry
-      console.log(device)
       return String(item[key]).toLowerCase().includes(value.toLowerCase())
     }))
   }

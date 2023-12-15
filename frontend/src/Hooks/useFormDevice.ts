@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { useEffect, useReducer } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
-import { update } from '../services/api'
+import { update, create } from '../services/api'
 import { useFormFieldData } from './useFormData'
 
 const initialState = {
@@ -14,11 +14,12 @@ const initialState = {
     brandId: '',
     categoryId: ''
   },
+  formMethod: 'create',
   loading: true
 }
 
 const reducer = (state, action) => {
-  if (action.type === 'INIT_DEVICES') {
+  if (action.type === 'INIT_DEVICES_EDIT') {
     const { device } = action.payload
     const deviceMapper = {
       id: device.id,
@@ -33,7 +34,26 @@ const reducer = (state, action) => {
     return {
       ...state,
       loading: false,
+      formMethod: 'edit',
       device: deviceMapper
+    }
+  }
+  if (action.type === 'INIT_DEVICES_CREATE') {
+    const deviceMapper = {
+      id: '',
+      activo: '',
+      serial: '',
+      status: '',
+      modelId: '',
+      brandId: '',
+      categoryId: ''
+    }
+
+    return {
+      ...state,
+      device: deviceMapper,
+      formMethod: 'create',
+      loading: false
     }
   }
   if (action.payload === 'INIT_STATE') {
@@ -69,32 +89,58 @@ export const useFormDevice = () => {
   const { deviceId } = useParams()
   const location = useLocation()
   const navigate = useNavigate()
-  const [{ device, loading }, dispatch] = useReducer(reducer, initialState)
+  const [{ device, loading, formMethod }, dispatch] = useReducer(reducer, initialState)
   const { brands, categories, models, status } = useFormFieldData({ brandId: device.brandId, categoryId: device.categoryId })
 
   useEffect(() => {
+    if (location.pathname.includes('addnewdevice')) {
+      dispatch({ type: 'INIT_DEVICES_CREATE' })
+      return
+    }
+
     if (location.state?.devices) {
       const { device } = location.state
-      dispatch({ type: 'INIT_DEVICES', payload: { device } })
+      dispatch({ type: 'INIT_DEVICES_EDIT', payload: { device } })
     } else {
-      import('../services/api').then(async module => await module.getOne({ path: 'device', id: deviceId }))
+      console.log('He llegado hasta aqui')
+      import('../services/api')
+        .then(async module => await module.getOne({ path: 'device', id: deviceId }))
         .then(device => {
-          dispatch({ type: 'INIT_DEVICES', payload: { device } })
+          dispatch({ type: 'INIT_DEVICES_EDIT', payload: { device } })
         })
         .catch(err => { console.error(err) })
     }
 
+    dispatch({ type: 'INIT_STATE' })
+
     return () => {
       dispatch({ type: 'INIT_STATE' })
     }
-  }, [deviceId, location.state.devices])
+  }, [deviceId, location.state?.devices])
 
   const handleChange = (event) => {
     const { name, value } = event.target
     dispatch({ type: 'CHANGE_VALUE', payload: { name, value } })
   }
 
-  const handleSubmit = async (event) => {
+  const handleSave = async (event) => {
+    event.preventDefault()
+    const form = event.target
+    const formData = new FormData(form)
+
+    const entries = formData.entries()
+    const data = {}
+    for (const entry of entries) {
+      if (isValidEntry(entry[0])) {
+        data[entry[0]] = entry[1]
+      }
+    }
+
+    await create({ path: 'device', data })
+    handleClose()
+  }
+
+  const handleUpdate = async (event) => {
     event.preventDefault()
     const form = event.target
     const formData = new FormData(form)
@@ -131,8 +177,10 @@ export const useFormDevice = () => {
     brands,
     models,
     loading,
+    formMethod,
     handleChange,
-    handleSubmit,
+    handleSave,
+    handleUpdate,
     handleClose
   }
 }

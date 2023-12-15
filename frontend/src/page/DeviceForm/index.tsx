@@ -12,8 +12,10 @@ export const DeviceForm = () => {
     brands,
     models,
     status,
+    formMethod,
     handleChange,
-    handleSubmit,
+    handleSave,
+    handleUpdate,
     handleClose
   } = useFormDevice()
 
@@ -21,11 +23,11 @@ export const DeviceForm = () => {
     <FormContainer>
             <form
                 action="submit"
-                onSubmit={handleSubmit}
-                className='w-[600px] flex justify-center border border-secondary'
+                onSubmit={formMethod === 'create' ? handleSave : handleUpdate}
+                className='w-[600px] m-10 pt-7 flex justify-center border border-secondary rounded-md'
             >
-                <fieldset className='w-9/12 py-20 flex flex-col gap-5'>
-                    <legend className='mb-5'>Edita el Dispositivo</legend>
+                <fieldset className='w-9/12 py-10 pb-20 flex flex-col gap-5'>
+                    <legend className='mt-5'>{`${formMethod === 'create' ? 'Agrega un nuevo' : 'Edite el'} Dispositivo`}</legend>
                     {loading === true && '...loading'}
                     {loading === false && <>
                       <InputForm
