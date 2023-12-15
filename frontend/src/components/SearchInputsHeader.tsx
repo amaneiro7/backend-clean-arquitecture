@@ -1,6 +1,4 @@
-import { Suspense } from 'react'
-import FormInput from '../ui/text-field'
-import { Select } from '../ui/select'
+import { Suspense, lazy } from 'react'
 import { useFormFieldData } from '../Hooks/useFormData'
 import { type SelectChangeEvent } from '@mui/material'
 
@@ -9,7 +7,10 @@ interface Props {
   handleChange: ((event: React.ChangeEvent<HTMLInputElement> | SelectChangeEvent<string> | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, child: React.ReactNode) => void) | undefined
 }
 
-export const SearchInputsHeader = ({ state, handleChange }: Props) => {
+const Select = lazy(async () => await import('../ui/select'))
+const FormInput = lazy(async () => await import('../ui/text-field'))
+
+const SearchInputsHeader = ({ state, handleChange }: Props) => {
   const {
     categories,
     brands,
@@ -93,3 +94,5 @@ export const SearchInputsHeader = ({ state, handleChange }: Props) => {
         </header>
   )
 }
+
+export default SearchInputsHeader

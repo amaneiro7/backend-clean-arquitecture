@@ -1,7 +1,8 @@
-import { type SelectChangeEvent, Select as SelectMui } from '../mui/Select'
+import { Select as SelectMui } from '../mui/Select'
 import { InputLabel as InputLabelMui } from '../mui/InputLabel'
 import { MenuItem as MenuItemMui } from '../mui/MenuItem'
 import { FormControl } from '../mui/FormControl'
+import { type OnChaneInputs } from '../types/types'
 
 interface Props {
   name: string
@@ -10,7 +11,7 @@ interface Props {
   options: Options[]
   isHidden?: boolean
   isDisabled?: boolean
-  onChange: ((event: SelectChangeEvent<string>, child: React.ReactNode) => void) | undefined
+  onChange: OnChaneInputs
   placeholder: string
 }
 
@@ -19,7 +20,7 @@ interface Options {
   name: string
 }
 
-export const Select = ({
+const Select = ({
   name,
   value,
   label,
@@ -29,8 +30,6 @@ export const Select = ({
   onChange,
   placeholder
 }: Props) => {
-  console.log(value)
-
   return (
     <FormControl>
         <InputLabelMui id='simple-select-label'>{label}</InputLabelMui>
@@ -55,3 +54,5 @@ export const Select = ({
     </FormControl>
   )
 }
+
+export default Select

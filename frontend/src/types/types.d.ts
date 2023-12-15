@@ -23,18 +23,6 @@ export interface MappedDevice {
   brandId: string
   brandName: string
 }
-// export interface MappedDevice {
-//   id: string
-//   activo: string
-//   serial: string
-//   status: Status
-//   modelId: Pick<Model, 'id'>
-//   modelName: Pick<Model, 'name'>
-//   categoryId: Pick<Category, 'id'>
-//   categoryName: Pick<Category, 'name'>
-//   brandId: Pick<Brand, 'id'>
-//   brandName: Pick<Brand, 'name'>
-// }
 
 export interface Model {
   id: string
@@ -68,4 +56,27 @@ export interface SaveDevice {
   serial: string
   status: Status
   modelId: string
+}
+
+export type OnChaneInputs = ((event: SelectChangeEvent<string>, child: React.ReactNode) => void) | undefined
+
+export type Options = never[] | MappedStatus[] | Brand[] | Model[] | Category[]
+
+export type InpustFormType = InpustFormSelect | InpustFormText
+interface InpustFormSelect {
+  type: 'select'
+  options: Options
+  name: string
+  value: string
+  label: string
+  onChange: any
+  placeholder: string
+}
+interface InpustFormText {
+  type: 'text'
+  name: string
+  value: string
+  label: string
+  onChange: (event: any) => void
+  placeholder: string
 }

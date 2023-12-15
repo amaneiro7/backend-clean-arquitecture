@@ -39,15 +39,7 @@ const reducer = (state, action) => {
   if (action.payload === 'INIT_STATE') {
     return {
       ...state,
-      device: {
-        id: '',
-        activo: '',
-        serial: '',
-        status: '',
-        modelId: '',
-        brandId: '',
-        categoryId: ''
-      }
+      ...initialState
     }
   }
 

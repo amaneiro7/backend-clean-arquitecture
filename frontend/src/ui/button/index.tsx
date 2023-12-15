@@ -13,7 +13,7 @@ const ACTIONTYPE = {
   DELETE: 'text-white border-quaternary bg-quaternary'
 } as const
 
-export function Button ({ text, type, handle, isDisabled = false, actionType = 'ACTION' }: Props) {
+const Button = ({ text, type, handle, isDisabled = false, actionType = 'ACTION' }: Props) => {
   return (
         <button
             type={type}
@@ -25,3 +25,5 @@ export function Button ({ text, type, handle, isDisabled = false, actionType = '
         </button>
   )
 }
+
+export default Button
