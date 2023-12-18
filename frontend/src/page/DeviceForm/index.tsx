@@ -2,6 +2,7 @@ import { Suspense, lazy } from 'react'
 import { useFormDevice } from '../../Hooks/useFormDevice'
 import { FormContainer } from '../../components/formContainer'
 import InputForm from '../../components/InputForm'
+import { ToasterComponent } from '../../utils/toaster'
 
 const Button = lazy(async () => await import('../../ui/button'))
 export const DeviceForm = () => {

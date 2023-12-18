@@ -1,4 +1,5 @@
 import { Copyright } from '../ui/copyright'
+import { ToasterComponent } from '../utils/toaster'
 import Header from './header'
 
 interface Props {
@@ -7,6 +8,7 @@ interface Props {
 export const Layout = ({ children }: Props) => {
   return (
     <>
+      <ToasterComponent />v
       <Header />
       { children }
       <Copyright />

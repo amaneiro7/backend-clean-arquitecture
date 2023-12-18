@@ -34,8 +34,11 @@ export const update = async ({ path, id, data }: { path: typeof UrlPaths[keyof t
     body: JSON.stringify(data)
   })
 
-  const { body } = await res.json()
-  return body
+  const { body, status } = await res.json()
+  return {
+    message: status === 201 ? 'Elemento actualizado exitosamente' : 'Ha ocurrido un error',
+    body
+  }
 }
 
 async function fetching ({ URL }: { URL: string }) {

@@ -4,6 +4,8 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { update, create } from '../services/api'
 import { useFormFieldData } from './useFormData'
 import { type MappedDevice } from '../types/types'
+import { toastMessage } from '../utils/toaster'
+import { formEntries } from '../utils/formEntries'
 
 interface INITIALSTATE {
   device: DEVICE
@@ -120,45 +122,24 @@ export const useFormDevice = () => {
 
   const handleSave = async (event) => {
     event.preventDefault()
-    const form = event.target
-    const formData = new FormData(form)
-
-    const entries = formData.entries()
-    const data = {}
-    for (const entry of entries) {
-      if (isValidEntry(entry[0])) {
-        data[entry[0]] = entry[1]
-      }
-    }
+    const data = formEntries({ targetReference: event.target })
 
     await create({ path: 'device', data })
     handleClose()
   }
 
-  const handleUpdate = async (event) => {
+  const handleUpdate = async (event: React.FormEvent<HTMFormLElement>) => {
     event.preventDefault()
-    const form = event.target
-    const formData = new FormData(form)
-
-    const entries = formData.entries()
-    const data = {}
-    for (const entry of entries) {
-      if (isValidEntry(entry[0])) {
-        data[entry[0]] = entry[1]
-      }
-    }
+    const data = formEntries({ targetReference: event.target, formReference: 'deviceForm' })
 
     await update({ path: 'device', id: deviceId, data })
-    handleClose()
-  }
-
-  function isValidEntry (entryKey: [string, FormDataEntryValue]) {
-    return (
-      entryKey.includes('activo') ||
-      entryKey.includes('serial') ||
-      entryKey.includes('modelId') ||
-      entryKey.includes('status')
-    )
+      .then(({ message }) => {
+        toastMessage({ message })
+      })
+      .then(() => { handleClose() })
+      .catch(error => {
+        console.log(error)
+      })
   }
 
   const handleClose = () => {

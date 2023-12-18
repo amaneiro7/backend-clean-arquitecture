@@ -2,6 +2,7 @@
 import { useNavigate } from 'react-router-dom'
 import { useGetSearch } from '../Hooks/useGetSearch'
 import { Suspense, lazy } from 'react'
+import { ToasterComponent } from '../utils/toaster'
 
 const TableCard = lazy(async () => await import('../components/TableCard'))
 const SearchInputsHeader = lazy(async () => await import('../components/SearchInputsHeader'))
