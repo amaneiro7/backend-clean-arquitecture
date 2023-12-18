@@ -3,8 +3,17 @@ import { useEffect, useReducer } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { update, create } from '../services/api'
 import { useFormFieldData } from './useFormData'
+import { type MappedDevice } from '../types/types'
 
-const initialState = {
+interface INITIALSTATE {
+  device: DEVICE
+  formMethod: 'create' | 'edit'
+  loading: boolean
+}
+
+type DEVICE = Omit<MappedDevice, 'modelName' | 'categoryName' | 'brandName'>
+
+const initialState: INITIALSTATE = {
   device: {
     id: '',
     activo: '',
@@ -19,27 +28,37 @@ const initialState = {
 }
 
 const reducer = (state, action) => {
-  if (action.type === 'INIT_DEVICES_EDIT') {
-    const { device } = action.payload
-    const deviceMapper = {
-      id: device.id,
-      activo: device.activo,
-      serial: device.serial,
-      status: device.status,
-      modelId: device.model.id,
-      brandId: device.model.brand.id,
-      categoryId: device.model.category.id
-    }
+  return reducerObject(state, action.payload)[action.type] || state
+}
 
-    return {
-      ...state,
-      loading: false,
-      formMethod: 'edit',
-      device: deviceMapper
+const actionType = {
+  initDeviceEdit: 'INIT_DEVICES_EDIT',
+  initDeviceCreate: 'INIT_DEVICES_CREATE',
+  initState: 'INIT_STATE',
+  changeValue: 'CHANGE_VALUE',
+  start: 'START'
+}
+
+const reducerObject = (state, payload) => ({
+  [actionType.initDeviceEdit]: {
+    ...state,
+    loading: false,
+    formMethod: 'edit',
+    device: {
+      id: payload?.device?.id,
+      activo: payload?.device?.activo,
+      serial: payload?.device?.serial,
+      status: payload?.device?.status,
+      modelId: payload?.device?.model.id,
+      brandId: payload?.device?.model.brand.id,
+      categoryId: payload?.device?.model.category.id
     }
-  }
-  if (action.type === 'INIT_DEVICES_CREATE') {
-    const deviceMapper = {
+  },
+  [actionType.initDeviceCreate]: {
+    ...state,
+    loading: false,
+    formMethod: 'create',
+    device: {
       id: '',
       activo: '',
       serial: '',
@@ -48,42 +67,19 @@ const reducer = (state, action) => {
       brandId: '',
       categoryId: ''
     }
-
-    return {
-      ...state,
-      device: deviceMapper,
-      formMethod: 'create',
-      loading: false
-    }
-  }
-  if (action.payload === 'INIT_STATE') {
-    return {
-      ...state,
-      ...initialState
-    }
-  }
-
-  if (action.type === 'CHANGE_VALUE') {
-    const { name, value } = action.payload
-    const newData = {
+  },
+  [actionType.initState]: {
+    ...state,
+    ...initialState
+  },
+  [actionType.changeValue]: {
+    ...state,
+    device: {
       ...state.device,
-      [name]: value
-    }
-
-    return {
-      ...state,
-      device: newData
+      [payload?.name]: payload?.value
     }
   }
-  if (action.type === 'START') {
-    const { loading } = action.payload
-    return {
-      ...state,
-      loading
-    }
-  }
-  return state
-}
+})
 
 export const useFormDevice = () => {
   const { deviceId } = useParams()
@@ -94,33 +90,32 @@ export const useFormDevice = () => {
 
   useEffect(() => {
     if (location.pathname.includes('addnewdevice')) {
-      dispatch({ type: 'INIT_DEVICES_CREATE' })
+      dispatch({ type: actionType.initDeviceCreate })
       return
     }
 
     if (location.state?.devices) {
       const { device } = location.state
-      dispatch({ type: 'INIT_DEVICES_EDIT', payload: { device } })
+      dispatch({ type: actionType.initDeviceEdit, payload: { device } })
     } else {
-      console.log('He llegado hasta aqui')
       import('../services/api')
         .then(async module => await module.getOne({ path: 'device', id: deviceId }))
         .then(device => {
-          dispatch({ type: 'INIT_DEVICES_EDIT', payload: { device } })
+          dispatch({ type: actionType.initDeviceEdit, payload: { device } })
         })
         .catch(err => { console.error(err) })
     }
 
-    dispatch({ type: 'INIT_STATE' })
+    dispatch({ type: actionType.initState })
 
     return () => {
-      dispatch({ type: 'INIT_STATE' })
+      dispatch({ type: actionType.initState })
     }
   }, [deviceId, location.state?.devices])
 
   const handleChange = (event) => {
     const { name, value } = event.target
-    dispatch({ type: 'CHANGE_VALUE', payload: { name, value } })
+    dispatch({ type: actionType.changeValue, payload: { name, value } })
   }
 
   const handleSave = async (event) => {

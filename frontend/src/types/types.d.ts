@@ -44,7 +44,7 @@ export interface Category {
   name: string
 }
 
-export type Status = 'Operativo' | 'Dañado'
+export type Status = 'Operativo' | 'Dañado' | ''
 export interface MappedStatus {
   id: Status
   name: Status
