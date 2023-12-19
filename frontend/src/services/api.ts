@@ -6,12 +6,15 @@ export const getAll = async ({ path }: { path: typeof UrlPaths[keyof typeof UrlP
   return await fetching({ URL: apiUrl })
 }
 
-export const getOne = async ({ path, id }: { path: typeof UrlPaths[keyof typeof UrlPaths], id: string }) => {
+export const getOne = async ({ path, id }: { path: typeof UrlPaths[keyof typeof UrlPaths], id: string | undefined }) => {
+  if (id === undefined) {
+    throw new Error('Id no valido')
+  }
   const apiUrl = `${API_URL}/${path}/${id}`
   return await fetching({ URL: apiUrl })
 }
 
-export const create = async ({ path, data }: { path: typeof UrlPaths[keyof typeof UrlPaths] }) => {
+export const create = async ({ path, data }: { path: typeof UrlPaths[keyof typeof UrlPaths], data: object }) => {
   const apiUrl = `${API_URL}/${path}`
   const res = await fetch(apiUrl, {
     method: 'POST',
@@ -21,10 +24,16 @@ export const create = async ({ path, data }: { path: typeof UrlPaths[keyof typeo
     body: JSON.stringify(data)
   })
 
-  const { body } = await res.json()
-  return body
+  const { body, status } = await res.json()
+  return {
+    body,
+    message: status === 201 ? 'Elemento creado exitosamente' : 'Ha ocurrido un error'
+  }
 }
-export const update = async ({ path, id, data }: { path: typeof UrlPaths[keyof typeof UrlPaths], id: string }) => {
+export const update = async ({ path, id, data }: { path: typeof UrlPaths[keyof typeof UrlPaths], id: string | undefined, data: object }) => {
+  if (id === undefined) {
+    throw new Error('Id no valido')
+  }
   const apiUrl = `${API_URL}/${path}/${id}`
   const res = await fetch(apiUrl, {
     method: 'PATCH',

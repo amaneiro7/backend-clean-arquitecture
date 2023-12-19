@@ -4,19 +4,12 @@ export const ToasterComponent = () => {
   return (
     <Toaster
         closeButton
-        expand={true}
+        expand={false}
         position='bottom-right'
         richColors
     />
   )
 }
-export const toastMessage = ({ message }: { message: string }) => {
-  const promise = async () => await new Promise((resolve) => setTimeout(resolve, 2000))
-  return toast.promise(promise, {
-    loading: 'Loading...',
-    success: () => {
-      return `${message}`
-    },
-    error: 'Error'
-  })
+export const toastMessage = ({ message, type }: { message: string, type: 'success' | 'error' | 'loading' }) => {
+  return toast[type](message)
 }

@@ -1,11 +1,11 @@
 import { json, type Application, type Request, type Response, urlencoded } from 'express'
-import fs, { type WriteStream } from 'node:fs'
-import path from 'node:path'
+// import fs, { type WriteStream } from 'node:fs'
+// import path from 'node:path'
 import { corsMiddleware } from './middleware/cors'
 import Routes from './presentation/routes/index.routes'
-import morgan from 'morgan'
-import helmet from 'helmet'
-import winston from 'winston'
+// import morgan from 'morgan'
+// import helmet from 'helmet'
+// import winston from 'winston'
 import { boomErrorHandler, unCoughtErrorHandler } from './middleware/errorHandler'
 
 // export default class Server {
@@ -42,6 +42,7 @@ export const createServer = (app: Application): Application => {
   app.use(json())
   app.use(corsMiddleware())
   app.disable('x-powered-by')
+  app.use(urlencoded({ extended: true }))
 
   app.get('/', (req: Request, res: Response) => {
     res.status(200).json('Servidor de inventarios')
@@ -56,11 +57,7 @@ export const createServer = (app: Application): Application => {
   app.use(boomErrorHandler)
   app.use(unCoughtErrorHandler)
   // app.use(morgan('combined', { stream: accessLogStream }))
-  app.use(urlencoded({ extended: true }))
-  app.disable('x-powered-by')
   // app.use(helmet())
-  app.use(json())
-  app.use(corsMiddleware())
 
   return app
 }

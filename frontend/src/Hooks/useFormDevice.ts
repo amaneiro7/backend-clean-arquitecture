@@ -11,6 +11,7 @@ interface INITIALSTATE {
   device: DEVICE
   formMethod: 'create' | 'edit'
   loading: boolean
+  loadFetching: boolean
 }
 
 type DEVICE = Omit<MappedDevice, 'modelName' | 'categoryName' | 'brandName'>
@@ -26,7 +27,8 @@ const initialState: INITIALSTATE = {
     categoryId: ''
   },
   formMethod: 'create',
-  loading: true
+  loading: true,
+  loadFetching: false
 }
 
 const reducer = (state, action) => {
@@ -38,7 +40,8 @@ const actionType = {
   initDeviceCreate: 'INIT_DEVICES_CREATE',
   initState: 'INIT_STATE',
   changeValue: 'CHANGE_VALUE',
-  start: 'START'
+  startFetching: 'START_FETCHING',
+  finishFetching: 'FINISH_FETCHING'
 }
 
 const reducerObject = (state, payload) => ({
@@ -71,7 +74,6 @@ const reducerObject = (state, payload) => ({
     }
   },
   [actionType.initState]: {
-    ...state,
     ...initialState
   },
   [actionType.changeValue]: {
@@ -80,6 +82,14 @@ const reducerObject = (state, payload) => ({
       ...state.device,
       [payload?.name]: payload?.value
     }
+  },
+  [actionType.startFetching]: {
+    ...state,
+    loadFetching: true
+  },
+  [actionType.finishFetching]: {
+    ...state,
+    loadFetching: false
   }
 })
 
@@ -87,7 +97,7 @@ export const useFormDevice = () => {
   const { deviceId } = useParams()
   const location = useLocation()
   const navigate = useNavigate()
-  const [{ device, loading, formMethod }, dispatch] = useReducer(reducer, initialState)
+  const [{ device, loading, formMethod, loadFetching }, dispatch] = useReducer(reducer, initialState)
   const { brands, categories, models, status } = useFormFieldData({ brandId: device.brandId, categoryId: device.categoryId })
 
   useEffect(() => {
@@ -115,31 +125,45 @@ export const useFormDevice = () => {
     }
   }, [deviceId, location.state?.devices])
 
-  const handleChange = (event) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
     dispatch({ type: actionType.changeValue, payload: { name, value } })
   }
 
-  const handleSave = async (event) => {
-    event.preventDefault()
-    const data = formEntries({ targetReference: event.target })
-
-    await create({ path: 'device', data })
-    handleClose()
+  const handleSave = async (event: React.FormEvent<HTMLElement>) => {
+    try {
+      dispatch({ type: actionType.startFetching })
+      toastMessage({ message: 'Loading', type: 'loading' })
+      event.preventDefault()
+      const data = formEntries({ targetReference: event.target, formReference: 'deviceForm' })
+      const { message } = await create({ path: 'device', data })
+      toastMessage({ message, type: 'success' })
+      dispatch({ type: actionType.finishFetching })
+      setTimeout(() => {
+        handleClose()
+      }, 3000)
+    } catch (error) {
+      console.log(error)
+      toastMessage({ message: error, type: 'error' })
+    }
   }
 
-  const handleUpdate = async (event: React.FormEvent<HTMFormLElement>) => {
-    event.preventDefault()
-    const data = formEntries({ targetReference: event.target, formReference: 'deviceForm' })
-
-    await update({ path: 'device', id: deviceId, data })
-      .then(({ message }) => {
-        toastMessage({ message })
-      })
-      .then(() => { handleClose() })
-      .catch(error => {
-        console.log(error)
-      })
+  const handleUpdate = async (event: React.FormEvent<HTMLElement>) => {
+    try {
+      dispatch({ type: actionType.startFetching })
+      toastMessage({ message: 'Loading', type: 'loading' })
+      event.preventDefault()
+      const data = formEntries({ targetReference: event.target, formReference: 'deviceForm' })
+      const { message } = await update({ path: 'device', id: deviceId, data })
+      toastMessage({ message, type: 'success' })
+      dispatch({ type: actionType.finishFetching })
+      setTimeout(() => {
+        handleClose()
+      }, 3000)
+    } catch (error) {
+      console.log(error)
+      toastMessage({ message: error, type: 'error' })
+    }
   }
 
   const handleClose = () => {
@@ -154,6 +178,7 @@ export const useFormDevice = () => {
     models,
     loading,
     formMethod,
+    loadFetching,
     handleChange,
     handleSave,
     handleUpdate,

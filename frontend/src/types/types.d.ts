@@ -58,7 +58,7 @@ export interface SaveDevice {
   modelId: string
 }
 
-export type OnChaneInputs = ((event: SelectChangeEvent<string>, child: React.ReactNode) => void) | undefined
+export type OnChangeInputs = ((event: SelectChangeEvent<string>, child: React.ReactNode) => void) | undefined
 
 export type Options = never[] | MappedStatus[] | Brand[] | Model[] | Category[]
 

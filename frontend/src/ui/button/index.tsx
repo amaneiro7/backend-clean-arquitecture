@@ -18,7 +18,7 @@ const Button = ({ text, type, handle, isDisabled = false, actionType = 'ACTION' 
         <button
             type={type}
             onClick={handle}
-            className={`w-max h-min py-2 px-12 text-lg align-middle text-center text-white rounded-md cursor-pointer border border-solid border-transparent transition-all duration-300 ease-in hover:opacity-70 text-g  ${ACTIONTYPE[actionType]}  `}
+            className={`w-max h-min py-2 px-12 text-lg align-middle text-center text-white rounded-md cursor-pointer border border-solid border-transparent transition-all duration-300 ease-in hover:opacity-70 disabled:opacity-70 disabled:cursor-not-allowed ${ACTIONTYPE[actionType]}`}
             disabled={isDisabled}
         >
             {text}

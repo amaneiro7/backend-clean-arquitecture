@@ -1,10 +1,10 @@
 import { Suspense, lazy } from 'react'
 import { useFormDevice } from '../../Hooks/useFormDevice'
 import { FormContainer } from '../../components/formContainer'
-import InputForm from '../../components/InputForm'
-import { ToasterComponent } from '../../utils/toaster'
 
 const Button = lazy(async () => await import('../../ui/button'))
+const InputForm = lazy(async () => await import('../../components/InputForm'))
+
 export const DeviceForm = () => {
   const {
     device,
@@ -14,6 +14,7 @@ export const DeviceForm = () => {
     models,
     status,
     formMethod,
+    loadFetching,
     handleChange,
     handleSave,
     handleUpdate,
@@ -30,16 +31,17 @@ export const DeviceForm = () => {
                 <fieldset className='w-9/12 py-10 pb-20 flex flex-col gap-5'>
                     <legend className='mt-5'>{`${formMethod === 'create' ? 'Agrega un nuevo' : 'Edite el'} Dispositivo`}</legend>
                     {loading === true && '...loading'}
-                    {loading === false && <>
-                      <InputForm
-                        device={device}
-                        categories={categories}
-                        brands={brands}
-                        models={models}
-                        status={status}
-                        onChange={handleChange}
-                      />
-                    </>}
+                    {loading === false &&
+                      <Suspense>
+                        <InputForm
+                          device={device}
+                          categories={categories}
+                          brands={brands}
+                          models={models}
+                          status={status}
+                          onChange={handleChange}
+                        />
+                      </Suspense>}
                     <div className='flex gap-5 justify-around'>
                       <Suspense>
                           <Button
@@ -52,6 +54,7 @@ export const DeviceForm = () => {
                               actionType='SAVE'
                               type='submit'
                               text='Guardar'
+                              isDisabled={loadFetching}
                           />
 
                       </Suspense>
