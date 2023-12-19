@@ -1,5 +1,6 @@
 import express, { type Application } from 'express'
 import { createServer } from './src'
+import { boomErrorHandler, errorHandler, joiErrorHandler, logErrors, ormErrorHandler } from './src/middleware/errorHandler'
 // import Server from './src'
 
 const app: Application = express()
@@ -17,3 +18,9 @@ app.listen(port, () => {
     console.log(err)
   }
 })
+
+app.use(logErrors)
+app.use(errorHandler)
+app.use(joiErrorHandler)
+app.use(boomErrorHandler)
+app.use(ormErrorHandler)

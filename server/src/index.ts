@@ -6,7 +6,6 @@ import Routes from './presentation/routes/index.routes'
 // import morgan from 'morgan'
 // import helmet from 'helmet'
 // import winston from 'winston'
-import { boomErrorHandler, unCoughtErrorHandler } from './middleware/errorHandler'
 
 // export default class Server {
 //   constructor (app: Application) {
@@ -54,8 +53,7 @@ export const createServer = (app: Application): Application => {
   //   path.join(__dirname, './logs/access.log'),
   //   { flags: 'a' }
   // )
-  app.use(boomErrorHandler)
-  app.use(unCoughtErrorHandler)
+
   // app.use(morgan('combined', { stream: accessLogStream }))
   // app.use(helmet())
 
