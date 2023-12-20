@@ -19,8 +19,22 @@ export class DeviceService {
   }
 
   async create (payload: CreateDevice): Promise<DeviceOutput> {
-    // const { name } = payload
-    return await this.store.create(payload)
+    let { activo, modelId, serial, status } = payload
+    serial = this.formatEmptyUndefinedValue(serial)
+    activo = this.formatEmptyUndefinedValue(activo)
+
+    const mappedNewDevice = {
+      activo,
+      serial,
+      status,
+      modelId
+    }
+    return await this.store.create(mappedNewDevice)
+  }
+
+  formatEmptyUndefinedValue (value: string | undefined | null): string | null {
+    if (value === undefined || value === null || value === '') return null
+    return value
   }
 
   async update (id: Id, payload: UpdateDevice): Promise<DeviceOutput | undefined> {

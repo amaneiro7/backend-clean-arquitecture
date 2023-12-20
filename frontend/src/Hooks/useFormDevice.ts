@@ -136,15 +136,14 @@ export const useFormDevice = () => {
       toastMessage({ message: 'Loading', type: 'loading' })
       event.preventDefault()
       const data = formEntries({ targetReference: event.target, formReference: 'deviceForm' })
-      const { message } = await create({ path: 'device', data })
-      toastMessage({ message, type: 'success' })
+      const { message, error } = await create({ path: 'device', data })
+      toastMessage({ message, type: error ? 'error' : 'success' })
       dispatch({ type: actionType.finishFetching })
-      setTimeout(() => {
+      if (!error) {
         handleClose()
-      }, 3000)
+      }
     } catch (error) {
       console.log(error)
-      toastMessage({ message: error, type: 'error' })
     }
   }
 
@@ -154,15 +153,14 @@ export const useFormDevice = () => {
       toastMessage({ message: 'Loading', type: 'loading' })
       event.preventDefault()
       const data = formEntries({ targetReference: event.target, formReference: 'deviceForm' })
-      const { message } = await update({ path: 'device', id: deviceId, data })
-      toastMessage({ message, type: 'success' })
+      const { message, error } = await update({ path: 'device', id: deviceId, data })
+      toastMessage({ message, type: error ? 'error' : 'success' })
       dispatch({ type: actionType.finishFetching })
       setTimeout(() => {
         handleClose()
       }, 3000)
     } catch (error) {
       console.log(error)
-      toastMessage({ message: error, type: 'error' })
     }
   }
 

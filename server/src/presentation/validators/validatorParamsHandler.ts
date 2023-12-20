@@ -10,7 +10,10 @@ class ValidatorParamsHandler {
         req.params.id = req.params.id ?? val
         next()
       } catch (error) {
-        if (isError(error)) { res.status(400).json({ error: error.message }) }
+        if (isError(error)) {
+          next(error)
+        }
+        next()
       }
     }
   }

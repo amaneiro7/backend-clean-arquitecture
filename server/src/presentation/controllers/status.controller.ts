@@ -7,7 +7,7 @@ export class StatusController {
   async getAll (req: Request, res: Response, next: NextFunction) {
     try {
       const data = getStatusValues()
-      successResponses.success({ res, message: data })
+      successResponses.success({ res, data })
     } catch (error) {
       next(error)
     }

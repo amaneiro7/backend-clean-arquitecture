@@ -1,5 +1,5 @@
 import { Suspense, lazy } from 'react'
-import { useFormFieldData } from '../Hooks/useFormData'
+import { useFormFieldData } from '../../Hooks/useFormData'
 import { type SelectChangeEvent } from '@mui/material'
 
 interface Props {
@@ -7,8 +7,8 @@ interface Props {
   handleChange: ((event: React.ChangeEvent<HTMLInputElement> | SelectChangeEvent<string> | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, child: React.ReactNode) => void) | undefined
 }
 
-const Select = lazy(async () => await import('../ui/select'))
-const FormInput = lazy(async () => await import('../ui/text-field'))
+const Select = lazy(async () => await import('../../ui/select'))
+const FormInput = lazy(async () => await import('../../ui/text-field'))
 
 const SearchInputsHeader = ({ state, handleChange }: Props) => {
   const {

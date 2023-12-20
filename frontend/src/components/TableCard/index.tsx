@@ -1,5 +1,5 @@
-import { type MappedDevice } from '../types/types'
-import { TableCardList } from './TablerCardList'
+import { type MappedDevice } from '../../types/types'
+import { TableCardList } from '../TablerCardList'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 
 interface Props {

@@ -2,6 +2,7 @@ import { type Boom, isBoom } from '@hapi/boom'
 import { type Request, type Response, type NextFunction } from 'express'
 import { ValidationError } from 'sequelize'
 import { isError } from 'joi'
+import { successResponses } from '../utils/successResponse'
 // import * as winston from 'winston'
 
 // const file = new winston.transports.File({
@@ -36,11 +37,7 @@ export function errorHandler (
   res: Response,
   next: NextFunction
 ): void {
-  res.status(500).json({
-    statusCode: 500,
-    message: err.message,
-    error: err.stack
-  })
+  successResponses.error({ res, status: 500, isError: true, message: err.message })
 }
 
 export function boomErrorHandler (
@@ -59,11 +56,7 @@ export function boomErrorHandler (
       //   console.log('[boomErrorHandler]', output.payload.message, '[ENV]', config.env);
       // }
     }
-    res.status(output.statusCode).json({
-      statusCode: output.statusCode,
-      message: output.payload,
-      error: err.name
-    })
+    successResponses.error({ res, status: output.statusCode, isError: true, message: output.payload.message })
   }
   next(err)
 }
@@ -74,12 +67,9 @@ export function ormErrorHandler (
   res: Response,
   next: NextFunction
 ): void {
+  console.log('ormErrorHandler')
   if (err instanceof ValidationError) {
-    res.status(409).json({
-      statusCode: 409,
-      message: err.name,
-      error: err.errors
-    })
+    successResponses.error({ res, status: 409, isError: true, message: err.name })
   }
 }
 
@@ -89,11 +79,8 @@ export function joiErrorHandler (
   res: Response,
   next: NextFunction
 ): void {
+  console.log('joiErrorHandler')
   if (isError(err)) {
-    res.status(400).json({
-      statusCode: 400,
-      message: err.message,
-      error: err
-    })
+    successResponses.error({ res, status: 400, isError: true, message: err.message })
   }
 }

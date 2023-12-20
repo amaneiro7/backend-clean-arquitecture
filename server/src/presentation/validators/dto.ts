@@ -3,8 +3,8 @@ import { STATUS } from '../../domain/entities/status.entity'
 
 const id = Joi.string().guid({ version: ['uuidv4'] })
 const name = Joi.string().min(3).max(25).trim()
-const serial = Joi.string().empty().default(null).trim().allow(null)
-const activo = Joi.string().empty().default(null).trim().allow(null)
+const serial = Joi.string().empty('').trim().allow(null)
+const activo = Joi.string().empty('').trim().allow(null)
 const status = Joi.string().valid(...Object.values(STATUS))
 const limit = Joi.number().integer().min(1)
 const offset = Joi.number().integer().min(0)

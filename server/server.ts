@@ -20,7 +20,7 @@ app.listen(port, () => {
 })
 
 app.use(logErrors)
-app.use(errorHandler)
 app.use(joiErrorHandler)
 app.use(boomErrorHandler)
 app.use(ormErrorHandler)
+app.use(errorHandler)

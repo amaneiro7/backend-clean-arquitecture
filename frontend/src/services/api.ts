@@ -24,10 +24,11 @@ export const create = async ({ path, data }: { path: typeof UrlPaths[keyof typeo
     body: JSON.stringify(data)
   })
 
-  const { body, status } = await res.json()
+  const { body, message, error } = await res.json()
   return {
     body,
-    message: status === 201 ? 'Elemento creado exitosamente' : 'Ha ocurrido un error'
+    message,
+    error
   }
 }
 export const update = async ({ path, id, data }: { path: typeof UrlPaths[keyof typeof UrlPaths], id: string | undefined, data: object }) => {
@@ -43,10 +44,11 @@ export const update = async ({ path, id, data }: { path: typeof UrlPaths[keyof t
     body: JSON.stringify(data)
   })
 
-  const { body, status } = await res.json()
+  const { body, message, error } = await res.json()
   return {
-    message: status === 201 ? 'Elemento actualizado exitosamente' : 'Ha ocurrido un error',
-    body
+    message,
+    body,
+    error
   }
 }
 

@@ -1,6 +1,6 @@
-import { Copyright } from '../ui/copyright'
-import { ToasterComponent } from '../utils/toaster'
-import Header from './header'
+import { Copyright } from '../../ui/copyright'
+import { ToasterComponent } from '../../utils/toaster'
+import Header from '../header'
 
 interface Props {
   children: React.ReactNode
@@ -8,7 +8,7 @@ interface Props {
 export const Layout = ({ children }: Props) => {
   return (
     <>
-      <ToasterComponent />v
+      <ToasterComponent />
       <Header />
       { children }
       <Copyright />

@@ -9,7 +9,7 @@ export class BrandController {
   async getAll (req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const data = await this.service.getAll()
-      successResponses.success({ res, message: data })
+      successResponses.success({ res, data })
     } catch (error) {
       next(error)
     }
@@ -19,7 +19,7 @@ export class BrandController {
     try {
       const { id } = req.params
       const data = await this.service.getOne({ id })
-      successResponses.success({ res, message: data })
+      successResponses.success({ res, data })
     } catch (error) {
       next(error)
     }
@@ -29,7 +29,7 @@ export class BrandController {
     try {
       const payload = req.body
       const newData = await this.service.create(payload)
-      successResponses.created({ res, message: newData })
+      successResponses.created({ res, data: newData })
     } catch (error) {
       next(error)
     }
@@ -40,7 +40,7 @@ export class BrandController {
       const { id } = req.params
       const payload = req.body
       const newData = await this.service.update(id, payload)
-      successResponses.created({ res, message: newData })
+      successResponses.created({ res, data: newData })
     } catch (error) {
       next(error)
     }

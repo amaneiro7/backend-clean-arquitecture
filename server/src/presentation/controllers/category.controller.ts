@@ -10,7 +10,7 @@ export class CategoryController {
   async getAll (req: Request, res: Response, next: NextFunction) {
     try {
       const data = await this.service.getAll()
-      successResponses.success({ res, message: data })
+      successResponses.success({ res, data })
     } catch (error) {
       next(error)
     }
@@ -20,7 +20,7 @@ export class CategoryController {
     try {
       const { id } = req.params
       const data = await this.service.getOne({ id })
-      successResponses.success({ res, message: data })
+      successResponses.success({ res, data })
     } catch (error) {
       next(error)
     }

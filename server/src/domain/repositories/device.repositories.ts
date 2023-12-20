@@ -1,4 +1,4 @@
-import { type Id } from '../../src/types/types'
+import { type Id } from '../../types/types'
 import { type UpdateDevice, type CreateDevice, type DeviceOutput } from '../entities/device.entity'
 
 export interface DeviceRepository {

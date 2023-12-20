@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import ErrorBoundary from './ErrorBoundary.tsx'
 
 import Loading from '../components/Loading/index.tsx'
-import { Layout } from '../components/layout.tsx'
+import { Layout } from '../components/layout/index.tsx'
 
 const Home = lazy(async () => await import('../page/home.tsx'))
 // const AddNewDevice = lazy(async () => await import('../page/add_new_device'))

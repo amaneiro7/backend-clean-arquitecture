@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
-import { type MappedDevice } from '../types/types'
-import { DeleteIcon } from '../ui/icon/DeleIcon'
-import { EditIcon } from '../ui/icon/EditIcon'
+import { type MappedDevice } from '../../types/types'
+import { DeleteIcon } from '../../ui/icon/DeleIcon'
+import { EditIcon } from '../../ui/icon/EditIcon'
 
 interface Props {
   item: MappedDevice
