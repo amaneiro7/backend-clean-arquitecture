@@ -1,78 +1,46 @@
-import { Brand, Category, MappedDevice, MappedStatus, Model } from "../types/types"
+import { type InputTypeProps } from '../types/types'
 
-interface Props { DeviceFormProps | BrandFormProps | CategoryFormProps | ModelFormProps }
-
-interface DeviceFormProps {
-    formType: 'device'
-    device: MappedDevice[]
-    categories: Category[]
-    brands: Brand[]
-    models: Model[]
-    status: MappedStatus[]
-    onChange: any
-}
-interface BrandFormProps {
-    formType: 'brand'
-    brand: string
-    onChange: any
-}
-interface CategoryFormProps {
-    formType: 'category'
-    category: string
-    onChange: any
-}
-interface ModelFormProps {
-    formType: 'model'
-    model: string
-    categories: Category[]
-    brands: Brand[]
-    onChange: any
-}
-
-const inputsFormType = ({
-    formType = 'brand', 
-    onChange, 
-    device = [],
-    brand = [],
-    category = [],
-    model = [],
-    categories = [],
-    brands = [],
-    models = [],
-    status = []
-}: Props) => 
-{
-    return InputsType[formType]()
-
-}
-
-
-
-const categorySelectInput = {
+export const inputsFormType = ({
+  formType = 'device',
+  onChange,
+  categoryName,
+  brandName,
+  modelName,
+  categoryId = '',
+  brandId = '',
+  modelId = '',
+  status = '',
+  activo = '',
+  serial = '',
+  categories = [],
+  brands = [],
+  models = [],
+  statusOptions = []
+}: InputTypeProps) => {
+  const categorySelectInput = {
     type: 'select',
     name: 'categoryId',
-    value: device?.categoryId,
+    value: categoryId,
     label: 'Categoria del Dispositivo',
     options: categories,
     onChange,
     placeholder: '-- Seleccione la Categoria --'
-  },
+  }
 
-  const brandSelectInput = ({}) => {
+  const brandSelectInput = {
     type: 'select',
     name: 'brandId',
-    value: device?.brandId,
+    value: brandId,
     label: 'Marca del Dispositivo',
     options: brands,
     onChange,
     placeholder: '-- Seleccione la Marca --'
   }
 
-  const modelSelectInput = 
-  {
+  const modelSelectInput = {
     type: 'select',
     name: 'modelId',
-    value: device?.modelId,
+    value: modelId,
     label: 'Modelo del Dispositivo',
     options: models,
     onChange,
@@ -82,9 +50,9 @@ const categorySelectInput = {
   const statusInput = {
     type: 'select',
     name: 'status',
-    value: device?.status,
+    value: status,
     label: 'Estado del Dispositivo',
-    options: status,
+    options: statusOptions,
     onChange,
     placeholder: '-- Seleccione el Estado --'
   }
@@ -93,8 +61,8 @@ const categorySelectInput = {
     type: 'text',
     name: 'activo',
     label: 'Activo',
-    placeholder: device?.activo,
-    value: device?.activo,
+    placeholder: activo,
+    value: activo,
     onChange
   }
 
@@ -102,8 +70,8 @@ const categorySelectInput = {
     type: 'text',
     name: 'serial',
     label: 'Serial',
-    placeholder: device?.serial,
-    value: device?.serial,
+    placeholder: serial,
+    value: serial,
     onChange
   }
 
@@ -111,45 +79,47 @@ const categorySelectInput = {
     type: 'text',
     name: 'name',
     label: 'Nombre de la Marca',
-    placeholder: ,
-    value: ,
-    handleChange
+    placeholder: '-- Ingrese el Nombre de la Marca --',
+    value: brandName,
+    onChange
   }
   const inputsCategory = {
     type: 'text',
     name: 'name',
     label: 'Nombre de la Categoria',
-    placeholder: ,
-    value: ,
-    handleChange
+    placeholder: '-- Ingrese el Nombre de la Categoria --',
+    value: categoryName,
+    onChange
   }
   const inputsModel = {
     type: 'text',
     name: 'name',
     label: 'Nombre del Modelo',
-    placeholder: ,
-    value: ,
-    handleChange
+    placeholder: '-- Ingrese el Nombre del Modelo --',
+    value: modelName,
+    onChange
   }
   const InputsType = {
     device: [
-        categorySelectInput,
-        serialInput,
-        activoInput,
-        statusInput,
-        brandSelectInput,
-        modelSelectInput
+      categorySelectInput,
+      serialInput,
+      activoInput,
+      statusInput,
+      brandSelectInput,
+      modelSelectInput
     ],
     category: [
-        inputsCategory
+      inputsCategory
     ],
     brand: [
-        inputsCategory
+      inputsBrand
     ],
     model: [
-        categorySelectInput,
-        brandSelectInput,
-        modelSelectInput
+      categorySelectInput,
+      brandSelectInput,
+      inputsModel
     ]
-} as const
+  }
 
+  return InputsType[formType]
+}

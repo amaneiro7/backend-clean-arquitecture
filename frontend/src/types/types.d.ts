@@ -69,7 +69,7 @@ interface InpustFormSelect {
   name: string
   value: string
   label: string
-  onChange: any
+  onChange: OnChangeInputs
   placeholder: string
 }
 interface InpustFormText {
@@ -77,6 +77,63 @@ interface InpustFormText {
   name: string
   value: string
   label: string
-  onChange: (event: any) => void
+  onChange: OnChangeInputs
   placeholder: string
+}
+
+export interface DeviceFormProps {
+  formType: 'device'
+  categoryId: string
+  brandId: string
+  modelId: string
+  status: string
+  activo: string
+  serial: string
+  categories: Category[]
+  brands: Brand[]
+  models: Model[]
+  statusOptions: MappedStatus[]
+  onChange: OnChangeInputs
+}
+export interface BrandFormProps {
+  formType: 'brand'
+  brand: string
+  onChange: OnChangeInputs
+}
+export interface CategoryFormProps {
+  formType: 'category'
+  category: string
+  onChange: OnChangeInputs
+}
+export interface ModelFormProps {
+  formType: 'model'
+  model: string
+  categories: Category[]
+  brands: Brand[]
+  onChange: OnChangeInputs
+}
+
+export type InputTypeProps =
+  | DeviceFormProps
+  | BrandFormProps
+  | CategoryFormProps
+  | ModelFormProps
+
+export type InputFormTypeReturn = InpustFormText | InpustFormSelect
+interface InputTypeFormReturnText {
+  type: string
+  name: string
+  label: string
+  placeholder: string
+  value: string
+  onChange: OnChangeInputs
+}
+interface InputFormTypeReturnSelect {
+  type: string
+  name: string
+  label: string
+  placeholder: string
+  options: Brand[] | Category [] | MappedStatus[] | MappedModel[]
+  value: string
+  onChange: OnChangeInputs
 }

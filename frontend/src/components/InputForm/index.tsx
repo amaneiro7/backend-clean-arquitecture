@@ -1,78 +1,21 @@
 import { Suspense, lazy } from 'react'
-import { type InpustFormType } from '../../types/types'
+import { type InputFormTypeReturn } from '../../types/types'
 
 const Select = lazy(async () => await import('../../ui/select'))
 const FormInput = lazy(async () => await import('../../ui/text-field'))
+interface Props {
+  inputsForm: InputFormTypeReturn[]
+}
 
 const InputForm = ({
-  device,
-  categories,
-  brands,
-  models,
-  status,
-  onChange
-}) => {
-  const inputsForm: InpustFormType[] = [
-    {
-      type: 'select',
-      name: 'categoryId',
-      value: device?.categoryId,
-      label: 'Categoria del Dispositivo',
-      options: categories,
-      onChange,
-      placeholder: '-- Seleccione la Categoria --'
-    },
-    {
-      type: 'text',
-      name: 'serial',
-      label: 'Serial',
-      placeholder: device?.serial,
-      value: device?.serial,
-      onChange
-    },
-    {
-      type: 'text',
-      name: 'activo',
-      label: 'Activo',
-      placeholder: device?.activo,
-      value: device?.activo,
-      onChange
-    },
-    {
-      type: 'select',
-      name: 'status',
-      value: device?.status,
-      label: 'Estado del Dispositivo',
-      options: status,
-      onChange,
-      placeholder: '-- Seleccione el Estado --'
-    },
-    {
-      type: 'select',
-      name: 'brandId',
-      value: device?.brandId,
-      label: 'Marca del Dispositivo',
-      options: brands,
-      onChange,
-      placeholder: '-- Seleccione la Marca --'
-    },
-    {
-      type: 'select',
-      name: 'modelId',
-      value: device?.modelId,
-      label: 'Modelo del Dispositivo',
-      options: models,
-      onChange,
-      placeholder: '-- Seleccione el Modelo --'
-    }
-  ]
-
+  inputsForm
+}: Props) => {
   return (
         <>
         {inputsForm.map((input, index) => {
           if (input.type === 'select') {
             return (
-                  <Suspense key={index} fallback='...Loading Select Options'>
+                  <Suspense key={index}>
                   <Select
 
                       name={input.name}
