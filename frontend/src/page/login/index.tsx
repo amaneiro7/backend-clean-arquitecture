@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import TextField from '../ui/text-field'
-import Logo from '../ui/logo'
-import { Copyright } from '../ui/copyright'
-import { Checkbox } from '../ui/checkbox'
+import TextField from '../../ui/text-field'
+import Logo from '../../ui/logo'
+import { Copyright } from '../../ui/copyright'
+import { Checkbox } from '../../ui/checkbox'
 import { Link } from 'react-router-dom'
-import { Button } from '../ui/button'
+import { Button } from '@mui/material'
 
 export default function Login () {
   const [email, setEmail] = useState<string>('')

@@ -1,12 +1,11 @@
 // import { TableCard } from '../components/TableCard'
 import { useNavigate } from 'react-router-dom'
-import { useGetSearch } from '../Hooks/useGetSearch'
+import { useGetSearch } from '../../Hooks/useGetSearch'
 import { Suspense, lazy } from 'react'
-import { ToasterComponent } from '../utils/toaster'
 
-const TableCard = lazy(async () => await import('../components/TableCard'))
-const SearchInputsHeader = lazy(async () => await import('../components/SearchInputsHeader'))
-const Button = lazy(async () => await import('../ui/button'))
+const TableCard = lazy(async () => await import('../../components/TableCard'))
+const SearchInputsHeader = lazy(async () => await import('../../components/SearchInputsHeader'))
+const Button = lazy(async () => await import('../../ui/button'))
 function Home () {
   const { device, state, handleChange } = useGetSearch()
   const navigate = useNavigate()

@@ -5,7 +5,7 @@ import ErrorBoundary from './ErrorBoundary.tsx'
 import Loading from '../components/Loading/index.tsx'
 import { Layout } from '../components/layout/index.tsx'
 
-const Home = lazy(async () => await import('../page/home.tsx'))
+const Home = lazy(async () => await import('../page/home/index.tsx'))
 // const AddNewDevice = lazy(async () => await import('../page/add_new_device'))
 const DeviceForm = lazy(async () => await import('../page/DeviceForm/index.tsx'))
 const NotFound = lazy(async () => await import('../page/404'))
