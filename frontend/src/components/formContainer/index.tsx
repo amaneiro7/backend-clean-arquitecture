@@ -27,7 +27,7 @@ export const FormContainer = ({
                 onSubmit={onSubmit}
                 className='w-[600px] m-10 pt-7 flex justify-center border border-secondary rounded-md'
             >
-                <fieldset className='w-9/12 py-10 pb-20 flex flex-col gap-5'>
+                <fieldset className='w-9/12 py-10 pb-20 grid gap-5'>
                     <legend className='mt-5'>{title}</legend>
                     {isLoading && '...loading'}
                     {!isLoading &&
@@ -39,7 +39,7 @@ export const FormContainer = ({
                     <div className='flex gap-5 justify-around'>
                       <Suspense>
                           <Button
-                              type='submit'
+                              type='button'
                               actionType='CANCEL'
                               text='Cerrar'
                               handle={onClose}

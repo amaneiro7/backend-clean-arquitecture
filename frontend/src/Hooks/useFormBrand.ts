@@ -80,6 +80,7 @@ export const useFormBrand = () => {
   const location = useLocation()
   const navigate = useNavigate()
   const [{ brand, loading, formMethod, loadFetching }, dispatch] = useReducer(reducer, initialState)
+  console.log(location)
 
   useEffect(() => {
     if (location.pathname.includes('add')) {
@@ -146,7 +147,7 @@ export const useFormBrand = () => {
   }
 
   const handleClose = () => {
-    navigate('/')
+    navigate(-1)
   }
 
   return {
