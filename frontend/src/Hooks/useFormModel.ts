@@ -2,29 +2,26 @@
 import { useEffect, useReducer } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { update, create } from '../services/api'
-import { useFormFieldData } from './useFormData'
-import { type MappedDevice } from '../types/types'
+import { type MappedModelWithjoins } from '../types/types'
 import { toastMessage } from '../utils/toaster'
 import { formEntries } from '../utils/formEntries'
+import { useFormFieldData } from './useFormData'
 
 interface INITIALSTATE {
-  device: DEVICE
+  model: MappedModelWithjoins
   formMethod: 'create' | 'edit'
   loading: boolean
   loadFetching: boolean
 }
 
-type DEVICE = Omit<MappedDevice, 'modelName' | 'categoryName' | 'brandName'>
-
 const initialState: INITIALSTATE = {
-  device: {
+  model: {
     id: '',
-    activo: '',
-    serial: '',
-    status: '',
-    modelId: '',
+    name: '',
+    categoryId: '',
+    categoryName: '',
     brandId: '',
-    categoryId: ''
+    brandName: ''
   },
   formMethod: 'create',
   loading: true,
@@ -49,28 +46,26 @@ const reducerObject = (state, payload) => ({
     ...state,
     loading: false,
     formMethod: 'edit',
-    device: {
-      id: payload?.device?.id,
-      activo: payload?.device?.activo,
-      serial: payload?.device?.serial,
-      status: payload?.device?.status,
-      modelId: payload?.device?.model.id,
-      brandId: payload?.device?.model.brand.id,
-      categoryId: payload?.device?.model.category.id
+    model: {
+      id: payload?.model?.id,
+      name: payload?.model?.name,
+      categoryId: payload?.model?.categoryId,
+      categoryName: payload?.model?.categoryName,
+      brandId: payload?.model?.brandId,
+      brandName: payload?.model?.brandName
     }
   },
   [actionType.initDeviceCreate]: {
     ...state,
     loading: false,
     formMethod: 'create',
-    device: {
+    brand: {
       id: '',
-      activo: '',
-      serial: '',
-      status: '',
-      modelId: '',
+      name: '',
+      categoryId: '',
+      categoryName: '',
       brandId: '',
-      categoryId: ''
+      brandName: ''
     }
   },
   [actionType.initState]: {
@@ -78,8 +73,8 @@ const reducerObject = (state, payload) => ({
   },
   [actionType.changeValue]: {
     ...state,
-    device: {
-      ...state.device,
+    model: {
+      ...state.model,
       [payload?.name]: payload?.value
     }
   },
@@ -93,12 +88,12 @@ const reducerObject = (state, payload) => ({
   }
 })
 
-export const useFormDevice = () => {
-  const { deviceId } = useParams()
+export const useFormModel = () => {
+  const { modelId } = useParams()
   const location = useLocation()
   const navigate = useNavigate()
-  const [{ device, loading, formMethod, loadFetching }, dispatch] = useReducer(reducer, initialState)
-  const { brands, categories, models, status } = useFormFieldData({ brandId: device.brandId, categoryId: device.categoryId })
+  const [{ model, loading, formMethod, loadFetching }, dispatch] = useReducer(reducer, initialState)
+  const { brands, categories } = useFormFieldData({ })
 
   useEffect(() => {
     if (location.pathname.includes('add')) {
@@ -111,9 +106,9 @@ export const useFormDevice = () => {
       dispatch({ type: actionType.initDeviceEdit, payload: { brand } })
     } else {
       import('../services/api')
-        .then(async module => await module.getOne({ path: 'device', id: deviceId }))
-        .then(device => {
-          dispatch({ type: actionType.initDeviceEdit, payload: { device } })
+        .then(async module => await module.getOne({ path: 'models', id: modelId }))
+        .then(model => {
+          dispatch({ type: actionType.initDeviceEdit, payload: { model } })
         })
         .catch(err => { console.error(err) })
     }
@@ -123,7 +118,7 @@ export const useFormDevice = () => {
     return () => {
       dispatch({ type: actionType.initState })
     }
-  }, [deviceId, location.state?.devices])
+  }, [modelId, location.state?.model])
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
@@ -135,8 +130,8 @@ export const useFormDevice = () => {
       dispatch({ type: actionType.startFetching })
       toastMessage({ message: 'Loading', type: 'loading' })
       event.preventDefault()
-      const data = formEntries({ targetReference: event.target, formReference: 'deviceForm' })
-      const { message, error } = await create({ path: 'device', data })
+      const data = formEntries({ targetReference: event.target, formReference: 'modelForm' })
+      const { message, error } = await create({ path: 'models', data })
       toastMessage({ message, type: error ? 'error' : 'success' })
       dispatch({ type: actionType.finishFetching })
       if (!error) {
@@ -152,8 +147,8 @@ export const useFormDevice = () => {
       dispatch({ type: actionType.startFetching })
       toastMessage({ message: 'Loading', type: 'loading' })
       event.preventDefault()
-      const data = formEntries({ targetReference: event.target, formReference: 'deviceForm' })
-      const { message, error } = await update({ path: 'device', id: deviceId, data })
+      const data = formEntries({ targetReference: event.target, formReference: 'modelForm' })
+      const { message, error } = await update({ path: 'models', id: modelId, data })
       toastMessage({ message, type: error ? 'error' : 'success' })
       dispatch({ type: actionType.finishFetching })
       setTimeout(() => {
@@ -169,11 +164,9 @@ export const useFormDevice = () => {
   }
 
   return {
-    device,
+    model,
     categories,
-    status,
     brands,
-    models,
     loading,
     formMethod,
     loadFetching,

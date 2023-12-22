@@ -31,6 +31,15 @@ export interface Model {
   brand: Brand
 }
 
+export interface MappedModelWithjoins {
+  id: string
+  name: string
+  categoryId: string
+  categoryName: string
+  brandId: string
+  brandName: string
+}
+
 export interface MappedModel {
   id: string
   name: string
@@ -84,14 +93,14 @@ interface InpustFormText {
 export interface DeviceFormProps {
   formType: 'device'
   categoryId: string
-  brandId: string
-  modelId: string
+  categories: Category[]
   status: string
   activo: string
   serial: string
-  categories: Category[]
   brands: Brand[]
+  brandId: string
   models: Model[]
+  modelId: string
   statusOptions: MappedStatus[]
   onChange: OnChangeInputs
 }
@@ -108,7 +117,9 @@ export interface CategoryFormProps {
 export interface ModelFormProps {
   formType: 'model'
   modelName: string
+  categoryId: string
   categories: Category[]
+  brandId: string
   brands: Brand[]
   onChange: OnChangeInputs
 }
