@@ -4,12 +4,19 @@ import { inputsFormType } from '../../utils/inputsFormType'
 
 export const DeviceForm = () => {
   const {
-    device,
+    device: {
+      categoryId,
+      serial,
+      activo,
+      status,
+      brandId,
+      modelId
+    },
     loading,
     categories,
     brands,
     models,
-    status,
+    status: statusOptions,
     formMethod,
     loadFetching,
     handleChange,
@@ -21,15 +28,15 @@ export const DeviceForm = () => {
   const inputsForm = inputsFormType({
     formType: 'device',
     categories,
-    categoryId: device?.categoryId,
-    serial: device?.serial,
-    activo: device?.activo,
-    statusOptions: status,
-    status: device?.status,
+    categoryId,
+    serial,
+    activo,
+    statusOptions,
+    status,
     brands,
-    brandId: device?.brandId,
+    brandId,
     models,
-    modelId: device?.modelId,
+    modelId,
     onChange: handleChange
   })
 
