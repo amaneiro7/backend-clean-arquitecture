@@ -97,17 +97,17 @@ export interface DeviceFormProps {
 }
 export interface BrandFormProps {
   formType: 'brand'
-  brand: string
+  brandName: string
   onChange: OnChangeInputs
 }
 export interface CategoryFormProps {
   formType: 'category'
-  category: string
+  categoryName: string
   onChange: OnChangeInputs
 }
 export interface ModelFormProps {
   formType: 'model'
-  model: string
+  modelName: string
   categories: Category[]
   brands: Brand[]
   onChange: OnChangeInputs

@@ -17,7 +17,7 @@ export const TableCardList: React.FC<Props> = ({ item }) => {
         <td>{item.modelName}</td>
         <td className='sticky z-10 top-0 left-0 flex'>
           <Link
-            to={`/device/${item.id}`}
+            to={`/device/edit/${item.id}`}
             state={{
               device: item
             }}

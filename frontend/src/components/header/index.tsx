@@ -13,7 +13,7 @@ export default function Header () {
           </div>
           <div className='flex gap-8 [&>a]:transition-all'>
             <NavLink className={({ isActive }) => isActive ? 'text-primary border-b border-primary' : undefined} to='/'>Home <br /></NavLink>
-            <NavLink className={({ isActive }) => isActive ? 'text-primary border-b border-primary' : undefined} to='/addnewdevice'>Agregar <br /></NavLink>
+            <NavLink className={({ isActive }) => isActive ? 'text-primary border-b border-primary' : undefined} to='/device/add'>Agregar <br /></NavLink>
             <NavLink className={({ isActive }) => isActive ? 'text-primary border-b border-primary' : undefined} to='/dashboard'>Dashboard <br /></NavLink>
           </div>
         </nav>

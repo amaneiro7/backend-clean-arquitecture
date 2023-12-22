@@ -1,6 +1,6 @@
 interface Props {
   targetReference: EventTarget
-  formReference: 'deviceForm'
+  formReference: 'deviceForm' | 'brandForm' | 'categoryForm' | 'modelForm'
 }
 
 export const formEntries = ({ targetReference, formReference }: Props) => {
@@ -23,13 +23,16 @@ const isValidEntry = {
     entryKey.includes('serial') ||
     entryKey.includes('modelId') ||
     entryKey.includes('status')
+  ),
+  categoryForm: (entrKey: [FormDataEntryValue]) => (
+    entrKey.includes('name')
+  ),
+  brandForm: (entrKey: [FormDataEntryValue]) => (
+    entrKey.includes('name')
+  ),
+  modelForm: (entrKey: [FormDataEntryValue]) => (
+    entrKey.includes('name') ||
+    entrKey.includes('categoryId') ||
+    entrKey.includes('brandId')
   )
 }
-// (entryKey: [string, FormDataEntryValue]) => {
-//   return (
-//     entryKey.includes('activo') ||
-//       entryKey.includes('serial') ||
-//       entryKey.includes('modelId') ||
-//       entryKey.includes('status')
-//   )
-// }
