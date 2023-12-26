@@ -1,4 +1,4 @@
-import { type Id } from '../../src/types/types'
+import { type Id } from '../../types/types'
 import { type UpdateModelSeries, type CreateModelSeries, type ModelSeriesOutout } from '../entities/modelSeries.entity'
 
 export interface ModelSeriesRepository {

@@ -1,4 +1,4 @@
-import { type Id } from '../../src/types/types'
+import { type Id } from '../../types/types'
 import { type Category } from '../entities/category.entity'
 
 export interface CategoryRepository {

@@ -1,17 +1,21 @@
 import { notFound } from '@hapi/boom'
 import { type CreateBrand, type Brand, type UpdateBrand } from '../../domain/entities/brand.entity'
 import { type BrandRepository } from '../../domain/repositories/brand.repository'
+import { type GetByIdUseCase } from '../../domain/useCases/getById.useCase'
 import { type Id } from '../../types/types'
 
 export class BrandService {
-  constructor (private readonly store: BrandRepository) {}
+  constructor (
+    private readonly store: BrandRepository,
+    private readonly getById: GetByIdUseCase<Brand>
+  ) {}
 
   async getAll (): Promise<Brand[]> {
     return await this.store.getAll()
   }
 
   async getOne ({ id }: { id: Id }): Promise<Brand | undefined> {
-    const data = await this.store.getOne({ id })
+    const data = await this.getById.exec({ id })
     if (data === undefined || data === null) {
       throw notFound('Marca no encontrada')
     }

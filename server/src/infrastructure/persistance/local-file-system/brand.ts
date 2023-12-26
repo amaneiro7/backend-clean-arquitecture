@@ -2,6 +2,7 @@ import { randomUUID } from 'node:crypto'
 import { type CreateBrand, type UpdateBrand, type Brand } from '../../../domain/entities/brand.entity'
 import { type BrandRepository } from '../../../domain/repositories/brand.repository'
 import { type Id } from '../../../types/types'
+import { type GetByIdRepository } from '../../../domain/repositories/getById.repositoy'
 
 const brands: Brand[] = [
   {
@@ -21,6 +22,13 @@ const brands: Brand[] = [
     name: 'Compaq'
   }
 ]
+
+export class BrandGetByIdInMemory implements GetByIdRepository<Brand> {
+  getById = async ({ id }: { id: Id }): Promise<Brand | undefined> => {
+    const brand = brands.find(brand => brand.id === id)
+    return brand
+  }
+}
 export class BrandRepositoryInMemory implements BrandRepository {
   getAll = async (): Promise<Brand[]> => {
     return brands
@@ -50,4 +58,8 @@ export class BrandRepositoryInMemory implements BrandRepository {
 
     return brands[brandIndex]
   }
+}
+export const brandRepositoryInMemory = {
+  getById: new BrandGetByIdInMemory(),
+  execute: new BrandRepositoryInMemory()
 }

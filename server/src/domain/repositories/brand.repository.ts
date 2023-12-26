@@ -1,4 +1,4 @@
-import { type Id } from '../../src/types/types'
+import { type Id } from '../../types/types'
 import { type CreateBrand, type Brand, type UpdateBrand } from '../entities/brand.entity'
 
 export interface BrandRepository {
