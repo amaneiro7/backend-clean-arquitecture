@@ -24,7 +24,7 @@ const brands: Brand[] = [
 ]
 
 export class BrandGetByIdInMemory implements GetByIdRepository<Brand> {
-  getById = async ({ id }: { id: Id }): Promise<Brand | undefined> => {
+  exec = async ({ id }: { id: Id }): Promise<Brand | undefined> => {
     const brand = brands.find(brand => brand.id === id)
     return brand
   }

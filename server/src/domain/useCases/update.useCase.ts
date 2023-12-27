@@ -7,6 +7,6 @@ export class UpdateUseCase<T, Payload> {
   ) {}
 
   async exec (id: Id, payload: Payload): Promise<T | undefined> {
-    return await this.store.update(id, payload)
+    return await this.store.exec(id, payload)
   }
 }

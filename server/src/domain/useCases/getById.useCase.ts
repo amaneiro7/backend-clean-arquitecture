@@ -6,7 +6,7 @@ export class GetByIdUseCase<T> {
   constructor (private readonly store: GetByIdRepository<T>) {}
 
   async exec ({ id }: { id: Id }): Promise<T | undefined> {
-    const data = await this.store.getById({ id })
+    const data = await this.store.exec({ id })
     if (data === undefined || data === null) {
       throw notFound()
     }

@@ -29,20 +29,20 @@ const users: User[] = [
 ]
 
 class UserGetByIdInMemory implements GetByIdRepository<User> {
-  getById = async ({ id }: { id: Id }): Promise<User | undefined> => {
+  exec = async ({ id }: { id: Id }): Promise<User | undefined> => {
     const user = users.find(user => user.id === id)
     return user
   }
 }
 class UserGetByEmailInMemory implements GetByEmailRepository {
-  getByEmail = async ({ email }: { email: string }): Promise<User | undefined> => {
+  exec = async ({ email }: { email: string }): Promise<User | undefined> => {
     const user = users.find(user => user.email === email)
     return user
   }
 }
 
 class UserCreateInMemory implements CreateRepository<User, CreateUser> {
-  create = async (payload: CreateUser): Promise<User> => {
+  exec = async (payload: CreateUser): Promise<User> => {
     const { email } = payload
     const user = users.find(user => user.email === email)
     if (user !== undefined) {
@@ -58,7 +58,7 @@ class UserCreateInMemory implements CreateRepository<User, CreateUser> {
 }
 
 class UserUpdateInMemory implements UpdateRepository<User, UpdateUser> {
-  update = async (id: Id, payload: UpdateUser): Promise<User | undefined> => {
+  exec = async (id: Id, payload: UpdateUser): Promise<User | undefined> => {
     const userIndex = users.findIndex(user => user.id === id)
     if (userIndex === -1) return undefined
     users[userIndex] = {
@@ -69,7 +69,14 @@ class UserUpdateInMemory implements UpdateRepository<User, UpdateUser> {
   }
 }
 
-export const userRepositoryInMemory = {
+export interface UserRepositotoryInterface {
+  getById: UserGetByIdInMemory
+  getByEmail: UserGetByEmailInMemory
+  create: UserCreateInMemory
+  update: UserUpdateInMemory
+}
+
+export const userRepositoryInMemory: UserRepositotoryInterface = {
   getById: new UserGetByIdInMemory(),
   getByEmail: new UserGetByEmailInMemory(),
   create: new UserCreateInMemory(),

@@ -6,6 +6,6 @@ export class CreateUseCase<T, Payload> {
   ) {}
 
   async exec (payload: Payload): Promise<T> {
-    return await this.store.create(payload)
+    return await this.store.exec(payload)
   }
 }
