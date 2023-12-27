@@ -1,8 +1,13 @@
 import Joi from 'joi'
 import { STATUS } from '../../domain/entities/status.entity'
+import { ROLE } from '../../domain/entities/role.entity'
 
 const id = Joi.string().guid({ version: ['uuidv4'] })
 const name = Joi.string().min(3).max(25).trim()
+const lastName = Joi.string().min(3).max(25).trim()
+const email = Joi.string().email().trim()
+const role = Joi.string().valid(...Object.values(ROLE)).trim()
+const password = Joi.string().min(5).trim()
 const serial = Joi.string().empty('').trim().allow(null)
 const activo = Joi.string().empty('').trim().allow(null)
 const status = Joi.string().valid(...Object.values(STATUS))
@@ -15,6 +20,13 @@ export const getIdDTO = Joi.object({
 
 export const createDTO = Joi.object({
   name: name.required()
+})
+export const createUserDTO = Joi.object({
+  name: name.required(),
+  lastName: lastName.required(),
+  email: email.required(),
+  role: role.required(),
+  password: password.required()
 })
 
 export const updateDTO = Joi.object({

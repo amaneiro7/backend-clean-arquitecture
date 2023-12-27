@@ -1,4 +1,5 @@
 import { randomUUID } from 'node:crypto'
+import { conflict } from '@hapi/boom'
 import { type Id } from '../../../types/types'
 import { type GetByIdRepository } from '../../../domain/repositories/getById.repositoy'
 import { type UpdateUser, type CreateUser, type User } from '../../../domain/entities/user.entity'
@@ -42,6 +43,11 @@ class UserGetByEmailInMemory implements GetByEmailRepository {
 
 class UserCreateInMemory implements CreateRepository<User, CreateUser> {
   create = async (payload: CreateUser): Promise<User> => {
+    const { email } = payload
+    const user = users.find(user => user.email === email)
+    if (user !== undefined) {
+      throw conflict()
+    }
     const newUser = {
       id: randomUUID(),
       ...payload
@@ -63,10 +69,9 @@ class UserUpdateInMemory implements UpdateRepository<User, UpdateUser> {
   }
 }
 
-export const brandRepositoryInMemory = {
+export const userRepositoryInMemory = {
   getById: new UserGetByIdInMemory(),
   getByEmail: new UserGetByEmailInMemory(),
   create: new UserCreateInMemory(),
   update: new UserUpdateInMemory()
-
 }
