@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { Router } from 'express'
-import { brandController } from '../../dependecies/brand.dependecies'
 // import { validatorHandler } from '../../middleware/validatorHandler'
 import { createDTO, getIdDTO, updateDTO } from '../validators/dto'
 import validatorBodyHandler from '../validators/validatorBodyHandler'
 import { validatorParamsHandler } from '../validators/validatorParamsHandler'
+import { brandController } from '../controllers/brand.controller'
 
 // export const brandRouter = Router()
 

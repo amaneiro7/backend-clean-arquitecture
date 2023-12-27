@@ -7,7 +7,7 @@ export interface User {
   email: string
   role: RolesValue
   password: string
-  recoveryPassword: string | undefined | null
+  recoveryPassword?: string | undefined | null
 }
 
 export interface CreateUser extends Omit<User, 'id' | 'recoveryPassword'> {}

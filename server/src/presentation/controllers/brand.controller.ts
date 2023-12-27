@@ -1,6 +1,7 @@
-import { type BrandService } from '../../application/services/brand.service'
 import { type NextFunction, type Request, type Response } from 'express'
 import { type Id } from '../../types/types'
+import { type BrandService } from '../../application/services/brand.service'
+import { brandService } from '../../dependecies/brand.dependecies'
 import { successResponses } from '../../utils/successResponse'
 
 export class BrandController {
@@ -46,3 +47,5 @@ export class BrandController {
     }
   }
 }
+
+export const brandController = new BrandController(brandService)
