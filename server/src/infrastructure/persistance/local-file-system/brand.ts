@@ -5,7 +5,7 @@ import { type GetByIdRepository } from '../../../domain/repositories/getById.rep
 import { type GetAllRepository } from '../../../domain/repositories/getAll.repository'
 import { type CreateRepository } from '../../../domain/repositories/create.repository'
 import { type UpdateRepository } from '../../../domain/repositories/update.repository'
-import { duplicatedItem } from '../../../utils/duplicatedItem'
+import { type GetByNameRepository } from '../../../domain/repositories/getByName.repository'
 
 const brands: Brand[] = [
   {
@@ -32,6 +32,12 @@ class BrandGetByIdInMemory implements GetByIdRepository<Brand> {
     return brand
   }
 }
+class BrandGetByNameInMemory implements GetByNameRepository<Brand> {
+  exec = async ({ name }: { name: string }): Promise<Brand | undefined> => {
+    const brand = brands.find(brand => brand.name === name)
+    return brand
+  }
+}
 
 class BrandGetAllInMemory implements GetAllRepository<Brand> {
   exec = async (): Promise<Brand[]> => {
@@ -41,8 +47,6 @@ class BrandGetAllInMemory implements GetAllRepository<Brand> {
 
 class BrandCreateInMemory implements CreateRepository<Brand, CreateBrand> {
   exec = async (payload: CreateBrand): Promise<Brand> => {
-    const { name } = payload
-    duplicatedItem({ array: brands, name })
     const newBrand = {
       id: randomUUID(),
       ...payload
@@ -67,6 +71,7 @@ class BrandUpdateInMemory implements UpdateRepository<Brand, UpdateBrand> {
 export interface BrandRepositotoryInterface {
   getAll: BrandGetAllInMemory
   getById: BrandGetByIdInMemory
+  getByName: BrandGetByNameInMemory
   create: BrandCreateInMemory
   update: BrandUpdateInMemory
 }
@@ -74,6 +79,7 @@ export interface BrandRepositotoryInterface {
 export const brandRepositoryInMemory = {
   getAll: new BrandGetAllInMemory(),
   getById: new BrandGetByIdInMemory(),
+  getByName: new BrandGetByNameInMemory(),
   create: new BrandCreateInMemory(),
   update: new BrandUpdateInMemory()
 }

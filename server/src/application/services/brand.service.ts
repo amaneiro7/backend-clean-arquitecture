@@ -1,7 +1,8 @@
-import { notFound } from '@hapi/boom'
+import { conflict, notFound } from '@hapi/boom'
 import { type CreateBrand, type Brand, type UpdateBrand } from '../../domain/entities/brand.entity'
 import { type Id } from '../../types/types'
 import { type BrandRepositotoryInterface } from '../../infrastructure/persistance/local-file-system/brand'
+import { updateFunction } from '../../utils/updateFunction'
 
 export class BrandService {
   constructor (
@@ -21,21 +22,16 @@ export class BrandService {
   }
 
   async create (payload: CreateBrand): Promise<Brand> {
+    const { name } = payload
+    const array = await this.store.getByName.exec({ name })
+    if (array !== undefined) {
+      throw conflict('Ya existe una Marca con ese nombre')
+    }
     return await this.store.create.exec(payload)
   }
 
   async update (id: Id, payload: UpdateBrand): Promise<Brand | undefined> {
-    const brandToChange = await this.store.getById.exec({ id })
-    if (brandToChange === undefined || brandToChange === null) {
-      throw notFound('Marca no encontrada')
-    }
-    // if (!payload?.name) {
-    //   throw new Error('Falta informacion')
-    // }
-
-    // if (brandToChange.name === payload.name) {
-    //   throw new Error('Sin modificar, es el mismo valor actual')
-    // }
+    await updateFunction({ storeName: 'Marca', id, payload, store: this.store })
     return await this.store.update.exec(id, payload)
   }
 }
