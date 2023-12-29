@@ -1,8 +1,11 @@
 import { randomUUID } from 'node:crypto'
 import { type CreateBrand, type UpdateBrand, type Brand } from '../../../domain/entities/brand.entity'
-import { type BrandRepository } from '../../../domain/repositories/brand.repository'
 import { type Id } from '../../../types/types'
 import { type GetByIdRepository } from '../../../domain/repositories/getById.repositoy'
+import { type GetAllRepository } from '../../../domain/repositories/getAll.repository'
+import { type CreateRepository } from '../../../domain/repositories/create.repository'
+import { type UpdateRepository } from '../../../domain/repositories/update.repository'
+import { duplicatedItem } from '../../../utils/duplicatedItem'
 
 const brands: Brand[] = [
   {
@@ -23,23 +26,23 @@ const brands: Brand[] = [
   }
 ]
 
-export class BrandGetByIdInMemory implements GetByIdRepository<Brand> {
+class BrandGetByIdInMemory implements GetByIdRepository<Brand> {
   exec = async ({ id }: { id: Id }): Promise<Brand | undefined> => {
     const brand = brands.find(brand => brand.id === id)
     return brand
   }
 }
-export class BrandRepositoryInMemory implements BrandRepository {
-  getAll = async (): Promise<Brand[]> => {
+
+class BrandGetAllInMemory implements GetAllRepository<Brand> {
+  exec = async (): Promise<Brand[]> => {
     return brands
   }
+}
 
-  getOne = async ({ id }: { id: Id }): Promise<Brand | undefined> => {
-    const brand = brands.find(brand => brand.id === id)
-    return brand
-  }
-
-  create = async (payload: CreateBrand): Promise <Brand> => {
+class BrandCreateInMemory implements CreateRepository<Brand, CreateBrand> {
+  exec = async (payload: CreateBrand): Promise<Brand> => {
+    const { name } = payload
+    duplicatedItem({ array: brands, name })
     const newBrand = {
       id: randomUUID(),
       ...payload
@@ -47,19 +50,30 @@ export class BrandRepositoryInMemory implements BrandRepository {
     brands.push(newBrand)
     return newBrand
   }
+}
 
-  update = async (id: Id, payload: UpdateBrand): Promise<Brand | undefined> => {
+class BrandUpdateInMemory implements UpdateRepository<Brand, UpdateBrand> {
+  exec = async (id: `${string}-${string}-${string}-${string}-${string}`, payload: UpdateBrand): Promise<Brand | undefined> => {
     const brandIndex = brands.findIndex(brand => brand.id === id)
     if (brandIndex === -1) return undefined
     brands[brandIndex] = {
       ...brands[brandIndex],
       ...payload
     }
-
     return brands[brandIndex]
   }
 }
+
+export interface BrandRepositotoryInterface {
+  getAll: BrandGetAllInMemory
+  getById: BrandGetByIdInMemory
+  create: BrandCreateInMemory
+  update: BrandUpdateInMemory
+}
+
 export const brandRepositoryInMemory = {
+  getAll: new BrandGetAllInMemory(),
   getById: new BrandGetByIdInMemory(),
-  execute: new BrandRepositoryInMemory()
+  create: new BrandCreateInMemory(),
+  update: new BrandUpdateInMemory()
 }
