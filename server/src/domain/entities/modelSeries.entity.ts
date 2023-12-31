@@ -1,4 +1,4 @@
-import { type Id } from '../../src/types/types'
+import { type Id } from '../../types/types'
 import { type Brand } from './brand.entity'
 import { type Category } from './category.entity'
 
@@ -9,7 +9,7 @@ export interface ModelSeries {
   categoryId: Id
 }
 
-export interface ModelSeriesOutout extends Omit<ModelSeries, 'brandId' | 'categoryId'> {
+export interface ModelSeriesOutput extends Omit<ModelSeries, 'brandId' | 'categoryId'> {
   category: Category
   brand: Brand
 }

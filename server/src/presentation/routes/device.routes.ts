@@ -1,8 +1,8 @@
 import { Router } from 'express'
-import { deviceController } from '../../dependecies/device.dependecies'
 import { createDeviceDTO, getIdDTO, updateDeviceDTO } from '../validators/dto'
 import { validatorParamsHandler } from '../validators/validatorParamsHandler'
 import validatorBodyHandler from '../validators/validatorBodyHandler'
+import { deviceController } from '../controllers/device.controller'
 
 class DeviceRoutes {
   router = Router()

@@ -3,8 +3,9 @@ import { type CategoryService } from '../../application/services/category.servic
 import { type NextFunction, type Request, type Response } from 'express'
 import { type Id } from '../../types/types'
 import { successResponses } from '../../utils/successResponse'
+import { categoryService } from '../../dependecies/category.dependecies'
 
-export class CategoryController {
+class CategoryController {
   constructor (private readonly service: CategoryService) {}
 
   async getAll (req: Request, res: Response, next: NextFunction) {
@@ -26,3 +27,5 @@ export class CategoryController {
     }
   }
 }
+
+export const categoryController = new CategoryController(categoryService)

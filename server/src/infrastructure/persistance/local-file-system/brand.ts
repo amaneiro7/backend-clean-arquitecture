@@ -26,26 +26,26 @@ const brands: Brand[] = [
   }
 ]
 
-class BrandGetByIdInMemory implements GetByIdRepository<Brand> {
+class GetByIdInMemory implements GetByIdRepository<Brand> {
   exec = async ({ id }: { id: Id }): Promise<Brand | undefined> => {
     const brand = brands.find(brand => brand.id === id)
     return brand
   }
 }
-class BrandGetByNameInMemory implements GetByNameRepository<Brand> {
+class GetByNameInMemory implements GetByNameRepository<Brand> {
   exec = async ({ name }: { name: string }): Promise<Brand | undefined> => {
     const brand = brands.find(brand => brand.name === name)
     return brand
   }
 }
 
-class BrandGetAllInMemory implements GetAllRepository<Brand> {
+class GetAllInMemory implements GetAllRepository<Brand> {
   exec = async (): Promise<Brand[]> => {
     return brands
   }
 }
 
-class BrandCreateInMemory implements CreateRepository<Brand, CreateBrand> {
+class CreateInMemory implements CreateRepository<Brand, CreateBrand> {
   exec = async (payload: CreateBrand): Promise<Brand> => {
     const newBrand = {
       id: randomUUID(),
@@ -56,7 +56,7 @@ class BrandCreateInMemory implements CreateRepository<Brand, CreateBrand> {
   }
 }
 
-class BrandUpdateInMemory implements UpdateRepository<Brand, UpdateBrand> {
+class UpdateInMemory implements UpdateRepository<Brand, UpdateBrand> {
   exec = async (id: `${string}-${string}-${string}-${string}-${string}`, payload: UpdateBrand): Promise<Brand | undefined> => {
     const brandIndex = brands.findIndex(brand => brand.id === id)
     if (brandIndex === -1) return undefined
@@ -68,18 +68,18 @@ class BrandUpdateInMemory implements UpdateRepository<Brand, UpdateBrand> {
   }
 }
 
-export interface BrandRepositotoryInterface {
-  getAll: BrandGetAllInMemory
-  getById: BrandGetByIdInMemory
-  getByName: BrandGetByNameInMemory
-  create: BrandCreateInMemory
-  update: BrandUpdateInMemory
+export interface BrandRepositoryInterface {
+  getAll: GetAllInMemory
+  getById: GetByIdInMemory
+  getByName: GetByNameInMemory
+  create: CreateInMemory
+  update: UpdateInMemory
 }
 
 export const brandRepositoryInMemory = {
-  getAll: new BrandGetAllInMemory(),
-  getById: new BrandGetByIdInMemory(),
-  getByName: new BrandGetByNameInMemory(),
-  create: new BrandCreateInMemory(),
-  update: new BrandUpdateInMemory()
+  getAll: new GetAllInMemory(),
+  getById: new GetByIdInMemory(),
+  getByName: new GetByNameInMemory(),
+  create: new CreateInMemory(),
+  update: new UpdateInMemory()
 }

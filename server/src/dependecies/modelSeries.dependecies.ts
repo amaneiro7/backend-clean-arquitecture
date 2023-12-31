@@ -1,9 +1,4 @@
 import { ModelSeriesService } from '../application/services/modelSeries.service'
-import { ModelSeriesRepositoryInMemory } from '../infrastructure/persistance/local-file-system/modelSeries'
-import { ModelSeriesController } from '../presentation/controllers/modelSeries.controller'
+import { modelRepositoryInMemory } from '../infrastructure/persistance/local-file-system/modelSeries'
 
-const modelSeriesRepository = new ModelSeriesRepositoryInMemory()
-
-export const modelSeriesService = new ModelSeriesService(modelSeriesRepository)
-
-export const modelSeriesController = new ModelSeriesController(modelSeriesService)
+export const modelSeriesService = new ModelSeriesService(modelRepositoryInMemory)

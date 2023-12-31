@@ -1,7 +1,7 @@
 import { Router } from 'express'
-import { categoryController } from '../../dependecies/category.dependecies'
 import { validatorParamsHandler } from '../validators/validatorParamsHandler'
 import { getIdDTO } from '../validators/dto'
+import { categoryController } from '../controllers/category.controller'
 
 class CategoryRoutes {
   router = Router()

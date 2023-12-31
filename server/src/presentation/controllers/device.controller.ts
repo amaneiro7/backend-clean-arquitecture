@@ -3,8 +3,9 @@ import { type NextFunction, type Request, type Response } from 'express'
 import { type Id } from '../../types/types'
 import { type DeviceService } from '../../application/services/device.service'
 import { successResponses } from '../../utils/successResponse'
+import { devicesService } from '../../dependecies/device.dependecies'
 
-export class DeviceController {
+class DeviceController {
   constructor (private readonly service: DeviceService) {}
 
   async getAll (req: Request, res: Response, next: NextFunction) {
@@ -47,3 +48,5 @@ export class DeviceController {
     }
   }
 }
+
+export const deviceController = new DeviceController(devicesService)

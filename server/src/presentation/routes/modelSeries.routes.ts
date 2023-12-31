@@ -1,8 +1,8 @@
 import { Router } from 'express'
-import { modelSeriesController } from '../../dependecies/modelSeries.dependecies'
 import { validatorParamsHandler } from '../validators/validatorParamsHandler'
 import { createModelSeriesDTO, getIdDTO, updateModelSeriesDTO } from '../validators/dto'
 import validatorBodyHandler from '../validators/validatorBodyHandler'
+import { modelSeriesController } from '../controllers/modelSeries.controller'
 
 class ModelSeriesRoutes {
   router = Router()

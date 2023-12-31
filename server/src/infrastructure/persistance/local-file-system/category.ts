@@ -1,6 +1,8 @@
-import { type CategoryRepository } from '../../../domain/repositories/category.repository'
 import { type Category } from '../../../domain/entities/category.entity'
 import { type Id } from '../../../types/types'
+import { type GetByIdRepository } from '../../../domain/repositories/getById.repositoy'
+import { type GetByNameRepository } from '../../../domain/repositories/getByName.repository'
+import { type GetAllRepository } from '../../../domain/repositories/getAll.repository'
 
 const categories: Category[] = [
   {
@@ -20,12 +22,33 @@ const categories: Category[] = [
     name: 'Impresoras Laser'
   }
 ]
-export class CategoryRepositoryInMemory implements CategoryRepository {
-  getAll = async (): Promise<Category[]> => {
+class GetByIdInMemory implements GetByIdRepository<Category> {
+  exec = async ({ id }: { id: Id }): Promise<Category | undefined> => {
+    const category = categories.find(category => category.id === id)
+    return category
+  }
+}
+class GetByNameInMemory implements GetByNameRepository<Category> {
+  exec = async ({ name }: { name: string }): Promise<Category | undefined> => {
+    const category = categories.find(category => category.name === name)
+    return category
+  }
+}
+
+class GetAllInMemory implements GetAllRepository<Category> {
+  exec = async (): Promise<Category[]> => {
     return categories
   }
+}
 
-  getOne = async ({ id }: { id: Id }): Promise<Category | undefined> => {
-    return categories.find(category => category.id === id)
-  }
+export interface CategoryRepositotoryInterface {
+  getAll: GetAllInMemory
+  getById: GetByIdInMemory
+  getByName: GetByNameInMemory
+}
+
+export const categoryRepositoryInMemory = {
+  getAll: new GetAllInMemory(),
+  getById: new GetByIdInMemory(),
+  getByName: new GetByNameInMemory()
 }

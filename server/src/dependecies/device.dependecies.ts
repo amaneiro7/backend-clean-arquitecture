@@ -1,9 +1,4 @@
 import { DeviceService } from '../application/services/device.service'
-import { DeviceRepositoryInMemory } from '../infrastructure/persistance/local-file-system/device'
-import { DeviceController } from '../presentation/controllers/device.controller'
+import { deviceRepositoryInMemory } from '../infrastructure/persistance/local-file-system/device'
 
-const deviceRepository = new DeviceRepositoryInMemory()
-
-export const devicesService = new DeviceService(deviceRepository)
-
-export const deviceController = new DeviceController(devicesService)
+export const devicesService = new DeviceService(deviceRepositoryInMemory)

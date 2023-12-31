@@ -3,8 +3,9 @@ import { type NextFunction, type Request, type Response } from 'express'
 import { type Id } from '../../types/types'
 import { type ModelSeriesService } from '../../application/services/modelSeries.service'
 import { successResponses } from '../../utils/successResponse'
+import { modelSeriesService } from '../../dependecies/modelSeries.dependecies'
 
-export class ModelSeriesController {
+class ModelSeriesController {
   constructor (private readonly service: ModelSeriesService) {}
 
   async getAll (req: Request, res: Response, next: NextFunction) {
@@ -47,3 +48,5 @@ export class ModelSeriesController {
     }
   }
 }
+
+export const modelSeriesController = new ModelSeriesController(modelSeriesService)

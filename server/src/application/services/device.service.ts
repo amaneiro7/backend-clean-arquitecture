@@ -1,17 +1,17 @@
 import { notFound } from '@hapi/boom'
 import { type DeviceOutput, type CreateDevice, type UpdateDevice } from '../../domain/entities/device.entity'
-import { type DeviceRepository } from '../../domain/repositories/device.repositories'
 import { type Id } from '../../types/types'
+import { type DeviceRepositoryInterface } from '../../infrastructure/persistance/local-file-system/device'
 
 export class DeviceService {
-  constructor (private readonly store: DeviceRepository) {}
+  constructor (private readonly store: DeviceRepositoryInterface) {}
 
   async getAll (): Promise<DeviceOutput[]> {
-    return await this.store.getAll()
+    return await this.store.getAll.exec()
   }
 
   async getOne ({ id }: { id: Id }): Promise<DeviceOutput | undefined> {
-    const data = await this.store.getOne({ id })
+    const data = await this.store.getById.exec({ id })
     if (data === undefined || data === null) {
       throw notFound('Dispositivo no encontrado')
     }
@@ -29,7 +29,7 @@ export class DeviceService {
       status,
       modelId
     }
-    return await this.store.create(mappedNewDevice)
+    return await this.store.create.exec(mappedNewDevice)
   }
 
   formatEmptyUndefinedValue (value: string | undefined | null): string | null {
@@ -38,17 +38,11 @@ export class DeviceService {
   }
 
   async update (id: Id, payload: UpdateDevice): Promise<DeviceOutput | undefined> {
-    const DeviceToChange = await this.store.getOne({ id })
-    if (DeviceToChange === undefined || DeviceToChange === null) {
-      throw notFound('Dispositivo no encontrado')
+    // await updateFunction({ storeName: 'Dispositivo', id, payload, store: this.store })
+    const deviceToChange = await this.store.getById.exec({ id })
+    if (deviceToChange === undefined || deviceToChange === null) {
+      throw notFound('Modelo no encontrado')
     }
-    // if (!payload?.name) {
-    //   throw new Error('Falta informacion')
-    // }
-
-    // if (DeviceToChange.name === payload.name) {
-    //   throw new Error('Sin modificar, es el mismo valor actual')
-    // }
-    return await this.store.update(id, payload)
+    return await this.store.update.exec(id, payload)
   }
 }
