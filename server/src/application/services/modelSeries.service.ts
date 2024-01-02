@@ -1,10 +1,10 @@
 import { notFound } from '@hapi/boom'
 import { type ModelSeriesOutput, type CreateModelSeries, type UpdateModelSeries } from '../../domain/entities/modelSeries.entity'
 import { type Id } from '../../types/types'
-import { type ModelRepositotoryInterface } from '../../infrastructure/persistance/local-file-system/modelSeries'
+import { type ModelSeriesRepository } from '../../domain/repositories/modelSeries.repository'
 
 export class ModelSeriesService {
-  constructor (private readonly store: ModelRepositotoryInterface) {}
+  constructor (private readonly store: ModelSeriesRepository) {}
 
   async getAll (): Promise<ModelSeriesOutput[]> {
     return await this.store.getAll.exec()

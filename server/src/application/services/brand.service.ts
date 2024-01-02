@@ -1,12 +1,13 @@
 import { conflict, notFound } from '@hapi/boom'
 import { type CreateBrand, type Brand, type UpdateBrand } from '../../domain/entities/brand.entity'
 import { type Id } from '../../types/types'
-import { type BrandRepositoryInterface } from '../../infrastructure/persistance/local-file-system/brand'
+// import { type BrandRepositoryInterface } from '../../infrastructure/persistance/local-file-system/brand'
 import { updateFunction } from '../../utils/updateFunction'
+import { type BrandRepositotory } from '../../domain/repositories/brand.repository'
 
 export class BrandService {
   constructor (
-    private readonly store: BrandRepositoryInterface
+    private readonly store: BrandRepositotory
   ) {}
 
   async getAll (): Promise<Brand[]> {

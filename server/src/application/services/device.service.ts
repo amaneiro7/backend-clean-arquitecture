@@ -1,10 +1,10 @@
 import { notFound } from '@hapi/boom'
 import { type DeviceOutput, type CreateDevice, type UpdateDevice } from '../../domain/entities/device.entity'
 import { type Id } from '../../types/types'
-import { type DeviceRepositoryInterface } from '../../infrastructure/persistance/local-file-system/device'
+import { type DeviceRepository } from '../../domain/repositories/device.repositories'
 
 export class DeviceService {
-  constructor (private readonly store: DeviceRepositoryInterface) {}
+  constructor (private readonly store: DeviceRepository) {}
 
   async getAll (): Promise<DeviceOutput[]> {
     return await this.store.getAll.exec()
