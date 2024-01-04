@@ -27,11 +27,17 @@ const brands: Brand[] = [
 ]
 
 class GetByIdInMemory implements GetByIdRepository<Brand> {
-  exec = async ({ id }: { id: Id }): Promise<Brand | undefined> => {
+  exec = async (id: Id): Promise<Brand | undefined> => {
     const brand = brands.find(brand => brand.id === id)
     return brand
   }
 }
+// class GetByIdInMemory implements GetByIdRepository<Brand> {
+//   exec = async ({ id }: { id: Id }): Promise<Brand | undefined> => {
+//     const brand = brands.find(brand => brand.id === id)
+//     return brand
+//   }
+// }
 class GetByNameInMemory implements GetByNameRepository<Brand> {
   exec = async ({ name }: { name: string }): Promise<Brand | undefined> => {
     const brand = brands.find(brand => brand.name === name)

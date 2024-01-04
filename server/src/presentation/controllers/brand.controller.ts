@@ -3,13 +3,16 @@ import { type Id } from '../../types/types'
 import { type BrandService } from '../../application/services/brand.service'
 import { brandService } from '../../dependecies/brand.dependecies'
 import { successResponses } from '../../utils/successResponse'
+import { getAllBrands } from '../../application/get-all/getAllBrands'
+import { brandRepositoryInMemory } from '../../infrastructure/persistance/local-file-system/brand'
 
 export class BrandController {
+  brandService = brandRepositoryInMemory
   constructor (private readonly service: BrandService) {}
 
   async getAll (req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const data = await this.service.getAll()
+      const data = await getAllBrands(brandService)
       successResponses.success({ res, data })
     } catch (error) {
       next(error)
