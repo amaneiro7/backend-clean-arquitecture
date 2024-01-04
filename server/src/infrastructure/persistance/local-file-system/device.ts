@@ -1,15 +1,10 @@
 import { randomUUID } from 'node:crypto'
 import { type Id } from '../../../types/types'
 import { type DeviceOutput, type Device, type CreateDevice, type UpdateDevice } from '../../../domain/entities/device.entity'
-// import { type DeviceRepository } from '../../../domain/repositories/device.repositories'
-// import { modelSeriesService } from '../../../dependecies/modelSeries.dependecies'
-import { type UpdateRepository } from '../../../domain/repositories/update.repository'
-import { type CreateRepository } from '../../../domain/repositories/create.repository'
-import { type GetAllRepository } from '../../../domain/repositories/getAll.repository'
-import { type GetByIdRepository } from '../../../domain/repositories/getById.repositoy'
-import { modelRepositoryInMemory } from './modelSeries'
+import { type DeviceRepository } from '../../../domain/repositories/device.repositories'
+import { repositoryInMemory } from '.'
 
-const device: Device[] = [
+const devices: Device[] = [
   {
     id: '5a94384b-2e4d-4cdf-96c9-0065bf7f92a0',
     activo: '202370',
@@ -53,137 +48,70 @@ const device: Device[] = [
     modelId: 'e3d95984-c747-4acf-b29f-46d1f2dd23aa'
   }
 ]
-// export class DeviceRepositoryInMemory implements DeviceRepository {
-//   getAll = async (): Promise<DeviceOutput[]> => {
-//     const data = await this.dataFormatter(device)
-//     return data
-//   }
+export class DeviceRepositoryImpl implements DeviceRepository {
+  async getAll (): Promise<DeviceOutput[]> {
+    return await this.dataFormatter(devices)
+  }
 
-//   dataFormatter = async (array: Device[]): Promise<DeviceOutput[]> => {
-//     const data: DeviceOutput[] = []
-//     await Promise.all(array.map(async (model) => {
-//       const dataFormatting = await this.joinRelationalTables(model)
-//       data.push(dataFormatting)
-//     }))
-//     return data
-//   }
-
-//   joinRelationalTables = async (model: Device): Promise<DeviceOutput> => {
-//     const modelSeries = await modelSeriesService.getOne({ id: model.modelId })
-
-//     if (modelSeries === undefined) {
-//       throw new Error('Error interno')
-//     }
-//     const data = {
-//       ...model,
-//       model: modelSeries
-//     }
-//     const { modelId, ...result } = data
-//     return result
-//   }
-
-//   getOne = async ({ id }: { id: Id }): Promise<DeviceOutput | undefined> => {
-//     const modelSerie = device.find(modelSerie => modelSerie.id === id)
-//     if (modelSerie === undefined) {
-//       throw new Error('Error interno')
-//     }
-//     return await this.joinRelationalTables(modelSerie)
-//   }
-
-//   create = async (payload: CreateDevice): Promise <DeviceOutput> => {
-//     const newModelSerie = {
-//       id: randomUUID(),
-//       ...payload
-//     }
-//     device.push(newModelSerie)
-//     return await joinRelationalTables(newModelSerie)
-//   }
-
-//   update = async (id: Id, payload: UpdateDevice): Promise<DeviceOutput | undefined> => {
-//     const modelSerieIndex = device.findIndex(modelSerie => modelSerie.id === id)
-//     if (modelSerieIndex === -1) {
-//       throw new Error('Error interno')
-//     }
-//     device[modelSerieIndex] = {
-//       ...device[modelSerieIndex],
-//       ...payload
-//     }
-
-//     return await joinRelationalTables(device[modelSerieIndex])
-//   }
-// }
-
-class GetByIdInMemory implements GetByIdRepository<DeviceOutput> {
-  exec = async ({ id }: { id: Id }): Promise<DeviceOutput | undefined> => {
-    const data = device.find(elem => elem.id === id)
-    if (data !== undefined) {
-      return await joinRelationalTables(data)
+  async getByName (name: string): Promise<DeviceOutput | undefined> {
+    const device = devices.find(device => device.activo === name)
+    if (device !== undefined) {
+      return await this.joinRelationalTables(device)
     }
-    return data
+    return device
   }
-}
-class GetAllInMemory implements GetAllRepository<DeviceOutput> {
-  exec = async (): Promise<DeviceOutput[]> => {
-    return await dataFormatter(device)
-  }
-}
 
-class CreateInMemory implements CreateRepository<DeviceOutput, CreateDevice> {
-  exec = async (payload: CreateDevice): Promise<DeviceOutput> => {
+  async getById (id: Id): Promise<DeviceOutput | undefined> {
+    const device = devices.find(device => device.id === id)
+    if (device !== undefined) {
+      return await this.joinRelationalTables(device)
+    }
+    return device
+  }
+
+  async create (payload: CreateDevice): Promise<DeviceOutput> {
     const newDevice = {
       id: randomUUID(),
       ...payload
     }
-    device.push(newDevice)
-    return await joinRelationalTables(newDevice)
+    devices.push(newDevice)
+    return await this.joinRelationalTables(newDevice)
   }
-}
 
-class UpdateInMemory implements UpdateRepository<DeviceOutput, UpdateDevice> {
-  exec = async (id: `${string}-${string}-${string}-${string}-${string}`, payload: UpdateDevice): Promise<DeviceOutput | undefined> => {
-    const modelSerieIndex = device.findIndex(modelSerie => modelSerie.id === id)
-    if (modelSerieIndex === -1) return undefined
-    device[modelSerieIndex] = {
-      ...device[modelSerieIndex],
+  async update (id: `${string}-${string}-${string}-${string}-${string}`, payload: UpdateDevice): Promise<DeviceOutput | undefined> {
+    const deviceIndex = devices.findIndex(device => device.id === id)
+    if (deviceIndex === -1) return undefined
+    devices[deviceIndex] = {
+      ...devices[deviceIndex],
       ...payload
     }
-    return await joinRelationalTables(device[modelSerieIndex])
+    return await this.joinRelationalTables(devices[deviceIndex])
   }
-}
 
-async function dataFormatter (array: Device[]): Promise<DeviceOutput[]> {
-  const data: DeviceOutput[] = []
-  await Promise.all(array.map(async (model) => {
-    const dataFormatting = await joinRelationalTables(model)
-    data.push(dataFormatting)
-  }))
-  return data
-}
-
-async function joinRelationalTables (model: Device): Promise<DeviceOutput> {
-  const modelSeries = await modelRepositoryInMemory.getById.exec({ id: model.modelId })
-
-  if (modelSeries === undefined) {
-    throw new Error('Error interno')
+  async remove (id: `${string}-${string}-${string}-${string}-${string}`): Promise<void> {
+    devices.filter(device => device.id !== id)
   }
-  const data = {
-    ...model,
-    model: modelSeries
+
+  dataFormatter = async (array: Device[]): Promise<DeviceOutput[]> => {
+    const data: DeviceOutput[] = []
+    await Promise.all(array.map(async (model) => {
+      const dataFormatting = await this.joinRelationalTables(model)
+      data.push(dataFormatting)
+    }))
+    return data
   }
-  const { modelId, ...result } = data
-  return result
-}
 
-export interface DeviceRepositoryInterface {
-  getAll: GetAllInMemory
-  getById: GetByIdInMemory
-  create: CreateInMemory
-  update: UpdateInMemory
-}
+  joinRelationalTables = async (model: Device): Promise<DeviceOutput> => {
+    const modelSeries = await repositoryInMemory.modelSeries.getById(model.modelId)
 
-export const deviceRepositoryInMemory = {
-  getAll: new GetAllInMemory(),
-  getById: new GetByIdInMemory(),
-  create: new CreateInMemory(),
-  update: new UpdateInMemory()
+    if (modelSeries === undefined) {
+      throw new Error('Error interno')
+    }
+    const data = {
+      ...model,
+      model: modelSeries
+    }
+    const { modelId, ...result } = data
+    return result
+  }
 }

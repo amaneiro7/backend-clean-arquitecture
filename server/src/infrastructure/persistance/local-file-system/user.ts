@@ -1,11 +1,7 @@
 import { randomUUID } from 'node:crypto'
 import { conflict } from '@hapi/boom'
-import { type Id } from '../../../types/types'
-import { type GetByIdRepository } from '../../../domain/repositories/getById.repositoy'
 import { type UpdateUser, type CreateUser, type User } from '../../../domain/entities/user.entity'
-import { type CreateRepository } from '../../../domain/repositories/create.repository'
-import { type GetByEmailRepository } from '../../../domain/repositories/getByEmail.repository'
-import { type UpdateRepository } from '../../../domain/repositories/update.repository'
+import { type UserRepository } from '../../../domain/repositories/user.repository'
 
 const users: User[] = [
   {
@@ -28,21 +24,16 @@ const users: User[] = [
   }
 ]
 
-class UserGetByIdInMemory implements GetByIdRepository<User> {
-  exec = async ({ id }: { id: Id }): Promise<User | undefined> => {
-    const user = users.find(user => user.id === id)
-    return user
+export class UserRepositoryImpl implements UserRepository {
+  async findByUserId (id: `${string}-${string}-${string}-${string}-${string}`): Promise<User | undefined> {
+    return users.find(user => user.id === id)
   }
-}
-class UserGetByEmailInMemory implements GetByEmailRepository {
-  exec = async ({ email }: { email: string }): Promise<User | undefined> => {
-    const user = users.find(user => user.email === email)
-    return user
-  }
-}
 
-class UserCreateInMemory implements CreateRepository<User, CreateUser> {
-  exec = async (payload: CreateUser): Promise<User> => {
+  async findByUserEmail (email: string): Promise<User | undefined> {
+    return users.find(user => user.email === email)
+  }
+
+  async createNewUser (payload: CreateUser): Promise<User> {
     const { email } = payload
     const user = users.find(user => user.email === email)
     if (user !== undefined) {
@@ -55,10 +46,8 @@ class UserCreateInMemory implements CreateRepository<User, CreateUser> {
     users.push(newUser)
     return newUser
   }
-}
 
-class UserUpdateInMemory implements UpdateRepository<User, UpdateUser> {
-  exec = async (id: Id, payload: UpdateUser): Promise<User | undefined> => {
+  async updateUser (id: `${string}-${string}-${string}-${string}-${string}`, payload: UpdateUser): Promise<User | undefined> {
     const userIndex = users.findIndex(user => user.id === id)
     if (userIndex === -1) return undefined
     users[userIndex] = {
@@ -67,18 +56,8 @@ class UserUpdateInMemory implements UpdateRepository<User, UpdateUser> {
     }
     return users[userIndex]
   }
-}
 
-export interface UserRepositotoryInterface {
-  getById: UserGetByIdInMemory
-  getByEmail: UserGetByEmailInMemory
-  create: UserCreateInMemory
-  update: UserUpdateInMemory
-}
-
-export const userRepositoryInMemory: UserRepositotoryInterface = {
-  getById: new UserGetByIdInMemory(),
-  getByEmail: new UserGetByEmailInMemory(),
-  create: new UserCreateInMemory(),
-  update: new UserUpdateInMemory()
+  async deleteUser (id: `${string}-${string}-${string}-${string}-${string}`): Promise<void> {
+    users.find(user => user.id !== id)
+  }
 }

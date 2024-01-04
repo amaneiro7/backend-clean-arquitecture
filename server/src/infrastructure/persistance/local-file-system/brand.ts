@@ -1,11 +1,7 @@
 import { randomUUID } from 'node:crypto'
 import { type CreateBrand, type UpdateBrand, type Brand } from '../../../domain/entities/brand.entity'
 import { type Id } from '../../../types/types'
-import { type GetByIdRepository } from '../../../domain/repositories/getById.repositoy'
-import { type GetAllRepository } from '../../../domain/repositories/getAll.repository'
-import { type CreateRepository } from '../../../domain/repositories/create.repository'
-import { type UpdateRepository } from '../../../domain/repositories/update.repository'
-import { type GetByNameRepository } from '../../../domain/repositories/getByName.repository'
+import { type BrandRepository } from '../../../domain/repositories/brand.repository'
 
 const brands: Brand[] = [
   {
@@ -26,33 +22,20 @@ const brands: Brand[] = [
   }
 ]
 
-class GetByIdInMemory implements GetByIdRepository<Brand> {
-  exec = async (id: Id): Promise<Brand | undefined> => {
-    const brand = brands.find(brand => brand.id === id)
-    return brand
-  }
-}
-// class GetByIdInMemory implements GetByIdRepository<Brand> {
-//   exec = async ({ id }: { id: Id }): Promise<Brand | undefined> => {
-//     const brand = brands.find(brand => brand.id === id)
-//     return brand
-//   }
-// }
-class GetByNameInMemory implements GetByNameRepository<Brand> {
-  exec = async ({ name }: { name: string }): Promise<Brand | undefined> => {
-    const brand = brands.find(brand => brand.name === name)
-    return brand
-  }
-}
-
-class GetAllInMemory implements GetAllRepository<Brand> {
-  exec = async (): Promise<Brand[]> => {
+export class BrandRepositoryImpl implements BrandRepository {
+  async getAll (): Promise<Brand[]> {
     return brands
   }
-}
 
-class CreateInMemory implements CreateRepository<Brand, CreateBrand> {
-  exec = async (payload: CreateBrand): Promise<Brand> => {
+  async getById (id: Id): Promise<Brand | undefined> {
+    return brands.find(brand => brand.id === id)
+  }
+
+  async getByName (name: string): Promise<Brand | undefined> {
+    return brands.find(brand => brand.name === name)
+  }
+
+  async create (payload: CreateBrand): Promise<Brand> {
     const newBrand = {
       id: randomUUID(),
       ...payload
@@ -60,10 +43,8 @@ class CreateInMemory implements CreateRepository<Brand, CreateBrand> {
     brands.push(newBrand)
     return newBrand
   }
-}
 
-class UpdateInMemory implements UpdateRepository<Brand, UpdateBrand> {
-  exec = async (id: `${string}-${string}-${string}-${string}-${string}`, payload: UpdateBrand): Promise<Brand | undefined> => {
+  async update (id: `${string}-${string}-${string}-${string}-${string}`, payload: UpdateBrand): Promise<Brand | undefined> {
     const brandIndex = brands.findIndex(brand => brand.id === id)
     if (brandIndex === -1) return undefined
     brands[brandIndex] = {
@@ -72,20 +53,8 @@ class UpdateInMemory implements UpdateRepository<Brand, UpdateBrand> {
     }
     return brands[brandIndex]
   }
-}
 
-export interface BrandRepositoryInterface {
-  getAll: GetAllInMemory
-  getById: GetByIdInMemory
-  getByName: GetByNameInMemory
-  create: CreateInMemory
-  update: UpdateInMemory
-}
-
-export const brandRepositoryInMemory = {
-  getAll: new GetAllInMemory(),
-  getById: new GetByIdInMemory(),
-  getByName: new GetByNameInMemory(),
-  create: new CreateInMemory(),
-  update: new UpdateInMemory()
+  async remove (id: `${string}-${string}-${string}-${string}-${string}`): Promise<void> {
+    brands.filter(brand => brand.id !== id)
+  }
 }
