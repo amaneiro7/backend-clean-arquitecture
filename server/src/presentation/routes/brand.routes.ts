@@ -21,36 +21,12 @@ export const createBrandRouter = (repository: Repository): Router => {
     validatorParamsHandler(getIdDTO),
     brandController.getOne
   )
+  router.patch(
+    '/:id',
+    validatorParamsHandler(getIdDTO),
+    validatorBodyHandler(updateDTO),
+    brandController.update
+  )
 
   return router
 }
-
-// class BrandRoutes {
-//   router = Router()
-
-//   constructor () {
-//     this.initializeRoutes()
-//   }
-
-//   initializeRoutes (): void {
-//     this.router.route('/')
-//       .get(brandController.getAll.bind(brandController))
-//       .post(
-//         validatorBodyHandler(createDTO),
-//         brandController.create.bind(brandController)
-//       )
-
-//     this.router.route('/:id')
-//       .get(
-//         validatorParamsHandler(getIdDTO),
-//         brandController.getOne.bind(brandController)
-//       )
-//       .patch(
-//         validatorParamsHandler(getIdDTO),
-//         validatorBodyHandler(updateDTO),
-//         brandController.update.bind(brandController)
-//       )
-//   }
-// }
-
-// export const brandRouter = new BrandRoutes().router

@@ -1,9 +1,9 @@
 import { Router } from 'express'
+import { type Repository } from '../../domain/repositories/respoitory'
 import { createDeviceDTO, getIdDTO, updateDeviceDTO } from '../validators/dto'
 import { validatorParamsHandler } from '../validators/validatorParamsHandler'
 import validatorBodyHandler from '../validators/validatorBodyHandler'
 import { DeviceController } from '../controllers/device.controller'
-import { type Repository } from '../../domain/repositories/respoitory'
 
 export const createDeviceRouter = (repository: Repository): Router => {
   const router = Router()
@@ -11,42 +11,20 @@ export const createDeviceRouter = (repository: Repository): Router => {
   const deviceController = new DeviceController(repository)
 
   router.get('/', deviceController.getAll)
-  // router.post('/',
-  //   validatorBodyHandler(createDTO),
-  //   deviceController.create)
+  router.post('/',
+    validatorBodyHandler(createDeviceDTO),
+    deviceController.create
+  )
 
   router.get('/:id',
     validatorParamsHandler(getIdDTO),
     deviceController.getOne
   )
+  router.patch('/:id',
+    validatorParamsHandler(getIdDTO),
+    validatorParamsHandler(updateDeviceDTO),
+    deviceController.update
+  )
 
   return router
 }
-// class DeviceRoutes {
-//   router = Router()
-
-//   constructor () {
-//     this.initializeRoutes()
-//   }
-
-//   initializeRoutes (): void {
-//     this.router.route('/').get(deviceController.getAll.bind(deviceController))
-//     this.router.route('/').post(
-//       validatorBodyHandler(createDeviceDTO),
-//       deviceController.create.bind(deviceController)
-//     )
-
-//     this.router.route('/:id').get(
-//       validatorParamsHandler(getIdDTO),
-//       deviceController.getOne.bind(deviceController)
-//     )
-
-//     this.router.route('/:id').patch(
-//       validatorParamsHandler(getIdDTO),
-//       validatorBodyHandler(updateDeviceDTO),
-//       deviceController.update.bind(deviceController)
-//     )
-//   }
-// }
-
-// export const deviceRouter = new DeviceRoutes().router

@@ -31,7 +31,7 @@ export async function updateFunction ({ storeName, store, id, payload }: Props):
     throw badRequest('Falta informacion')
   }
 
-  if (name === itemToChange.name) return
+  if (name.toLowerCase().trim() === itemToChange.name.toLowerCase().trim()) return
 
   const array = await store.getByName(name)
   if (array !== undefined) {

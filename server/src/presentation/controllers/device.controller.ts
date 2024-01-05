@@ -4,6 +4,9 @@ import { successResponses } from '../../utils/successResponse'
 import { getAllDevices } from '../../application/get-all/getAllDevice'
 import { type Repository } from '../../domain/repositories/respoitory'
 import { getDeviceById } from '../../application/get/getDeviceById'
+import { createNewDevice } from '../../application/create/createNewDevice'
+import { type UpdateDevice } from '../../domain/entities/device.entity'
+import { updateDevice } from '../../application/update/updateDevice'
 
 export class DeviceController {
   constructor (private readonly repository: Repository) {}
@@ -27,24 +30,24 @@ export class DeviceController {
     }
   }
 
-  // async create (req: Request, res: Response, next: NextFunction) {
-  //   try {
-  //     const payload = req.body
-  //     const newData = await this.service.create(payload)
-  //     successResponses.created({ res, data: newData })
-  //   } catch (error) {
-  //     next(error)
-  //   }
-  // }
+  create = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const payload = req.body
+      const newData = await createNewDevice({ payload, repository: this.repository })
+      successResponses.created({ res, data: newData })
+    } catch (error) {
+      next(error)
+    }
+  }
 
-  // async update (req: Request<{ id: Id }>, res: Response, next: NextFunction) {
-  //   try {
-  //     const { id } = req.params
-  //     const payload = req.body
-  //     const newData = await this.service.update(id, payload)
-  //     successResponses.created({ res, data: newData })
-  //   } catch (error) {
-  //     next(error)
-  //   }
-  // }
+  update = async (req: Request<{ id: Id }>, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const { id } = req.params
+      const payload = req.body as UpdateDevice
+      const newData = await updateDevice({ id, payload, repository: this.repository })
+      successResponses.created({ res, data: newData })
+    } catch (error) {
+      next(error)
+    }
+  }
 }

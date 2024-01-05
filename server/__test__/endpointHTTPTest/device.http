@@ -11,7 +11,7 @@ Content-Type: application/json
 
 {
   "activo": "212102",
-  "serial": "MXL7006802",  
+  "serial": "MXL7006802",
   "modelId": "d3237ea9-2e2b-438b-a3d3-954a3ffae5f7"
 }
 ### Crear un nuevo modelo con error
@@ -19,8 +19,8 @@ POST http://localhost:3000/api/v1/device
 Content-Type: application/json
 
 {
-  "activo": "",
-  "serial": "",  
+  "activo": "212102",
+  "serial": "MXL7005656",  
   "status": "Operativo",
   "modelId": "d3237ea9-2e2b-438b-a3d3-954a3ffae5f7"
 }

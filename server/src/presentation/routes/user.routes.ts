@@ -17,20 +17,3 @@ export const createUserRouter = (repository: Repository): Router => {
 
   return router
 }
-
-// class UserRoutes {
-//   router = Router()
-
-//   constructor () {
-//     this.initializeRoutes()
-//   }
-
-//   initializeRoutes (): void {
-//     this.router.route('/').post(
-//       validatorBodyHandler(createUserDTO),
-//       userCreateController.create.bind(userCreateController)
-//     )
-//   }
-// }
-
-// export const userRouter = new UserRoutes().router

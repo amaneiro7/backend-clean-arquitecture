@@ -1,11 +1,12 @@
 import { type NextFunction, type Request, type Response } from 'express'
 import { type Id } from '../../types/types'
 import { type Repository } from '../../domain/repositories/respoitory'
+import { type CreateBrand } from '../../domain/entities/brand.entity'
 import { successResponses } from '../../utils/successResponse'
 import { getAllBrands } from '../../application/get-all/getAllBrands'
 import { getBrandById } from '../../application/get/getBrandById'
 import { createNewBrand } from '../../application/create/createNewBrand'
-import { type CreateBrand } from '../../domain/entities/brand.entity'
+import { updateBrand } from '../../application/update/updateBrand'
 
 export class BrandController {
   constructor (private readonly repository: Repository) {}
@@ -39,14 +40,14 @@ export class BrandController {
     }
   }
 
-  // async update (req: Request<{ id: Id }>, res: Response, next: NextFunction): Promise<void> {
-  //   try {
-  //     const { id } = req.params
-  //     const payload = req.body
-  //     const newData = await this.service.update(id, payload)
-  //     successResponses.created({ res, data: newData })
-  //   } catch (error) {
-  //     next(error)
-  //   }
-  // }
+  update = async (req: Request<{ id: Id }>, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const { id } = req.params
+      const payload = req.body
+      const newData = await updateBrand({ id, payload, repository: this.repository })
+      successResponses.created({ res, data: newData })
+    } catch (error) {
+      next(error)
+    }
+  }
 }
