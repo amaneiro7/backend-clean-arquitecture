@@ -1,6 +1,6 @@
 import { type Brand } from '../../domain/entities/brand.entity'
-import { type BrandRepository } from '../../domain/repositories/brand.repository'
+import { type Repository } from '../../domain/repositories/respoitory'
 
-export async function getAllBrands (brandRepository: BrandRepository): Promise<Brand[]> {
-  return await brandRepository.getAll()
+export async function getAllBrands (repository: Repository): Promise<Brand[]> {
+  return await repository.brand.getAll()
 }

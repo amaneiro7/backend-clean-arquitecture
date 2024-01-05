@@ -4,7 +4,7 @@ import { getStatusValues } from '../../application/services/status.service'
 import { successResponses } from '../../utils/successResponse'
 
 export class StatusController {
-  async getAll (req: Request, res: Response, next: NextFunction) {
+  async getAll (req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const data = getStatusValues()
       successResponses.success({ res, data })

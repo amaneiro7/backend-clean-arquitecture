@@ -5,7 +5,7 @@ import { type Id } from '../../types/types'
 import { successResponses } from '../../utils/successResponse'
 import { categoryService } from '../../dependecies/category.dependecies'
 
-class CategoryController {
+export class CategoryController {
   constructor (private readonly service: CategoryService) {}
 
   async getAll (req: Request, res: Response, next: NextFunction) {
@@ -27,5 +27,3 @@ class CategoryController {
     }
   }
 }
-
-export const categoryController = new CategoryController(categoryService)

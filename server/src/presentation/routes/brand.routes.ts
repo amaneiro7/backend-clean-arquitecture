@@ -4,34 +4,48 @@ import { Router } from 'express'
 import { createDTO, getIdDTO, updateDTO } from '../validators/dto'
 import validatorBodyHandler from '../validators/validatorBodyHandler'
 import { validatorParamsHandler } from '../validators/validatorParamsHandler'
-import { brandController } from '../controllers/brand.controller'
+import { BrandController } from '../controllers/brand.controller'
+import { type Repository } from '../../domain/repositories/respoitory'
 
-class BrandRoutes {
-  router = Router()
+export const createBrandRouter = (repository: Repository): Router => {
+  const router = Router()
 
-  constructor () {
-    this.initializeRoutes()
-  }
+  const brandController = new BrandController(repository)
 
-  initializeRoutes (): void {
-    this.router.route('/')
-      .get(brandController.getAll.bind(brandController))
-      .post(
-        validatorBodyHandler(createDTO),
-        brandController.create.bind(brandController)
-      )
+  router.get('/', brandController.getAll)
+  // router.post('/',
+  //   validatorBodyHandler(createDTO),
+  //   brandController.create)
 
-    this.router.route('/:id')
-      .get(
-        validatorParamsHandler(getIdDTO),
-        brandController.getOne.bind(brandController)
-      )
-      .patch(
-        validatorParamsHandler(getIdDTO),
-        validatorBodyHandler(updateDTO),
-        brandController.update.bind(brandController)
-      )
-  }
+  return router
 }
 
-export const brandRouter = new BrandRoutes().router
+// class BrandRoutes {
+//   router = Router()
+
+//   constructor () {
+//     this.initializeRoutes()
+//   }
+
+//   initializeRoutes (): void {
+//     this.router.route('/')
+//       .get(brandController.getAll.bind(brandController))
+//       .post(
+//         validatorBodyHandler(createDTO),
+//         brandController.create.bind(brandController)
+//       )
+
+//     this.router.route('/:id')
+//       .get(
+//         validatorParamsHandler(getIdDTO),
+//         brandController.getOne.bind(brandController)
+//       )
+//       .patch(
+//         validatorParamsHandler(getIdDTO),
+//         validatorBodyHandler(updateDTO),
+//         brandController.update.bind(brandController)
+//       )
+//   }
+// }
+
+// export const brandRouter = new BrandRoutes().router
