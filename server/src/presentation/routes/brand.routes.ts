@@ -9,7 +9,6 @@ import { type Repository } from '../../domain/repositories/respoitory'
 
 export const createBrandRouter = (repository: Repository): Router => {
   const router = Router()
-
   const brandController = new BrandController(repository)
 
   router.get('/', brandController.getAll)

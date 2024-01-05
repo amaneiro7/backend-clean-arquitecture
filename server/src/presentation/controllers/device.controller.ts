@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { type NextFunction, type Request, type Response } from 'express'
 // import { type Id } from '../../types/types'
 import { successResponses } from '../../utils/successResponse'
@@ -8,7 +7,7 @@ import { type Repository } from '../../domain/repositories/respoitory'
 export class DeviceController {
   constructor (private readonly repository: Repository) {}
 
-  async getAll (req: Request, res: Response, next: NextFunction) {
+  getAll = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const data = await getAllDevices(this.repository)
       successResponses.success({ res, data })

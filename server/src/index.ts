@@ -38,7 +38,7 @@ import { type Repository } from './domain/repositories/respoitory'
 //   winston.error(JSON.stringify(err))
 //   console.error(err)
 // })
-export const createServer = (app: Application, respoitory: Repository): Application => {
+export const createServer = ({ app, repository }: { app: Application, repository: Repository }): Application => {
   app.use(json())
   app.use(corsMiddleware())
   app.disable('x-powered-by')
@@ -48,7 +48,7 @@ export const createServer = (app: Application, respoitory: Repository): Applicat
     res.status(200).json('Servidor de inventarios')
   })
 
-  routerApi(app, respoitory)
+  routerApi(app, repository)
 
   // const accessLogStream: WriteStream = fs.createWriteStream(
   //   path.join(__dirname, './logs/access.log'),

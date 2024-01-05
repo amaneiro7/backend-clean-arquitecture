@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { type NextFunction, type Request, type Response } from 'express'
 import { type Id } from '../../types/types'
 import { type Repository } from '../../domain/repositories/respoitory'
@@ -7,7 +6,7 @@ import { createNewUser } from '../../application/create/createNewUser'
 
 export class UserCreateController {
   constructor (private readonly repository: Repository) {}
-  async create (req: Request<{ id: Id }>, res: Response, next: NextFunction) {
+  create = async (req: Request<{ id: Id }>, res: Response, next: NextFunction): Promise<void> => {
     try {
       const payload = req.body
       const newData = await createNewUser({ payload, repository: this.repository })

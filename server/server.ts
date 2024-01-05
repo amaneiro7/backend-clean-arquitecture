@@ -8,7 +8,7 @@ const repository: Repository = repositoryInMemory
 const app: Application = express()
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 // const server: Server = new Server(app)
-const server = createServer(app, repository)
+createServer({ app, repository })
 const port: number = 3000
 
 app.listen(port, () => {

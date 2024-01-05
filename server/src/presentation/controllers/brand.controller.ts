@@ -8,7 +8,7 @@ import { type Repository } from '../../domain/repositories/respoitory'
 export class BrandController {
   constructor (private readonly repository: Repository) {}
 
-  async getAll (req: Request, res: Response, next: NextFunction): Promise<void> {
+  getAll = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const data = await getAllBrands(this.repository)
       successResponses.success({ res, data })
