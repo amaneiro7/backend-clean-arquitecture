@@ -1,5 +1,5 @@
 import { type NextFunction, type Request, type Response } from 'express'
-import { getStatusValues } from '../../application/services/status.service'
+import { getStatusValues } from '../../application/get-all/getAllStatusValues'
 import { successResponses } from '../../utils/successResponse'
 
 export class StatusController {

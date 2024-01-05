@@ -22,7 +22,7 @@ export const createDeviceRouter = (repository: Repository): Router => {
   )
   router.patch('/:id',
     validatorParamsHandler(getIdDTO),
-    validatorParamsHandler(updateDeviceDTO),
+    validatorBodyHandler(updateDeviceDTO),
     deviceController.update
   )
 

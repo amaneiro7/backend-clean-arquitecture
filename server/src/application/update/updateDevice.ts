@@ -19,8 +19,9 @@ export async function updateDevice ({ id, payload, repository }: Props): Promise
     mappedUpdateDevice.serial = formatEmptyUndefinedValue(payload.serial)
   }
   if (payload?.activo !== undefined) {
-    mappedUpdateDevice.serial = formatEmptyUndefinedValue(payload.activo)
+    mappedUpdateDevice.activo = formatEmptyUndefinedValue(payload.activo)
   }
+
   return await repository.device.update(id, mappedUpdateDevice)
 }
 

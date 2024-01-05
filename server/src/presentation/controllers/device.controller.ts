@@ -1,11 +1,11 @@
 import { type NextFunction, type Request, type Response } from 'express'
 import { type Id } from '../../types/types'
+import { type Repository } from '../../domain/repositories/respoitory'
+import { type UpdateDevice } from '../../domain/entities/device.entity'
 import { successResponses } from '../../utils/successResponse'
 import { getAllDevices } from '../../application/get-all/getAllDevice'
-import { type Repository } from '../../domain/repositories/respoitory'
 import { getDeviceById } from '../../application/get/getDeviceById'
 import { createNewDevice } from '../../application/create/createNewDevice'
-import { type UpdateDevice } from '../../domain/entities/device.entity'
 import { updateDevice } from '../../application/update/updateDevice'
 
 export class DeviceController {
