@@ -11,6 +11,11 @@ export const createCategoryRouter = (repository: Repository): Router => {
 
   router.get('/', categoryController.getAll)
 
+  router.get('/:id',
+    validatorParamsHandler(getIdDTO),
+    categoryController.getOne
+  )
+
   return router
 }
 // class CategoryRoutes {

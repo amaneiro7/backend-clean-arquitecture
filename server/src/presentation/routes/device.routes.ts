@@ -15,6 +15,11 @@ export const createDeviceRouter = (repository: Repository): Router => {
   //   validatorBodyHandler(createDTO),
   //   deviceController.create)
 
+  router.get('/:id',
+    validatorParamsHandler(getIdDTO),
+    deviceController.getOne
+  )
+
   return router
 }
 // class DeviceRoutes {

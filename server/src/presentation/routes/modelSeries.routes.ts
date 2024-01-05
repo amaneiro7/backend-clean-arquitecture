@@ -15,6 +15,11 @@ export const createModelSeriesRouter = (repository: Repository): Router => {
   //   validatorBodyHandler(createDTO),
   //   modelSeriesController.create)
 
+  router.get('/:id',
+    validatorParamsHandler(getIdDTO),
+    modelSeriesController.getOne
+  )
+
   return router
 }
 // class ModelSeriesRoutes {
