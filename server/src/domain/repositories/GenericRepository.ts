@@ -1,6 +1,6 @@
 import { type Id } from '../../types/types'
 
-export interface Repository<T, CreatePayload, UpdatePayload> {
+export interface GenericRepository<T, CreatePayload, UpdatePayload> {
   getAll: () => Promise<T[]>
   getById: (id: Id) => Promise<T | undefined>
   getByName: (name: string) => Promise<T | undefined>

@@ -1,4 +1,4 @@
 import { type UpdateDevice, type CreateDevice, type DeviceOutput } from '../entities/device.entity'
-import { type Repository } from './repository'
+import { type GenericRepository } from './GenericRepository'
 
-export interface DeviceRepository extends Repository<DeviceOutput, CreateDevice, UpdateDevice> {}
+export interface DeviceRepository extends GenericRepository<DeviceOutput, CreateDevice, UpdateDevice> {}
