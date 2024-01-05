@@ -2,33 +2,46 @@ import { Router } from 'express'
 import { createDeviceDTO, getIdDTO, updateDeviceDTO } from '../validators/dto'
 import { validatorParamsHandler } from '../validators/validatorParamsHandler'
 import validatorBodyHandler from '../validators/validatorBodyHandler'
-import { deviceController } from '../controllers/device.controller'
+import { DeviceController } from '../controllers/device.controller'
+import { type Repository } from '../../domain/repositories/respoitory'
 
-class DeviceRoutes {
-  router = Router()
+export const createDeviceRouter = (repository: Repository): Router => {
+  const router = Router()
 
-  constructor () {
-    this.initializeRoutes()
-  }
+  const deviceController = new DeviceController(repository)
 
-  initializeRoutes (): void {
-    this.router.route('/').get(deviceController.getAll.bind(deviceController))
-    this.router.route('/').post(
-      validatorBodyHandler(createDeviceDTO),
-      deviceController.create.bind(deviceController)
-    )
+  router.get('/', deviceController.getAll)
+  // router.post('/',
+  //   validatorBodyHandler(createDTO),
+  //   deviceController.create)
 
-    this.router.route('/:id').get(
-      validatorParamsHandler(getIdDTO),
-      deviceController.getOne.bind(deviceController)
-    )
-
-    this.router.route('/:id').patch(
-      validatorParamsHandler(getIdDTO),
-      validatorBodyHandler(updateDeviceDTO),
-      deviceController.update.bind(deviceController)
-    )
-  }
+  return router
 }
+// class DeviceRoutes {
+//   router = Router()
 
-export const deviceRouter = new DeviceRoutes().router
+//   constructor () {
+//     this.initializeRoutes()
+//   }
+
+//   initializeRoutes (): void {
+//     this.router.route('/').get(deviceController.getAll.bind(deviceController))
+//     this.router.route('/').post(
+//       validatorBodyHandler(createDeviceDTO),
+//       deviceController.create.bind(deviceController)
+//     )
+
+//     this.router.route('/:id').get(
+//       validatorParamsHandler(getIdDTO),
+//       deviceController.getOne.bind(deviceController)
+//     )
+
+//     this.router.route('/:id').patch(
+//       validatorParamsHandler(getIdDTO),
+//       validatorBodyHandler(updateDeviceDTO),
+//       deviceController.update.bind(deviceController)
+//     )
+//   }
+// }
+
+// export const deviceRouter = new DeviceRoutes().router

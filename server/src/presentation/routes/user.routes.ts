@@ -1,21 +1,36 @@
 import { Router } from 'express'
 import validatorBodyHandler from '../validators/validatorBodyHandler'
-import { userCreateController } from '../controllers/createUser.controller'
+import { UserCreateController } from '../controllers/createUser.controller'
 import { createUserDTO } from '../validators/dto'
+import { type Repository } from '../../domain/repositories/respoitory'
 
-class UserRoutes {
-  router = Router()
+export const createUserRouter = (repository: Repository): Router => {
+  const router = Router()
 
-  constructor () {
-    this.initializeRoutes()
-  }
+  const userController = new UserCreateController(repository)
 
-  initializeRoutes (): void {
-    this.router.route('/').post(
-      validatorBodyHandler(createUserDTO),
-      userCreateController.create.bind(userCreateController)
-    )
-  }
+  router.post(
+    '/',
+    validatorBodyHandler(createUserDTO),
+    userController.create
+  )
+
+  return router
 }
 
-export const userRouter = new UserRoutes().router
+// class UserRoutes {
+//   router = Router()
+
+//   constructor () {
+//     this.initializeRoutes()
+//   }
+
+//   initializeRoutes (): void {
+//     this.router.route('/').post(
+//       validatorBodyHandler(createUserDTO),
+//       userCreateController.create.bind(userCreateController)
+//     )
+//   }
+// }
+
+// export const userRouter = new UserRoutes().router

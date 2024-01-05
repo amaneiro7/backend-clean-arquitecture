@@ -1,22 +1,22 @@
 import { Router, type Application } from 'express'
-import { categoryRouter } from './category.routes'
-import { modelSeriesRouter } from './modelSeries.routes'
-import { createStatusRouter } from './status.routes'
-import { deviceRouter } from './device.routes'
-import { createBrandRouter } from './brand.routes'
-import { userRouter } from './user.routes'
 import { type Repository } from '../../domain/repositories/respoitory'
+import { createCategoryRouter } from './category.routes'
+import { createModelSeriesRouter } from './modelSeries.routes'
+import { createStatusRouter } from './status.routes'
+import { createDeviceRouter } from './device.routes'
+import { createBrandRouter } from './brand.routes'
+import { createUserRouter } from './user.routes'
 
 export const routerApi = (app: Application, repository: Repository): Router => {
   const router = Router()
 
   app.use('/api/v1/', router)
-  router.use('/categories', categoryRouter)
+  router.use('/categories', createCategoryRouter(repository))
   router.use('/brands', createBrandRouter(repository))
-  router.use('/models', modelSeriesRouter)
-  router.use('/device', deviceRouter)
+  router.use('/models', createModelSeriesRouter(repository))
+  router.use('/device', createDeviceRouter(repository))
   router.use('/status', createStatusRouter())
-  router.use('/users', userRouter)
+  router.use('/users', createUserRouter(repository))
 
   return router
 }
