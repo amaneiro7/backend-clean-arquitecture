@@ -4,6 +4,8 @@ import { type Repository } from '../../domain/repositories/respoitory'
 import { successResponses } from '../../utils/successResponse'
 import { getAllBrands } from '../../application/get-all/getAllBrands'
 import { getBrandById } from '../../application/get/getBrandById'
+import { createNewBrand } from '../../application/create/createNewBrand'
+import { type CreateBrand } from '../../domain/entities/brand.entity'
 
 export class BrandController {
   constructor (private readonly repository: Repository) {}
@@ -27,15 +29,15 @@ export class BrandController {
     }
   }
 
-  // async create (req: Request, res: Response, next: NextFunction): Promise<void> {
-  //   try {
-  //     const payload = req.body
-  //     const newData = await this.service.create(payload)
-  //     successResponses.created({ res, data: newData })
-  //   } catch (error) {
-  //     next(error)
-  //   }
-  // }
+  create = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const payload = req.body as CreateBrand
+      const newData = await createNewBrand({ payload, repository: this.repository })
+      successResponses.created({ res, data: newData })
+    } catch (error) {
+      next(error)
+    }
+  }
 
   // async update (req: Request<{ id: Id }>, res: Response, next: NextFunction): Promise<void> {
   //   try {

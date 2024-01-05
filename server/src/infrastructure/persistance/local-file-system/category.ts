@@ -31,6 +31,6 @@ export class CategoryRepositoryImpl implements CategoryRepository {
   }
 
   async getByName (name: string): Promise<Category | undefined> {
-    return categories.find(brand => brand.name === name)
+    return categories.find(brand => brand.name.toLowerCase().trim() === name.toLowerCase().trim())
   }
 }

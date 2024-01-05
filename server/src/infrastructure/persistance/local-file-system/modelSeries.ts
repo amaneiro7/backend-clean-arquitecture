@@ -69,7 +69,7 @@ export class ModelSeriesRepositoryImpl implements ModelSeriesRepository {
   }
 
   async getByName (name: string): Promise<ModelSeriesOutput | undefined> {
-    const modelSerie = modelSeries.find(modelSerie => modelSerie.name === name)
+    const modelSerie = modelSeries.find(modelSerie => modelSerie.name.toLowerCase().trim() === name.toLowerCase().trim())
     if (modelSerie !== undefined) {
       return await this.joinRelationalTables(modelSerie)
     }

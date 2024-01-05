@@ -30,7 +30,7 @@ export class UserRepositoryImpl implements UserRepository {
   }
 
   async findByUserEmail (email: string): Promise<User | undefined> {
-    return users.find(user => user.email === email)
+    return users.find(user => user.email.toLowerCase().trim() === email.toLowerCase().trim())
   }
 
   async createNewUser (payload: CreateUser): Promise<User> {

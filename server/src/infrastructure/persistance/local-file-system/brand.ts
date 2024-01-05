@@ -32,7 +32,7 @@ export class BrandRepositoryImpl implements BrandRepository {
   }
 
   async getByName (name: string): Promise<Brand | undefined> {
-    return brands.find(brand => brand.name === name)
+    return brands.find(brand => brand.name.toLowerCase().trim() === name.toLowerCase().trim())
   }
 
   async create (payload: CreateBrand): Promise<Brand> {

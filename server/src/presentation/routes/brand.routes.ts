@@ -12,9 +12,9 @@ export const createBrandRouter = (repository: Repository): Router => {
   const brandController = new BrandController(repository)
 
   router.get('/', brandController.getAll)
-  // router.post('/',
-  //   validatorBodyHandler(createDTO),
-  //   brandController.create)
+  router.post('/',
+    validatorBodyHandler(createDTO),
+    brandController.create)
 
   router.get(
     '/:id',
