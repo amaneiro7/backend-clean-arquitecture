@@ -2,6 +2,7 @@ import { randomUUID } from 'node:crypto'
 import { conflict } from '@hapi/boom'
 import { type UpdateUser, type CreateUser, type User } from '../../../domain/entities/user.entity'
 import { type UserRepository } from '../../../domain/repositories/user.repository'
+import { hashSync } from 'bcrypt'
 
 const users: User[] = [
   {
@@ -10,8 +11,8 @@ const users: User[] = [
     lastName: 'admin',
     email: 'admin@mail.com',
     role: 'Admin',
-    recoveryPassword: null,
-    password: 'admin123'
+    recoveryToken: null,
+    password: hashSync('admin123', 10)
   },
   {
     id: 'e612b294-8c00-4469-8086-b4c10773131f',
@@ -19,8 +20,8 @@ const users: User[] = [
     lastName: 'Maneiro',
     email: 'amaneiro7@gmail.com',
     role: 'Especialista',
-    recoveryPassword: null,
-    password: 'password'
+    recoveryToken: null,
+    password: hashSync('password', 10)
   }
 ]
 

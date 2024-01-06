@@ -4,6 +4,7 @@ import { json, type Application, type Request, type Response, urlencoded } from 
 import { corsMiddleware } from './middleware/cors'
 import { routerApi } from './presentation/routes/index.routes'
 import { type Repository } from './domain/repositories/respoitory'
+import { createPassportInstance } from './application/passport'
 // import morgan from 'morgan'
 // import helmet from 'helmet'
 // import winston from 'winston'
@@ -38,7 +39,12 @@ import { type Repository } from './domain/repositories/respoitory'
 //   winston.error(JSON.stringify(err))
 //   console.error(err)
 // })
-export const createServer = ({ app, repository }: { app: Application, repository: Repository }): Application => {
+
+interface Props {
+  app: Application
+  repository: Repository
+}
+export const createServer = async ({ app, repository }: Props): Promise<Application> => {
   app.use(json())
   app.use(corsMiddleware())
   app.disable('x-powered-by')
@@ -49,6 +55,7 @@ export const createServer = ({ app, repository }: { app: Application, repository
   })
 
   routerApi(app, repository)
+  await createPassportInstance({ repository })
 
   // const accessLogStream: WriteStream = fs.createWriteStream(
   //   path.join(__dirname, './logs/access.log'),
