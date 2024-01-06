@@ -7,8 +7,9 @@ export interface User {
   email: string
   role: RolesValue
   password: string
-  recoveryPassword?: string | undefined | null
+  recoveryToken?: string | undefined | null
 }
 
-export interface CreateUser extends Omit<User, 'id' | 'recoveryPassword'> {}
+export interface CreateUser extends Omit<User, 'id' | 'recoveryToken'> {}
 export interface UpdateUser extends Partial<CreateUser> {}
+export interface UserOutput extends Omit<User, 'password' > {}
