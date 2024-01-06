@@ -7,7 +7,6 @@ import { createDeviceRouter } from './device.routes'
 import { createBrandRouter } from './brand.routes'
 import { createUserRouter } from './user.routes'
 import { createAuthRouter } from './auth.routes'
-
 export const routerApi = (app: Application, repository: Repository): Router => {
   const router = Router()
 

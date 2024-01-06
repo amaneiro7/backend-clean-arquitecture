@@ -5,13 +5,7 @@ const options = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: config.accessTokenSecret
 }
-
-export const JwtStrategy = new Strategy(options, (payload, done) => {
-  return done(null, payload)
+export const jwtStrategy = new Strategy(options, (jwtPayload, done) => {
+  done(null, jwtPayload)
 })
-
-export const localPermision = {
-  ADMIN: 'admin',
-  PUBLIC: 'public',
-  PRIVATE: 'private'
-}
+// This is the middleware that will be used to protect routes. If a request is made

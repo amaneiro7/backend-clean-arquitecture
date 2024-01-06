@@ -6,12 +6,19 @@ import validatorBodyHandler from '../validators/validatorBodyHandler'
 import { validatorParamsHandler } from '../validators/validatorParamsHandler'
 import { BrandController } from '../controllers/brand.controller'
 import { type Repository } from '../../domain/repositories/respoitory'
+import { LoginStrategy } from '../../application/passport'
+import { authGuard } from '../../middleware/authMiddlware'
+import passport from 'passport'
 
 export const createBrandRouter = (repository: Repository): Router => {
   const router = Router()
   const brandController = new BrandController(repository)
 
-  router.get('/', brandController.getAll)
+  router.get('/',
+    passport.authenticate(LoginStrategy.JWT, { session: false }),
+    authGuard,
+    brandController.getAll
+  )
   router.post('/',
     validatorBodyHandler(createDTO),
     brandController.create)

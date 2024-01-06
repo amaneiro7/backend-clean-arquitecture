@@ -7,8 +7,12 @@ const fieldOptions = {
   passwordField: 'password'
 }
 
-export async function createLocalStrategy ({ repository }: { repository: Repository }): Promise<Strategy> {
-  const LocalStrategy = new Strategy(fieldOptions, async (email: string, password: string, done) => {
+interface Props {
+  repository: Repository
+}
+
+export async function createLocalStrategy ({ repository }: Props): Promise<Strategy> {
+  return new Strategy(fieldOptions, async (email: string, password: string, done) => {
     try {
       const token = await localLogin({ email, inputPassword: password, repository })
       done(null, token)
@@ -16,6 +20,4 @@ export async function createLocalStrategy ({ repository }: { repository: Reposit
       done(error, false)
     }
   })
-
-  return LocalStrategy
 }

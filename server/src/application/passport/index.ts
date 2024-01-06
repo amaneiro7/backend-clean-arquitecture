@@ -1,11 +1,11 @@
 import passport from 'passport'
-import { JwtStrategy } from './strategies/jwt.strategy'
+import { jwtStrategy } from './strategies/jwt.strategy'
 import { type Repository } from '../../domain/repositories/respoitory'
 import { createLocalStrategy } from './strategies/local.strategy'
 
 export async function createPassportInstance ({ repository }: { repository: Repository }): Promise<passport.PassportStatic> {
   passport.use(await createLocalStrategy({ repository }))
-  passport.use(JwtStrategy)
+  passport.use(jwtStrategy)
 
   return passport
 }
