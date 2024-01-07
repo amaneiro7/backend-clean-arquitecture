@@ -1,3 +1,4 @@
+import { type JwtPayload } from 'jsonwebtoken'
 import { type RolesValue, type Id } from '../../types/types'
 
 export interface User {
@@ -13,3 +14,6 @@ export interface User {
 export interface CreateUser extends Omit<User, 'id' | 'recoveryToken'> {}
 export interface UpdateUser extends Partial<CreateUser> {}
 export interface UserOutput extends Omit<User, 'password' > {}
+export interface JWTUserPayload extends JwtPayload {
+  role: RolesValue
+}

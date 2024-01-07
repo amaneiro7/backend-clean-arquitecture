@@ -8,7 +8,7 @@ import { BrandController } from '../controllers/brand.controller'
 import { type Repository } from '../../domain/repositories/respoitory'
 import { LoginStrategy } from '../../application/passport'
 import passport from 'passport'
-import { checkAdminRole } from '../../middleware/authHandler'
+import { checkAccessRole } from '../../middleware/authHandler'
 
 export const createBrandRouter = (repository: Repository): Router => {
   const router = Router()
@@ -16,7 +16,7 @@ export const createBrandRouter = (repository: Repository): Router => {
 
   router.get('/',
     passport.authenticate(LoginStrategy.JWT, { session: false }),
-    checkAdminRole,
+    checkAccessRole({ permission: 'read' }),
     brandController.getAll
   )
   router.post('/',
