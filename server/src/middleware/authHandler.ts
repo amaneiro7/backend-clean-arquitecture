@@ -5,6 +5,7 @@ import { type PermissionValue } from '../types/types'
 import { type JWTUserPayload } from '../domain/entities/user.entity'
 
 export function checkAccessRole ({ permission }: { permission: PermissionValue }) {
+  // Se define la funcion que se encarga de validar si el usuario tiene el permiso
   return (req: Request, res: Response, next: NextFunction) => {
     // Se Obtiene el usuario del payload generado por passport-jwt
     const user = req.user as JWTUserPayload

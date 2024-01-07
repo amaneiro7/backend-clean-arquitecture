@@ -2,7 +2,7 @@ import { type JwtPayload, sign } from 'jsonwebtoken'
 import { type RolesValue } from '../../types/types'
 
 export interface AuthJWTPayload extends JwtPayload {
-  role: RolesValue
+  role?: RolesValue
 }
 
 export const enum ExpireTime {

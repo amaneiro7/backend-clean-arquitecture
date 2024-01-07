@@ -1,5 +1,5 @@
 import { type Id } from '../../types/types'
-import { type CreateUser, type UpdateUser, type User } from '../entities/user.entity'
+import { type UpdateUserRecoveryToken, type CreateUser, type UpdateUser, type User } from '../entities/user.entity'
 
 export interface UserRepository {
   findByUserId: (id: Id) => Promise<User | undefined>
@@ -7,5 +7,6 @@ export interface UserRepository {
 
   createNewUser: (payload: CreateUser) => Promise<User>
   updateUser: (id: Id, payload: UpdateUser) => Promise<User | undefined>
+  updateUserRecoveryToken: (id: Id, payload: UpdateUserRecoveryToken) => Promise<User | undefined>
   deleteUser: (id: Id) => Promise<void>
 }

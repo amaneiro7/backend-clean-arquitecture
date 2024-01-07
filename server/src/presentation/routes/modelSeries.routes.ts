@@ -5,7 +5,11 @@ import { createModelSeriesDTO, getIdDTO, updateModelSeriesDTO } from '../validat
 import validatorBodyHandler from '../validators/validatorBodyHandler'
 import { ModelSeriesController } from '../controllers/modelSeries.controller'
 
-export const createModelSeriesRouter = (repository: Repository): Router => {
+interface Props {
+  repository: Repository
+}
+
+export const createModelSeriesRouter = ({ repository }: Props): Router => {
   const router = Router()
 
   const modelSeriesController = new ModelSeriesController(repository)

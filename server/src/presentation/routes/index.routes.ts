@@ -7,17 +7,24 @@ import { createDeviceRouter } from './device.routes'
 import { createBrandRouter } from './brand.routes'
 import { createUserRouter } from './user.routes'
 import { createAuthRouter } from './auth.routes'
-export const routerApi = (app: Application, repository: Repository): Router => {
+import { type EmailAdapter } from '../../domain/adapters/email.adapter'
+
+interface Props {
+  app: Application
+  repository: Repository
+  emailAdapter: EmailAdapter
+}
+export const routerApi = ({ app, repository, emailAdapter }: Props): Router => {
   const router = Router()
 
   app.use('/api/v1/', router)
-  router.use('/categories', createCategoryRouter(repository))
-  router.use('/brands', createBrandRouter(repository))
-  router.use('/models', createModelSeriesRouter(repository))
-  router.use('/device', createDeviceRouter(repository))
+  router.use('/categories', createCategoryRouter({ repository }))
+  router.use('/brands', createBrandRouter({ repository }))
+  router.use('/models', createModelSeriesRouter({ repository }))
+  router.use('/device', createDeviceRouter({ repository }))
   router.use('/status', createStatusRouter())
-  router.use('/auth', createAuthRouter())
-  router.use('/users', createUserRouter(repository))
+  router.use('/auth', createAuthRouter({ repository, emailAdapter }))
+  router.use('/users', createUserRouter({ repository }))
 
   return router
 }

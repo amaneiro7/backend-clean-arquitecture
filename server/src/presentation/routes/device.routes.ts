@@ -5,7 +5,11 @@ import { validatorParamsHandler } from '../validators/validatorParamsHandler'
 import validatorBodyHandler from '../validators/validatorBodyHandler'
 import { DeviceController } from '../controllers/device.controller'
 
-export const createDeviceRouter = (repository: Repository): Router => {
+interface Props {
+  repository: Repository
+}
+
+export const createDeviceRouter = ({ repository }: Props): Router => {
   const router = Router()
 
   const deviceController = new DeviceController(repository)

@@ -4,7 +4,11 @@ import { getIdDTO } from '../validators/dto'
 import { CategoryController } from '../controllers/category.controller'
 import { type Repository } from '../../domain/repositories/respoitory'
 
-export const createCategoryRouter = (repository: Repository): Router => {
+interface Props {
+  repository: Repository
+}
+
+export const createCategoryRouter = ({ repository }: Props): Router => {
   const router = Router()
 
   const categoryController = new CategoryController(repository)

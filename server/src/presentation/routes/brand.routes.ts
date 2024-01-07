@@ -1,22 +1,19 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { Router } from 'express'
 // import { validatorHandler } from '../../middleware/validatorHandler'
+import { type Repository } from '../../domain/repositories/respoitory'
 import { createDTO, getIdDTO, updateDTO } from '../validators/dto'
 import validatorBodyHandler from '../validators/validatorBodyHandler'
 import { validatorParamsHandler } from '../validators/validatorParamsHandler'
 import { BrandController } from '../controllers/brand.controller'
-import { type Repository } from '../../domain/repositories/respoitory'
-import { LoginStrategy } from '../../application/passport'
-import passport from 'passport'
-import { checkAccessRole } from '../../middleware/authHandler'
-
-export const createBrandRouter = (repository: Repository): Router => {
+interface Props {
+  repository: Repository
+}
+export const createBrandRouter = ({ repository }: Props): Router => {
   const router = Router()
   const brandController = new BrandController(repository)
 
   router.get('/',
-    passport.authenticate(LoginStrategy.JWT, { session: false }),
-    checkAccessRole({ permission: 'read' }),
     brandController.getAll
   )
   router.post('/',

@@ -5,6 +5,7 @@ import { corsMiddleware } from './middleware/cors'
 import { routerApi } from './presentation/routes/index.routes'
 import { type Repository } from './domain/repositories/respoitory'
 import { createPassportInstance } from './application/passport'
+import { type EmailAdapter } from './domain/adapters/email.adapter'
 // import morgan from 'morgan'
 // import helmet from 'helmet'
 // import winston from 'winston'
@@ -43,8 +44,9 @@ import { createPassportInstance } from './application/passport'
 interface Props {
   app: Application
   repository: Repository
+  emailAdapter: EmailAdapter
 }
-export const createServer = async ({ app, repository }: Props): Promise<Application> => {
+export const createServer = async ({ app, repository, emailAdapter }: Props): Promise<Application> => {
   app.use(json())
   app.use(corsMiddleware())
   app.disable('x-powered-by')
@@ -54,7 +56,7 @@ export const createServer = async ({ app, repository }: Props): Promise<Applicat
     res.status(200).json('Servidor de inventarios')
   })
 
-  routerApi(app, repository)
+  routerApi({ app, repository, emailAdapter })
   await createPassportInstance({ repository })
 
   // const accessLogStream: WriteStream = fs.createWriteStream(
