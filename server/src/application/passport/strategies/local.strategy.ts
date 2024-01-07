@@ -14,8 +14,8 @@ interface Props {
 export async function createLocalStrategy ({ repository }: Props): Promise<Strategy> {
   return new Strategy(fieldOptions, async (email: string, password: string, done) => {
     try {
-      const token = await localLogin({ email, inputPassword: password, repository })
-      done(null, token)
+      const user = await localLogin({ email, inputPassword: password, repository })
+      done(null, user)
     } catch (error) {
       done(error, false)
     }
