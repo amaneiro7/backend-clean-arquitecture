@@ -6,6 +6,7 @@ import Loading from '../components/Loading/index.tsx'
 import { Layout } from '../components/layout/index.tsx'
 
 const Home = lazy(async () => await import('../page/home/index.tsx'))
+const Login = lazy(async () => await import('../page/login/index.tsx'))
 const DeviceForm = lazy(async () => await import('../page/DeviceForm/index.tsx'))
 const BrandForm = lazy(async () => await import('../page/BrandForm/index.tsx'))
 const ModelForm = lazy(async () => await import('../page/ModelForm/index.tsx'))
@@ -19,6 +20,7 @@ function App () {
             <Layout>
                 <Routes>
                   <Route path='/' element={<Home />}/>
+                  <Route path='/login' element={<Login />}/>
                   <Route path='/device/add' element={<DeviceForm/>} />
                   <Route path='/device/edit/:deviceId' element={<DeviceForm/>} />
                   <Route path='/brand/add' element={<BrandForm/>} />

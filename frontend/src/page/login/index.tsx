@@ -1,23 +1,20 @@
-import { useState } from 'react'
+import { lazy, useState } from 'react'
 import TextField from '../../ui/text-field'
-import Logo from '../../ui/logo'
 import { Copyright } from '../../ui/copyright'
 import { Checkbox } from '../../ui/checkbox'
 import { Link } from 'react-router-dom'
-import { Button } from '@mui/material'
+import Logo from '../../ui/Logo'
+import { login } from '../../services/api'
+
+const Button = lazy(async () => await import('../../ui/button'))
 
 export default function Login () {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
-    const form = event.target
-    const formData = new FormData(form)
-    const email = formData.get('email') as string
-    const password = formData.get('password') as string
-
-    form.reset()
+    await login({ email, password })
   }
 
   return (
@@ -58,9 +55,10 @@ export default function Login () {
                                 </Link>
                             </div>
                             <Button
+                                actionType='ACTION'
                                 text='Iniciar Sesión'
                                 type='submit'
-                                handle
+                                handle={handleSubmit}
                             />
                             <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                                 Don’t have an account yet? <a href="#" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</a>

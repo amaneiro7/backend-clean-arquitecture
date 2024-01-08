@@ -14,6 +14,25 @@ export const getOne = async ({ path, id }: { path: typeof UrlPaths[keyof typeof 
   return await fetching({ URL: apiUrl })
 }
 
+export const login = async ({ email, password }: { email: string, password: string }) => {
+  const apiUrl = `${API_URL}/auth/login/local`
+  const data = {
+    email,
+    password
+  }
+
+  const res = await fetch(apiUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+
+  const { body, message, error } = await res.json()
+  console.log(body)
+}
+
 export const create = async ({ path, data }: { path: typeof UrlPaths[keyof typeof UrlPaths], data: object }) => {
   const apiUrl = `${API_URL}/${path}`
   const res = await fetch(apiUrl, {
