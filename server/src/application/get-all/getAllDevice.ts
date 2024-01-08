@@ -1,4 +1,4 @@
-import { type DeviceOutput } from '../../domain/entities/device.entity'
+import { type DeviceOutput } from '../../domain/entities/DeviceAggregation/device.entity'
 import { type Repository } from '../../domain/repositories/respoitory'
 
 export async function getAllDevices (repository: Repository): Promise<DeviceOutput[]> {

@@ -1,4 +1,4 @@
-import { type Id } from '../../types/types'
+import { type Id } from '../../../types/types'
 
 export interface Brand {
   id: Id

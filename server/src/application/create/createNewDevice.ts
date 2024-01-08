@@ -1,4 +1,4 @@
-import { type CreateDevice, type DeviceOutput } from '../../domain/entities/device.entity'
+import { type CreateDevice, type DeviceOutput } from '../../domain/entities/DeviceAggregation/device.entity'
 import { type Repository } from '../../domain/repositories/respoitory'
 
 interface Props {

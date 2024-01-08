@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto'
-import { type CreateBrand, type UpdateBrand, type Brand } from '../../../domain/entities/brand.entity'
+import { type CreateBrand, type UpdateBrand, type Brand } from '../../../domain/entities/DeviceAggregation/brand.entity'
 import { type Id } from '../../../types/types'
 import { type BrandRepository } from '../../../domain/repositories/brand.repository'
 

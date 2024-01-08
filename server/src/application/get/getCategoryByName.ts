@@ -1,5 +1,5 @@
 import { notFound } from '@hapi/boom'
-import { type Category } from '../../domain/entities/category.entity'
+import { type Category } from '../../domain/entities/DeviceAggregation/category.entity'
 import { type Repository } from '../../domain/repositories/respoitory'
 
 export async function getCategoryByName ({ name, repository }: { name: string, repository: Repository }): Promise<Category | undefined> {

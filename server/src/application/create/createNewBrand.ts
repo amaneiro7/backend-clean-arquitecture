@@ -1,4 +1,4 @@
-import { type Brand, type CreateBrand } from '../../domain/entities/brand.entity'
+import { type Brand, type CreateBrand } from '../../domain/entities/DeviceAggregation/brand.entity'
 import { type Repository } from '../../domain/repositories/respoitory'
 import { createFunction } from '../../utils/createFunction'
 

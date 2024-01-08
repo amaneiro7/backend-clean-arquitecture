@@ -1,6 +1,6 @@
 import { type Id } from '../../types/types'
 import { type Repository } from '../../domain/repositories/respoitory'
-import { type UpdateUserRecoveryToken, type UserOutput } from '../../domain/entities/user.entity'
+import { type UpdateUserRecoveryToken, type UserOutput } from '../../domain/entities/UserAggreagtion/user.entity'
 
 interface Props {
   id: Id

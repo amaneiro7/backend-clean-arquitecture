@@ -1,4 +1,4 @@
-import { type Category } from '../../../domain/entities/category.entity'
+import { type Category } from '../../../domain/entities/DeviceAggregation/category.entity'
 import { type Id } from '../../../types/types'
 import { type CategoryRepository } from '../../../domain/repositories/category.repository'
 

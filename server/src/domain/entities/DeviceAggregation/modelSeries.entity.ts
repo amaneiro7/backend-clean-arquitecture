@@ -1,4 +1,4 @@
-import { type Id } from '../../types/types'
+import { type Id } from '../../../types/types'
 import { type Brand } from './brand.entity'
 import { type Category } from './category.entity'
 

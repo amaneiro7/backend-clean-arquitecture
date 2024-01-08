@@ -1,5 +1,5 @@
 import { type JwtPayload } from 'jsonwebtoken'
-import { type RolesValue, type Id } from '../../types/types'
+import { type RolesValue, type Id } from '../../../types/types'
 
 export interface User {
   id: Id

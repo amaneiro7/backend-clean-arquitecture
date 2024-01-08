@@ -1,7 +1,7 @@
 import { type NextFunction, type Request, type Response } from 'express'
 import { type Id } from '../../types/types'
 import { type Repository } from '../../domain/repositories/respoitory'
-import { type UpdateDevice } from '../../domain/entities/device.entity'
+import { type UpdateDevice } from '../../domain/entities/DeviceAggregation/device.entity'
 import { successResponses } from '../../utils/successResponse'
 import { getAllDevices } from '../../application/get-all/getAllDevice'
 import { getDeviceById } from '../../application/get/getDeviceById'

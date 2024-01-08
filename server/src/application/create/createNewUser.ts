@@ -1,4 +1,4 @@
-import { type CreateUser, type User } from '../../domain/entities/user.entity'
+import { type CreateUser, type User } from '../../domain/entities/UserAggreagtion/user.entity'
 import { type Repository } from '../../domain/repositories/respoitory'
 
 interface Props {

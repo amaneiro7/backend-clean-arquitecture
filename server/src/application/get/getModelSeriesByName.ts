@@ -1,5 +1,5 @@
 import { notFound } from '@hapi/boom'
-import { type ModelSeriesOutput } from '../../domain/entities/modelSeries.entity'
+import { type ModelSeriesOutput } from '../../domain/entities/DeviceAggregation/modelSeries.entity'
 import { type Repository } from '../../domain/repositories/respoitory'
 
 export async function getModelSeriesByName ({ name, repository }: { name: string, repository: Repository }): Promise<ModelSeriesOutput | undefined> {

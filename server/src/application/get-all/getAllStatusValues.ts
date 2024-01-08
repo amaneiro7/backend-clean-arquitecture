@@ -1,4 +1,4 @@
-import { STATUS } from '../../domain/entities/status.entity'
+import { STATUS } from '../../domain/entities/DeviceAggregation/status.entity'
 import { type StatusValue } from '../../types/types'
 
 export const getStatusValues = (): StatusValue[] => {

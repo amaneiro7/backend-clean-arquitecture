@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto'
 import { conflict } from '@hapi/boom'
-import { type UpdateUser, type CreateUser, type User, type UpdateUserRecoveryToken } from '../../../domain/entities/user.entity'
+import { type UpdateUser, type CreateUser, type User, type UpdateUserRecoveryToken } from '../../../domain/entities/UserAggreagtion/user.entity'
 import { type UserRepository } from '../../../domain/repositories/user.repository'
 import { hashSync } from 'bcrypt'
 

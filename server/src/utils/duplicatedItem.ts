@@ -1,7 +1,7 @@
 import { conflict } from '@hapi/boom'
-import { type Brand } from '../domain/entities/brand.entity'
-import { type Category } from '../domain/entities/category.entity'
-import { type ModelSeries } from '../domain/entities/modelSeries.entity'
+import { type Brand } from '../domain/entities/DeviceAggregation/brand.entity'
+import { type Category } from '../domain/entities/DeviceAggregation/category.entity'
+import { type ModelSeries } from '../domain/entities/DeviceAggregation/modelSeries.entity'
 
 interface Props {
   array: Brand[] | Category[] | ModelSeries[]

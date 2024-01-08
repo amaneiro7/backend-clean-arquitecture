@@ -1,4 +1,4 @@
-import { type StatusValue, type Id } from '../../types/types'
+import { type StatusValue, type Id } from '../../../types/types'
 import { type ModelSeriesOutput } from './modelSeries.entity'
 
 export interface Device {

@@ -1,7 +1,7 @@
 import { type Id } from '../../types/types'
 import { type Repository } from '../../domain/repositories/respoitory'
 import { updateFunction } from '../../utils/updateFunction'
-import { type ModelSeriesOutput, type UpdateModelSeries } from '../../domain/entities/modelSeries.entity'
+import { type ModelSeriesOutput, type UpdateModelSeries } from '../../domain/entities/DeviceAggregation/modelSeries.entity'
 
 interface Props {
   id: Id
