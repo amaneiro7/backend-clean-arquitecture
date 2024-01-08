@@ -1,7 +1,7 @@
 import { json, type Application, type Request, type Response, urlencoded } from 'express'
 // import fs, { type WriteStream } from 'node:fs'
 // import path from 'node:path'
-import { corsMiddleware } from './middleware/cors'
+import { corsMiddleware } from './presentation/middleware/cors'
 import { routerApi } from './presentation/routes/index.routes'
 import { type Repository } from './domain/repositories/respoitory'
 import { createPassportInstance } from './application/passport'

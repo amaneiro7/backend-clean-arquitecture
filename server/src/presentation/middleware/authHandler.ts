@@ -1,8 +1,8 @@
 import { unauthorized } from '@hapi/boom'
-import { PERMISSION, RolePermission } from '../domain/entities/UserAggreagtion/rolePermission'
+import { PERMISSION, RolePermission } from '../../domain/entities/UserAggreagtion/rolePermission'
 import { type Response, type NextFunction, type Request } from 'express'
-import { type PermissionValue } from '../types/types'
-import { type JWTUserPayload } from '../domain/entities/UserAggreagtion/user.entity'
+import { type PermissionValue } from '../../types/types'
+import { type JWTUserPayload } from '../../domain/entities/UserAggreagtion/user.entity'
 
 export function checkAccessRole ({ permission }: { permission: PermissionValue }) {
   // Se define la funcion que se encarga de validar si el usuario tiene el permiso

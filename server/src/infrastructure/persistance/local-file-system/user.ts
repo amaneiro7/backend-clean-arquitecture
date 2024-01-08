@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto'
 import { conflict } from '@hapi/boom'
-import { type UpdateUser, type CreateUser, type User, type UpdateUserRecoveryToken } from '../../../domain/entities/UserAggreagtion/user.entity'
+import { type UpdateUser, type CreateUser, type User, type UpdateUserRecoveryToken, type UpdateUserPassword } from '../../../domain/entities/UserAggreagtion/user.entity'
 import { type UserRepository } from '../../../domain/repositories/user.repository'
 import { hashSync } from 'bcrypt'
 
@@ -64,6 +64,16 @@ export class UserRepositoryImpl implements UserRepository {
     users[userIndex] = {
       ...users[userIndex],
       recoveryToken
+    }
+    return users[userIndex]
+  }
+
+  async updateUserPassword (id: `${string}-${string}-${string}-${string}-${string}`, { password }: UpdateUserPassword): Promise<User | undefined> {
+    const userIndex = users.findIndex(user => user.id === id)
+    if (userIndex === -1) return undefined
+    users[userIndex] = {
+      ...users[userIndex],
+      password
     }
     return users[userIndex]
   }

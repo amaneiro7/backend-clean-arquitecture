@@ -8,6 +8,7 @@ import { createBrandRouter } from './brand.routes'
 import { createUserRouter } from './user.routes'
 import { createAuthRouter } from './auth.routes'
 import { type EmailAdapter } from '../../domain/adapters/email.adapter'
+import { createProfileRouter } from './profile.routes'
 
 interface Props {
   app: Application
@@ -25,6 +26,7 @@ export const routerApi = ({ app, repository, emailAdapter }: Props): Router => {
   router.use('/status', createStatusRouter())
   router.use('/auth', createAuthRouter({ repository, emailAdapter }))
   router.use('/users', createUserRouter({ repository }))
+  router.use('/profiles', createProfileRouter({ repository }))
 
   return router
 }

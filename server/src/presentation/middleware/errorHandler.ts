@@ -2,7 +2,7 @@ import { type Boom, isBoom } from '@hapi/boom'
 import { type Request, type Response, type NextFunction } from 'express'
 import { ValidationError } from 'sequelize'
 import { isError } from 'joi'
-import { successResponses } from '../utils/successResponse'
+import { successResponses } from '../../utils/successResponse'
 // import * as winston from 'winston'
 
 // const file = new winston.transports.File({

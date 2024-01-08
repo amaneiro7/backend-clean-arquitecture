@@ -1,6 +1,6 @@
 import express, { type Application } from 'express'
 import { createServer } from './src'
-import { boomErrorHandler, errorHandler, joiErrorHandler, logErrors, ormErrorHandler } from './src/middleware/errorHandler'
+import { boomErrorHandler, errorHandler, joiErrorHandler, logErrors, ormErrorHandler } from './src/presentation/middleware/errorHandler'
 import { type Repository } from './src/domain/repositories/respoitory'
 import { repositoryInMemory } from './src/infrastructure/persistance/local-file-system'
 import { type EmailAdapter } from './src/domain/adapters/email.adapter'

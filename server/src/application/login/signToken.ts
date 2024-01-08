@@ -12,7 +12,7 @@ export function signToken ({ user }: Props): SignTokenResult {
   }
 
   const payload = {
-    sub: String(user.id),
+    sub: user.id,
     role: user.role
   }
 

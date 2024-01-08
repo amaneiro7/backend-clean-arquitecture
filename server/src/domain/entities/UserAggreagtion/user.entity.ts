@@ -14,7 +14,9 @@ export interface User {
 export interface CreateUser extends Omit<User, 'id' | 'recoveryToken'> {}
 export interface UpdateUser extends Partial<CreateUser> {}
 export interface UpdateUserRecoveryToken extends Pick<User, 'recoveryToken'> {}
+export interface UpdateUserPassword extends Pick<User, 'password'> {}
 export interface UserOutput extends Omit<User, 'password' > {}
 export interface JWTUserPayload extends JwtPayload {
   role: RolesValue
+  sub: Id
 }
