@@ -1,5 +1,5 @@
 import { type Id } from '../../types/types'
-import { type UpdateUserRecoveryToken, type CreateUser, type UpdateUser, type User, type UpdateUserPassword } from '../entities/UserAggreagtion/user.entity'
+import { type UpdateUserRecoveryToken, type CreateUser, type UpdateUser, type User, type UpdateUserPassword } from '../entities/User/user.entity'
 
 export interface UserRepository {
   findByUserId: (id: Id) => Promise<User | undefined>

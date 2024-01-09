@@ -1,6 +1,6 @@
 import Joi from 'joi'
 import { STATUS } from '../../domain/entities/DeviceAggregation/status.entity'
-import { ROLE } from '../../domain/entities/UserAggreagtion/role.entity'
+import { ROLE } from '../../domain/entities/User/role.entity'
 
 const id = Joi.string().guid({ version: ['uuidv4'] })
 const name = Joi.string().min(3).max(25).trim()

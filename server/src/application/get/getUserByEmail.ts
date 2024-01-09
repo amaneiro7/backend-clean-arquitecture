@@ -1,6 +1,6 @@
 import { notFound } from '@hapi/boom'
 import { type Repository } from '../../domain/repositories/respoitory'
-import { type User } from '../../domain/entities/UserAggreagtion/user.entity'
+import { type User } from '../../domain/entities/User/user.entity'
 
 interface Props {
   email: string

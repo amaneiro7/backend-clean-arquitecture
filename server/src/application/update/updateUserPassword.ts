@@ -1,6 +1,6 @@
 import { type Id } from '../../types/types'
 import { type Repository } from '../../domain/repositories/respoitory'
-import { type UpdateUserPassword, type UserOutput } from '../../domain/entities/UserAggreagtion/user.entity'
+import { type UpdateUserPassword, type UserOutput } from '../../domain/entities/User/user.entity'
 import { notFound } from '@hapi/boom'
 
 interface Props {

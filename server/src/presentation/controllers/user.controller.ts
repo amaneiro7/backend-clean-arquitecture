@@ -4,7 +4,7 @@ import { type Repository } from '../../domain/repositories/respoitory'
 import { successResponses } from '../../utils/successResponse'
 import { createNewUser } from '../../application/create/createNewUser'
 import { getUserById } from '../../application/get/getUserById'
-import { type JWTUserPayload } from '../../domain/entities/UserAggreagtion/user.entity'
+import { type JWTUserPayload } from '../../domain/entities/User/user.entity'
 import { updateUserPassword } from '../../application/update/updateUserPassword'
 
 export class UserController {

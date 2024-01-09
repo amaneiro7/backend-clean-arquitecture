@@ -1,7 +1,7 @@
 import { type STATUS } from '../domain/entities/DeviceAggregation/status.entity'
-import { type ROLE } from '../domain/entities/UserAggreagtion/role.entity'
-import { type PERMISSION } from '../domain/entities/UserAggreagtion/rolePermission'
-import { type UserOutput } from '../domain/entities/UserAggreagtion/user.entity'
+import { type ROLE } from '../domain/entities/User/role.entity'
+import { type PERMISSION } from '../domain/entities/User/rolePermission'
+import { type UserOutput } from '../domain/entities/User/user.entity'
 import { type STORENAME } from './const'
 
 export type Id = `${string}-${string}-${string}-${string}-${string}`

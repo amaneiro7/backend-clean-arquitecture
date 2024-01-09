@@ -1,5 +1,5 @@
 import { badRequest } from '@hapi/boom'
-import { type UserOutput } from '../../domain/entities/UserAggreagtion/user.entity'
+import { type UserOutput } from '../../domain/entities/User/user.entity'
 import { type SignTokenResult } from '../../types/types'
 import { config } from '../../../config/env.file'
 import { ExpireTime, generateAccessToken } from '../utils/generateAccessToken'

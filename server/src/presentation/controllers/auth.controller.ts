@@ -1,6 +1,6 @@
 import { type NextFunction, type Request, type Response } from 'express'
 import { successResponses } from '../../utils/successResponse'
-import { type UserOutput } from '../../domain/entities/UserAggreagtion/user.entity'
+import { type UserOutput } from '../../domain/entities/User/user.entity'
 import { sendRecovery } from '../../application/send-recovery/sendRecovery'
 import { type Repository } from '../../domain/repositories/respoitory'
 import { type EmailAdapter } from '../../domain/adapters/email.adapter'
