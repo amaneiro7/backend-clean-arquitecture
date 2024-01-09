@@ -1,5 +1,5 @@
 import { API_URL } from './config'
-import { type UrlPaths } from '../types/const'
+import { type UrlPaths } from '../../types/const'
 
 export const getAll = async ({ path }: { path: typeof UrlPaths[keyof typeof UrlPaths] }) => {
   const apiUrl = `${API_URL}/${path}`

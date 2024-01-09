@@ -2,15 +2,15 @@ import { Suspense, lazy } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import ErrorBoundary from './ErrorBoundary.tsx'
 
-import Loading from '../components/Loading/index.tsx'
-import { Layout } from '../components/layout/index.tsx'
+import Loading from '../sections/components/Loading/index.tsx'
+import { Layout } from '../sections/components/layout/index.tsx'
 
-const Home = lazy(async () => await import('../page/home/index.tsx'))
-const Login = lazy(async () => await import('../page/login/index.tsx'))
-const DeviceForm = lazy(async () => await import('../page/DeviceForm/index.tsx'))
-const BrandForm = lazy(async () => await import('../page/BrandForm/index.tsx'))
-const ModelForm = lazy(async () => await import('../page/ModelForm/index.tsx'))
-const NotFound = lazy(async () => await import('../page/404'))
+const Home = lazy(async () => await import('../sections/page/home/index.tsx'))
+const Login = lazy(async () => await import('../sections/page/login/index.tsx'))
+const DeviceForm = lazy(async () => await import('../sections/page/DeviceForm/index.tsx'))
+const BrandForm = lazy(async () => await import('../sections/page/BrandForm/index.tsx'))
+const ModelForm = lazy(async () => await import('../sections/page/ModelForm/index.tsx'))
+const NotFound = lazy(async () => await import('../sections/page/404/index.tsx'))
 
 function App () {
   return (

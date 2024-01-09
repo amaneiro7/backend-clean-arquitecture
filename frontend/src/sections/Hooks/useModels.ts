@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { type Model } from '../types/types'
+import { type Model } from '../../types/types'
 import { getAll } from '../services/api'
 
 export const useModels = () => {

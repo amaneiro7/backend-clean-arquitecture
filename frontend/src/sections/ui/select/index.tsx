@@ -2,7 +2,7 @@ import { Select as SelectMui } from '../../mui/Select'
 import { InputLabel as InputLabelMui } from '../../mui/InputLabel'
 import { MenuItem as MenuItemMui } from '../../mui/MenuItem'
 import { FormControl } from '../../mui/FormControl'
-import { type OnChangeInputs } from '../../types/types'
+import { type OnChangeInputs } from '../../../types/types'
 
 interface Props {
   name: string

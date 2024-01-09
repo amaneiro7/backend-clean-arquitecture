@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { type MappedDevice, type Device } from '../types/types'
+import { type MappedDevice, type Device } from '../../types/types'
 import { getAll } from '../services/api'
 
 export const useDevice = (): {

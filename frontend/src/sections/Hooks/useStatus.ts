@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { getAll } from '../services/api'
-import { type MappedStatus, type Status } from '../types/types'
+import { type MappedStatus, type Status } from '../../types/types'
 
 export const useStatus = () => {
   const [status, setStatus] = useState<MappedStatus[]>([])

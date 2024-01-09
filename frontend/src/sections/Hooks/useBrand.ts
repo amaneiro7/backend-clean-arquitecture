@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { type Brand } from '../types/types'
+import { type Brand } from '../../types/types'
 import { getAll } from '../services/api'
 
 export const useBrands = () => {
