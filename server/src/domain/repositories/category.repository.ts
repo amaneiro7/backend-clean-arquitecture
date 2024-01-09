@@ -1,5 +1,5 @@
 import { type Id } from '../../types/types'
-import { type Category } from '../entities/DeviceAggregation/category.entity'
+import { type Category } from '../entities/Device/category.entity'
 
 export interface CategoryRepository {
   getAll: () => Promise<Category[]>

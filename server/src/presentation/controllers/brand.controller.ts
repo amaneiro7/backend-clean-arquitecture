@@ -1,7 +1,7 @@
 import { type NextFunction, type Request, type Response } from 'express'
 import { type Id } from '../../types/types'
 import { type Repository } from '../../domain/repositories/respoitory'
-import { type CreateBrand } from '../../domain/entities/DeviceAggregation/brand.entity'
+import { type CreateBrand } from '../../domain/entities/Device/brand.entity'
 import { successResponses } from '../../utils/successResponse'
 import { getAllBrands } from '../../application/get-all/getAllBrands'
 import { getBrandById } from '../../application/get/getBrandById'

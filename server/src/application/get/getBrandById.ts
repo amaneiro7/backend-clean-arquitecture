@@ -1,5 +1,5 @@
 import { notFound } from '@hapi/boom'
-import { type Brand } from '../../domain/entities/DeviceAggregation/brand.entity'
+import { type Brand } from '../../domain/entities/Device/brand.entity'
 import { type Repository } from '../../domain/repositories/respoitory'
 import { type Id } from '../../types/types'
 

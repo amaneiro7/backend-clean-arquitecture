@@ -1,7 +1,7 @@
 import { badRequest, conflict, notFound } from '@hapi/boom'
 import { type StoreNameValue, type Id } from '../types/types'
-import { type UpdateBrand } from '../domain/entities/DeviceAggregation/brand.entity'
-import { type UpdateModelSeries } from '../domain/entities/DeviceAggregation/modelSeries.entity'
+import { type UpdateBrand } from '../domain/entities/Device/brand.entity'
+import { type UpdateModelSeries } from '../domain/entities/Device/modelSeries.entity'
 import { type ModelSeriesRepository } from '../domain/repositories/modelSeries.repository'
 import { type BrandRepository } from '../domain/repositories/brand.repository'
 

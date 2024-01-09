@@ -1,5 +1,5 @@
 import { notFound } from '@hapi/boom'
-import { type DeviceOutput, type UpdateDevice } from '../../domain/entities/DeviceAggregation/device.entity'
+import { type DeviceOutput, type UpdateDevice } from '../../domain/entities/Device/device.entity'
 import { type Repository } from '../../domain/repositories/respoitory'
 import { type Id } from '../../types/types'
 

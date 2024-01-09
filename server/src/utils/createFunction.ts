@@ -1,8 +1,8 @@
 import { badRequest, conflict } from '@hapi/boom'
 import { type StoreNameValue } from '../types/types'
-import { type CreateBrand } from '../domain/entities/DeviceAggregation/brand.entity'
+import { type CreateBrand } from '../domain/entities/Device/brand.entity'
 import { type BrandRepository } from '../domain/repositories/brand.repository'
-import { type CreateModelSeries } from '../domain/entities/DeviceAggregation/modelSeries.entity'
+import { type CreateModelSeries } from '../domain/entities/Device/modelSeries.entity'
 import { type ModelSeriesRepository } from '../domain/repositories/modelSeries.repository'
 
 type Props = BrandProps | ModelSeriesProps

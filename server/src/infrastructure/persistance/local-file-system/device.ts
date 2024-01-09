@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto'
 import { type Id } from '../../../types/types'
-import { type DeviceOutput, type Device, type CreateDevice, type UpdateDevice } from '../../../domain/entities/DeviceAggregation/device.entity'
+import { type DeviceOutput, type Device, type CreateDevice, type UpdateDevice } from '../../../domain/entities/Device/device.entity'
 import { type DeviceRepository } from '../../../domain/repositories/device.repositories'
 import { repositoryInMemory } from '.'
 

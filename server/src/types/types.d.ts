@@ -1,4 +1,4 @@
-import { type STATUS } from '../domain/entities/DeviceAggregation/status.entity'
+import { type STATUS } from '../domain/entities/Device/status.entity'
 import { type ROLE } from '../domain/entities/User/role.entity'
 import { type PERMISSION } from '../domain/entities/User/rolePermission'
 import { type UserOutput } from '../domain/entities/User/user.entity'
