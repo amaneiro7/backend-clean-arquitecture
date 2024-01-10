@@ -1,3 +1,12 @@
+import { randomUUID } from 'node:crypto'
+
+export class GenerateId {
+  id: string
+  constructor () {
+    this.id = randomUUID()
+  }
+}
+
 export type Id = `${string}-${string}-${string}-${string}-${string}`
 
 export function isIdValid (id: Id): boolean {
