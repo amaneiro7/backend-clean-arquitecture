@@ -5,11 +5,11 @@ import { type UserRepository } from '../domain/UserRepository'
 export class InMemoryUserRepository implements UserRepository {
   constructor (private readonly users: User[]) {}
 
-  save (user: User): void {
+  async save (user: User): Promise<void> {
     this.users.push(user)
   }
 
-  search (userEmail: UserEmail): User | null {
+  async search (userEmail: UserEmail): Promise<User | null> {
     return this.users.find(user => user.emailValue === userEmail.value) ?? null
   }
 }

@@ -1,17 +1,19 @@
 import { User } from '../domain/User'
 import { UserAlreadyExistError } from '../domain/UserAlreadyExistError'
 import { UserEmail } from '../domain/UserEmail'
+import { UserId } from '../domain/UserId'
 import { type UserRepository } from '../domain/UserRepository'
 
 export class UserRegister {
   constructor (private readonly repository: UserRepository) {}
 
-  register (id: string, email: string): void {
+  async register (email: string): Promise<void> {
     this.ensureUserDoesNotExist(email)
+    const id = String(UserId.random())
 
     const user = User.create({ id, email })
 
-    this.repository.save(user)
+    await this.repository.save(user)
   }
 
   private ensureUserDoesNotExist (email: string): void {
