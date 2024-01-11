@@ -1,4 +1,4 @@
-import { isIdValid, type Id, idNotValidError } from '../../../Shared/domain/Id'
+import { isIdValid, type Id, idNotValidError } from '../../../Shared/domain/Uuid'
 import { NameNotValidError, isNameValid } from '../../../Shared/name'
 
 export class Category {

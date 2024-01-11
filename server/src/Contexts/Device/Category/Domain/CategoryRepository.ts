@@ -1,4 +1,4 @@
-import { type Id } from '../../../Shared/domain/Id'
+import { type Id } from '../../../Shared/domain/Uuid'
 import { type Category } from './Category'
 
 export interface CategoryRepository {

@@ -1,4 +1,4 @@
-import { type Id } from './domain/Id'
+import { type Id } from './domain/Uuid'
 
 export interface GenericRepository<T, CreatePayload, UpdatePayload> {
   getAll: () => Promise<T[]>
