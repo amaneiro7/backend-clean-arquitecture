@@ -30,7 +30,7 @@ export class Brand {
     this.name = new BrandName(newName)
   }
 
-  get IdValie (): string {
+  get IdValue (): string {
     return this.id.value
   }
 
