@@ -12,11 +12,16 @@ export class Brand {
     private name: BrandName
   ) {}
 
-  static create ({ id, name }: { id: string, name: string }): Brand {
+  static create ({ name }: { name: string }): Brand {
+    const id = String(BrandId.random())
     return new Brand(
       new BrandId(id),
       new BrandName(name)
     )
+  }
+
+  updateName (newName: string): void {
+    this.name = new BrandName(newName)
   }
 
   static fromPrimitives (primitives: BrandPrimitives): Brand {
@@ -26,11 +31,14 @@ export class Brand {
     )
   }
 
-  updateName (newName: string): void {
-    this.name = new BrandName(newName)
+  toPrimitive (): any {
+    return {
+      id: this.id.value,
+      name: this.name.value
+    }
   }
 
-  get IdValie (): string {
+  get IdValue (): string {
     return this.id.value
   }
 

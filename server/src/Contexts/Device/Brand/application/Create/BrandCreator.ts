@@ -1,8 +1,7 @@
-import { Brand } from '../domain/Brand'
-import { BrandAlreadyExistError } from '../domain/BrandAlreadyExistError'
-import { BrandId } from '../domain/BrandId'
-import { BrandName } from '../domain/BrandName'
-import { type BrandRepository } from '../domain/BrandRepository'
+import { Brand } from '../../domain/Brand'
+import { BrandAlreadyExistError } from '../../domain/BrandAlreadyExistError'
+import { BrandName } from '../../domain/BrandName'
+import { type BrandRepository } from '../../domain/BrandRepository'
 
 export class createNewBrand {
   constructor (private readonly repository: BrandRepository) {}
@@ -10,11 +9,9 @@ export class createNewBrand {
   async run (params: { name: string }): Promise<void> {
     const { name } = params
 
-    const id = String(BrandId.random())
-
     this.ensureBrandDoesNotExist(name)
 
-    const brand = Brand.create({ id, name })
+    const brand = Brand.create({ name })
 
     this.repository.save(brand)
   }

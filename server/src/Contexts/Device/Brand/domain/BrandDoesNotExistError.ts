@@ -1,5 +1,5 @@
-export class UBrandDoesNotExistError extends Error {
-  constructor (public readonly name: string) {
-    super(`The brand ${name} does not exist`)
+export class BrandDoesNotExistError extends Error {
+  constructor (public readonly value: string) {
+    super(`The brand ${value} does not exist`)
   }
 }
