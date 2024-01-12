@@ -4,7 +4,7 @@ import { type Brand } from './Brand'
 import { type BrandName } from './BrandName'
 
 export abstract class BrandRepository implements GenericRepository<Brand, BrandName> {
-  abstract save (payload: Brand): void
+  abstract save (payload: Brand): Promise<void>
 
   abstract searchAll: () => Promise<Brand[]>
 

@@ -3,7 +3,7 @@ import { BrandAlreadyExistError } from '../../domain/BrandAlreadyExistError'
 import { BrandName } from '../../domain/BrandName'
 import { type BrandRepository } from '../../domain/BrandRepository'
 
-export class createNewBrand {
+export class BrandCreator {
   constructor (private readonly repository: BrandRepository) {}
 
   async run (params: { name: string }): Promise<void> {
