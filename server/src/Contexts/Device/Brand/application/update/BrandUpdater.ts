@@ -18,7 +18,7 @@ export class BrandUpdater {
 
     brand.updateName(newName)
 
-    await this.repository.save(brand)
+    this.repository.save(brand)
   }
 
   private ensureBrandDoesNotExist (name: string): void {
