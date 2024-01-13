@@ -1,26 +1,25 @@
-import { type Uuid } from '../../../Shared/domain/Uuid'
-import { type Brand } from '../domain/Brand'
+import { Brand } from '../domain/Brand'
 import { BrandId } from '../domain/BrandId'
-import { type BrandName } from '../domain/BrandName'
+import { BrandName } from '../domain/BrandName'
 import { type BrandRepository } from '../domain/BrandRepository'
 
 const brands: Brand[] = [
-  // {
-  //   id: 'dcdd0fad-a94c-4810-8acc-5f108d3b18c3',
-  //   name: new BrandName('Hewlett-Packard')
-  // },
-  // {
-  //   id: 'c8a7d63f-3b04-44d3-9d95-8782fd7dcfaf',
-  //   name: new BrandName('Lenovo')
-  // },
-  // {
-  //   id: '5ad1a235-0d9c-410a-b32b-220d91689a08',
-  //   name: new BrandName('Wincor-Nixdorf')
-  // },
-  // {
-  //   id: '241bf55d-b649-4109-af7c-0e6890ded3fc',
-  //   name: new BrandName('Compaq')
-  // }
+  new Brand(
+    new BrandId('dcdd0fad-a94c-4810-8acc-5f108d3b18c3'),
+    new BrandName('Hewlett-Packard')
+  ),
+  new Brand(
+    new BrandId('c8a7d63f-3b04-44d3-9d95-8782fd7dcfaf'),
+    new BrandName('Lenovo')
+  ),
+  new Brand(
+    new BrandId('5ad1a235-0d9c-410a-b32b-220d91689a08'),
+    new BrandName('Wincor-Nixdorf')
+  ),
+  new Brand(
+    new BrandId('241bf55d-b649-4109-af7c-0e6890ded3fc'),
+    new BrandName('Compaq')
+  )
 ]
 
 export class InMemoryBrandRepository implements BrandRepository {
@@ -28,7 +27,7 @@ export class InMemoryBrandRepository implements BrandRepository {
     return brands
   }
 
-  async searchById (id: Uuid): Promise<Brand | null> {
+  async searchById (id: BrandId): Promise<Brand | null> {
     return brands.find(brand => brand.IdValue === String(id)) ?? null
   }
 
@@ -44,7 +43,7 @@ export class InMemoryBrandRepository implements BrandRepository {
     brands.push(payload)
   }
 
-  async remove (id: Uuid): Promise<void> {
+  async remove (id: BrandId): Promise<void> {
     brands.filter(brand => brand.IdValue !== String(id))
   }
 }

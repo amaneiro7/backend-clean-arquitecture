@@ -1,13 +1,11 @@
-import { type Uuid } from './Uuid'
-
-export abstract class GenericRepository<T, Name> {
+export abstract class GenericRepository<T, Id, Name> {
   abstract save (payload: T): void
 
   abstract searchAll: () => Promise<T[]>
 
-  abstract searchById: (id: Uuid) => Promise<T | null>
+  abstract searchById: (id: Id) => Promise<T | null>
 
   abstract searchByName: (name: Name) => Promise<T | null>
 
-  abstract remove: (id: Uuid) => Promise<void>
+  abstract remove: (id: Id) => Promise<void>
 }

@@ -1,6 +1,6 @@
-import { type Category } from '../../../domain/entities/Device/category.entity'
 import { type Id } from '../../../types/types'
 import { type CategoryRepository } from '../../../domain/repositories/category.repository'
+import { type Category } from '../../../domain/entities/Device/Category/category.entity'
 
 const categories: Category[] = [
   {

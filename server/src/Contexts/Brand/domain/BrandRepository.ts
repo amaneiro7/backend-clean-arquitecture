@@ -1,16 +1,16 @@
-import { type GenericRepository } from '../../../Shared/domain/GenericRepository'
-import { type Uuid } from '../../../Shared/domain/Uuid'
+import { type GenericRepository } from '../../Shared/domain/GenericRepository'
 import { type Brand } from './Brand'
+import { type BrandId } from './BrandId'
 import { type BrandName } from './BrandName'
 
-export abstract class BrandRepository implements GenericRepository<Brand, BrandName> {
+export abstract class BrandRepository implements GenericRepository<Brand, BrandId, BrandName> {
   abstract save (payload: Brand): Promise<void>
 
   abstract searchAll: () => Promise<Brand[]>
 
-  abstract searchById: (id: Uuid) => Promise<Brand | null>
+  abstract searchById: (id: BrandId) => Promise<Brand | null>
 
   abstract searchByName: (name: BrandName) => Promise<Brand | null>
 
-  abstract remove: (id: Uuid) => Promise<void>
+  abstract remove: (id: BrandId) => Promise<void>
 }
