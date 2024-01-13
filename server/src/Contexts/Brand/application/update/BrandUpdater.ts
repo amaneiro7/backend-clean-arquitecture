@@ -1,6 +1,6 @@
-import { Uuid } from '../../../../Shared/domain/Uuid'
 import { BrandAlreadyExistError } from '../../domain/BrandAlreadyExistError'
 import { BrandDoesNotExistError } from '../../domain/BrandDoesNotExistError'
+import { BrandId } from '../../domain/BrandId'
 import { BrandName } from '../../domain/BrandName'
 import { type BrandRepository } from '../../domain/BrandRepository'
 
@@ -10,7 +10,7 @@ export class BrandUpdater {
   async run (params: { id: string, newName: string }): Promise<void> {
     const { id, newName } = params
 
-    const brand = await this.repository.searchById(new Uuid(id))
+    const brand = await this.repository.searchById(new BrandId(id))
     if (brand === null) {
       throw new BrandDoesNotExistError(newName)
     }
@@ -18,7 +18,7 @@ export class BrandUpdater {
 
     brand.updateName(newName)
 
-    this.repository.save(brand)
+    await this.repository.save(brand)
   }
 
   private ensureBrandDoesNotExist (name: string): void {
