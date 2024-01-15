@@ -6,15 +6,15 @@ export enum StatusTypes {
   BAD = 'Dañado'
 }
 
-export class StatusType extends EnumValueObject<StatusTypes> {
+export class Status extends EnumValueObject<StatusTypes> {
   constructor (value: StatusTypes) {
     super(value, Object.values(StatusTypes))
   }
 
-  static fromValue (value: string): StatusType {
+  static fromValue (value: string): Status {
     for (const statusTypeValue of Object.values(StatusTypes)) {
       if (value === statusTypeValue.toString()) {
-        return new StatusType(statusTypeValue)
+        return new Status(statusTypeValue)
       }
     }
 

@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
 import { Router } from 'express'
-import { BrandGetController } from '../controller/Brand/BrandGetController'
-import { type Repository } from '../../../../Contexts/Shared/domain/Repository'
+import { BrandGetController } from '../controller/BrandGetController'
+import { type Repository } from '../../../../../Contexts/Shared/domain/Repository'
+import { BrandPostController } from '../controller/BrandPostController'
 // import { validatorHandler } from '../../middleware/validatorHandler'
 
 interface Props {
@@ -10,10 +10,12 @@ interface Props {
 export const createBrandRouter = ({ repository }: Props): Router => {
   const router = Router()
   const brandGetController = new BrandGetController(repository)
+  const brandPostController = new BrandPostController(repository)
+
   router.get('/', brandGetController.getAll)
   router.get('/:id', brandGetController.getById)
-  router.put('/')
-
+  router.post('/', brandPostController.create)
+  router.patch('/:id', brandPostController.update)
   // router.patch(
   //   '/:id',
   //   validatorParamsHandler(getIdDTO),

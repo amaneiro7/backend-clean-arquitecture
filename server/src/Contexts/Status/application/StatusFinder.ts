@@ -1,7 +1,7 @@
-import { StatusTypes } from '../domain/Status'
+import { Status } from '../domain/Status'
 
 export class StatusFinder {
-  async run (): Promise<StatusTypes[]> {
-    return Array.from(Object.values(StatusTypes))
+  async run (): Promise<Status[]> {
+    return Array.from(Object.values(Status))
   }
 }
