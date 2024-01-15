@@ -1,79 +1,86 @@
-import { BrandId } from '../../Brand/domain/BrandId'
-import { CategoryId } from '../../Category/domain/CategoryId'
-import { type Status } from '../../Status/domain/Status'
-import { DeviceId, ModelSeriesId } from './DeviceId'
-import { ModelSeriesName } from './DeviceName'
+import { ModelSeriesId } from '../../ModelSeries/domain/ModelSeriesId'
+import { Status, type StatusTypes } from '../../Status/domain/Status'
+import { DeviceId } from './DeviceId'
+import { DeviceActivo } from './DeviceActivo'
+import { DeviceSerial } from './DeviceSerial'
 
 export interface DevicePrimitives {
   deviceId: string
-  serial: string
-  activo: string
-  status: string
+  serial: string | null
+  activo: string | null
+  status: StatusTypes
   modelId: string
 }
 
 export class Device {
   constructor (
-    private readonly deviceId: DeviceId,
-    private readonly serial: ModelSeriesName,
-    private readonly activo: BrandId,
-    private readonly status: Status,
-    private readonly modelId: ModelSeriesId
+    private readonly _deviceId: DeviceId,
+    private _serial: DeviceSerial,
+    private _activo: DeviceActivo,
+    private _status: Status,
+    private _modelId: ModelSeriesId
   ) {}
 
-  static create ({ name, brandId, categoryId }: { name: string, brandId: string, categoryId: string }): ModelSeries {
+  static create ({ serial, activo, status, modelId }: { serial: string, activo: string, status: StatusTypes, modelId: string }): Device {
     const id = String(DeviceId.random())
     return new Device(
       new DeviceId(id),
-      new ModelSeriesName(name),
-      new CategoryId(categoryId),
-      new BrandId(brandId)
+      new DeviceSerial(serial),
+      new DeviceActivo(activo),
+      new Status(status),
+      new ModelSeriesId(modelId)
     )
   }
 
-  updateName (newName: string): void {
-    this.modelSeriesName = new ModelSeriesName(newName)
+  updateSerial (newSerial: string): void {
+    this._serial = new DeviceSerial(newSerial)
   }
 
-  updateCategoryId (newCategoryId: string): void {
-    this.categoryId = new CategoryId(newCategoryId)
+  updateActivo (newActivo: string): void {
+    this._activo = new DeviceActivo(newActivo)
   }
 
-  updateBrandId (newBrandId: string): void {
-    this.brandId = new BrandId(newBrandId)
+  updateStatus (newStatus: StatusTypes): void {
+    this._status = new Status(newStatus)
   }
 
-  static fromPrimitives (primitives: ModelSeriesPrimitives): ModelSeries {
-    return new ModelSeries(
-      new ModelSeriesId(primitives.modelSeriesId),
-      new ModelSeriesName(primitives.modelSeriesName),
-      new BrandId(primitives.brandId),
-      new CategoryId(primitives.categoryId)
+  updateModelId (newModelSeriesId: string): void {
+    this._modelId = new ModelSeriesId(newModelSeriesId)
+  }
+
+  static fromPrimitives (primitives: DevicePrimitives): Device {
+    return new Device(
+      new DeviceId(primitives.deviceId),
+      new DeviceSerial(primitives.serial),
+      new DeviceActivo(primitives.activo),
+      new Status(primitives.status),
+      new ModelSeriesId(primitives.modelId)
     )
   }
 
-  toPrimitives (): ModelSeriesPrimitives {
+  toPrimitives (): DevicePrimitives {
     return {
-      modelSeriesId: this.modelSeriesId.value,
-      modelSeriesName: this.modelSeriesName.value,
-      categoryId: this.categoryId.value,
-      brandId: this.brandId.value
+      deviceId: this._deviceId.value,
+      serial: this._serial.value,
+      activo: this._activo.value,
+      status: this._status.value,
+      modelId: this._modelId.value
     }
   }
 
-  get IdValue (): string {
-    return this.modelSeriesId.value
+  get id (): string {
+    return this._deviceId.value
   }
 
-  get nameValue (): string {
-    return this.modelSeriesName.value
+  get serial (): string | null {
+    return this._serial.value
   }
 
-  get brandIdValue (): string {
-    return this.brandId.value
+  get activo (): string | null {
+    return this._activo.value
   }
 
-  get categoryIdValue (): string {
-    return this.categoryId.value
+  get status (): string {
+    return this._status.value
   }
 }

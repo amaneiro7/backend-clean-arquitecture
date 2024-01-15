@@ -1,5 +1,5 @@
-export class ModelSeriesDoesNotExistError extends Error {
+export class DeviceDoesNotExistError extends Error {
   constructor (public readonly value: string) {
-    super(`The Model ${value} does not exist`)
+    super(`The Device ${value} does not exist`)
   }
 }

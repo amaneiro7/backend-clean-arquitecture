@@ -1,7 +1,7 @@
 import { ModelSeriesDoesNotExistError } from '../../domain/DeviceDoesNotExistError'
 import { type Repository } from '../../../Shared/domain/Repository'
 import { type ModelSeriesId } from '../../domain/DeviceId'
-import { type ModelSeriesName } from '../../domain/DeviceName'
+import { type ModelSeriesName } from '../../domain/DeviceActivo'
 import { type ModelSeriesResponse } from '../../domain/DeviceResponse'
 import { type ModelSeriesPrimitives } from '../../domain/Device'
 

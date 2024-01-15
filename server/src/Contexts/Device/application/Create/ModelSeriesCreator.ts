@@ -1,6 +1,6 @@
 import { ModelSeries } from '../../domain/Device'
 import { ModelSeriesAlreadyExistError } from '../../domain/DeviceAlreadyExistError'
-import { ModelSeriesName } from '../../domain/DeviceName'
+import { ModelSeriesName } from '../../domain/DeviceActivo'
 import { type ModelSeriesRepository } from '../../domain/DeviceRepository'
 
 export class ModelSeriesCreator {

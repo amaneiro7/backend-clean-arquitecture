@@ -5,7 +5,7 @@ import { CategoryId } from '../../../Category/domain/CategoryId'
 import { ModelSeriesAlreadyExistError } from '../../domain/DeviceAlreadyExistError'
 import { ModelSeriesDoesNotExistError } from '../../domain/DeviceDoesNotExistError'
 import { ModelSeriesId } from '../../domain/DeviceId'
-import { ModelSeriesName } from '../../domain/DeviceName'
+import { ModelSeriesName } from '../../domain/DeviceActivo'
 import { type Repository } from '../../../Shared/domain/Repository'
 
 export class ModelSeriesUpdater {

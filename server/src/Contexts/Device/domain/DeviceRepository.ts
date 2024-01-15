@@ -1,15 +1,18 @@
-import { type ModelSeries } from './Device'
-import { type ModelSeriesId } from './DeviceId'
-import { type ModelSeriesName } from './DeviceName'
+import { type Device } from './Device'
+import { type DeviceActivo } from './DeviceActivo'
+import { type DeviceId } from './DeviceId'
+import { type DeviceSerial } from './DeviceSerial'
 
-export abstract class ModelSeriesRepository {
-  abstract save (payload: ModelSeries): Promise<void>
+export abstract class DeviceRepository {
+  abstract save (payload: Device): Promise<void>
 
-  abstract searchAll: () => Promise<ModelSeries[]>
+  abstract searchAll: () => Promise<Device[]>
 
-  abstract searchById: (id: ModelSeriesId) => Promise<ModelSeries | null>
+  abstract searchById: (deviceId: DeviceId) => Promise<Device | null>
 
-  abstract searchByName: (name: ModelSeriesName) => Promise<ModelSeries | null>
+  abstract searchBySerial: (serial: DeviceSerial) => Promise<Device | null>
 
-  abstract remove: (id: ModelSeriesId) => Promise<void>
+  abstract searchByActivo: (serial: DeviceActivo) => Promise<Device | null>
+
+  abstract remove: (deviceId: DeviceId) => Promise<void>
 }

@@ -1,11 +1,10 @@
-interface IModelSeriesResponse {
-  modelSeriesId: string
-  modelSeriesName: string
-  categoryId: string
-  categoryName: string
-  brandId: string
-  brandName: string
+interface IDeviceResponse {
+  deviceId: string
+  serial: string
+  activo: string
+  status: string
+  modelId: string
 }
-export class ModelSeriesResponse {
-  constructor (readonly modelSeriesResponse: IModelSeriesResponse) {}
+export class DevicesResponse {
+  constructor (readonly devices: IDeviceResponse) {}
 }
