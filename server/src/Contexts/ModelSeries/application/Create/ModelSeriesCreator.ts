@@ -12,8 +12,9 @@ export class ModelSeriesCreator {
     this.ensureModelSeriesDoesNotExist(name)
 
     const modelSeries = ModelSeries.create({ name, categoryId, brandId })
+    const modelSeriesPrimitives = modelSeries.toPrimitives()
 
-    await this.repository.save(modelSeries)
+    await this.repository.save(modelSeriesPrimitives)
   }
 
   private ensureModelSeriesDoesNotExist (name: string): void {

@@ -49,7 +49,7 @@ export class ModelSeries {
     )
   }
 
-  toPrimitives (): any {
+  toPrimitives (): ModelSeriesPrimitives {
     return {
       modelSeriesId: this.modelSeriesId.value,
       modelSeriesName: this.modelSeriesName.value,

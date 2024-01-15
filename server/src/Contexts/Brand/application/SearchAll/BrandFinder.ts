@@ -1,11 +1,11 @@
-import { type BrandRepository } from '../../domain/BrandRepository'
+import { type Repository } from '../../../Shared/domain/Repository'
 import { BrandsResponse } from './BrandResponse'
 
-export class searchAllBrands {
-  constructor (private readonly repository: BrandRepository) {}
+export class SearchAllBrands {
+  constructor (private readonly repository: Repository) {}
 
-  async run (): Promise<BrandsResponse> {
-    const brands = await this.repository.searchAll()
+  async search (): Promise<BrandsResponse> {
+    const brands = await this.repository.brand.searchAll()
 
     return new BrandsResponse(brands)
   }

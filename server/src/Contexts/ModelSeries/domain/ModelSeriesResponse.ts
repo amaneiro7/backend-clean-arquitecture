@@ -5,7 +5,6 @@ interface IModelSeriesResponse {
   categoryName: string
   brandId: string
   brandName: string
-
 }
 export class ModelSeriesResponse {
   constructor (readonly modelSeriesResponse: IModelSeriesResponse) {}

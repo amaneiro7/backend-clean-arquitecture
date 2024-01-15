@@ -1,37 +1,21 @@
-import { BrandsFinder } from '../../../Brand/application/Find/BrandFinder'
-import { BrandId } from '../../../Brand/domain/BrandId'
-import { CategoriesFinder } from '../../../Category/application/Find/CategoryFinder'
-import { type Repository } from '../../../Shared/domain/Repository'
 import { ModelSeriesDoesNotExistError } from '../../domain/ModelSeriesDoesNotExistError'
+import { type Repository } from '../../../Shared/domain/Repository'
 import { type ModelSeriesId } from '../../domain/ModelSeriesId'
 import { type ModelSeriesName } from '../../domain/ModelSeriesName'
-import { ModelSeriesResponse } from './ModelSeriesResponse'
+import { type ModelSeriesResponse } from '../../domain/ModelSeriesResponse'
+import { type ModelSeriesPrimitives } from '../../domain/ModelSeries'
 
 export class ModelSeriesFinder {
-  private readonly brandFinder: BrandsFinder
-  private readonly categoryFinder: CategoriesFinder
-  constructor (private readonly repository: Repository) {
-    this.brandFinder = new BrandsFinder(repository)
-    this.categoryFinder = new CategoriesFinder(repository)
-  }
+  constructor (private readonly repository: Repository) {}
 
-  async searchById (modelSeriesId: ModelSeriesId): Promise<ModelSeriesResponse> {
+  async searchById (modelSeriesId: ModelSeriesId): Promise<ModelSeriesPrimitives> {
     const modelSeries = await this.repository.modelSeries.searchById(modelSeriesId)
 
     if (modelSeries === null) {
       throw new ModelSeriesDoesNotExistError(String(modelSeriesId))
     }
-    const brand = await this.brandFinder.searchById(new BrandId(modelSeries.brandIdValue))
-    const category = await this.categoryFinder.searchById(new BrandId(modelSeries.categoryIdValue))
 
-    return new ModelSeriesResponse({
-      modelSeriesId: modelSeries.IdValue,
-      modelSeriesName: modelSeries.nameValue,
-      brandId: brand.id,
-      brandName: brand.name,
-      categoryId: category.id,
-      categoryName: category.name
-    })
+    return modelSeries.toPrimitives()
   }
 
   async searchByName (modelSeriesName: ModelSeriesName): Promise<ModelSeriesResponse> {
@@ -41,16 +25,6 @@ export class ModelSeriesFinder {
       throw new ModelSeriesDoesNotExistError(String(modelSeriesName))
     }
 
-    const brand = await this.brandFinder.searchById(new BrandId(modelSeries.brandIdValue))
-    const category = await this.categoryFinder.searchById(new BrandId(modelSeries.categoryIdValue))
-
-    return new ModelSeriesResponse({
-      modelSeriesId: modelSeries.IdValue,
-      modelSeriesName: modelSeries.nameValue,
-      brandId: brand.id,
-      brandName: brand.name,
-      categoryId: category.id,
-      categoryName: category.name
-    })
+    return modelSeries
   }
 }

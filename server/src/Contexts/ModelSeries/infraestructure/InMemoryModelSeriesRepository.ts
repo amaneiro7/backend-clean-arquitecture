@@ -70,11 +70,12 @@ export class InMemoryModelSeriesRepository implements ModelSeriesRepository {
   }
 
   async save (payload: ModelSeries): Promise<void> {
-    const modelSerie = await this.searchById(new ModelSeriesId(payload.IdValue))
-    if (modelSerie !== null) {
-      modelSerie.updateName(payload.nameValue)
+    const index = modelSeries.findIndex(model => model.IdValue === payload.IdValue)
+    if (index === -1) {
+      modelSeries.push(payload)
+    } else {
+      modelSeries[index] = payload
     }
-    modelSeries.push(payload)
   }
 
   async remove (id: ModelSeriesId): Promise<void> {

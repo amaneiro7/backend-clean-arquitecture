@@ -3,7 +3,7 @@ import { StringValueObject } from '../../Shared/domain/StringValueObject'
 
 export class ModelSeriesName extends StringValueObject {
   private readonly NAME_MAX_LENGTH = 100
-  private readonly NAME_MIN_LENGTH = 5
+  private readonly NAME_MIN_LENGTH = 2
 
   constructor (readonly value: string) {
     super(value)
