@@ -24,9 +24,3 @@ export class Uuid extends ValueObject<string> {
     return regexExp.test(id)
   }
 }
-
-// export type Id = `${string}-${string}-${string}-${string}-${string}`
-
-// export function idNotValidError (id: Id): Error {
-//   return new Error(`Id ${id} is not valid`)
-// }

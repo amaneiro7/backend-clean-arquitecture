@@ -1,7 +1,6 @@
-import { json, urlencoded } from 'body-parser'
 import compress from 'compression'
 import errorHandler from 'errorhandler'
-import express, { type Request, type Response } from 'express'
+import express, { json, urlencoded, type Request, type Response } from 'express'
 import Router from 'express-promise-router'
 import helmet from 'helmet'
 import type * as http from 'http'
@@ -27,9 +26,8 @@ export class Server {
     this.app.use(compress())
     const router = Router()
     router.use(errorHandler())
-    this.app.use('/api/v1/', router)
 
-    routerApi({ router, repository })
+    routerApi({ app: this.app, repository })
 
     router.use((err: Error, req: Request, res: Response, _next: () => void) => {
       console.log(err)

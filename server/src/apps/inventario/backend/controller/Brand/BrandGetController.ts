@@ -19,9 +19,13 @@ export class BrandGetController {
   }
 
   getById = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    const { id } = req.params
-    const data = await new BrandsFinder(this.repository).searchById(new BrandId(id))
-    res.status(httpStatus.OK).json(data)
+    try {
+      const { id } = req.params
+      const data = await new BrandsFinder(this.repository).searchById(new BrandId(id))
+      res.status(httpStatus.OK).json(data)
+    } catch (error) {
+      next(error)
+    }
   }
 
   getByName = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
