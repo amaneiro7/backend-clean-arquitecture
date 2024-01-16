@@ -1,10 +1,11 @@
 import { type Repository } from '../../../Shared/domain/Repository'
-import { type ModelSeriesResponse } from '../../domain/ModelSeriesResponse'
+import { type ModelSeriesPrimitives } from '../../domain/ModelSeries'
 
-export class searchAllBrands {
+export class SearchAllModelSeries {
   constructor (private readonly repository: Repository) {}
 
-  async run (): Promise<ModelSeriesResponse[]> {
-    return await this.repository.modelSeries.searchAll()
+  async search (): Promise<ModelSeriesPrimitives[]> {
+    const modelSeries = await this.repository.modelSeries.searchAll()
+    return modelSeries.map(model => model.toPrimitives())
   }
 }

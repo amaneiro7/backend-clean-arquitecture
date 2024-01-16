@@ -1,11 +1,11 @@
-import { type CategoryRepository } from '../../domain/CategoryRepository'
+import { type Repository } from '../../../Shared/domain/Repository'
 import { CategoriesResponse } from './CategoryResponse'
 
-export class searchAllCategories {
-  constructor (private readonly repository: CategoryRepository) {}
+export class SearchAllCategories {
+  constructor (private readonly repository: Repository) {}
 
-  async run (): Promise<CategoriesResponse> {
-    const categories = await this.repository.searchAll()
+  async search (): Promise<CategoriesResponse> {
+    const categories = await this.repository.category.searchAll()
 
     return new CategoriesResponse(categories)
   }

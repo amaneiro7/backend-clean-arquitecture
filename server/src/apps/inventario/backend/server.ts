@@ -6,7 +6,7 @@ import helmet from 'helmet'
 import type * as http from 'http'
 import httpStatus from 'http-status'
 
-import { routerApi } from './routes'
+import { routerApi } from './Shared/Routes'
 import { type Repository } from '../../../Contexts/Shared/domain/Repository'
 
 export class Server {
