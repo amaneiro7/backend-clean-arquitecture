@@ -21,6 +21,10 @@ export class Status extends EnumValueObject<StatusTypes> {
     throw new InvalidArgumentError(`The status type ${value} is invalid`)
   }
 
+  static toPrimitive (): StatusTypes[] {
+    return Object.values(StatusTypes)
+  }
+
   public isGood (): boolean {
     return this.value === StatusTypes.GOOD
   }
