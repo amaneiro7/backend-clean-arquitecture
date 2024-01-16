@@ -11,19 +11,19 @@ export class BrandsFinder {
     const brand = await this.repository.brand.searchById(brandId)
 
     if (brand === null) {
-      throw new BrandDoesNotExistError(String(brandId))
+      throw new BrandDoesNotExistError(brandId.toString())
     }
 
-    return new BrandResponse(brand.IdValue, brand.IdValue)
+    return new BrandResponse(brand.id, brand.name)
   }
 
   async searchByName (brandName: BrandName): Promise<BrandResponse> {
     const brand = await this.repository.brand.searchByName(brandName)
 
     if (brand === null) {
-      throw new BrandDoesNotExistError(String(brandName))
+      throw new BrandDoesNotExistError(brandName.toString())
     }
 
-    return new BrandResponse(brand.IdValue, brand.IdValue)
+    return new BrandResponse(brand.id, brand.name)
   }
 }

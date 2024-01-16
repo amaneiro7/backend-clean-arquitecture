@@ -11,19 +11,19 @@ export class CategoriesFinder {
     const category = await this.repository.category.searchById(categoryId)
 
     if (category === null) {
-      throw new CategoryDoesNotExistError(String(categoryId))
+      throw new CategoryDoesNotExistError(categoryId.toString())
     }
 
-    return new CategoryResponse(category.IdValue, category.IdValue)
+    return new CategoryResponse(category.id, category.name)
   }
 
   async searchByName (categoryName: CategoryName): Promise<CategoryResponse> {
     const category = await this.repository.category.searchByName(categoryName)
 
     if (category === null) {
-      throw new CategoryDoesNotExistError(String(categoryName))
+      throw new CategoryDoesNotExistError(categoryName.toString())
     }
 
-    return new CategoryResponse(category.IdValue, category.IdValue)
+    return new CategoryResponse(category.id, category.name)
   }
 }

@@ -19,6 +19,6 @@ export class ModelSeriesRemover {
       throw new ModelSeriesDoesNotExistError(id)
     }
 
-    await this.repository.modelSeries.remove(new ModelSeriesId(modelSerie.IdValue))
+    await this.repository.modelSeries.remove(new ModelSeriesId(modelSerie.id))
   }
 }

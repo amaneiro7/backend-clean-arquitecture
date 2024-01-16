@@ -1,5 +1,5 @@
 import { ModelSeriesId } from '../../ModelSeries/domain/ModelSeriesId'
-import { Status, StatusTypes } from '../../Status/domain/Status'
+import { Status, StatusTypes } from '../domain/Status'
 import { Device } from '../domain/Device'
 import { DeviceActivo } from '../domain/DeviceActivo'
 import { DeviceId } from '../domain/DeviceId'

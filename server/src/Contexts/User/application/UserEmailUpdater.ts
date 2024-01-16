@@ -1,12 +1,12 @@
+import { type Repository } from '../../Shared/domain/Repository'
 import { UserDoesNotExistError } from '../domain/UserDoesNotExistError'
 import { UserEmail } from '../domain/UserEmail'
-import { type UserRepository } from '../domain/UserRepository'
 
 export class UserEmailUpdater {
-  constructor (private readonly repository: UserRepository) {}
+  constructor (private readonly repository: Repository) {}
 
-  async update (oldEmail: string, newEmail: string): Promise<void> {
-    const user = await this.repository.search(new UserEmail(oldEmail))
+  async updateEmail (oldEmail: string, newEmail: string): Promise<void> {
+    const user = await this.repository.user.search(new UserEmail(oldEmail))
 
     if (user === null) {
       throw new UserDoesNotExistError(oldEmail)
@@ -14,6 +14,6 @@ export class UserEmailUpdater {
 
     user.updateEmail(newEmail)
 
-    await this.repository.save(user)
+    await this.repository.user.save(user)
   }
 }

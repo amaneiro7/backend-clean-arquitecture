@@ -8,8 +8,8 @@ export interface BrandPrimitives {
 
 export class Brand {
   constructor (
-    private readonly id: BrandId,
-    private name: BrandName
+    private readonly _id: BrandId,
+    private _name: BrandName
   ) {}
 
   static create ({ name }: { name: string }): Brand {
@@ -21,7 +21,7 @@ export class Brand {
   }
 
   updateName (newName: string): void {
-    this.name = new BrandName(newName)
+    this._name = new BrandName(newName)
   }
 
   static fromPrimitives (primitives: BrandPrimitives): Brand {
@@ -33,16 +33,16 @@ export class Brand {
 
   toPrimitive (): any {
     return {
-      id: this.id.value,
-      name: this.name.value
+      id: this._id.value,
+      name: this._name.value
     }
   }
 
-  get IdValue (): string {
-    return this.id.value
+  get id (): string {
+    return this._id.value
   }
 
-  get nameValue (): string {
-    return this.name.value
+  get name (): string {
+    return this._name.value
   }
 }

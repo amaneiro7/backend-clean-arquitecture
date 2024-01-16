@@ -1,11 +1,11 @@
 import { ModelSeriesId } from '../../ModelSeries/domain/ModelSeriesId'
-import { Status, type StatusTypes } from '../../Status/domain/Status'
+import { Status, type StatusTypes } from './Status'
 import { DeviceId } from './DeviceId'
 import { DeviceActivo } from './DeviceActivo'
 import { DeviceSerial } from './DeviceSerial'
 
 export interface DevicePrimitives {
-  deviceId: string
+  id: string
   serial: string | null
   activo: string | null
   status: StatusTypes
@@ -14,7 +14,7 @@ export interface DevicePrimitives {
 
 export class Device {
   constructor (
-    private readonly _deviceId: DeviceId,
+    private readonly _id: DeviceId,
     private _serial: DeviceSerial,
     private _activo: DeviceActivo,
     private _status: Status,
@@ -22,7 +22,7 @@ export class Device {
   ) {}
 
   static create ({ serial, activo, status, modelId }: { serial: string, activo: string, status: StatusTypes, modelId: string }): Device {
-    const id = String(DeviceId.random())
+    const id = DeviceId.random().toString()
     return new Device(
       new DeviceId(id),
       new DeviceSerial(serial),
@@ -50,7 +50,7 @@ export class Device {
 
   static fromPrimitives (primitives: DevicePrimitives): Device {
     return new Device(
-      new DeviceId(primitives.deviceId),
+      new DeviceId(primitives.id),
       new DeviceSerial(primitives.serial),
       new DeviceActivo(primitives.activo),
       new Status(primitives.status),
@@ -60,7 +60,7 @@ export class Device {
 
   toPrimitives (): DevicePrimitives {
     return {
-      deviceId: this._deviceId.value,
+      id: this._id.value,
       serial: this._serial.value,
       activo: this._activo.value,
       status: this._status.value,
@@ -69,7 +69,7 @@ export class Device {
   }
 
   get id (): string {
-    return this._deviceId.value
+    return this._id.value
   }
 
   get serial (): string | null {

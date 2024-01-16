@@ -6,8 +6,8 @@ interface BrandResponse {
 }
 
 export class BrandsResponse {
-  public readonly brands: BrandResponse[]
-  constructor (brands: Brand[]) {
-    this.brands = brands.map(brand => brand.toPrimitive())
+  public readonly results: BrandResponse[]
+  constructor (results: Brand[]) {
+    this.results = results.map(brand => brand.toPrimitive())
   }
 }

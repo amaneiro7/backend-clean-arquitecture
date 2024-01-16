@@ -32,10 +32,10 @@ export class InMemoryCategoryRepository implements CategoryRepository {
   }
 
   async searchById (id: CategoryId): Promise<Category | null> {
-    return categories.find(category => category.IdValue === String(id)) ?? null
+    return categories.find(category => category.id === id.toString()) ?? null
   }
 
   async searchByName (name: CategoryName): Promise<Category | null> {
-    return categories.find(category => category.nameValue.toLowerCase().trim() === String(name).toLowerCase().trim()) ?? null
+    return categories.find(category => category.name.toLowerCase().trim() === name.toString().toLowerCase().trim()) ?? null
   }
 }

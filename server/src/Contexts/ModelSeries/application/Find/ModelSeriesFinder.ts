@@ -2,7 +2,7 @@ import { ModelSeriesDoesNotExistError } from '../../domain/ModelSeriesDoesNotExi
 import { type Repository } from '../../../Shared/domain/Repository'
 import { type ModelSeriesId } from '../../domain/ModelSeriesId'
 import { type ModelSeriesName } from '../../domain/ModelSeriesName'
-import { type ModelSeries, type ModelSeriesPrimitives } from '../../domain/ModelSeries'
+import { type ModelSeriesPrimitives } from '../../domain/ModelSeries'
 
 export class ModelSeriesFinder {
   constructor (private readonly repository: Repository) {}
@@ -17,13 +17,13 @@ export class ModelSeriesFinder {
     return modelSeries.toPrimitives()
   }
 
-  async searchByName (modelSeriesName: ModelSeriesName): Promise<ModelSeries> {
+  async searchByName (modelSeriesName: ModelSeriesName): Promise<ModelSeriesPrimitives> {
     const modelSeries = await this.repository.modelSeries.searchByName(modelSeriesName)
 
     if (modelSeries === null) {
       throw new ModelSeriesDoesNotExistError(modelSeriesName.toString())
     }
 
-    return modelSeries
+    return modelSeries.toPrimitives()
   }
 }

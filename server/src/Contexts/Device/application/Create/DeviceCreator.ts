@@ -1,5 +1,5 @@
 import { type Repository } from '../../../Shared/domain/Repository'
-import { type StatusTypes } from '../../../Status/domain/Status'
+import { type StatusTypes } from '../../domain/Status'
 import { Device } from '../../domain/Device'
 import { DeviceActivo } from '../../domain/DeviceActivo'
 import { DeviceAlreadyExistError } from '../../domain/DeviceAlreadyExistError'
