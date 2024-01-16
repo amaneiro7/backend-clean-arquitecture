@@ -30,8 +30,8 @@ export class ModelSeriesGetController {
 
   getByName = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const { id } = req.params
-      const data = await new ModelSeriesFinder(this.repository).searchByName(new ModelSeriesName(id))
+      const { name } = req.params
+      const data = await new ModelSeriesFinder(this.repository).searchByName(new ModelSeriesName(name))
       res.status(httpStatus.OK).json(data)
     } catch (error) {
       next(error)

@@ -5,9 +5,9 @@ import { type Repository } from '../../../../../Contexts/Shared/domain/Repositor
 import { createCategoryRouter } from '../../Category/routes/category.routes'
 import { createBrandRouter } from '../../Brand/routes/brand.routes'
 import { createModelSeriesRouter } from '../../ModelSeries/routes/modelSeries.routes'
-// import { createModelSeriesRouter } from './modelSeries.routes'
-// import { createStatusRouter } from './status.routes'
-// import { createDeviceRouter } from './device.routes'
+import { createStatusRouter } from '../../Device/routes/status.routes'
+import { createDeviceRouter } from '../../Device/routes/device.routes'
+
 // import { createUserRouter } from './user.routes'
 // import { createAuthRouter } from './auth.routes'
 // import { createProfileRouter } from './profile.routes'
@@ -23,8 +23,8 @@ export const routerApi = ({ app, repository }: Props): Router => {
   router.use('/categories', createCategoryRouter({ repository }))
   router.use('/brands', createBrandRouter({ repository }))
   router.use('/models', createModelSeriesRouter({ repository }))
-  // router.use('/device', createDeviceRouter({ router, repository }))
-  // router.use('/status', createStatusRouter({ router }))
+  router.use('/device', createDeviceRouter({ repository }))
+  router.use('/status', createStatusRouter())
   // router.use('/auth', createAuthRouter({ router, repository }))
   // router.use('/users', createUserRouter({ router, repository }))
   // router.use('/profiles', createProfileRouter({ router, repository }))
