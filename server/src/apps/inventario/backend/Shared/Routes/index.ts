@@ -7,6 +7,7 @@ import { createBrandRouter } from '../../Brand/routes/brand.routes'
 import { createModelSeriesRouter } from '../../ModelSeries/routes/modelSeries.routes'
 import { createStatusRouter } from '../../Device/routes/status.routes'
 import { createDeviceRouter } from '../../Device/routes/device.routes'
+import { createAuthRouter } from '../../Auth/routes/auth.routes'
 
 // import { createUserRouter } from './user.routes'
 // import { createAuthRouter } from './auth.routes'
@@ -25,7 +26,7 @@ export const routerApi = ({ app, repository }: Props): Router => {
   router.use('/models', createModelSeriesRouter({ repository }))
   router.use('/device', createDeviceRouter({ repository }))
   router.use('/status', createStatusRouter())
-  // router.use('/auth', createAuthRouter({ router, repository }))
+  router.use('/auth', createAuthRouter())
   // router.use('/users', createUserRouter({ router, repository }))
   // router.use('/profiles', createProfileRouter({ router, repository }))
   router.use((err: Error, req: Request, res: Response, _next: () => void) => {

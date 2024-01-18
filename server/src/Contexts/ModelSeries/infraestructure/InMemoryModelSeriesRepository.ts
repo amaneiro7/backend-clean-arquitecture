@@ -62,15 +62,15 @@ export class InMemoryModelSeriesRepository implements ModelSeriesRepository {
   }
 
   async searchById (id: ModelSeriesId): Promise<ModelSeries | null> {
-    return modelSeries.find(brand => brand.IdValue === String(id)) ?? null
+    return modelSeries.find(brand => brand.id === id.toString()) ?? null
   }
 
   async searchByName (name: ModelSeriesName): Promise<ModelSeries | null> {
-    return modelSeries.find(brand => brand.nameValue.toLowerCase().trim() === String(name).toLowerCase().trim()) ?? null
+    return modelSeries.find(brand => brand.name.toLowerCase().trim() === String(name).toLowerCase().trim()) ?? null
   }
 
   async save (payload: ModelSeries): Promise<void> {
-    const index = modelSeries.findIndex(model => model.IdValue === payload.IdValue)
+    const index = modelSeries.findIndex(model => model.id === payload.id)
     if (index === -1) {
       modelSeries.push(payload)
     } else {
@@ -79,6 +79,6 @@ export class InMemoryModelSeriesRepository implements ModelSeriesRepository {
   }
 
   async remove (id: ModelSeriesId): Promise<void> {
-    modelSeries.filter(brand => brand.IdValue !== String(id))
+    modelSeries.filter(brand => brand.id !== id.toString())
   }
 }

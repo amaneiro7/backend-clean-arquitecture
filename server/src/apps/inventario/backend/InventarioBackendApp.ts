@@ -1,4 +1,5 @@
 import { type Repository } from '../../../Contexts/Shared/domain/Repository'
+import { createPassportInstance } from '../../../Contexts/User/infrastructure/auth/passport'
 import { Server } from './server'
 
 export class InventarioBackendApp {
@@ -11,6 +12,7 @@ export class InventarioBackendApp {
   async start (): Promise<void> {
     const port = process.env.PORT ?? '5000'
     this.server = new Server({ port, repository: this.repository })
+    await createPassportInstance({ repository: this.repository })
 
     await this.server.listen()
   }

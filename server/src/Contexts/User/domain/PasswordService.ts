@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-extraneous-class */
 import bcrypt from 'bcrypt'
+import { InvalidArgumentError } from '../../Shared/domain/InvalidArgumentError'
 
 export class PasswordService {
   // Define the function that takes in a password and returns a hashed string
@@ -15,9 +16,12 @@ export class PasswordService {
   }
 
   // Define a function named 'compare' that takes in two parameters: 'password' and 'hash'
-  static compare (password: string, hash: string): boolean {
+  static compare (password: string, hash: string): void {
     // Use the 'bcrypt.compareSync' method to compare the 'password' with the 'hash'
     // Return the result of the comparison
-    return bcrypt.compareSync(password, hash)
+    const isMatch = bcrypt.compareSync(password, hash)
+    if (!isMatch) {
+      throw new InvalidArgumentError('Invalid Password')
+    }
   }
 }

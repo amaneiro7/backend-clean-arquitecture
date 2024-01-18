@@ -14,5 +14,3 @@ export const Strategy = {
   LOCAL: 'local',
   JWT: 'jwt'
 } as const
-
-passport.authenticate(Strategy.LOCAL)

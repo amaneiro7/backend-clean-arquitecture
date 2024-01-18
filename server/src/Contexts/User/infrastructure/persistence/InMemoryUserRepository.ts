@@ -1,8 +1,22 @@
-import { type User } from '../../domain/User'
-import { type UserEmail } from '../../domain/UserEmail'
+import { RoleTypes, Roles } from '../../domain/Role'
+import { User } from '../../domain/User'
+import { UserEmail } from '../../domain/UserEmail'
+import { UserId } from '../../domain/UserId'
+import { UserLastName } from '../../domain/UserLastName'
+import { UserName } from '../../domain/UserName'
+import { UserPassword } from '../../domain/UserPassword'
 import { type UserRepository } from '../../domain/UserRepository'
 
-const users: User[] = []
+const users: User[] = [
+  new User(
+    UserId.random(),
+    new UserEmail('admin@bnc.com.ve'),
+    new UserName('admin'),
+    new Roles(RoleTypes.ADMIN),
+    new UserLastName('admin'),
+    new UserPassword('Admin12345*')
+  )
+]
 export class InMemoryUserRepository implements UserRepository {
   // constructor (private readonly users: User[]) {}
 
