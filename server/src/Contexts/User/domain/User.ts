@@ -47,6 +47,16 @@ export class User {
     )
   }
 
+  toPrimitives (): Omit<UserPrimitives, 'password'> {
+    return {
+      id: this._id.value,
+      name: this._name.value,
+      lastName: this._lastName.value,
+      email: this._email.value,
+      role: this._role.value
+    }
+  }
+
   updateEmail (newEmail: string): void {
     this._email = new UserEmail(newEmail)
   }
@@ -85,5 +95,9 @@ export class User {
 
   get role (): RoleTypes {
     return this._role.value
+  }
+
+  get password (): string {
+    return this._password.value
   }
 }
