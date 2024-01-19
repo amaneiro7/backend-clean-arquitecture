@@ -1,31 +1,25 @@
-import { verifyRefreshToken, generateTokens } from '../utils/index.js'
-import UserToken from '../models/UserToken.js'
-import User from '../models/User.js'
+import { InvalidArgumentError } from '../../../Shared/domain/InvalidArgumentError'
+import { config } from '../../../Shared/infrastructure/config'
+import { type JwtPayload, sign, verify, type VerifyErrors } from 'jsonwebtoken'
 
-export const refreshAccessToken = async (req, res) => {
-  const { refreshToken } = req.body
+export enum ErrorType {
+  InvalidToken = 'InvalidToken',
+  ExpiredToken = 'ExpiredToken',
+  UsedToken = 'UsedToken',
+  UnknownError = 'UnknownError'
+}
 
-  try {
-    const { tokenDetails, error } = await verifyRefreshToken(refreshToken)
-    if (error) {
-      return res.status(401).json({ message: 'Invalid refresh token' })
-    }
+export class RefreshTokenValidator {
+  private readonly _secret: string
 
-    const user = await User.findById(tokenDetails._id)
-    if (!user) {
-      return res.status(401).json({ message: 'Invalid user' })
-    }
+  constructor (refreshToken: string) {
+    this._secret = config.accessTokenSecret
+    this.validateRefreshTokenAsync(refreshToken)
+  }
 
-    const { accessToken, refreshToken: newRefreshToken } = await generateTokens(user)
-
-    // Remove the old refresh token from the database
-    await UserToken.findOneAndDelete({ token: refreshToken })
-
-    // Save the new refresh token in the database
-    await new UserToken({ userId: user._id, token: newRefreshToken }).save()
-
-    res.json({ accessToken, refreshToken: newRefreshToken })
-  } catch (error) {
-    res.status(500).json({ message: 'Error refreshing access token' })
+  public validateRefreshTokenAsync (refreshToken: string): { error: ErrorType, accessToken: string, refreshToken: string } {
+    verify(refreshToken, this._secret, function (err: VerifyErrors, decoded: string | JwtPayload | undefined): void {
+      if (err.name === ErrorType.InvalidToken) { throw new InvalidArgumentError(err.message) }
+    })
   }
 }
