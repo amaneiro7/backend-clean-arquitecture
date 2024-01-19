@@ -16,12 +16,12 @@ export class UserLastName extends StringValueObject {
   }
 
   private ensureIsValidName (value: string): void {
-    if (this.isUserLastNameValid(value)) {
+    if (!this.isUserLastNameValid(value)) {
       throw new InvalidArgumentError(`<${value}> is not a valid lastname`)
     }
   }
 
   private isUserLastNameValid (name: string): boolean {
-    return name.length <= this.NAME_MIN_LENGTH && name.length <= this.NAME_MAX_LENGTH
+    return name.length >= this.NAME_MIN_LENGTH && name.length <= this.NAME_MAX_LENGTH
   }
 }
