@@ -1,25 +1,11 @@
-import { InvalidArgumentError } from '../../../Shared/domain/InvalidArgumentError'
-import { config } from '../../../Shared/infrastructure/config'
-import { type JwtPayload, sign, verify, type VerifyErrors } from 'jsonwebtoken'
+import { type JwtPayload } from 'jsonwebtoken'
+import { type Repository } from '../../../Shared/domain/Repository'
+import { validateRefreshToken } from '../../domain/VerifyRefreshToken'
 
-export enum ErrorType {
-  InvalidToken = 'InvalidToken',
-  ExpiredToken = 'ExpiredToken',
-  UsedToken = 'UsedToken',
-  UnknownError = 'UnknownError'
-}
+export class RefreshToken {
+  constructor (private readonly repository: Repository) {}
 
-export class RefreshTokenValidator {
-  private readonly _secret: string
-
-  constructor (refreshToken: string) {
-    this._secret = config.accessTokenSecret
-    this.validateRefreshTokenAsync(refreshToken)
-  }
-
-  public validateRefreshTokenAsync (refreshToken: string): { error: ErrorType, accessToken: string, refreshToken: string } {
-    verify(refreshToken, this._secret, function (err: VerifyErrors, decoded: string | JwtPayload | undefined): void {
-      if (err.name === ErrorType.InvalidToken) { throw new InvalidArgumentError(err.message) }
-    })
+  async run ({ refreshToken }: { refreshToken: JwtPayload | string }): Promise<void> {
+    const refreshTokenDecoded = validateRefreshToken(refreshToken)
   }
 }
