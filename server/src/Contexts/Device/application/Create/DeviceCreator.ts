@@ -4,6 +4,8 @@ import { Device } from '../../domain/Device'
 import { DeviceActivo } from '../../domain/DeviceActivo'
 import { DeviceAlreadyExistError } from '../../domain/DeviceAlreadyExistError'
 import { DeviceSerial } from '../../domain/DeviceSerial'
+import { ModelSeriesFinder } from '../../../ModelSeries/application/Find/ModelSeriesFinder'
+import { ModelSeriesId } from '../../../ModelSeries/domain/ModelSeriesId'
 
 export class DeviceCreator {
   constructor (private readonly repository: Repository) {}
@@ -13,7 +15,8 @@ export class DeviceCreator {
 
     this.ensureSerialDoesNotExist(serial)
     this.ensureActivoDoesNotExist(activo)
-
+    const model = await new ModelSeriesFinder(this.repository).searchById(new ModelSeriesId(modelId))
+    
     const device = Device.create({ activo, serial, status, modelId })
 
     await this.repository.device.save(device)
