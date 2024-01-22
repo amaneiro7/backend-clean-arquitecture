@@ -3,14 +3,14 @@ import { HardDriveHealth } from './HardDriveHealth'
 import { HardDriveId } from './HardDriveId'
 import { HardDriveType, type HardDriveTypes } from './HardDriveType'
 
-export interface ComputerProcessorPrimitives {
+export interface HardDrivePrimitives {
   id: string
   type: HardDriveTypes
   health: number
   capacity: HardDriveCapacityType
 }
 
-export class ComputerProcessor {
+export class HardDrive {
   constructor (
     private readonly _id: HardDriveId,
     private readonly _type: HardDriveType,
@@ -18,9 +18,9 @@ export class ComputerProcessor {
     private readonly _capacity: HardDriveCapacity
   ) {}
 
-  static create ({ type, health, capacity }: { type: HardDriveTypes, health: number, capacity: HardDriveCapacityType }): ComputerProcessor {
+  static create ({ type, health, capacity }: { type: HardDriveTypes, health: number, capacity: HardDriveCapacityType }): HardDrive {
     const id = HardDriveId.random().toString()
-    return new ComputerProcessor(
+    return new HardDrive(
       new HardDriveId(id),
       new HardDriveType(type),
       new HardDriveHealth(health),
@@ -32,8 +32,8 @@ export class ComputerProcessor {
     this._health = new HardDriveHealth(newHealth)
   }
 
-  static fromPrimitives (primitives: ComputerProcessorPrimitives): ComputerProcessor {
-    return new ComputerProcessor(
+  static fromPrimitives (primitives: HardDrivePrimitives): HardDrive {
+    return new HardDrive(
       new HardDriveId(primitives.id),
       new HardDriveType(primitives.type),
       new HardDriveHealth(primitives.health),
@@ -41,7 +41,7 @@ export class ComputerProcessor {
     )
   }
 
-  toPrimitive (): ComputerProcessorPrimitives {
+  toPrimitive (): HardDrivePrimitives {
     return {
       id: this._id.value,
       type: this._type.value,
