@@ -35,7 +35,7 @@ export class ComputerFeatures {
       computerType,
       processorId,
       memoryRam,
-      OperatingSystem,
+      operatingSystem,
       hardDriveCapacity
     }: {
       categoryId: string
@@ -43,7 +43,7 @@ export class ComputerFeatures {
       computerType: ComputerTypes
       processorId: string
       memoryRam: MemoryRamSizeValues
-      OperatingSystem: ComputerOSTypes
+      operatingSystem: ComputerOSTypes
       hardDriveCapacity: HardDriveCapacityType
     }): ComputerFeatures {
     const id = ComputerFeaturesId.random().toString()
@@ -54,7 +54,7 @@ export class ComputerFeatures {
       new ComputerType(computerType),
       new ComputerProcessorId(processorId),
       new MemoryRamSize(memoryRam),
-      new ComputerOSType(OperatingSystem),
+      new ComputerOSType(operatingSystem),
       new HardDriveCapacity(hardDriveCapacity)
     )
   }

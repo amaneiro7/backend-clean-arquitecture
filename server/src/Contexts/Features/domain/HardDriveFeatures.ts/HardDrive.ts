@@ -1,3 +1,5 @@
+import { CategoryId } from '../../../Category/domain/CategoryId'
+import { DeviceId } from '../../../Device/domain/DeviceId'
 import { HardDriveCapacity, type HardDriveCapacityType } from './HardDriveCapacity'
 import { HardDriveHealth } from './HardDriveHealth'
 import { HardDriveId } from './HardDriveId'
@@ -13,15 +15,19 @@ export interface HardDrivePrimitives {
 export class HardDrive {
   constructor (
     private readonly _id: HardDriveId,
+    private readonly _categoryId: CategoryId,
+    private readonly _deviceId: DeviceId,
     private readonly _type: HardDriveType,
     private _health: HardDriveHealth,
     private readonly _capacity: HardDriveCapacity
   ) {}
 
-  static create ({ type, health, capacity }: { type: HardDriveTypes, health: number, capacity: HardDriveCapacityType }): HardDrive {
+  static create ({ deviceId, categoryId, type, health, capacity }: { categoryId: string, deviceId: string, type: HardDriveTypes, health: number, capacity: HardDriveCapacityType }): HardDrive {
     const id = HardDriveId.random().toString()
     return new HardDrive(
       new HardDriveId(id),
+      new CategoryId(categoryId),
+      new DeviceId(deviceId),
       new HardDriveType(type),
       new HardDriveHealth(health),
       new HardDriveCapacity(capacity)
@@ -32,14 +38,14 @@ export class HardDrive {
     this._health = new HardDriveHealth(newHealth)
   }
 
-  static fromPrimitives (primitives: HardDrivePrimitives): HardDrive {
-    return new HardDrive(
-      new HardDriveId(primitives.id),
-      new HardDriveType(primitives.type),
-      new HardDriveHealth(primitives.health),
-      new HardDriveCapacity(primitives.capacity)
-    )
-  }
+  // static fromPrimitives (primitives: HardDrivePrimitives): HardDrive {
+  //   return new HardDrive(
+  //     new HardDriveId(primitives.id),
+  //     new HardDriveType(primitives.type),
+  //     new HardDriveHealth(primitives.health),
+  //     new HardDriveCapacity(primitives.capacity)
+  //   )
+  // }
 
   toPrimitive (): HardDrivePrimitives {
     return {
@@ -52,6 +58,14 @@ export class HardDrive {
 
   get id (): string {
     return this._id.value
+  }
+
+  get categoryId (): string {
+    return this._categoryId.value
+  }
+
+  get deviceId (): string {
+    return this._deviceId.value
   }
 
   get type (): string {
