@@ -1,5 +1,5 @@
-import { EnumValueObject } from '../../../Shared/domain/EnumValueObject'
-import { InvalidArgumentError } from '../../../Shared/domain/InvalidArgumentError'
+import { EnumValueObject } from '../../../Shared/domain/value-object/EnumValueObject'
+import { InvalidArgumentError } from '../../../Shared/domain/value-object/InvalidArgumentError'
 
 export enum MemoryRamSizeValues {
   '128MB' = '128 MB',

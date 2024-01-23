@@ -1,4 +1,4 @@
-import { ValueObject } from './ValueObject'
+import { ValueObject } from './value-object/ValueObject'
 
 export class DateValueObject extends ValueObject<Date> {
   toString (): string {

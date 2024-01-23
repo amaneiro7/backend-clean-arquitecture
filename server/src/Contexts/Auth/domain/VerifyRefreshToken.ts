@@ -1,6 +1,6 @@
 import { JsonWebTokenError, type JwtPayload, NotBeforeError, verify, TokenExpiredError } from 'jsonwebtoken'
 import { config } from '../../Shared/infrastructure/config'
-import { InvalidArgumentError } from '../../Shared/domain/InvalidArgumentError'
+import { InvalidArgumentError } from '../../Shared/domain/value-object/InvalidArgumentError'
 
 export function validateRefreshToken (refreshToken: string): string | JwtPayload {
   try {

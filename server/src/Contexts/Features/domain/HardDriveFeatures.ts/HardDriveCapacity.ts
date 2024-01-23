@@ -1,5 +1,5 @@
-import { EnumValueObject } from '../../../Shared/domain/EnumValueObject'
-import { InvalidArgumentError } from '../../../Shared/domain/InvalidArgumentError'
+import { EnumValueObject } from '../../../Shared/domain/value-object/EnumValueObject'
+import { InvalidArgumentError } from '../../../Shared/domain/value-object/InvalidArgumentError'
 
 export enum HardDriveCapacityType {
   '40GB' = '40 GB',

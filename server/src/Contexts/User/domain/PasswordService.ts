@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-extraneous-class */
 import bcrypt from 'bcrypt'
-import { InvalidArgumentError } from '../../Shared/domain/InvalidArgumentError'
+import { InvalidArgumentError } from '../../Shared/domain/value-object/InvalidArgumentError'
 
 export class PasswordService {
   // Define the function that takes in a password and returns a hashed string

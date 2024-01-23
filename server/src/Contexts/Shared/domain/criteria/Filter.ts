@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-import { InvalidArgumentError } from '../InvalidArgumentError'
+import { InvalidArgumentError } from '../value-object/InvalidArgumentError'
 import { FilterField } from './FilterField'
 import { FilterOperator } from './FilterOperator'
 import { FilterValue } from './FilterValue'

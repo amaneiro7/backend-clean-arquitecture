@@ -1,5 +1,5 @@
-import { InvalidArgumentError } from '../InvalidArgumentError'
-import { EnumValueObject } from '../EnumValueObject'
+import { InvalidArgumentError } from '../value-object/InvalidArgumentError'
+import { EnumValueObject } from '../value-object/EnumValueObject'
 
 export enum Operator {
   EQUAL = '=',

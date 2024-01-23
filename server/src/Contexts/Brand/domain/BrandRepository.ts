@@ -6,11 +6,11 @@ import { type BrandName } from './BrandName'
 export abstract class BrandRepository implements GenericRepository<Brand, BrandId, BrandName> {
   abstract save (payload: Brand): Promise<void>
 
-  abstract searchAll: () => Promise<Brand[]>
+  abstract searchAll (): Promise<Brand[]>
 
-  abstract searchById: (id: BrandId) => Promise<Brand | null>
+  abstract searchById (id: BrandId): Promise<Brand | null>
 
-  abstract searchByName: (name: BrandName) => Promise<Brand | null>
+  abstract searchByName (name: BrandName): Promise<Brand | null>
 
-  abstract remove: (id: BrandId) => Promise<void>
+  abstract remove (id: BrandId): Promise<void>
 }

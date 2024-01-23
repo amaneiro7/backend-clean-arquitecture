@@ -1,5 +1,5 @@
-import { InvalidArgumentError } from '../../Shared/domain/InvalidArgumentError'
-import { StringValueObject } from '../../Shared/domain/StringValueObject'
+import { InvalidArgumentError } from '../../Shared/domain/value-object/InvalidArgumentError'
+import { StringValueObject } from '../../Shared/domain/value-object/StringValueObject'
 import { PasswordService } from './PasswordService'
 
 export class UserPassword extends StringValueObject {

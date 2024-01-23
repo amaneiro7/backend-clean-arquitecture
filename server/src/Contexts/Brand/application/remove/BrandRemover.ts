@@ -1,4 +1,4 @@
-import { Uuid } from '../../../Shared/domain/Uuid'
+import { Uuid } from '../../../Shared/domain/value-object/Uuid'
 import { BrandCannotDeleteIsNotEmptyError } from '../../domain/BrandCannotDeleteIsNotEmptyError'
 import { BrandDoesNotExistError } from '../../domain/BrandDoesNotExistError'
 import { type BrandRepository } from '../../domain/BrandRepository'
