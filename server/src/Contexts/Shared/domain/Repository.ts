@@ -13,7 +13,7 @@ export interface Repository {
   category: CategoryRepository
   modelSeries: ModelSeriesRepository
   device: DeviceRepository
-  computerFeatures: ComputerFeaturesRepository
-  hardDrive: HardDriveRepository
-  processor: ComputerProcessorRepository
+  computerFeatures?: ComputerFeaturesRepository
+  hardDrive?: HardDriveRepository
+  processor?: ComputerProcessorRepository
 }

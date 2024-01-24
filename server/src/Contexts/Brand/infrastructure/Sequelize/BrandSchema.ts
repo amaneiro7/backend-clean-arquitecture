@@ -1,6 +1,7 @@
 import { DataTypes, Model } from 'sequelize'
 import { sequelize } from '../../../Shared/infrastructure/persistance/Sequelize/SequelizeConfig'
 import { type BrandPrimitives } from '../../domain/Brand'
+import { ModelSeriesModel } from '../../../ModelSeries/infraestructure/Sequelize/ModelSeriesSchema'
 
 // export interface BrandCreationAttributes extends Optional<BrandPrimitives, 'id'> {}
 export class BrandModel extends Model<BrandPrimitives> implements BrandPrimitives {
@@ -10,7 +11,7 @@ export class BrandModel extends Model<BrandPrimitives> implements BrandPrimitive
 BrandModel.init(
   {
     id: {
-      type: DataTypes.UUIDV4,
+      type: DataTypes.UUID,
       primaryKey: true,
       allowNull: false
     },
@@ -28,3 +29,5 @@ BrandModel.init(
     sequelize
   }
 )
+
+BrandModel.hasMany(ModelSeriesModel)

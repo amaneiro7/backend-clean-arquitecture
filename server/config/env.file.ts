@@ -32,8 +32,8 @@ export const config = {
     host: process.env.POSTGRES_HOST ?? 'localhost',
     port: process.env.POSTGRES_PORT ?? 5432,
     dbName: process.env.POSTGRES_DB_NAME ?? 'inventoryApp',
-    // dbUrl: process.env.POSTGRES_URI ?? 'postgres://appadmin:Man12345.@localhost:5432/inventoryApp'
-    dbUrl: process.env.POSTGRES_URI ?? 'postgres://e2e:e2e123@localhost:5433/db_e2e'
+    dbUrl: process.env.POSTGRES_URI ?? 'postgres://postgres:Man12345*@localhost:5432/inventoryApp'
+    // dbUrl: process.env.POSTGRES_URI ?? 'postgres://e2e:e2e123@localhost:5433/db_e2e'
   },
   accessTokenSecret: process.env.ACCESS_TOKEN_SECRET ?? 'access_token_scret',
   refreshTokenSecret: process.env.REFRESH_TOKEN_SECRET ?? 'refresh_token_scret',

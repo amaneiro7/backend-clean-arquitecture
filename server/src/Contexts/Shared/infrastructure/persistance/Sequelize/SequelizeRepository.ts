@@ -2,13 +2,14 @@ import { SequelizeBrandRepository } from '../../../../Brand/infrastructure/Seque
 import { SequelizeCategoryRepository } from '../../../../Category/infrastructure/Sequelize/SequelizeCategoryRepository'
 import { SequelizeDeviceRepository } from '../../../../Device/infraestructure/sequelize/SequelizeDeviceRepository'
 import { SequelizeModelSeriesRepository } from '../../../../ModelSeries/infraestructure/Sequelize/SequelizeModelSeriesRepository'
+import { SequelizeUserRepository } from '../../../../User/infrastructure/persistence/Sequelize/SequelizeUserRepository'
 import { type Repository } from '../../../domain/Repository'
 
 export const sequelizeRepository: Repository = {
-    user: new SequelizeUser
+  user: new SequelizeUserRepository(),
   brand: new SequelizeBrandRepository(),
   category: new SequelizeCategoryRepository(),
   modelSeries: new SequelizeModelSeriesRepository(),
   device: new SequelizeDeviceRepository()
-}
 
+}

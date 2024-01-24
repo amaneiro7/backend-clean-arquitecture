@@ -4,8 +4,8 @@ import { PasswordService } from './PasswordService'
 
 export class UserPassword extends StringValueObject {
   private readonly HAS_MIN_LENGTH = 8
-  private readonly hasUppercase = /A-Z/
-  private readonly hasLowercase = /a-z/
+  private readonly hasUppercase = /[A-Z]/
+  private readonly hasLowercase = /[a-z]/
   private readonly hasNumber = /\d/
   private readonly hasSpecialCharacter = /[!@#$%^&*]/
 
@@ -38,15 +38,15 @@ export class UserPassword extends StringValueObject {
       errors.push('La contraseña debe tener al menos 8 caracteres')
     }
 
-    // // Check if the password contains at least one uppercase letter
-    // if (!this.hasUppercase.test(value)) {
-    //   errors.push('La contraseña debe contener al menos una letra mayúscula.')
-    // }
+    // Check if the password contains at least one uppercase letter
+    if (!this.hasUppercase.test(value)) {
+      errors.push('La contraseña debe contener al menos una letra mayúscula.')
+    }
 
-    // // Check if the password contains at least one lowercase letter
-    // if (!this.hasLowercase.test(value)) {
-    //   errors.push('La contraseña debe contener al menos una letra minúscula.')
-    // }
+    // Check if the password contains at least one lowercase letter
+    if (!this.hasLowercase.test(value)) {
+      errors.push('La contraseña debe contener al menos una letra minúscula.')
+    }
 
     // Check if the password contains at least one number
     if (!this.hasNumber.test(value)) {

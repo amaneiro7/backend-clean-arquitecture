@@ -1,6 +1,9 @@
 import { DataTypes, Model } from 'sequelize'
 import { sequelize } from '../../../Shared/infrastructure/persistance/Sequelize/SequelizeConfig'
 import { type ModelSeriesPrimitives } from '../../domain/ModelSeries'
+import { CategoryModel } from '../../../Category/infrastructure/Sequelize/CategorySchema'
+import { BrandModel } from '../../../Brand/infrastructure/Sequelize/BrandSchema'
+import { DeviceModel } from '../../../Device/infraestructure/sequelize/DeviceSchema'
 
 export class ModelSeriesModel extends Model<ModelSeriesPrimitives> implements ModelSeriesPrimitives {
   readonly id!: string
@@ -12,7 +15,7 @@ export class ModelSeriesModel extends Model<ModelSeriesPrimitives> implements Mo
 ModelSeriesModel.init(
   {
     id: {
-      type: DataTypes.UUIDV4,
+      type: DataTypes.UUID,
       primaryKey: true,
       allowNull: false
     },
@@ -23,7 +26,7 @@ ModelSeriesModel.init(
     },
     categoryId: {
       field: 'category_id',
-      type: DataTypes.UUIDV4,
+      type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: 'categories',
@@ -32,7 +35,7 @@ ModelSeriesModel.init(
     },
     brandId: {
       field: 'brand_id',
-      type: DataTypes.UUIDV4,
+      type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: 'brands',
@@ -48,3 +51,7 @@ ModelSeriesModel.init(
     sequelize
   }
 )
+
+// ModelSeriesModel.belongsTo(CategoryModel)
+// ModelSeriesModel.belongsTo(BrandModel)
+// ModelSeriesModel.hasMany(DeviceModel)
