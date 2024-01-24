@@ -9,15 +9,15 @@ export class ModelSeriesCreator {
   async run (params: { name: string, categoryId: string, brandId: string }): Promise<void> {
     const { name, brandId, categoryId } = params
 
-    this.ensureModelSeriesDoesNotExist(name)
+    await this.ensureModelSeriesDoesNotExist(name)
 
     const modelSeries = ModelSeries.create({ name, categoryId, brandId })
 
-    await this.repository.modelSeries.save(modelSeries)
+    await this.repository.modelSeries.save(modelSeries.toPrimitives())
   }
 
-  private ensureModelSeriesDoesNotExist (name: string): void {
-    if (this.repository.modelSeries.searchByName(new ModelSeriesName(name)) !== null) {
+  private async ensureModelSeriesDoesNotExist (name: string): Promise<void> {
+    if (await this.repository.modelSeries.searchByName(new ModelSeriesName(name).toString()) !== null) {
       throw new ModelSeriesAlreadyExistError(name)
     }
   }

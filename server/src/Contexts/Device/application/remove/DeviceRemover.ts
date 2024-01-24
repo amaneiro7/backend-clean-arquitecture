@@ -7,7 +7,7 @@ export class DeviceRemover {
 
   async run (params: { id: string }): Promise<void> {
     const { id } = params
-    const deviceId = new DeviceId(id)
+    const deviceId = new DeviceId(id).toString()
 
     const device = await this.repository.device.searchById(deviceId)
     if (device === null) {

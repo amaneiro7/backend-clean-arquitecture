@@ -5,7 +5,6 @@ export class SearchAllModelSeries {
   constructor (private readonly repository: Repository) {}
 
   async search (): Promise<ModelSeriesPrimitives[]> {
-    const modelSeries = await this.repository.modelSeries.searchAll()
-    return modelSeries.map(model => model.toPrimitives())
+    return await this.repository.modelSeries.searchAll()
   }
 }

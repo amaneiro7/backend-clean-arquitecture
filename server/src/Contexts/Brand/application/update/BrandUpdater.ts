@@ -14,15 +14,15 @@ export class BrandUpdater {
     if (brand === null) {
       throw new BrandDoesNotExistError(newName)
     }
-    this.ensureBrandDoesNotExist(newName)
+    await this.ensureBrandDoesNotExist(newName)
 
     brand.name = new BrandName(newName).toString()
 
     await this.repository.brand.save(brand)
   }
 
-  private ensureBrandDoesNotExist (name: string): void {
-    if (this.repository.brand.searchByName(new BrandName(name).toString()) !== null) {
+  private async ensureBrandDoesNotExist (name: string): Promise<void> {
+    if (await this.repository.brand.searchByName(new BrandName(name).toString()) !== null) {
       throw new BrandAlreadyExistError(name)
     }
   }

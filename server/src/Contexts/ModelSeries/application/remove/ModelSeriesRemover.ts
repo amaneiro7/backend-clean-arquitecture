@@ -8,7 +8,7 @@ export class ModelSeriesRemover {
 
   async run (params: { id: string }): Promise<void> {
     const { id } = params
-    const modelSeriesId = new ModelSeriesId(id)
+    const modelSeriesId = new ModelSeriesId(id).toString()
 
     const modelSeries = await this.repository.modelSeries.searchAll()
     if (modelSeries.length > 0) {
@@ -19,6 +19,6 @@ export class ModelSeriesRemover {
       throw new ModelSeriesDoesNotExistError(id)
     }
 
-    await this.repository.modelSeries.remove(new ModelSeriesId(modelSerie.id))
+    await this.repository.modelSeries.remove(modelSeriesId)
   }
 }

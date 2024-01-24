@@ -8,33 +8,33 @@ import { type DeviceSerial } from '../../domain/DeviceSerial'
 export class DeviceFinder {
   constructor (private readonly repository: Repository) {}
 
-  async searchById (deviceId: DeviceId): Promise<DevicePrimitives> {
-    const device = await this.repository.device.searchById(deviceId)
+  async searchById (id: DeviceId): Promise<DevicePrimitives> {
+    const device = await this.repository.device.searchById(id.value)
 
     if (device === null) {
-      throw new DeviceDoesNotExistError(deviceId.toString())
+      throw new DeviceDoesNotExistError(id.toString())
     }
 
-    return device.toPrimitives()
+    return device
   }
 
   async searchBySerial (serial: DeviceSerial): Promise<DevicePrimitives> {
-    const device = await this.repository.device.searchBySerial(serial)
+    const device = await this.repository.device.searchBySerial(serial.toString())
 
     if (device === null) {
       throw new DeviceDoesNotExistError(serial.toString())
     }
 
-    return device.toPrimitives()
+    return device
   }
 
   async searchByactivo (activo: DeviceActivo): Promise<DevicePrimitives> {
-    const device = await this.repository.device.searchByActivo(activo)
+    const device = await this.repository.device.searchByActivo(activo.toString())
 
     if (device === null) {
       throw new DeviceDoesNotExistError(activo.toString())
     }
 
-    return device.toPrimitives()
+    return device
   }
 }

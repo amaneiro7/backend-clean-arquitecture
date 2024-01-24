@@ -13,44 +13,44 @@ export class ModelSeriesUpdater {
 
   async run (params: { id: string, newName?: string, categoryId?: string, brandId?: string }): Promise<void> {
     const { id } = params
-
-    const modelSeries = await this.repository.modelSeries.searchById(new ModelSeriesId(id))
+    const modelSeriesId = new ModelSeriesId(id).toString()
+    const modelSeries = await this.repository.modelSeries.searchById(modelSeriesId)
     if (modelSeries === null) {
       throw new ModelSeriesDoesNotExistError(id)
     }
 
     if (params.newName !== undefined) {
-      this.ensureModelSeriesDoesNotExist(params.newName)
-      modelSeries.updateName(params.newName)
+      await this.ensureModelSeriesDoesNotExist(params.newName)
+      modelSeries.name = new ModelSeriesName(params.newName).value
     }
 
     if (params.categoryId !== undefined) {
-      this.ensureCategoryIdExist(params.categoryId)
-      modelSeries.updateCategoryId(params.categoryId)
+      await this.ensureCategoryIdExist(params.categoryId)
+      modelSeries.categoryId = new CategoryId(params.categoryId).value
     }
 
     if (params.brandId !== undefined) {
-      this.ensureBrandIdExist(params.brandId)
-      modelSeries.updateBrandId(params.brandId)
+      await this.ensureBrandIdExist(params.brandId)
+      modelSeries.brandId = new BrandId(params.brandId).value
     }
 
     await this.repository.modelSeries.save(modelSeries)
   }
 
-  private ensureModelSeriesDoesNotExist (name: string): void {
-    if (this.repository.modelSeries.searchByName(new ModelSeriesName(name)) !== null) {
+  private async ensureModelSeriesDoesNotExist (name: string): Promise<void> {
+    if (await this.repository.modelSeries.searchByName(new ModelSeriesName(name).toString()) !== null) {
       throw new ModelSeriesAlreadyExistError(name)
     }
   }
 
-  private ensureCategoryIdExist (categoryId: string): void {
-    if (this.repository.category.searchById(new CategoryId(categoryId)) === null) {
+  private async ensureCategoryIdExist (categoryId: string): Promise<void> {
+    if (await this.repository.category.searchById(new CategoryId(categoryId).toString()) === null) {
       throw new CategoryDoesNotExistError(categoryId)
     }
   }
 
-  private ensureBrandIdExist (brandId: string): void {
-    if (this.repository.brand.searchById(new BrandId(brandId)) === null) {
+  private async ensureBrandIdExist (brandId: string): Promise<void> {
+    if (await this.repository.brand.searchById(new BrandId(brandId).toString()) === null) {
       throw new BrandDoesNotExistError(brandId)
     }
   }

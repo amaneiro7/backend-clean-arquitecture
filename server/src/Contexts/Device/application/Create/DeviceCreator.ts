@@ -4,8 +4,6 @@ import { Device } from '../../domain/Device'
 import { DeviceActivo } from '../../domain/DeviceActivo'
 import { DeviceAlreadyExistError } from '../../domain/DeviceAlreadyExistError'
 import { DeviceSerial } from '../../domain/DeviceSerial'
-import { ModelSeriesFinder } from '../../../ModelSeries/application/Find/ModelSeriesFinder'
-import { ModelSeriesId } from '../../../ModelSeries/domain/ModelSeriesId'
 
 export class DeviceCreator {
   constructor (private readonly repository: Repository) {}
@@ -13,23 +11,22 @@ export class DeviceCreator {
   async run (params: { activo: string, serial: string, status: StatusTypes, modelId: string }): Promise<void> {
     const { activo, serial, status, modelId } = params
 
-    this.ensureSerialDoesNotExist(serial)
-    this.ensureActivoDoesNotExist(activo)
-    const model = await new ModelSeriesFinder(this.repository).searchById(new ModelSeriesId(modelId))
-    
+    await this.ensureSerialDoesNotExist(serial)
+    await this.ensureActivoDoesNotExist(activo)
+
     const device = Device.create({ activo, serial, status, modelId })
 
-    await this.repository.device.save(device)
+    await this.repository.device.save(device.toPrimitives())
   }
 
-  private ensureSerialDoesNotExist (name: string): void {
-    if (this.repository.device.searchByActivo(new DeviceActivo(name)) !== null) {
+  private async ensureSerialDoesNotExist (name: string): Promise<void> {
+    if (await this.repository.device.searchByActivo(new DeviceActivo(name).toString()) !== null) {
       throw new DeviceAlreadyExistError(name)
     }
   }
 
-  private ensureActivoDoesNotExist (name: string): void {
-    if (this.repository.device.searchBySerial(new DeviceSerial(name)) !== null) {
+  private async ensureActivoDoesNotExist (name: string): Promise<void> {
+    if (await this.repository.device.searchBySerial(new DeviceSerial(name).toString()) !== null) {
       throw new DeviceAlreadyExistError(name)
     }
   }
