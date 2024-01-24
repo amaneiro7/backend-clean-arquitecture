@@ -31,18 +31,16 @@ export class InMemoryBrandRepository implements BrandRepository {
   }
 
   async searchByName (name: string): Promise<BrandPrimitives | null> {
-    const restlt = brands.find(brand => brand.name.toLowerCase().trim() === name.toLowerCase().trim()) ?? null
-    console.log('bandrepositoyr, searchByName', name)
-
-    return restlt
+    return brands.find(brand => brand.name.toLowerCase().trim() === name.toLowerCase().trim()) ?? null
   }
 
   async save (payload: BrandPrimitives): Promise<void> {
     const brand = await this.searchById(payload.id)
     if (brand !== null) {
       brand.name = payload.name
+    } else {
+      brands.push(payload)
     }
-    brands.push(payload)
   }
 
   async remove (id: string): Promise<void> {

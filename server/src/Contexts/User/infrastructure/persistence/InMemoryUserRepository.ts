@@ -1,30 +1,42 @@
-import { RoleTypes, Roles } from '../../domain/Role'
-import { User } from '../../domain/User'
-import { UserEmail } from '../../domain/UserEmail'
-import { UserId } from '../../domain/UserId'
-import { UserLastName } from '../../domain/UserLastName'
-import { UserName } from '../../domain/UserName'
+import { RoleTypes } from '../../domain/Role'
+import { type UserPrimitives } from '../../domain/User'
 import { UserPassword } from '../../domain/UserPassword'
 import { type UserRepository } from '../../domain/UserRepository'
 
-const users: User[] = [
-  new User(
-    UserId.random(),
-    new UserEmail('admin@bnc.com.ve'),
-    new UserName('admin'),
-    new Roles(RoleTypes.ADMIN),
-    new UserLastName('admin'),
-    new UserPassword('Admin12345*')
-  )
-]
-export class InMemoryUserRepository implements UserRepository {
-  // constructor (private readonly users: User[]) {}
-
-  async save (user: User): Promise<void> {
-    users.push(user)
+const users: UserPrimitives[] = [
+  {
+    id: '4a9c8e24-58b3-4cf7-b7a1-db67d4f11d07',
+    email: 'admin@bnc.com.ve',
+    name: 'admin',
+    lastName: 'admin',
+    role: RoleTypes.ADMIN,
+    password: new UserPassword('Admin12345*').toString()
   }
 
-  async searchByEmail (userEmail: UserEmail): Promise<User | null> {
-    return users.find(user => user.email === userEmail.value) ?? null
+]
+export class InMemoryUserRepository implements UserRepository {
+// Asynchronously save a user payload to the data store
+  async save (payload: UserPrimitives): Promise<void> {
+  // Find the index of the user with the same id in the users array
+    const userIndex = users.findIndex(user => user.id === payload.id)
+
+    // If the user with the same id is found, update its data with the payload
+    if (userIndex !== -1) {
+      users[userIndex] = {
+        ...users[userIndex],
+        ...payload
+      }
+    } else {
+    // If the user with the same id is not found, add the payload as a new user
+      users.push(payload)
+    }
+  }
+
+  async searchByEmail (userEmail: string): Promise<UserPrimitives | null> {
+    return users.find(user => user.email === userEmail) ?? null
+  }
+
+  async searchById (id: string): Promise<UserPrimitives | null> {
+    return users.find(user => user.id === id) ?? null
   }
 }

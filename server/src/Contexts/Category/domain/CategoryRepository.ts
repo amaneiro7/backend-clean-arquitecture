@@ -1,11 +1,9 @@
-import { type Category } from './Category'
-import { type CategoryId } from './CategoryId'
-import { type CategoryName } from './CategoryName'
+import { type CategoryPrimitives } from './Category'
 
 export abstract class CategoryRepository {
-  abstract searchAll: () => Promise<Category[]>
+  abstract searchAll (): Promise<CategoryPrimitives[]>
 
-  abstract searchById: (id: CategoryId) => Promise<Category | null>
+  abstract searchById (id: string): Promise<CategoryPrimitives | null>
 
-  abstract searchByName: (name: CategoryName) => Promise<Category | null>
+  abstract searchByName (name: string): Promise<CategoryPrimitives | null>
 }

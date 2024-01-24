@@ -1,8 +1,7 @@
-import { type User } from './User'
-import { type UserEmail } from './UserEmail'
+import { type UserPrimitives } from './User'
 
 export abstract class UserRepository {
-  abstract save (user: User): Promise<void>
+  abstract save (user: UserPrimitives): Promise<void>
 
-  abstract searchByEmail (userEmail: UserEmail): Promise<User | null>
+  abstract searchByEmail (userEmail: string): Promise<UserPrimitives | null>
 }

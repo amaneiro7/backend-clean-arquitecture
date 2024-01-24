@@ -6,13 +6,13 @@ export class UserEmailUpdater {
   constructor (private readonly repository: Repository) {}
 
   async updateEmail (oldEmail: string, newEmail: string): Promise<void> {
-    const user = await this.repository.user.search(new UserEmail(oldEmail))
+    const user = await this.repository.user.searchByEmail(new UserEmail(oldEmail).toString())
 
     if (user === null) {
       throw new UserDoesNotExistError(oldEmail)
     }
 
-    user.updateEmail(newEmail)
+    user.email = new UserEmail(newEmail).toString()
 
     await this.repository.user.save(user)
   }

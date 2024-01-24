@@ -11,11 +11,11 @@ export class UserRegister {
     this.ensureUserDoesNotExist(email)
     const user = User.create({ name, lastName, email, role, password })
 
-    await this.repository.user.save(user)
+    await this.repository.user.save(user.toPrimitives())
   }
 
   private ensureUserDoesNotExist (email: string): void {
-    if (this.repository.user.searchByEmail(new UserEmail(email)) !== null) {
+    if (this.repository.user.searchByEmail(new UserEmail(email).toString()) !== null) {
       throw new UserAlreadyExistError(email)
     }
   }

@@ -6,9 +6,9 @@ export async function createLocalStrategy ({ repository }: { repository: Reposit
   return new Strategy({
     usernameField: 'email',
     passwordField: 'password'
-  }, async (email: string, password: string, done) => {
+  }, async (email: string, intoPassword: string, done) => {
     try {
-      const user = await new UserLoginLocal(repository).run({ email, password })
+      const user = await new UserLoginLocal(repository).run({ email, intoPassword })
       done(null, user)
     } catch (error) {
       done(error, false)

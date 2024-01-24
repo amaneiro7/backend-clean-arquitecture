@@ -16,12 +16,12 @@ export interface UserPrimitives {
 
 export class User {
   constructor (
-    private readonly _id: UserId,
-    private _email: UserEmail,
-    private _name: UserName,
-    private _role: Roles,
-    private _lastName: UserLastName,
-    private _password: UserPassword
+    private readonly id: UserId,
+    private email: UserEmail,
+    private name: UserName,
+    private role: Roles,
+    private lastName: UserLastName,
+    private password: UserPassword
   ) {}
 
   static create ({ email, name, lastName, role, password }: { email: string, name: string, lastName: string, role: RoleTypes, password: string }): User {
@@ -47,57 +47,58 @@ export class User {
     )
   }
 
-  toPrimitives (): Omit<UserPrimitives, 'password'> {
+  toPrimitives (): UserPrimitives {
     return {
-      id: this._id.value,
-      name: this._name.value,
-      lastName: this._lastName.value,
-      email: this._email.value,
-      role: this._role.value
+      id: this.id.value,
+      name: this.name.value,
+      lastName: this.lastName.value,
+      email: this.email.value,
+      role: this.role.value,
+      password: this.password.value
     }
   }
 
   updateEmail (newEmail: string): void {
-    this._email = new UserEmail(newEmail)
+    this.email = new UserEmail(newEmail)
   }
 
   updateName (newName: string): void {
-    this._name = new UserName(newName)
+    this.name = new UserName(newName)
   }
 
   updateLastName (newLastName: string): void {
-    this._lastName = new UserLastName(newLastName)
+    this.lastName = new UserLastName(newLastName)
   }
 
   updateRole (newRole: RoleTypes): void {
-    this._role = new Roles(newRole)
+    this.role = new Roles(newRole)
   }
 
   updatePassword (newPassword: string): void {
-    this._password = new UserPassword(newPassword)
+    this.password = new UserPassword(newPassword)
   }
 
-  get userId (): string {
-    return this._id.value
+  get idValue (): string {
+    return this.id.value
   }
 
-  get email (): string {
-    return this._email.value
+  get emailValue (): string {
+    return this.email.value
   }
 
-  get name (): string {
-    return this._name.value
+  get nameValue (): string {
+    return this.name.value
   }
 
-  get lastName (): string {
-    return this._lastName.value
+  get lastNameValue (): string {
+    return this.lastName.value
   }
 
-  get role (): RoleTypes {
-    return this._role.value
+  get roleValue (): RoleTypes {
+    return this.role.value
   }
 
-  get password (): string {
-    return this._password.value
+  get passwordValue (): string {
+    return this.password.value
   }
 }
