@@ -2,7 +2,6 @@ import { DataTypes, Model } from 'sequelize'
 import { sequelize } from '../../../Shared/infrastructure/persistance/Sequelize/SequelizeConfig'
 import { type DevicePrimitives } from '../../domain/Device'
 import { Status, type StatusTypes } from '../../domain/Status'
-import { ModelSeriesModel } from '../../../ModelSeries/infraestructure/Sequelize/ModelSeriesSchema'
 
 export class DeviceModel extends Model<DevicePrimitives> implements DevicePrimitives {
   readonly id!: string

@@ -33,7 +33,7 @@ export class MemoryRamSize extends EnumValueObject<MemoryRamSizeValues> {
       }
     }
 
-    throw new InvalidArgumentError(`The Hard Disk Capacity ${value} is invalid`)
+    throw new InvalidArgumentError(`The MemoryRam Capacity ${value} is invalid`)
   }
 
   static toPrimitive (): MemoryRamSizeValues[] {

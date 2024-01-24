@@ -18,14 +18,14 @@ export interface ComputerPrimitives {
 
 export class ComputerFeatures {
   constructor (
-    private readonly _id: ComputerFeaturesId,
-    private readonly _categoryId: CategoryId,
-    private readonly _deviceId: DeviceId,
-    private readonly _computerType: ComputerType,
-    private _processorId: ComputerProcessorId,
-    private _memoryRam: MemoryRamSize,
-    private _operatingSystem: ComputerOSType,
-    private _hardDriveCapacity: HardDriveCapacity
+    private readonly id: ComputerFeaturesId,
+    private readonly categoryId: CategoryId,
+    private readonly deviceId: DeviceId,
+    private readonly computerType: ComputerType,
+    private processorId: ComputerProcessorId,
+    private memoryRam: MemoryRamSize,
+    private operatingSystem: ComputerOSType,
+    private hardDriveCapacity: HardDriveCapacity
   ) {}
 
   static create (
@@ -60,61 +60,61 @@ export class ComputerFeatures {
   }
 
   updateProcessor (newProcessorId: string): void {
-    this._processorId = new ComputerProcessorId(newProcessorId)
+    this.processorId = new ComputerProcessorId(newProcessorId)
   }
 
   updateMemoryRamSize (newValue: MemoryRamSizeValues): void {
-    this._memoryRam = new MemoryRamSize(newValue)
+    this.memoryRam = new MemoryRamSize(newValue)
   }
 
   updateOperatingSystem (newOperatingSystem: ComputerOSTypes): void {
-    this._operatingSystem = new ComputerOSType(newOperatingSystem)
+    this.operatingSystem = new ComputerOSType(newOperatingSystem)
   }
 
   updateHardDriveCapaciyu (newHDDCapacity: HardDriveCapacityType): void {
-    this._hardDriveCapacity = new HardDriveCapacity(newHDDCapacity)
+    this.hardDriveCapacity = new HardDriveCapacity(newHDDCapacity)
   }
 
   toPrimitive (): ComputerPrimitives {
     return {
-      id: this._id.value,
-      computerType: this._computerType.value,
-      processorId: this._processorId.value,
-      memoryRam: this._memoryRam.value,
-      operatingSystem: this._operatingSystem.value,
-      hardDriveCapacity: this._hardDriveCapacity.value
+      id: this.id.value,
+      computerType: this.computerType.value,
+      processorId: this.processorId.value,
+      memoryRam: this.memoryRam.value,
+      operatingSystem: this.operatingSystem.value,
+      hardDriveCapacity: this.hardDriveCapacity.value
     }
   }
 
-  get id (): string {
-    return this._id.value
+  get idValue (): string {
+    return this.id.value
   }
 
-  get categoryId (): string {
-    return this._categoryId.value
+  get categoryIdValue (): string {
+    return this.categoryId.value
   }
 
-  get deviceId (): string {
-    return this._deviceId.value
+  get deviceIdValue (): string {
+    return this.deviceId.value
   }
 
-  get computerType (): string {
-    return this._computerType.value
+  get computerTypeValue (): string {
+    return this.computerType.value
   }
 
-  get processorId (): string {
-    return this._processorId.value
+  get processorIdValue (): string {
+    return this.processorId.value
   }
 
-  get memoryRam (): string {
-    return this._memoryRam.value
+  get memoryRamValue (): string {
+    return this.memoryRam.value
   }
 
-  get OperatingSystem (): string {
-    return this._operatingSystem.value
+  get OperatingSystemValue (): string {
+    return this.operatingSystem.value
   }
 
-  get hardDriveCapacity (): string {
-    return this._hardDriveCapacity.value
+  get hardDriveCapacityValue (): string {
+    return this.hardDriveCapacity.value
   }
 }
