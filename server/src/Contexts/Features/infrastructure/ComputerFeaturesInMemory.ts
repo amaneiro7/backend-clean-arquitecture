@@ -15,7 +15,7 @@ const computerFeatures: ComputerFeatures[] = [
     new CategoryId('dcdd0fad-a94c-4810-8acc-5f108d3b18c3'),
     new DeviceId('5a94384b-2e4d-4cdf-96c9-0065bf7f92a0'),
     new ComputerType(ComputerTypes.DESKTOP),
-    new ComputerProcessorId(''),
+    new ComputerProcessorId('f1e188f8-d686-4d59-8077-ff6defe4e050'),
     new MemoryRamSize(MemoryRamSizeValues['4GB']),
     new ComputerOSType(ComputerOSTypes.WINDOWS7),
     new HardDriveCapacity(HardDriveCapacityType['500GB'])

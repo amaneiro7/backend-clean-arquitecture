@@ -5,7 +5,7 @@ import { type ComputerProcessorRepository } from '../domain/ProcessorFeatures/Co
 
 const processors: ComputerProcessor[] = [
   new ComputerProcessor(
-    new ComputerProcessorId('47783593-0acb-4aad-a4b0-89df62573e13'),
+    new ComputerProcessorId('f1e188f8-d686-4d59-8077-ff6defe4e050'),
     new ComputerProcessorName('Intel(R) Core(TM) i3 3220 CPU @ 3.30GHz')
   )
 ]

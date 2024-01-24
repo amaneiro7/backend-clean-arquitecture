@@ -1,11 +1,11 @@
-export abstract class GenericRepository<T, Id, Name> {
+export abstract class GenericRepository<T> {
   abstract save (payload: T): void
 
   abstract searchAll: () => Promise<T[]>
 
-  abstract searchById: (id: Id) => Promise<T | null>
+  abstract searchById: (id: string) => Promise<T | null>
 
-  abstract searchByName: (name: Name) => Promise<T | null>
+  abstract searchByName: (name: string) => Promise<T | null>
 
-  abstract remove: (id: Id) => Promise<void>
+  abstract remove: (id: string) => Promise<void>
 }
