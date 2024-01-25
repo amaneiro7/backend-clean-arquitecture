@@ -20,7 +20,14 @@ export class SequelizeDeviceRepository implements DeviceRepository {
   }
 
   async save (payload: DevicePrimitives): Promise<void> {
-    await DeviceModel.findOrCreate({ where: { id: payload.id } })
+    const { id } = payload
+    const device = await DeviceModel.findByPk(id) ?? null
+    if (device === null) {
+      await DeviceModel.create(payload)
+    } else {
+      device.set({ ...payload })
+      await device.save()
+    }
   }
 
   async remove (deviceId: string): Promise<void> {
