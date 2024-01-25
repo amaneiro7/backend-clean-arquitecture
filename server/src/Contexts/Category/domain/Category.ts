@@ -8,8 +8,8 @@ export interface CategoryPrimitives {
 
 export class Category {
   constructor (
-    private readonly _id: CategoryId,
-    private readonly _name: CategoryName
+    private readonly id: CategoryId,
+    private readonly name: CategoryName
   ) {}
 
   static fromPrimitives (primitives: CategoryPrimitives): Category {
@@ -21,16 +21,16 @@ export class Category {
 
   toPrimitive (): any {
     return {
-      id: this._id.value,
-      name: this._name.value
+      id: this.id.value,
+      name: this.name.value
     }
   }
 
-  get id (): string {
-    return this._id.value
+  get idValue (): string {
+    return this.id.value
   }
 
-  get name (): string {
-    return this._name.value
+  get nameValue (): string {
+    return this.name.value
   }
 }
