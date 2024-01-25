@@ -16,7 +16,14 @@ export class SequelizeBrandRepository implements BrandRepository {
   }
 
   async save (payload: BrandPrimitives): Promise<void> {
-    await BrandModel.findOrCreate({ where: { id: payload.id } })
+    const { id } = payload
+    const brand = await BrandModel.findByPk(id) ?? null
+    if (brand === null) {
+      await BrandModel.create(payload)
+    } else {
+      brand.set({ ...payload })
+      await brand.save()
+    }
   }
 
   async remove (id: string): Promise<void> {

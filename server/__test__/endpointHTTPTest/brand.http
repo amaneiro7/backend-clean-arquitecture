@@ -20,10 +20,10 @@ Content-Type: application/json
   "name": "siragon"  
 }
 ### Modificar una marca con POST
-PATCH  http://localhost:5000/api/v1/brands/241bf55d-b649-4109-af7c-0e6890ded3fc
+PATCH  http://localhost:5000/api/v1/brands/1ba4ce78-0908-41b6-8636-9bcc7b67e555
 Content-Type: application/json
 
 {
-  "name": "compaq"
+  "name": "Samsung"
 }
 

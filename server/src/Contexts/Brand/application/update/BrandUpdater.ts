@@ -1,4 +1,5 @@
 import { type Repository } from '../../../Shared/domain/Repository'
+import { Brand } from '../../domain/Brand'
 import { BrandAlreadyExistError } from '../../domain/BrandAlreadyExistError'
 import { BrandDoesNotExistError } from '../../domain/BrandDoesNotExistError'
 import { BrandId } from '../../domain/BrandId'
@@ -16,9 +17,11 @@ export class BrandUpdater {
     }
     await this.ensureBrandDoesNotExist(newName)
 
-    brand.name = new BrandName(newName).toString()
+    const brandEntity = Brand.fromPrimitives(brand)
+    brandEntity.updateName(newName)
+    console.log(brandEntity.nameValue)
 
-    await this.repository.brand.save(brand)
+    await this.repository.brand.save(brandEntity.toPrimitive())
   }
 
   private async ensureBrandDoesNotExist (name: string): Promise<void> {

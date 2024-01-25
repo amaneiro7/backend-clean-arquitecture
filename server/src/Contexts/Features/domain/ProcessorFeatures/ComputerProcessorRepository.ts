@@ -1,15 +1,14 @@
-import { type ComputerProcessor } from './ComputerProcessor'
-import { type ComputerProcessorId } from './ComputerProcessorId'
-import { type ComputerProcessorName } from './ComputerProcessorName'
+import { type GenericRepository } from '../../../Shared/domain/GenericRepository'
+import { type ComputerProcessorPrimitives } from './ComputerProcessor'
 
-export abstract class ComputerProcessorRepository {
-  abstract searchAll (): Promise<ComputerProcessor[]>
+export abstract class ComputerProcessorRepository implements GenericRepository<ComputerProcessorPrimitives> {
+  abstract searchAll (): Promise<ComputerProcessorPrimitives[]>
 
-  abstract save (payload: ComputerProcessor): Promise<void>
+  abstract save (payload: ComputerProcessorPrimitives): Promise<void>
 
-  abstract searchById (id: ComputerProcessorId): Promise<ComputerProcessor | null>
+  abstract searchById (id: string): Promise<ComputerProcessorPrimitives | null>
 
-  abstract searchByName (id: ComputerProcessorName): Promise<ComputerProcessor | null>
+  abstract searchByName (name: string): Promise<ComputerProcessorPrimitives | null>
 
-  abstract remove (id: ComputerProcessorId): Promise<void>
+  abstract remove (id: string): Promise<void>
 }
