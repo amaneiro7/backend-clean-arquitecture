@@ -7,34 +7,35 @@ import { ModelSeriesDoesNotExistError } from '../../domain/ModelSeriesDoesNotExi
 import { ModelSeriesId } from '../../domain/ModelSeriesId'
 import { ModelSeriesName } from '../../domain/ModelSeriesName'
 import { type Repository } from '../../../Shared/domain/Repository'
+import { ModelSeries } from '../../domain/ModelSeries'
 
 export class ModelSeriesUpdater {
   constructor (private readonly repository: Repository) {}
 
   async run (params: { id: string, newName?: string, categoryId?: string, brandId?: string }): Promise<void> {
-    const { id } = params
+    const { id, newName, brandId, categoryId } = params
     const modelSeriesId = new ModelSeriesId(id).toString()
     const modelSeries = await this.repository.modelSeries.searchById(modelSeriesId)
     if (modelSeries === null) {
       throw new ModelSeriesDoesNotExistError(id)
     }
-
-    if (params.newName !== undefined) {
-      await this.ensureModelSeriesDoesNotExist(params.newName)
-      modelSeries.name = new ModelSeriesName(params.newName).value
+    const modelEntity = ModelSeries.fromPrimitives(modelSeries)
+    if (newName !== undefined) {
+      await this.ensureModelSeriesDoesNotExist(newName)
+      modelEntity.updateName(newName)
     }
 
-    if (params.categoryId !== undefined) {
-      await this.ensureCategoryIdExist(params.categoryId)
-      modelSeries.categoryId = new CategoryId(params.categoryId).value
+    if (categoryId !== undefined) {
+      await this.ensureCategoryIdExist(categoryId)
+      modelEntity.updateCategoryId(categoryId)
     }
 
-    if (params.brandId !== undefined) {
-      await this.ensureBrandIdExist(params.brandId)
-      modelSeries.brandId = new BrandId(params.brandId).value
+    if (brandId !== undefined) {
+      await this.ensureBrandIdExist(brandId)
+      modelEntity.updateBrandId(brandId)
     }
 
-    await this.repository.modelSeries.save(modelSeries)
+    await this.repository.modelSeries.save(modelEntity)
   }
 
   private async ensureModelSeriesDoesNotExist (name: string): Promise<void> {
