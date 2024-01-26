@@ -1,29 +1,29 @@
-import { service } from '../../../Shared/infrastructure/persistance/Sequelize/SequelizeConfig'
+import { models } from '../../../Shared/infrastructure/persistance/Sequelize/SequelizeConfig'
 import { type DevicePrimitives } from '../../domain/Device'
 import { type DeviceRepository } from '../../domain/DeviceRepository'
 
 export class SequelizeDeviceRepository implements DeviceRepository {
   async searchAll (): Promise<DevicePrimitives[]> {
-    return await service.DeviceModel.findAll()
+    return await models.Device.findAll()
   }
 
   async searchById (deviceId: string): Promise<DevicePrimitives | null> {
-    return await service.DeviceModel.findByPk(deviceId) ?? null
+    return await models.Device.findByPk(deviceId) ?? null
   }
 
   async searchByActivo (activo: string): Promise<DevicePrimitives | null> {
-    return await service.DeviceModel.findOne({ where: { activo } })
+    return await models.Device.findOne({ where: { activo } })
   }
 
   async searchBySerial (serial: string): Promise<DevicePrimitives | null> {
-    return await service.DeviceModel.findOne({ where: { serial } })
+    return await models.Device.findOne({ where: { serial } })
   }
 
   async save (payload: DevicePrimitives): Promise<void> {
     const { id } = payload
-    const device = await service.DeviceModel.findByPk(id) ?? null
+    const device = await models.Device.findByPk(id) ?? null
     if (device === null) {
-      await service.DeviceModel.create(payload)
+      await models.Device.create({ ...payload })
     } else {
       device.set({ ...payload })
       await device.save()
@@ -31,6 +31,6 @@ export class SequelizeDeviceRepository implements DeviceRepository {
   }
 
   async remove (deviceId: string): Promise<void> {
-    await service.DeviceModel.destroy({ where: { id: deviceId } })
+    await models.Device.destroy({ where: { id: deviceId } })
   }
 }

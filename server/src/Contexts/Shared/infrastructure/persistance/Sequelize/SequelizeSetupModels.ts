@@ -7,11 +7,11 @@ import { DeviceModel, DeviceSchema } from '../../../../Device/infraestructure/se
 import { UserModel, UserSchema } from '../../../../User/infrastructure/persistence/Sequelize/UserSchema'
 
 export interface SequelizeModels {
-  Category: ModelStatic<any>
-  Brand: ModelStatic<any>
-  Model: ModelStatic<any>
-  Device: ModelStatic<any>
-  User: ModelStatic<any>
+  Category: ModelStatic<CategoryModel>
+  Brand: ModelStatic<BrandModel>
+  Model: ModelStatic<ModelSeriesModel>
+  Device: ModelStatic<DeviceModel>
+  User: ModelStatic<UserModel>
 }
 
 export function setupModels (sequelize: Sequelize): SequelizeModels {
