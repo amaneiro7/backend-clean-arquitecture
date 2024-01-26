@@ -7,7 +7,7 @@ export class SequelizeCategoryRepository implements CategoryRepository {
     return await models.Category.findAll()
   }
 
-  async searchById (id: string): Promise<CategoryPrimitives | null> {
+  async searchById (id: number): Promise<CategoryPrimitives | null> {
     return await models.Category.findByPk(id) ?? null
   }
 

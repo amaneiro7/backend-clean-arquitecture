@@ -7,18 +7,18 @@ export interface ModelSeriesPrimitives {
   id: string
   name: string
   brandId: string
-  categoryId: string
+  categoryId: number
 }
 
 export class ModelSeries {
   constructor (
-    private readonly _id: ModelSeriesId,
-    private _name: ModelSeriesName,
-    private _brandId: BrandId,
-    private _categoryId: CategoryId
+    private readonly id: ModelSeriesId,
+    private name: ModelSeriesName,
+    private categoryId: CategoryId,
+    private brandId: BrandId
   ) {}
 
-  static create ({ name, brandId, categoryId }: { name: string, brandId: string, categoryId: string }): ModelSeries {
+  static create ({ name, brandId, categoryId }: { name: string, brandId: string, categoryId: number }): ModelSeries {
     const id = String(ModelSeriesId.random())
     return new ModelSeries(
       new ModelSeriesId(id),
@@ -29,48 +29,48 @@ export class ModelSeries {
   }
 
   updateName (newName: string): void {
-    this._name = new ModelSeriesName(newName)
+    this.name = new ModelSeriesName(newName)
   }
 
-  updateCategoryId (newCategoryId: string): void {
-    this._categoryId = new CategoryId(newCategoryId)
+  updateCategoryId (newCategoryId: number): void {
+    this.categoryId = new CategoryId(newCategoryId)
   }
 
   updateBrandId (newBrandId: string): void {
-    this._brandId = new BrandId(newBrandId)
+    this.brandId = new BrandId(newBrandId)
   }
 
   static fromPrimitives (primitives: ModelSeriesPrimitives): ModelSeries {
     return new ModelSeries(
       new ModelSeriesId(primitives.id),
       new ModelSeriesName(primitives.name),
-      new BrandId(primitives.brandId),
-      new CategoryId(primitives.categoryId)
+      new CategoryId(primitives.categoryId),
+      new BrandId(primitives.brandId)
     )
   }
 
   toPrimitives (): ModelSeriesPrimitives {
     return {
-      id: this._id.value,
-      name: this._name.value,
-      categoryId: this._categoryId.value,
-      brandId: this._brandId.value
+      id: this.idValue,
+      name: this.nameValue,
+      categoryId: this.categoryIdValue,
+      brandId: this.brandIdValue
     }
   }
 
-  get id (): string {
-    return this._id.value
+  get idValue (): string {
+    return this.id.value
   }
 
-  get name (): string {
-    return this._name.value
+  get nameValue (): string {
+    return this.name.value
   }
 
-  get brandId (): string {
-    return this._brandId.value
+  get categoryIdValue (): number {
+    return this.categoryId.value
   }
 
-  get categoryId (): string {
-    return this._categoryId.value
+  get brandIdValue (): string {
+    return this.brandId.value
   }
 }

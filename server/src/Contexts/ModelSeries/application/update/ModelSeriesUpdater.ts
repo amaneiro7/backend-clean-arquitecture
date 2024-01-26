@@ -26,8 +26,9 @@ export class ModelSeriesUpdater {
     }
 
     if (categoryId !== undefined) {
-      await this.ensureCategoryIdExist(categoryId)
-      modelEntity.updateCategoryId(categoryId)
+      const id = Number(categoryId)
+      await this.ensureCategoryIdExist(id)
+      modelEntity.updateCategoryId(id)
     }
 
     if (brandId !== undefined) {
@@ -35,7 +36,7 @@ export class ModelSeriesUpdater {
       modelEntity.updateBrandId(brandId)
     }
 
-    await this.repository.modelSeries.save(modelEntity)
+    await this.repository.modelSeries.save(modelEntity.toPrimitives())
   }
 
   private async ensureModelSeriesDoesNotExist (name: string): Promise<void> {
@@ -44,9 +45,9 @@ export class ModelSeriesUpdater {
     }
   }
 
-  private async ensureCategoryIdExist (categoryId: string): Promise<void> {
-    if (await this.repository.category.searchById(new CategoryId(categoryId).toString()) === null) {
-      throw new CategoryDoesNotExistError(categoryId)
+  private async ensureCategoryIdExist (categoryId: number): Promise<void> {
+    if (await this.repository.category.searchById(new CategoryId(categoryId).value) === null) {
+      throw new CategoryDoesNotExistError(categoryId.toString())
     }
   }
 

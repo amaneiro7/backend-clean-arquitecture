@@ -16,8 +16,8 @@ export const ModelSeriesSchema: ModelAttributes = {
 export class ModelSeriesModel extends Model<ModelSeriesPrimitives> implements ModelSeriesPrimitives {
   readonly id!: string
   readonly name!: string
+  readonly categoryId!: number
   readonly brandId!: string
-  readonly categoryId!: string
 
   static config (sequelize: Sequelize): InitOptions {
     return {

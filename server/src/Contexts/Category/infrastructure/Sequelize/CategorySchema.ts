@@ -5,7 +5,7 @@ export const CATEGORY_TABLE = 'categories'
 
 export const CategorySchema: ModelAttributes = {
   id: {
-    type: DataTypes.UUID,
+    type: DataTypes.INTEGER,
     primaryKey: true,
     allowNull: false
   },
@@ -17,7 +17,7 @@ export const CategorySchema: ModelAttributes = {
 }
 
 export class CategoryModel extends Model<CategoryPrimitives> implements CategoryPrimitives {
-  readonly id!: string
+  readonly id!: number
   readonly name!: string
 
   static config (sequelize: Sequelize): InitOptions {

@@ -6,7 +6,7 @@ import { ModelSeriesName } from '../../domain/ModelSeriesName'
 export class ModelSeriesCreator {
   constructor (private readonly repository: Repository) {}
 
-  async run (params: { name: string, categoryId: string, brandId: string }): Promise<void> {
+  async run (params: { name: string, categoryId: number, brandId: string }): Promise<void> {
     const { name, brandId, categoryId } = params
 
     await this.ensureModelSeriesDoesNotExist(name)

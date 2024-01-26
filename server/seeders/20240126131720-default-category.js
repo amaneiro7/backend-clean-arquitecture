@@ -3,54 +3,78 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    return queryInterface.bulkInsert('users', [
+    return queryInterface.bulkInsert('categories', [
       {
         id: 1,
-        name: 'Computadoras'
+        name: 'Computadoras',
+        created_at: new Date(),
+        updated_at: new Date()
       },
       {
         id: 2,
-        name: 'Monitores'
+        name: 'Monitores',
+        created_at: new Date(),
+        updated_at: new Date()
       },
       {
         id: 3,
-        name: 'Impresora Laser'
+        name: 'Impresora Laser',
+        created_at: new Date(),
+        updated_at: new Date()
       },
       {
         id: 4,
-        name: 'Impresoras Financieras'
+        name: 'Impresoras Financieras',
+        created_at: new Date(),
+        updated_at: new Date()
       },
       {
         id: 5,
-        name: 'Impresoras de TDD'
+        name: 'Impresoras de TDD',
+        created_at: new Date(),
+        updated_at: new Date()
       },
       {
         id: 6,
-        name: 'Escaner de Cheques'
+        name: 'Escaner de Cheques',
+        created_at: new Date(),
+        updated_at: new Date()
       },
       {
         id: 7,
-        name: 'Discos Duros'
+        name: 'Discos Duros',
+        created_at: new Date(),
+        updated_at: new Date()
       },
       {
         id: 8,
-        name: 'Memorias RAM'
+        name: 'Memorias RAM',
+        created_at: new Date(),
+        updated_at: new Date()
       },
       {
         id: 9,
-        name: 'CD-ROM'
+        name: 'CD-ROM',
+        created_at: new Date(),
+        updated_at: new Date()
       },
       {
         id: 10,
-        name: 'Teclados'
+        name: 'Teclados',
+        created_at: new Date(),
+        updated_at: new Date()
       },
       {
         id: 11,
-        name: 'Mouses'
+        name: 'Mouses',
+        created_at: new Date(),
+        updated_at: new Date()
       },
       {
         id: 12,
-        name: 'Reguladores'
+        name: 'Reguladores',
+        created_at: new Date(),
+        updated_at: new Date()
       }
     ])
   },

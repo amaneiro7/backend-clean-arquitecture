@@ -26,7 +26,7 @@ export class ModelSeriesFinder {
 
     const category = await this.repository.category.searchById(modelSeries.categoryId)
     if (category === null) {
-      throw new CategoryDoesNotExistError(modelSeries.categoryId)
+      throw new CategoryDoesNotExistError(modelSeries.categoryId.toString())
     }
     const brand = await this.repository.brand.searchById(modelSeries.brandId)
     if (brand === null) {

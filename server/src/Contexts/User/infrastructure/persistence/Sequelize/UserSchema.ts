@@ -54,7 +54,7 @@ export class UserModel extends Model<UserPrimitives> implements UserPrimitives {
       tableName: USER_TABLE,
       modelName: 'User',
       timestamps: true,
-      updatedAt: true,
+      underscored: true,
       sequelize
     }
   }

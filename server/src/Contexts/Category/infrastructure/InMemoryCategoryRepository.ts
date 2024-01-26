@@ -29,8 +29,8 @@ export class InMemoryCategoryRepository implements CategoryRepository {
     return categories
   }
 
-  async searchById (id: string): Promise<CategoryPrimitives | null> {
-    return categories.find(category => category.id === id.toString()) ?? null
+  async searchById (id: number): Promise<CategoryPrimitives | null> {
+    return categories.find(category => category.id === id) ?? null
   }
 
   async searchByName (name: string): Promise<CategoryPrimitives | null> {

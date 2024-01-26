@@ -9,7 +9,7 @@ module.exports = {
         id: '4a9c8e24-58b3-4cf7-b7a1-db67d4f11d07',
         email: 'admin@bnc.com.ve',
         name: 'admin',
-        lastName: 'admin',
+        last_name: 'admin',
         role: 'Admin',
         password: hashSync('Admin12345*', 10),
         created_at: new Date(),

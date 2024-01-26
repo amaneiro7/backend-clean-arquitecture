@@ -21,7 +21,7 @@ export class CategoryGetController {
   getById = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const { id } = req.params
-      const data = await new CategoriesFinder(this.repository).searchById(new CategoryId(id))
+      const data = await new CategoriesFinder(this.repository).searchById(new CategoryId(Number(id)))
       res.status(httpStatus.OK).json(data)
     } catch (error) {
       next(error)
