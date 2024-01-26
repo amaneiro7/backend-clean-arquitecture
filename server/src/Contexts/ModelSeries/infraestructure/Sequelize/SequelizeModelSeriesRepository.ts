@@ -4,15 +4,21 @@ import { type ModelSeriesRepository } from '../../domain/ModelSeriesRepository'
 
 export class SequelizeModelSeriesRepository implements ModelSeriesRepository {
   async searchAll (): Promise<ModelSeriesPrimitives[]> {
-    return await models.Model.findAll()
+    return await models.Model.findAll({ include: ['category', 'brand'] })
   }
 
   async searchById (id: string): Promise<ModelSeriesPrimitives | null> {
-    return await models.Model.findByPk(id) ?? null
+    return await models.Model.findByPk(id, {
+      include: ['category', 'brand']
+    }) ?? null
   }
 
   async searchByName (name: string): Promise<ModelSeriesPrimitives | null> {
-    return await models.Model.findOne({ where: { name } }) ?? null
+    return await models.Model.findOne(
+      {
+        where: { name },
+        include: ['category', 'brand']
+      }) ?? null
   }
 
   async save (payload: ModelSeriesPrimitives): Promise<void> {

@@ -4,15 +4,20 @@ import { type DeviceRepository } from '../../domain/DeviceRepository'
 
 export class SequelizeDeviceRepository implements DeviceRepository {
   async searchAll (): Promise<DevicePrimitives[]> {
-    return await models.Device.findAll()
+    return await models.Device.findAll({ include: ['model'] })
   }
 
   async searchById (deviceId: string): Promise<DevicePrimitives | null> {
-    return await models.Device.findByPk(deviceId) ?? null
+    return await models.Device.findByPk(deviceId, {
+      include: ['model']
+    }) ?? null
   }
 
   async searchByActivo (activo: string): Promise<DevicePrimitives | null> {
-    return await models.Device.findOne({ where: { activo } })
+    return await models.Device.findOne({
+      where: { activo },
+      include: ['model']
+    }) ?? null
   }
 
   async searchBySerial (serial: string): Promise<DevicePrimitives | null> {
