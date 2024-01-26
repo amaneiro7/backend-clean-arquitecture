@@ -2,7 +2,7 @@ import { CategoryId } from './CategoryId'
 import { CategoryName } from './CategoryName'
 
 export interface CategoryPrimitives {
-  id: string
+  id: number
   name: string
 }
 
@@ -26,7 +26,7 @@ export class Category {
     }
   }
 
-  get idValue (): string {
+  get idValue (): number {
     return this.id.value
   }
 

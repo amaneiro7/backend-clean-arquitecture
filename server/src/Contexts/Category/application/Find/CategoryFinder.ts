@@ -8,7 +8,7 @@ export class CategoriesFinder {
   constructor (private readonly repository: Repository) {}
 
   async searchById (categoryId: CategoryId): Promise<CategoryPrimitives> {
-    const category = await this.repository.category.searchById(categoryId.toString())
+    const category = await this.repository.category.searchById(categoryId.value)
 
     if (category === null) {
       throw new CategoryDoesNotExistError(categoryId.toString())

@@ -3,23 +3,23 @@ import { type CategoryRepository } from '../domain/CategoryRepository'
 
 const categories: CategoryPrimitives[] = [
   {
-    id: 'dcdd0fad-a94c-4810-8acc-5f108d3b18c3',
+    id: 1,
     name: 'Computadoras'
   },
   {
-    id: 'c8a7d63f-3b04-44d3-9d95-8782fd7dcfaf',
+    id: 2,
     name: 'Monitores'
   },
   {
-    id: '5ad1a235-0d9c-410a-b32b-220d91689a08',
+    id: 3,
     name: 'Impresoras Financieras'
   },
   {
-    id: '241bf55d-b649-4109-af7c-0e6890ded3fc',
+    id: 4,
     name: 'Impresoras Laser'
   },
   {
-    id: '8cc4abd7-31bf-468d-8470-fcd939ec8ba3',
+    id: 5,
     name: 'Discos Duros'
   }
 ]

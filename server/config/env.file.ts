@@ -7,7 +7,7 @@ interface Options {
 
 type Environments = Record<string, string>
 
-const env = process.env.NODE_ENV || 'dev'
+const env = process.env.NODE_ENV ?? 'dev'
 const envs: Environments = {
   dev: '.env',
   e2e: '.env.e2e'
@@ -27,8 +27,8 @@ export const config = {
   baseApiUrl: '/api/v2',
   port: process.env.PORT ?? 3000,
   postgres: {
-    user: process.env.POSTGRES_USER ?? 'appadmin',
-    password: process.env.POSTGRES_PASS ?? 'Man12345.',
+    user: process.env.POSTGRES_USER ?? 'postgres',
+    password: process.env.POSTGRES_PASS ?? 'Man12345*',
     host: process.env.POSTGRES_HOST ?? 'localhost',
     port: process.env.POSTGRES_PORT ?? 5432,
     dbName: process.env.POSTGRES_DB_NAME ?? 'inventoryApp',
