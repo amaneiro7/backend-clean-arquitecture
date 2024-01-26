@@ -1,33 +1,29 @@
-import { DataTypes, Model } from 'sequelize'
-import { sequelize } from '../../../Shared/infrastructure/persistance/Sequelize/SequelizeConfig'
+import { DataTypes, type InitOptions, Model, type Sequelize, type ModelAttributes } from 'sequelize'
 import { type BrandPrimitives } from '../../domain/Brand'
-import { ModelSeriesModel } from '../../../ModelSeries/infraestructure/Sequelize/ModelSeriesSchema'
 
-// export interface BrandCreationAttributes extends Optional<BrandPrimitives, 'id'> {}
+export const BrandSchema: ModelAttributes = {
+  id: {
+    type: DataTypes.UUID,
+    primaryKey: true,
+    allowNull: false
+  },
+  name: {
+    allowNull: false,
+    type: DataTypes.STRING,
+    unique: true
+  }
+}
 export class BrandModel extends Model<BrandPrimitives> implements BrandPrimitives {
   public id!: string
   public name!: string
-}
-BrandModel.init(
-  {
-    id: {
-      type: DataTypes.UUID,
-      primaryKey: true,
-      allowNull: false
-    },
-    name: {
-      allowNull: false,
-      type: DataTypes.STRING,
-      unique: true
-    }
-  },
-  {
-    tableName: 'brands',
-    modelName: 'Brand',
-    timestamps: true,
-    updatedAt: true,
-    sequelize
-  }
-)
 
-BrandModel.hasMany(ModelSeriesModel)
+  static config (sequelize: Sequelize): InitOptions {
+    return {
+      tableName: 'brands',
+      modelName: 'Brand',
+      timestamps: true,
+      updatedAt: true,
+      sequelize
+    }
+  }
+}
