@@ -12,7 +12,6 @@ const users: UserPrimitives[] = [
     role: RoleTypes.ADMIN,
     password: new UserPassword('Admin12345*').toString()
   }
-
 ]
 export class InMemoryUserRepository implements UserRepository {
 // Asynchronously save a user payload to the data store
