@@ -34,6 +34,8 @@ export type Seeder = typeof seeder._types.migration
 export async function up (): Promise<void> {
   try {
     await sequelize.sync({ alter: true })
+    console.log(sequelize)
+
     await seeder.up()
   } catch (error) {
     console.error(error)
