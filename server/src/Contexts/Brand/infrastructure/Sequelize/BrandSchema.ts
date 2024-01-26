@@ -1,6 +1,8 @@
 import { DataTypes, type InitOptions, Model, type Sequelize, type ModelAttributes } from 'sequelize'
 import { type BrandPrimitives } from '../../domain/Brand'
 
+export const BRAND_TABLE = 'brands'
+
 export const BrandSchema: ModelAttributes = {
   id: {
     type: DataTypes.UUID,
@@ -19,10 +21,9 @@ export class BrandModel extends Model<BrandPrimitives> implements BrandPrimitive
 
   static config (sequelize: Sequelize): InitOptions {
     return {
-      tableName: 'brands',
       modelName: 'Brand',
       timestamps: true,
-      updatedAt: true,
+      underscored: true,
       sequelize
     }
   }

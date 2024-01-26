@@ -2,6 +2,8 @@ import { DataTypes, type InitOptions, Model, type ModelAttributes, type Sequeliz
 import { type UserPrimitives } from '../../../domain/User'
 import { Roles, type RoleTypes } from '../../../domain/Role'
 
+export const USER_TABLE = 'users'
+
 export const UserSchema: ModelAttributes = {
   id: {
     type: DataTypes.UUID,
@@ -49,7 +51,7 @@ export class UserModel extends Model<UserPrimitives> implements UserPrimitives {
 
   static config (sequelize: Sequelize): InitOptions {
     return {
-      tableName: 'users',
+      tableName: USER_TABLE,
       modelName: 'User',
       timestamps: true,
       updatedAt: true,

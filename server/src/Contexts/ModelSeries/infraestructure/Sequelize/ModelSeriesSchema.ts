@@ -11,24 +11,6 @@ export const ModelSeriesSchema: ModelAttributes = {
     type: DataTypes.STRING,
     allowNull: false,
     unique: true
-  },
-  categoryId: {
-    field: 'category_id',
-    type: DataTypes.UUID,
-    allowNull: false,
-    references: {
-      model: 'categories',
-      key: 'id'
-    }
-  },
-  brandId: {
-    field: 'brand_id',
-    type: DataTypes.UUID,
-    allowNull: false,
-    references: {
-      model: 'brands',
-      key: 'id'
-    }
   }
 }
 export class ModelSeriesModel extends Model<ModelSeriesPrimitives> implements ModelSeriesPrimitives {
@@ -39,10 +21,9 @@ export class ModelSeriesModel extends Model<ModelSeriesPrimitives> implements Mo
 
   static config (sequelize: Sequelize): InitOptions {
     return {
-      tableName: 'modelSeries',
-      modelName: 'ModelSeries',
+      modelName: 'Model',
       timestamps: true,
-      updatedAt: true,
+      underscored: true,
       sequelize
     }
   }

@@ -22,15 +22,6 @@ export const DeviceSchema: ModelAttributes = {
     allowNull: false,
     type: DataTypes.ENUM,
     values: Status.toPrimitive()
-  },
-  modelId: {
-    field: 'model_id',
-    type: DataTypes.UUID,
-    allowNull: false,
-    references: {
-      model: 'modelSeries',
-      key: 'id'
-    }
   }
 }
 
@@ -43,10 +34,9 @@ export class DeviceModel extends Model<DevicePrimitives> implements DevicePrimit
 
   static config (sequelize: Sequelize): InitOptions {
     return {
-      tableName: 'devices',
       modelName: 'Device',
       timestamps: true,
-      updatedAt: true,
+      underscored: true,
       sequelize
     }
   }

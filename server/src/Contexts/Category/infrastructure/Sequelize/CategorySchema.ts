@@ -1,6 +1,8 @@
 import { DataTypes, type InitOptions, Model, type Sequelize, type ModelAttributes } from 'sequelize'
 import { type CategoryPrimitives } from '../../domain/Category'
 
+export const CATEGORY_TABLE = 'categories'
+
 export const CategorySchema: ModelAttributes = {
   id: {
     type: DataTypes.UUID,
@@ -20,10 +22,9 @@ export class CategoryModel extends Model<CategoryPrimitives> implements Category
 
   static config (sequelize: Sequelize): InitOptions {
     return {
-      tableName: 'categories',
       modelName: 'Category',
+      underscored: true,
       timestamps: true,
-      updatedAt: true,
       sequelize
     }
   }

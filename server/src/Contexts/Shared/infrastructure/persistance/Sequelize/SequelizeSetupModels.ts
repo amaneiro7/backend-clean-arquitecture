@@ -21,12 +21,12 @@ export function setupModels (sequelize: Sequelize): SequelizeModels {
   DeviceModel.init(DeviceSchema, DeviceModel.config(sequelize))
   UserModel.init(UserSchema, UserModel.config(sequelize))
 
-  CategoryModel.hasMany(ModelSeriesModel)
-  BrandModel.hasMany(ModelSeriesModel)
-  ModelSeriesModel.belongsTo(CategoryModel)
-  ModelSeriesModel.belongsTo(CategoryModel)
-  ModelSeriesModel.hasMany(DeviceModel)
-  DeviceModel.belongsTo(ModelSeriesModel)
+  CategoryModel.hasMany(ModelSeriesModel, { as: 'model', foreignKey: 'categoryId' })
+  BrandModel.hasMany(ModelSeriesModel, { as: 'model', foreignKey: 'brandId' })
+  ModelSeriesModel.belongsTo(CategoryModel, { as: 'category' })
+  ModelSeriesModel.belongsTo(CategoryModel, { as: 'brand' })
+  ModelSeriesModel.hasMany(DeviceModel, { as: 'device', foreignKey: 'modelId' })
+  DeviceModel.belongsTo(ModelSeriesModel, { as: 'model' })
 
   return {
     Category: CategoryModel,
