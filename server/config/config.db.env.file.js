@@ -1,30 +1,26 @@
-/* eslint-disable no-prototype-builtins */
-// import 'dotenv/config'
-import dotenv from 'dotenv'
+const { configDotenv } = require('dotenv');
 
-interface Options {
-  path?: string
+require('dotenv').config();
+
+const env = process.env.NODE_ENV ?? 'development'
+const envs = {
+    production: '.env.prod',
+    development: '.env.dev',
+    e2e: '.env.e2e',
 }
 
-type Environments = Record<string, string>
+const options = {}
 
-const env = process.env.NODE_ENV ?? 'dev'
-const envs: Environments = {
-  prod: '.env.prod',
-  dev: '.env.dev',
-  e2e: '.env.e2e'
+if(envs.hasOwnProperty(env)) {
+    options.path = envs[env]
 }
 
-const options: Options = {}
+console.log(env);
 
-if (envs.hasOwnProperty(env)) {
-  options.path = envs[env]
-}
+configDotenv(options)
 
-dotenv.config(options)
-
-export const config = {
-  env,
+const config = {
+    env,
   isProd: process.env.NODE_ENV === 'production',
   baseApiUrl: '/api/v2',
   port: process.env.PORT ?? 3000,
@@ -42,4 +38,5 @@ export const config = {
   smtpEmail: process.env.SMTP_EMAIL ?? 'jaasnavas0811@gmail.com',
   smtpPassword: process.env.SMTP_PASSWORD ?? 'vldpmrrvdvcnrjdx'
 }
-// console.log('[CONFIG]', config);
+
+module.exports = { config }
