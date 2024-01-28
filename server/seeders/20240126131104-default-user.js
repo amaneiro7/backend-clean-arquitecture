@@ -1,12 +1,13 @@
 'use strict';
 
 const { hashSync } = require('bcrypt');
+const { randomUUID } = require('crypto');
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
     return queryInterface.bulkInsert('users', [{
-        id: '4a9c8e24-58b3-4cf7-b7a1-db67d4f11d07',
+        id: randomUUID(),
         email: 'admin@bnc.com.ve',
         name: 'admin',
         last_name: 'admin',
