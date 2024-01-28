@@ -4,12 +4,12 @@ import { DeviceModel } from '../../../../Device/infraestructure/sequelize/Device
 import { ModelSeriesModel } from '../../../../ModelSeries/infraestructure/Sequelize/ModelSeriesSchema'
 
 export function InitSequelizeAssociation (): void {
-  BrandModel.hasMany(ModelSeriesModel)
-  CategoryModel.hasMany(ModelSeriesModel)
+  BrandModel.hasMany(ModelSeriesModel, { as: 'model' })
+  CategoryModel.hasMany(ModelSeriesModel, { as: 'model' })
 
   ModelSeriesModel.belongsTo(CategoryModel, { as: 'category' })
   ModelSeriesModel.belongsTo(BrandModel, { as: 'brand' })
   ModelSeriesModel.hasMany(DeviceModel, { as: 'device' })
 
-  DeviceModel.belongsTo(ModelSeriesModel)
+  DeviceModel.belongsTo(ModelSeriesModel, { as: 'model' })
 }
