@@ -1,8 +1,5 @@
 import { DataTypes, Model, type Sequelize } from 'sequelize'
 import { type ModelSeriesPrimitives } from '../../domain/ModelSeries'
-import { CategoryModel } from '../../../Category/infrastructure/Sequelize/CategorySchema'
-import { BrandModel } from '../../../Brand/infrastructure/Sequelize/BrandSchema'
-import { DeviceModel } from '../../../Device/infraestructure/sequelize/DeviceSchema'
 
 class ModelSeriesModel extends Model<ModelSeriesPrimitives> implements ModelSeriesPrimitives {
   readonly id!: string
@@ -40,9 +37,5 @@ function initModelSeriesModel (sequelize: Sequelize): void {
     }
   )
 }
-
-ModelSeriesModel.belongsTo(CategoryModel, { as: 'category' })
-ModelSeriesModel.belongsTo(BrandModel, { as: 'brand' })
-ModelSeriesModel.hasMany(DeviceModel, { as: 'device' })
 
 export { ModelSeriesModel, initModelSeriesModel }

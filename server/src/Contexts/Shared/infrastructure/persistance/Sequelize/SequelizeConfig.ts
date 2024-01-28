@@ -1,6 +1,7 @@
 import { Sequelize } from 'sequelize'
 import { config } from '../../../../../../config/env.file'
 import { setupModels } from './SequelizeSetupModels'
+import { InitSequelizeAssociation } from './SequelizeAssociations'
 
 const { postgres: { dbUrl } } = config
 export const sequelize = new Sequelize(dbUrl, {
@@ -9,6 +10,7 @@ export const sequelize = new Sequelize(dbUrl, {
 })
 function initializeDatabase (): void {
   setupModels(sequelize)
+  InitSequelizeAssociation()
 
   sequelize.authenticate().then(() => {
     console.log('Connection has been established successfully.')

@@ -1,6 +1,5 @@
 import { DataTypes, type InitOptions, Model, type Sequelize, type ModelAttributes } from 'sequelize'
 import { type CategoryPrimitives } from '../../domain/Category'
-import { ModelSeriesModel } from '../../../ModelSeries/infraestructure/Sequelize/ModelSeriesSchema'
 
 export const CategorySchema: ModelAttributes = {
   id: {
@@ -51,7 +50,5 @@ function initCategoryModel (sequelize: Sequelize): void {
     }
   )
 }
-
-CategoryModel.hasMany(ModelSeriesModel)
 
 export { CategoryModel, initCategoryModel }

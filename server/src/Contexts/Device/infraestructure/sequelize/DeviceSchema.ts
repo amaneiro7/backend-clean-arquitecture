@@ -1,7 +1,6 @@
 import { DataTypes, Model, type Sequelize } from 'sequelize'
 import { type DevicePrimitives } from '../../domain/Device'
 import { Status, type StatusTypes } from '../../domain/Status'
-import { ModelSeriesModel } from '../../../ModelSeries/infraestructure/Sequelize/ModelSeriesSchema'
 
 class DeviceModel extends Model<DevicePrimitives> implements DevicePrimitives {
   readonly id!: string
@@ -47,7 +46,5 @@ function initDeviceModel (sequelize: Sequelize): void {
     }
   )
 }
-
-DeviceModel.belongsTo(ModelSeriesModel)
 
 export { DeviceModel, initDeviceModel }

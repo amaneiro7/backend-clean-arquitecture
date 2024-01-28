@@ -1,6 +1,5 @@
 import { DataTypes, Model, type Sequelize } from 'sequelize'
 import { type BrandPrimitives } from '../../domain/Brand'
-import { ModelSeriesModel } from '../../../ModelSeries/infraestructure/Sequelize/ModelSeriesSchema'
 
 class BrandModel extends Model<BrandPrimitives> implements BrandPrimitives {
   public id!: string
@@ -29,7 +28,5 @@ function initBrandModel (sequelize: Sequelize): void {
     }
   )
 }
-
-BrandModel.hasMany(ModelSeriesModel)
 
 export { BrandModel, initBrandModel }
