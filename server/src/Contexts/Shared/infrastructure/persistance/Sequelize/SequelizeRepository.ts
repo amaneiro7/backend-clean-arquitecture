@@ -4,6 +4,9 @@ import { SequelizeDeviceRepository } from '../../../../Device/infraestructure/se
 import { SequelizeModelSeriesRepository } from '../../../../ModelSeries/infraestructure/Sequelize/SequelizeModelSeriesRepository'
 import { SequelizeUserRepository } from '../../../../User/infrastructure/persistence/Sequelize/SequelizeUserRepository'
 import { type Repository } from '../../../domain/Repository'
+import { initializeDatabase } from './SequelizeConfig'
+
+initializeDatabase()
 
 export const sequelizeRepository: Repository = {
   user: new SequelizeUserRepository(),

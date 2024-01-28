@@ -7,15 +7,20 @@ export const sequelize = new Sequelize(dbUrl, {
   dialect: 'postgres',
   logging: config.isProd ? console.log : false
 })
+function initializeDatabase (): void {
+  setupModels(sequelize)
 
-export const models = setupModels(sequelize)
-
-void (async (): Promise<void> => {
-  try {
-    await sequelize.authenticate()
-    await sequelize.sync()
+  sequelize.authenticate().then(() => {
     console.log('Connection has been established successfully.')
-  } catch (error) {
+  }).catch((error) => {
     console.error('Unable to connect to the database:', error)
-  }
-})()
+  })
+
+  sequelize.sync({ force: true }).then(() => {
+    console.log('Database and tables synced')
+  }).catch((error) => {
+    console.error('Error syncing database:', error)
+  })
+}
+
+export { initializeDatabase }
