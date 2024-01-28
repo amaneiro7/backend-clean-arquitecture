@@ -11,70 +11,52 @@ module.exports = {
       },
       {
         id: 2,
-        name: 'Monitores',
+        name: 'Servidores',
         created_at: new Date(),
         updated_at: new Date()
       },
       {
         id: 3,
-        name: 'Impresora Laser',
+        name: 'Laptops',
         created_at: new Date(),
         updated_at: new Date()
       },
       {
         id: 4,
-        name: 'Impresoras Financieras',
+        name: 'All in One',
         created_at: new Date(),
         updated_at: new Date()
       },
       {
         id: 5,
-        name: 'Impresoras de TDD',
+        name: 'Monitores',
         created_at: new Date(),
         updated_at: new Date()
       },
       {
         id: 6,
-        name: 'Escaner de Cheques',
+        name: 'Impresoras Financieras',
         created_at: new Date(),
         updated_at: new Date()
       },
       {
         id: 7,
-        name: 'Discos Duros',
+        name: 'Impresoras Laser',
         created_at: new Date(),
         updated_at: new Date()
       },
       {
         id: 8,
-        name: 'Memorias RAM',
+        name: 'Impresoras Tinta',
         created_at: new Date(),
         updated_at: new Date()
       },
       {
         id: 9,
-        name: 'CD-ROM',
+        name: 'Discos Duros',
         created_at: new Date(),
         updated_at: new Date()
-      },
-      {
-        id: 10,
-        name: 'Teclados',
-        created_at: new Date(),
-        updated_at: new Date()
-      },
-      {
-        id: 11,
-        name: 'Mouses',
-        created_at: new Date(),
-        updated_at: new Date()
-      },
-      {
-        id: 12,
-        name: 'Reguladores',
-        created_at: new Date(),
-        updated_at: new Date()
-      }
+      }      
     ])
   },
 

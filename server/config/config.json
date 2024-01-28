@@ -1,10 +1,9 @@
-const { config } = require('./config.db.env.file')
-module.exports = {
+{
     "development": {
-    "username": config.postgres.user,
-    "password": config.postgres.password,
-    "database": config.postgres.dbName,
-    "host": config.postgres.host,
+    "username": "postgres",
+    "password": "Man12345*",
+    "database": "inventoryApp",
+    "host": "localhost",
     "dialect": "postgres",    
     "seederStorage": "json",    
     "seederStoragePath": "sequelizeData.json",    
