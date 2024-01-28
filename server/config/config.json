@@ -5,8 +5,7 @@
     "database": "inventoryApp",
     "host": "localhost",
     "dialect": "postgres",    
-    "seederStorage": "json",    
-    "seederStoragePath": "sequelizeData.json",    
+    "seederStorage": "sequelize",
     "seederStorageTableName": "sequelize_data"
   },
   "test": {
