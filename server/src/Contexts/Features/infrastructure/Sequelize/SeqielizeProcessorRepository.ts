@@ -1,5 +1,5 @@
-import { type ComputerProcessorPrimitives } from '../../domain/ProcessorFeatures/ComputerProcessor'
-import { type ComputerProcessorRepository } from '../../domain/ProcessorFeatures/ComputerProcessorRepository'
+import { type ComputerProcessorPrimitives } from '../../domain/Processor/ComputerProcessor'
+import { type ComputerProcessorRepository } from '../../domain/Processor/ComputerProcessorRepository'
 import { ProcessorModel } from './ProcessorSchema'
 
 export class SequelizeProcessorRepository implements ComputerProcessorRepository {

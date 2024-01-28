@@ -1,7 +1,7 @@
 import { type Repository } from '../../../Shared/domain/Repository'
-import { HardDrive } from '../../domain/HardDriveFeatures.ts/HardDrive'
-import { type HardDriveCapacityType } from '../../domain/HardDriveFeatures.ts/HardDriveCapacity'
-import { type HardDriveTypes } from '../../domain/HardDriveFeatures.ts/HardDriveType'
+import { HardDrive } from '../../domain/HardDrive.ts/HardDrive'
+import { type HardDriveCapacityType } from '../../domain/HardDrive.ts/HardDriveCapacity'
+import { type HardDriveTypes } from '../../domain/HardDrive.ts/HardDriveType'
 
 export class HardDriveCreator {
   constructor (private readonly repository: Repository) {}

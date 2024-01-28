@@ -1,8 +1,8 @@
 import { type Repository } from '../../../Shared/domain/Repository'
-import { ComputerFeatures } from '../../domain/ComputerFeatures/ComputerFeatures'
-import { type ComputerOSTypes } from '../../domain/ComputerFeatures/ComputerOperatingSystem'
-import { type ComputerTypes } from '../../domain/ComputerFeatures/ComputerType'
-import { type HardDriveCapacityType } from '../../domain/HardDriveFeatures.ts/HardDriveCapacity'
+import { ComputerFeatures } from '../../domain/Computer/ComputerFeatures'
+import { type ComputerOSTypes } from '../../domain/Computer/ComputerOperatingSystem'
+import { type ComputerTypes } from '../../domain/Computer/ComputerType'
+import { type HardDriveCapacityType } from '../../domain/HardDrive.ts/HardDriveCapacity'
 import { type MemoryRamSizeValues } from '../../domain/MemoryRam/MemoryRamSize'
 
 export class ComputerFeaturesCreator {

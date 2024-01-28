@@ -1,8 +1,8 @@
 import { DataTypes, Model } from 'sequelize'
 import { sequelize } from '../../../Shared/infrastructure/persistance/Sequelize/SequelizeConfig'
-import { type HardDrivePrimitives } from '../../domain/HardDriveFeatures.ts/HardDrive'
-import { HardDriveCapacityType } from '../../domain/HardDriveFeatures.ts/HardDriveCapacity'
-import { HardDriveTypes } from '../../domain/HardDriveFeatures.ts/HardDriveType'
+import { type HardDrivePrimitives } from '../../domain/HardDrive.ts/HardDrive'
+import { HardDriveCapacityType } from '../../domain/HardDrive.ts/HardDriveCapacity'
+import { HardDriveTypes } from '../../domain/HardDrive.ts/HardDriveType'
 
 export class HardDriveModel extends Model<HardDrivePrimitives> implements HardDrivePrimitives {
   readonly id!: string

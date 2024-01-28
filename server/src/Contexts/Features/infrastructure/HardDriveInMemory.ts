@@ -1,9 +1,9 @@
-import { HardDrive } from '../domain/HardDriveFeatures.ts/HardDrive'
-import { HardDriveCapacity, HardDriveCapacityType } from '../domain/HardDriveFeatures.ts/HardDriveCapacity'
-import { HardDriveHealth } from '../domain/HardDriveFeatures.ts/HardDriveHealth'
-import { HardDriveId } from '../domain/HardDriveFeatures.ts/HardDriveId'
-import { type HardDriveRepository } from '../domain/HardDriveFeatures.ts/HardDriveRepository'
-import { HardDriveType, HardDriveTypes } from '../domain/HardDriveFeatures.ts/HardDriveType'
+import { HardDrive } from '../domain/HardDrive.ts/HardDrive'
+import { HardDriveCapacity, HardDriveCapacityType } from '../domain/HardDrive.ts/HardDriveCapacity'
+import { HardDriveHealth } from '../domain/HardDrive.ts/HardDriveHealth'
+import { HardDriveId } from '../domain/HardDrive.ts/HardDriveId'
+import { type HardDriveRepository } from '../domain/HardDrive.ts/HardDriveRepository'
+import { HardDriveType, HardDriveTypes } from '../domain/HardDrive.ts/HardDriveType'
 
 const hardDrive: HardDrive[] = [
   new HardDrive(

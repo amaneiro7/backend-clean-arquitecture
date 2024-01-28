@@ -1,6 +1,6 @@
 import { DataTypes, Model } from 'sequelize'
 import { sequelize } from '../../../Shared/infrastructure/persistance/Sequelize/SequelizeConfig'
-import { type ComputerProcessorPrimitives } from '../../domain/ProcessorFeatures/ComputerProcessor'
+import { type ComputerProcessorPrimitives } from '../../domain/Processor/ComputerProcessor'
 
 export class ProcessorModel extends Model<ComputerProcessorPrimitives> implements ComputerProcessorPrimitives {
   readonly id!: string

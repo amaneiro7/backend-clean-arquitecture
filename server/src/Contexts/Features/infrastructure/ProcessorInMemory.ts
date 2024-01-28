@@ -1,7 +1,7 @@
-import { ComputerProcessor } from '../domain/ProcessorFeatures/ComputerProcessor'
-import { ComputerProcessorId } from '../domain/ProcessorFeatures/ComputerProcessorId'
-import { ComputerProcessorName } from '../domain/ProcessorFeatures/ComputerProcessorName'
-import { type ComputerProcessorRepository } from '../domain/ProcessorFeatures/ComputerProcessorRepository'
+import { ComputerProcessor } from '../domain/Processor/ComputerProcessor'
+import { ComputerProcessorId } from '../domain/Processor/ComputerProcessorId'
+import { ComputerProcessorName } from '../domain/Processor/ComputerProcessorName'
+import { type ComputerProcessorRepository } from '../domain/Processor/ComputerProcessorRepository'
 
 const processors: ComputerProcessor[] = [
   new ComputerProcessor(
