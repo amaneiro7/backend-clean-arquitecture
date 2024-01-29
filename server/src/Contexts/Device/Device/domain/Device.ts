@@ -1,51 +1,51 @@
-import { Status, type StatusTypes } from './Status'
 import { DeviceId } from './DeviceId'
 import { DeviceActivo } from './DeviceActivo'
 import { DeviceSerial } from './DeviceSerial'
 import { ModelSeriesId } from '../../../ModelSeries/domain/ModelSeriesId'
+import { StatusId } from '../../Status/domain/StatusId'
 
 export interface DevicePrimitives {
   id: string
   serial: string | null
   activo: string | null
-  status: StatusTypes
+  statusId: number
   modelId: string
 }
 
 export class Device {
   constructor (
-    private readonly _id: DeviceId,
-    private _serial: DeviceSerial,
-    private _activo: DeviceActivo,
-    private _status: Status,
-    private _modelId: ModelSeriesId
+    private readonly id: DeviceId,
+    private serial: DeviceSerial,
+    private activo: DeviceActivo,
+    private statusId: StatusId,
+    private modelId: ModelSeriesId
   ) {}
 
-  static create ({ serial, activo, status, modelId }: { serial: string, activo: string, status: StatusTypes, modelId: string }): Device {
+  static create ({ serial, activo, statusId, modelId }: { serial: string, activo: string, statusId: number, modelId: string }): Device {
     const id = DeviceId.random().toString()
     return new Device(
       new DeviceId(id),
       new DeviceSerial(serial),
       new DeviceActivo(activo),
-      new Status(status),
+      new StatusId(statusId),
       new ModelSeriesId(modelId)
     )
   }
 
   updateSerial (newSerial: string): void {
-    this._serial = new DeviceSerial(newSerial)
+    this.serial = new DeviceSerial(newSerial)
   }
 
   updateActivo (newActivo: string): void {
-    this._activo = new DeviceActivo(newActivo)
+    this.activo = new DeviceActivo(newActivo)
   }
 
-  updateStatus (newStatus: StatusTypes): void {
-    this._status = new Status(newStatus)
+  updateStatus (newStatusId: number): void {
+    this.statusId = new StatusId(newStatusId)
   }
 
   updateModelId (newModelSeriesId: string): void {
-    this._modelId = new ModelSeriesId(newModelSeriesId)
+    this.modelId = new ModelSeriesId(newModelSeriesId)
   }
 
   static fromPrimitives (primitives: DevicePrimitives): Device {
@@ -53,34 +53,34 @@ export class Device {
       new DeviceId(primitives.id),
       new DeviceSerial(primitives.serial),
       new DeviceActivo(primitives.activo),
-      new Status(primitives.status),
+      new StatusId(primitives.statusId),
       new ModelSeriesId(primitives.modelId)
     )
   }
 
   toPrimitives (): DevicePrimitives {
     return {
-      id: this._id.value,
-      serial: this._serial.value,
-      activo: this._activo.value,
-      status: this._status.value,
-      modelId: this._modelId.value
+      id: this.id.value,
+      serial: this.serial.value,
+      activo: this.activo.value,
+      statusId: this.statusId.value,
+      modelId: this.modelId.value
     }
   }
 
-  get id (): string {
-    return this._id.value
+  get idValue (): string {
+    return this.id.value
   }
 
-  get serial (): string | null {
-    return this._serial.value
+  get serialValue (): string | null {
+    return this.serial.value
   }
 
-  get activo (): string | null {
-    return this._activo.value
+  get activoValue (): string | null {
+    return this.activo.value
   }
 
-  get status (): string {
-    return this._status.value
+  get statusValue (): number {
+    return this.statusId.value
   }
 }

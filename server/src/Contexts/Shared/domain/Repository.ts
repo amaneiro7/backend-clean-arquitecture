@@ -1,6 +1,7 @@
 import { type BrandRepository } from '../../Brand/domain/BrandRepository'
 import { type CategoryRepository } from '../../Category/domain/CategoryRepository'
-import { type DeviceRepository } from '../../Device/domain/DeviceRepository'
+import { type StatusRepository } from '../../Device/Status/domain/StatusRepository'
+import { type DeviceRepository } from '../../Device/Device/domain/DeviceRepository'
 import { type ComputerFeaturesRepository } from '../../Features/domain/Computer/ComputerFeaturesRepository'
 import { type HardDriveRepository } from '../../Features/domain/HardDrive.ts/HardDriveRepository'
 import { type ComputerProcessorRepository } from '../../Features/domain/Processor/ComputerProcessorRepository'
@@ -12,6 +13,7 @@ export interface Repository {
   brand: BrandRepository
   category: CategoryRepository
   modelSeries: ModelSeriesRepository
+  status: StatusRepository
   device: DeviceRepository
   computerFeatures?: ComputerFeaturesRepository
   hardDrive?: HardDriveRepository

@@ -1,16 +1,15 @@
 import { DataTypes, Model, type Sequelize } from 'sequelize'
 import { type DevicePrimitives } from '../../domain/Device'
-import { Status, type StatusTypes } from '../../domain/Status'
 
-class DeviceModel extends Model<DevicePrimitives> implements DevicePrimitives {
+export class DeviceModel extends Model<DevicePrimitives> implements DevicePrimitives {
   readonly id!: string
   readonly serial!: string | null
   readonly activo!: string | null
-  readonly status!: StatusTypes
+  readonly statusId!: number
   readonly modelId!: string
 }
 
-function initDeviceModel (sequelize: Sequelize): void {
+export function initDeviceModel (sequelize: Sequelize): void {
   DeviceModel.init(
     {
       id: {
@@ -28,10 +27,9 @@ function initDeviceModel (sequelize: Sequelize): void {
         type: DataTypes.STRING,
         unique: true
       },
-      status: {
-        allowNull: false,
-        type: DataTypes.ENUM,
-        values: Status.toPrimitive()
+      statusId: {
+        type: DataTypes.NUMBER,
+        allowNull: false
       },
       modelId: {
         type: DataTypes.UUID,
@@ -46,5 +44,3 @@ function initDeviceModel (sequelize: Sequelize): void {
     }
   )
 }
-
-export { DeviceModel, initDeviceModel }

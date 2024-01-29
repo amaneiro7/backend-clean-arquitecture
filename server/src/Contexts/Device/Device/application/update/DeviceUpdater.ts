@@ -1,19 +1,20 @@
-import { ModelSeriesAlreadyExistError } from '../../../../ModelSeries/domain/ModelSeriesAlreadyExistError'
+import { ModelSeriesDoesNotExistError } from '../../../../ModelSeries/domain/ModelSeriesDoesNotExistError'
 import { ModelSeriesId } from '../../../../ModelSeries/domain/ModelSeriesId'
 import { type Repository } from '../../../../Shared/domain/Repository'
+import { StatusDoesNotExistError } from '../../../Status/domain/StatusDoesNotExistError'
+import { StatusId } from '../../../Status/domain/StatusId'
 import { Device } from '../../domain/Device'
 import { DeviceActivo } from '../../domain/DeviceActivo'
 import { DeviceAlreadyExistError } from '../../domain/DeviceAlreadyExistError'
 import { DeviceDoesNotExistError } from '../../domain/DeviceDoesNotExistError'
 import { DeviceId } from '../../domain/DeviceId'
 import { DeviceSerial } from '../../domain/DeviceSerial'
-import { type StatusTypes } from '../../domain/Status'
 
 export class DeviceUpdater {
   constructor (private readonly repository: Repository) {}
 
-  async run (params: { id: string, activo?: string, serial?: string, modelId?: string, status?: StatusTypes }): Promise<void> {
-    const { id } = params
+  async run (params: { id: string, activo?: string, serial?: string, modelId?: string, statusId?: number }): Promise<void> {
+    const { id, activo, modelId, serial, statusId } = params
     const devideId = new DeviceId(id).toString()
 
     const device = await this.repository.device.searchById(devideId)
@@ -23,22 +24,23 @@ export class DeviceUpdater {
     }
     const deviceEntity = Device.fromPrimitives(device)
 
-    if (params.activo !== undefined) {
-      await this.ensureActivoDoesNotExist(params.activo)
-      deviceEntity.updateActivo(params.activo)
+    if (activo !== undefined) {
+      await this.ensureActivoDoesNotExist(activo)
+      deviceEntity.updateActivo(activo)
     }
 
-    if (params.serial !== undefined) {
-      await this.ensureSerialDoesNotExist(params.serial)
-      deviceEntity.updateSerial(params.serial)
+    if (serial !== undefined) {
+      await this.ensureSerialDoesNotExist(serial)
+      deviceEntity.updateSerial(serial)
     }
 
-    if (params.modelId !== undefined) {
-      await this.ensureModelIdExist(params.modelId)
-      deviceEntity.updateModelId(params.modelId)
+    if (modelId !== undefined) {
+      await this.ensureModelIdExist(modelId)
+      deviceEntity.updateModelId(modelId)
     }
-    if (params.status !== undefined) {
-      deviceEntity.updateStatus(params.status)
+    if (statusId !== undefined) {
+      await this.ensureStatusIdExist(statusId)
+      deviceEntity.updateStatus(statusId)
     }
 
     await this.repository.device.save(deviceEntity.toPrimitives())
@@ -58,7 +60,13 @@ export class DeviceUpdater {
 
   private async ensureModelIdExist (modelId: string): Promise<void> {
     if (await this.repository.modelSeries.searchById(new ModelSeriesId(modelId).toString()) === null) {
-      throw new ModelSeriesAlreadyExistError(modelId)
+      throw new ModelSeriesDoesNotExistError(modelId)
+    }
+  }
+
+  private async ensureStatusIdExist (statusId: number): Promise<void> {
+    if (await this.repository.modelSeries.searchById(new StatusId(statusId).toString()) === null) {
+      throw new StatusDoesNotExistError(statusId)
     }
   }
 }

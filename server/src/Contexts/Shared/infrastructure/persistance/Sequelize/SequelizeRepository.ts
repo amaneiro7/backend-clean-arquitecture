@@ -1,6 +1,7 @@
 import { SequelizeBrandRepository } from '../../../../Brand/infrastructure/Sequelize/SequelizeBrandRepository'
 import { SequelizeCategoryRepository } from '../../../../Category/infrastructure/Sequelize/SequelizeCategoryRepository'
 import { SequelizeDeviceRepository } from '../../../../Device/Device/infrastructure/sequelize/SequelizeDeviceRepository'
+import { SequelizeStatusRepository } from '../../../../Device/Status/infrastructure/sequelize/SequelizeStatusRepository'
 import { SequelizeModelSeriesRepository } from '../../../../ModelSeries/infraestructure/Sequelize/SequelizeModelSeriesRepository'
 import { SequelizeUserRepository } from '../../../../User/infrastructure/persistence/Sequelize/SequelizeUserRepository'
 import { type Repository } from '../../../domain/Repository'
@@ -13,6 +14,7 @@ export const sequelizeRepository: Repository = {
   brand: new SequelizeBrandRepository(),
   category: new SequelizeCategoryRepository(),
   modelSeries: new SequelizeModelSeriesRepository(),
+  status: new SequelizeStatusRepository(),
   device: new SequelizeDeviceRepository()
 
 }

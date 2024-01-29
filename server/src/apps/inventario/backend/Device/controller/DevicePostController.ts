@@ -9,8 +9,8 @@ export class DevicePostController {
 
   create = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const { serial, activo, status, modelId } = req.body
-      await new DeviceCreator(this.repository).run({ serial, activo, status, modelId })
+      const { serial, activo, statusId, modelId } = req.body
+      await new DeviceCreator(this.repository).run({ serial, activo, statusId, modelId })
       res.status(httpStatus.CREATED).send()
     } catch (error) {
       next(error)
@@ -19,9 +19,9 @@ export class DevicePostController {
 
   update = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const { serial, activo, status, modelId } = req.body
+      const { serial, activo, statusId, modelId } = req.body
       const { id } = req.params
-      await new DeviceUpdater(this.repository).run({ id, serial, activo, status, modelId })
+      await new DeviceUpdater(this.repository).run({ id, serial, activo, statusId, modelId })
       res.status(httpStatus.CREATED).send()
     } catch (error) {
       next(error)

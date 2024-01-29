@@ -1,6 +1,7 @@
 import { BrandModel } from '../../../../Brand/infrastructure/Sequelize/BrandSchema'
 import { CategoryModel } from '../../../../Category/infrastructure/Sequelize/CategorySchema'
 import { DeviceModel } from '../../../../Device/Device/infrastructure/sequelize/DeviceSchema'
+import { StatusModel } from '../../../../Device/Status/infrastructure/sequelize/StatusSchema'
 import { ModelSeriesModel } from '../../../../ModelSeries/infraestructure/Sequelize/ModelSeriesSchema'
 
 export function InitSequelizeAssociation (): void {
@@ -11,5 +12,8 @@ export function InitSequelizeAssociation (): void {
   ModelSeriesModel.belongsTo(BrandModel, { as: 'brand' })
   ModelSeriesModel.hasMany(DeviceModel, { as: 'device' })
 
+  StatusModel.hasMany(DeviceModel, { as: 'device' })
+
   DeviceModel.belongsTo(ModelSeriesModel, { as: 'model' })
+  DeviceModel.belongsTo(StatusModel, { as: 'status' })
 }

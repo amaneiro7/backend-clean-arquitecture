@@ -22,7 +22,7 @@ class CategoryModel extends Model<CategoryPrimitives> implements CategoryPrimiti
     return {
       modelName: 'Category',
       underscored: true,
-      timestamps: true,
+      timestamps: false,
       sequelize
     }
   }
