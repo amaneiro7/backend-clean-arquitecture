@@ -1,9 +1,9 @@
 import { DataTypes, Model } from 'sequelize'
 import { sequelize } from '../../../Shared/infrastructure/persistance/Sequelize/SequelizeConfig'
-import { type ComputerPrimitives } from '../../domain/Computer/ComputerFeatures'
-import { ComputerType } from '../../domain/Computer/ComputerType'
-import { MemoryRamSize } from '../../domain/MemoryRam/MemoryRamSize'
-import { ComputerOSType } from '../../domain/Computer/ComputerOperatingSystem'
+import { type ComputerPrimitives } from '../../Computer/domain/ComputerFeatures'
+import { ComputerType } from '../../Computer/domain/ComputerType'
+import { MemoryRamSize } from '../../MemoryRam/MemoryRamSize'
+import { ComputerOSType } from '../../Computer/domain/ComputerOperatingSystem'
 import { HardDriveCapacity } from '../../domain/HardDrive.ts/HardDriveCapacity'
 
 export class ComputerFeaturesModel extends Model<ComputerPrimitives> implements ComputerPrimitives {

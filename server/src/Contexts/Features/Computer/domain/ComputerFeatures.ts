@@ -1,10 +1,10 @@
 import { CategoryId } from '../../../Category/domain/CategoryId'
 import { DeviceId } from '../../../Device/domain/DeviceId'
 import { ComputerFeaturesId } from './ComputerFeatureId'
-import { ComputerProcessorId } from '../Processor/ComputerProcessorId'
-import { type MemoryRamSizeValues, MemoryRamSize } from '../MemoryRam/MemoryRamSize'
+import { ComputerProcessorId } from '../../Processor/ComputerProcessorId'
+import { type MemoryRamSizeValues, MemoryRamSize } from '../../MemoryRam/MemoryRamSize'
 import { ComputerOSType, type ComputerOSTypes } from './ComputerOperatingSystem'
-import { HardDriveCapacity, type HardDriveCapacityType } from '../HardDrive.ts/HardDriveCapacity'
+import { HardDriveCapacity, type HardDriveCapacityType } from '../../HardDrive.ts/HardDriveCapacity'
 import { type ComputerTypes, ComputerType } from './ComputerType'
 
 export interface ComputerPrimitives {

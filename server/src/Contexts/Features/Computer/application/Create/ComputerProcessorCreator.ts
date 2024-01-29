@@ -1,7 +1,7 @@
-import { type Repository } from '../../../Shared/domain/Repository'
-import { ComputerProcessor } from '../../domain/Processor/ComputerProcessor'
-import { ComputerProcessorAlreadyExistError } from '../../domain/Processor/ComputerProcessorAlreadyExistError'
-import { ComputerProcessorName } from '../../domain/Processor/ComputerProcessorName'
+import { type Repository } from '../../../../Shared/domain/Repository'
+import { ComputerProcessor } from '../../../Processor/ComputerProcessor'
+import { ComputerProcessorAlreadyExistError } from '../../../Processor/ComputerProcessorAlreadyExistError'
+import { ComputerProcessorName } from '../../../Processor/ComputerProcessorName'
 
 export class ComputerProcessorCreator {
   constructor (private readonly repository: Repository) {}

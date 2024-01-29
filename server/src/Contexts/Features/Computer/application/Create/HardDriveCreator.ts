@@ -1,4 +1,4 @@
-import { type Repository } from '../../../Shared/domain/Repository'
+import { type Repository } from '../../../../Shared/domain/Repository'
 import { HardDrive } from '../../domain/HardDrive.ts/HardDrive'
 import { type HardDriveCapacityType } from '../../domain/HardDrive.ts/HardDriveCapacity'
 import { type HardDriveTypes } from '../../domain/HardDrive.ts/HardDriveType'

@@ -1,13 +1,13 @@
 import { CategoryId } from '../../Category/domain/CategoryId'
 import { DeviceId } from '../../Device/domain/DeviceId'
-import { ComputerFeaturesId } from '../domain/Computer/ComputerFeatureId'
-import { ComputerFeatures } from '../domain/Computer/ComputerFeatures'
-import { type ComputerFeaturesRepository } from '../domain/Computer/ComputerFeaturesRepository'
-import { ComputerOSType, ComputerOSTypes } from '../domain/Computer/ComputerOperatingSystem'
-import { ComputerProcessorId } from '../domain/Processor/ComputerProcessorId'
-import { ComputerType, ComputerTypes } from '../domain/Computer/ComputerType'
+import { ComputerFeaturesId } from '../Computer/domain/ComputerFeatureId'
+import { ComputerFeatures } from '../Computer/domain/ComputerFeatures'
+import { type ComputerFeaturesRepository } from '../Computer/domain/ComputerFeaturesRepository'
+import { ComputerOSType, ComputerOSTypes } from '../Computer/domain/ComputerOperatingSystem'
+import { ComputerProcessorId } from '../Processor/ComputerProcessorId'
+import { ComputerType, ComputerTypes } from '../Computer/domain/ComputerType'
 import { HardDriveCapacity, HardDriveCapacityType } from '../domain/HardDrive.ts/HardDriveCapacity'
-import { MemoryRamSize, MemoryRamSizeValues } from '../domain/MemoryRam/MemoryRamSize'
+import { MemoryRamSize, MemoryRamSizeValues } from '../MemoryRam/MemoryRamSize'
 
 const computerFeatures: ComputerFeatures[] = [
   new ComputerFeatures(

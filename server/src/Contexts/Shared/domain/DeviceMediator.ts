@@ -1,4 +1,4 @@
-import { type ComputerFeatures } from '../../Features/domain/Computer/ComputerFeatures'
+import { type ComputerFeatures } from '../../Features/Computer/domain/ComputerFeatures'
 import { type Mediator } from './Mediator'
 
 export class DeviceMediator implements Mediator {

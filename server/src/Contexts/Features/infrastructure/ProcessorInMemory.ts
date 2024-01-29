@@ -1,7 +1,7 @@
-import { ComputerProcessor } from '../domain/Processor/ComputerProcessor'
-import { ComputerProcessorId } from '../domain/Processor/ComputerProcessorId'
-import { ComputerProcessorName } from '../domain/Processor/ComputerProcessorName'
-import { type ComputerProcessorRepository } from '../domain/Processor/ComputerProcessorRepository'
+import { ComputerProcessor } from '../Processor/ComputerProcessor'
+import { ComputerProcessorId } from '../Processor/ComputerProcessorId'
+import { ComputerProcessorName } from '../Processor/ComputerProcessorName'
+import { type ComputerProcessorRepository } from '../Processor/ComputerProcessorRepository'
 
 const processors: ComputerProcessor[] = [
   new ComputerProcessor(

@@ -1,9 +1,9 @@
-import { type Repository } from '../../../Shared/domain/Repository'
-import { ComputerFeatures } from '../../domain/Computer/ComputerFeatures'
-import { type ComputerOSTypes } from '../../domain/Computer/ComputerOperatingSystem'
-import { type ComputerTypes } from '../../domain/Computer/ComputerType'
+import { type Repository } from '../../../../Shared/domain/Repository'
+import { ComputerFeatures } from '../../domain/ComputerFeatures'
+import { type ComputerOSTypes } from '../../domain/ComputerOperatingSystem'
+import { type ComputerTypes } from '../../domain/ComputerType'
 import { type HardDriveCapacityType } from '../../domain/HardDrive.ts/HardDriveCapacity'
-import { type MemoryRamSizeValues } from '../../domain/MemoryRam/MemoryRamSize'
+import { type MemoryRamSizeValues } from '../../../MemoryRam/MemoryRamSize'
 
 export class ComputerFeaturesCreator {
   constructor (private readonly repository: Repository) {}
