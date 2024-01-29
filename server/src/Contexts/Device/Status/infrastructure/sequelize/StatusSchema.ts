@@ -10,7 +10,7 @@ export function initStatusModel (sequelize: Sequelize): void {
   StatusModel.init(
     {
       id: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
         primaryKey: true,
         allowNull: false
       },
@@ -22,6 +22,7 @@ export function initStatusModel (sequelize: Sequelize): void {
     },
     {
       modelName: 'Status',
+      tableName: 'status',
       timestamps: false,
       underscored: true,
       sequelize

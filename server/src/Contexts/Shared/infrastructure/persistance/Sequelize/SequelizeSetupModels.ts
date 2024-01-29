@@ -11,7 +11,7 @@ export function setupModels (sequelize: Sequelize): void {
   initCategoryModel(sequelize)
   initBrandModel(sequelize)
   initModelSeriesModel(sequelize)
-  initDeviceModel(sequelize)
   initStatusModel(sequelize)
+  initDeviceModel(sequelize)
   initUserModel(sequelize)
 }

@@ -7,8 +7,8 @@ module.exports = {
       {
           id: "21969859-daa0-4916-a554-edff77e8f9ac",
           name: "M70e",
-          categoryId: 1,
-          brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
+          category_id: 1,
+          brand_id: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
           created_at: new Date(),
           updated_at: new Date(),
           
@@ -16,8 +16,8 @@ module.exports = {
       {
           id: "83c38f9b-a0ac-4350-9204-886ea8e4e967",
           name: "M71e",
-          categoryId: 1,
-          brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
+          category_id: 1,
+          brand_id: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
           created_at: new Date(),
           updated_at: new Date(),
           
@@ -25,8 +25,8 @@ module.exports = {
       {
           id: "9b43fe74-aa96-477e-8a25-cf3506742ccd",
           name: "M72e",
-          categoryId: 1,
-          brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
+          category_id: 1,
+          brand_id: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
           created_at: new Date(),
           updated_at: new Date(),
           
@@ -34,8 +34,8 @@ module.exports = {
       {
           id: "5da772a9-0e01-4689-9afb-717ccf68cf3f",
           name: "M73z",
-          categoryId: 4,
-          brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
+          category_id: 4,
+          brand_id: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
           created_at: new Date(),
           updated_at: new Date(),
           
@@ -43,8 +43,8 @@ module.exports = {
       {
           id: "4096012f-bed6-4975-a17c-6496c5573785",
           name: "C260",
-          categoryId: 4,
-          brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
+          category_id: 4,
+          brand_id: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
           created_at: new Date(),
           updated_at: new Date(),
           
@@ -52,8 +52,8 @@ module.exports = {
       {
           id: "1aa81dee-015b-4999-80f5-a5ecac793bca",
           name: "M700",
-          categoryId: 1,
-          brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
+          category_id: 1,
+          brand_id: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
           created_at: new Date(),
           updated_at: new Date(),
           
@@ -61,8 +61,8 @@ module.exports = {
       {
           id: "ba260f98-0042-4be7-9d9d-1c6dca5010c3",
           name: "M91p",
-          categoryId: 1,
-          brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
+          category_id: 1,
+          brand_id: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
           created_at: new Date(),
           updated_at: new Date(),
           
@@ -70,8 +70,8 @@ module.exports = {
       {
           id: "ec9e560a-318d-42a7-85cb-ad6fc08e57d9",
           name: "M81",
-          categoryId: 1,
-          brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
+          category_id: 1,
+          brand_id: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
           created_at: new Date(),
           updated_at: new Date(),
           
@@ -79,8 +79,8 @@ module.exports = {
       {
           id: "c11d727c-f6b7-4ddf-a597-a6b1c1d06c1c",
           name: "AD4",
-          categoryId: 1,
-          brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
+          category_id: 1,
+          brand_id: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
           created_at: new Date(),
           updated_at: new Date(),
           
@@ -88,8 +88,8 @@ module.exports = {
       {
           id: "eeb3420d-a6b8-4c0f-bcc8-048707ecc758",
           name: "Latitude 5300",
-          categoryId: 3,
-          brandId: "8aecf369-ba1b-4ca2-bf4b-636013caacdc",
+          category_id: 3,
+          brand_id: "8aecf369-ba1b-4ca2-bf4b-636013caacdc",
           created_at: new Date(),
           updated_at: new Date(),
           
@@ -97,8 +97,8 @@ module.exports = {
       {
           id: "24a4ae7d-8570-45f3-b103-ea35a0f7c43c",
           name: "Latitude 5400",
-          categoryId: 3,
-          brandId: "8aecf369-ba1b-4ca2-bf4b-636013caacdc",
+          category_id: 3,
+          brand_id: "8aecf369-ba1b-4ca2-bf4b-636013caacdc",
           created_at: new Date(),
           updated_at: new Date(),
           
@@ -106,8 +106,8 @@ module.exports = {
       {
           id: "cdfd08c0-59d0-4bfc-a021-e6d53e1325fc",
           name: "HP Compaq Elite 8300 SFF",
-          categoryId: 1,
-          brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
+          category_id: 1,
+          brand_id: "56a07947-0a09-488b-a597-64ef3e365c32",
           created_at: new Date(),
           updated_at: new Date(),
           
@@ -115,8 +115,8 @@ module.exports = {
       {
           id: "b67c290e-c186-4ab7-9fd3-92689e1bcbaa",
           name: "HP Compaq Pro 4300 SFF PC",
-          categoryId: 1,
-          brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
+          category_id: 1,
+          brand_id: "56a07947-0a09-488b-a597-64ef3e365c32",
           created_at: new Date(),
           updated_at: new Date(),
           
@@ -124,8 +124,8 @@ module.exports = {
       {
           id: "4cb2e608-5f28-44af-af75-59cb2ca2fbab",
           name: "HP Compaq Pro 6300 SFF",
-          categoryId: 1,
-          brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
+          category_id: 1,
+          brand_id: "56a07947-0a09-488b-a597-64ef3e365c32",
           created_at: new Date(),
           updated_at: new Date(),
           
@@ -133,8 +133,8 @@ module.exports = {
       {
           id: "9e376eb0-7559-41c1-82aa-36b6fa4cccf1",
           name: "HP Compaq 6000 Pro SFF PC",
-          categoryId: 1,
-          brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
+          category_id: 1,
+          brand_id: "56a07947-0a09-488b-a597-64ef3e365c32",
           created_at: new Date(),
           updated_at: new Date(),
           
@@ -142,8 +142,8 @@ module.exports = {
       {
           id: "ce51d092-332e-42ac-8b27-df7da5d3463a",
           name: "HP Compaq 6200 Pro SFF PC",
-          categoryId: 1,
-          brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
+          category_id: 1,
+          brand_id: "56a07947-0a09-488b-a597-64ef3e365c32",
           created_at: new Date(),
           updated_at: new Date(),
           
@@ -151,8 +151,8 @@ module.exports = {
       {
           id: "8145c77f-a75e-4cfa-9634-a4eb17540cde",
           name: "HP Compaq dc5700 Small Form Factor",
-          categoryId: 1,
-          brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
+          category_id: 1,
+          brand_id: "56a07947-0a09-488b-a597-64ef3e365c32",
           created_at: new Date(),
           updated_at: new Date(),
           
@@ -160,8 +160,8 @@ module.exports = {
       {
           id: "bd0b6c7d-4d17-48cd-8b61-d4a167ad588f",
           name: "HP Compaq dc5800 Small Form Factor",
-          categoryId: 1,
-          brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
+          category_id: 1,
+          brand_id: "56a07947-0a09-488b-a597-64ef3e365c32",
           created_at: new Date(),
           updated_at: new Date(),
           
@@ -169,8 +169,8 @@ module.exports = {
       {
           id: "bf10b490-f61d-4932-8bf4-05822213212d",
           name: "HP EliteBook 8470p",
-          categoryId: 3,
-          brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
+          category_id: 3,
+          brand_id: "56a07947-0a09-488b-a597-64ef3e365c32",
           created_at: new Date(),
           updated_at: new Date(),
           
@@ -178,8 +178,8 @@ module.exports = {
       {
           id: "ba8097b3-660f-4e09-a6fc-23c1e6332a90",
           name: "HP EliteBook x360 1030 G3",
-          categoryId: 3,
-          brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
+          category_id: 3,
+          brand_id: "56a07947-0a09-488b-a597-64ef3e365c32",
           created_at: new Date(),
           updated_at: new Date(),
           
@@ -187,8 +187,8 @@ module.exports = {
       {
           id: "e52f9a4b-b708-4137-8d33-ca60497cfdbf",
           name: "HP EliteBook x360 830 G6",
-          categoryId: 3,
-          brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
+          category_id: 3,
+          brand_id: "56a07947-0a09-488b-a597-64ef3e365c32",
           created_at: new Date(),
           updated_at: new Date(),
           
@@ -196,8 +196,8 @@ module.exports = {
       {
           id: "a1a929ed-1be1-46fd-9da9-e7207b4f3dbc",
           name: "HP Laptop 15t dy200",
-          categoryId: 3,
-          brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
+          category_id: 3,
+          brand_id: "56a07947-0a09-488b-a597-64ef3e365c32",
           created_at: new Date(),
           updated_at: new Date(),
           
@@ -205,8 +205,8 @@ module.exports = {
       {
           id: "206ecb35-1e43-47e2-85b4-f7b6405ab638",
           name: "HP ProBook 4440s",
-          categoryId: 3,
-          brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
+          category_id: 3,
+          brand_id: "56a07947-0a09-488b-a597-64ef3e365c32",
           created_at: new Date(),
           updated_at: new Date(),
           

@@ -5,57 +5,39 @@ module.exports = {
     return queryInterface.bulkInsert('categories', [
       {
         id: 1,
-        name: 'Computadoras',
-        created_at: new Date(),
-        updated_at: new Date()
+        name: 'Computadoras',        
       },
       {
         id: 2,
-        name: 'Servidores',
-        created_at: new Date(),
-        updated_at: new Date()
+        name: 'Servidores',        
       },
       {
         id: 3,
-        name: 'Laptops',
-        created_at: new Date(),
-        updated_at: new Date()
+        name: 'Laptops',        
       },
       {
         id: 4,
-        name: 'All in One',
-        created_at: new Date(),
-        updated_at: new Date()
+        name: 'All in One',        
       },
       {
         id: 5,
-        name: 'Monitores',
-        created_at: new Date(),
-        updated_at: new Date()
+        name: 'Monitores',        
       },
       {
         id: 6,
-        name: 'Impresoras Financieras',
-        created_at: new Date(),
-        updated_at: new Date()
+        name: 'Impresoras Financieras',        
       },
       {
         id: 7,
-        name: 'Impresoras Laser',
-        created_at: new Date(),
-        updated_at: new Date()
+        name: 'Impresoras Laser',        
       },
       {
         id: 8,
-        name: 'Impresoras Tinta',
-        created_at: new Date(),
-        updated_at: new Date()
+        name: 'Impresoras Tinta',        
       },
       {
         id: 9,
-        name: 'Discos Duros',
-        created_at: new Date(),
-        updated_at: new Date()
+        name: 'Discos Duros',        
       }      
     ])
   },
