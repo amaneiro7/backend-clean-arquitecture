@@ -1,13 +1,13 @@
 import { DataTypes, Model, type Sequelize } from 'sequelize'
 import { type ModelSeriesPrimitives } from '../../domain/ModelSeries'
 
-class ModelSeriesModel extends Model<ModelSeriesPrimitives> implements ModelSeriesPrimitives {
+export class ModelSeriesModel extends Model<ModelSeriesPrimitives> implements ModelSeriesPrimitives {
   readonly id!: string
   readonly name!: string
   readonly categoryId!: number
   readonly brandId!: string
 }
-function initModelSeriesModel (sequelize: Sequelize): void {
+export function initModelSeriesModel (sequelize: Sequelize): void {
   ModelSeriesModel.init(
     {
       id: {
@@ -37,5 +37,3 @@ function initModelSeriesModel (sequelize: Sequelize): void {
     }
   )
 }
-
-export { ModelSeriesModel, initModelSeriesModel }
