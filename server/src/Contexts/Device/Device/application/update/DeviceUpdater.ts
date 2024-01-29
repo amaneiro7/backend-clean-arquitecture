@@ -1,14 +1,8 @@
-import { ModelSeriesDoesNotExistError } from '../../../../ModelSeries/domain/ModelSeriesDoesNotExistError'
-import { ModelSeriesId } from '../../../../ModelSeries/domain/ModelSeriesId'
 import { type Repository } from '../../../../Shared/domain/Repository'
-import { StatusDoesNotExistError } from '../../../Status/domain/StatusDoesNotExistError'
-import { StatusId } from '../../../Status/domain/StatusId'
 import { Device } from '../../domain/Device'
-import { DeviceActivo } from '../../domain/DeviceActivo'
-import { DeviceAlreadyExistError } from '../../domain/DeviceAlreadyExistError'
 import { DeviceDoesNotExistError } from '../../domain/DeviceDoesNotExistError'
 import { DeviceId } from '../../domain/DeviceId'
-import { DeviceSerial } from '../../domain/DeviceSerial'
+import { ValidationField } from '../ValidationField'
 
 export class DeviceUpdater {
   constructor (private readonly repository: Repository) {}
@@ -25,48 +19,24 @@ export class DeviceUpdater {
     const deviceEntity = Device.fromPrimitives(device)
 
     if (activo !== undefined) {
-      await this.ensureActivoDoesNotExist(activo)
+      await ValidationField.ensureActivoDoesNotExist(this.repository, activo)
       deviceEntity.updateActivo(activo)
     }
 
     if (serial !== undefined) {
-      await this.ensureSerialDoesNotExist(serial)
+      await ValidationField.ensureSerialDoesNotExist(this.repository, serial)
       deviceEntity.updateSerial(serial)
     }
 
     if (modelId !== undefined) {
-      await this.ensureModelIdExist(modelId)
+      await ValidationField.ensureModelIdExist(this.repository, modelId)
       deviceEntity.updateModelId(modelId)
     }
     if (statusId !== undefined) {
-      await this.ensureStatusIdExist(statusId)
+      await ValidationField.ensureStatusIdExist(this.repository, statusId)
       deviceEntity.updateStatus(statusId)
     }
 
     await this.repository.device.save(deviceEntity.toPrimitives())
-  }
-
-  private async ensureSerialDoesNotExist (name: string): Promise<void> {
-    if (await this.repository.device.searchByActivo(new DeviceActivo(name).toString()) !== null) {
-      throw new DeviceAlreadyExistError(name)
-    }
-  }
-
-  private async ensureActivoDoesNotExist (name: string): Promise<void> {
-    if (await this.repository.device.searchBySerial(new DeviceSerial(name).toString()) !== null) {
-      throw new DeviceAlreadyExistError(name)
-    }
-  }
-
-  private async ensureModelIdExist (modelId: string): Promise<void> {
-    if (await this.repository.modelSeries.searchById(new ModelSeriesId(modelId).toString()) === null) {
-      throw new ModelSeriesDoesNotExistError(modelId)
-    }
-  }
-
-  private async ensureStatusIdExist (statusId: number): Promise<void> {
-    if (await this.repository.modelSeries.searchById(new StatusId(statusId).toString()) === null) {
-      throw new StatusDoesNotExistError(statusId)
-    }
   }
 }

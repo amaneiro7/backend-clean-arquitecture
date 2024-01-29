@@ -3,6 +3,7 @@ import { Device } from '../../domain/Device'
 import { DeviceActivo } from '../../domain/DeviceActivo'
 import { DeviceAlreadyExistError } from '../../domain/DeviceAlreadyExistError'
 import { DeviceSerial } from '../../domain/DeviceSerial'
+import { ValidationField } from '../ValidationField'
 
 export class DeviceCreator {
   constructor (private readonly repository: Repository) {}
@@ -10,8 +11,10 @@ export class DeviceCreator {
   async run (params: { activo: string, serial: string, statusId: number, modelId: string }): Promise<void> {
     const { activo, serial, statusId, modelId } = params
 
-    await this.ensureSerialDoesNotExist(serial)
-    await this.ensureActivoDoesNotExist(activo)
+    await ValidationField.ensureActivoDoesNotExist(this.repository, activo)
+    await ValidationField.ensureSerialDoesNotExist(this.repository, serial)
+    await ValidationField.ensureModelIdExist(this.repository, modelId)
+    await ValidationField.ensureStatusIdExist(this.repository, statusId)
 
     const device = Device.create({ activo, serial, statusId, modelId })
 

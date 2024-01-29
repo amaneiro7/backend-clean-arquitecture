@@ -6,4 +6,8 @@ export class SequelizeStatusRepository implements StatusRepository {
   async searchAll (): Promise<StatusPrimitives[]> {
     return await StatusModel.findAll()
   }
+
+  async searchById (id: string): Promise<StatusPrimitives | null> {
+    return await StatusModel.findByPk(id) ?? null
+  }
 }
