@@ -6,8 +6,8 @@ export class HardDriveModel extends Model<HardDrivePrimitives> implements HardDr
   readonly categoryId!: number
   readonly deviceId!: string
   readonly health!: number
-  readonly capacityId!: number
-  readonly typeId!: number
+  readonly hardDriveCapacityId!: number
+  readonly hardDriveTypeId!: number
 }
 
 export function initHardDriveModel (sequelize: Sequelize): void {
@@ -20,7 +20,13 @@ export function initHardDriveModel (sequelize: Sequelize): void {
       },
       categoryId: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        validate: {
+          isIn: {
+            args: [[9]],
+            msg: 'No pertenece a esta categoria'
+          }
+        }
       },
       deviceId: {
         type: DataTypes.STRING,
@@ -30,11 +36,11 @@ export function initHardDriveModel (sequelize: Sequelize): void {
         type: DataTypes.INTEGER,
         allowNull: false
       },
-      capacityId: {
+      hardDriveCapacityId: {
         type: DataTypes.INTEGER,
         allowNull: false
       },
-      typeId: {
+      hardDriveTypeId: {
         type: DataTypes.INTEGER,
         allowNull: false
       }

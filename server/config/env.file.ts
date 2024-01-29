@@ -3,7 +3,6 @@
 import dotenv from 'dotenv'
 
 const env = process.env.NODE_ENV ?? 'development'
-console.log('Current env:', env) // Agrega esta línea para depurar
 
 const envs: Record<string, string> = {
   production: '.env',
@@ -16,8 +15,6 @@ const options = {
 }
 
 dotenv.config(options)
-
-console.log(envs[env])
 
 export const config = {
   env,

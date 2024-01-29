@@ -8,6 +8,7 @@ import { type ModelSeriesRepository } from '../../ModelSeries/domain/ModelSeries
 import { type UserRepository } from '../../User/domain/UserRepository'
 import { type HardDriveTypeRepository } from '../../Features/HardDrive.ts/HardDriveType/domain/HardDriveTypeRepository'
 import { type HardDriveCapacityRepository } from '../../Features/HardDrive.ts/HardDriveCapacity/domain/HardDriveCapacityRepository'
+import { type HardDriveRepository } from '../../Features/HardDrive.ts/HardDrive/domain/HardDriveRepository'
 
 export interface Repository {
   user: UserRepository
@@ -19,5 +20,6 @@ export interface Repository {
   computerFeatures?: ComputerFeaturesRepository
   hardDriveType: HardDriveTypeRepository
   hardDriveCapacity: HardDriveCapacityRepository
+  hardDrive: HardDriveRepository
   processor?: ComputerProcessorRepository
 }

@@ -8,6 +8,7 @@ import { initUserModel } from '../../../../User/infrastructure/persistence/Seque
 import { initStatusModel } from '../../../../Device/Status/infrastructure/sequelize/StatusSchema'
 import { initHardDriveCapacityModel } from '../../../../Features/HardDrive.ts/HardDriveCapacity/infraestructure/sequelize/HardDriveCapacitySchema'
 import { initHardDriveTypeModel } from '../../../../Features/HardDrive.ts/HardDriveType/infraestructure/sequelize/HardDriveTypeSchema'
+import { initHardDriveModel } from '../../../../Features/HardDrive.ts/HardDrive/infraestructure/sequelize/HardDriveSchema'
 
 export function setupModels (sequelize: Sequelize): void {
   initCategoryModel(sequelize)
@@ -18,4 +19,5 @@ export function setupModels (sequelize: Sequelize): void {
   initUserModel(sequelize)
   initHardDriveCapacityModel(sequelize)
   initHardDriveTypeModel(sequelize)
+  initHardDriveModel(sequelize)
 }

@@ -5,7 +5,7 @@ export abstract class HardDriveRepository {
 
   abstract save (payload: HardDrivePrimitives): Promise<void>
 
-  abstract searchById (id: number): Promise<HardDrivePrimitives | null>
+  abstract searchById (id: string): Promise<HardDrivePrimitives | null>
 
-  abstract remove (id: number): Promise<void>
+  abstract remove (id: string): Promise<void>
 }

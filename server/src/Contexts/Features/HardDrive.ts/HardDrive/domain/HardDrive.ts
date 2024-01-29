@@ -10,41 +10,41 @@ export interface HardDrivePrimitives {
   categoryId: number
   deviceId: string
   health: number
-  capacityId: number
-  typeId: number
+  hardDriveCapacityId: number
+  hardDriveTypeId: number
 }
 
 export class HardDrive {
   constructor (
     private readonly id: HardDriveId,
-    private readonly categoryid: CategoryId,
+    private readonly categoryId: CategoryId,
     private readonly deviceId: DeviceId,
     private health: HardDriveHealth,
-    private readonly capacityId: HardDriveCapacityId,
-    private readonly typeId: HardDriveTypeId
+    private readonly hardDriveCapacityId: HardDriveCapacityId,
+    private readonly hardDriveTypeId: HardDriveTypeId
   ) {}
 
   static create ({
     categoryId,
     deviceId,
     health,
-    capacityId,
-    typeId
+    hardDriveCapacityId,
+    hardDriveTypeId
   }: {
     categoryId: number
     deviceId: string
     health: number
-    capacityId: number
-    typeId: number
+    hardDriveCapacityId: number
+    hardDriveTypeId: number
   }): HardDrive {
     const id = HardDriveId.random().toString()
     return new HardDrive(
       new HardDriveId(id),
-      new CategoryId(capacityId),
+      new CategoryId(categoryId),
       new DeviceId(deviceId),
       new HardDriveHealth(health),
-      new HardDriveCapacityId(capacityId),
-      new HardDriveTypeId(typeId)
+      new HardDriveCapacityId(hardDriveCapacityId),
+      new HardDriveTypeId(hardDriveTypeId)
     )
   }
 
@@ -55,22 +55,22 @@ export class HardDrive {
   static fromPrimitives (primitives: HardDrivePrimitives): HardDrive {
     return new HardDrive(
       new HardDriveId(primitives.id),
-      new CategoryId(primitives.capacityId),
+      new CategoryId(primitives.categoryId),
       new DeviceId(primitives.deviceId),
       new HardDriveHealth(primitives.health),
-      new HardDriveCapacityId(primitives.capacityId),
-      new HardDriveTypeId(primitives.typeId)
+      new HardDriveCapacityId(primitives.hardDriveCapacityId),
+      new HardDriveTypeId(primitives.hardDriveTypeId)
     )
   }
 
   toPrimitive (): HardDrivePrimitives {
     return {
       id: this.id.value,
-      categoryId: this.capacityId.value,
+      categoryId: this.categoryId.value,
       deviceId: this.deviceId.value,
       health: this.health.value,
-      capacityId: this.capacityId.value,
-      typeId: this.typeId.value
+      hardDriveCapacityId: this.hardDriveCapacityId.value,
+      hardDriveTypeId: this.hardDriveTypeId.value
     }
   }
 
@@ -78,15 +78,15 @@ export class HardDrive {
     return this.id.value
   }
 
-  get typeValue (): number {
-    return this.typeId.value
-  }
-
   get healthValue (): number {
     return this.health.value
   }
 
-  get capacityValue (): number {
-    return this.capacityId.value
+  get hardDriveCapacityIdValue (): number {
+    return this.hardDriveCapacityId.value
+  }
+
+  get hardDriveTypeIdValue (): number {
+    return this.hardDriveTypeId.value
   }
 }
