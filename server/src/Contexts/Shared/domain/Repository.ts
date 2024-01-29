@@ -12,6 +12,8 @@ import { type HardDriveRepository } from '../../Features/HardDrive.ts/HardDrive/
 import { type ProcessorRepository } from '../../Features/Processor/domain/ProcessorRepository'
 import { type MemoryRamTypeRepository } from '../../Features/MemoryRam/MemoryRamType/domain/MemoryRamTypeRepository'
 import { type MemoryRamCapacityRepository } from '../../Features/MemoryRam/MemoryRamCapacity/domain/MemoryRamCapacityRepository'
+import { type OperatingSystemRepository } from '../../Features/OperatingSystem/OperatingSystem/domain/OperatingSystemRepository'
+import { type OperatingSystemArqRepository } from '../../Features/OperatingSystem/OperatingSystemArq/domain/OperatingSystemArqRepository'
 
 export interface Repository {
   user: UserRepository
@@ -27,4 +29,6 @@ export interface Repository {
   processor: ProcessorRepository
   memoryRamType: MemoryRamTypeRepository
   memoryRamCapacity: MemoryRamCapacityRepository
+  operatingSystemVersion: OperatingSystemRepository
+  operatingSystemArq: OperatingSystemArqRepository
 }

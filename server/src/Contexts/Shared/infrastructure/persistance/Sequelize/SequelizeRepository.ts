@@ -7,6 +7,8 @@ import { SequelizeHardDriveCapacityRepository } from '../../../../Features/HardD
 import { SequelizeHardDriveTypeRepository } from '../../../../Features/HardDrive.ts/HardDriveType/infraestructure/sequelize/SequelizeHardDriveTypeRepository'
 import { SequelizeMemoryRamCapacityRepository } from '../../../../Features/MemoryRam/MemoryRamCapacity/infraestructure/sequelize/SequelizememoryRamCapacity'
 import { SequelizeMemoryRamTypeRepository } from '../../../../Features/MemoryRam/MemoryRamType/infraestructure/sequelize/SequelizeMemoryRamTypeRepository'
+import { SequelizeOperatingSystemRepository } from '../../../../Features/OperatingSystem/OperatingSystem/infraesructure/sequelize/SequelizeOperatingSystemRepository'
+import { SequelizeOperatingSystemArqRepository } from '../../../../Features/OperatingSystem/OperatingSystemArq/infraestructure/sequelize/SequelizeOperatingSystemArqRepository'
 import { SequelizeProcessorRepository } from '../../../../Features/Processor/infraestructure/sequelize/SequelizeProcessorRepository'
 import { SequelizeModelSeriesRepository } from '../../../../ModelSeries/infraestructure/Sequelize/SequelizeModelSeriesRepository'
 import { SequelizeUserRepository } from '../../../../User/infrastructure/persistence/Sequelize/SequelizeUserRepository'
@@ -27,6 +29,7 @@ export const sequelizeRepository: Repository = {
   hardDriveCapacity: new SequelizeHardDriveCapacityRepository(),
   hardDrive: new SequelizeHardDriveRepository(),
   memoryRamType: new SequelizeMemoryRamTypeRepository(),
-  memoryRamCapacity: new SequelizeMemoryRamCapacityRepository()
-
+  memoryRamCapacity: new SequelizeMemoryRamCapacityRepository(),
+  operatingSystemVersion: new SequelizeOperatingSystemRepository(),
+  operatingSystemArq: new SequelizeOperatingSystemArqRepository()
 }
