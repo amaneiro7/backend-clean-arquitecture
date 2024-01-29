@@ -6,6 +6,8 @@ import { initBrandModel } from '../../../../Brand/infrastructure/Sequelize/Brand
 import { initDeviceModel } from '../../../../Device/Device/infrastructure/sequelize/DeviceSchema'
 import { initUserModel } from '../../../../User/infrastructure/persistence/Sequelize/UserSchema'
 import { initStatusModel } from '../../../../Device/Status/infrastructure/sequelize/StatusSchema'
+import { initHardDriveCapacityModel } from '../../../../Features/HardDrive.ts/HardDriveCapacity/infraestructure/sequelize/HardDriveCapacitySchema'
+import { initHardDriveTypeModel } from '../../../../Features/HardDrive.ts/HardDriveType/infraestructure/sequelize/HardDriveTypeSchema'
 
 export function setupModels (sequelize: Sequelize): void {
   initCategoryModel(sequelize)
@@ -14,4 +16,6 @@ export function setupModels (sequelize: Sequelize): void {
   initStatusModel(sequelize)
   initDeviceModel(sequelize)
   initUserModel(sequelize)
+  initHardDriveCapacityModel(sequelize)
+  initHardDriveTypeModel(sequelize)
 }

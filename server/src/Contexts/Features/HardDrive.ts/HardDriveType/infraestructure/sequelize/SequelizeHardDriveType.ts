@@ -7,7 +7,7 @@ export class SequelizeHardDriveTypeRepository implements HardDriveTypeRepository
     return await HardDriveTypeModel.findAll()
   }
 
-  async searchById (id: string): Promise<HardDriveTypePrimitives | null> {
+  async searchById (id: number): Promise<HardDriveTypePrimitives | null> {
     return await HardDriveTypeModel.findByPk(id) ?? null
   }
 }

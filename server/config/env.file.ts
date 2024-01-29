@@ -2,26 +2,22 @@
 // import 'dotenv/config'
 import dotenv from 'dotenv'
 
-interface Options {
-  path?: string
-}
+const env = process.env.NODE_ENV ?? 'development'
+console.log('Current env:', env) // Agrega esta línea para depurar
 
-type Environments = Record<string, string>
-
-const env = process.env.NODE_ENV ?? 'dev'
-const envs: Environments = {
-  prod: '.env.prod',
-  dev: '.env.dev',
+const envs: Record<string, string> = {
+  production: '.env',
+  development: '.env.dev',
   e2e: '.env.e2e'
 }
 
-const options: Options = {}
-
-if (envs.hasOwnProperty(env)) {
-  options.path = envs[env]
+const options = {
+  path: envs[env]
 }
 
 dotenv.config(options)
+
+console.log(envs[env])
 
 export const config = {
   env,

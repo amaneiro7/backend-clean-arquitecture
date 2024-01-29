@@ -21,7 +21,7 @@ export function initHardDriveCapacityModel (sequelize: Sequelize): void {
       }
     },
     {
-      modelName: 'HardDriveType',
+      modelName: 'HardDriveCapacity',
       timestamps: false,
       underscored: true,
       sequelize

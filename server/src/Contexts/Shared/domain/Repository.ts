@@ -3,10 +3,11 @@ import { type CategoryRepository } from '../../Category/domain/CategoryRepositor
 import { type StatusRepository } from '../../Device/Status/domain/StatusRepository'
 import { type DeviceRepository } from '../../Device/Device/domain/DeviceRepository'
 import { type ComputerFeaturesRepository } from '../../Features/Computer/domain/ComputerFeaturesRepository'
-import { type HardDriveRepository } from '../../Features/domain/HardDrive.ts/HardDriveRepository'
 import { type ComputerProcessorRepository } from '../../Features/Processor/ComputerProcessorRepository'
 import { type ModelSeriesRepository } from '../../ModelSeries/domain/ModelSeriesRepository'
 import { type UserRepository } from '../../User/domain/UserRepository'
+import { type HardDriveTypeRepository } from '../../Features/HardDrive.ts/HardDriveType/domain/HardDriveTypeRepository'
+import { type HardDriveCapacityRepository } from '../../Features/HardDrive.ts/HardDriveCapacity/domain/HardDriveCapacityRepository'
 
 export interface Repository {
   user: UserRepository
@@ -16,6 +17,7 @@ export interface Repository {
   status: StatusRepository
   device: DeviceRepository
   computerFeatures?: ComputerFeaturesRepository
-  hardDrive?: HardDriveRepository
+  hardDriveType: HardDriveTypeRepository
+  hardDriveCapacity: HardDriveCapacityRepository
   processor?: ComputerProcessorRepository
 }

@@ -2,6 +2,8 @@ import { SequelizeBrandRepository } from '../../../../Brand/infrastructure/Seque
 import { SequelizeCategoryRepository } from '../../../../Category/infrastructure/Sequelize/SequelizeCategoryRepository'
 import { SequelizeDeviceRepository } from '../../../../Device/Device/infrastructure/sequelize/SequelizeDeviceRepository'
 import { SequelizeStatusRepository } from '../../../../Device/Status/infrastructure/sequelize/SequelizeStatusRepository'
+import { SequelizeHardDriveCapacityRepository } from '../../../../Features/HardDrive.ts/HardDriveCapacity/infraestructure/sequelize/SequelizeHardDriveCapacity'
+import { SequelizeHardDriveTypeRepository } from '../../../../Features/HardDrive.ts/HardDriveType/infraestructure/sequelize/SequelizeHardDriveType'
 import { SequelizeModelSeriesRepository } from '../../../../ModelSeries/infraestructure/Sequelize/SequelizeModelSeriesRepository'
 import { SequelizeUserRepository } from '../../../../User/infrastructure/persistence/Sequelize/SequelizeUserRepository'
 import { type Repository } from '../../../domain/Repository'
@@ -15,6 +17,8 @@ export const sequelizeRepository: Repository = {
   category: new SequelizeCategoryRepository(),
   modelSeries: new SequelizeModelSeriesRepository(),
   status: new SequelizeStatusRepository(),
-  device: new SequelizeDeviceRepository()
+  device: new SequelizeDeviceRepository(),
+  hardDriveType: new SequelizeHardDriveTypeRepository(),
+  hardDriveCapacity: new SequelizeHardDriveCapacityRepository()
 
 }

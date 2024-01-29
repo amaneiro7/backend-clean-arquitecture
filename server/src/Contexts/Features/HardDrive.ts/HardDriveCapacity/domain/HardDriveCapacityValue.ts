@@ -13,7 +13,9 @@ export class HardDriveCapacityValue extends NumberValueObject {
     320: 320,
     500: 500,
     750: 750,
-    1000: 1000
+    1000: 1000,
+    2000: 2000,
+    4000: 4000
   }
 
   // Constructor for the HardDriveCapacityValue class
