@@ -2,8 +2,6 @@ import { type BrandRepository } from '../../Brand/domain/BrandRepository'
 import { type CategoryRepository } from '../../Category/domain/CategoryRepository'
 import { type StatusRepository } from '../../Device/Status/domain/StatusRepository'
 import { type DeviceRepository } from '../../Device/Device/domain/DeviceRepository'
-import { type ComputerFeaturesRepository } from '../../Features/Computer/domain/ComputerFeaturesRepository'
-
 import { type ModelSeriesRepository } from '../../ModelSeries/domain/ModelSeriesRepository'
 import { type UserRepository } from '../../User/domain/UserRepository'
 import { type HardDriveTypeRepository } from '../../Features/HardDrive.ts/HardDriveType/domain/HardDriveTypeRepository'
@@ -22,7 +20,6 @@ export interface Repository {
   modelSeries: ModelSeriesRepository
   status: StatusRepository
   device: DeviceRepository
-  computerFeatures?: ComputerFeaturesRepository
   hardDriveType: HardDriveTypeRepository
   hardDriveCapacity: HardDriveCapacityRepository
   hardDrive: HardDriveRepository
@@ -31,4 +28,5 @@ export interface Repository {
   memoryRamCapacity: MemoryRamCapacityRepository
   operatingSystemVersion: OperatingSystemRepository
   operatingSystemArq: OperatingSystemArqRepository
+  computerFeatures?: ComputerFeaturesRepository
 }

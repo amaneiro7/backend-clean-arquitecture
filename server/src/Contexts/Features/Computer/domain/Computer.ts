@@ -1,42 +1,60 @@
 import { CategoryId } from '../../../Category/domain/CategoryId'
-import { DeviceId } from '../../../Device/domain/DeviceId'
-import { ComputerFeaturesId } from './ComputerFeatureId'
-import { ComputerProcessorId } from '../../Processor/domain/ProcessorId'
-import { type MemoryRamSizeValues, MemoryRamSize } from '../../MemoryRam/MemoryRamSize'
-import { ComputerOSType, type ComputerOSTypes } from './ComputerOperatingSystem'
-import { HardDriveCapacity, type HardDriveCapacityType } from '../../HardDrive.ts/HardDriveCapacity'
-import { type ComputerTypes, ComputerType } from './ComputerType'
+import { DeviceId } from '../../../Device/Device/domain/DeviceId'
+import { type HardDriveCapacityId } from '../../HardDrive.ts/HardDriveCapacity/domain/HardDriveCapacityId'
+import { type HardDriveTypeId } from '../../HardDrive.ts/HardDriveType/domain/HardDriveTypeId'
+import { type MemoryRamCapacityId } from '../../MemoryRam/MemoryRamCapacity/domain/MemoryRamCapacityId'
+import { type OperatingSystemId } from '../../OperatingSystem/OperatingSystem/domain/OperatingSystemId'
+import { type OperatingSystemArqId } from '../../OperatingSystem/OperatingSystemArq/domain/OperatingSystemArqID'
+import { type ProcessorId } from '../../Processor/domain/ProcessorId'
+import { type ComputerId } from './ComputerId'
+import { IPAddress } from './IPAddress'
+import { MACAddress } from './MACAddress'
 
 export interface ComputerPrimitives {
-  id: string
-  computerType: string
-  processorId: string
-  memoryRam: string
-  operatingSystem: string
-  hardDriveCapacity: string
+   string
+   number
+   string
+   string
+   number[]
+   number
+   number
+   number
+   number
+   number
+   string
+   string
 }
 
-export class ComputerFeatures {
+export class Computer {
   constructor (
-    private readonly id: ComputerFeaturesId,
+    private readonly id: ComputerId,
     private readonly categoryId: CategoryId,
     private readonly deviceId: DeviceId,
-    private readonly computerType: ComputerType,
-    private processorId: ComputerProcessorId,
-    private memoryRam: MemoryRamSize,
-    private operatingSystem: ComputerOSType,
-    private hardDriveCapacity: HardDriveCapacity
+    private readonly processorId: ProcessorId,
+    private readonly memoryRam: MemoryRamCapacityId[],
+    private readonly totalMemory: number,
+    private readonly hardDriveCapacityId: HardDriveCapacityId,
+    private readonly hardDriveTypeId: HardDriveTypeId,
+    private readonly operatingSystemId: OperatingSystemId,
+    private readonly operatingSystemArqId: OperatingSystemArqId,
+    private readonly MACAdress: MACAddress,
+    private readonly IPAdress: IPAddress
   ) {}
 
   static create (
     {
+      id,
       categoryId,
       deviceId,
-      computerType,
       processorId,
       memoryRam,
-      operatingSystem,
-      hardDriveCapacity
+      totalMemory,
+      hardDriveCapacityId,
+      hardDriveTypeId,
+      operatingSystemId,
+      operatingSystemArqId,
+      MACAdress,
+      IPAdress,
     }: {
       categoryId: string
       deviceId: string
