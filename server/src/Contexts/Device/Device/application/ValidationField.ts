@@ -28,7 +28,7 @@ export class ValidationField {
   }
 
   static async ensureStatusIdExist (repository: Repository, statusId: number): Promise<void> {
-    if (await repository.status.searchById(new StatusId(statusId).toString()) === null) {
+    if (await repository.status.searchById(new StatusId(statusId).value) === null) {
       throw new StatusDoesNotExistError(statusId)
     }
   }
