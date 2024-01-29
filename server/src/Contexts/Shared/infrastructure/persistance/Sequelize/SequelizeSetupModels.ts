@@ -9,6 +9,9 @@ import { initStatusModel } from '../../../../Device/Status/infrastructure/sequel
 import { initHardDriveCapacityModel } from '../../../../Features/HardDrive.ts/HardDriveCapacity/infraestructure/sequelize/HardDriveCapacitySchema'
 import { initHardDriveTypeModel } from '../../../../Features/HardDrive.ts/HardDriveType/infraestructure/sequelize/HardDriveTypeSchema'
 import { initHardDriveModel } from '../../../../Features/HardDrive.ts/HardDrive/infraestructure/sequelize/HardDriveSchema'
+import { initProcessorModel } from '../../../../Features/Processor/infraestructure/sequelize/ProcessorSchema'
+import { initMemoryRamTypeModel } from '../../../../Features/MemoryRam/MemoryRamType/infraestructure/sequelize/MemoryRamTypeSchema'
+import { initMemoryRamCapacityModel } from '../../../../Features/MemoryRam/MemoryRamCapacity/infraestructure/sequelize/MemoryRamCapacitySchema'
 
 export function setupModels (sequelize: Sequelize): void {
   initCategoryModel(sequelize)
@@ -20,4 +23,7 @@ export function setupModels (sequelize: Sequelize): void {
   initHardDriveCapacityModel(sequelize)
   initHardDriveTypeModel(sequelize)
   initHardDriveModel(sequelize)
+  initProcessorModel(sequelize)
+  initMemoryRamTypeModel(sequelize)
+  initMemoryRamCapacityModel(sequelize)
 }

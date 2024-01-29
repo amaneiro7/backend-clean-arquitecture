@@ -3,12 +3,15 @@ import { type CategoryRepository } from '../../Category/domain/CategoryRepositor
 import { type StatusRepository } from '../../Device/Status/domain/StatusRepository'
 import { type DeviceRepository } from '../../Device/Device/domain/DeviceRepository'
 import { type ComputerFeaturesRepository } from '../../Features/Computer/domain/ComputerFeaturesRepository'
-import { type ComputerProcessorRepository } from '../../Features/Processor/ComputerProcessorRepository'
+
 import { type ModelSeriesRepository } from '../../ModelSeries/domain/ModelSeriesRepository'
 import { type UserRepository } from '../../User/domain/UserRepository'
 import { type HardDriveTypeRepository } from '../../Features/HardDrive.ts/HardDriveType/domain/HardDriveTypeRepository'
 import { type HardDriveCapacityRepository } from '../../Features/HardDrive.ts/HardDriveCapacity/domain/HardDriveCapacityRepository'
 import { type HardDriveRepository } from '../../Features/HardDrive.ts/HardDrive/domain/HardDriveRepository'
+import { type ProcessorRepository } from '../../Features/Processor/domain/ProcessorRepository'
+import { type MemoryRamTypeRepository } from '../../Features/MemoryRam/MemoryRamType/domain/MemoryRamTypeRepository'
+import { type MemoryRamCapacityRepository } from '../../Features/MemoryRam/MemoryRamCapacity/domain/MemoryRamCapacityRepository'
 
 export interface Repository {
   user: UserRepository
@@ -21,5 +24,7 @@ export interface Repository {
   hardDriveType: HardDriveTypeRepository
   hardDriveCapacity: HardDriveCapacityRepository
   hardDrive: HardDriveRepository
-  processor?: ComputerProcessorRepository
+  processor: ProcessorRepository
+  memoryRamType: MemoryRamTypeRepository
+  memoryRamCapacity: MemoryRamCapacityRepository
 }

@@ -7,12 +7,25 @@
   "scripts": {
     "start": "nodemon server.ts",
     "dev": "cross-env NODE_ENV=development nodemon ./src/apps/inventario/backend/start.ts",
-    "seeders:all": "sequelize-cli db:seed:all",
-    "seeders:undo": "npx sequelize-cli db:seed:undo",
-    "seeders:undo:all": "npx sequelize-cli db:seed:undo:all",
-    "seeders:generate": "npx sequelize-cli seed:generate --name"
+    "seed:all": "sequelize-cli db:seed:all",
+    "seed:undo": "npx sequelize-cli db:seed:undo",
+    "seed:undo:all": "npx sequelize-cli db:seed:undo:all",
+    "seed:generate": "npx sequelize-cli seed:generate --name"
   },
-  "keywords": ["typescript", "express", "sequelize", "sequelize-cli", "nodejs", "DDD", "screaming arquitecture", "hexagonal arquitecture", "clean arquitecture", "API_REST", "postgress", "backend"],
+  "keywords": [
+    "typescript",
+    "express",
+    "sequelize",
+    "sequelize-cli",
+    "nodejs",
+    "DDD",
+    "screaming arquitecture",
+    "hexagonal arquitecture",
+    "clean arquitecture",
+    "API_REST",
+    "postgress",
+    "backend"
+  ],
   "author": "Andres Maneiro <amaneiro7@gmail.com>",
   "license": "MIT",
   "dependencies": {
@@ -64,7 +77,6 @@
     "@types/passport": "1.0.16",
     "@types/passport-jwt": "4.0.0",
     "@types/passport-local": "1.0.38",
-    "@types/sequelize": "4.28.17",
     "@types/umzug": "2.3.7",
     "@typescript-eslint/eslint-plugin": "6.9.0",
     "concurrently": "8.2.2",
