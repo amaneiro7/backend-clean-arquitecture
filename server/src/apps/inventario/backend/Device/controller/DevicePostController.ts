@@ -1,8 +1,8 @@
 import { type NextFunction, type Request, type Response } from 'express'
 import { type Repository } from '../../../../../Contexts/Shared/domain/Repository'
 import httpStatus from 'http-status'
-import { DeviceCreator } from '../../../../../Contexts/Device/application/Create/DeviceCreator'
-import { DeviceUpdater } from '../../../../../Contexts/Device/application/update/DeviceUpdater'
+import { DeviceCreator } from '../../../../../Contexts/Device/Device/application/Create/DeviceCreator'
+import { DeviceUpdater } from '../../../../../Contexts/Device/Device/application/update/DeviceUpdater'
 
 export class DevicePostController {
   constructor (private readonly repository: Repository) {}

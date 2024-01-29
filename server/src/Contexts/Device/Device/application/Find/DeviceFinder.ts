@@ -1,4 +1,4 @@
-import { type Repository } from '../../../Shared/domain/Repository'
+import { type Repository } from '../../../../Shared/domain/Repository'
 import { type DevicePrimitives } from '../../domain/Device'
 import { type DeviceActivo } from '../../domain/DeviceActivo'
 import { DeviceDoesNotExistError } from '../../domain/DeviceDoesNotExistError'

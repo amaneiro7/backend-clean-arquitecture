@@ -1,5 +1,5 @@
-import { AcceptedNullValueObject } from '../../Shared/domain/value-object/AcceptedNullValueObjects'
-import { InvalidArgumentError } from '../../Shared/domain/value-object/InvalidArgumentError'
+import { AcceptedNullValueObject } from '../../../Shared/domain/value-object/AcceptedNullValueObjects'
+import { InvalidArgumentError } from '../../../Shared/domain/value-object/InvalidArgumentError'
 
 export class DeviceSerial extends AcceptedNullValueObject<string> {
   private readonly NAME_MAX_LENGTH = 100

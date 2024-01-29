@@ -1,6 +1,6 @@
 import { InMemoryBrandRepository } from '../../Brand/infrastructure/InMemoryBrandRepository'
 import { InMemoryCategoryRepository } from '../../Category/infrastructure/InMemoryCategoryRepository'
-import { InMemoryDeviceRepository } from '../../Device/infraestructure/InMemoryDeviceRepository'
+import { InMemoryDeviceRepository } from '../../Device/Device/infrastructure/InMemoryDeviceRepository'
 import { InMemoryComputerFeaturesRepository } from '../../Features/infrastructure/ComputerFeaturesInMemory'
 import { InMemoryHardDriveRepository } from '../../Features/infrastructure/HardDriveInMemory'
 import { InMemoryComputerProcessorRepository } from '../../Features/infrastructure/ProcessorInMemory'

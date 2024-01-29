@@ -1,6 +1,6 @@
 import { BrandModel } from '../../../../Brand/infrastructure/Sequelize/BrandSchema'
 import { CategoryModel } from '../../../../Category/infrastructure/Sequelize/CategorySchema'
-import { DeviceModel } from '../../../../Device/infraestructure/sequelize/DeviceSchema'
+import { DeviceModel } from '../../../../Device/Device/infrastructure/sequelize/DeviceSchema'
 import { ModelSeriesModel } from '../../../../ModelSeries/infraestructure/Sequelize/ModelSeriesSchema'
 
 export function InitSequelizeAssociation (): void {

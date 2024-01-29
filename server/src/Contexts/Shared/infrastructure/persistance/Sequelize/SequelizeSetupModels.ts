@@ -3,7 +3,7 @@ import { initModelSeriesModel } from '../../../../ModelSeries/infraestructure/Se
 import { initCategoryModel } from '../../../../Category/infrastructure/Sequelize/CategorySchema'
 
 import { initBrandModel } from '../../../../Brand/infrastructure/Sequelize/BrandSchema'
-import { initDeviceModel } from '../../../../Device/infraestructure/sequelize/DeviceSchema'
+import { initDeviceModel } from '../../../../Device/Device/infrastructure/sequelize/DeviceSchema'
 import { initUserModel } from '../../../../User/infrastructure/persistence/Sequelize/UserSchema'
 
 export function setupModels (sequelize: Sequelize): void {
