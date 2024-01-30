@@ -1,96 +1,114 @@
 import { CategoryId } from '../../../Category/domain/CategoryId'
 import { DeviceId } from '../../../Device/Device/domain/DeviceId'
-import { type HardDriveCapacityId } from '../../HardDrive.ts/HardDriveCapacity/domain/HardDriveCapacityId'
-import { type HardDriveTypeId } from '../../HardDrive.ts/HardDriveType/domain/HardDriveTypeId'
+import { HardDriveCapacityId } from '../../HardDrive.ts/HardDriveCapacity/domain/HardDriveCapacityId'
+import { HardDriveTypeId } from '../../HardDrive.ts/HardDriveType/domain/HardDriveTypeId'
 import { type MemoryRamCapacityId } from '../../MemoryRam/MemoryRamCapacity/domain/MemoryRamCapacityId'
-import { type OperatingSystemId } from '../../OperatingSystem/OperatingSystem/domain/OperatingSystemId'
-import { type OperatingSystemArqId } from '../../OperatingSystem/OperatingSystemArq/domain/OperatingSystemArqID'
-import { type ProcessorId } from '../../Processor/domain/ProcessorId'
-import { type ComputerId } from './ComputerId'
+import { OperatingSystemId } from '../../OperatingSystem/OperatingSystem/domain/OperatingSystemId'
+import { OperatingSystemArqId } from '../../OperatingSystem/OperatingSystemArq/domain/OperatingSystemArqID'
+import { ProcessorId } from '../../Processor/domain/ProcessorId'
+import { ComputerId } from './ComputerId'
 import { IPAddress } from './IPAddress'
 import { MACAddress } from './MACAddress'
 
 export interface ComputerPrimitives {
-   string
-   number
-   string
-   string
-   number[]
-   number
-   number
-   number
-   number
-   number
-   string
-   string
+  id: string
+  categoryId: number
+  deviceId: string
+  processorId: string
+  memoryRam: number[]
+  totalMemory: number
+  hardDriveCapacityId: number
+  hardDriveTypeId: number
+  operatingSystemId: number
+  operatingSystemArqId: number
+  MACAdress: string
+  IPAddress: string
 }
 
 export class Computer {
+  private memoryRam: number[]
   constructor (
     private readonly id: ComputerId,
     private readonly categoryId: CategoryId,
     private readonly deviceId: DeviceId,
-    private readonly processorId: ProcessorId,
-    private readonly memoryRam: MemoryRamCapacityId[],
-    private readonly totalMemory: number,
-    private readonly hardDriveCapacityId: HardDriveCapacityId,
-    private readonly hardDriveTypeId: HardDriveTypeId,
-    private readonly operatingSystemId: OperatingSystemId,
-    private readonly operatingSystemArqId: OperatingSystemArqId,
-    private readonly MACAdress: MACAddress,
-    private readonly IPAdress: IPAddress
-  ) {}
+    private processorId: ProcessorId,
+    private readonly memoryRamIds: MemoryRamCapacityId[],
+    private hardDriveCapacityId: HardDriveCapacityId,
+    private hardDriveTypeId: HardDriveTypeId,
+    private operatingSystemId: OperatingSystemId,
+    private operatingSystemArqId: OperatingSystemArqId,
+    private readonly macAdress: MACAddress,
+    private readonly ipAddress: IPAddress
+  ) {
+    this.memoryRam = memoryRamIds.map(id => (id))
+  }
 
   static create (
     {
-      id,
       categoryId,
       deviceId,
       processorId,
-      memoryRam,
-      totalMemory,
+      memoryRamIds,
       hardDriveCapacityId,
       hardDriveTypeId,
       operatingSystemId,
       operatingSystemArqId,
-      MACAdress,
-      IPAdress,
+      macAddress,
+      ipAddress
     }: {
-      categoryId: string
+      categoryId: number
       deviceId: string
-      computerType: ComputerTypes
       processorId: string
-      memoryRam: MemoryRamSizeValues
-      operatingSystem: ComputerOSTypes
-      hardDriveCapacity: HardDriveCapacityType
-    }): ComputerFeatures {
-    const id = ComputerFeaturesId.random().toString()
-    return new ComputerFeatures(
-      new ComputerFeaturesId(id),
-      new CategoryId(deviceId),
-      new DeviceId(categoryId),
-      new ComputerType(computerType),
-      new ComputerProcessorId(processorId),
-      new MemoryRamSize(memoryRam),
-      new ComputerOSType(operatingSystem),
-      new HardDriveCapacity(hardDriveCapacity)
+      memoryRamIds: MemoryRamCapacityId[]
+      hardDriveCapacityId: number
+      hardDriveTypeId: number
+      operatingSystemId: number
+      operatingSystemArqId: number
+      macAddress: string
+      ipAddress: string
+    }): Computer {
+    const id = ComputerId.random().value
+    return new Computer(
+      new ComputerId(id),
+      new CategoryId(categoryId),
+      new DeviceId(deviceId),
+      new ProcessorId(processorId),
+      memoryRamIds,
+      new HardDriveCapacityId(hardDriveCapacityId),
+      new HardDriveTypeId(hardDriveTypeId),
+      new OperatingSystemId(operatingSystemId),
+      new OperatingSystemArqId(operatingSystemArqId),
+      new MACAddress(macAddress),
+      new IPAddress(ipAddress)
     )
   }
 
   updateProcessor (newProcessorId: string): void {
-    this.processorId = new ComputerProcessorId(newProcessorId)
+    this.processorId = new ProcessorId(newProcessorId)
   }
 
-  updateMemoryRamSize (newValue: MemoryRamSizeValues): void {
-    this.memoryRam = new MemoryRamSize(newValue)
+  updateMemoryRam (newMemoryRamIds: MemoryRamCapacityId[]): void {
+    this.memoryRam = newMemoryRamIds.map(id => ({ id.value }))
   }
 
-  updateOperatingSystem (newOperatingSystem: ComputerOSTypes): void {
-    this.operatingSystem = new ComputerOSType(newOperatingSystem)
+  updateOperatingSystem (newOperatingSystem: number): void {
+    this.operatingSystemId = new OperatingSystemId(newOperatingSystem)
   }
 
-  updateHardDriveCapaciyu (newHDDCapacity: HardDriveCapacityType): void {
-    this.hardDriveCapacity = new HardDriveCapacity(newHDDCapacity)
+  updateOperatingSystemArq (newOperatingSystemArq: number): void {
+    this.operatingSystemArqId = new OperatingSystemArqId(newOperatingSystemArq)
+  }
+
+  updateHardDriveCapacity (newHDDCapacity: number): void {
+    this.hardDriveCapacityId = new HardDriveCapacityId(newHDDCapacity)
+  }
+
+  updateHardDriveType (newHDDType: number): void {
+    this.hardDriveTypeId = new HardDriveTypeId(newHDDType)
+  }
+
+  updateIPAddress (newIPAddress: string): void {
+    this.IPAddress = new IPAddress(newIPAddress)
   }
 
   toPrimitive (): ComputerPrimitives {
@@ -108,7 +126,7 @@ export class Computer {
     return this.id.value
   }
 
-  get categoryIdValue (): string {
+  get categoryIdValue (): number {
     return this.categoryId.value
   }
 
@@ -116,23 +134,35 @@ export class Computer {
     return this.deviceId.value
   }
 
-  get computerTypeValue (): string {
-    return this.computerType.value
-  }
-
   get processorIdValue (): string {
     return this.processorId.value
   }
 
-  get memoryRamValue (): string {
-    return this.memoryRam.value
+  get memoryRamCapacityIdValue (): string {
+    return this.memoryRamCapacityId.value
   }
 
-  get OperatingSystemValue (): string {
-    return this.operatingSystem.value
+  get hardDriveCapacityIdValue (): number {
+    return this.hardDriveCapacityId.value
   }
 
-  get hardDriveCapacityValue (): string {
-    return this.hardDriveCapacity.value
+  get hardDriveTypeIdValue (): number {
+    return this.hardDriveTypeId.value
+  }
+
+  get operatingSystemIdValue (): number {
+    return this.operatingSystemId.value
+  }
+
+  get operatingSystemArqIdValue (): number {
+    return this.operatingSystemArqId.value
+  }
+
+  get macAddressValue (): string {
+    return this.macAdress.value
+  }
+
+  get ipAddressValue (): string {
+    return this.ipAddress.value
   }
 }
