@@ -16,6 +16,6 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    return queryInterface('operating_system_arqs', null, {})
+    return queryInterface.bulkDelete('operating_system_arqs', null, {})
   }
 };

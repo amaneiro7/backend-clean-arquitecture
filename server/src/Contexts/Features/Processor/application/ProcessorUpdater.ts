@@ -1,32 +1,32 @@
 import { type Repository } from '../../../Shared/domain/Repository'
-import { Brand } from '../../domain/Brand'
-import { BrandAlreadyExistError } from '../../domain/BrandAlreadyExistError'
-import { BrandDoesNotExistError } from '../../domain/BrandDoesNotExistError'
-import { BrandId } from '../../domain/BrandId'
-import { BrandName } from '../../domain/BrandName'
+import { Processor } from '../domain/Processor'
+import { ProcessorAlreadyExistError } from '../domain/ProcessorAlreadyExistError'
+import { ProcessorDoesNotExistError } from '../domain/ProcessorDoesNotExistError'
+import { ProcessorId } from '../domain/ProcessorId'
+import { ProcessorName } from '../domain/ProcessorName'
 
-export class BrandUpdater {
+export class ProcessorUpdater {
   constructor (private readonly repository: Repository) {}
 
   async run (params: { id: string, newName: string }): Promise<void> {
     const { id, newName } = params
 
-    const brand = await this.repository.brand.searchById(new BrandId(id).toString())
-    if (brand === null) {
-      throw new BrandDoesNotExistError(newName)
+    const processor = await this.repository.processor.searchById(new ProcessorId(id).value)
+    if (processor === null) {
+      throw new ProcessorDoesNotExistError(newName)
     }
-    await this.ensureBrandDoesNotExist(newName)
+    await this.ensureprocessorDoesNotExist(newName)
 
-    const brandEntity = Brand.fromPrimitives(brand)
-    brandEntity.updateName(newName)
-    console.log(brandEntity.nameValue)
+    const processorEntity = Processor.fromPrimitives(processor)
+    processorEntity.updateName(newName)
+    console.log(processorEntity.nameValue)
 
-    await this.repository.brand.save(brandEntity.toPrimitive())
+    await this.repository.processor.save(processorEntity.toPrimitive())
   }
 
-  private async ensureBrandDoesNotExist (name: string): Promise<void> {
-    if (await this.repository.brand.searchByName(new BrandName(name).toString()) !== null) {
-      throw new BrandAlreadyExistError(name)
+  private async ensureprocessorDoesNotExist (name: string): Promise<void> {
+    if (await this.repository.processor.searchByName(new ProcessorName(name).value) !== null) {
+      throw new ProcessorAlreadyExistError(name)
     }
   }
 }

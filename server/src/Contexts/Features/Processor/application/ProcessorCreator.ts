@@ -1,6 +1,6 @@
 import { type Repository } from '../../../Shared/domain/Repository'
 import { Processor } from '../domain/Processor'
-import { ComputerProcessorAlreadyExistError } from '../domain/ProcessorAlreadyExistError'
+import { ProcessorAlreadyExistError } from '../domain/ProcessorAlreadyExistError'
 import { ProcessorName } from '../domain/ProcessorName'
 
 export class ProcessorCreator {
@@ -17,7 +17,7 @@ export class ProcessorCreator {
 
   private ensureProcessorNameDoesNotExist (name: string): void {
     if (this.repository.processor.searchByName(new ProcessorName(name).value) !== null) {
-      throw new ComputerProcessorAlreadyExistError(name)
+      throw new ProcessorAlreadyExistError(name)
     }
   }
 }

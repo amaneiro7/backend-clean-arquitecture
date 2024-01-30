@@ -11,7 +11,7 @@ module.exports = {
         id: randomUUID(),
         category_id: 1,
         device_id: '6e4a952a-dc5c-4202-898a-ad33319d4907',
-        processor_id: '4efbe0a7-0862-4539-a31c-be35b8100d04',
+        processor_id: '1229f9dd-9039-45b9-8eef-e1ac7a4aeef4',
         memory_ram: [6, 6],
         hard_drive_capacity_id: 7,
         hard_drive_type_id: 1,
