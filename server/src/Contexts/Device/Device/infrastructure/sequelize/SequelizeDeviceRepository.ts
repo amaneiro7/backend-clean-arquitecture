@@ -14,11 +14,8 @@ export class SequelizeDeviceRepository implements DeviceRepository {
           association: 'model',
           include: ['category', 'brand']
         },
-        'status'
-        // {
-        //   as: 'computer',
-        //   include: ['processor']
-        // }
+        'status',
+        'computer'
       ]
     }) ?? null
   }
