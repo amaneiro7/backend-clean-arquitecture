@@ -29,7 +29,7 @@ export function initHardDriveModel (sequelize: Sequelize): void {
         }
       },
       deviceId: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         allowNull: false
       },
       health: {

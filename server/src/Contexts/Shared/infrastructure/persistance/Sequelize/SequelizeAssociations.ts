@@ -1,3 +1,4 @@
+import { DataTypes } from 'sequelize'
 import { BrandModel } from '../../../../Brand/infrastructure/Sequelize/BrandSchema'
 import { CategoryModel } from '../../../../Category/infrastructure/Sequelize/CategorySchema'
 import { DeviceModel } from '../../../../Device/Device/infrastructure/sequelize/DeviceSchema'
@@ -34,8 +35,8 @@ export function InitSequelizeAssociation (): void {
   // Device Associations
   DeviceModel.belongsTo(ModelSeriesModel, { as: 'model' }) // A device belongs to a model series
   DeviceModel.belongsTo(StatusModel, { as: 'status' }) // A device belongs to a status
-  DeviceModel.hasOne(HardDriveModel, { as: 'hardDrive', foreignKey: 'device_id' })
-  DeviceModel.hasOne(ComputerModel, { as: 'computer', foreignKey: 'device_id' })
+  // DeviceModel.hasOne(HardDriveModel, { as: 'hardDrive', foreignKey: { name: 'device_id', allowNull: false }, keyType: DataTypes.UUID })
+  DeviceModel.hasOne(ComputerModel, { as: 'computer', foreignKey: { name: 'device_id', allowNull: false }, keyType: DataTypes.UUID })
   // HardDrive Associations
   HardDriveCapacityModel.hasMany(HardDriveModel, { as: 'hardDrive' })
   HardDriveCapacityModel.hasMany(ComputerModel, { as: 'computer' })
@@ -43,6 +44,7 @@ export function InitSequelizeAssociation (): void {
   HardDriveTypeModel.hasMany(ComputerModel, { as: 'computer' })
   HardDriveModel.belongsTo(HardDriveCapacityModel, { as: 'hardDriveCapacity' })
   HardDriveModel.belongsTo(HardDriveTypeModel, { as: 'hardDriveType' })
+  // HardDriveModel.belongsTo(DeviceModel, { as: 'device' })
 
   // Processor Associations
   ProcessorModel.hasMany(ComputerModel, { as: 'computer' })
@@ -56,6 +58,7 @@ export function InitSequelizeAssociation (): void {
 
   // Computer Associations
   ComputerModel.belongsTo(CategoryModel, { as: 'category' })
+  ComputerModel.belongsTo(DeviceModel, { as: 'device' })
   ComputerModel.belongsTo(ProcessorModel, { as: 'processor' })
   ComputerModel.belongsTo(HardDriveCapacityModel, { as: 'hardDriveCapacity' })
   ComputerModel.belongsTo(HardDriveTypeModel, { as: 'hardDriveType' })

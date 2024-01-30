@@ -9,14 +9,34 @@ export class SequelizeDeviceRepository implements DeviceRepository {
 
   async searchById (deviceId: string): Promise<DevicePrimitives | null> {
     return await DeviceModel.findByPk(deviceId, {
-      include: ['model']
+      include: [
+        {
+          association: 'model',
+          include: ['category', 'brand']
+        },
+        'status'
+        // {
+        //   as: 'computer',
+        //   include: ['processor']
+        // }
+      ]
     }) ?? null
   }
 
   async searchByActivo (activo: string): Promise<DevicePrimitives | null> {
     return await DeviceModel.findOne({
       where: { activo },
-      include: ['model']
+      include: [
+        {
+          as: 'model',
+          include: ['category', 'brand']
+        },
+        'status',
+        {
+          as: 'computer',
+          include: ['processor']
+        }
+      ]
     }) ?? null
   }
 
