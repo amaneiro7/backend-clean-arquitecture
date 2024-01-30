@@ -2,43 +2,64 @@ import { BrandModel } from '../../../../Brand/infrastructure/Sequelize/BrandSche
 import { CategoryModel } from '../../../../Category/infrastructure/Sequelize/CategorySchema'
 import { DeviceModel } from '../../../../Device/Device/infrastructure/sequelize/DeviceSchema'
 import { StatusModel } from '../../../../Device/Status/infrastructure/sequelize/StatusSchema'
+import { ComputerModel } from '../../../../Features/Computer/infraestructure/sequelize/ComputerSchema'
 import { HardDriveModel } from '../../../../Features/HardDrive.ts/HardDrive/infraestructure/sequelize/HardDriveSchema'
 import { HardDriveCapacityModel } from '../../../../Features/HardDrive.ts/HardDriveCapacity/infraestructure/sequelize/HardDriveCapacitySchema'
 import { HardDriveTypeModel } from '../../../../Features/HardDrive.ts/HardDriveType/infraestructure/sequelize/HardDriveTypeSchema'
+import { MemoryRamCapacityModel } from '../../../../Features/MemoryRam/MemoryRamCapacity/infraestructure/sequelize/MemoryRamCapacitySchema'
+import { OperatingSystemModel } from '../../../../Features/OperatingSystem/OperatingSystem/infraesructure/sequelize/OperatingSystemSchema'
+import { OperatingSystemArqModel } from '../../../../Features/OperatingSystem/OperatingSystemArq/infraestructure/sequelize/OperatingSystemArqSchema'
+import { ProcessorModel } from '../../../../Features/Processor/infraestructure/sequelize/ProcessorSchema'
 
 import { ModelSeriesModel } from '../../../../ModelSeries/infraestructure/Sequelize/ModelSeriesSchema'
 
 // Define associations between different Sequelize models
 export function InitSequelizeAssociation (): void {
-  // A category can have many model series
-  CategoryModel.hasMany(ModelSeriesModel, { as: 'model' })
-  CategoryModel.hasMany(HardDriveModel, { as: 'hardDrive' })
+  // Category Associations
+  CategoryModel.hasMany(ModelSeriesModel, { as: 'model' }) // A category can have many model series
+  CategoryModel.hasMany(HardDriveModel, { as: 'hardDrive' }) // A category can have many hard drive
+  CategoryModel.hasMany(ComputerModel, { as: 'computer' }) // A category can have many computer
 
-  // A brand can have many model series
-  BrandModel.hasMany(ModelSeriesModel, { as: 'model' })
+  // Brand Associations
+  BrandModel.hasMany(ModelSeriesModel, { as: 'model' }) // A brand can have many model series
 
-  // A model series belongs to a category
-  ModelSeriesModel.belongsTo(CategoryModel, { as: 'category' })
+  // Model Associations
+  ModelSeriesModel.belongsTo(CategoryModel, { as: 'category' }) // A model series belongs to a category
+  ModelSeriesModel.belongsTo(BrandModel, { as: 'brand' }) // A model series belongs to a brand
+  ModelSeriesModel.hasMany(DeviceModel, { as: 'device' }) // A model series can have many devices
 
-  // A model series belongs to a brand
-  ModelSeriesModel.belongsTo(BrandModel, { as: 'brand' })
+  // Status Associations
+  StatusModel.hasMany(DeviceModel, { as: 'device' }) // A status can have many devices
 
-  // A model series can have many devices
-  ModelSeriesModel.hasMany(DeviceModel, { as: 'device' })
-
-  // A status can have many devices
-  StatusModel.hasMany(DeviceModel, { as: 'device' })
-
-  // A device belongs to a model series
-  DeviceModel.belongsTo(ModelSeriesModel, { as: 'model' })
-
-  // A device belongs to a status
-  DeviceModel.belongsTo(StatusModel, { as: 'status' })
-
+  // Device Associations
+  DeviceModel.belongsTo(ModelSeriesModel, { as: 'model' }) // A device belongs to a model series
+  DeviceModel.belongsTo(StatusModel, { as: 'status' }) // A device belongs to a status
+  DeviceModel.hasOne(HardDriveModel, { as: 'hardDrive', foreignKey: 'device_id' })
+  DeviceModel.hasOne(ComputerModel, { as: 'computer', foreignKey: 'device_id' })
+  // HardDrive Associations
   HardDriveCapacityModel.hasMany(HardDriveModel, { as: 'hardDrive' })
+  HardDriveCapacityModel.hasMany(ComputerModel, { as: 'computer' })
   HardDriveTypeModel.hasMany(HardDriveModel, { as: 'hardDrive' })
-
+  HardDriveTypeModel.hasMany(ComputerModel, { as: 'computer' })
   HardDriveModel.belongsTo(HardDriveCapacityModel, { as: 'hardDriveCapacity' })
   HardDriveModel.belongsTo(HardDriveTypeModel, { as: 'hardDriveType' })
-  HardDriveModel.hasOne(DeviceModel, { as: 'device' })
+
+  // Processor Associations
+  ProcessorModel.hasMany(ComputerModel, { as: 'computer' })
+
+  // Operating System Associations
+  OperatingSystemModel.hasMany(ComputerModel, { as: 'device' }) // An operating system can have many devices
+  OperatingSystemArqModel.hasMany(ComputerModel, { as: 'device' }) // An operating system arq can have many devices
+
+  // Memory Ram Associations
+  MemoryRamCapacityModel.belongsToMany(ComputerModel, { as: 'computer', through: 'ComputerMemoryRamCapacity' })
+
+  // Computer Associations
+  ComputerModel.belongsTo(CategoryModel, { as: 'category' })
+  ComputerModel.belongsTo(ProcessorModel, { as: 'processor' })
+  ComputerModel.belongsTo(HardDriveCapacityModel, { as: 'hardDriveCapacity' })
+  ComputerModel.belongsTo(HardDriveTypeModel, { as: 'hardDriveType' })
+  ComputerModel.belongsTo(OperatingSystemModel, { as: 'operatingSystem' })
+  ComputerModel.belongsTo(OperatingSystemArqModel, { as: 'operatingSystemArq' })
+  ComputerModel.belongsToMany(MemoryRamCapacityModel, { as: 'memoryRamCapacity', through: 'ComputerMemoryRamCapacity' })
 }

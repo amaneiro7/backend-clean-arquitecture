@@ -15,40 +15,37 @@ export interface ComputerPrimitives {
   categoryId: number
   deviceId: string
   processorId: string
-  memoryRam: number[]
+  memoryRam: MemoryRamCapacityId[]
   totalMemory: number
   hardDriveCapacityId: number
   hardDriveTypeId: number
   operatingSystemId: number
   operatingSystemArqId: number
-  MACAdress: string
-  IPAddress: string
+  macAddress: string
+  ipAddress: string
 }
 
 export class Computer {
-  private memoryRam: number[]
   constructor (
     private readonly id: ComputerId,
     private readonly categoryId: CategoryId,
     private readonly deviceId: DeviceId,
     private processorId: ProcessorId,
-    private readonly memoryRamIds: MemoryRamCapacityId[],
+    private memoryRam: MemoryRamCapacityId[],
     private hardDriveCapacityId: HardDriveCapacityId,
     private hardDriveTypeId: HardDriveTypeId,
     private operatingSystemId: OperatingSystemId,
     private operatingSystemArqId: OperatingSystemArqId,
     private readonly macAdress: MACAddress,
-    private readonly ipAddress: IPAddress
-  ) {
-    this.memoryRam = memoryRamIds.map(id => (id))
-  }
+    private ipAddress: IPAddress
+  ) {}
 
   static create (
     {
       categoryId,
       deviceId,
       processorId,
-      memoryRamIds,
+      memoryRam = [],
       hardDriveCapacityId,
       hardDriveTypeId,
       operatingSystemId,
@@ -59,7 +56,7 @@ export class Computer {
       categoryId: number
       deviceId: string
       processorId: string
-      memoryRamIds: MemoryRamCapacityId[]
+      memoryRam: MemoryRamCapacityId[]
       hardDriveCapacityId: number
       hardDriveTypeId: number
       operatingSystemId: number
@@ -73,7 +70,7 @@ export class Computer {
       new CategoryId(categoryId),
       new DeviceId(deviceId),
       new ProcessorId(processorId),
-      memoryRamIds,
+      memoryRam,
       new HardDriveCapacityId(hardDriveCapacityId),
       new HardDriveTypeId(hardDriveTypeId),
       new OperatingSystemId(operatingSystemId),
@@ -88,7 +85,7 @@ export class Computer {
   }
 
   updateMemoryRam (newMemoryRamIds: MemoryRamCapacityId[]): void {
-    this.memoryRam = newMemoryRamIds.map(id => ({ id.value }))
+    this.memoryRam = newMemoryRamIds
   }
 
   updateOperatingSystem (newOperatingSystem: number): void {
@@ -108,17 +105,27 @@ export class Computer {
   }
 
   updateIPAddress (newIPAddress: string): void {
-    this.IPAddress = new IPAddress(newIPAddress)
+    this.ipAddress = new IPAddress(newIPAddress)
   }
 
-  toPrimitive (): ComputerPrimitives {
+  totalMemory (memoryRamValues: number[]): number {
+    return memoryRamValues.reduce((a, b) => a + b, 0)
+  }
+
+  toPrimitive (memoryRamValues: number[]): ComputerPrimitives {
     return {
       id: this.id.value,
-      computerType: this.computerType.value,
+      categoryId: this.categoryId.value,
+      deviceId: this.deviceId.value,
       processorId: this.processorId.value,
-      memoryRam: this.memoryRam.value,
-      operatingSystem: this.operatingSystem.value,
-      hardDriveCapacity: this.hardDriveCapacity.value
+      memoryRam: this.memoryRam,
+      totalMemory: this.totalMemory(memoryRamValues),
+      hardDriveCapacityId: this.hardDriveCapacityId.value,
+      hardDriveTypeId: this.hardDriveTypeId.value,
+      operatingSystemId: this.operatingSystemId.value,
+      operatingSystemArqId: this.operatingSystemArqId.value,
+      macAddress: this.macAdress.value,
+      ipAddress: this.ipAddress.value
     }
   }
 
@@ -138,8 +145,8 @@ export class Computer {
     return this.processorId.value
   }
 
-  get memoryRamCapacityIdValue (): string {
-    return this.memoryRamCapacityId.value
+  get memoryRamValues (): MemoryRamCapacityId[] {
+    return this.memoryRam
   }
 
   get hardDriveCapacityIdValue (): number {

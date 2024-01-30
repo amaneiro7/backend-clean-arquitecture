@@ -12,6 +12,7 @@ import { type MemoryRamTypeRepository } from '../../Features/MemoryRam/MemoryRam
 import { type MemoryRamCapacityRepository } from '../../Features/MemoryRam/MemoryRamCapacity/domain/MemoryRamCapacityRepository'
 import { type OperatingSystemRepository } from '../../Features/OperatingSystem/OperatingSystem/domain/OperatingSystemRepository'
 import { type OperatingSystemArqRepository } from '../../Features/OperatingSystem/OperatingSystemArq/domain/OperatingSystemArqRepository'
+import { type ComputerRepository } from '../../Features/Computer/domain/ComputerRepository'
 
 export interface Repository {
   user: UserRepository
@@ -28,5 +29,5 @@ export interface Repository {
   memoryRamCapacity: MemoryRamCapacityRepository
   operatingSystemVersion: OperatingSystemRepository
   operatingSystemArq: OperatingSystemArqRepository
-  computerFeatures?: ComputerFeaturesRepository
+  computer: ComputerRepository
 }

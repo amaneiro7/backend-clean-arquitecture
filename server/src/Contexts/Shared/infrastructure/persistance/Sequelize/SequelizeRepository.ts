@@ -2,6 +2,7 @@ import { SequelizeBrandRepository } from '../../../../Brand/infrastructure/Seque
 import { SequelizeCategoryRepository } from '../../../../Category/infrastructure/Sequelize/SequelizeCategoryRepository'
 import { SequelizeDeviceRepository } from '../../../../Device/Device/infrastructure/sequelize/SequelizeDeviceRepository'
 import { SequelizeStatusRepository } from '../../../../Device/Status/infrastructure/sequelize/SequelizeStatusRepository'
+import { SequelizeComputerRepository } from '../../../../Features/Computer/infraestructure/sequelize/SequelizeComputerRepository'
 import { SequelizeHardDriveRepository } from '../../../../Features/HardDrive.ts/HardDrive/infraestructure/sequelize/SequellizeHardDriveRepository'
 import { SequelizeHardDriveCapacityRepository } from '../../../../Features/HardDrive.ts/HardDriveCapacity/infraestructure/sequelize/SequelizeHardDriveCapacity'
 import { SequelizeHardDriveTypeRepository } from '../../../../Features/HardDrive.ts/HardDriveType/infraestructure/sequelize/SequelizeHardDriveTypeRepository'
@@ -31,5 +32,6 @@ export const sequelizeRepository: Repository = {
   memoryRamType: new SequelizeMemoryRamTypeRepository(),
   memoryRamCapacity: new SequelizeMemoryRamCapacityRepository(),
   operatingSystemVersion: new SequelizeOperatingSystemRepository(),
-  operatingSystemArq: new SequelizeOperatingSystemArqRepository()
+  operatingSystemArq: new SequelizeOperatingSystemArqRepository(),
+  computer: new SequelizeComputerRepository()
 }

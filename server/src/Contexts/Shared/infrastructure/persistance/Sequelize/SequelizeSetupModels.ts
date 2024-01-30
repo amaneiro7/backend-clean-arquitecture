@@ -14,6 +14,7 @@ import { initMemoryRamTypeModel } from '../../../../Features/MemoryRam/MemoryRam
 import { initMemoryRamCapacityModel } from '../../../../Features/MemoryRam/MemoryRamCapacity/infraestructure/sequelize/MemoryRamCapacitySchema'
 import { initOperatingSystemModel } from '../../../../Features/OperatingSystem/OperatingSystem/infraesructure/sequelize/OperatingSystemSchema'
 import { initOperatingSystemArqModel } from '../../../../Features/OperatingSystem/OperatingSystemArq/infraestructure/sequelize/OperatingSystemArqSchema'
+import { initComputerModel } from '../../../../Features/Computer/infraestructure/sequelize/ComputerSchema'
 
 export function setupModels (sequelize: Sequelize): void {
   initCategoryModel(sequelize)
@@ -30,4 +31,5 @@ export function setupModels (sequelize: Sequelize): void {
   initMemoryRamCapacityModel(sequelize)
   initOperatingSystemModel(sequelize)
   initOperatingSystemArqModel(sequelize)
+  initComputerModel(sequelize)
 }
