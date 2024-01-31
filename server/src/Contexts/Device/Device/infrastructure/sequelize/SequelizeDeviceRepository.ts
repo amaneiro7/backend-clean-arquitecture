@@ -15,7 +15,10 @@ export class SequelizeDeviceRepository implements DeviceRepository {
           include: ['category', 'brand']
         },
         'status',
-        'computer'
+        {
+          association: 'computer',
+          include: ['processor', 'hardDriveCapacity', 'hardDriveType', 'operatingSystem', 'operatingSystemArq', 'memoryRamCapacity']
+        }
       ]
     }) ?? null
   }

@@ -3,7 +3,7 @@ import { type MemoryRamCapacityPrimitives } from '../domain/MemoryRamCapacity'
 import { MemoryRamCapacityDoesNotExistError } from '../domain/MemoryRamCapacityDoesNotExist'
 import { type MemoryRamCapacityId } from '../domain/MemoryRamCapacityId'
 
-export class SearchAllMemoryRamCapacity {
+export class MemoryRamCapacityFinder {
   constructor (private readonly repository: Repository) {}
 
   async searchById (id: MemoryRamCapacityId): Promise<MemoryRamCapacityPrimitives> {

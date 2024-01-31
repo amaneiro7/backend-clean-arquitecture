@@ -1,4 +1,3 @@
-import { type ComputerPrimitives } from '../../../../Features/Computer/domain/Computer'
 import { type Repository } from '../../../../Shared/domain/Repository'
 import { type DevicePrimitives } from '../../domain/Device'
 import { type DeviceActivo } from '../../domain/DeviceActivo'
@@ -9,10 +8,7 @@ import { type DeviceSerial } from '../../domain/DeviceSerial'
 export class DeviceFinder {
   constructor (private readonly repository: Repository) {}
 
-  async searchById (id: DeviceId): Promise<{
-    device: DevicePrimitives
-    deviceFeatures: ComputerPrimitives
-  }> {
+  async searchById (id: DeviceId): Promise<DevicePrimitives> {
     const device = await this.repository.device.searchById(id.value)
 
     if (device === null) {
@@ -23,12 +19,7 @@ export class DeviceFinder {
       throw new DeviceDoesNotExistError(id.toString())
     }
 
-    console.log(deviceFeatures)
-
-    return {
-      device,
-      deviceFeatures
-    }
+    return device
   }
 
   async searchBySerial (serial: DeviceSerial): Promise<DevicePrimitives> {
