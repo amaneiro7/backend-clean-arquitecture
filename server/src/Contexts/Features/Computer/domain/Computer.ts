@@ -108,18 +108,14 @@ export class Computer {
     this.ipAddress = new IPAddress(newIPAddress)
   }
 
-  totalMemory (memoryRamValues: number[]): number {
-    return memoryRamValues.reduce((a, b) => a + b, 0)
-  }
-
-  toPrimitive (memoryRamValues: number[]): ComputerPrimitives {
+  toPrimitive (calculateTotalMemory: number): ComputerPrimitives {
     return {
       id: this.id.value,
       categoryId: this.categoryId.value,
       deviceId: this.deviceId.value,
       processorId: this.processorId.value,
       memoryRam: this.memoryRam,
-      totalMemory: this.totalMemory(memoryRamValues),
+      totalMemory: calculateTotalMemory,
       hardDriveCapacityId: this.hardDriveCapacityId.value,
       hardDriveTypeId: this.hardDriveTypeId.value,
       operatingSystemId: this.operatingSystemId.value,

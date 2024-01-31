@@ -44,6 +44,7 @@ export function initComputerModel (sequelize: Sequelize): void {
         allowNull: false
       },
       memoryRam: {
+        field: 'memoryRamCapacity',
         type: DataTypes.ARRAY(DataTypes.INTEGER),
         allowNull: false,
         defaultValue: []
