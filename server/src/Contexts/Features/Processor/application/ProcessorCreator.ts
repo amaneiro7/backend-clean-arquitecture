@@ -10,13 +10,13 @@ export class ProcessorCreator {
     const { name } = params
 
     const processor = Processor.create({ name })
-    this.ensureProcessorNameDoesNotExist(name)
+    await this.ensureProcessorNameDoesNotExist(name)
 
     await this.repository.processor.save(processor.toPrimitive())
   }
 
-  private ensureProcessorNameDoesNotExist (name: string): void {
-    if (this.repository.processor.searchByName(new ProcessorName(name).value) !== null) {
+  private async ensureProcessorNameDoesNotExist (name: string): Promise<void> {
+    if (await this.repository.processor.searchByName(new ProcessorName(name).value) !== null) {
       throw new ProcessorAlreadyExistError(name)
     }
   }

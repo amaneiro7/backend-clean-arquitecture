@@ -1,8 +1,8 @@
 import { type NextFunction, type Request, type Response } from 'express'
 import { type Repository } from '../../../../../Contexts/Shared/domain/Repository'
 import httpStatus from 'http-status'
-import { SearchAllCategories } from '../../../../../Contexts/Category/application/SearchAll/CategoryFinder'
-import { CategoriesFinder } from '../../../../../Contexts/Category/application/Find/CategoryFinder'
+import { SearchAllCategories } from '../../../../../Contexts/Category/application/CategoryFinderAll'
+import { CategoriesFinder } from '../../../../../Contexts/Category/application/CategoryFinder'
 import { CategoryId } from '../../../../../Contexts/Category/domain/CategoryId'
 import { CategoryName } from '../../../../../Contexts/Category/domain/CategoryName'
 

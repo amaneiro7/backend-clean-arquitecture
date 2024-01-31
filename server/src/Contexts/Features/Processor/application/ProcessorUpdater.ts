@@ -19,7 +19,6 @@ export class ProcessorUpdater {
 
     const processorEntity = Processor.fromPrimitives(processor)
     processorEntity.updateName(newName)
-    console.log(processorEntity.nameValue)
 
     await this.repository.processor.save(processorEntity.toPrimitive())
   }

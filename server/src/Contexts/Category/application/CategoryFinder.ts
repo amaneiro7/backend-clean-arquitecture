@@ -1,8 +1,8 @@
-import { type Repository } from '../../../Shared/domain/Repository'
-import { type CategoryPrimitives } from '../../domain/Category'
-import { CategoryDoesNotExistError } from '../../domain/CategoryDoesNotExistError'
-import { type CategoryId } from '../../domain/CategoryId'
-import { type CategoryName } from '../../domain/CategoryName'
+import { type Repository } from '../../Shared/domain/Repository'
+import { type CategoryPrimitives } from '../domain/Category'
+import { CategoryDoesNotExistError } from '../domain/CategoryDoesNotExistError'
+import { type CategoryId } from '../domain/CategoryId'
+import { type CategoryName } from '../domain/CategoryName'
 
 export class CategoriesFinder {
   constructor (private readonly repository: Repository) {}
