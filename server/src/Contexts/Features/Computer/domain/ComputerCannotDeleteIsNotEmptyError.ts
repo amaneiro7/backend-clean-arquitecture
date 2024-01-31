@@ -1,3 +1,3 @@
-export class ProcessorCannotDeleteIsNotEmptyError extends Error {
-  message = 'Cannot delete this processor because is not empty'
+export class ComputerrCannotDeleteIsNotEmptyError extends Error {
+  message = 'Cannot delete this Computerr because is not empty'
 }

@@ -1,5 +1,5 @@
-export class ProcessorDoesNotExistError extends Error {
+export class ComputerDoesNotExistError extends Error {
   constructor (public readonly value: string) {
-    super(`The processor name ${value} does not exist`)
+    super(`The computer features ${value} does not exist`)
   }
 }
