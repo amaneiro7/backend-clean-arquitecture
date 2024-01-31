@@ -71,14 +71,14 @@ export function initComputerModel (sequelize: Sequelize): void {
         allowNull: false
       },
       macAddress: {
-        type: DataTypes.STRING,
+        type: DataTypes.MACADDR,
         allowNull: true,
         validate: {
           is: /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/
         }
       },
       ipAddress: {
-        type: DataTypes.STRING,
+        type: DataTypes.INET,
         allowNull: true,
         validate: {
           isIPv4: true

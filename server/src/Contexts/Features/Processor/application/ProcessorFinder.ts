@@ -7,7 +7,7 @@ export class ProcessorsFinder {
   constructor (private readonly repository: Repository) {}
 
   async searchById (processorId: ProcessorId): Promise<ProcessorPrimitives> {
-    const processor = await this.repository.processor.searchById(processorId.toString())
+    const processor = await this.repository.processor.searchById(processorId.value)
 
     if (processor === null) {
       throw new ProcessorDoesNotExistError(processorId.value)

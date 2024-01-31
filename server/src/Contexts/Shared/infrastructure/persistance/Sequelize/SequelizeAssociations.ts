@@ -54,7 +54,7 @@ export function InitSequelizeAssociation (): void {
   OperatingSystemArqModel.hasMany(ComputerModel, { as: 'device' }) // An operating system arq can have many devices
 
   // Memory Ram Associations
-  MemoryRamCapacityModel.belongsToMany(ComputerModel, { as: 'computer', through: 'ComputerMemoryRamCapacity' })
+  MemoryRamCapacityModel.belongsToMany(ComputerModel, { as: 'computer', through: 'ComputerMemoryRam', foreignKey: 'memoryRamId', otherKey: 'computerId' })
 
   // Computer Associations
   ComputerModel.belongsTo(CategoryModel, { as: 'category' })
@@ -64,5 +64,5 @@ export function InitSequelizeAssociation (): void {
   ComputerModel.belongsTo(HardDriveTypeModel, { as: 'hardDriveType' })
   ComputerModel.belongsTo(OperatingSystemModel, { as: 'operatingSystem' })
   ComputerModel.belongsTo(OperatingSystemArqModel, { as: 'operatingSystemArq' })
-  ComputerModel.belongsToMany(MemoryRamCapacityModel, { as: 'memoryRamCapacity', through: 'ComputerMemoryRamCapacity' })
+  ComputerModel.belongsToMany(MemoryRamCapacityModel, { as: 'memoryRamCapacity', through: 'ComputerMemoryRam', foreignKey: 'computerId', otherKey: 'memoryRamId' })
 }
