@@ -1,7 +1,7 @@
 import { type NextFunction, type Request, type Response } from 'express'
 import { type Repository } from '../../../../../Contexts/Shared/domain/Repository'
 import httpStatus from 'http-status'
-import { SearchAllDevices } from '../../../../../Contexts/Device/Device/application/SearchAll/DeviceFinder'
+import { SearchAllDevices } from '../../../../../Contexts/Device/Device/application/SearchAll/DeviceFinderAll'
 import { DeviceFinder } from '../../../../../Contexts/Device/Device/application/Find/DeviceFinder'
 import { DeviceId } from '../../../../../Contexts/Device/Device/domain/DeviceId'
 import { DeviceSerial } from '../../../../../Contexts/Device/Device/domain/DeviceSerial'

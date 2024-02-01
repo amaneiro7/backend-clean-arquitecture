@@ -1,3 +1,4 @@
+import { Computer } from '../../../../Features/Computer/domain/Computer'
 import { type Repository } from '../../../../Shared/domain/Repository'
 import { Device } from '../../domain/Device'
 import { ValidationField } from '../ValidationField'
@@ -16,5 +17,6 @@ export class DeviceCreator {
     const device = Device.create({ activo, serial, statusId, modelId })
 
     await this.repository.device.save(device.toPrimitives())
+    Computer.create({})
   }
 }
