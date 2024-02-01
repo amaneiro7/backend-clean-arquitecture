@@ -23,10 +23,8 @@ export class SequelizeDeviceRepository implements DeviceRepository {
     })
   }
 
-  async searchById (deviceId: string): Promise<DevicePrimitives | null> {
-    console.log(deviceId)
-
-    return await DeviceModel.findByPk(deviceId, {
+  async searchById (id: string): Promise<DevicePrimitives | null> {
+    return await DeviceModel.findByPk(id, {
       include: [
         {
           association: 'model',
