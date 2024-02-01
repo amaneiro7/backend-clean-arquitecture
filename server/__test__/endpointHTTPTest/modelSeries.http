@@ -10,7 +10,7 @@ POST http://localhost:5000/api/v1/models
 Content-Type: application/json
 
 {
-  "name": "WD5000AAKX2",
+  "name": "WD5000AAKX2212",
   "categoryId": 9,
   "brandId": "449021a8-ab13-4738-a303-7a4754ecc5a4"
 }

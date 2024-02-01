@@ -4,7 +4,7 @@ import { StringValueObject } from '../../../Shared/domain/value-object/StringVal
 // Define a class for MACAddress that extends the StringValueObject class
 export class MACAddress extends StringValueObject {
   // Define a regular expression for MAC address validation
-  private readonly MACADRRESS_VALIDATION = /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/
+  private readonly macAddressRegex = /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/
 
   // Constructor for MACAddress class
   constructor (readonly value: string) {
@@ -21,13 +21,13 @@ export class MACAddress extends StringValueObject {
 
   // Ensure that the provided MAC address is a valid name
   private ensureIsValidName (value: string): void {
-    if (this.isProcessorNameValid(value)) {
+    if (!this.isProcessorNameValid(value)) {
       throw new InvalidArgumentError(`<${value}> is not a valid MACAdress`)
     }
   }
 
   // Check if the provided MAC address is a valid name
   private isProcessorNameValid (name: string): boolean {
-    return this.MACADRRESS_VALIDATION.test(name)
+    return this.macAddressRegex.test(name)
   }
 }

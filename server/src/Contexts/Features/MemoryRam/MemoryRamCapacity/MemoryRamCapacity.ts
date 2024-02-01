@@ -18,7 +18,7 @@ export class MemoryRamCapacity extends NumberValueObject {
 
   // Ensure the validity of the memory ram capacity value
   private ensureIsValidName (value: number): void {
-    if (this.isMemoryRamCapacityValueValid(value)) {
+    if (!this.isMemoryRamCapacityValueValid(value)) {
       throw new InvalidArgumentError(`<${value}> is not a valid name`)
     }
   }

@@ -5,18 +5,36 @@ GET http://localhost:5000/api/v1/devices
 GET http://localhost:3000/api/v1/device/5a94384b-2e4d-4cdf-96c9-0065bf7f92a9
 
 
-### Crear un nuevo modelo
+### Crear un nuevo modelo HardDrive
 POST http://localhost:5000/api/v1/devices
 Content-Type: application/json
 
 {
-  "activo": "1515fe1",
-  "serial": "Wsfsafsfe",
+  "activo": "212580",
+  "serial": "WCC2EAV66211",
   "statusId": 2,
   "modelId": "bcacf515-ccb0-43ac-8ca7-3d9d87ef475f",
   "hardDriveCapacityId": 7,
   "hardDriveTypeId": 1,
   "health": 100
+}
+### Crear un nuevo modelo Computer
+POST http://localhost:5000/api/v1/devices
+Content-Type: application/json
+
+{
+  "activo": "a2125201d",
+  "serial": "aMCJ41s5454d",
+  "statusId": 2,
+  "modelId": "83c38f9b-a0ac-4350-9204-886ea8e4e967",
+  "processorId": "a267cc70-f597-4e91-9330-003a89e19240",
+  "memoryRamCapacity": 4096,
+  "hardDriveCapacityId": 7,
+  "hardDriveTypeId": 1,
+  "operatingSystemId": 1,
+  "operatingSystemArqId": 1,
+  "ipAddress": "10.0.12.169",
+  "macAddress": "00:15:5d:f8:0e:41"
 }
 ### Crear un nuevo modelo con error
 POST http://localhost:3000/api/v1/device

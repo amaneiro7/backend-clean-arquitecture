@@ -20,7 +20,7 @@ export class IPAddress extends StringValueObject {
 
   // Private method to ensure the provided value is a valid IP address
   private ensureIsValidName (value: string): void {
-    if (this.isProcessorNameValid(value)) {
+    if (!this.isProcessorNameValid(value)) {
       throw new InvalidArgumentError(`<${value}> is not a valid IPAdress`) // Throw an error if the value is not a valid IP address
     }
   }

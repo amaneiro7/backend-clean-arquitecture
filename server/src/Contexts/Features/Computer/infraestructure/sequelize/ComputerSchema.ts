@@ -64,10 +64,7 @@ export function initComputerModel (sequelize: Sequelize): void {
       },
       macAddress: {
         type: DataTypes.MACADDR,
-        allowNull: true,
-        validate: {
-          is: /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/
-        }
+        allowNull: true
       },
       ipAddress: {
         type: DataTypes.INET,

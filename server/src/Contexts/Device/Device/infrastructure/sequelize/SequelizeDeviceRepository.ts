@@ -4,10 +4,28 @@ import { DeviceModel } from './DeviceSchema'
 
 export class SequelizeDeviceRepository implements DeviceRepository {
   async searchAll (): Promise<DevicePrimitives[]> {
-    return await DeviceModel.findAll({ include: ['model'] })
+    return await DeviceModel.findAll({
+      include: [
+        {
+          association: 'model',
+          include: ['category', 'brand']
+        },
+        'status',
+        {
+          association: 'computer',
+          include: ['processor', 'hardDriveCapacity', 'hardDriveType', 'operatingSystem', 'operatingSystemArq']
+        },
+        {
+          association: 'hardDrive',
+          include: ['hardDriveCapacity', 'hardDriveType']
+        }
+      ]
+    })
   }
 
   async searchById (deviceId: string): Promise<DevicePrimitives | null> {
+    console.log(deviceId)
+
     return await DeviceModel.findByPk(deviceId, {
       include: [
         {
