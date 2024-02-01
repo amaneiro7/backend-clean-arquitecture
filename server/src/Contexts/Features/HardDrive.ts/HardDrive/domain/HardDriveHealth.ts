@@ -1,5 +1,5 @@
-import { InvalidArgumentError } from '../../../Shared/domain/value-object/InvalidArgumentError'
-import { NumberValueObject } from '../../../Shared/domain/value-object/NumberValueObject'
+import { InvalidArgumentError } from '../../../../Shared/domain/value-object/InvalidArgumentError'
+import { NumberValueObject } from '../../../../Shared/domain/value-object/NumberValueObject'
 
 export class HardDriveHealth extends NumberValueObject {
   private readonly MAX_HEALTH_VALUE = 100

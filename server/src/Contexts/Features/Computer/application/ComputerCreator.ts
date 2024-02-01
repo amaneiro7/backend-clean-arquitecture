@@ -46,7 +46,7 @@ export class ComputerCreator {
   private async ensureCategoryIdExistAndBelongsToHardDriveCategory (id: number): Promise<void> {
     const category = await this.repository.category.searchById(new CategoryId(id).value)
     if (category === null) throw new CategoryDoesNotExistError(id.toString())
-    if (category.name === 'Computadoras') throw new InvalidArgumentError('No pertenece a esta categoria')
+    if (category.name !== 'Computadoras') throw new InvalidArgumentError('No pertenece a esta categoria')
   }
 
   private async ensureDeviceIdExist (id: string): Promise<void> {

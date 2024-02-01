@@ -1,11 +1,13 @@
 export const CategoryDefault = {
-  1: 'Computadoras',
-  2: 'Servidores',
-  3: 'Laptops',
-  4: 'All in One',
-  5: 'Monitores',
-  6: 'Impresoras Financieras',
-  7: 'Impresoras Laser',
-  8: 'Impresoras Tinta',
-  9: 'Discos Duros'
+  COMPUTERS: 'Computadoras',
+  SERVERS: 'Servidores',
+  LAPTOSP: 'Laptops',
+  ALLINONE: 'All in One',
+  MONITORS: 'Monitores',
+  DOCMATRIXPRINTER: 'Impresoras Financieras',
+  LASERPRINTER: 'Impresoras Laser',
+  INKJETPRNTER: 'Impresoras Tinta',
+  HARDDRIVE: 'Discos Duros'
 } as const
+
+export type CategoryDefaultValues = typeof CategoryDefault[keyof typeof CategoryDefault]

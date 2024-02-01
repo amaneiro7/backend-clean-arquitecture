@@ -10,19 +10,19 @@ import { DeviceSerial } from '../domain/DeviceSerial'
 
 export class ValidationField {
   static async ensureSerialDoesNotExist (repository: Repository, serial: string): Promise<void> {
-    if (await repository.device.searchByActivo(new DeviceActivo(serial).toString()) !== null) {
+    if (await repository.device.searchBySerial(new DeviceSerial(serial).toString()) !== null) {
       throw new DeviceAlreadyExistError(serial)
     }
   }
 
   static async ensureActivoDoesNotExist (repository: Repository, activo: string): Promise<void> {
-    if (await repository.device.searchBySerial(new DeviceSerial(activo).toString()) !== null) {
+    if (await repository.device.searchByActivo(new DeviceActivo(activo).toString()) !== null) {
       throw new DeviceAlreadyExistError(activo)
     }
   }
 
   static async ensureModelIdExist (repository: Repository, modelId: string): Promise<void> {
-    if (await repository.modelSeries.searchById(new ModelSeriesId(modelId).toString()) === null) {
+    if (await repository.modelSeries.searchById(new ModelSeriesId(modelId).value) === null) {
       throw new ModelSeriesDoesNotExistError(modelId)
     }
   }

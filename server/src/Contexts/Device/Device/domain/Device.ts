@@ -83,4 +83,8 @@ export class Device {
   get statusValue (): number {
     return this.statusId.value
   }
+
+  get modelSeriesValue (): string {
+    return this.modelId.value
+  }
 }

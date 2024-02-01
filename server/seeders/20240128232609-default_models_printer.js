@@ -28,6 +28,14 @@ module.exports = {
         created_at: new Date(),
         updated_at: new Date()
       },
+      {
+        id: 'bcacf515-ccb0-43ac-8ca7-3d9d87ef475f',
+        name: 'WD5000AAKX',
+        category_id: 9,
+        brand_id: '449021a8-ab13-4738-a303-7a4754ecc5a4',
+        created_at: new Date(),
+        updated_at: new Date()
+      },
     ])
   },
 

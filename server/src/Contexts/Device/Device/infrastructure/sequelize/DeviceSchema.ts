@@ -28,12 +28,8 @@ export function initDeviceModel (sequelize: Sequelize): void {
         unique: true
       },
       statusId: {
-        type: DataTypes.NUMBER,
-        allowNull: false,
-        references: {
-          model: 'status',
-          key: 'id'
-        }
+        type: DataTypes.INTEGER,
+        allowNull: false
       },
       modelId: {
         type: DataTypes.UUID,

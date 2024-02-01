@@ -25,18 +25,7 @@ export class SequelizeDeviceRepository implements DeviceRepository {
 
   async searchByActivo (activo: string): Promise<DevicePrimitives | null> {
     return await DeviceModel.findOne({
-      where: { activo },
-      include: [
-        {
-          as: 'model',
-          include: ['category', 'brand']
-        },
-        'status',
-        {
-          as: 'computer',
-          include: ['processor']
-        }
-      ]
+      where: { activo }
     }) ?? null
   }
 

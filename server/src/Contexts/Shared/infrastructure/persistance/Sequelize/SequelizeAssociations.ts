@@ -34,8 +34,8 @@ export function InitSequelizeAssociation (): void {
   // Device Associations
   DeviceModel.belongsTo(ModelSeriesModel, { as: 'model' }) // A device belongs to a model series
   DeviceModel.belongsTo(StatusModel, { as: 'status' }) // A device belongs to a status
-  DeviceModel.hasOne(HardDriveModel, { as: 'hardDrive', foreignKey: { name: 'device_id', allowNull: false }, keyType: DataTypes.UUID })
-  DeviceModel.hasOne(ComputerModel, { as: 'computer', foreignKey: { name: 'device_id', allowNull: false }, keyType: DataTypes.UUID })
+  DeviceModel.hasOne(HardDriveModel, { as: 'hardDrive' })
+  DeviceModel.hasOne(ComputerModel, { as: 'computer', foreignKey: { name: 'device_id', allowNull: false } })
   // HardDrive Associations
   HardDriveCapacityModel.hasMany(HardDriveModel, { as: 'hardDrive' })
   HardDriveCapacityModel.hasMany(ComputerModel, { as: 'computer' })

@@ -13,7 +13,13 @@ import { HardDrive } from '../domain/HardDrive'
 export class HardDriveCreator {
   constructor (private readonly repository: Repository) {}
 
-  async run (params: { categoryId: number, deviceId: string, hardDriveCapacityId: number, hardDriveTypeId: number, health: number }): Promise<void> {
+  async run (params: {
+    categoryId: number
+    deviceId: string
+    hardDriveCapacityId: number
+    hardDriveTypeId: number
+    health: number
+  }): Promise<void> {
     const { categoryId, deviceId, hardDriveCapacityId, hardDriveTypeId, health } = params
 
     await this.ensureCategoryIdExistAndBelongsToHardDriveCategory(categoryId)
@@ -22,6 +28,7 @@ export class HardDriveCreator {
     await this.ensureHardDriveTypeExist(hardDriveTypeId)
 
     const hardDrive = HardDrive.create({ categoryId, deviceId, hardDriveCapacityId, hardDriveTypeId, health })
+    console.log(hardDrive.toPrimitive())
 
     await this.repository.hardDrive.save(hardDrive.toPrimitive())
   }
@@ -29,7 +36,7 @@ export class HardDriveCreator {
   private async ensureCategoryIdExistAndBelongsToHardDriveCategory (id: number): Promise<void> {
     const category = await this.repository.category.searchById(new CategoryId(id).value)
     if (category === null) throw new CategoryDoesNotExistError(id.toString())
-    if (category.name === 'Discos Duros') throw new InvalidArgumentError('No pertenece a esta categoria')
+    if (category.name !== 'Discos Duros') throw new InvalidArgumentError('No pertenece a esta categoria')
   }
 
   private async ensureDeviceIdExist (id: string): Promise<void> {

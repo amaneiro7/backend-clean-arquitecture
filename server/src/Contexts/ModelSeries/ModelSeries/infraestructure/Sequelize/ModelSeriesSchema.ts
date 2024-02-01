@@ -25,7 +25,7 @@ export function initModelSeriesModel (sequelize: Sequelize): void {
         allowNull: false
       },
       brandId: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         allowNull: false
       }
     },
