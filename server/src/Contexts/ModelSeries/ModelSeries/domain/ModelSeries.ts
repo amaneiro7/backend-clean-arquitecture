@@ -1,5 +1,5 @@
-import { BrandId } from '../../Brand/domain/BrandId'
-import { CategoryId } from '../../Category/domain/CategoryId'
+import { BrandId } from '../../../Brand/domain/BrandId'
+import { CategoryId } from '../../../Category/domain/CategoryId'
 import { ModelSeriesId } from './ModelSeriesId'
 import { ModelSeriesName } from './ModelSeriesName'
 

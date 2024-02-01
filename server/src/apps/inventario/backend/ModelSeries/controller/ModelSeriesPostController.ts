@@ -1,8 +1,8 @@
 import { type NextFunction, type Request, type Response } from 'express'
 import { type Repository } from '../../../../../Contexts/Shared/domain/Repository'
 import httpStatus from 'http-status'
-import { ModelSeriesCreator } from '../../../../../Contexts/ModelSeries/application/Create/ModelSeriesCreator'
-import { ModelSeriesUpdater } from '../../../../../Contexts/ModelSeries/application/update/ModelSeriesUpdater'
+import { ModelSeriesCreator } from '../../../../../Contexts/ModelSeries/ModelSeries/application/ModelSeriesCreator'
+import { ModelSeriesUpdater } from '../../../../../Contexts/ModelSeries/ModelSeries/application/ModelSeriesUpdater'
 
 export class ModelSeriesPostController {
   constructor (private readonly repository: Repository) {}

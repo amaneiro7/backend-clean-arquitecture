@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-extraneous-class */
-import { ModelSeriesDoesNotExistError } from '../../../ModelSeries/domain/ModelSeriesDoesNotExistError'
-import { ModelSeriesId } from '../../../ModelSeries/domain/ModelSeriesId'
+import { ModelSeriesDoesNotExistError } from '../../../ModelSeries/ModelSeries/domain/ModelSeriesDoesNotExistError'
+import { ModelSeriesId } from '../../../ModelSeries/ModelSeries/domain/ModelSeriesId'
 import { type Repository } from '../../../Shared/domain/Repository'
 import { StatusDoesNotExistError } from '../../Status/domain/StatusDoesNotExistError'
 import { StatusId } from '../../Status/domain/StatusId'

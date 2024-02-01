@@ -2,12 +2,12 @@ import { BrandDoesNotExistError } from '../../../Brand/domain/BrandDoesNotExistE
 import { BrandId } from '../../../Brand/domain/BrandId'
 import { CategoryDoesNotExistError } from '../../../Category/domain/CategoryDoesNotExistError'
 import { CategoryId } from '../../../Category/domain/CategoryId'
-import { ModelSeriesAlreadyExistError } from '../../domain/ModelSeriesAlreadyExistError'
-import { ModelSeriesDoesNotExistError } from '../../domain/ModelSeriesDoesNotExistError'
-import { ModelSeriesId } from '../../domain/ModelSeriesId'
-import { ModelSeriesName } from '../../domain/ModelSeriesName'
+import { ModelSeriesAlreadyExistError } from '../domain/ModelSeriesAlreadyExistError'
+import { ModelSeriesDoesNotExistError } from '../domain/ModelSeriesDoesNotExistError'
+import { ModelSeriesId } from '../domain/ModelSeriesId'
+import { ModelSeriesName } from '../domain/ModelSeriesName'
 import { type Repository } from '../../../Shared/domain/Repository'
-import { ModelSeries } from '../../domain/ModelSeries'
+import { ModelSeries } from '../domain/ModelSeries'
 
 export class ModelSeriesUpdater {
   constructor (private readonly repository: Repository) {}

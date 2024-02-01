@@ -4,7 +4,7 @@ import { InMemoryDeviceRepository } from '../../Device/Device/infrastructure/InM
 import { InMemoryComputerFeaturesRepository } from '../../Features/infrastructure/ComputerFeaturesInMemory'
 import { InMemoryHardDriveRepository } from '../../Features/infrastructure/HardDriveInMemory'
 import { InMemoryComputerProcessorRepository } from '../../Features/infrastructure/ProcessorInMemory'
-import { InMemoryModelSeriesRepository } from '../../ModelSeries/infraestructure/InMemoryModelSeriesRepository'
+import { InMemoryModelSeriesRepository } from '../../ModelSeries/ModelSeries/infraestructure/InMemoryModelSeriesRepository'
 import { InMemoryUserRepository } from '../../User/infrastructure/persistence/InMemoryUserRepository'
 import { type Repository } from '../domain/Repository'
 

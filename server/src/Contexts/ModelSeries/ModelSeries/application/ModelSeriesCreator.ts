@@ -1,7 +1,7 @@
 import { type Repository } from '../../../Shared/domain/Repository'
-import { ModelSeries } from '../../domain/ModelSeries'
-import { ModelSeriesAlreadyExistError } from '../../domain/ModelSeriesAlreadyExistError'
-import { ModelSeriesName } from '../../domain/ModelSeriesName'
+import { ModelSeries } from '../domain/ModelSeries'
+import { ModelSeriesAlreadyExistError } from '../domain/ModelSeriesAlreadyExistError'
+import { ModelSeriesName } from '../domain/ModelSeriesName'
 
 export class ModelSeriesCreator {
   constructor (private readonly repository: Repository) {}

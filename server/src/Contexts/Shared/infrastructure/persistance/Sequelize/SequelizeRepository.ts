@@ -10,7 +10,7 @@ import { SequelizeMemoryRamTypeRepository } from '../../../../Features/MemoryRam
 import { SequelizeOperatingSystemRepository } from '../../../../Features/OperatingSystem/OperatingSystem/infraesructure/sequelize/SequelizeOperatingSystemRepository'
 import { SequelizeOperatingSystemArqRepository } from '../../../../Features/OperatingSystem/OperatingSystemArq/infraestructure/sequelize/SequelizeOperatingSystemArqRepository'
 import { SequelizeProcessorRepository } from '../../../../Features/Processor/infraestructure/sequelize/SequelizeProcessorRepository'
-import { SequelizeModelSeriesRepository } from '../../../../ModelSeries/infraestructure/Sequelize/SequelizeModelSeriesRepository'
+import { SequelizeModelSeriesRepository } from '../../../../ModelSeries/ModelSeries/infraestructure/Sequelize/SequelizeModelSeriesRepository'
 import { SequelizeUserRepository } from '../../../../User/infrastructure/persistence/Sequelize/SequelizeUserRepository'
 import { type Repository } from '../../../domain/Repository'
 import { initializeDatabase } from './SequelizeConfig'

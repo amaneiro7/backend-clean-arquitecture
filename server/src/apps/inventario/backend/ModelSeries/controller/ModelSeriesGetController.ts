@@ -1,10 +1,10 @@
 import { type NextFunction, type Request, type Response } from 'express'
 import { type Repository } from '../../../../../Contexts/Shared/domain/Repository'
 import httpStatus from 'http-status'
-import { SearchAllModelSeries } from '../../../../../Contexts/ModelSeries/application/SearchAll/ModelSeriesFinder'
-import { ModelSeriesFinder } from '../../../../../Contexts/ModelSeries/application/Find/ModelSeriesFinder'
-import { ModelSeriesId } from '../../../../../Contexts/ModelSeries/domain/ModelSeriesId'
-import { ModelSeriesName } from '../../../../../Contexts/ModelSeries/domain/ModelSeriesName'
+import { SearchAllModelSeries } from '../../../../../Contexts/ModelSeries/ModelSeries/application/ModelSeriesFinderAll'
+import { ModelSeriesFinder } from '../../../../../Contexts/ModelSeries/ModelSeries/application/ModelSeriesFinder'
+import { ModelSeriesId } from '../../../../../Contexts/ModelSeries/ModelSeries/domain/ModelSeriesId'
+import { ModelSeriesName } from '../../../../../Contexts/ModelSeries/ModelSeries/domain/ModelSeriesName'
 
 export class ModelSeriesGetController {
   constructor (private readonly repository: Repository) {}

@@ -11,7 +11,7 @@ import { OperatingSystemModel } from '../../../../Features/OperatingSystem/Opera
 import { OperatingSystemArqModel } from '../../../../Features/OperatingSystem/OperatingSystemArq/infraestructure/sequelize/OperatingSystemArqSchema'
 import { ProcessorModel } from '../../../../Features/Processor/infraestructure/sequelize/ProcessorSchema'
 
-import { ModelSeriesModel } from '../../../../ModelSeries/infraestructure/Sequelize/ModelSeriesSchema'
+import { ModelSeriesModel } from '../../../../ModelSeries/ModelSeries/infraestructure/Sequelize/ModelSeriesSchema'
 
 // Define associations between different Sequelize models
 export function InitSequelizeAssociation (): void {

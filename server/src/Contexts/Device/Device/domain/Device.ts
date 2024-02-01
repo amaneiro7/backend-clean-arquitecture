@@ -1,7 +1,7 @@
 import { DeviceId } from './DeviceId'
 import { DeviceActivo } from './DeviceActivo'
 import { DeviceSerial } from './DeviceSerial'
-import { ModelSeriesId } from '../../../ModelSeries/domain/ModelSeriesId'
+import { ModelSeriesId } from '../../../ModelSeries/ModelSeries/domain/ModelSeriesId'
 import { StatusId } from '../../Status/domain/StatusId'
 
 export interface DevicePrimitives {

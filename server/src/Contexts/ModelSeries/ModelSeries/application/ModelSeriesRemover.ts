@@ -1,7 +1,7 @@
 import { type Repository } from '../../../Shared/domain/Repository'
-import { ModelSeriesCannotDeleteIsNotEmptyError } from '../../domain/ModelSeriesCannotDeleteIsNotEmptyError'
-import { ModelSeriesDoesNotExistError } from '../../domain/ModelSeriesDoesNotExistError'
-import { ModelSeriesId } from '../../domain/ModelSeriesId'
+import { ModelSeriesCannotDeleteIsNotEmptyError } from '../domain/ModelSeriesCannotDeleteIsNotEmptyError'
+import { ModelSeriesDoesNotExistError } from '../domain/ModelSeriesDoesNotExistError'
+import { ModelSeriesId } from '../domain/ModelSeriesId'
 
 export class ModelSeriesRemover {
   constructor (private readonly repository: Repository) {}
