@@ -23,7 +23,7 @@ export class SequelizeComputerRepository implements ComputerRepository {
   async searchByDeviceId (deviceId: string): Promise<ComputerPrimitives | null> {
     return await ComputerModel.findOne({
       where: { deviceId },
-      include: ['device', 'processor', 'memoryRamCapacity', 'hardDriveCapacity', 'hardDriveType', 'operatingSystem', 'operatingSystemArq']
+      include: ['device', 'processor', 'hardDriveCapacity', 'hardDriveType', 'operatingSystem', 'operatingSystemArq']
     }) ?? null
   }
 }

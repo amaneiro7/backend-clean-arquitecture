@@ -12,7 +12,7 @@ module.exports = {
         category_id: 1,
         device_id: '6e4a952a-dc5c-4202-898a-ad33319d4907',
         processor_id: '1229f9dd-9039-45b9-8eef-e1ac7a4aeef4',
-        memoryRamCapacity: [6, 6],
+        memory_ram_capacity: 2048,
         hard_drive_capacity_id: 7,
         hard_drive_type_id: 1,
         operating_system_version_id: 2, 

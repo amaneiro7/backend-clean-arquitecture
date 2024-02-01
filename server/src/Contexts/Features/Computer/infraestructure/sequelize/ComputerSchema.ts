@@ -1,14 +1,12 @@
 import { DataTypes, Model, type Sequelize } from 'sequelize'
 import { type ComputerPrimitives } from '../../domain/Computer'
-import { type MemoryRamCapacityId } from '../../../MemoryRam/MemoryRamCapacity/domain/MemoryRamCapacityId'
 
 export class ComputerModel extends Model<ComputerPrimitives> implements ComputerPrimitives {
   readonly id!: string
   readonly categoryId!: number
   readonly deviceId!: string
   readonly processorId!: string
-  readonly memoryRam!: MemoryRamCapacityId[]
-  readonly totalMemory!: number
+  readonly memoryRamCapacity!: number
   readonly hardDriveCapacityId!: number
   readonly hardDriveTypeId!: number
   readonly operatingSystemId!: number
@@ -43,16 +41,9 @@ export function initComputerModel (sequelize: Sequelize): void {
         type: DataTypes.UUID,
         allowNull: false
       },
-      memoryRam: {
-        field: 'memoryRamCapacity',
-        type: DataTypes.ARRAY(DataTypes.INTEGER),
-        allowNull: false,
-        defaultValue: []
-      },
-      totalMemory: {
+      memoryRamCapacity: {
         type: DataTypes.INTEGER,
-        allowNull: false,
-        defaultValue: 0
+        allowNull: false
       },
       hardDriveCapacityId: {
         type: DataTypes.INTEGER,

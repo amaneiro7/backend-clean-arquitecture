@@ -2,7 +2,7 @@ import { CategoryId } from '../../../Category/domain/CategoryId'
 import { DeviceId } from '../../../Device/Device/domain/DeviceId'
 import { HardDriveCapacityId } from '../../HardDrive.ts/HardDriveCapacity/domain/HardDriveCapacityId'
 import { HardDriveTypeId } from '../../HardDrive.ts/HardDriveType/domain/HardDriveTypeId'
-import { type MemoryRamCapacityId } from '../../MemoryRam/MemoryRamCapacity/domain/MemoryRamCapacityId'
+import { MemoryRamCapacity } from '../../MemoryRam/MemoryRamCapacity/MemoryRamCapacity'
 import { OperatingSystemId } from '../../OperatingSystem/OperatingSystem/domain/OperatingSystemId'
 import { OperatingSystemArqId } from '../../OperatingSystem/OperatingSystemArq/domain/OperatingSystemArqID'
 import { ProcessorId } from '../../Processor/domain/ProcessorId'
@@ -15,8 +15,7 @@ export interface ComputerPrimitives {
   categoryId: number
   deviceId: string
   processorId: string
-  memoryRam: MemoryRamCapacityId[]
-  totalMemory: number
+  memoryRamCapacity: number
   hardDriveCapacityId: number
   hardDriveTypeId: number
   operatingSystemId: number
@@ -31,7 +30,7 @@ export class Computer {
     private readonly categoryId: CategoryId,
     private readonly deviceId: DeviceId,
     private processorId: ProcessorId,
-    private memoryRam: MemoryRamCapacityId[],
+    private memoryRamCapacity: MemoryRamCapacity,
     private hardDriveCapacityId: HardDriveCapacityId,
     private hardDriveTypeId: HardDriveTypeId,
     private operatingSystemId: OperatingSystemId,
@@ -45,7 +44,7 @@ export class Computer {
       categoryId,
       deviceId,
       processorId,
-      memoryRam = [],
+      memoryRamCapacity,
       hardDriveCapacityId,
       hardDriveTypeId,
       operatingSystemId,
@@ -56,7 +55,7 @@ export class Computer {
       categoryId: number
       deviceId: string
       processorId: string
-      memoryRam: MemoryRamCapacityId[]
+      memoryRamCapacity: number
       hardDriveCapacityId: number
       hardDriveTypeId: number
       operatingSystemId: number
@@ -70,7 +69,7 @@ export class Computer {
       new CategoryId(categoryId),
       new DeviceId(deviceId),
       new ProcessorId(processorId),
-      memoryRam,
+      new MemoryRamCapacity(memoryRamCapacity),
       new HardDriveCapacityId(hardDriveCapacityId),
       new HardDriveTypeId(hardDriveTypeId),
       new OperatingSystemId(operatingSystemId),
@@ -84,8 +83,8 @@ export class Computer {
     this.processorId = new ProcessorId(newProcessorId)
   }
 
-  updateMemoryRam (newMemoryRamIds: MemoryRamCapacityId[]): void {
-    this.memoryRam = newMemoryRamIds
+  updateMemoryRam (newMemoryRamCapacity: number): void {
+    this.memoryRamCapacity = new MemoryRamCapacity(newMemoryRamCapacity)
   }
 
   updateOperatingSystem (newOperatingSystem: number): void {
@@ -108,14 +107,13 @@ export class Computer {
     this.ipAddress = new IPAddress(newIPAddress)
   }
 
-  toPrimitive (calculateTotalMemory: number): ComputerPrimitives {
+  toPrimitive (): ComputerPrimitives {
     return {
       id: this.id.value,
       categoryId: this.categoryId.value,
       deviceId: this.deviceId.value,
       processorId: this.processorId.value,
-      memoryRam: this.memoryRam,
-      totalMemory: calculateTotalMemory,
+      memoryRamCapacity: this.memoryRamCapacity.value,
       hardDriveCapacityId: this.hardDriveCapacityId.value,
       hardDriveTypeId: this.hardDriveTypeId.value,
       operatingSystemId: this.operatingSystemId.value,
@@ -139,10 +137,6 @@ export class Computer {
 
   get processorIdValue (): string {
     return this.processorId.value
-  }
-
-  get memoryRamValues (): MemoryRamCapacityId[] {
-    return this.memoryRam
   }
 
   get hardDriveCapacityIdValue (): number {

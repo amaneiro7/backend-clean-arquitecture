@@ -7,7 +7,6 @@ import { ComputerModel } from '../../../../Features/Computer/infraestructure/seq
 import { HardDriveModel } from '../../../../Features/HardDrive.ts/HardDrive/infraestructure/sequelize/HardDriveSchema'
 import { HardDriveCapacityModel } from '../../../../Features/HardDrive.ts/HardDriveCapacity/infraestructure/sequelize/HardDriveCapacitySchema'
 import { HardDriveTypeModel } from '../../../../Features/HardDrive.ts/HardDriveType/infraestructure/sequelize/HardDriveTypeSchema'
-import { MemoryRamCapacityModel } from '../../../../Features/MemoryRam/MemoryRamCapacity/infraestructure/sequelize/MemoryRamCapacitySchema'
 import { OperatingSystemModel } from '../../../../Features/OperatingSystem/OperatingSystem/infraesructure/sequelize/OperatingSystemSchema'
 import { OperatingSystemArqModel } from '../../../../Features/OperatingSystem/OperatingSystemArq/infraestructure/sequelize/OperatingSystemArqSchema'
 import { ProcessorModel } from '../../../../Features/Processor/infraestructure/sequelize/ProcessorSchema'
@@ -53,9 +52,6 @@ export function InitSequelizeAssociation (): void {
   OperatingSystemModel.hasMany(ComputerModel, { as: 'device' }) // An operating system can have many devices
   OperatingSystemArqModel.hasMany(ComputerModel, { as: 'device' }) // An operating system arq can have many devices
 
-  // Memory Ram Associations
-  MemoryRamCapacityModel.belongsToMany(ComputerModel, { as: 'computer', through: 'ComputerMemoryRam', foreignKey: 'memoryRamId', otherKey: 'computerId' })
-
   // Computer Associations
   ComputerModel.belongsTo(CategoryModel, { as: 'category' })
   ComputerModel.belongsTo(DeviceModel, { as: 'device' })
@@ -64,5 +60,4 @@ export function InitSequelizeAssociation (): void {
   ComputerModel.belongsTo(HardDriveTypeModel, { as: 'hardDriveType' })
   ComputerModel.belongsTo(OperatingSystemModel, { as: 'operatingSystem' })
   ComputerModel.belongsTo(OperatingSystemArqModel, { as: 'operatingSystemArq' })
-  ComputerModel.belongsToMany(MemoryRamCapacityModel, { as: 'memoryRamCapacity', through: 'ComputerMemoryRam', foreignKey: 'computerId', otherKey: 'memoryRamId' })
 }

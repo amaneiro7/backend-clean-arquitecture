@@ -11,7 +11,6 @@ import { initHardDriveTypeModel } from '../../../../Features/HardDrive.ts/HardDr
 import { initHardDriveModel } from '../../../../Features/HardDrive.ts/HardDrive/infraestructure/sequelize/HardDriveSchema'
 import { initProcessorModel } from '../../../../Features/Processor/infraestructure/sequelize/ProcessorSchema'
 import { initMemoryRamTypeModel } from '../../../../Features/MemoryRam/MemoryRamType/infraestructure/sequelize/MemoryRamTypeSchema'
-import { initMemoryRamCapacityModel } from '../../../../Features/MemoryRam/MemoryRamCapacity/infraestructure/sequelize/MemoryRamCapacitySchema'
 import { initOperatingSystemModel } from '../../../../Features/OperatingSystem/OperatingSystem/infraesructure/sequelize/OperatingSystemSchema'
 import { initOperatingSystemArqModel } from '../../../../Features/OperatingSystem/OperatingSystemArq/infraestructure/sequelize/OperatingSystemArqSchema'
 import { initComputerModel } from '../../../../Features/Computer/infraestructure/sequelize/ComputerSchema'
@@ -28,7 +27,6 @@ export function setupModels (sequelize: Sequelize): void {
   initHardDriveModel(sequelize)
   initProcessorModel(sequelize)
   initMemoryRamTypeModel(sequelize)
-  initMemoryRamCapacityModel(sequelize)
   initOperatingSystemModel(sequelize)
   initOperatingSystemArqModel(sequelize)
   initComputerModel(sequelize)

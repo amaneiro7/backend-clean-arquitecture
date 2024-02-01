@@ -8,8 +8,6 @@ import { HardDriveCapacityDoesNotExistError } from '../../HardDrive.ts/HardDrive
 import { HardDriveCapacityId } from '../../HardDrive.ts/HardDriveCapacity/domain/HardDriveCapacityId'
 import { HardDriveTypeDoesNotExistError } from '../../HardDrive.ts/HardDriveType/domain/HardDriveTypeDoesNotExist'
 import { HardDriveTypeId } from '../../HardDrive.ts/HardDriveType/domain/HardDriveTypeId'
-import { MemoryRamCapacityDoesNotExistError } from '../../MemoryRam/MemoryRamCapacity/domain/MemoryRamCapacityDoesNotExist'
-import { MemoryRamCapacityId } from '../../MemoryRam/MemoryRamCapacity/domain/MemoryRamCapacityId'
 import { OperatingSystemDoesNotExistError } from '../../OperatingSystem/OperatingSystem/domain/OperatingSystemDoesNotExist'
 import { OperatingSystemId } from '../../OperatingSystem/OperatingSystem/domain/OperatingSystemId'
 import { OperatingSystemArqDoesNotExistError } from '../../OperatingSystem/OperatingSystemArq/domain/OperatingSystemArqDoesNotExist'
@@ -23,7 +21,7 @@ export class ComputerCreator {
     categoryId: number
     deviceId: string
     processorId: string
-    memoryRamIds: number[]
+    memoryRamCapacity: number
     hardDriveCapacityId: number
     hardDriveTypeId: number
     operatingSystemId: number
@@ -31,7 +29,7 @@ export class ComputerCreator {
     ipAddress: string
     macAddress: string
   }): Promise<void> {
-    const { categoryId, deviceId, processorId, memoryRamIds, hardDriveCapacityId, hardDriveTypeId, operatingSystemId, operatingSystemArqId, ipAddress, macAddress } = params
+    const { categoryId, deviceId, processorId, memoryRamCapacity, hardDriveCapacityId, hardDriveTypeId, operatingSystemId, operatingSystemArqId, ipAddress, macAddress } = params
 
     await this.ensureCategoryIdExistAndBelongsToHardDriveCategory(categoryId)
     await this.ensureDeviceIdExist(deviceId)
@@ -40,23 +38,9 @@ export class ComputerCreator {
     await this.ensureOperatingSystemExist(operatingSystemId)
     await this.ensureOperatingSystemArqExist(operatingSystemArqId)
 
-    const memoryRam = memoryRamIds.map(id => new MemoryRamCapacityId(id))
-    const totalMemory = await this.calculateTotalMemory(memoryRam)
+    const computer = Computer.create({ categoryId, deviceId, hardDriveCapacityId, hardDriveTypeId, ipAddress, macAddress, memoryRamCapacity, operatingSystemArqId, operatingSystemId, processorId })
 
-    const computer = Computer.create({ categoryId, deviceId, hardDriveCapacityId, hardDriveTypeId, ipAddress, macAddress, memoryRam, operatingSystemArqId, operatingSystemId, processorId })
-
-    await this.repository.computer.save(computer.toPrimitive(totalMemory))
-  }
-
-  private async calculateTotalMemory (memoryRamIds: MemoryRamCapacityId[]): Promise<number> {
-    const totalMemory = await Promise.all(memoryRamIds.map(async id => {
-      const memoryRam = await this.repository.memoryRamCapacity.searchById(id.value)
-      if (memoryRam === null) {
-        throw new MemoryRamCapacityDoesNotExistError(id.toString())
-      }
-      return memoryRam.value
-    }))
-    return totalMemory.reduce((a, b) => a + b, 0)
+    await this.repository.computer.save(computer.toPrimitive())
   }
 
   private async ensureCategoryIdExistAndBelongsToHardDriveCategory (id: number): Promise<void> {
