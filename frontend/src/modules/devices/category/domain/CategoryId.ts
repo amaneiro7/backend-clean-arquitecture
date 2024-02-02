@@ -1,3 +1,3 @@
 import { NumberValueObject } from '../../../shared/domain/value-object/NumberValueObject'
 
-export class BrandId extends NumberValueObject {}
+export class CategoryId extends NumberValueObject {}

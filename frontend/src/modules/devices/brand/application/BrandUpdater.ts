@@ -1,4 +1,4 @@
-import { type Repository } from '../../../shared/repository'
+import { type Repository } from '../../../shared/domain/repository'
 import { type BrandCreate, ensureBrandIsValid } from '../domain/Brand'
 import { BrandId } from '../domain/BrandId'
 

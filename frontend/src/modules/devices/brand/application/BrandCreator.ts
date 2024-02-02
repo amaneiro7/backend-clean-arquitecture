@@ -1,4 +1,4 @@
-import { type Repository } from '../../../shared/repository'
+import { type Repository } from '../../../shared/domain/repository'
 import { ensureBrandIsValid, type BrandCreate } from '../domain/Brand'
 
 export async function brandCreator ({ repository, brand }: { repository: Repository, brand: BrandCreate }) {
