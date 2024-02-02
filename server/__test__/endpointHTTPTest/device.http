@@ -2,7 +2,7 @@
 
 GET http://localhost:5000/api/v1/devices
 ### obtener todas las categorias
-GET http://localhost:3000/api/v1/device/5a94384b-2e4d-4cdf-96c9-0065bf7f92a9
+GET http://localhost:5000/api/v1/devices/cc178070-7d92-410e-963d-0d863530a86e
 
 
 ### Crear un nuevo modelo HardDrive
@@ -23,8 +23,8 @@ POST http://localhost:5000/api/v1/devices
 Content-Type: application/json
 
 {
-  "activo": "a2125201d",
-  "serial": "aMCJ41s5454d",
+  "activo": "a212520d1d",
+  "serial": "aMCJ41s54d54d",
   "statusId": 2,
   "modelId": "83c38f9b-a0ac-4350-9204-886ea8e4e967",
   "processorId": "a267cc70-f597-4e91-9330-003a89e19240",

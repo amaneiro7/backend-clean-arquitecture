@@ -23,11 +23,14 @@ interface Props {
 export class DevicesFeatures {
   async run (params: Props): Promise<void> {
     const { repository, category, categoryId, deviceId, hardDriveCapacityId, hardDriveTypeId } = params
+
     if (category === CategoryDefault.COMPUTERS) {
       const { processorId, memoryRamCapacity, operatingSystemId, operatingSystemArqId, ipAddress, macAddress } = params
+
       if (processorId === undefined || memoryRamCapacity === undefined || operatingSystemId === undefined || operatingSystemArqId === undefined || ipAddress === undefined || macAddress === undefined) {
         throw new InvalidArgumentError('Invalid Params')
       }
+
       await this.computerCreator({
         repository,
         categoryId,
@@ -42,11 +45,14 @@ export class DevicesFeatures {
         macAddress
       })
     }
+
     if (category === CategoryDefault.HARDDRIVE) {
       const { health } = params
+
       if (health === undefined) {
         throw new InvalidArgumentError('Invalid Params')
       }
+
       await this.hardDriveCreator({
         repository,
         categoryId,

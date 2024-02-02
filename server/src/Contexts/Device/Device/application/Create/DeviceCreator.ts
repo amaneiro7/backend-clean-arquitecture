@@ -5,15 +5,13 @@ import { type Repository } from '../../../../Shared/domain/Repository'
 import { Device } from '../../domain/Device'
 import { ValidationField } from '../ValidationField'
 
-interface Props {
+interface DeviceParams {
   activo: string
   serial: string
   statusId: number
   modelId: string
-  // computer params
   processorId: string
   memoryRamCapacity: number
-  // hard drive params
   hardDriveCapacityId: number
   hardDriveTypeId: number
   health: number
@@ -26,7 +24,7 @@ interface Props {
 export class DeviceCreator {
   constructor (private readonly repository: Repository) {}
 
-  async run (params: Props): Promise<void> {
+  async run (params: DeviceParams): Promise<void> {
     const { activo, serial, statusId, modelId, ...restParams } = params
 
     await ValidationField.ensureActivoDoesNotExist(this.repository, activo)
