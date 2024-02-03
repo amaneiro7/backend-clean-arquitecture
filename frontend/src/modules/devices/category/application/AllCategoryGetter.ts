@@ -1,6 +1,10 @@
 import { type Repository } from '../../../shared/domain/repository'
-import { type Category } from '../domain/Category'
+import { type CategoryPrimitives } from '../domain/Category'
 
-export async function allCategoryGetter ({ repository }: { repository: Repository }): Promise<Category[]> {
-  return await repository.category.getAll()
+export class allCategoryGetter {
+  constructor (readonly repository: Repository) {}
+
+  async get (): Promise<CategoryPrimitives[]> {
+    return await this.repository.category.getAll()
+  }
 }
