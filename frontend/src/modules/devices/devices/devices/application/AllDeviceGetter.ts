@@ -1,6 +1,6 @@
 import { type Repository } from '../../../../shared/domain/repository'
-import { type Device } from '../domain/Device'
+import { type DevicePrimitives } from '../domain/Device'
 
-export async function AllDeviceGetter ({ repository }: { repository: Repository }): Promise<Device[]> {
+export async function AllDeviceGetter ({ repository }: { repository: Repository }): Promise<DevicePrimitives[]> {
   return await repository.device.getAll()
 }
