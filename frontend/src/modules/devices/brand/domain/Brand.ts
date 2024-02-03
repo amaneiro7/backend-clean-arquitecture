@@ -1,16 +1,32 @@
-import { BrandNameNotValidError, isBrandNameValid } from './BrandName'
+import { BrandId } from './BrandId'
+import { BrandName } from './BrandName'
 
-export interface Brand {
+export interface BrandPrimitives {
   id: string
   name: string
 }
+export class Brand {
+  constructor (
+    private readonly id: BrandId,
+    private readonly name: BrandName
+  ) {}
 
-export interface BrandCreate extends Omit<Brand, 'id'> {}
+  public static create ({ id, name }: BrandPrimitives): Brand {
+    return new Brand(new BrandId(id), new BrandName(name))
+  }
 
-export interface BrandUpdate extends Partial<BrandCreate> {}
+  idValue (): string {
+    return this.id.value
+  }
 
-export function ensureBrandIsValid ({ name }: BrandCreate): void {
-  if (!isBrandNameValid(name)) {
-    throw BrandNameNotValidError(name)
+  nameValue (): string {
+    return this.name.value
+  }
+
+  toPrimitives (): BrandPrimitives {
+    return {
+      id: this.idValue(),
+      name: this.nameValue()
+    }
   }
 }

@@ -1,7 +1,11 @@
 import { type Repository } from '../../../shared/domain/repository'
-import { ensureBrandIsValid, type BrandCreate } from '../domain/Brand'
+import { Brand } from '../domain/Brand'
 
-export async function brandCreator ({ repository, brand }: { repository: Repository, brand: BrandCreate }) {
-  ensureBrandIsValid(brand)
-  await repository.brand.save({ brand })
+export class BrandCreator {
+  constructor (readonly repository: Repository) {}
+
+  async create ({ id, name }: { id: string, name: string }): Promise<void> {
+    const brand = Brand.create({ id, name })
+    await this.repository.brand.save({ brand })
+  }
 }
