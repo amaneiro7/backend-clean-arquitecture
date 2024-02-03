@@ -17,7 +17,7 @@ export class ApiDeviceRepository implements DeviceRepository {
 
   async update ({ id, device }: { id: DeviceId, device: Device }): Promise<void> {
     const devicePrimitives = device.toPrimitives()
-    await fetch(`${API_URL}/deices/${id.value}`, {
+    await fetch(`${API_URL}/devices/${id.value}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json'
@@ -27,11 +27,11 @@ export class ApiDeviceRepository implements DeviceRepository {
   }
 
   async getAll (): Promise<DevicePrimitives[]> {
-    return await fetch(`${API_URL}/deices`).then(async res => await (res.json() as Promise<DevicePrimitives[]>))
+    return await fetch(`${API_URL}/devices`).then(async res => await (res.json() as Promise<DevicePrimitives[]>))
   }
 
   async getById ({ id }: { id: DeviceId }): Promise<DevicePrimitives | null> {
-    return await fetch(`${API_URL}/deices/${id.value}`).then(
+    return await fetch(`${API_URL}/devices/${id.value}`).then(
       async res => await (res.json())
     )
   }

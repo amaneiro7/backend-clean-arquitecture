@@ -1,9 +1,9 @@
-import { type MappedDevice } from '../../../types/types'
+import { type DevicePrimitives } from '../../../modules/devices/devices/devices/domain/Device'
 import { TableCardList } from '../TablerCardList'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 
 interface Props {
-  device: MappedDevice[]
+  device: DevicePrimitives[]
 }
 const TableCard: React.FC<Props> = ({ device }) => {
   const [parent] = useAutoAnimate(/* optional config */)

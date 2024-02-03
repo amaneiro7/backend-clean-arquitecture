@@ -1,4 +1,3 @@
-import { randomUUID } from 'node:crypto'
 import { InvalidArgumentError } from './InvalidArgumentError'
 import { ValueObject } from './ValueObject'
 
@@ -9,7 +8,7 @@ export class Uuid extends ValueObject<string> {
   }
 
   public static random (): Uuid {
-    return new Uuid(randomUUID())
+    return new Uuid(crypto.randomUUID())
   }
 
   private ensureIsValidUuid (id: string): void {

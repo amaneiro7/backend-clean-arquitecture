@@ -2,12 +2,14 @@
 import { useNavigate } from 'react-router-dom'
 import { useGetSearch } from '../../Hooks/useGetSearch'
 import { Suspense, lazy } from 'react'
+import { useInventarioContext } from '../../Context/InventarioContext'
 
 const TableCard = lazy(async () => await import('../../components/TableCard'))
-const SearchInputsHeader = lazy(async () => await import('../../components/SearchInputsHeader'))
+// const SearchInputsHeader = lazy(async () => await import('../../components/SearchInputsHeader'))
 const Button = lazy(async () => await import('../../ui/button'))
 function Home () {
-  const { device, state, handleChange } = useGetSearch()
+  const { repository } = useInventarioContext()
+  const { devices, state, handleChange } = useGetSearch(repository)
   const navigate = useNavigate()
   // const [searchParams, setSearchParams] = useSearchParams()
 
@@ -24,14 +26,14 @@ function Home () {
           handle={() => { navigate('addnewdevice') }}
         />
       </Suspense>
-      <Suspense>
+      {/* <Suspense>
         <SearchInputsHeader
           state={state}
           handleChange={handleChange}
         />
-      </Suspense>
+      </Suspense> */}
       <Suspense>
-        <TableCard device={device}/>
+        <TableCard device={devices}/>
       </Suspense>
     </main>
   )

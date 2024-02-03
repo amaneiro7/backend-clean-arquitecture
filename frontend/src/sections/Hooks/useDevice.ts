@@ -1,38 +1,53 @@
 import { useEffect, useState } from 'react'
-import { type MappedDevice, type Device } from '../../types/types'
-import { getAll } from '../services/api'
+import { type DevicePrimitives } from '../../modules/devices/devices/devices/domain/Device'
+import { AllDeviceGetter } from '../../modules/devices/devices/devices/application/AllDeviceGetter'
+import { type Repository } from '../../modules/shared/domain/repository'
+import { DeviceCreator } from '../../modules/devices/devices/devices/application/DeviceCreator'
+import { Uuid } from '../../modules/shared/domain/value-object/Uuid'
 
-export const useDevice = (): {
-  device: MappedDevice[]
-} => {
-  const [device, setDevice] = useState<Device[]>([])
+export const useDevice = (repository: Repository) => {
+  console.log(repository)
+
+  const allDeviceGetter = new AllDeviceGetter(repository)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+  const [devices, setDevices] = useState<DevicePrimitives[]>([])
+
+  async function createDevice ({ serial, activo, statusId, modelId }: { serial: string, activo: string | null, statusId: number, modelId: string }) {
+    const deviceCreator = new DeviceCreator(repository)
+    const id = Uuid.random().value
+    await deviceCreator.create({ id, serial, activo, statusId, modelId })
+    getDevices()
+  }
+
+  function getDevices () {
+    setLoading(true)
+    allDeviceGetter
+      .get()
+      .then((devices) => {
+        console.log('He sido llamado', devices)
+
+        setDevices(devices)
+        setLoading(false)
+      })
+      .catch((error) => {
+        setError(error)
+        setLoading(false)
+      })
+  }
 
   useEffect(() => {
-    getAll({ path: 'device' })
-      .then(devices => { setDevice(devices) })
-      .catch(err => { console.error('useDevive', err) })
+    getDevices()
 
     return () => {
-      setDevice([])
+      setDevices([])
     }
   }, [])
 
-  const mappedDevice = device.map(item => {
-    return {
-      id: item.id,
-      activo: item.activo,
-      serial: item.serial,
-      status: item.status,
-      modelId: item.model.id,
-      modelName: item.model.name,
-      categoryId: item.model.category.id,
-      categoryName: item.model.category.name,
-      brandId: item.model.brand.id,
-      brandName: item.model.brand.name
-    }
-  })
-
   return {
-    device: mappedDevice
+    devices,
+    loading,
+    error,
+    createDevice
   }
 }

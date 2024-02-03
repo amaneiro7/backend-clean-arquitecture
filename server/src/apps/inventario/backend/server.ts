@@ -1,6 +1,7 @@
 import compress from 'compression'
 import errorHandler from 'errorhandler'
 import express, { json, urlencoded, type Request, type Response } from 'express'
+import cors from 'cors'
 import Router from 'express-promise-router'
 import helmet from 'helmet'
 import type * as http from 'http'
@@ -8,6 +9,7 @@ import httpStatus from 'http-status'
 
 import { routerApi } from './Shared/Routes'
 import { type Repository } from '../../../Contexts/Shared/domain/Repository'
+import { options } from './cors'
 
 export class Server {
   private readonly app: express.Express
@@ -18,6 +20,7 @@ export class Server {
     this.port = port
     this.app = express()
     this.app.use(json())
+    this.app.use(cors(options))
     this.app.use(urlencoded({ extended: true }))
     this.app.use(helmet.xssFilter())
     this.app.use(helmet.noSniff())

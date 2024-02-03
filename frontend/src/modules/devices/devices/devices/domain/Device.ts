@@ -1,4 +1,4 @@
-import { ModelId } from '../../../model/domain/modelId'
+import { ModelId } from '../../../model/domain/ModelId'
 import { StatusId } from '../../status/domain/StatusId'
 import { DeviceActivo } from './DeviceActivo'
 import { DeviceId } from './DeviceId'

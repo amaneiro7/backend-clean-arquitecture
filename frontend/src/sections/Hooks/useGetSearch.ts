@@ -1,5 +1,6 @@
 import { useMemo, useReducer } from 'react'
 import { useDevice } from './useDevice'
+import { type Repository } from '../../modules/shared/domain/repository'
 
 const initialState = {
   searchValueCategory: {
@@ -59,12 +60,14 @@ const reducerObject = (state, payload) => ({
   }
 })
 
-export const useGetSearch = () => {
+export const useGetSearch = (repository: Repository) => {
   const [state, dispatch] = useReducer(reducer, initialState)
-  const { device } = useDevice()
+  const { devices } = useDevice(repository)
+  console.log(devices)
+
   const searchedDevice = () => {
     if (JSON.stringify(initialState) === JSON.stringify(state)) {
-      return device
+      return devices
     }
     const searchedValue = {}
     Object.keys(state).forEach(key => {
@@ -73,13 +76,13 @@ export const useGetSearch = () => {
       }
     })
     // return device.filter(item => Object.keys(searchedValue).every(key => item[key] === searchedValue[key]))
-    return device.filter(item => Object.entries(searchedValue).every(entry => {
+    return devices.filter(item => Object.entries(searchedValue).every(entry => {
       const [key, value] = entry
       return String(item[key]).toLowerCase().includes(value.toLowerCase())
     }))
   }
 
-  const filteredDevice = useMemo(() => searchedDevice(), [state, device])
+  const filteredDevice = useMemo(() => searchedDevice(), [state, devices])
 
   const handleChange = ({ target }) => {
     const { name, value } = target
@@ -89,7 +92,7 @@ export const useGetSearch = () => {
   }
 
   return {
-    device: filteredDevice,
+    devices: filteredDevice,
     state,
     handleChange
   }
