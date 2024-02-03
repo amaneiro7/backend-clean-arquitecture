@@ -1,5 +1,5 @@
-import { type Status } from './Status'
+import { type StatusPrimitives } from './Status'
 
 export abstract class StatusRepository {
-  abstract getAll (): Promise<Status[]>
+  abstract getAll (): Promise<StatusPrimitives[]>
 }

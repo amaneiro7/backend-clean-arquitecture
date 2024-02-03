@@ -1,11 +1,12 @@
-import { type DeviceCreate, type Device, type DeviceUpdate } from './Device'
+import { type Device, type DevicePrimitives } from './Device'
+import { type DeviceId } from './DeviceId'
 
 export abstract class DeviceRepository {
-  abstract getAll (): Promise<Device[]>
+  abstract getAll (): Promise<DevicePrimitives[]>
 
-  abstract getById ({ id }: { id: string }): Promise<Device>
+  abstract getById ({ id }: { id: DeviceId }): Promise<DevicePrimitives | null>
 
-  abstract save ({ device }: { device: DeviceCreate }): Promise<void>
+  abstract save ({ device }: { device: Device }): Promise<void>
 
-  abstract update ({ id, device }: { id: string, device: DeviceUpdate }): Promise<void>
+  abstract update ({ id, device }: { id: DeviceId, device: Device }): Promise<void>
 }

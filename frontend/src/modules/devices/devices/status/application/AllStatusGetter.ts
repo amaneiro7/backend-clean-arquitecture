@@ -1,6 +1,10 @@
 import { type Repository } from '../../../../shared/domain/repository'
-import { type Status } from '../domain/Status'
+import { type StatusPrimitives } from '../domain/Status'
 
-export async function allStatusGetter ({ repository }: { repository: Repository }): Promise<Status[]> {
-  return await repository.status.getAll()
+export class AllStatusGetter {
+  constructor (private readonly repository: Repository) {}
+
+  async get (): Promise<StatusPrimitives[]> {
+    return await this.repository.status.getAll()
+  }
 }
