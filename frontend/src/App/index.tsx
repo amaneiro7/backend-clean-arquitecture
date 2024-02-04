@@ -4,7 +4,7 @@ import ErrorBoundary from './ErrorBoundary.tsx'
 
 import Loading from '../sections/components/Loading/index.tsx'
 import { Layout } from '../sections/components/layout/index.tsx'
-import { InventarioContextProvider } from '../sections/Context/InventarioContext.tsx'
+import { AppContextProvider } from '../sections/Context/AppContext.tsx'
 import { apiRepository } from '../modules/shared/infraestructure/ApiRepository.ts'
 
 const Home = lazy(async () => await import('../sections/page/home/index.tsx'))
@@ -18,7 +18,7 @@ function App () {
   const repository = apiRepository
   return (
     <ErrorBoundary>
-      <InventarioContextProvider repository={repository}>
+      <AppContextProvider repository={repository}>
         <Suspense fallback={<Loading />}>
             <BrowserRouter>
               <Layout>
@@ -36,7 +36,7 @@ function App () {
               </Layout>
             </BrowserRouter>
         </Suspense>
-      </InventarioContextProvider>
+      </AppContextProvider>
     </ErrorBoundary>
   )
 }

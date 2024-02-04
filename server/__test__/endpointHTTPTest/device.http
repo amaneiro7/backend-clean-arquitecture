@@ -10,10 +10,10 @@ POST http://localhost:5000/api/v1/devices
 Content-Type: application/json
 
 {
-  "activo": "212580",
+  "activo": null,
   "serial": "WCC2EAV66211",
   "statusId": 2,
-  "modelId": "bcacf515-ccb0-43ac-8ca7-3d9d87ef475f",
+  "modelId": "710a0c2a-a79f-4090-8a7c-4634b29d788e",
   "hardDriveCapacityId": 7,
   "hardDriveTypeId": 1,
   "health": 100

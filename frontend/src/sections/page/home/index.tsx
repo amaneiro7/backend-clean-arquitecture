@@ -2,7 +2,7 @@
 import { useNavigate } from 'react-router-dom'
 import { useGetSearch } from '../../Hooks/useGetSearch'
 import { Suspense, lazy } from 'react'
-import { useInventarioContext } from '../../Context/InventarioContext'
+import { useInventarioContext } from '../../Context/AppContext'
 
 const TableCard = lazy(async () => await import('../../components/TableCard'))
 // const SearchInputsHeader = lazy(async () => await import('../../components/SearchInputsHeader'))
