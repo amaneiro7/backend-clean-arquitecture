@@ -1,6 +1,9 @@
 import { type Repository } from '../../../shared/domain/repository'
-import { type Brand } from '../domain/Brand'
+import { type BrandPrimitives } from '../domain/Brand'
 
-export async function allBrandGetter ({ repository }: { repository: Repository }): Promise<Brand[]> {
-  return await repository.brand.getAll()
+export class AllBrandGetter {
+  constructor (private readonly repository: Repository) {}
+  async get (): Promise<BrandPrimitives[]> {
+    return await this.repository.brand.getAll()
+  }
 }

@@ -8,12 +8,16 @@ import { useNavigate } from 'react-router-dom'
 import ActivoInput from './ActivoInput'
 import StatusSelect from '../status/StatusSelect'
 import SerialInput from './SerialInput'
+import CategorySelect from '../category/CategorySelect'
+import BrandSelect from '../brand/BrandSelect'
 
 const initialState = {
   serial: '',
   activo: '',
   statusId: 1,
-  modelId: ''
+  modelId: '',
+  categoryId: '',
+  brandId: ''
 }
 
 export default function CreateDeviceForm () {
@@ -28,7 +32,9 @@ export default function CreateDeviceForm () {
 
     setErrors({
       modelId: '',
-      statusId: 0,
+      statusId: 1,
+      categoryId: '',
+      brandId: '',
       serial: isSerial ? '' : DeviceSerial.invalidMessage(formData.serial),
       activo: isActivo ? '' : DeviceActivo.invalidMessage(formData.activo)
     })
@@ -36,8 +42,8 @@ export default function CreateDeviceForm () {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault()
-
-    await submitForm(formData)
+    const { serial, activo, statusId, modelId } = formData
+    await submitForm({ serial, activo, statusId, modelId })
   }
 
   const handleClose = () => {
@@ -55,20 +61,28 @@ export default function CreateDeviceForm () {
         handleClose={handleClose}
         isDisabled
     >
-    <SerialInput
-        value={formData.serial}
+      <CategorySelect
+        value={formData.categoryId}
         onChange={handleChange}
-        errorMessage={errors.serial}
-    />
-    <ActivoInput
-        value={formData.activo}
+      />
+      <BrandSelect
+        value={formData.brandId}
         onChange={handleChange}
-        errorMessage={errors.activo}
-    />
-    <StatusSelect
-        value={formData.statusId}
-        onChange={handleChange}
-    />
+      />
+      <SerialInput
+          value={formData.serial}
+          onChange={handleChange}
+          errorMessage={errors.serial}
+      />
+      <ActivoInput
+          value={formData.activo}
+          onChange={handleChange}
+          errorMessage={errors.activo}
+      />
+      <StatusSelect
+          value={formData.statusId}
+          onChange={handleChange}
+      />
     </FormContainer>
   )
 }

@@ -16,7 +16,17 @@ export function useDeviceForm (): {
   const [formStatus, setFormStatus] = useState(FormStatus.Initial)
   const { createDevice } = useAppContext()
 
-  async function submitForm ({ activo, serial, statusId, modelId }: { serial: string, activo: string | null, statusId: number, modelId: string }) {
+  async function submitForm ({
+    activo,
+    serial,
+    statusId,
+    modelId
+  }: {
+    serial: string
+    activo: string | null
+    statusId: number
+    modelId: string
+  }) {
     setFormStatus(FormStatus.Loading)
 
     try {

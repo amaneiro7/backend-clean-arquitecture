@@ -8,11 +8,12 @@ export interface DevicesApiResponse {
   updatedAt: Date
   ModelId: string
   StatusId: number
-  model: Model
+  model: ModelApiresponse
   status: Status
   computer: Computer | null
   hardDrive: HardDrive | null
 }
+
 export interface DevicesMappedApiResponse {
   id: string
   activo: null | string
@@ -21,6 +22,16 @@ export interface DevicesMappedApiResponse {
   statusName: string
   modelId: string
   modelName: string
+  categoryId: number
+  categoryName: string
+  brandId: string
+  brandName: string
+  createdAt: Date
+  updatedAt: Date
+}
+export interface ModelMappedApiResponse {
+  id: string
+  name: string
   categoryId: number
   categoryName: string
   brandId: string
@@ -96,7 +107,7 @@ export interface HardDrive {
   hardDriveType: Status
 }
 
-export interface Model {
+export interface ModelApiresponse {
   id: string
   name: string
   categoryId: number

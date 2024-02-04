@@ -4,27 +4,26 @@ import { useAppContext } from '../../Context/AppContext'
 const Select = lazy(async () => await import('../../ui/select'))
 
 interface Props {
-  value: number
+  value: number | string
   onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
 }
 
-const StatusSelect: FC<Props> = ({ value, onChange }) => {
-  const { status } = useAppContext()
+const CategorySelect: FC<Props> = ({ value, onChange }) => {
+  const { categories } = useAppContext()
   return (
         <Suspense>
             <Select
-                 label='Estado'
-                 name='statusId'
+                 label='Categoria'
+                 name='categoryId'
                  onChange={onChange}
-                 options={status}
-                 placeholder='-- Filtre por Estado --'
+                 options={categories}
+                 placeholder='-- Filtre por Categoria --'
                  isHidden={false}
                  isDisabled={false}
                  value={value}
-                 defaultValue={value}
             />
         </Suspense>
   )
 }
 
-export default StatusSelect
+export default CategorySelect
