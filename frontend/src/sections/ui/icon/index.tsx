@@ -9,7 +9,6 @@ import DeleteSVG from './delete.svg?react'
 
 interface Props {
   type: keyof typeof iconTypes
-  onHandle?: React.MouseEventHandler<HTMLSpanElement> | undefined
   isDisabled?: boolean
 }
 
@@ -24,11 +23,10 @@ const iconTypes = {
       <DeleteSVG className='w-6 h-6 transition-all fill-quaternary' />
   )
 } as const
-export const Icon = ({ type, onHandle, isDisabled }: Props) => {
+export const Icon = ({ type, isDisabled }: Props) => {
   return (
           <button
               className={'w-12 h-12 flex justify-center items-center disabled:cursor-not-allowed disabled:opacity-50 hover:[&>svg]:opacity-70'}
-              onClick={onHandle}
               disabled={isDisabled}
           >
               {iconTypes[type]()}

@@ -10,6 +10,7 @@ import StatusSelect from '../status/StatusSelect'
 import SerialInput from './SerialInput'
 import CategorySelect from '../category/CategorySelect'
 import BrandSelect from '../brand/BrandSelect'
+import ModelSelect from '../model/ModelSelect'
 
 const initialState = {
   serial: '',
@@ -82,6 +83,10 @@ export default function CreateDeviceForm () {
       <StatusSelect
           value={formData.statusId}
           onChange={handleChange}
+      />
+      <ModelSelect
+        value={formData.modelId}
+        onChange={handleChange}
       />
     </FormContainer>
   )

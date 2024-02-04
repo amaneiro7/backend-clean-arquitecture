@@ -15,10 +15,10 @@ export const useBrand = (repository: Repository) => {
     const brandCreator = new BrandCreator(repository)
     const id = Uuid.random().value
     await brandCreator.create({ id, name })
-    getDevices()
+    getBrands()
   }
 
-  function getDevices () {
+  function getBrands () {
     setLoading(true)
     allBrandGetter
       .get()
@@ -33,7 +33,7 @@ export const useBrand = (repository: Repository) => {
   }
 
   useEffect(() => {
-    getDevices()
+    getBrands()
 
     return () => {
       setBrands([])

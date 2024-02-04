@@ -1,26 +1,29 @@
 import { useEffect, useState } from 'react'
 import { type Repository } from '../../../modules/shared/domain/repository'
 import { Uuid } from '../../../modules/shared/domain/value-object/Uuid'
+import { AllModelGetter } from '../../../modules/devices/model/application/AllModelGetter'
+import { type ModelPrimitives } from '../../../modules/devices/model/domain/Model'
+import { ModelCreator } from '../../../modules/devices/model/application/ModelCreator'
 
-export const useBrand = (repository: Repository) => {
-  const allBrandGetter = new AllModelGetter(repository)
+export const useModel = (repository: Repository) => {
+  const allModelGetter = new AllModelGetter(repository)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  const [brands, setBrands] = useState<BrandPrimitives[]>([])
+  const [models, setModels] = useState<ModelPrimitives[]>([])
 
-  async function createBrand ({ name }: { name: string }) {
-    const brandCreator = new BrandCreator(repository)
+  async function createModel ({ name, categoryId, brandId }: { name: string, categoryId: number, brandId: string }) {
+    const modelCreator = new ModelCreator(repository)
     const id = Uuid.random().value
-    await brandCreator.create({ id, name })
-    getDevices()
+    await modelCreator.create({ id, name, categoryId, brandId })
+    getModels()
   }
 
-  function getDevices () {
+  function getModels () {
     setLoading(true)
-    allBrandGetter
+    allModelGetter
       .get()
-      .then((brand) => {
-        setBrands(brand)
+      .then((model) => {
+        setModels(model)
         setLoading(false)
       })
       .catch((error) => {
@@ -30,17 +33,17 @@ export const useBrand = (repository: Repository) => {
   }
 
   useEffect(() => {
-    getDevices()
+    getModels()
 
     return () => {
-      setBrands([])
+      setModels([])
     }
   }, [])
 
   return {
-    brands,
+    models,
     loading,
     error,
-    createBrand
+    createModel
   }
 }
