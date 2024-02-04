@@ -1,6 +1,6 @@
 import { type FormEvent, useEffect, useState } from 'react'
 import { useDeviceForm } from './useDeviceForm'
-import { useDeviceFormData } from './useDeviceFormData'
+import { useGenericFormData } from '../../Hooks/useGenericFormData'
 import { DeviceSerial } from '../../../modules/devices/devices/devices/domain/DeviceSeria'
 import { DeviceActivo } from '../../../modules/devices/devices/devices/domain/DeviceActivo'
 import { FormContainer } from '../../components/formContainer'
@@ -23,7 +23,7 @@ const initialState = {
 
 export default function CreateDeviceForm () {
   const navigate = useNavigate()
-  const { formData, updateForm, resetFrom } = useDeviceFormData(initialState)
+  const { formData, updateForm, resetFrom } = useGenericFormData(initialState)
   const { formStatus, submitForm, resetFormStatus } = useDeviceForm()
   const [errors, setErrors] = useState(initialState)
 

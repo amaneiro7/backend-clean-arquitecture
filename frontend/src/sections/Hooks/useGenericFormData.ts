@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export const useDeviceFormData = <T>(
+export const useGenericFormData = <T>(
   initialState: T
 ): {
     formData: T

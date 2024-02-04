@@ -7,6 +7,8 @@ import { Layout } from '../sections/components/layout/index.tsx'
 import { AppContextProvider } from '../sections/Context/AppContext.tsx'
 import { apiRepository } from '../modules/shared/infraestructure/ApiRepository.ts'
 import CreateDeviceForm from '../sections/Device/device/CreateDeviceForm.tsx'
+import CreateBrandForm from '../sections/Device/brand/CreateBrandForm.tsx'
+import CreateModelForm from '../sections/Device/model/CreateModelForm.tsx'
 
 const Home = lazy(async () => await import('../sections/page/home/index.tsx'))
 const Login = lazy(async () => await import('../sections/page/login/index.tsx'))
@@ -28,9 +30,9 @@ function App () {
                     <Route path='/login' element={<Login />}/>
                     <Route path='/device/add' element={<CreateDeviceForm/>} />
                     <Route path='/device/edit/:deviceId' element={<DeviceForm/>} />
-                    <Route path='/brand/add' element={<BrandForm/>} />
+                    <Route path='/brand/add' element={<CreateBrandForm/>} />
                     <Route path='/brand/edit/:brandId' element={<BrandForm/>} />
-                    <Route path='/model/add' element={<ModelForm/>} />
+                    <Route path='/model/add' element={<CreateModelForm/>} />
                     <Route path='/model/edit/:modelId' element={<ModelForm/>} />
                     <Route path='*' element={<NotFound/>} />
                   </Routes>
