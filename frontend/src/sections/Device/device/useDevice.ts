@@ -4,6 +4,7 @@ import { AllDeviceGetter } from '../../../modules/devices/devices/devices/applic
 import { type Repository } from '../../../modules/shared/domain/repository'
 import { DeviceCreator } from '../../../modules/devices/devices/devices/application/DeviceCreator'
 import { Uuid } from '../../../modules/shared/domain/value-object/Uuid'
+import { DeviceGetter } from '../../../modules/devices/devices/devices/application/DeviceGetter'
 
 export const useDevice = (repository: Repository) => {
   const allDeviceGetter = new AllDeviceGetter(repository)
@@ -15,7 +16,7 @@ export const useDevice = (repository: Repository) => {
     const deviceCreator = new DeviceCreator(repository)
     const id = Uuid.random().value
     await deviceCreator.create({ id, serial, activo, statusId, modelId })
-    getDevices()
+    // getDevices()
   }
 
   function getDevices () {
@@ -32,6 +33,8 @@ export const useDevice = (repository: Repository) => {
       })
   }
 
+  const getDevice = new DeviceGetter(repository)
+
   useEffect(() => {
     getDevices()
 
@@ -44,6 +47,7 @@ export const useDevice = (repository: Repository) => {
     devices,
     loading,
     error,
+    getDevice,
     createDevice
   }
 }

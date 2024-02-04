@@ -11,34 +11,43 @@ import SerialInput from './SerialInput'
 import CategorySelect from '../category/CategorySelect'
 import BrandSelect from '../brand/BrandSelect'
 import ModelSelect from '../model/ModelSelect'
+import { useDeviceInitialState } from './DeviceFormInitialState'
 
 const initialState = {
   serial: '',
   activo: '',
   statusId: 1,
   modelId: '',
-  categoryId: '',
+  categoryId: 1,
   brandId: ''
 }
-
 export default function CreateDeviceForm () {
   const navigate = useNavigate()
-  const { formData, updateForm, resetFrom } = useGenericFormData(initialState)
+  const { preloadedDeviceState } = useDeviceInitialState()
+  const { formData, updateForm, resetForm } = useGenericFormData(initialState)
   const { formStatus, submitForm, resetFormStatus } = useDeviceForm()
   const [errors, setErrors] = useState(initialState)
+
+  useEffect(() => {
+    updateForm(preloadedDeviceState)
+    return () => {
+      resetForm()
+    }
+  }, [preloadedDeviceState])
 
   useEffect(() => {
     const isSerial = DeviceSerial.isValid(formData.serial)
     const isActivo = DeviceActivo.isValid(formData.activo)
 
     setErrors({
-      modelId: '',
-      statusId: 1,
-      categoryId: '',
-      brandId: '',
+      ...errors,
       serial: isSerial ? '' : DeviceSerial.invalidMessage(formData.serial),
       activo: isActivo ? '' : DeviceActivo.invalidMessage(formData.activo)
     })
+
+    return () => {
+      setErrors(initialState)
+    }
   }, [formData])
 
   const handleSubmit = async (event: FormEvent) => {

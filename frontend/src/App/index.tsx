@@ -29,7 +29,7 @@ function App () {
                     <Route path='/' element={<Home />}/>
                     <Route path='/login' element={<Login />}/>
                     <Route path='/device/add' element={<CreateDeviceForm/>} />
-                    <Route path='/device/edit/:deviceId' element={<DeviceForm/>} />
+                    <Route path='/device/edit/:id' element={<CreateDeviceForm/>} />
                     <Route path='/brand/add' element={<CreateBrandForm/>} />
                     <Route path='/brand/edit/:brandId' element={<BrandForm/>} />
                     <Route path='/model/add' element={<CreateModelForm/>} />

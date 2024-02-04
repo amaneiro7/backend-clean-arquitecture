@@ -5,7 +5,7 @@ export const useGenericFormData = <T>(
 ): {
     formData: T
     updateForm: (value: Partial<T>) => void
-    resetFrom: () => void
+    resetForm: () => void
   } => {
   const [formData, setFormData] = useState(initialState)
 
@@ -15,13 +15,13 @@ export const useGenericFormData = <T>(
     })
   }
 
-  const resetFrom = () => {
+  const resetForm = () => {
     setFormData(initialState)
   }
 
   return {
     formData,
     updateForm,
-    resetFrom
+    resetForm
   }
 }

@@ -10,9 +10,11 @@ import { useBrand } from '../Device/brand/useBrand'
 import { type BrandPrimitives } from '../../modules/devices/brand/domain/Brand'
 import { useModel } from '../Device/model/useMode'
 import { type ModelPrimitives } from '../../modules/devices/model/domain/Model'
+import { type DeviceGetter } from '../../modules/devices/devices/devices/application/DeviceGetter'
 
 export interface ContextState {
   devices: DevicePrimitives[]
+  getDevice: DeviceGetter
   status: StatusPrimitives[]
   categories: CategoryPrimitives[]
   brands: BrandPrimitives[]
@@ -28,14 +30,24 @@ export const AppContextProvider = ({
   children,
   repository
 }: PropsWithChildren<{ repository: Repository }>) => {
-  const { devices, createDevice } = useDevice(repository)
+  const { devices, createDevice, getDevice } = useDevice(repository)
   const { status } = useStatus(repository)
   const { categories } = useCategory(repository)
   const { brands, createBrand } = useBrand(repository)
   const { models, createModel } = useModel(repository)
 
   return (
-    <AppContext.Provider value={{ devices, status, categories, brands, models, createDevice, createBrand, createModel }}>{children}</AppContext.Provider>
+    <AppContext.Provider value={{
+      devices,
+      status,
+      categories,
+      brands,
+      models,
+      getDevice,
+      createDevice,
+      createBrand,
+      createModel
+    }}>{children}</AppContext.Provider>
   )
 }
 

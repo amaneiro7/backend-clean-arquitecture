@@ -33,7 +33,7 @@ export class ApiDeviceRepository implements DeviceRepository {
       .then(res => res.map(e => ({
         id: e.id,
         serial: e.serial,
-        activo: e.activo,
+        activo: e.activo ?? '',
         statusId: e.status.id,
         statusName: e.status.name,
         modelId: e.model.id,
@@ -47,9 +47,28 @@ export class ApiDeviceRepository implements DeviceRepository {
       }) satisfies DevicesMappedApiResponse))
   }
 
-  async getById ({ id }: { id: DeviceId }): Promise<DevicePrimitives | null> {
-    return await fetch(`${API_URL}/devices/${id.value}`).then(
-      async res => await (res.json())
-    )
+  async getById ({ id }: { id: DeviceId }): Promise<DevicePrimitives> {
+    return await fetch(`${API_URL}/devices/${id.value}`)
+      .then(async (res) => {
+        if (!res.ok) {
+          throw new Error(await res.text())
+        }
+        return await (await res.json() as Promise<DevicesApiResponse>)
+      })
+      .then(d => ({
+        id: d.id,
+        serial: d.serial,
+        activo: d.activo ?? '',
+        statusId: d.status.id,
+        statusName: d.status.name,
+        modelId: d.model.id,
+        modelName: d.model.name,
+        categoryId: d.model.category.id,
+        categoryName: d.model.category.name,
+        brandId: d.model.brand.id,
+        brandName: d.model.brand.name,
+        createdAt: d.createdAt,
+        updatedAt: d.updatedAt
+      } satisfies DevicesMappedApiResponse))
   }
 }

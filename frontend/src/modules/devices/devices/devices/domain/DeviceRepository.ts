@@ -4,7 +4,7 @@ import { type DeviceId } from './DeviceId'
 export abstract class DeviceRepository {
   abstract getAll (): Promise<DevicePrimitives[]>
 
-  abstract getById ({ id }: { id: DeviceId }): Promise<DevicePrimitives | null>
+  abstract getById ({ id }: { id: DeviceId }): Promise<DevicePrimitives>
 
   abstract save ({ device }: { device: Device }): Promise<void>
 

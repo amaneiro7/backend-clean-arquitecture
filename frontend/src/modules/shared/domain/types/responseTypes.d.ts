@@ -16,7 +16,7 @@ export interface DevicesApiResponse {
 
 export interface DevicesMappedApiResponse {
   id: string
-  activo: null | string
+  activo: string
   serial: string
   statusId: number
   statusName: string
