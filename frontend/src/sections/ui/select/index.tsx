@@ -6,7 +6,7 @@ import { type OnChangeInputs } from '../../../types/types'
 
 interface Props {
   name: string
-  value: string
+  value: string | number
   label: string
   options: Options[]
   isHidden?: boolean
@@ -16,7 +16,7 @@ interface Props {
 }
 
 interface Options {
-  id: string
+  id: string | number
   name: string
 }
 

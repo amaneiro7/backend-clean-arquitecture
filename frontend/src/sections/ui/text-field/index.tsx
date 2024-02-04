@@ -1,21 +1,22 @@
-import { type SelectChangeEvent } from '@mui/material'
 import { TextField } from '../../mui/TextField'
 
 interface Props {
+  id: string
   name: string
   type: string
   label: string
   placeholder: string
-  handle?: ((event: React.ChangeEvent<HTMLInputElement> | SelectChangeEvent<string> | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, child: React.ReactNode) => void) | undefined
+  handle: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
   value: string
   defaultValue?: string
   isRequired?: boolean
   isError?: boolean
-  error?: string
+  errorMessage?: string
 }
-export default function FormInput ({ name, value, type, placeholder, handle, defaultValue, label, isRequired = false, isError = false, error }: Props) {
+export default function FormInput ({ id, name, value, type, placeholder, handle, defaultValue, label, isRequired = false, isError = false, errorMessage }: Props) {
   return (
         <TextField
+            id={id}
             required={isRequired}
             fullWidth
             name={name}
@@ -28,7 +29,7 @@ export default function FormInput ({ name, value, type, placeholder, handle, def
             defaultValue={defaultValue}
             color={isError ? 'warning' : 'primary'}
             error={isError}
-            helperText={isError ? error : ''}
+            helperText={errorMessage}
         />
   )
 }

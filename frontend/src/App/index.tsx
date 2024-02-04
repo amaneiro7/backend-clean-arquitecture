@@ -6,6 +6,7 @@ import Loading from '../sections/components/Loading/index.tsx'
 import { Layout } from '../sections/components/layout/index.tsx'
 import { AppContextProvider } from '../sections/Context/AppContext.tsx'
 import { apiRepository } from '../modules/shared/infraestructure/ApiRepository.ts'
+import CreateDeviceForm from '../sections/Device/device/CreateDeviceForm.tsx'
 
 const Home = lazy(async () => await import('../sections/page/home/index.tsx'))
 const Login = lazy(async () => await import('../sections/page/login/index.tsx'))
@@ -25,7 +26,7 @@ function App () {
                   <Routes>
                     <Route path='/' element={<Home />}/>
                     <Route path='/login' element={<Login />}/>
-                    <Route path='/device/add' element={<DeviceForm/>} />
+                    <Route path='/device/add' element={<CreateDeviceForm/>} />
                     <Route path='/device/edit/:deviceId' element={<DeviceForm/>} />
                     <Route path='/brand/add' element={<BrandForm/>} />
                     <Route path='/brand/edit/:brandId' element={<BrandForm/>} />
