@@ -23,7 +23,9 @@ export class SequelizeDeviceRepository implements DeviceRepository {
           include: ['hardDriveCapacity', 'hardDriveType']
         }
       ],
-      where: {}
+      where: {},
+      order: ['status', 'DESC']
+
     }
     return await DeviceModel.findAll(options)
   }
