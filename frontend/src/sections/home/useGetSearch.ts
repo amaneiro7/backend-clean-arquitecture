@@ -1,6 +1,7 @@
 import { useMemo, useReducer } from 'react'
-import { useDevice } from './useDevice'
+import { useDevice } from '../Hooks/useDevice'
 import { type Repository } from '../../modules/shared/domain/repository'
+import { useAppContext, useAppContext } from '../Context/AppContext'
 
 const initialState = {
   searchValueCategory: {
@@ -60,10 +61,9 @@ const reducerObject = (state, payload) => ({
   }
 })
 
-export const useGetSearch = (repository: Repository) => {
+export const useGetSearch = () => {
   const [state, dispatch] = useReducer(reducer, initialState)
-  const { devices } = useDevice(repository)
-  console.log(devices)
+  const { devices } = useAppContext()
 
   const searchedDevice = () => {
     if (JSON.stringify(initialState) === JSON.stringify(state)) {

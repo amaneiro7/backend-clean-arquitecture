@@ -1,4 +1,5 @@
 import { type DevicePrimitives } from '../../../modules/devices/devices/devices/domain/Device'
+import { type DevicesMappedApiResponse } from '../../../modules/shared/domain/types/responseTypes'
 import { TableCardList } from '../TablerCardList'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 
@@ -29,7 +30,7 @@ const TableCard: React.FC<Props> = ({ device }) => {
                     key={item.id}
                     className=' odd:bg-slate-200 even:bg-slate-100 [&>td]:align-middle [&>td]:whitespace-break-spaces [&>td]:border-b-2 [&>td]:border-b-gray-300 [&>td]:p-3 [&>td]:pb-2'
                 >
-                  <TableCardList item={item} />
+                  <TableCardList item={item as DevicesMappedApiResponse} />
                 </tr>
               ))}
             </tbody>

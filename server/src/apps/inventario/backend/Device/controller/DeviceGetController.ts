@@ -12,7 +12,10 @@ export class DeviceGetController {
 
   getAll = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const data = await new SearchAllDevices(this.repository).search()
+      const { query: queryParams } = req
+      const { filters, orderBy, order, limit, offset } = queryParams
+
+      const data = await new SearchAllDevices(this.repository).search(req.query)
       res.status(httpStatus.OK).json(data)
     } catch (error) {
       next(error)

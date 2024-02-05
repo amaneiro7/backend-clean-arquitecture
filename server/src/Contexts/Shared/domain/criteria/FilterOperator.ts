@@ -11,7 +11,7 @@ export enum Operator {
 }
 
 export class FilterOperator extends EnumValueObject<Operator> {
-  constructor (value: Operator) {
+  constructor (public readonly value: Operator) {
     super(value, Object.values(Operator))
   }
 

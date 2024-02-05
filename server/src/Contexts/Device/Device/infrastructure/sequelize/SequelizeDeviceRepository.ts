@@ -1,10 +1,13 @@
+import type QueryString from 'qs'
 import { type DevicePrimitives } from '../../domain/Device'
 import { type DeviceRepository } from '../../domain/DeviceRepository'
 import { DeviceModel } from './DeviceSchema'
+import { type FindOptions } from 'sequelize'
+import { type DevicesApiResponse } from './DeviceResponse'
 
 export class SequelizeDeviceRepository implements DeviceRepository {
-  async searchAll (): Promise<DevicePrimitives[]> {
-    return await DeviceModel.findAll({
+  async searchAll (queryParams: QueryString.ParsedQs): Promise<DevicePrimitives[]> {
+    const options: FindOptions<DevicesApiResponse> = {
       include: [
         {
           association: 'model',
@@ -19,8 +22,10 @@ export class SequelizeDeviceRepository implements DeviceRepository {
           association: 'hardDrive',
           include: ['hardDriveCapacity', 'hardDriveType']
         }
-      ]
-    })
+      ],
+      where: {}
+    }
+    return await DeviceModel.findAll(options)
   }
 
   async searchById (id: string): Promise<DevicePrimitives | null> {

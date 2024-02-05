@@ -1,20 +1,21 @@
-import { type Filters } from './Filters'
-import { type Order } from './Order'
+import { type FiltersPrimitives } from './Filter'
+import { Filters } from './Filters'
+import { Order } from './Order'
 
 export class Criteria {
-  readonly filters: Filters
-  readonly order: Order
-  readonly limit?: number
-  readonly offset?: number
+  constructor (
+    readonly filters: Filters,
+    readonly order: Order
+  ) {}
 
-  constructor (filters: Filters, order: Order, limit?: number, offset?: number) {
-    this.filters = filters
-    this.order = order
-    this.limit = limit
-    this.offset = offset
-  }
-
-  public hasFilters (): boolean {
-    return this.filters.filters.length > 0
+  static fromPrimitives (
+    filters: FiltersPrimitives[],
+    orderBy: string | null,
+    orderType: string | null
+  ): Criteria {
+    return new Criteria(
+      Filters.fromPrimitives(filters),
+      Order.fromPrimitives(orderBy, orderType)
+    )
   }
 }

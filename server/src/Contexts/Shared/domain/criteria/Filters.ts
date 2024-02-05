@@ -1,17 +1,15 @@
-import { Filter } from './Filter'
+import { Filter, type FiltersPrimitives } from './Filter'
 
 export class Filters {
-  readonly filters: Filter[]
+  constructor (readonly value: Filter[]) {}
 
-  constructor (filters: Filter[]) {
-    this.filters = filters
+  static fromPrimitives (filters: FiltersPrimitives[]): Filters {
+    return new Filters(
+      filters.map(filter => Filter.fromPrimitives(filter.field, filter.operator, filter.value))
+    )
   }
 
-  static fromValues (filters: Array<Map<string, string>>): Filters {
-    return new Filters(filters.map(Filter.fromValues))
-  }
-
-  static none (): Filters {
-    return new Filters([])
+  toPrimitives (): FiltersPrimitives[] {
+    return this.value.map(filter => filter.toPrimitives())
   }
 }

@@ -3,20 +3,15 @@ import { OrderBy } from './OrderBy'
 import { OrderType, OrderTypes } from './OrderType'
 
 export class Order {
-  readonly orderBy: OrderBy
-  readonly orderType: OrderType
+  constructor (
+    readonly orderBy: OrderBy,
+    readonly orderType: OrderType
+  ) {}
 
-  constructor (orderBy: OrderBy, orderType: OrderType) {
-    this.orderBy = orderBy
-    this.orderType = orderType
-  }
-
-  static fromValues (orderBy?: string, orderType?: string): Order {
-    if (orderBy == null) {
-      return Order.none()
-    }
-
-    return new Order(new OrderBy(orderBy), OrderType.fromValue(orderType ?? OrderTypes.ASC))
+  static fromPrimitives (orderBy: string | null, orderType: string | null): Order {
+    return orderBy !== null
+      ? new Order(new OrderBy(orderBy), new OrderType(orderBy as OrderTypes))
+      : Order.none()
   }
 
   static none (): Order {

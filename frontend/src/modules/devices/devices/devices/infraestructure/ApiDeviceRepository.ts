@@ -33,7 +33,7 @@ export class ApiDeviceRepository implements DeviceRepository {
       .then(res => res.map(e => ({
         id: e.id,
         serial: e.serial,
-        activo: e.activo ?? '',
+        activo: e.activo ?? 'Sin Serial',
         statusId: e.status.id,
         statusName: e.status.name,
         modelId: e.model.id,
