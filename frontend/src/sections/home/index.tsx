@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { Suspense, lazy } from 'react'
 import { useAppContext } from '../Context/AppContext'
 import { useInputsData } from './useInputData'
@@ -15,6 +15,9 @@ const StatusSelect = lazy(async () => await import('../Device/status/StatusSelec
 function Home () {
   const { devices } = useAppContext()
   const navigate = useNavigate()
+  const params = useParams()
+  console.log(params)
+
   const { inputData, updateInputData, clearInputs } = useInputsData()
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
