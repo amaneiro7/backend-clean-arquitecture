@@ -1,12 +1,12 @@
-import type QueryString from 'qs'
 import { type DevicePrimitives } from '../../domain/Device'
 import { type DeviceRepository } from '../../domain/DeviceRepository'
 import { DeviceModel } from './DeviceSchema'
 import { type FindOptions } from 'sequelize'
 import { type DevicesApiResponse } from './DeviceResponse'
-
+import type QueryString from 'qs'
+import { Op } from 'sequelize'
 export class SequelizeDeviceRepository implements DeviceRepository {
-  async searchAll (queryParams: QueryString.ParsedQs): Promise<DevicePrimitives[]> {
+  async searchAll (query: QueryString.ParsedQs): Promise<DevicePrimitives[]> {
     const options: FindOptions<DevicesApiResponse> = {
       include: [
         {
@@ -23,10 +23,56 @@ export class SequelizeDeviceRepository implements DeviceRepository {
           include: ['hardDriveCapacity', 'hardDriveType']
         }
       ],
-      where: {},
-      order: ['status', 'DESC']
-
+      where: {}
     }
+    const { limit, offset } = query
+    if (limit !== undefined && offset !== undefined) {
+      options.limit = Number(limit)
+      options.offset = Number(offset)
+    }
+    const { activo } = query
+    if (typeof activo === 'string') {
+      options.where = {
+        activo: {
+          [Op.iLike]: `%${activo}%`
+        }
+      }
+    }
+    const { serial } = query
+    if (typeof serial === 'string') {
+      options.where = {
+        serial: {
+          [Op.iLike]: `%${serial}%`
+        }
+      }
+    }
+    const { statusId } = query
+    if (typeof statusId === 'number') {
+      options.where = {
+        statusId
+      }
+    }
+
+    const { categoryId } = query
+    if (typeof categoryId === 'string' && Array.isArray(options.include)) {
+      const id = Number(categoryId)
+      options.include.push({
+        association: 'model',
+        where: {
+          categoryId: id
+        }
+      })
+    }
+    const { brandId } = query
+    if (typeof brandId === 'string' && Array.isArray(options.include)) {
+      options.include.push({
+        association: 'model',
+        where: {
+          brandId
+        }
+      })
+    }
+
     return await DeviceModel.findAll(options)
   }
 

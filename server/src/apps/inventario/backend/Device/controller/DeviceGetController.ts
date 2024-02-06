@@ -7,25 +7,13 @@ import { DeviceFinder } from '../../../../../Contexts/Device/Device/application/
 import { DeviceId } from '../../../../../Contexts/Device/Device/domain/DeviceId'
 import { DeviceSerial } from '../../../../../Contexts/Device/Device/domain/DeviceSerial'
 import { DeviceActivo } from '../../../../../Contexts/Device/Device/domain/DeviceActivo'
-import { type FilterType, SearchParamsCriteriaFiltersParser } from '../../../../../Contexts/Shared/infrastructure/criteria/SearchParamsCriteriaFiltersParser'
-import { SearchDeviceByCriteriaQuery } from '../../../../../Contexts/Device/Device/application/SearchAll/SearchDeviceByCriteriaQuery'
 
 export class DeviceGetController {
   constructor (private readonly repository: Repository) {}
 
   getAll = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const { query: queryParams } = req
-      const { filters, orderBy, order, limit, offset } = queryParams
-      const filtersPersed = SearchParamsCriteriaFiltersParser.parseFilters(filters as unknown as FilterType[])
-      const query = new SearchDeviceByCriteriaQuery(
-        filtersPersed,
-        orderBy as string,
-        order as string,
-        limit ? Number(limit) : undefined,
-        offset ? Number(offset) : undefined
-      )
-      const data = await new SearchAllDevices(this.repository).search(query)
+      const data = await new SearchAllDevices(this.repository).search(req.query)
       res.status(httpStatus.OK).json(data)
     } catch (error) {
       next(error)
