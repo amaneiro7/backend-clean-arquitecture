@@ -9,19 +9,20 @@ const Select = lazy(async () => await import('../../ui/select'))
 interface Props {
   value: string
   onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  isForm?: boolean
 }
 
-const ModelSelect: FC<Props> = ({ value, onChange }) => {
+const ModelSelect: FC<Props> = ({ value, onChange, isForm = true }) => {
   const { models } = useAppContext()
   return (
     <Suspense>
       <div className='w-full flex relative'>
-        <Link
+        {isForm && <Link
           className='absolute -left-11'
           to={'/model/add'}
         >
           <AddIcon />
-        </Link>
+        </Link>}
         <Select
           label='Modelo'
           name='modelId'
@@ -32,13 +33,13 @@ const ModelSelect: FC<Props> = ({ value, onChange }) => {
           isDisabled={false}
           value={value}
         />
-        <Link
+        {isForm && <Link
           className='absolute -right-11'
           to={`/model/edit/${value}`}
           state={{}}
         >
           <EditIcon isDisbaled={value === ''} />
-        </Link>
+        </Link>}
       </div>
     </Suspense>
   )

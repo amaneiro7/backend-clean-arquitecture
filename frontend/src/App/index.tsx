@@ -6,11 +6,11 @@ import Loading from '../sections/components/Loading/index.tsx'
 import { Layout } from '../sections/components/layout/index.tsx'
 import { AppContextProvider } from '../sections/Context/AppContext.tsx'
 import { apiRepository } from '../modules/shared/infraestructure/ApiRepository.ts'
-import CreateDeviceForm from '../sections/Device/device/CreateDeviceForm.tsx'
-import CreateBrandForm from '../sections/Device/brand/CreateBrandForm.tsx'
-import CreateModelForm from '../sections/Device/model/CreateModelForm.tsx'
 
 const Home = lazy(async () => await import('../sections/home/index.tsx'))
+const CreateDeviceForm = lazy(async () => await import('../sections/Device/device/CreateDeviceForm.tsx'))
+const CreateBrandForm = lazy(async () => await import('../sections/Device/brand/CreateBrandForm.tsx'))
+const CreateModelForm = lazy(async () => await import('../sections/Device/model/CreateModelForm.tsx'))
 const Login = lazy(async () => await import('../sections/page/login/index.tsx'))
 const NotFound = lazy(async () => await import('../sections/page/404/index.tsx'))
 

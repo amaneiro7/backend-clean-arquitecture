@@ -1,3 +1,4 @@
+import { type QueryParams } from '../../../../shared/domain/UrlParams/QueryParams'
 import { type DevicesMappedApiResponse, type DevicesApiResponse } from '../../../../shared/domain/types/responseTypes'
 import { API_URL } from '../../../../shared/infraestructure/config'
 import { type DevicePrimitives, type Device } from '../domain/Device'
@@ -27,7 +28,7 @@ export class ApiDeviceRepository implements DeviceRepository {
     })
   }
 
-  async getAll (): Promise<DevicePrimitives[]> {
+  async getAll (query: QueryParams): Promise<DevicePrimitives[]> {
     return await fetch(`${API_URL}/devices`)
       .then(async res => await (res.json() as Promise<DevicesApiResponse[]>))
       .then(res => res.map(e => ({

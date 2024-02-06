@@ -11,9 +11,11 @@ import { type BrandPrimitives } from '../../modules/devices/brand/domain/Brand'
 import { useModel } from '../Device/model/useMode'
 import { type ModelPrimitives } from '../../modules/devices/model/domain/Model'
 import { type DeviceGetter } from '../../modules/devices/devices/devices/application/DeviceGetter'
+import { type QueryParams } from '../../modules/shared/domain/UrlParams/QueryParams'
 
 export interface ContextState {
   devices: DevicePrimitives[]
+  queryParams: QueryParams
   getDevice: DeviceGetter
   status: StatusPrimitives[]
   categories: CategoryPrimitives[]
@@ -30,7 +32,7 @@ export const AppContextProvider = ({
   children,
   repository
 }: PropsWithChildren<{ repository: Repository }>) => {
-  const { devices, createDevice, getDevice } = useDevice(repository)
+  const { devices, queryParams, createDevice, getDevice } = useDevice(repository)
   const { status } = useStatus(repository)
   const { categories } = useCategory(repository)
   const { brands, createBrand } = useBrand(repository)
@@ -39,6 +41,7 @@ export const AppContextProvider = ({
   return (
     <AppContext.Provider value={{
       devices,
+      queryParams,
       status,
       categories,
       brands,

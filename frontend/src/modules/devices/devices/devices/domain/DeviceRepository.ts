@@ -1,8 +1,9 @@
+import { type QueryParams } from '../../../../shared/domain/UrlParams/QueryParams'
 import { type Device, type DevicePrimitives } from './Device'
 import { type DeviceId } from './DeviceId'
 
 export abstract class DeviceRepository {
-  abstract getAll (): Promise<DevicePrimitives[]>
+  abstract getAll (query: QueryParams): Promise<DevicePrimitives[]>
 
   abstract getById ({ id }: { id: DeviceId }): Promise<DevicePrimitives>
 

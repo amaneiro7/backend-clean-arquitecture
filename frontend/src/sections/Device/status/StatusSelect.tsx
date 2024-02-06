@@ -4,7 +4,7 @@ import { useAppContext } from '../../Context/AppContext'
 const Select = lazy(async () => await import('../../ui/select'))
 
 interface Props {
-  value: number
+  value: number | string
   onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
 }
 
