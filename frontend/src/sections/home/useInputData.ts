@@ -1,5 +1,4 @@
 import { useSearchParams } from 'react-router-dom'
-import { useAppContext } from '../Context/AppContext'
 
 export interface InputData {
   categoryId: number | string

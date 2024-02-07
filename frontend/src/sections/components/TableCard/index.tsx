@@ -24,7 +24,7 @@ const TableCard: React.FC<Props> = ({ device }) => {
                 <th className='sticky z-10 top-0 left-0'>Acciones</th>
               </tr>
             </thead>
-            <tbody ref={parent}>
+            <tbody>
               {device.map((item) => (
                 <tr
                     key={item.id}
