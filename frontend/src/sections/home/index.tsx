@@ -1,7 +1,8 @@
-import { useNavigate, useParams } from 'react-router-dom'
-import { Suspense, lazy } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Suspense, lazy, useCallback } from 'react'
 import { useAppContext } from '../Context/AppContext'
 import { useInputsData } from './useInputData'
+import debounce from 'just-debounce-it'
 
 const TableCard = lazy(async () => await import('../components/TableCard'))
 const Button = lazy(async () => await import('../ui/button'))
@@ -13,16 +14,22 @@ const ModelSelect = lazy(async () => await import('../Device/model/ModelSelect')
 const StatusSelect = lazy(async () => await import('../Device/status/StatusSelect'))
 
 function Home () {
-  const { devices } = useAppContext()
+  const { devices, handleHasUrlSearch } = useAppContext()
   const navigate = useNavigate()
-  const params = useParams()
-  console.log(params)
 
   const { inputData, updateInputData, clearInputs } = useInputsData()
+
+  const debounceGetdevices = useCallback(
+    debounce(() => {
+      handleHasUrlSearch()
+    }, 300),
+    [handleHasUrlSearch]
+  )
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target
     updateInputData(name, value)
+    debounceGetdevices()
   }
 
   return (

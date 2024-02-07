@@ -1,5 +1,7 @@
 import { useSearchParams } from 'react-router-dom'
-interface InputData {
+import { useAppContext } from '../Context/AppContext'
+
+export interface InputData {
   categoryId: number | string
   brandId: string
   statusId: number | string

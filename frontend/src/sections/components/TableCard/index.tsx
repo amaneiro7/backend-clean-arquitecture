@@ -7,7 +7,7 @@ interface Props {
   device: DevicePrimitives[]
 }
 const TableCard: React.FC<Props> = ({ device }) => {
-  const [parent] = useAutoAnimate(/* optional config */)
+  // const [parent] = useAutoAnimate(/* optional config */)
 
   return (
     <div className='rounded-2xl p-6 m-4 border-2 border-solid shadow-md text-left'>

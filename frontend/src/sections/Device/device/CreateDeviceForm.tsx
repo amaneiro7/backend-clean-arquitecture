@@ -1,4 +1,4 @@
-import { type FormEvent, useEffect, useState } from 'react'
+import { type FormEvent, useEffect, useState, useRef } from 'react'
 import { useDeviceForm } from './useDeviceForm'
 import { useGenericFormData } from '../../Hooks/useGenericFormData'
 import { DeviceSerial } from '../../../modules/devices/devices/devices/domain/DeviceSeria'
@@ -27,6 +27,8 @@ export default function CreateDeviceForm () {
   const { formData, updateForm, resetForm } = useGenericFormData(initialState)
   const { formStatus, submitForm, resetFormStatus } = useDeviceForm()
   const [errors, setErrors] = useState(initialState)
+  const isFirtsInputSerial = useRef(true)
+  const isFirtsInputActivo = useRef(true)
 
   useEffect(() => {
     updateForm(preloadedDeviceState)
@@ -36,6 +38,14 @@ export default function CreateDeviceForm () {
   }, [preloadedDeviceState])
 
   useEffect(() => {
+    if (isFirtsInputSerial.current) {
+      isFirtsInputSerial.current = formData.serial === ''
+      return
+    }
+    if (isFirtsInputActivo.current) {
+      isFirtsInputActivo.current = formData.activo === ''
+      return
+    }
     const isSerial = DeviceSerial.isValid(formData.serial)
     const isActivo = DeviceActivo.isValid(formData.activo)
 
