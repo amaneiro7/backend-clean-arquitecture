@@ -9,6 +9,9 @@ import { createStatusRouter } from '../../Device/routes/status.routes'
 import { createDeviceRouter } from '../../Device/routes/device.routes'
 import { createAuthRouter } from '../../Auth/routes/auth.routes'
 import { createProcessorRouter } from '../../Features/Processor/routes/processor.routes'
+import { createMemoryRamRouter } from '../../Features/MemoryRam/routes/memoryRam.routes'
+import { createHardDriveTypeRouter } from '../../Features/HardDrive/routes/hardDriveType.routes'
+import { createHardDriveCapacityRouter } from '../../Features/HardDrive/routes/hardDriveCapacity.routes'
 
 // import { createUserRouter } from './user.routes'
 // import { createAuthRouter } from './auth.routes'
@@ -29,6 +32,9 @@ export const routerApi = ({ app, repository }: Props): Router => {
   router.use('/status', createStatusRouter({ repository }))
   router.use('/processors', createProcessorRouter({ repository }))
   router.use('/auth', createAuthRouter())
+  router.use('/memoryramtypes', createMemoryRamRouter({ repository }))
+  router.use('/harddrivetypes', createHardDriveTypeRouter({ repository }))
+  router.use('/harddrivecapacities', createHardDriveCapacityRouter({ repository }))
   // router.use('/users', createUserRouter({ router, repository }))
   // router.use('/profiles', createProfileRouter({ router, repository }))
   router.use((err: Error, req: Request, res: Response, _next: () => void) => {
