@@ -1,18 +1,18 @@
-import { type ProcessorId } from './ProcessorId'
-import { type ProcessorName } from './ProcessorName'
+import { type OperatingSystemId } from './OperatingSystemId'
+import { type OperatingSystemName } from './OperatingSystemName'
 
-export interface ProcessorPrimitives {
-  id: string
+export interface OperatingSystemPrimitives {
+  id: number
   name: string
 }
 
-export class Processor {
+export class OperatingSystem {
   constructor (
-    private readonly id: ProcessorId,
-    private readonly name: ProcessorName
+    private readonly id: OperatingSystemId,
+    private readonly name: OperatingSystemName
   ) {}
 
-  idValue (): string {
+  idValue (): number {
     return this.id.value
   }
 
@@ -20,7 +20,7 @@ export class Processor {
     return this.name.value
   }
 
-  toPrimitives (): ProcessorPrimitives {
+  toPrimitives (): OperatingSystemPrimitives {
     return {
       id: this.idValue(),
       name: this.nameValue()
