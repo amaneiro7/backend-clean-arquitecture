@@ -3,6 +3,7 @@ import { useAppContext } from '../../Context/AppContext'
 import { Link } from 'react-router-dom'
 import { AddIcon } from '../../ui/icon/AddIcon'
 import { EditIcon } from '../../ui/icon/EditIcon'
+import { useBrand } from './useBrand'
 
 const Select = lazy(async () => await import('../../ui/select'))
 
@@ -13,7 +14,8 @@ interface Props {
 }
 
 const BrandSelect: FC<Props> = ({ value, onChange, isForm = true }) => {
-  const { brands } = useAppContext()
+  const { repository } = useAppContext()
+  const { brands } = useBrand(repository)
   return (
         <Suspense>
           <div className='w-full flex relative'>

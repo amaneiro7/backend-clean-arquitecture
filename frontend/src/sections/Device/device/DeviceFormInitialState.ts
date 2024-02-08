@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useAppContext } from '../../Context/AppContext'
 import { type DevicesMappedApiResponse } from '../../../modules/shared/domain/types/responseTypes'
+import { useDevice } from './useDevice'
 
 const defaultInitialState = {
   serial: '',
@@ -15,7 +16,8 @@ export const useDeviceInitialState = () => {
   const { id } = useParams()
   const location = useLocation()
   const navigate = useNavigate()
-  const { getDevice } = useAppContext()
+  const { repository } = useAppContext()
+  const { getDevice } = useDevice(repository)
   const [preloadedDeviceState, setPreloadedDeviceState] = useState(defaultInitialState)
 
   useEffect(() => {

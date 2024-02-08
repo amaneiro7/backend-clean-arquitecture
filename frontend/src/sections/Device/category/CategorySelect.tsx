@@ -1,5 +1,6 @@
 import { type ChangeEvent, type FC, Suspense, lazy } from 'react'
 import { useAppContext } from '../../Context/AppContext'
+import { useCategory } from './useCategory'
 
 const Select = lazy(async () => await import('../../ui/select'))
 
@@ -9,7 +10,8 @@ interface Props {
 }
 
 const CategorySelect: FC<Props> = ({ value, onChange }) => {
-  const { categories } = useAppContext()
+  const { repository } = useAppContext()
+  const { categories } = useCategory(repository)
   return (
         <Suspense>
             <Select

@@ -1,5 +1,6 @@
 import { type ChangeEvent, type FC, Suspense, lazy } from 'react'
 import { useAppContext } from '../../Context/AppContext'
+import { useStatus } from './useStatus'
 
 const Select = lazy(async () => await import('../../ui/select'))
 
@@ -9,7 +10,8 @@ interface Props {
 }
 
 const StatusSelect: FC<Props> = ({ value, onChange }) => {
-  const { status } = useAppContext()
+  const { repository } = useAppContext()
+  const { status } = useStatus(repository)
   return (
         <Suspense>
             <Select

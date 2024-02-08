@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useAppContext } from '../../Context/AppContext'
+import { useDevice } from './useDevice'
 
 export const enum FormStatus {
   Loading,
@@ -14,7 +15,8 @@ export function useDeviceForm (): {
   resetFormStatus: () => void
 } {
   const [formStatus, setFormStatus] = useState(FormStatus.Initial)
-  const { createDevice } = useAppContext()
+  const { repository } = useAppContext()
+  const { createDevice } = useDevice(repository)
 
   async function submitForm ({
     activo,

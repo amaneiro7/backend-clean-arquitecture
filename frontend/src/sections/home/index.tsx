@@ -3,6 +3,7 @@ import { Suspense, lazy, useCallback } from 'react'
 import { useAppContext } from '../Context/AppContext'
 import { useInputsData } from './useInputData'
 import debounce from 'just-debounce-it'
+import { useDevice } from '../Device/device/useDevice'
 
 const TableCard = lazy(async () => await import('../components/TableCard'))
 const Button = lazy(async () => await import('../ui/button'))
@@ -14,7 +15,8 @@ const ModelSelect = lazy(async () => await import('../Device/model/ModelSelect')
 const StatusSelect = lazy(async () => await import('../Device/status/StatusSelect'))
 
 function Home () {
-  const { devices, handleHasUrlSearch } = useAppContext()
+  const { repository } = useAppContext()
+  const { devices, handleHasUrlSearch } = useDevice(repository)
   const navigate = useNavigate()
 
   const { inputData, updateInputData, clearInputs } = useInputsData()
