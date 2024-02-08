@@ -2,6 +2,9 @@ import { type BrandRepository } from '../../devices/brand/domain/BrandRepository
 import { type CategoryRepository } from '../../devices/category/domain/CategoryRepository'
 import { type DeviceRepository } from '../../devices/devices/devices/domain/DeviceRepository'
 import { type StatusRepository } from '../../devices/devices/status/domain/StatusRepository'
+import { type HardDriveRepository } from '../../devices/fetures/hardDrive/hardDrive/domain/HardDriveRepository'
+import { type HardDriveCapacityRepository } from '../../devices/fetures/hardDrive/hardDriveCapacity/domain/HardDriveCapacityRepository'
+import { type HardDriveTypeRepository } from '../../devices/fetures/hardDrive/hardDriveType/domain/HardDriveTypeRepository'
 import { type OperatingSystemRepository } from '../../devices/fetures/operatingSystem/operatingSystem/domain/OperatingSystemRepository'
 import { type OperatingSystemArqRepository } from '../../devices/fetures/operatingSystem/operatingSystemArq/domain/OperatingSystemArqRepository'
 import { type ProcessorRepository } from '../../devices/fetures/processor/domain/ProcessorRepository'
@@ -16,4 +19,7 @@ export interface Repository {
   processor: ProcessorRepository
   operatingSystem: OperatingSystemRepository
   operatingSystemArq: OperatingSystemArqRepository
+  hardDriveType: HardDriveTypeRepository
+  hardDriveCapacity: HardDriveCapacityRepository
+  hardDrive: HardDriveRepository
 }
