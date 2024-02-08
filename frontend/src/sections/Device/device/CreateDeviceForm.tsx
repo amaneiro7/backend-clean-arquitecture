@@ -1,17 +1,18 @@
-import { type FormEvent, useEffect, useState, useRef } from 'react'
+import { type FormEvent, useEffect, useState, useRef, lazy, Suspense } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useDeviceForm } from './useDeviceForm'
+import { useDeviceInitialState } from './DeviceFormInitialState'
 import { useGenericFormData } from '../../Hooks/useGenericFormData'
 import { DeviceSerial } from '../../../modules/devices/devices/devices/domain/DeviceSeria'
 import { DeviceActivo } from '../../../modules/devices/devices/devices/domain/DeviceActivo'
 import { FormContainer } from '../../components/formContainer'
-import { useNavigate } from 'react-router-dom'
-import ActivoInput from './ActivoInput'
-import StatusSelect from '../status/StatusSelect'
-import SerialInput from './SerialInput'
-import CategorySelect from '../category/CategorySelect'
-import BrandSelect from '../brand/BrandSelect'
-import ModelSelect from '../model/ModelSelect'
-import { useDeviceInitialState } from './DeviceFormInitialState'
+
+const CategorySelect = lazy(async () => await import('../category/CategorySelect'))
+const BrandSelect = lazy(async () => await import('../brand/BrandSelect'))
+const SerialInput = lazy(async () => await import('../device/SerialInput'))
+const ActivoInput = lazy(async () => await import('../device/ActivoInput'))
+const StatusSelect = lazy(async () => await import('../status/StatusSelect'))
+const ModelSelect = lazy(async () => await import('../model/ModelSelect'))
 
 const initialState = {
   serial: '',
@@ -81,32 +82,44 @@ export default function CreateDeviceForm () {
         handleClose={handleClose}
         isDisabled
     >
-      <CategorySelect
-        value={formData.categoryId}
-        onChange={handleChange}
-      />
-      <BrandSelect
-        value={formData.brandId}
-        onChange={handleChange}
-      />
-      <SerialInput
-          value={formData.serial}
+      <Suspense>
+        <CategorySelect
+          value={formData.categoryId}
           onChange={handleChange}
+        />
+      </Suspense>
+      <Suspense>
+        <BrandSelect
+          value={formData.brandId}
+          onChange={handleChange}
+        />
+      </Suspense>
+      <Suspense>
+        <SerialInput
+            value={formData.serial}
+            onChange={handleChange}
           errorMessage={errors.serial}
-      />
-      <ActivoInput
-          value={formData.activo}
-          onChange={handleChange}
+        />
+      </Suspense>
+      <Suspense>
+        <ActivoInput
+            value={formData.activo}
+            onChange={handleChange}
           errorMessage={errors.activo}
-      />
-      <StatusSelect
-          value={formData.statusId}
+          />
+      </Suspense>
+      <Suspense>
+        <StatusSelect
+            value={formData.statusId}
+            onChange={handleChange}
+          />
+        </Suspense>
+      <Suspense>
+        <ModelSelect
+          value={formData.modelId}
           onChange={handleChange}
-      />
-      <ModelSelect
-        value={formData.modelId}
-        onChange={handleChange}
-      />
+        />
+      </Suspense>
     </FormContainer>
   )
 }
