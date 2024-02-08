@@ -12,6 +12,9 @@ import { createProcessorRouter } from '../../Features/Processor/routes/processor
 import { createMemoryRamRouter } from '../../Features/MemoryRam/routes/memoryRam.routes'
 import { createHardDriveTypeRouter } from '../../Features/HardDrive/routes/hardDriveType.routes'
 import { createHardDriveCapacityRouter } from '../../Features/HardDrive/routes/hardDriveCapacity.routes'
+import { createOperatingSystemArqRouter } from '../../Features/OperatingSystem/routes/operatingSystemArq.routes'
+import { createOperatingSystemVersionsRouter } from '../../Features/OperatingSystem/routes/operatingSystemVersions.routes'
+import { createHardDriveRouter } from '../../Features/HardDrive/routes/hardDrive.routes'
 
 // import { createUserRouter } from './user.routes'
 // import { createAuthRouter } from './auth.routes'
@@ -33,8 +36,11 @@ export const routerApi = ({ app, repository }: Props): Router => {
   router.use('/processors', createProcessorRouter({ repository }))
   router.use('/auth', createAuthRouter())
   router.use('/memoryramtypes', createMemoryRamRouter({ repository }))
+  router.use('/harddrive', createHardDriveRouter({ repository }))
   router.use('/harddrivetypes', createHardDriveTypeRouter({ repository }))
   router.use('/harddrivecapacities', createHardDriveCapacityRouter({ repository }))
+  router.use('/operatingsystemarqs', createOperatingSystemArqRouter({ repository }))
+  router.use('/operatingsystemversions', createOperatingSystemVersionsRouter({ repository }))
   // router.use('/users', createUserRouter({ router, repository }))
   // router.use('/profiles', createProfileRouter({ router, repository }))
   router.use((err: Error, req: Request, res: Response, _next: () => void) => {
