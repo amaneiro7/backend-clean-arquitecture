@@ -11,7 +11,7 @@ export default function CreateComputerForm () {
   //   const { formStatus, submitForm, resetFormStatus } = useDeviceForm()
   //   const [errors, setErrors] = useState(initialState)
   //   const isFirtsInputSerial = useRef(true)
-  const isFirtsInputActivo = useRef(true)
+  //   const isFirtsInputActivo = useRef(true)
 
   //   useEffect(() => {
   //     updateForm(preloadedDeviceState)
@@ -45,8 +45,8 @@ export default function CreateComputerForm () {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault()
-    const { serial, activo, statusId, modelId } = formData
-    await submitForm({ serial, activo, statusId, modelId })
+    // const { serial, activo, statusId, modelId } = formData
+    // await submitForm({ serial, activo, statusId, modelId })
   }
 
   const handleClose = () => {
@@ -54,7 +54,7 @@ export default function CreateComputerForm () {
   }
 
   const handleChange = (ev: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    updateForm({ [ev.target.name]: ev.target.value })
+    // updateForm({ [ev.target.name]: ev.target.value })
   }
 
   return (
