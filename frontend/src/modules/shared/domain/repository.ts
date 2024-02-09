@@ -5,6 +5,7 @@ import { type StatusRepository } from '../../devices/devices/status/domain/Statu
 import { type HardDriveRepository } from '../../devices/fetures/hardDrive/hardDrive/domain/HardDriveRepository'
 import { type HardDriveCapacityRepository } from '../../devices/fetures/hardDrive/hardDriveCapacity/domain/HardDriveCapacityRepository'
 import { type HardDriveTypeRepository } from '../../devices/fetures/hardDrive/hardDriveType/domain/HardDriveTypeRepository'
+import { type MemoryRamTypeRepository } from '../../devices/fetures/memoryRam/memoryRamType/domain/MemoryRamTypeRepository'
 import { type OperatingSystemRepository } from '../../devices/fetures/operatingSystem/operatingSystem/domain/OperatingSystemRepository'
 import { type OperatingSystemArqRepository } from '../../devices/fetures/operatingSystem/operatingSystemArq/domain/OperatingSystemArqRepository'
 import { type ProcessorRepository } from '../../devices/fetures/processor/domain/ProcessorRepository'
@@ -22,4 +23,5 @@ export interface Repository {
   hardDriveType: HardDriveTypeRepository
   hardDriveCapacity: HardDriveCapacityRepository
   hardDrive: HardDriveRepository
+  memoryRamType: MemoryRamTypeRepository
 }
