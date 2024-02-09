@@ -1,18 +1,17 @@
 import { useEffect, useState } from 'react'
-import { type Repository } from '../../../modules/shared/domain/repository'
-
-export const useMemoryRam = (repository: Repository) => {
-  const allCategoryGetter = new All(repository)
+import { type Repository } from '../../../../modules/shared/domain/repository'
+export const useMemoryRamType = (repository: Repository) => {
+  const dataGetter = new AllMemoryRamTypeGetter(repository)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  const [categories, setCategory] = useState<CategoryPrimitives[]>([])
+  const [data, setData] = useState<MemoryRamTypePrimitives[]>([])
 
-  function getCategory () {
+  function fetchData () {
     setLoading(true)
-    allCategoryGetter
+    dataGetter
       .get()
       .then((res) => {
-        setCategory(res)
+        setData(res)
         setLoading(false)
       })
       .catch((error) => {
@@ -22,15 +21,15 @@ export const useMemoryRam = (repository: Repository) => {
   }
 
   useEffect(() => {
-    getCategory()
+    fetchData()
 
     return () => {
-      setCategory([])
+      setData([])
     }
   }, [])
 
   return {
-    categories,
+    memoryRamTypes: data,
     loading,
     error
   }

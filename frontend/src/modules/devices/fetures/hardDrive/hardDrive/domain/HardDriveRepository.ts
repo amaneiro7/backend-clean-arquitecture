@@ -2,6 +2,8 @@ import { type HardDrive, type HardDrivePrimitives } from './HardDrive'
 import { type HardDriveId } from './HardDriveId'
 
 export abstract class HardDriveRepository {
+  abstract getAll (): Promise<HardDrivePrimitives[]>
+
   abstract getById ({ id }: { id: HardDriveId }): Promise<HardDrivePrimitives>
 
   abstract save ({ hardDrive }: { hardDrive: HardDrive }): Promise<void>

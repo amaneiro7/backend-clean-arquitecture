@@ -1,7 +1,7 @@
 import { type Repository } from '../../../../../shared/domain/repository'
 import { type HardDriveTypePrimitives } from '../domain/HardDriveType'
 
-export class HardDriveTypeGetter {
+export class AllHardDriveTypeGetter {
   constructor (readonly repository: Repository) {}
 
   async get (): Promise<HardDriveTypePrimitives[]> {
