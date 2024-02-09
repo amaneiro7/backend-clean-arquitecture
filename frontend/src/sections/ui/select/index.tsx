@@ -19,7 +19,7 @@ interface Props {
 
 interface Options {
   id: string | number
-  name: string
+  name: string | number
 }
 
 const Select: FC<Props> = ({
@@ -45,7 +45,7 @@ const Select: FC<Props> = ({
                   onChange={onChange}
                   defaultValue={defaultValue}
               >
-                  <MenuItemMui value='' hidden={isHidden} disabled={isDisabled}><em>{placeholder}</em></MenuItemMui>
+                  <MenuItemMui value={0} hidden={isHidden} disabled={isDisabled}><em>{placeholder}</em></MenuItemMui>
                   {options?.map(elem =>
                       <MenuItemMui
                           key={elem.id}

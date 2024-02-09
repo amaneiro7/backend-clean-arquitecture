@@ -7,15 +7,15 @@ interface Props {
   errorMessage: string
 }
 
-const ProcessorNameInput: FC<Props> = ({ value, onChange, errorMessage }) => {
+const HealthInput: FC<Props> = ({ value, onChange, errorMessage }) => {
   const isError = errorMessage.length > 0
   return (
   <FormInput
-      id='name'
-      name="name"
+      id='health'
+      name="health"
       type="text"
-      label='Name'
-      placeholder='-- Ingrese el Nombre del Procesador'
+      label='Salud del Disco'
+      placeholder='-- Ingrese el % de salud del Disco Duro --'
       handle={onChange}
       value={value}
       isError={isError}
@@ -24,4 +24,4 @@ const ProcessorNameInput: FC<Props> = ({ value, onChange, errorMessage }) => {
   )
 }
 
-export default ProcessorNameInput
+export default HealthInput

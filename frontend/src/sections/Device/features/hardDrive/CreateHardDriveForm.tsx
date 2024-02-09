@@ -1,9 +1,9 @@
 import { type FormEvent, useEffect, useState } from 'react'
 import { useGenericFormData } from '../../../Hooks/useGenericFormData'
-import { useProcessorForm } from './useProcessorForm'
+import { useProcessorForm } from './useHardDriveForm'
 import { ProcessorName } from '../../../../modules/devices/fetures/processor/domain/ProcessorName'
 import { FormContainer } from '../../../components/formContainer'
-import ProcessorNameInput from './ProcessorNameInput'
+import ProcessorNameInput from './HealthInput'
 
 const initialState = {
   name: ''
