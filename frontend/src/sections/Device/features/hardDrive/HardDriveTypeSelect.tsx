@@ -15,11 +15,11 @@ const HardDriveTypeSelect: FC<Props> = ({ value, onChange }) => {
   return (
         <Suspense>
             <Select
-                label='Capacidad de Disco Duro'
+                label='Tipo de Disco Duro'
                 name='hardDriveTypeId'
                 onChange={onChange}
                 options={hardDriveType}
-                placeholder='-- Filtre por Tamaño de Disco --'
+                placeholder='-- Filtre por Tipo de Disco --'
                 isHidden={false}
                 isDisabled={false}
                 value={value}

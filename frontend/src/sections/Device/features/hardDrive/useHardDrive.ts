@@ -11,7 +11,7 @@ export const useHardDrive = (repository: Repository) => {
   const [error, setError] = useState(null)
   const [data, setData] = useState<HardDrivePrimitives[]>([])
 
-  async function createProcessor ({ categoryId, deviceId, hardDriveCapacityId, hardDriveTypeId, health }: Omit<HardDrivePrimitives, 'id'>) {
+  async function createHardDrive ({ categoryId, deviceId, hardDriveCapacityId, hardDriveTypeId, health }: Omit<HardDrivePrimitives, 'id'>) {
     const id = Uuid.random().value
     await new HardDriveCreator(repository).create({ id, categoryId, deviceId, health, hardDriveTypeId, hardDriveCapacityId })
   }
@@ -42,6 +42,6 @@ export const useHardDrive = (repository: Repository) => {
     hardDrive: data,
     loading,
     error,
-    createProcessor
+    createHardDrive
   }
 }

@@ -1,26 +1,25 @@
 import { type FC } from 'react'
-import FormInput from '../../../ui/text-field'
+import { HardDriveHealth } from '../../../../modules/devices/fetures/hardDrive/hardDrive/domain/HardDriveHealth'
 
 interface Props {
-  value: string
+  value: number
   onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
-  errorMessage: string
 }
 
-const HealthInput: FC<Props> = ({ value, onChange, errorMessage }) => {
-  const isError = errorMessage.length > 0
+const HealthInput: FC<Props> = ({ value, onChange }) => {
   return (
-  <FormInput
-      id='health'
-      name="health"
-      type="text"
-      label='Salud del Disco'
-      placeholder='-- Ingrese el % de salud del Disco Duro --'
-      handle={onChange}
-      value={value}
-      isError={isError}
-      errorMessage={errorMessage}
-  />
+    <label htmlFor="memory">
+        <input
+            name="health"
+            type="number"
+            min={HardDriveHealth.NAME_MIN_LENGTH}
+            max={HardDriveHealth.NAME_MAX_LENGTH}
+            placeholder='-- Ingrese la salud del Disco Duro (%)'
+            onChange={onChange}
+            value={value}
+            />
+            Memoria Ram (MB)
+    </label>
   )
 }
 

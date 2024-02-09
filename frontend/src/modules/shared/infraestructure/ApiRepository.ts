@@ -2,6 +2,9 @@ import { ApiBrandRepository } from '../../devices/brand/infraestructure/ApiBrand
 import { ApiCategoryRepository } from '../../devices/category/infraestructure/ApiCategoryRepository'
 import { ApiDeviceRepository } from '../../devices/devices/devices/infraestructure/ApiDeviceRepository'
 import { ApiStatusRepository } from '../../devices/devices/status/infraestructure/ApiStatusRepository'
+import { ApiHardDriveCapacityRepository } from '../../devices/fetures/hardDrive/hardDriveCapacity/infrastructure/ApiHardDriveCapacityRepository'
+import { ApiHardDriveTypeRepository } from '../../devices/fetures/hardDrive/hardDriveType/infrastructure/ApiHardDriveTypeRepository'
+import { ApiMemoryRamTypeRepository } from '../../devices/fetures/memoryRam/memoryRamType/infrastructure/ApiMemoryRamTypeRepository'
 import { ApiOperatingSystemRepository } from '../../devices/fetures/operatingSystem/operatingSystem/infrastructure/ApiOperatingSystemRepository'
 import { ApiOperatingSystemArqRepository } from '../../devices/fetures/operatingSystem/operatingSystemArq/infrastructure/ApiOperatingSystemArqRepository'
 import { ApiProcessorRepository } from '../../devices/fetures/processor/infrastructure/ApiProcessorRepository'
@@ -16,5 +19,8 @@ export const apiRepository: Repository = {
   model: new ApiModelRepository(),
   processor: new ApiProcessorRepository(),
   operatingSystem: new ApiOperatingSystemRepository(),
-  operatingSystemArq: new ApiOperatingSystemArqRepository()
+  operatingSystemArq: new ApiOperatingSystemArqRepository(),
+  hardDriveCapacity: new ApiHardDriveCapacityRepository(),
+  hardDriveType: new ApiHardDriveTypeRepository(),
+  memoryRamType: new ApiMemoryRamTypeRepository()
 }

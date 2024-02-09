@@ -1,31 +1,38 @@
 import { type FormEvent, useEffect, useState } from 'react'
 import { useGenericFormData } from '../../../Hooks/useGenericFormData'
-import { useProcessorForm } from './useHardDriveForm'
-import { ProcessorName } from '../../../../modules/devices/fetures/processor/domain/ProcessorName'
+import { useHardDriveForm } from './useHardDriveForm'
 import { FormContainer } from '../../../components/formContainer'
-import ProcessorNameInput from './HealthInput'
+import CategorySelect from '../../category/CategorySelect'
+import HealthInput from './HealthInput'
+import HardDriveTypeSelect from './HardDriveTypeSelect'
+import HardDriveCapacitySelect from './HardDriveCapacitySelect'
 
 const initialState = {
-  name: ''
+  categoryId: 1,
+  deviceId: '',
+  health: 100,
+  hardDriveTypeId: 1,
+  hardDriveCapacityId: 1
 }
 
-export default function CreateProcessorForm () {
+export default function CreateHardDriveForm () {
   const { formData, updateForm, resetFrom } = useGenericFormData(initialState)
-  const { formStatus, submitForm, resetFormStatus } = useProcessorForm()
+  const { formStatus, submitForm, resetFormStatus } = useHardDriveForm()
   const [errors, setErrors] = useState(initialState)
 
   useEffect(() => {
-    const isName = ProcessorName.isValid(formData.name)
+    // const isHealth = HardDriveHealth.isValid(formData.health)
 
     setErrors({
-      name: isName ? '' : ProcessorName.invalidMessage(formData.name)
+      ...errors
+
     })
   }, [formData])
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault()
-    const { name } = formData
-    await submitForm({ name })
+    const { categoryId, deviceId, health, hardDriveTypeId, hardDriveCapacityId } = formData
+    await submitForm({ categoryId, deviceId, health, hardDriveTypeId, hardDriveCapacityId })
   }
 
   const handleClose = () => {
@@ -38,15 +45,26 @@ export default function CreateProcessorForm () {
 
   return (
     <FormContainer
-        title='Agrega un nuevo Dispositivo'
+        title='Agrega un nuevo Disco Duro'
         handleSubmit={handleSubmit}
         handleClose={handleClose}
         isDisabled
     >
-      <ProcessorNameInput
-          value={formData.name}
-          onChange={handleChange}
-          errorMessage={errors.name}
+      <CategorySelect
+        value={formData.categoryId}
+        onChange={handleChange}
+      />
+      <HealthInput
+        value={formData.health}
+        onChange={handleChange}
+      />
+      <HardDriveTypeSelect
+        value={formData.hardDriveTypeId}
+        onChange={handleChange}
+      />
+      <HardDriveCapacitySelect
+        value={formData.hardDriveCapacityId}
+        onChange={handleChange}
       />
     </FormContainer>
   )

@@ -12,6 +12,8 @@ interface Props {
 const HardDriveCapacitySelect: FC<Props> = ({ value, onChange }) => {
   const { repository } = useAppContext()
   const { hardDriveCapacity } = useHardDriveCapacity(repository)
+  console.log(hardDriveCapacity)
+
   return (
         <Suspense>
             <Select

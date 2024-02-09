@@ -6,5 +6,10 @@ export class ApiHardDriveCapacityRepository implements HardDriveCapacityReposito
   async getAll (): Promise<HardDriveCapacityPrimitives[]> {
     return await fetch(`${API_URL}/harddrivecapacities`)
       .then(async response => await (response.json() as Promise<HardDriveCapacityPrimitives[]>))
+      .then((data) => data.map(item => ({
+        id: item.id,
+        name: item.value
+      })
+      ))
   }
 }

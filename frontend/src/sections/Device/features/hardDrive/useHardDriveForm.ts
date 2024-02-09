@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useAppContext } from '../../../Context/AppContext'
-import { useProcessor } from './useHardDrive'
+import { useHardDrive } from './useHardDrive'
+import { type HardDrivePrimitives } from '../../../../modules/devices/fetures/hardDrive/hardDrive/domain/HardDrive'
 
 export const enum FormStatus {
   Loading,
@@ -9,20 +10,20 @@ export const enum FormStatus {
   Initial
 }
 
-export function useProcessorForm (): {
+export function useHardDriveForm (): {
   formStatus: FormStatus
-  submitForm: (formData: { name: string }) => Promise<void>
+  submitForm: (formData: Omit<HardDrivePrimitives, 'id'>) => Promise<void>
   resetFormStatus: () => void
 } {
   const [formStatus, setFormStatus] = useState(FormStatus.Initial)
   const { repository } = useAppContext()
-  const { createProcessor } = useProcessor(repository)
+  const { createHardDrive } = useHardDrive(repository)
 
-  async function submitForm ({ name }: { name: string }) {
+  async function submitForm ({ categoryId, deviceId, hardDriveCapacityId, hardDriveTypeId, health }: Omit<HardDrivePrimitives, 'id'>) {
     setFormStatus(FormStatus.Loading)
 
     try {
-      await createProcessor({ name })
+      await createHardDrive({ categoryId, deviceId, hardDriveCapacityId, hardDriveTypeId, health })
       setFormStatus(FormStatus.Success)
     } catch (error) {
       setFormStatus(FormStatus.Error)

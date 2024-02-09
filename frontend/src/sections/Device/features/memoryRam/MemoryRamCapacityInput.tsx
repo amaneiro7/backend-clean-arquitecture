@@ -8,20 +8,20 @@ interface Props {
 
 const MemoryRamCapacityInput: FC<Props> = ({ value, onChange }) => {
   return (
-  <label htmlFor="memory">
-      <input
-          id='memory'
-          name="memoryRamCapacity"
-          type="number"
-          step={MemoryRamCapacity.minStep}
-          min={MemoryRamCapacity.min}
-          max={MemoryRamCapacity.max}
-          placeholder='-- Ingrese la Memoria Ram (MB)'
-          onChange={onChange}
-          value={value}
-          />
-          Memoria Ram (MB)
-  </label>
+    <label htmlFor="memory">
+        <input
+            id='memory'
+            name="memoryRamCapacity"
+            type="number"
+            step={MemoryRamCapacity.minStep}
+            min={MemoryRamCapacity.min}
+            max={MemoryRamCapacity.max}
+            placeholder='-- Ingrese la Memoria Ram (MB)'
+            onChange={onChange}
+            value={value}
+            />
+            Memoria Ram (MB)
+    </label>
   )
 }
 
