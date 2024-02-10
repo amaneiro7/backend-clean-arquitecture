@@ -5,14 +5,13 @@ import { useHardDriveCapacity } from './useHardDriveCapacity'
 const Select = lazy(async () => await import('../../../ui/select'))
 
 interface Props {
-  value: string
+  value: string | number
   onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
 }
 
 const HardDriveCapacitySelect: FC<Props> = ({ value, onChange }) => {
   const { repository } = useAppContext()
   const { hardDriveCapacity } = useHardDriveCapacity(repository)
-  console.log(hardDriveCapacity)
 
   return (
         <Suspense>

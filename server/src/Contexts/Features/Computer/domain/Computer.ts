@@ -35,7 +35,7 @@ export class Computer {
     private hardDriveTypeId: HardDriveTypeId,
     private operatingSystemId: OperatingSystemId,
     private operatingSystemArqId: OperatingSystemArqId,
-    private readonly macAdress: MACAddress,
+    private readonly macAddress: MACAddress,
     private ipAddress: IPAddress
   ) {}
 
@@ -51,18 +51,7 @@ export class Computer {
       operatingSystemArqId,
       macAddress,
       ipAddress
-    }: {
-      categoryId: number
-      deviceId: string
-      processorId: string
-      memoryRamCapacity: number
-      hardDriveCapacityId: number
-      hardDriveTypeId: number
-      operatingSystemId: number
-      operatingSystemArqId: number
-      macAddress: string
-      ipAddress: string
-    }): Computer {
+    }: ComputerPrimitives): Computer {
     const id = ComputerId.random().value
     return new Computer(
       new ComputerId(id),
@@ -118,7 +107,7 @@ export class Computer {
       hardDriveTypeId: this.hardDriveTypeId.value,
       operatingSystemId: this.operatingSystemId.value,
       operatingSystemArqId: this.operatingSystemArqId.value,
-      macAddress: this.macAdress.value,
+      macAddress: this.macAddress.value,
       ipAddress: this.ipAddress.value
     }
   }
@@ -156,7 +145,7 @@ export class Computer {
   }
 
   get macAddressValue (): string {
-    return this.macAdress.value
+    return this.macAddress.value
   }
 
   get ipAddressValue (): string {

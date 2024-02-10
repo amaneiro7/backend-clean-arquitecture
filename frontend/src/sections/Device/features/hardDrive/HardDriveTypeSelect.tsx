@@ -5,7 +5,7 @@ import { useHardDriveType } from './useHardDriveType'
 const Select = lazy(async () => await import('../../../ui/select'))
 
 interface Props {
-  value: string
+  value: string | number
   onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
 }
 
