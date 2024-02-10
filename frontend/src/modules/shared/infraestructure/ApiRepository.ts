@@ -23,4 +23,5 @@ export const apiRepository: Repository = {
   hardDriveCapacity: new ApiHardDriveCapacityRepository(),
   hardDriveType: new ApiHardDriveTypeRepository(),
   memoryRamType: new ApiMemoryRamTypeRepository()
+
 }

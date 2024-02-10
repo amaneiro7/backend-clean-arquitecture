@@ -5,6 +5,6 @@ export class AllOperatingSystemArqGetter {
   constructor (readonly repository: Repository) {}
 
   async get (): Promise<OperatingSystemArqPrimitives[]> {
-    return await this.repository.operatingSystem.getAll()
+    return await this.repository.operatingSystemArq.getAll()
   }
 }

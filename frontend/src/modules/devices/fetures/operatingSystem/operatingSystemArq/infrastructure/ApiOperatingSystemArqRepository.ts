@@ -3,7 +3,7 @@ import { type OperatingSystemArqPrimitives } from '../domain/OperatingSystemArq'
 
 export class ApiOperatingSystemArqRepository implements ApiOperatingSystemArqRepository {
   async getAll (): Promise<OperatingSystemArqPrimitives[]> {
-    return await fetch(`${API_URL}/operatingsystemsarq`)
+    return await fetch(`${API_URL}/operatingsystemarqs`)
       .then(async response => await (response.json() as Promise<OperatingSystemArqPrimitives[]>))
   }
 }

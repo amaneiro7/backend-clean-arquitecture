@@ -6,6 +6,7 @@ import { useGenericFormData } from '../../Hooks/useGenericFormData'
 import { DeviceSerial } from '../../../modules/devices/devices/devices/domain/DeviceSeria'
 import { DeviceActivo } from '../../../modules/devices/devices/devices/domain/DeviceActivo'
 import { FormContainer } from '../../components/formContainer'
+import { DeviceFeatures } from './DeviceFeatures'
 
 const CategorySelect = lazy(async () => await import('../category/CategorySelect'))
 const BrandSelect = lazy(async () => await import('../brand/BrandSelect'))
@@ -63,8 +64,7 @@ export default function CreateDeviceForm () {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault()
-    const { serial, activo, statusId, modelId } = formData
-    await submitForm({ serial, activo, statusId, modelId })
+    await submitForm(formData)
   }
 
   const handleClose = () => {
@@ -94,20 +94,22 @@ export default function CreateDeviceForm () {
           onChange={handleChange}
         />
       </Suspense>
-      <Suspense>
-        <SerialInput
-            value={formData.serial}
-            onChange={handleChange}
-          errorMessage={errors.serial}
-        />
-      </Suspense>
-      <Suspense>
-        <ActivoInput
-            value={formData.activo}
-            onChange={handleChange}
-          errorMessage={errors.activo}
+      <div className='flex gap-4'>
+        <Suspense>
+          <SerialInput
+              value={formData.serial}
+              onChange={handleChange}
+            errorMessage={errors.serial}
           />
-      </Suspense>
+        </Suspense>
+        <Suspense>
+          <ActivoInput
+              value={formData.activo}
+              onChange={handleChange}
+            errorMessage={errors.activo}
+            />
+        </Suspense>
+      </div>
       <Suspense>
         <StatusSelect
             value={formData.statusId}
@@ -120,6 +122,10 @@ export default function CreateDeviceForm () {
           onChange={handleChange}
         />
       </Suspense>
+      <DeviceFeatures
+        formData={formData}
+        onChange={handleChange}
+      />
     </FormContainer>
   )
 }

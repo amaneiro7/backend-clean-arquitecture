@@ -40,7 +40,7 @@ export const routerApi = ({ app, repository }: Props): Router => {
   router.use('/harddrivetypes', createHardDriveTypeRouter({ repository }))
   router.use('/harddrivecapacities', createHardDriveCapacityRouter({ repository }))
   router.use('/operatingsystemarqs', createOperatingSystemArqRouter({ repository }))
-  router.use('/operatingsystemversions', createOperatingSystemVersionsRouter({ repository }))
+  router.use('/operatingsystems', createOperatingSystemVersionsRouter({ repository }))
   // router.use('/users', createUserRouter({ router, repository }))
   // router.use('/profiles', createProfileRouter({ router, repository }))
   router.use((err: Error, req: Request, res: Response, _next: () => void) => {
