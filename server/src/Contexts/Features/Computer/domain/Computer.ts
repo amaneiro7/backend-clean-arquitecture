@@ -51,7 +51,7 @@ export class Computer {
       operatingSystemArqId,
       macAddress,
       ipAddress
-    }: ComputerPrimitives): Computer {
+    }: Omit<ComputerPrimitives, 'id'>): Computer {
     const id = ComputerId.random().value
     return new Computer(
       new ComputerId(id),

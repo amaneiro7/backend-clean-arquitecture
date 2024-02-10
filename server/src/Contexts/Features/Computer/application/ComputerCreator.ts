@@ -7,23 +7,12 @@ import { OperatingSystemDoesNotExistError } from '../../OperatingSystem/Operatin
 import { OperatingSystemId } from '../../OperatingSystem/OperatingSystem/domain/OperatingSystemId'
 import { OperatingSystemArqDoesNotExistError } from '../../OperatingSystem/OperatingSystemArq/domain/OperatingSystemArqDoesNotExist'
 import { OperatingSystemArqId } from '../../OperatingSystem/OperatingSystemArq/domain/OperatingSystemArqID'
-import { Computer } from '../domain/Computer'
+import { Computer, type ComputerPrimitives } from '../domain/Computer'
 
 export class ComputerCreator {
   constructor (private readonly repository: Repository) {}
 
-  async run (params: {
-    categoryId: number
-    deviceId: string
-    processorId: string
-    memoryRamCapacity: number
-    hardDriveCapacityId: number
-    hardDriveTypeId: number
-    operatingSystemId: number
-    operatingSystemArqId: number
-    ipAddress: string
-    macAddress: string
-  }): Promise<void> {
+  async run (params: Omit<ComputerPrimitives, 'id'>): Promise<void> {
     const { categoryId, deviceId, processorId, memoryRamCapacity, hardDriveCapacityId, hardDriveTypeId, operatingSystemId, operatingSystemArqId, ipAddress, macAddress } = params
 
     await this.ensureHardDriveCapacityExist(hardDriveCapacityId)

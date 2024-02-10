@@ -34,7 +34,8 @@ export class DeviceCreator {
 
     const device = Device.create({ activo, serial, statusId, modelId })
 
-    const modelSeriesCategory = await new ModelSeriesFinder(this.repository).searchById(new ModelSeriesId(device.modelSeriesValue))
+    const modelSeriesId = new ModelSeriesId(device.modelSeriesValue)
+    const modelSeriesCategory = await new ModelSeriesFinder(this.repository).searchById(modelSeriesId)
 
     await this.repository.device.save(device.toPrimitives())
     await new DevicesFeatures().run({
