@@ -9,7 +9,7 @@ interface Props {
   onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
 }
 
-const MemoryRamTypeSelect: FC<Props> = ({ value, onChange }) => {
+const MemoryRamTypeSelect: FC<Props> = ({ value = 0, onChange }) => {
   const { repository } = useAppContext()
   const { memoryRamTypes } = useMemoryRamType(repository)
   return (

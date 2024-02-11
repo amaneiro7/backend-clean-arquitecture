@@ -9,7 +9,7 @@ interface Props {
   onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
 }
 
-const StatusSelect: FC<Props> = ({ value, onChange }) => {
+const StatusSelect: FC<Props> = ({ value = 0, onChange }) => {
   const { repository } = useAppContext()
   const { status } = useStatus(repository)
   return (

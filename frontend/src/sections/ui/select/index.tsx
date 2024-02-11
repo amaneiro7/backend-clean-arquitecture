@@ -33,6 +33,7 @@ const Select: FC<Props> = ({
   onChange,
   placeholder
 }) => {
+  const defaultPlaceholderValue = typeof value === 'string' ? '' : 0
   return (
       <FormControl className='w-full'>
           <InputLabelMui id='simple-select-label'>{label}</InputLabelMui>
@@ -44,8 +45,9 @@ const Select: FC<Props> = ({
                   name={name}
                   onChange={onChange}
                   defaultValue={defaultValue}
+                  required
               >
-                  <MenuItemMui value={0} hidden={isHidden} disabled={isDisabled}><em>{placeholder}</em></MenuItemMui>
+                  <MenuItemMui value={defaultPlaceholderValue} hidden={isHidden} disabled={isDisabled}><em>{placeholder}</em></MenuItemMui>
                   {options?.map(elem =>
                       <MenuItemMui
                           key={elem.id}

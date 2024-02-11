@@ -1,4 +1,4 @@
-import { type ChangeEvent, type FC, Suspense, lazy } from 'react'
+import { type ChangeEvent, type FC, Suspense, lazy, useMemo } from 'react'
 import { useAppContext } from '../../Context/AppContext'
 import { Link } from 'react-router-dom'
 import { AddIcon } from '../../ui/icon/AddIcon'
@@ -11,11 +11,22 @@ interface Props {
   value: string
   onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
   isForm?: boolean
+  categoryId?: number
+  brandId?: string
 }
 
-const ModelSelect: FC<Props> = ({ value, onChange, isForm = true }) => {
+const ModelSelect: FC<Props> = ({ value = '', onChange, isForm = true, brandId, categoryId }) => {
   const { repository } = useAppContext()
   const { models } = useModel(repository)
+
+  const filterdModel = useMemo(() => {
+    return models.filter(model => {
+      const category = model.categoryId === categoryId || (categoryId === 0)
+      const brand = model.brandId === brandId || (brandId === '')
+      return category && brand
+    })
+  }, [models, categoryId, brandId])
+
   return (
     <Suspense>
       <div className='w-full flex relative'>
@@ -29,7 +40,7 @@ const ModelSelect: FC<Props> = ({ value, onChange, isForm = true }) => {
           label='Modelo'
           name='modelId'
           onChange={onChange}
-          options={models}
+          options={filterdModel}
           placeholder='-- Filtre por Modelo --'
           isHidden={false}
           isDisabled={false}

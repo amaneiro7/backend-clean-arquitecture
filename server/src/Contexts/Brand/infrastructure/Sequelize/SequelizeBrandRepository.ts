@@ -4,7 +4,13 @@ import { BrandModel } from './BrandSchema'
 
 export class SequelizeBrandRepository implements BrandRepository {
   async searchAll (): Promise<BrandPrimitives[]> {
-    return await BrandModel.findAll()
+    return await BrandModel.findAll({
+      include: [
+        {
+          association: 'model'
+        }
+      ]
+    })
   }
 
   async searchById (id: string): Promise<BrandPrimitives | null> {

@@ -97,6 +97,7 @@ export default function CreateDeviceForm () {
         <BrandSelect
           value={formData.brandId}
           onChange={handleChange}
+          categoryId={formData.categoryId}
         />
       </Suspense>
       <div className='flex gap-4'>
@@ -125,6 +126,8 @@ export default function CreateDeviceForm () {
         <ModelSelect
           value={formData.modelId}
           onChange={handleChange}
+          categoryId={formData.categoryId}
+          brandId={formData.brandId}
         />
       </Suspense>
       <Suspense>

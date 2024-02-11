@@ -9,7 +9,7 @@ interface Props {
   onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
 }
 
-const HardDriveTypeSelect: FC<Props> = ({ value, onChange }) => {
+const HardDriveTypeSelect: FC<Props> = ({ value = 0, onChange }) => {
   const { repository } = useAppContext()
   const { hardDriveType } = useHardDriveType(repository)
   return (

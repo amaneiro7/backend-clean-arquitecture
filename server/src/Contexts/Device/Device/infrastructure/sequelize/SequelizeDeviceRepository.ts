@@ -1,10 +1,9 @@
 import { type DevicePrimitives } from '../../domain/Device'
 import { type DeviceRepository } from '../../domain/DeviceRepository'
 import { DeviceModel } from './DeviceSchema'
-import { type FindOptions } from 'sequelize'
+import { type FindOptions, Op } from 'sequelize'
 import { type DevicesApiResponse } from './DeviceResponse'
 import type QueryString from 'qs'
-import { Op } from 'sequelize'
 export class SequelizeDeviceRepository implements DeviceRepository {
   async searchAll (query: QueryString.ParsedQs): Promise<DevicePrimitives[]> {
     const options: FindOptions<DevicesApiResponse> = {

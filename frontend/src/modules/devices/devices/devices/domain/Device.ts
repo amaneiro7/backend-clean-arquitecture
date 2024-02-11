@@ -4,6 +4,7 @@ import { DeviceActivo } from './DeviceActivo'
 import { DeviceSerial } from './DeviceSeria'
 
 export interface DevicePrimitives {
+  id?: string
   serial: string
   activo: string | null
   statusId: number
@@ -18,14 +19,12 @@ export class Device {
   ) {}
 
   public static create ({ serial, activo, statusId, modelId }: DevicePrimitives): Device {
-    const device = new Device(
+    return new Device(
       new DeviceSerial(serial),
       new DeviceActivo(activo),
       new StatusId(statusId),
       new ModelId(modelId)
     )
-    console.log('ha sido creado')
-    return device
   }
 
   serialValue (): string {

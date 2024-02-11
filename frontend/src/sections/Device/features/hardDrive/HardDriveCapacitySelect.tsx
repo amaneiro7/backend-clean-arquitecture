@@ -9,7 +9,7 @@ interface Props {
   onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
 }
 
-const HardDriveCapacitySelect: FC<Props> = ({ value, onChange }) => {
+const HardDriveCapacitySelect: FC<Props> = ({ value = 0, onChange }) => {
   const { repository } = useAppContext()
   const { hardDriveCapacity } = useHardDriveCapacity(repository)
 

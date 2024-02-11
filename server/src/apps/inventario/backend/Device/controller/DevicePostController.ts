@@ -9,8 +9,6 @@ export class DevicePostController {
 
   create = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      console.log(req.body)
-
       await new DeviceCreator(this.repository).run(req.body)
       res.status(httpStatus.CREATED).send()
     } catch (error) {

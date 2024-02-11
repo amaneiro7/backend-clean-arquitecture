@@ -9,7 +9,7 @@ interface Props {
   onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
 }
 
-const OperatingSystemArqSelect: FC<Props> = ({ value, onChange }) => {
+const OperatingSystemArqSelect: FC<Props> = ({ value = 0, onChange }) => {
   const { repository } = useAppContext()
   const { operatingSystemArq } = useOperatingSystemArq(repository)
   return (

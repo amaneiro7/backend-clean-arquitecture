@@ -31,6 +31,26 @@ export interface DevicesMappedApiResponse {
   createdAt: Date
   updatedAt: Date
 }
+export interface BrandApiResponse {
+  id: string
+  name: string
+  createdAt: Date
+  updatedAt: Date
+  model: ModelApiresponse[]
+}
+
+export interface ModelApiresponse {
+  id: string
+  name: string
+  categoryId: number
+  brandId: string
+  createdAt: Date
+  updatedAt: Date
+  CategoryId: number
+  BrandId: string
+  category: Category
+  brand: Brand
+}
 export interface ModelMappedApiResponse {
   id: string
   name: string
@@ -63,19 +83,27 @@ export interface Computer {
   ProcessorId: string
   OperatingSystemVersionId: number
   OperatingSystemArqId: number
-  processor: Brand
+  processor: Processor
   hardDriveCapacity: HardDriveCapacity
-  hardDriveType: Status
+  hardDriveType: HardDriveType
   operatingSystem: OperatingSystem
-  operatingSystemArq: Status
+  operatingSystemArq: OperatingSystemArq
 }
 
 export interface HardDriveCapacity {
   id: number
   value: number
 }
+export interface HardDriveType {
+  id: number
+  name: string
+}
 
 export interface Status {
+  id: number
+  name: string
+}
+export interface Category {
   id: number
   name: string
 }
@@ -84,8 +112,18 @@ export interface OperatingSystem {
   id: number
   version: string
 }
+export interface OperatingSystemArq {
+  id: number
+  name: string
+}
 
 export interface Brand {
+  id: string
+  name: string
+  createdAt: Date
+  updatedAt: Date
+}
+export interface Processor {
   id: string
   name: string
   createdAt: Date
@@ -106,18 +144,5 @@ export interface HardDrive {
   HardDriveCapacityId: number
   HardDriveTypeId: number
   hardDriveCapacity: HardDriveCapacity
-  hardDriveType: Status
-}
-
-export interface ModelApiresponse {
-  id: string
-  name: string
-  categoryId: number
-  brandId: string
-  createdAt: Date
-  updatedAt: Date
-  CategoryId: number
-  BrandId: string
-  category: Status
-  brand: Brand
+  hardDriveType: HardDriveType
 }
