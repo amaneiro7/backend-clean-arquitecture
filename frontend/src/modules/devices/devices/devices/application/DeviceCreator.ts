@@ -1,30 +1,50 @@
 import { type Repository } from '../../../../shared/domain/repository'
+import { Computer, type ComputerPrimitives } from '../../../fetures/computer/domain/Computer'
+import { HardDrive, type HardDrivePrimitives } from '../../../fetures/hardDrive/hardDrive/domain/HardDrive'
 import { Device, type DevicePrimitives } from '../domain/Device'
 
-export type CreateDeviceProps = ComputerProps | HardDriveProps
-interface ComputerProps extends DevicePrimitives {
-  categroyName: 'Computadoras'
-  processorId: string
-  memoryRamCapacity: number
-  hardDriveCapacityId: number
-  hardDriveTypeId: number
-  operatingSystemId: number
-  operatingSystemArqId: number
-  ipAddress: string
-  macAddress: string
-}
-interface HardDriveProps extends DevicePrimitives {
-  categroyName: 'Discos Duros'
-  hardDriveCapacityId: number
-  hardDriveTypeId: number
-  health: number
+interface Props extends DevicePrimitives {
+  categoryId: number
 }
 export class DeviceCreator {
   constructor (private readonly repository: Repository) {}
 
-  async create ({ id, serial, activo, statusId, modelId }: CreateDeviceProps): Promise<void> {
-    // if ()
-    const device = Device.create({ id, serial, activo, statusId, modelId })
-    await this.repository.device.save({ device })
+  async create ({ serial, activo, statusId, modelId, categoryId, ...resParams }: Props): Promise<void> {
+    if (Computer.isComputerCategory({ categoryId })) {
+      const { processorId, memoryRamCapacity, hardDriveTypeId, hardDriveCapacityId, operatingSystemArqId, operatingSystemId, ipAddress, macAddress } = resParams as ComputerPrimitives
+
+      const deviceWithComputerFeatures = Computer.create({
+        serial,
+        activo,
+        statusId,
+        modelId,
+        processorId,
+        memoryRamCapacity,
+        hardDriveTypeId,
+        hardDriveCapacityId,
+        operatingSystemArqId,
+        operatingSystemId,
+        ipAddress,
+        macAddress
+      })
+      console.log(deviceWithComputerFeatures)
+      await this.repository.device.save({ device: deviceWithComputerFeatures })
+    } else if (HardDrive.isHardDriveCategory({ categoryId })) {
+      const { hardDriveCapacityId, hardDriveTypeId, health } = resParams as HardDrivePrimitives
+      const deviceWithHardDriveFeatures = HardDrive.create({
+        serial,
+        activo,
+        statusId,
+        modelId,
+        hardDriveCapacityId,
+        hardDriveTypeId,
+        health
+      })
+      await this.repository.device.save({ device: deviceWithHardDriveFeatures })
+    } else {
+      const device = Device.create({ serial, activo, statusId, modelId })
+
+      await this.repository.device.save({ device })
+    }
   }
 }

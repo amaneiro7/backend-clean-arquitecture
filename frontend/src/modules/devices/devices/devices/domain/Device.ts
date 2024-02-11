@@ -1,11 +1,9 @@
 import { ModelId } from '../../../model/domain/ModelId'
 import { StatusId } from '../../status/domain/StatusId'
 import { DeviceActivo } from './DeviceActivo'
-import { DeviceId } from './DeviceId'
 import { DeviceSerial } from './DeviceSeria'
 
 export interface DevicePrimitives {
-  id: string
   serial: string
   activo: string | null
   statusId: number
@@ -13,25 +11,21 @@ export interface DevicePrimitives {
 }
 export class Device {
   constructor (
-    private readonly id: DeviceId,
     private readonly serial: DeviceSerial,
     private readonly activo: DeviceActivo,
     private readonly statusId: StatusId,
     private readonly modelId: ModelId
   ) {}
 
-  public static create ({ id, serial, activo, statusId, modelId }: DevicePrimitives) {
-    return new Device(
-      new DeviceId(id),
+  public static create ({ serial, activo, statusId, modelId }: DevicePrimitives): Device {
+    const device = new Device(
       new DeviceSerial(serial),
       new DeviceActivo(activo),
       new StatusId(statusId),
       new ModelId(modelId)
     )
-  }
-
-  idValue (): string {
-    return this.id.value
+    console.log('ha sido creado')
+    return device
   }
 
   serialValue (): string {
@@ -52,7 +46,6 @@ export class Device {
 
   toPrimitives (): DevicePrimitives {
     return {
-      id: this.idValue(),
       serial: this.serialValue(),
       activo: this.activoValue(),
       statusId: this.statusIdValue(),

@@ -26,6 +26,8 @@ export interface DevicesMappedApiResponse {
   categoryName: string
   brandId: string
   brandName: string
+  computer: Computer | null
+  hardDrive: HardDrive | null
   createdAt: Date
   updatedAt: Date
 }

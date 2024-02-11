@@ -13,7 +13,7 @@ interface Props {
   isForm?: boolean
 }
 
-const ProcessorSelect: FC<Props> = ({ value, onChange, isForm = true }) => {
+const ProcessorSelect: FC<Props> = ({ value = '', onChange, isForm = true }) => {
   const { repository } = useAppContext()
   const { processors } = useProcessor(repository)
   return (

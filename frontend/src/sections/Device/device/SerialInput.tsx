@@ -1,17 +1,39 @@
-import { type FC } from 'react'
+import { useEffect, useRef, useState, type FC } from 'react'
 import FormInput from '../../ui/text-field'
+import { DeviceSerial } from '../../../modules/devices/devices/devices/domain/DeviceSeria'
 
 interface Props {
   value: string
   onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
-  errorMessage?: string
+  isForm?: boolean
 }
 
-const SerialInput: FC<Props> = ({ value, onChange, errorMessage }) => {
-  const isError = errorMessage !== undefined && errorMessage.length > 0
+const SerialInput: FC<Props> = ({ value, onChange, isForm = false }) => {
+  const [errorMessage, setErrorMessage] = useState('')
+  const [isError, setIsError] = useState(false)
+  const isFirstInput = useRef(true)
+  useEffect(() => {
+    if (!isForm) return
+
+    if (isFirstInput.current) {
+      isFirstInput.current = value === ''
+      return
+    }
+
+    const isValid = DeviceSerial.isValid(value)
+
+    setIsError(!isValid)
+    setErrorMessage(isValid ? '' : DeviceSerial.invalidMessage(value))
+
+    return () => {
+      setErrorMessage('')
+      setIsError(false)
+    }
+  }, [value])
   return (
   <FormInput
       id='serial'
+      isRequired={isForm}
       name="serial"
       type="text"
       label='Serial'

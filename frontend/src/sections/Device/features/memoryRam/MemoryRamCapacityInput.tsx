@@ -2,7 +2,7 @@ import { type FC } from 'react'
 import { MemoryRamCapacity } from '../../../../modules/devices/fetures/memoryRam/memoryRamCapacity/MemoryRamCapacity'
 
 interface Props {
-  value: string
+  value: number
   onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
 }
 

@@ -1,50 +1,51 @@
-import { CategoryId } from '../../../../category/domain/CategoryId'
-import { DeviceId } from '../../../../devices/devices/domain/DeviceId'
+import { CategoryDefaultData, type CategoryValues } from '../../../../category/domain/CategoryDefaultData'
+import { Device } from '../../../../devices/devices/domain/Device'
+import { DeviceActivo } from '../../../../devices/devices/domain/DeviceActivo'
+import { DeviceSerial } from '../../../../devices/devices/domain/DeviceSeria'
+import { StatusId } from '../../../../devices/status/domain/StatusId'
+import { ModelId } from '../../../../model/domain/ModelId'
 import { HardDriveCapacityId } from '../../hardDriveCapacity/domain/HardDriveCapacityId'
 import { HardDriveTypeId } from '../../hardDriveType/domain/HardDriveTypeId'
 import { HardDriveHealth } from './HardDriveHealth'
-import { HardDriveId } from './HardDriveId'
 
 export interface HardDrivePrimitives {
-  id: string
-  categoryId: number
-  deviceId: string
+  serial: string
+  activo: string | null
+  statusId: number
+  modelId: string
   health: number
   hardDriveCapacityId: number
   hardDriveTypeId: number
 }
 
-export class HardDrive {
+export class HardDrive extends Device {
   constructor (
-    private readonly id: HardDriveId,
-    private readonly categoryId: CategoryId,
-    private readonly deviceId: DeviceId,
+    serial: DeviceSerial,
+    activo: DeviceActivo,
+    statusId: StatusId,
+    modelId: ModelId,
     private readonly health: HardDriveHealth,
     private readonly hardDriveCapacityId: HardDriveCapacityId,
     private readonly hardDriveTypeId: HardDriveTypeId
-  ) {}
+  ) {
+    super(serial, activo, statusId, modelId)
+  }
 
-  public static create ({ id, categoryId, deviceId, health, hardDriveCapacityId, hardDriveTypeId }: HardDrivePrimitives) {
+  static isHardDriveCategory ({ categoryId }: { categoryId: number }): boolean {
+    const AcceptedHardDriveCategories: CategoryValues[] = ['Discos Duros']
+    return AcceptedHardDriveCategories.includes(CategoryDefaultData[categoryId])
+  }
+
+  public static create ({ serial, activo, statusId, modelId, health, hardDriveCapacityId, hardDriveTypeId }: HardDrivePrimitives) {
     return new HardDrive(
-      new HardDriveId(id),
-      new CategoryId(categoryId),
-      new DeviceId(deviceId),
+      new DeviceSerial(serial),
+      new DeviceActivo(activo),
+      new StatusId(statusId),
+      new ModelId(modelId),
       new HardDriveHealth(health),
       new HardDriveCapacityId(hardDriveCapacityId),
       new HardDriveTypeId(hardDriveTypeId)
     )
-  }
-
-  idValue (): string {
-    return this.id.value
-  }
-
-  categoryIdValue (): number {
-    return this.categoryId.value
-  }
-
-  deviceIdValue (): string {
-    return this.deviceId.value
   }
 
   healthValue (): number {
@@ -61,9 +62,10 @@ export class HardDrive {
 
   toPrimitives (): HardDrivePrimitives {
     return {
-      id: this.idValue(),
-      categoryId: this.categoryIdValue(),
-      deviceId: this.deviceIdValue(),
+      serial: this.serialValue(),
+      activo: this.activoValue(),
+      statusId: this.statusIdValue(),
+      modelId: this.modelIdValue(),
       health: this.healthValue(),
       hardDriveCapacityId: this.hardDriveCapacityIdValue(),
       hardDriveTypeId: this.hardDriveTypeIdValue()

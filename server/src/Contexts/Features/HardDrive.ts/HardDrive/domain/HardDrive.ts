@@ -4,6 +4,7 @@ import { HardDriveId } from './HardDriveId'
 import { HardDriveCapacityId } from '../../HardDriveCapacity/domain/HardDriveCapacityId'
 import { HardDriveTypeId } from '../../HardDriveType/domain/HardDriveTypeId'
 import { DeviceId } from '../../../../Device/Device/domain/DeviceId'
+import { CategoryDefaultData, type CategoryValues } from '../../../../Category/domain/CategoryDefaultData'
 
 export interface HardDrivePrimitives {
   id: string
@@ -46,6 +47,11 @@ export class HardDrive {
       new HardDriveCapacityId(hardDriveCapacityId),
       new HardDriveTypeId(hardDriveTypeId)
     )
+  }
+
+  static isHardDriveCategory ({ categoryId }: { categoryId: number }): boolean {
+    const AcceptedHardDriveCategories: CategoryValues[] = ['Discos Duros']
+    return AcceptedHardDriveCategories.includes(CategoryDefaultData[categoryId])
   }
 
   updateHealth (newHealth: number): void {

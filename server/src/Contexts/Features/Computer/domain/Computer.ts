@@ -1,3 +1,4 @@
+import { CategoryDefaultData, type CategoryValues } from '../../../Category/domain/CategoryDefaultData'
 import { CategoryId } from '../../../Category/domain/CategoryId'
 import { DeviceId } from '../../../Device/Device/domain/DeviceId'
 import { HardDriveCapacityId } from '../../HardDrive.ts/HardDriveCapacity/domain/HardDriveCapacityId'
@@ -66,6 +67,11 @@ export class Computer {
       new MACAddress(macAddress),
       new IPAddress(ipAddress)
     )
+  }
+
+  static isComputerCategory ({ categoryId }: { categoryId: number }): boolean {
+    const AcceptedComputerCategories: CategoryValues[] = ['Computadoras', 'All in One', 'Laptops', 'Servidores']
+    return AcceptedComputerCategories.includes(CategoryDefaultData[categoryId])
   }
 
   updateProcessor (newProcessorId: string): void {

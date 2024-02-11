@@ -7,6 +7,8 @@ import { type DeviceRepository } from '../domain/DeviceRepository'
 export class ApiDeviceRepository implements DeviceRepository {
   async save ({ device }: { device: Device }): Promise<void> {
     const devicePrimitives = device.toPrimitives()
+    console.log(devicePrimitives)
+
     await fetch(`${API_URL}/devices`, {
       method: 'POST',
       headers: {
@@ -18,6 +20,8 @@ export class ApiDeviceRepository implements DeviceRepository {
 
   async update ({ id, device }: { id: DeviceId, device: Device }): Promise<void> {
     const devicePrimitives = device.toPrimitives()
+    console.log(devicePrimitives)
+
     await fetch(`${API_URL}/devices/${id.value}`, {
       method: 'PATCH',
       headers: {
@@ -46,6 +50,8 @@ export class ApiDeviceRepository implements DeviceRepository {
         categoryName: e.model.category.name,
         brandId: e.model.brand.id,
         brandName: e.model.brand.name,
+        computer: e.computer,
+        hardDrive: e.hardDrive,
         createdAt: e.createdAt,
         updatedAt: e.updatedAt
       }) satisfies DevicesMappedApiResponse))
@@ -71,6 +77,8 @@ export class ApiDeviceRepository implements DeviceRepository {
         categoryName: d.model.category.name,
         brandId: d.model.brand.id,
         brandName: d.model.brand.name,
+        computer: d.computer,
+        hardDrive: d.hardDrive,
         createdAt: d.createdAt,
         updatedAt: d.updatedAt
       } satisfies DevicesMappedApiResponse))

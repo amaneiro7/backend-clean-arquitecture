@@ -1,12 +1,12 @@
-import { CategoryDefault } from '../../Category/domain/CategoryDefaultValues'
 import { ComputerCreator } from '../../Features/Computer/application/ComputerCreator'
+import { Computer } from '../../Features/Computer/domain/Computer'
 import { HardDriveCreator } from '../../Features/HardDrive.ts/HardDrive/application/HardDriveCreator'
+import { HardDrive } from '../../Features/HardDrive.ts/HardDrive/domain/HardDrive'
 import { type Repository } from '../domain/Repository'
 import { InvalidArgumentError } from '../domain/value-object/InvalidArgumentError'
 
 interface Props {
   repository: Repository
-  category: typeof CategoryDefault.COMPUTERS | string
   deviceId: string
   categoryId: number
   processorId?: string
@@ -22,10 +22,11 @@ interface Props {
 
 export class DevicesFeatures {
   async run (params: Props): Promise<void> {
-    const { repository, category, categoryId, deviceId, hardDriveCapacityId, hardDriveTypeId } = params
+    const { repository, categoryId, deviceId, hardDriveCapacityId, hardDriveTypeId } = params
 
-    if (category === CategoryDefault.COMPUTERS) {
+    if (Computer.isComputerCategory({ categoryId })) {
       const { processorId, memoryRamCapacity, operatingSystemId, operatingSystemArqId, ipAddress, macAddress } = params
+      console.log('he sido llamado', Computer.isComputerCategory({ categoryId }), 'categoryId', categoryId)
 
       if (processorId === undefined || memoryRamCapacity === undefined || operatingSystemId === undefined || operatingSystemArqId === undefined || ipAddress === undefined || macAddress === undefined) {
         throw new InvalidArgumentError('Invalid Params')
@@ -46,7 +47,7 @@ export class DevicesFeatures {
       })
     }
 
-    if (category === CategoryDefault.HARDDRIVE) {
+    if (HardDrive.isHardDriveCategory({ categoryId })) {
       const { health } = params
 
       if (health === undefined) {

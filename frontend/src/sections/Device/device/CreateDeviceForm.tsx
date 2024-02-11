@@ -1,12 +1,10 @@
-import { type FormEvent, useEffect, useState, useRef, lazy, Suspense } from 'react'
+import { type FormEvent, useEffect, lazy, Suspense } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useDeviceForm } from './useDeviceForm'
+import { type CreateDeviceProps } from '../../../modules/devices/devices/devices/application/DeviceCreator'
+import { useDeviceForm, FormStatus } from './useDeviceForm'
 import { useDeviceInitialState } from './DeviceFormInitialState'
 import { useGenericFormData } from '../../Hooks/useGenericFormData'
-import { DeviceSerial } from '../../../modules/devices/devices/devices/domain/DeviceSeria'
-import { DeviceActivo } from '../../../modules/devices/devices/devices/domain/DeviceActivo'
 import { FormContainer } from '../../components/formContainer'
-import { DeviceFeatures } from './DeviceFeatures'
 
 const CategorySelect = lazy(async () => await import('../category/CategorySelect'))
 const BrandSelect = lazy(async () => await import('../brand/BrandSelect'))
@@ -14,23 +12,30 @@ const SerialInput = lazy(async () => await import('../device/SerialInput'))
 const ActivoInput = lazy(async () => await import('../device/ActivoInput'))
 const StatusSelect = lazy(async () => await import('../status/StatusSelect'))
 const ModelSelect = lazy(async () => await import('../model/ModelSelect'))
+const DeviceFeatures = lazy(async () => await import('./DeviceFeatures'))
 
-const initialState = {
+const initialState: CreateDeviceProps = {
   serial: '',
   activo: '',
   statusId: 1,
   modelId: '',
   categoryId: 1,
-  brandId: ''
+  brandId: '',
+  memoryRamCapacity: 0,
+  hardDriveCapacityId: 1,
+  hardDriveTypeId: 1,
+  operatingSystemId: 1,
+  operatingSystemArqId: 1,
+  ipAddress: '',
+  macAddress: '',
+  health: 100
 }
 export default function CreateDeviceForm () {
   const navigate = useNavigate()
   const { preloadedDeviceState } = useDeviceInitialState()
   const { formData, updateForm, resetForm } = useGenericFormData(initialState)
   const { formStatus, submitForm, resetFormStatus } = useDeviceForm()
-  const [errors, setErrors] = useState(initialState)
-  const isFirtsInputSerial = useRef(true)
-  const isFirtsInputActivo = useRef(true)
+  // const [errors, setErrors] = useState(initialState)
 
   useEffect(() => {
     updateForm(preloadedDeviceState)
@@ -39,28 +44,28 @@ export default function CreateDeviceForm () {
     }
   }, [preloadedDeviceState])
 
-  useEffect(() => {
-    if (isFirtsInputSerial.current) {
-      isFirtsInputSerial.current = formData.serial === ''
-      return
-    }
-    if (isFirtsInputActivo.current) {
-      isFirtsInputActivo.current = formData.activo === ''
-      return
-    }
-    const isSerial = DeviceSerial.isValid(formData.serial)
-    const isActivo = DeviceActivo.isValid(formData.activo)
+  // useEffect(() => {
+  //   if (isFirtsInputSerial.current) {
+  //     isFirtsInputSerial.current = formData.serial === ''
+  //     return
+  //   }
+  //   if (isFirtsInputActivo.current) {
+  //     isFirtsInputActivo.current = formData.activo === ''
+  //     return
+  //   }
+  //   const isSerial = DeviceSerial.isValid(formData.serial)
+  //   const isActivo = DeviceActivo.isValid(formData.activo)
 
-    setErrors({
-      ...errors,
-      serial: isSerial ? '' : DeviceSerial.invalidMessage(formData.serial),
-      activo: isActivo ? '' : DeviceActivo.invalidMessage(formData.activo)
-    })
+  //   setErrors({
+  //     ...errors,
+  //     serial: isSerial ? '' : DeviceSerial.invalidMessage(formData.serial),
+  //     activo: isActivo ? '' : DeviceActivo.invalidMessage(formData.activo)
+  //   })
 
-    return () => {
-      setErrors(initialState)
-    }
-  }, [formData])
+  //   return () => {
+  //     setErrors(initialState)
+  //   }
+  // }, [formData])
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault()
@@ -80,7 +85,7 @@ export default function CreateDeviceForm () {
         title='Agrega un nuevo Dispositivo'
         handleSubmit={handleSubmit}
         handleClose={handleClose}
-        isDisabled
+        isDisabled={formStatus === FormStatus.Loading}
     >
       <Suspense>
         <CategorySelect
@@ -99,14 +104,14 @@ export default function CreateDeviceForm () {
           <SerialInput
               value={formData.serial}
               onChange={handleChange}
-            errorMessage={errors.serial}
+              isForm={true}
           />
         </Suspense>
         <Suspense>
           <ActivoInput
               value={formData.activo}
               onChange={handleChange}
-            errorMessage={errors.activo}
+              isForm={true}
             />
         </Suspense>
       </div>
@@ -122,10 +127,12 @@ export default function CreateDeviceForm () {
           onChange={handleChange}
         />
       </Suspense>
-      <DeviceFeatures
-        formData={formData}
-        onChange={handleChange}
-      />
+      <Suspense>
+        <DeviceFeatures
+          formData={formData}
+          onChange={handleChange}
+        />
+      </Suspense>
     </FormContainer>
   )
 }

@@ -1,14 +1,35 @@
-import { type FC } from 'react'
+import { useEffect, useRef, useState, type FC } from 'react'
 import FormInput from '../../ui/text-field'
+import { DeviceActivo } from '../../../modules/devices/devices/devices/domain/DeviceActivo'
 
 interface Props {
   value: string
   onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
-  errorMessage?: string
+  isForm?: boolean
 }
 
-const ActivoInput: FC<Props> = ({ value, onChange, errorMessage }) => {
-  const isError = errorMessage !== undefined && errorMessage.length > 0
+const ActivoInput: FC<Props> = ({ value, onChange, isForm = false }) => {
+  const [errorMessage, setErrorMessage] = useState('')
+  const [isError, setIsError] = useState(false)
+  const isFirstInput = useRef(true)
+  useEffect(() => {
+    if (!isForm) return
+
+    if (isFirstInput.current) {
+      isFirstInput.current = value === ''
+      return
+    }
+
+    const isValid = DeviceActivo.isValid(value)
+
+    setIsError(!isValid)
+    setErrorMessage(isValid ? '' : DeviceActivo.invalidMessage(value))
+
+    return () => {
+      setErrorMessage('')
+      setIsError(false)
+    }
+  }, [value])
   return (
   <FormInput
       id='activo'

@@ -40,7 +40,6 @@ export class DeviceCreator {
     await this.repository.device.save(device.toPrimitives())
     await new DevicesFeatures().run({
       repository: this.repository,
-      category: modelSeriesCategory.category.name,
       categoryId: modelSeriesCategory.category.id,
       deviceId: device.idValue,
       ...restParams

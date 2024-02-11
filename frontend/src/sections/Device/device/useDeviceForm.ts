@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useAppContext } from '../../Context/AppContext'
 import { useDevice } from './useDevice'
-import { type CreateDeviceProps } from '../../../modules/devices/devices/devices/application/DeviceCreator'
+import { type DevicePrimitives } from '../../../modules/devices/devices/devices/domain/Device'
 
 export const enum FormStatus {
   Loading,
@@ -12,14 +12,14 @@ export const enum FormStatus {
 
 export function useDeviceForm (): {
   formStatus: FormStatus
-  submitForm: (formData: CreateDeviceProps) => Promise<void>
+  submitForm: (formData: DevicePrimitives) => Promise<void>
   resetFormStatus: () => void
 } {
   const [formStatus, setFormStatus] = useState(FormStatus.Initial)
   const { repository } = useAppContext()
   const { createDevice } = useDevice(repository)
 
-  async function submitForm (formData: CreateDeviceProps) {
+  async function submitForm (formData: DevicePrimitives) {
     setFormStatus(FormStatus.Loading)
 
     try {

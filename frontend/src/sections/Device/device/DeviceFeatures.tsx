@@ -1,13 +1,13 @@
-import { FC } from 'react'
+import { type ChangeEvent, type FC } from 'react'
 import AddComputerFeatures from '../features/computer/AddComputerFeatures'
 import AddHardDriveFeatures from '../features/hardDrive/AddHardDriveFeatures'
 
 interface Props {
-  formData
-  onChange:
+  formData: any
+  onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
 }
 
-export const DeviceFeatures: FC<Props> = ({ onChange, formData }) => {
+const DeviceFeatures: FC<Props> = ({ onChange, formData }) => {
   return (
     <>
         <AddComputerFeatures formData={formData} onChange={onChange} />
@@ -15,3 +15,5 @@ export const DeviceFeatures: FC<Props> = ({ onChange, formData }) => {
     </>
   )
 }
+
+export default DeviceFeatures

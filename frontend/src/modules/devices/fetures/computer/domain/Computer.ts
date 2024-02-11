@@ -1,6 +1,6 @@
+import { CategoryDefaultData, type CategoryValues } from '../../../category/domain/CategoryDefaultData'
 import { Device } from '../../../devices/devices/domain/Device'
 import { DeviceActivo } from '../../../devices/devices/domain/DeviceActivo'
-import { DeviceId } from '../../../devices/devices/domain/DeviceId'
 import { DeviceSerial } from '../../../devices/devices/domain/DeviceSeria'
 import { StatusId } from '../../../devices/status/domain/StatusId'
 import { ModelId } from '../../../model/domain/ModelId'
@@ -14,7 +14,6 @@ import { IPAddress } from './IPAddress'
 import { MACAddress } from './MACAddress'
 
 export interface ComputerPrimitives {
-  id: string
   serial: string
   activo: string | null
   statusId: number
@@ -31,7 +30,6 @@ export interface ComputerPrimitives {
 
 export class Computer extends Device {
   constructor (
-    id: DeviceId,
     serial: DeviceSerial,
     activo: DeviceActivo,
     statusId: StatusId,
@@ -45,11 +43,15 @@ export class Computer extends Device {
     private readonly macAddress: MACAddress,
     private readonly ipAddress: IPAddress
   ) {
-    super(id, serial, activo, statusId, modelId)
+    super(serial, activo, statusId, modelId)
+  }
+
+  static isComputerCategory ({ categoryId }: { categoryId: number }): boolean {
+    const AcceptedComputerCategories: CategoryValues[] = ['Computadoras', 'All in One', 'Laptops', 'Servidores']
+    return AcceptedComputerCategories.includes(CategoryDefaultData[categoryId])
   }
 
   public static create ({
-    id,
     activo,
     serial,
     statusId,
@@ -64,7 +66,6 @@ export class Computer extends Device {
     ipAddress
   }: ComputerPrimitives) {
     return new Computer(
-      new DeviceId(id),
       new DeviceSerial(serial),
       new DeviceActivo(activo),
       new StatusId(statusId),
@@ -82,7 +83,6 @@ export class Computer extends Device {
 
   toPrimitives (): ComputerPrimitives {
     return {
-      id: this.idValue(),
       serial: this.serialValue(),
       activo: this.activoValue(),
       statusId: this.statusIdValue(),

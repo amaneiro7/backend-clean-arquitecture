@@ -1,17 +1,18 @@
-import { type FC } from 'react'
-import { CategoryDefaultData } from '../../../../modules/devices/category/domain/CategoryDefaultData'
+import { type ChangeEvent, type FC } from 'react'
 import HardDriveCapacitySelect from '../hardDrive/HardDriveCapacitySelect'
 import HardDriveTypeSelect from '../hardDrive/HardDriveTypeSelect'
 
 import HealthInput from './HealthInput'
+import { HardDrive } from '../../../../modules/devices/fetures/hardDrive/hardDrive/domain/HardDrive'
+import { type HardDriveProps } from '../../../../modules/devices/devices/devices/application/DeviceCreator'
 
 interface Props {
-  onChange
-  formData
+  onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  formData: HardDriveProps
 }
 
 const AddHardDriveFeatures: FC<Props> = ({ formData, onChange }) => {
-  const isHardDriveDevice = ['Discos Duros'].includes(CategoryDefaultData[formData.categoryId])
+  const isHardDriveDevice = HardDrive.isHardDriveCategory({ categoryId: formData.categoryId })
 
   return (
     <>
