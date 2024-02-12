@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useAppContext } from '../../Context/AppContext'
+import { useBrand } from './useBrand'
 
 export const enum FormStatus {
   Loading,
@@ -14,7 +15,8 @@ export function useBrandForm (): {
   resetFormStatus: () => void
 } {
   const [formStatus, setFormStatus] = useState(FormStatus.Initial)
-  const { createBrand } = useAppContext()
+  const { repository } = useAppContext()
+  const { createBrand } = useBrand(repository)
 
   async function submitForm ({ name }: { name: string }) {
     setFormStatus(FormStatus.Loading)

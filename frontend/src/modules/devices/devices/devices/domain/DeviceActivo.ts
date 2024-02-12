@@ -15,11 +15,11 @@ export class DeviceActivo {
   }
 
   public static isValid (value: string | null): boolean {
-    if (value === null) return true
+    if (value === null || value === '') return true
     return value.length >= DeviceActivo.NAME_MIN_LENGTH && value.length <= DeviceActivo.NAME_MAX_LENGTH
   }
 
   public static invalidMessage (value: string): string {
-    return `El nombre ${value} no es válido. Debe tener entre ${DeviceActivo.NAME_MIN_LENGTH} y ${DeviceActivo.NAME_MAX_LENGTH} caracteres`
+    return `El nombre ${value} no es válido. Debe tener entre ${DeviceActivo.NAME_MIN_LENGTH} y ${DeviceActivo.NAME_MAX_LENGTH} caracteres o dejarlo en blanco`
   }
 }

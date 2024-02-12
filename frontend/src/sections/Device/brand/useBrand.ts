@@ -4,6 +4,7 @@ import { Uuid } from '../../../modules/shared/domain/value-object/Uuid'
 import { AllBrandGetter } from '../../../modules/devices/brand/application/AllBrandGetter'
 import { BrandCreator } from '../../../modules/devices/brand/application/BrandCreator'
 import { type BrandPrimitives } from '../../../modules/devices/brand/domain/Brand'
+import { BrandGetter } from '../../../modules/devices/brand/application/BrandGetter'
 
 export const useBrand = (repository: Repository) => {
   const allBrandGetter = new AllBrandGetter(repository)
@@ -32,6 +33,8 @@ export const useBrand = (repository: Repository) => {
       })
   }
 
+  const getBrand = new BrandGetter(repository)
+
   useEffect(() => {
     getBrands()
 
@@ -44,6 +47,7 @@ export const useBrand = (repository: Repository) => {
     brands,
     loading,
     error,
-    createBrand
+    createBrand,
+    getBrand
   }
 }

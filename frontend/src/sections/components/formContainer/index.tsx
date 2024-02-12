@@ -8,7 +8,6 @@ interface Props {
 }
 
 const Button = lazy(async () => await import('../../ui/button'))
-// const InputForm = lazy(async () => await import('../../components/InputForm'))
 
 export const FormContainer: FC<PropsWithChildren<Props>> = ({
   title,
@@ -18,6 +17,7 @@ export const FormContainer: FC<PropsWithChildren<Props>> = ({
   handleClose
 }) => {
   return (
+    <>
         <section className="w-full grid place-content-center">
             <form
                 action="submit"
@@ -33,18 +33,20 @@ export const FormContainer: FC<PropsWithChildren<Props>> = ({
                               actionType='CANCEL'
                               text='Cerrar'
                               handle={handleClose}
+                              isDisabled={isDisabled}
                           />
                           <Button
                               actionType='SAVE'
                               type='submit'
                               text='Guardar'
                               isDisabled={isDisabled}
-                          />
+                              />
                       </Suspense>
                     </div>
                   {children}
                 </fieldset>
             </form>
         </section>
+    </>
   )
 }

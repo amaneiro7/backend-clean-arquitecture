@@ -1,26 +1,42 @@
-import { type FormEvent, useEffect, useState } from 'react'
+import { type FormEvent, useEffect } from 'react'
 import { useGenericFormData } from '../../Hooks/useGenericFormData'
 import { FormContainer } from '../../components/formContainer'
-import { useBrandForm } from './useBrandForm'
-import { BrandName } from '../../../modules/devices/brand/domain/BrandName'
+import { FormStatus, useBrandForm } from './useBrandForm'
 import BrandNameInput from './BrandNameInput'
+import { toast } from 'sonner'
+import { useBrandInitialState } from './BrandFormInitialState'
 
 const initialState = {
   name: ''
 }
 
 export default function CreateBrandForm () {
-  const { formData, updateForm, resetFrom } = useGenericFormData(initialState)
+  const { preloadedBrandState } = useBrandInitialState()
+  const { formData, updateForm, resetForm } = useGenericFormData(initialState)
   const { formStatus, submitForm, resetFormStatus } = useBrandForm()
-  const [errors, setErrors] = useState(initialState)
 
   useEffect(() => {
-    const isName = BrandName.isValid(formData.name)
+    updateForm(preloadedBrandState)
 
-    setErrors({
-      name: isName ? '' : BrandName.invalidMessage(formData.name)
-    })
-  }, [formData])
+    return () => {
+      resetForm()
+    }
+  }, [preloadedBrandState])
+
+  useEffect(() => {
+    if (formStatus === FormStatus.Loading) {
+      toast.loading('Cargando...')
+    }
+    if (formStatus === FormStatus.Success) {
+      toast.success('Marca creada exitosamente')
+      resetFormStatus()
+      resetForm()
+    }
+    if (formStatus === FormStatus.Error) {
+      toast.error('Error al crear la Marca')
+      resetFormStatus()
+    }
+  }, [formStatus])
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault()
@@ -41,12 +57,11 @@ export default function CreateBrandForm () {
         title='Agrega un nuevo Dispositivo'
         handleSubmit={handleSubmit}
         handleClose={handleClose}
-        isDisabled
+        isDisabled={formStatus === FormStatus.Loading}
     >
       <BrandNameInput
           value={formData.name}
           onChange={handleChange}
-          errorMessage={errors.name}
       />
     </FormContainer>
   )
