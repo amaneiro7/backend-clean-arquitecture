@@ -9,10 +9,10 @@ import { OperatingSystemArqDoesNotExistError } from '../../OperatingSystem/Opera
 import { OperatingSystemArqId } from '../../OperatingSystem/OperatingSystemArq/domain/OperatingSystemArqID'
 import { Computer, type ComputerPrimitives } from '../domain/Computer'
 
-export class ComputerCreator {
+export class ComputerValidation {
   constructor (private readonly repository: Repository) {}
 
-  async run (params: Omit<ComputerPrimitives, 'id'>): Promise<void> {
+  async run (params: Omit<ComputerPrimitives, 'id'>): Promise<Computer> {
     const { categoryId, deviceId, processorId, memoryRamCapacity, hardDriveCapacityId, hardDriveTypeId, operatingSystemId, operatingSystemArqId, ipAddress, macAddress } = params
 
     await this.ensureHardDriveCapacityExist(hardDriveCapacityId)
@@ -20,9 +20,7 @@ export class ComputerCreator {
     await this.ensureOperatingSystemExist(operatingSystemId)
     await this.ensureOperatingSystemArqExist(operatingSystemArqId)
 
-    const computer = Computer.create({ categoryId, deviceId, hardDriveCapacityId, hardDriveTypeId, ipAddress, macAddress, memoryRamCapacity, operatingSystemArqId, operatingSystemId, processorId })
-
-    await this.repository.computer.save(computer.toPrimitive())
+    return Computer.create({ categoryId, deviceId, hardDriveCapacityId, hardDriveTypeId, ipAddress, macAddress, memoryRamCapacity, operatingSystemArqId, operatingSystemId, processorId })
   }
 
   private async ensureHardDriveCapacityExist (id: number): Promise<void> {

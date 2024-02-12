@@ -13,7 +13,6 @@ export const createHardDriveRouter = ({ repository }: Props): Router => {
 
   router.get('/', hardDriveGetController.getAll)
   router.get('/:id', hardDriveGetController.getById)
-  router.post('/', hardDrivePostController.create)
   router.patch('/:id', hardDrivePostController.update)
 
   return router

@@ -5,7 +5,7 @@ import { HardDriveTypeDoesNotExistError } from '../../HardDriveType/domain/HardD
 import { HardDriveTypeId } from '../../HardDriveType/domain/HardDriveTypeId'
 import { HardDrive } from '../domain/HardDrive'
 
-export class HardDriveCreator {
+export class HardDriveValidation {
   constructor (private readonly repository: Repository) {}
 
   async run (params: {
@@ -14,16 +14,13 @@ export class HardDriveCreator {
     hardDriveCapacityId: number
     hardDriveTypeId: number
     health: number
-  }): Promise<void> {
+  }): Promise<HardDrive> {
     const { categoryId, deviceId, hardDriveCapacityId, hardDriveTypeId, health } = params
 
     await this.ensureHardDriveCapacityExist(hardDriveCapacityId)
     await this.ensureHardDriveTypeExist(hardDriveTypeId)
 
-    const hardDrive = HardDrive.create({ categoryId, deviceId, hardDriveCapacityId, hardDriveTypeId, health })
-    console.log(hardDrive.toPrimitive())
-
-    await this.repository.hardDrive.save(hardDrive.toPrimitive())
+    return HardDrive.create({ categoryId, deviceId, hardDriveCapacityId, hardDriveTypeId, health })
   }
 
   private async ensureHardDriveCapacityExist (id: number): Promise<void> {
