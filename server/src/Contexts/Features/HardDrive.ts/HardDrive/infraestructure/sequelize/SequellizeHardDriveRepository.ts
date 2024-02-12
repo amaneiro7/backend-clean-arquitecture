@@ -11,6 +11,10 @@ export class SequelizeHardDriveRepository implements HardDriveRepository {
     return await HardDriveModel.findByPk(id) ?? null
   }
 
+  async searchByDeviceId (id: string): Promise<HardDrivePrimitives | null> {
+    return await HardDriveModel.findOne({ where: { deviceId: id } })
+  }
+
   async save (payload: HardDrivePrimitives): Promise<void> {
     const { id } = payload
     const hardDrive = await HardDriveModel.findByPk(id) ?? null

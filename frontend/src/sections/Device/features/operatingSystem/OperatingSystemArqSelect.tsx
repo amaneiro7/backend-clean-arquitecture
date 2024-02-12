@@ -5,7 +5,7 @@ import { useOperatingSystemArq } from './useOperatingSystemArq'
 const Select = lazy(async () => await import('../../../ui/select'))
 
 interface Props {
-  value: number | string
+  value: number
   onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
 }
 

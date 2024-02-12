@@ -43,11 +43,11 @@ const AddComputerFeatures: FC<Props> = ({ formData, onChange }) => {
           <div className='flex gap-4'>
             <OperatingSystemArqSelect
               onChange={onChange}
-              value={formData.processorId}
+              value={formData.operatingSystemArqId}
             />
             <OperatingSystemVersionSelect
               onChange={onChange}
-              value={formData.processorId}
+              value={formData.operatingSystemId}
               />
           </div>
           <div className='flex gap-4'>

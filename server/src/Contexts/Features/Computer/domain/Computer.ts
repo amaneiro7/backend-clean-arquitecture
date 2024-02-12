@@ -118,6 +118,22 @@ export class Computer {
     }
   }
 
+  static fromPrimitives (primitives: ComputerPrimitives): Computer {
+    return new Computer(
+      new ComputerId(primitives.id),
+      new CategoryId(primitives.categoryId),
+      new DeviceId(primitives.deviceId),
+      new ProcessorId(primitives.processorId),
+      new MemoryRamCapacity(primitives.memoryRamCapacity),
+      new HardDriveCapacityId(primitives.hardDriveCapacityId),
+      new HardDriveTypeId(primitives.hardDriveTypeId),
+      new OperatingSystemId(primitives.operatingSystemId),
+      new OperatingSystemArqId(primitives.operatingSystemArqId),
+      new MACAddress(primitives.macAddress),
+      new IPAddress(primitives.ipAddress)
+    )
+  }
+
   get idValue (): string {
     return this.id.value
   }

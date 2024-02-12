@@ -1,49 +1,46 @@
 import { type Repository } from '../../../Shared/domain/Repository'
-import { HardDriveCapacityDoesNotExistError } from '../../HardDrive.ts/HardDriveCapacity/domain/HardDriveCapacityDoesNotExist'
-import { HardDriveCapacityId } from '../../HardDrive.ts/HardDriveCapacity/domain/HardDriveCapacityId'
-import { HardDriveTypeDoesNotExistError } from '../../HardDrive.ts/HardDriveType/domain/HardDriveTypeDoesNotExist'
-import { HardDriveTypeId } from '../../HardDrive.ts/HardDriveType/domain/HardDriveTypeId'
-import { OperatingSystemDoesNotExistError } from '../../OperatingSystem/OperatingSystem/domain/OperatingSystemDoesNotExist'
-import { OperatingSystemId } from '../../OperatingSystem/OperatingSystem/domain/OperatingSystemId'
-import { OperatingSystemArqDoesNotExistError } from '../../OperatingSystem/OperatingSystemArq/domain/OperatingSystemArqDoesNotExist'
-import { OperatingSystemArqId } from '../../OperatingSystem/OperatingSystemArq/domain/OperatingSystemArqID'
-import { Computer, type ComputerPrimitives } from '../domain/Computer'
+import { Computer } from '../domain/Computer'
+import { ValidationComputerField } from './ValidationComputerField'
+
+interface ComputerParams {
+  categoryId: number
+  deviceId: string
+  processorId: string
+  memoryRamCapacity: number
+  operatingSystemId: number
+  operatingSystemArqId: number
+  ipAddress: string
+  macAddress: string
+  hardDriveCapacityId: number
+  hardDriveTypeId: number
+}
+
+type FieldValidator = (repository: Repository, field: any) => Promise<void>
+
+interface ValidationConfig {
+  field: any
+  validator: FieldValidator
+}
 
 export class ComputerValidation {
   constructor (private readonly repository: Repository) {}
 
-  async run (params: Omit<ComputerPrimitives, 'id'>): Promise<Computer> {
+  async run (params: ComputerParams): Promise<Computer> {
     const { categoryId, deviceId, processorId, memoryRamCapacity, hardDriveCapacityId, hardDriveTypeId, operatingSystemId, operatingSystemArqId, ipAddress, macAddress } = params
 
-    await this.ensureHardDriveCapacityExist(hardDriveCapacityId)
-    await this.ensureHardDriveTypeExist(hardDriveTypeId)
-    await this.ensureOperatingSystemExist(operatingSystemId)
-    await this.ensureOperatingSystemArqExist(operatingSystemArqId)
+    const validations: ValidationConfig[] = [
+      { field: processorId, validator: ValidationComputerField.ensureProcessorIdExist },
+      { field: operatingSystemId, validator: ValidationComputerField.ensureOperatingSystemExist },
+      { field: operatingSystemArqId, validator: ValidationComputerField.ensureOperatingSystemArqExist },
+      { field: hardDriveCapacityId, validator: ValidationComputerField.ensureHardDriveCapacityExist },
+      { field: hardDriveTypeId, validator: ValidationComputerField.ensureHardDriveTypeExist }
+    ]
+    for (const validation of validations) {
+      if (validation.field !== undefined) {
+        await validation.validator(this.repository, validation.field)
+      }
+    }
 
     return Computer.create({ categoryId, deviceId, hardDriveCapacityId, hardDriveTypeId, ipAddress, macAddress, memoryRamCapacity, operatingSystemArqId, operatingSystemId, processorId })
-  }
-
-  private async ensureHardDriveCapacityExist (id: number): Promise<void> {
-    if (await this.repository.hardDriveCapacity.searchById(new HardDriveCapacityId(id).value) === null) {
-      throw new HardDriveCapacityDoesNotExistError(id)
-    }
-  }
-
-  private async ensureHardDriveTypeExist (id: number): Promise<void> {
-    if (await this.repository.hardDriveType.searchById(new HardDriveTypeId(id).value) === null) {
-      throw new HardDriveTypeDoesNotExistError(id)
-    }
-  }
-
-  private async ensureOperatingSystemExist (id: number): Promise<void> {
-    if (await this.repository.operatingSystemVersion.searchById(new OperatingSystemId(id).value) === null) {
-      throw new OperatingSystemDoesNotExistError(id)
-    }
-  }
-
-  private async ensureOperatingSystemArqExist (id: number): Promise<void> {
-    if (await this.repository.operatingSystemArq.searchById(new OperatingSystemArqId(id).value) === null) {
-      throw new OperatingSystemArqDoesNotExistError(id)
-    }
   }
 }

@@ -7,5 +7,7 @@ export abstract class HardDriveRepository {
 
   abstract searchById (id: string): Promise<HardDrivePrimitives | null>
 
+  abstract searchByDeviceId (id: string): Promise<HardDrivePrimitives | null>
+
   abstract remove (id: string): Promise<void>
 }

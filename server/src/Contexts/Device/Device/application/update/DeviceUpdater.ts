@@ -1,15 +1,45 @@
+import { ComputerUpdater } from '../../../../Features/Computer/application/ComputerUpdater'
+import { Computer } from '../../../../Features/Computer/domain/Computer'
+import { HardDriveUpdater } from '../../../../Features/HardDrive.ts/HardDrive/application/HardDriveUpdater'
+import { HardDrive } from '../../../../Features/HardDrive.ts/HardDrive/domain/HardDrive'
+import { ModelSeriesDoesNotExistError } from '../../../../ModelSeries/ModelSeries/domain/ModelSeriesDoesNotExistError'
 import { type Repository } from '../../../../Shared/domain/Repository'
 import { Device } from '../../domain/Device'
 import { DeviceDoesNotExistError } from '../../domain/DeviceDoesNotExistError'
 import { DeviceId } from '../../domain/DeviceId'
 import { ValidationField } from '../ValidationField'
 
+interface DeviceParams {
+  activo: string
+  serial: string
+  statusId: number
+  modelId: string
+  processorId: string
+  memoryRamCapacity: number
+  operatingSystemId: number
+  operatingSystemArqId: number
+  ipAddress: string
+  macAddress: string
+  hardDriveCapacityId: number
+  hardDriveTypeId: number
+  health: number
+}
+
+type FieldValidator = (repository: Repository, field: any) => Promise<void>
+type FieldUpdater = (field: any) => void
+
+interface ValidationConfig {
+  field: any
+  validator: FieldValidator
+  updater: FieldUpdater
+}
+
 export class DeviceUpdater {
   constructor (private readonly repository: Repository) {}
 
-  async run (params: { id: string, activo?: string, serial?: string, modelId?: string, statusId?: number }): Promise<void> {
-    const { id, activo, modelId, serial, statusId } = params
-    const devideId = new DeviceId(id).toString()
+  async run ({ id, params }: { id: string, params: Partial<DeviceParams> }): Promise<void> {
+    const { activo, modelId, serial, statusId } = params
+    const devideId = new DeviceId(id).value
 
     const device = await this.repository.device.searchById(devideId)
 
@@ -17,24 +47,31 @@ export class DeviceUpdater {
       throw new DeviceDoesNotExistError(id)
     }
     const deviceEntity = Device.fromPrimitives(device)
-
-    if (activo !== undefined) {
-      await ValidationField.ensureActivoDoesNotExist(this.repository, activo)
-      deviceEntity.updateActivo(activo)
+    const model = await this.repository.modelSeries.searchById(device.modelId)
+    if (model === null) {
+      throw new ModelSeriesDoesNotExistError(id)
     }
 
-    if (serial !== undefined) {
-      await ValidationField.ensureSerialDoesNotExist(this.repository, serial)
-      deviceEntity.updateSerial(serial)
+    const validations: ValidationConfig[] = [
+      { field: activo, validator: ValidationField.ensureActivoDoesNotExist, updater: deviceEntity.updateActivo },
+      { field: serial, validator: ValidationField.ensureSerialDoesNotExist, updater: deviceEntity.updateSerial },
+      { field: modelId, validator: ValidationField.ensureModelIdExist, updater: deviceEntity.updateModelId },
+      { field: statusId, validator: ValidationField.ensureStatusIdExist, updater: deviceEntity.updateStatus }
+    ]
+
+    for (const validation of validations) {
+      if (validation.field !== undefined) {
+        await validation.validator(this.repository, validation.field)
+        validation.updater(validation.field)
+      }
     }
 
-    if (modelId !== undefined) {
-      await ValidationField.ensureModelIdExist(this.repository, modelId)
-      deviceEntity.updateModelId(modelId)
+    if (Computer.isComputerCategory({ categoryId: model?.categoryId })) {
+      await new ComputerUpdater(this.repository).run({ deviceId: new DeviceId(device.id), params })
     }
-    if (statusId !== undefined) {
-      await ValidationField.ensureStatusIdExist(this.repository, statusId)
-      deviceEntity.updateStatus(statusId)
+
+    if (HardDrive.isHardDriveCategory({ categoryId: model?.categoryId })) {
+      await new HardDriveUpdater(this.repository).run({ deviceId: new DeviceId(device.id), params })
     }
 
     await this.repository.device.save(deviceEntity.toPrimitives())

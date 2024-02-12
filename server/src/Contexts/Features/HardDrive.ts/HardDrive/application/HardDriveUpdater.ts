@@ -1,20 +1,23 @@
+import { type DeviceId } from '../../../../Device/Device/domain/DeviceId'
 import { type Repository } from '../../../../Shared/domain/Repository'
 import { HardDrive } from '../domain/HardDrive'
 import { HardDriveDoesNotExistError } from '../domain/HardDriveDoesNotExist'
-import { HardDriveId } from '../domain/HardDriveId'
 
+interface HardDriveParams {
+  health: number
+}
 export class HardDriveUpdater {
   constructor (private readonly repository: Repository) {}
-  async run (params: { id: string, newHealth?: number }): Promise<void> {
-    const { id, newHealth } = params
+  async run ({ deviceId, params }: { deviceId: DeviceId, params: Partial<HardDriveParams> }): Promise<void> {
+    const { health } = params
 
-    const hardDrive = await this.repository.hardDrive.searchById(new HardDriveId(id).value)
+    const hardDrive = await this.repository.hardDrive.searchByDeviceId(deviceId.value)
 
-    if (hardDrive === null) throw new HardDriveDoesNotExistError(id)
+    if (hardDrive === null) throw new HardDriveDoesNotExistError(deviceId.toString())
     const hardDriveEntity = HardDrive.fromPrimitives(hardDrive)
 
-    if (newHealth !== undefined) {
-      hardDriveEntity.updateHealth(newHealth)
+    if (health !== undefined) {
+      hardDriveEntity.updateHealth(health)
     }
 
     await this.repository.hardDrive.save(hardDriveEntity.toPrimitive())

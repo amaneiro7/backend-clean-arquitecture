@@ -20,9 +20,8 @@ export class DevicePostController {
 
   update = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const { serial, activo, statusId, modelId } = req.body
       const { id } = req.params
-      await new DeviceUpdater(this.repository).run({ id, serial, activo, statusId, modelId })
+      await new DeviceUpdater(this.repository).run({ id, ...req.body })
       res.status(httpStatus.CREATED).send()
     } catch (error) {
       next(error)
