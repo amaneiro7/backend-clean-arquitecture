@@ -11,7 +11,7 @@ const initialState = {
 }
 
 export default function CreateBrandForm () {
-  const { preloadedBrandState } = useBrandInitialState()
+  const { id: brandId, preloadedBrandState } = useBrandInitialState()
   const { formData, updateForm, resetForm } = useGenericFormData(initialState)
   const { formStatus, submitForm, resetFormStatus } = useBrandForm()
 
@@ -41,7 +41,7 @@ export default function CreateBrandForm () {
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault()
     const { name } = formData
-    await submitForm({ name })
+    await submitForm({ id: brandId, name })
   }
 
   const handleClose = () => {

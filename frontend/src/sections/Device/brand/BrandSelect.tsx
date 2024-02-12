@@ -1,4 +1,4 @@
-import { type ChangeEvent, type FC, Suspense, lazy, useEffect, useMemo } from 'react'
+import { type ChangeEvent, type FC, Suspense, lazy, useMemo } from 'react'
 import { useAppContext } from '../../Context/AppContext'
 import { Link } from 'react-router-dom'
 import { AddIcon } from '../../ui/icon/AddIcon'
@@ -43,7 +43,7 @@ const BrandSelect: FC<Props> = ({ value, onChange, categoryId, isForm = true }) 
                  label='Marca'
                  name='brandId'
                  onChange={onChange}
-                 options={filterdBrand}
+                 options={filterdBrand as BrandApiResponse[]}
                  placeholder='-- Filtre por Marca --'
                  isHidden={true}
                  isDisabled={false}
@@ -53,7 +53,9 @@ const BrandSelect: FC<Props> = ({ value, onChange, categoryId, isForm = true }) 
             {isForm && <Link
               className='absolute -right-11'
               to={`/brand/edit/${value}`}
-              state={{}}
+              state={{
+                brand: brands.find(brand => brand.id === value)
+              }}
             >
               <EditIcon
                 isDisbaled={value === ''}

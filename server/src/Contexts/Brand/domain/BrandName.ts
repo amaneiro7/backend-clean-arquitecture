@@ -3,7 +3,7 @@ import { StringValueObject } from '../../Shared/domain/value-object/StringValueO
 
 export class BrandName extends StringValueObject {
   private readonly NAME_MAX_LENGTH = 100
-  private readonly NAME_MIN_LENGTH = 5
+  private readonly NAME_MIN_LENGTH = 2
 
   constructor (readonly value: string) {
     super(value)
@@ -16,12 +16,12 @@ export class BrandName extends StringValueObject {
   }
 
   private ensureIsValidName (value: string): void {
-    if (this.isBrandNameValid(value)) {
+    if (!this.isBrandNameValid(value)) {
       throw new InvalidArgumentError(`<${value}> is not a valid name`)
     }
   }
 
   private isBrandNameValid (name: string): boolean {
-    return name.length <= this.NAME_MIN_LENGTH && name.length <= this.NAME_MAX_LENGTH
+    return name.length >= this.NAME_MIN_LENGTH && name.length <= this.NAME_MAX_LENGTH
   }
 }

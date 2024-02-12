@@ -24,6 +24,7 @@ export const useBrandInitialState = () => {
 
     if (location.state?.brand !== undefined) {
       const { brand } = location.state
+
       setPreloadedBrandState(brand)
     } else {
       if (id === undefined) {
@@ -42,6 +43,7 @@ export const useBrandInitialState = () => {
   }, [id, location.state?.brand])
 
   return {
-    preloadedBrandState
+    preloadedBrandState,
+    id
   }
 }

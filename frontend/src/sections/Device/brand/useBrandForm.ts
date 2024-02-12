@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useAppContext } from '../../Context/AppContext'
 import { useBrand } from './useBrand'
+import { toastMessage } from '../../utils/toaster'
 
 export const enum FormStatus {
   Loading,
@@ -11,21 +12,24 @@ export const enum FormStatus {
 
 export function useBrandForm (): {
   formStatus: FormStatus
-  submitForm: (formData: { name: string }) => Promise<void>
+  submitForm: (formData: { id?: string, name: string }) => Promise<void>
   resetFormStatus: () => void
 } {
   const [formStatus, setFormStatus] = useState(FormStatus.Initial)
   const { repository } = useAppContext()
   const { createBrand } = useBrand(repository)
 
-  async function submitForm ({ name }: { name: string }) {
+  async function submitForm ({ id, name }: { id?: string, name: string }) {
     setFormStatus(FormStatus.Loading)
+    toastMessage({ type: 'loading', message: 'Cargando...' })
 
     try {
-      await createBrand({ name })
+      await createBrand({ id, name })
       setFormStatus(FormStatus.Success)
+      toastMessage({ type: 'success', message: 'Marca Creada exitosamente' })
     } catch (error) {
       setFormStatus(FormStatus.Error)
+      toastMessage({ type: 'error', message: 'Ha ocurrido un error' })
     }
   }
 

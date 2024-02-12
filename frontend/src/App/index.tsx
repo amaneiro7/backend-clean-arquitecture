@@ -28,9 +28,9 @@ function App () {
                     <Route path='/device/add' element={<CreateDeviceForm/>} />
                     <Route path='/device/edit/:id' element={<CreateDeviceForm/>} />
                     <Route path='/brand/add' element={<CreateBrandForm/>} />
-                    <Route path='/brand/edit/:brandId' element={<CreateBrandForm/>} />
+                    <Route path='/brand/edit/:id' element={<CreateBrandForm/>} />
                     <Route path='/model/add' element={<CreateModelForm/>} />
-                    <Route path='/model/edit/:modelId' element={<CreateModelForm/>} />
+                    <Route path='/model/edit/:id' element={<CreateModelForm/>} />
                     <Route path='*' element={<NotFound/>} />
                   </Routes>
               </Layout>

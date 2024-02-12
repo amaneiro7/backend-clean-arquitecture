@@ -1,22 +1,16 @@
-import { BrandId } from './BrandId'
 import { BrandName } from './BrandName'
 
 export interface BrandPrimitives {
-  id: string
+  id?: string
   name: string
 }
 export class Brand {
   constructor (
-    private readonly id: BrandId,
     private readonly name: BrandName
   ) {}
 
-  public static create ({ id, name }: BrandPrimitives): Brand {
-    return new Brand(new BrandId(id), new BrandName(name))
-  }
-
-  idValue (): string {
-    return this.id.value
+  public static create ({ name }: BrandPrimitives): Brand {
+    return new Brand(new BrandName(name))
   }
 
   nameValue (): string {
@@ -25,7 +19,6 @@ export class Brand {
 
   toPrimitives (): BrandPrimitives {
     return {
-      id: this.idValue(),
       name: this.nameValue()
     }
   }
