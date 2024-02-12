@@ -1,5 +1,6 @@
 import { type ModelApiresponse, type ModelMappedApiResponse } from '../../../shared/domain/types/responseTypes'
 import { API_URL } from '../../../shared/infraestructure/config'
+import { errorApiMessage } from '../../../shared/infraestructure/errorMessage'
 import { type ModelPrimitives, type Model } from '../domain/Model'
 import { type ModelId } from '../domain/ModelId'
 import { type ModelName } from '../domain/ModelName'
@@ -7,17 +8,26 @@ import { type ModelRepository } from '../domain/ModelRepository'
 
 export class ApiModelRepository implements ModelRepository {
   async save ({ model }: { model: Model }): Promise<void> {
-    const modelPrimitives = model.toPrimitives()
-    await fetch(`${API_URL}/models`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        id: modelPrimitives.id,
-        name: modelPrimitives.name
+    try {
+      const modelPrimitives = model.toPrimitives()
+      const res = await fetch(`${API_URL}/models`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: modelPrimitives.name,
+          categoryId: modelPrimitives.categoryId,
+          brandId: modelPrimitives.brandId
+        })
       })
-    })
+
+      if (!res.ok) {
+        throw new Error(await res.text())
+      }
+    } catch (error) {
+      throw new Error(errorApiMessage)
+    }
   }
 
   async update ({ id, model }: { id: ModelId, model: Model }): Promise<void> {
@@ -28,7 +38,9 @@ export class ApiModelRepository implements ModelRepository {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        name: modelPrimitives.name
+        name: modelPrimitives.name,
+        categroyId: modelPrimitives.categoryId,
+        brandId: modelPrimitives.brandId
       })
     })
   }

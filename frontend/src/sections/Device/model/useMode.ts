@@ -4,6 +4,7 @@ import { Uuid } from '../../../modules/shared/domain/value-object/Uuid'
 import { AllModelGetter } from '../../../modules/devices/model/application/AllModelGetter'
 import { type ModelPrimitives } from '../../../modules/devices/model/domain/Model'
 import { ModelCreator } from '../../../modules/devices/model/application/ModelCreator'
+import { ModelGetter } from '../../../modules/devices/model/application/ModelGetter'
 
 export const useModel = (repository: Repository) => {
   const allModelGetter = new AllModelGetter(repository)
@@ -32,6 +33,8 @@ export const useModel = (repository: Repository) => {
       })
   }
 
+  const getModel = new ModelGetter(repository)
+
   useEffect(() => {
     getModels()
 
@@ -44,6 +47,7 @@ export const useModel = (repository: Repository) => {
     models,
     loading,
     error,
-    createModel
+    createModel,
+    getModel
   }
 }

@@ -4,13 +4,40 @@ import { useAppContext } from '../../Context/AppContext'
 import { type DevicesMappedApiResponse } from '../../../modules/shared/domain/types/responseTypes'
 import { useDevice } from './useDevice'
 
-const defaultInitialState = {
+interface defaultProps {
+  serial: string
+  activo: string
+  statusId: number
+  modelId: string
+  categoryId: number
+  brandId: string
+  processorId?: string
+  memoryRamCapacity?: number
+  hardDriveCapacityId?: number
+  hardDriveTypeId?: number
+  operatingSystemArqId?: number
+  OperatingSystemVersionId?: number
+  macAddress?: string
+  ipAddress?: string
+  health?: number
+}
+
+const defaultInitialState: defaultProps = {
   serial: '',
   activo: '',
-  statusId: 1,
+  statusId: 0,
   modelId: '',
-  categoryId: 1,
-  brandId: ''
+  categoryId: 0,
+  brandId: '',
+  processorId: '',
+  memoryRamCapacity: 0,
+  hardDriveCapacityId: 0,
+  hardDriveTypeId: 0,
+  operatingSystemArqId: 0,
+  OperatingSystemVersionId: 0,
+  macAddress: '',
+  ipAddress: '',
+  health: 100
 }
 export const useDeviceInitialState = () => {
   const { id } = useParams()
@@ -36,8 +63,16 @@ export const useDeviceInitialState = () => {
       }
       getDevice.getById(id)
         .then(device => {
-          const { serial, activo, statusId, modelId, categoryId, brandId } = device as DevicesMappedApiResponse
+          const { serial, activo, statusId, modelId, categoryId, brandId, computer, hardDrive } = device as DevicesMappedApiResponse
           setPreloadedDeviceState({ serial, activo, statusId, modelId, categoryId, brandId })
+          if (computer !== null) {
+            const { processorId, memoryRamCapacity, hardDriveCapacityId, hardDriveTypeId, operatingSystemArqId, OperatingSystemVersionId, macAddress, ipAddress } = computer
+            setPreloadedDeviceState({ ...preloadedDeviceState, processorId, memoryRamCapacity, hardDriveCapacityId, hardDriveTypeId, operatingSystemArqId, OperatingSystemVersionId, macAddress, ipAddress })
+          }
+          if (hardDrive !== null) {
+            const { health, hardDriveCapacityId, hardDriveTypeId } = hardDrive
+            setPreloadedDeviceState({ ...preloadedDeviceState, health, hardDriveCapacityId, hardDriveTypeId })
+          }
         })
         .catch(error => {
           console.log(error)

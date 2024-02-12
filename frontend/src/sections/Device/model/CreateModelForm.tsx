@@ -1,31 +1,41 @@
-import { type FormEvent, useEffect, useState } from 'react'
+import { type FormEvent, useEffect } from 'react'
 import { useGenericFormData } from '../../Hooks/useGenericFormData'
 import { FormContainer } from '../../components/formContainer'
-import { useModelForm } from './useModelForm'
-import { ModelName } from '../../../modules/devices/model/domain/ModelName'
+import { FormStatus, useModelForm } from './useModelForm'
 import BrandSelect from '../brand/BrandSelect'
 import CategorySelect from '../category/CategorySelect'
 import ModelNameInput from './ModelNameInput'
+import { useModelInitialState } from './BrandFormInitialState'
 
 const initialState = {
   name: '',
-  categoryId: 1,
+  categoryId: 0,
   brandId: ''
 }
 
 export default function CreateModelForm () {
-  const { formData, updateForm, resetFrom } = useGenericFormData(initialState)
+  const { formData, updateForm, resetForm } = useGenericFormData(initialState)
   const { formStatus, submitForm, resetFormStatus } = useModelForm()
-  const [errors, setErrors] = useState(initialState)
+  const { preloadedModelState } = useModelInitialState()
 
   useEffect(() => {
-    const isName = ModelName.isValid(formData.name)
+    updateForm(preloadedModelState)
 
-    setErrors({
-      ...errors,
-      name: isName ? '' : ModelName.invalidMessage(formData.name)
-    })
-  }, [formData])
+    return () => {
+      resetForm()
+    }
+  }, [preloadedModelState])
+
+  useEffect(() => {
+    if (formStatus === FormStatus.Success) {
+      resetFormStatus()
+      resetForm()
+      handleClose()
+    }
+    if (formStatus === FormStatus.Error) {
+      resetFormStatus()
+    }
+  }, [formStatus])
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault()
@@ -43,10 +53,10 @@ export default function CreateModelForm () {
 
   return (
     <FormContainer
-        title='Agrega un nuevo Dispositivo'
+        title='Agrega un nuevo Modelo'
         handleSubmit={handleSubmit}
         handleClose={handleClose}
-        isDisabled
+        isDisabled={formStatus === FormStatus.Loading}
     >
         <CategorySelect
         value={formData.categoryId}
@@ -59,7 +69,6 @@ export default function CreateModelForm () {
       <ModelNameInput
           value={formData.name}
           onChange={handleChange}
-          errorMessage={errors.name}
       />
     </FormContainer>
   )
