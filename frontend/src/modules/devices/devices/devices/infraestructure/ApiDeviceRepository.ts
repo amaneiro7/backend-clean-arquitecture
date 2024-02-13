@@ -8,13 +8,12 @@ import { type DeviceRepository } from '../domain/DeviceRepository'
 export class ApiDeviceRepository implements DeviceRepository {
   async save ({ device }: { device: Device }): Promise<void> {
     try {
-      const { activo, serial, modelId, statusId } = device.toPrimitives()
       const res = await fetch(`${API_URL}/devices`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ activo, serial, modelId, statusId })
+        body: JSON.stringify(device.toPrimitives())
       })
       if (!res.ok) {
         throw new Error(await res.text())

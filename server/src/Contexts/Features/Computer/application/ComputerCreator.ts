@@ -19,6 +19,7 @@ export class ComputerValidation {
 
   async run (params: ComputerParams): Promise<Computer> {
     const { categoryId, deviceId, processorId, memoryRamCapacity, hardDriveCapacityId, hardDriveTypeId, operatingSystemId, operatingSystemArqId, ipAddress, macAddress } = params
+    console.log(memoryRamCapacity)
 
     const validations: ValidationConfig[] = [
       { field: processorId, validator: ValidationComputerField.ensureProcessorIdExist },

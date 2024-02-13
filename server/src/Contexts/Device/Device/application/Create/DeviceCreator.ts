@@ -28,7 +28,7 @@ export class DeviceCreator {
   constructor (private readonly repository: Repository) {}
 
   async run (params: DeviceParams): Promise<void> {
-    const { activo, serial, statusId, modelId, ...restParams } = params
+    const { activo, serial, statusId, modelId, ...otherParams } = params
 
     await ValidationField.ensureActivoDoesNotExist(this.repository, activo)
     await ValidationField.ensureSerialDoesNotExist(this.repository, serial)
@@ -42,11 +42,11 @@ export class DeviceCreator {
     const categoryId = modelSeriesCategory.category.id
 
     if (Computer.isComputerCategory({ categoryId })) {
-      const computer = await new ComputerValidation(this.repository).run({ ...restParams, categoryId, deviceId: device.idValue })
+      const computer = await new ComputerValidation(this.repository).run({ ...otherParams, categoryId, deviceId: device.idValue })
       await this.repository.device.save(device.toPrimitives())
       await this.repository.computer.save(computer.toPrimitive())
     } else if (HardDrive.isHardDriveCategory({ categoryId })) {
-      const hardDrive = await new HardDriveValidation(this.repository).run({ ...restParams, categoryId, deviceId: device.idValue })
+      const hardDrive = await new HardDriveValidation(this.repository).run({ ...otherParams, categoryId, deviceId: device.idValue })
       await this.repository.device.save(device.toPrimitives())
       await this.repository.hardDrive.save(hardDrive.toPrimitive())
     } else {
