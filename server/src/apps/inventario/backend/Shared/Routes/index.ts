@@ -15,6 +15,7 @@ import { createHardDriveCapacityRouter } from '../../Features/HardDrive/routes/h
 import { createOperatingSystemArqRouter } from '../../Features/OperatingSystem/routes/operatingSystemArq.routes'
 import { createOperatingSystemVersionsRouter } from '../../Features/OperatingSystem/routes/operatingSystemVersions.routes'
 import { createHardDriveRouter } from '../../Features/HardDrive/routes/hardDrive.routes'
+import { createComputerRouter } from '../../Features/Computer/routes/computer.routes'
 
 // import { createUserRouter } from './user.routes'
 // import { createAuthRouter } from './auth.routes'
@@ -33,6 +34,7 @@ export const routerApi = ({ app, repository }: Props): Router => {
   router.use('/models', createModelSeriesRouter({ repository }))
   router.use('/devices', createDeviceRouter({ repository }))
   router.use('/status', createStatusRouter({ repository }))
+  router.use('/computers', createComputerRouter({ repository }))
   router.use('/processors', createProcessorRouter({ repository }))
   router.use('/auth', createAuthRouter())
   router.use('/memoryramtypes', createMemoryRamRouter({ repository }))
