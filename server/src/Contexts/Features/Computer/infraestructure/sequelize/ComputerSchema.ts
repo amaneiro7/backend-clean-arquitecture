@@ -5,14 +5,14 @@ export class ComputerModel extends Model<ComputerPrimitives> implements Computer
   readonly id!: string
   readonly categoryId!: number
   readonly deviceId!: string
-  readonly processorId!: string
+  readonly processorId!: string | null
   readonly memoryRamCapacity!: number
-  readonly hardDriveCapacityId!: number
-  readonly hardDriveTypeId!: number
-  readonly operatingSystemId!: number
-  readonly operatingSystemArqId!: number
-  readonly macAddress!: string
-  readonly ipAddress!: string
+  readonly hardDriveCapacityId!: number | null
+  readonly hardDriveTypeId!: number | null
+  readonly operatingSystemId!: number | null
+  readonly operatingSystemArqId!: number | null
+  readonly macAddress!: string | null
+  readonly ipAddress!: string | null
 }
 
 export function initComputerModel (sequelize: Sequelize): void {
@@ -39,7 +39,7 @@ export function initComputerModel (sequelize: Sequelize): void {
       },
       processorId: {
         type: DataTypes.UUID,
-        allowNull: false
+        allowNull: true
       },
       memoryRamCapacity: {
         type: DataTypes.INTEGER,
@@ -47,24 +47,25 @@ export function initComputerModel (sequelize: Sequelize): void {
       },
       hardDriveCapacityId: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: true
       },
       hardDriveTypeId: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: true
       },
       operatingSystemId: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         field: 'operating_system_version_id'
       },
       operatingSystemArqId: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: true
       },
       macAddress: {
         type: DataTypes.MACADDR,
-        allowNull: true
+        allowNull: true,
+        unique: true
       },
       ipAddress: {
         type: DataTypes.INET,

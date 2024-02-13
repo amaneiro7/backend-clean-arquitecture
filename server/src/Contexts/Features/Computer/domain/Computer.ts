@@ -15,14 +15,14 @@ export interface ComputerPrimitives {
   id: string
   categoryId: number
   deviceId: string
-  processorId: string
+  processorId: string | null
   memoryRamCapacity: number
-  hardDriveCapacityId: number
-  hardDriveTypeId: number
-  operatingSystemId: number
-  operatingSystemArqId: number
-  macAddress: string
-  ipAddress: string
+  hardDriveCapacityId: number | null
+  hardDriveTypeId: number | null
+  operatingSystemId: number | null
+  operatingSystemArqId: number | null
+  macAddress: string | null
+  ipAddress: string | null
 }
 
 export class Computer {
@@ -30,13 +30,13 @@ export class Computer {
     private readonly id: ComputerId,
     private readonly categoryId: CategoryId,
     private readonly deviceId: DeviceId,
-    private processorId: ProcessorId,
+    private processorId: ProcessorId | null,
     private memoryRamCapacity: MemoryRamCapacity,
-    private hardDriveCapacityId: HardDriveCapacityId,
-    private hardDriveTypeId: HardDriveTypeId,
-    private operatingSystemId: OperatingSystemId,
-    private operatingSystemArqId: OperatingSystemArqId,
-    private readonly macAddress: MACAddress,
+    private hardDriveCapacityId: HardDriveCapacityId | null,
+    private hardDriveTypeId: HardDriveTypeId | null,
+    private operatingSystemId: OperatingSystemId | null,
+    private operatingSystemArqId: OperatingSystemArqId | null,
+    private macAddress: MACAddress,
     private ipAddress: IPAddress
   ) {}
 
@@ -54,16 +54,23 @@ export class Computer {
       ipAddress
     }: Omit<ComputerPrimitives, 'id'>): Computer {
     const id = ComputerId.random().value
+
+    if (hardDriveCapacityId === null) {
+      hardDriveTypeId = null
+      operatingSystemId = null
+      operatingSystemArqId = null
+    }
+
     return new Computer(
       new ComputerId(id),
       new CategoryId(categoryId),
       new DeviceId(deviceId),
-      new ProcessorId(processorId),
+      processorId != null ? new ProcessorId(processorId) : null,
       new MemoryRamCapacity(memoryRamCapacity),
-      new HardDriveCapacityId(hardDriveCapacityId),
-      new HardDriveTypeId(hardDriveTypeId),
-      new OperatingSystemId(operatingSystemId),
-      new OperatingSystemArqId(operatingSystemArqId),
+      hardDriveCapacityId != null ? new HardDriveCapacityId(hardDriveCapacityId) : null,
+      hardDriveTypeId != null ? new HardDriveTypeId(hardDriveTypeId) : null,
+      operatingSystemId != null ? new OperatingSystemId(operatingSystemId) : null,
+      operatingSystemArqId != null ? new OperatingSystemArqId(operatingSystemArqId) : null,
       new MACAddress(macAddress),
       new IPAddress(ipAddress)
     )
@@ -74,8 +81,8 @@ export class Computer {
     return AcceptedComputerCategories.includes(CategoryDefaultData[categoryId])
   }
 
-  updateProcessor (newProcessorId: string): void {
-    this.processorId = new ProcessorId(newProcessorId)
+  updateProcessor (newProcessorId: string | null): void {
+    this.processorId = newProcessorId != null ? new ProcessorId(newProcessorId) : null
   }
 
   updateMemoryRam (newMemoryRamCapacity: number): void {
@@ -83,38 +90,42 @@ export class Computer {
   }
 
   updateOperatingSystem (newOperatingSystem: number): void {
-    this.operatingSystemId = new OperatingSystemId(newOperatingSystem)
+    this.operatingSystemId = newOperatingSystem != null ? new OperatingSystemId(newOperatingSystem) : null
   }
 
   updateOperatingSystemArq (newOperatingSystemArq: number): void {
-    this.operatingSystemArqId = new OperatingSystemArqId(newOperatingSystemArq)
+    this.operatingSystemArqId = newOperatingSystemArq != null ? new OperatingSystemArqId(newOperatingSystemArq) : null
   }
 
   updateHardDriveCapacity (newHDDCapacity: number): void {
-    this.hardDriveCapacityId = new HardDriveCapacityId(newHDDCapacity)
+    this.hardDriveCapacityId = newHDDCapacity != null ? new HardDriveCapacityId(newHDDCapacity) : null
   }
 
   updateHardDriveType (newHDDType: number): void {
-    this.hardDriveTypeId = new HardDriveTypeId(newHDDType)
+    this.hardDriveTypeId = newHDDType != null ? new HardDriveTypeId(newHDDType) : null
   }
 
-  updateIPAddress (newIPAddress: string): void {
+  updateIPAddress (newIPAddress: string | null): void {
     this.ipAddress = new IPAddress(newIPAddress)
+  }
+
+  updateMACAddress (newMACAddress: string | null): void {
+    this.macAddress = new MACAddress(newMACAddress)
   }
 
   toPrimitive (): ComputerPrimitives {
     return {
       id: this.id.value,
-      categoryId: this.categoryId.value,
-      deviceId: this.deviceId.value,
-      processorId: this.processorId.value,
-      memoryRamCapacity: this.memoryRamCapacity.value,
-      hardDriveCapacityId: this.hardDriveCapacityId.value,
-      hardDriveTypeId: this.hardDriveTypeId.value,
-      operatingSystemId: this.operatingSystemId.value,
-      operatingSystemArqId: this.operatingSystemArqId.value,
-      macAddress: this.macAddress.value,
-      ipAddress: this.ipAddress.value
+      categoryId: this.categoryIdValue,
+      deviceId: this.deviceIdValue,
+      processorId: this.processorIdValue,
+      memoryRamCapacity: this.memoryRamCapacityValue,
+      hardDriveCapacityId: this.hardDriveCapacityIdValue,
+      hardDriveTypeId: this.hardDriveTypeIdValue,
+      operatingSystemId: this.operatingSystemIdValue,
+      operatingSystemArqId: this.operatingSystemArqIdValue,
+      macAddress: this.macAddressValue,
+      ipAddress: this.ipAddressValue
     }
   }
 
@@ -123,12 +134,12 @@ export class Computer {
       new ComputerId(primitives.id),
       new CategoryId(primitives.categoryId),
       new DeviceId(primitives.deviceId),
-      new ProcessorId(primitives.processorId),
+      primitives.processorId == null ? null : new ProcessorId(primitives.processorId),
       new MemoryRamCapacity(primitives.memoryRamCapacity),
-      new HardDriveCapacityId(primitives.hardDriveCapacityId),
-      new HardDriveTypeId(primitives.hardDriveTypeId),
-      new OperatingSystemId(primitives.operatingSystemId),
-      new OperatingSystemArqId(primitives.operatingSystemArqId),
+      primitives.hardDriveCapacityId == null ? null : new HardDriveCapacityId(primitives.hardDriveCapacityId),
+      primitives.hardDriveTypeId == null ? null : new HardDriveTypeId(primitives.hardDriveTypeId),
+      primitives.operatingSystemId == null ? null : new OperatingSystemId(primitives.operatingSystemId),
+      primitives.operatingSystemArqId == null ? null : new OperatingSystemArqId(primitives.operatingSystemArqId),
       new MACAddress(primitives.macAddress),
       new IPAddress(primitives.ipAddress)
     )
@@ -146,31 +157,35 @@ export class Computer {
     return this.deviceId.value
   }
 
-  get processorIdValue (): string {
-    return this.processorId.value
+  get memoryRamCapacityValue (): number {
+    return this.memoryRamCapacity.value
   }
 
-  get hardDriveCapacityIdValue (): number {
-    return this.hardDriveCapacityId.value
+  get processorIdValue (): string | null {
+    return this.processorId?.value ?? null
   }
 
-  get hardDriveTypeIdValue (): number {
-    return this.hardDriveTypeId.value
+  get hardDriveCapacityIdValue (): number | null {
+    return this.hardDriveCapacityId?.value ?? null
   }
 
-  get operatingSystemIdValue (): number {
-    return this.operatingSystemId.value
+  get hardDriveTypeIdValue (): number | null {
+    return this.hardDriveTypeId?.value ?? null
   }
 
-  get operatingSystemArqIdValue (): number {
-    return this.operatingSystemArqId.value
+  get operatingSystemIdValue (): number | null {
+    return this.operatingSystemId?.value ?? null
   }
 
-  get macAddressValue (): string {
+  get operatingSystemArqIdValue (): number | null {
+    return this.operatingSystemArqId?.value ?? null
+  }
+
+  get macAddressValue (): string | null {
     return this.macAddress.value
   }
 
-  get ipAddressValue (): string {
+  get ipAddressValue (): string | null {
     return this.ipAddress.value
   }
 }

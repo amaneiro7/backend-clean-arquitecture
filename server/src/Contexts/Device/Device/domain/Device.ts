@@ -21,7 +21,7 @@ export class Device {
     private modelId: ModelSeriesId
   ) {}
 
-  static create ({ serial, activo, statusId, modelId }: { serial: string, activo: string, statusId: number, modelId: string }): Device {
+  static create ({ serial, activo, statusId, modelId }: Omit<DevicePrimitives, 'id'>): Device {
     const id = DeviceId.random().toString()
     return new Device(
       new DeviceId(id),

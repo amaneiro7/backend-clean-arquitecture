@@ -1,18 +1,10 @@
 import { type Repository } from '../../../Shared/domain/Repository'
-import { Computer } from '../domain/Computer'
+import { Computer, type ComputerPrimitives } from '../domain/Computer'
 import { ValidationComputerField } from './ValidationComputerField'
 
-interface ComputerParams {
+interface ComputerParams extends Omit<ComputerPrimitives, 'id'> {
   categoryId: number
   deviceId: string
-  processorId: string
-  memoryRamCapacity: number
-  operatingSystemId: number
-  operatingSystemArqId: number
-  ipAddress: string
-  macAddress: string
-  hardDriveCapacityId: number
-  hardDriveTypeId: number
 }
 
 type FieldValidator = (repository: Repository, field: any) => Promise<void>
