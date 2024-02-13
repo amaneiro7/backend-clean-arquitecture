@@ -4,6 +4,7 @@ import { AllProcessorGetter } from '../../../../modules/devices/fetures/processo
 import { type ProcessorPrimitives } from '../../../../modules/devices/fetures/processor/domain/Processor'
 import { ProcessorCreator } from '../../../../modules/devices/fetures/processor/application/ProcessorCreator'
 import { Uuid } from '../../../../modules/shared/domain/value-object/Uuid'
+import { ProcessorGetter } from '../../../../modules/devices/fetures/processor/application/BrandGetter'
 
 export const useProcessor = (repository: Repository) => {
   const dataGetter = new AllProcessorGetter(repository)
@@ -30,6 +31,8 @@ export const useProcessor = (repository: Repository) => {
       })
   }
 
+  const getProcessor = new ProcessorGetter(repository)
+
   useEffect(() => {
     fetchData()
 
@@ -42,6 +45,7 @@ export const useProcessor = (repository: Repository) => {
     processors: data,
     loading,
     error,
-    createProcessor
+    createProcessor,
+    getProcessor
   }
 }

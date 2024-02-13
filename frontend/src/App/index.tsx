@@ -11,6 +11,7 @@ const Home = lazy(async () => await import('../sections/home/index.tsx'))
 const CreateDeviceForm = lazy(async () => await import('../sections/Device/device/CreateDeviceForm.tsx'))
 const CreateBrandForm = lazy(async () => await import('../sections/Device/brand/CreateBrandForm.tsx'))
 const CreateModelForm = lazy(async () => await import('../sections/Device/model/CreateModelForm.tsx'))
+const CreateProcessorForm = lazy(async () => await import('../sections/Device/features/processor/CreateProcessorForm.tsx'))
 const Login = lazy(async () => await import('../sections/page/login/index.tsx'))
 const NotFound = lazy(async () => await import('../sections/page/404/index.tsx'))
 
@@ -31,6 +32,8 @@ function App () {
                     <Route path='/brand/edit/:id' element={<CreateBrandForm/>} />
                     <Route path='/model/add' element={<CreateModelForm/>} />
                     <Route path='/model/edit/:id' element={<CreateModelForm/>} />
+                    <Route path='/processor/add' element={<CreateProcessorForm/>} />
+                    <Route path='/processor/edit/:id' element={<CreateProcessorForm/>} />
                     <Route path='*' element={<NotFound/>} />
                   </Routes>
               </Layout>

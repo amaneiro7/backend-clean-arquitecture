@@ -1,14 +1,32 @@
-import { type FC } from 'react'
+import { useEffect, useRef, useState, type FC } from 'react'
 import FormInput from '../../../ui/text-field'
+import { ProcessorName } from '../../../../modules/devices/fetures/processor/domain/ProcessorName'
 
 interface Props {
   value: string
   onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
-  errorMessage: string
 }
 
-const ProcessorNameInput: FC<Props> = ({ value, onChange, errorMessage }) => {
-  const isError = errorMessage.length > 0
+const ProcessorNameInput: FC<Props> = ({ value, onChange }) => {
+  const [errorMessage, setErrorMessage] = useState('')
+  const [isError, setIsError] = useState(false)
+  const isFirstInput = useRef(true)
+  useEffect(() => {
+    if (isFirstInput.current) {
+      isFirstInput.current = value === ''
+      return
+    }
+
+    const isValid = ProcessorName.isValid(value)
+
+    setIsError(!isValid)
+    setErrorMessage(isValid ? '' : ProcessorName.invalidMessage(value))
+
+    return () => {
+      setErrorMessage('')
+      setIsError(false)
+    }
+  }, [value])
   return (
   <FormInput
       id='name'

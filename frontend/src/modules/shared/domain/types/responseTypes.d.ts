@@ -83,7 +83,7 @@ export interface Computer {
   ProcessorId: string
   OperatingSystemVersionId: number
   OperatingSystemArqId: number
-  processor: Processor
+  processor: ProcessorApiresponse
   hardDriveCapacity: HardDriveCapacity
   hardDriveType: HardDriveType
   operatingSystem: OperatingSystem
@@ -123,7 +123,7 @@ export interface Brand {
   createdAt: Date
   updatedAt: Date
 }
-export interface Processor {
+export interface ProcessorApiresponse {
   id: string
   name: string
   createdAt: Date

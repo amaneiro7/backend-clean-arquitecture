@@ -1,31 +1,41 @@
-import { type FormEvent, useEffect, useState } from 'react'
+import { type FormEvent, useEffect } from 'react'
 import { useGenericFormData } from '../../../Hooks/useGenericFormData'
-import { useProcessorForm } from './useProcessorForm'
-import { ProcessorName } from '../../../../modules/devices/fetures/processor/domain/ProcessorName'
+import { FormStatus, useProcessorForm } from './useProcessorForm'
 import { FormContainer } from '../../../components/formContainer'
 import ProcessorNameInput from './ProcessorNameInput'
+import { useProcessorInitialState } from './ProcessorFormInitialState'
 
 const initialState = {
   name: ''
 }
 
 export default function CreateProcessorForm () {
-  const { formData, updateForm, resetFrom } = useGenericFormData(initialState)
+  const { id: processorId, preloadedProcessorState } = useProcessorInitialState()
+  const { formData, updateForm, resetForm } = useGenericFormData(initialState)
   const { formStatus, submitForm, resetFormStatus } = useProcessorForm()
-  const [errors, setErrors] = useState(initialState)
 
   useEffect(() => {
-    const isName = ProcessorName.isValid(formData.name)
+    updateForm(preloadedProcessorState)
 
-    setErrors({
-      name: isName ? '' : ProcessorName.invalidMessage(formData.name)
-    })
-  }, [formData])
+    return () => {
+      resetForm()
+    }
+  }, [preloadedProcessorState])
 
+  useEffect(() => {
+    if (formStatus === FormStatus.Success) {
+      resetFormStatus()
+      resetForm()
+      handleClose()
+    }
+    if (formStatus === FormStatus.Error) {
+      resetFormStatus()
+    }
+  }, [formStatus])
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault()
     const { name } = formData
-    await submitForm({ name })
+    await submitForm({ id: processorId, name })
   }
 
   const handleClose = () => {
@@ -41,12 +51,11 @@ export default function CreateProcessorForm () {
         title='Agrega un nuevo Dispositivo'
         handleSubmit={handleSubmit}
         handleClose={handleClose}
-        isDisabled
+        isDisabled={formStatus === FormStatus.Loading}
     >
       <ProcessorNameInput
           value={formData.name}
           onChange={handleChange}
-          errorMessage={errors.name}
       />
     </FormContainer>
   )

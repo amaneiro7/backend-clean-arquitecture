@@ -47,18 +47,41 @@ export class ApiBrandRepository implements BrandRepository {
   }
 
   async getAll (): Promise<BrandPrimitives[]> {
-    return await fetch(`${API_URL}/brands`).then(async res => await (res.json() as Promise<BrandPrimitives[]>))
+    return await fetch(`${API_URL}/brands`).then(
+      async res => {
+        if (!res.ok) {
+          throw new Error(await res.text())
+        }
+        return await (res.json() as Promise<BrandPrimitives[]>)
+      })
+      .catch(() => {
+        throw new Error(errorApiMessage)
+      })
   }
 
   async getById ({ id }: { id: BrandId }): Promise<BrandPrimitives | null> {
     return await fetch(`${API_URL}/brands/${id.value}`).then(
-      async res => await (res.json() as Promise<BrandPrimitives | null>)
-    )
+      async res => {
+        if (!res.ok) {
+          throw new Error(await res.text())
+        }
+        return await (res.json() as Promise<BrandPrimitives | null>)
+      })
+      .catch(() => {
+        throw new Error(errorApiMessage)
+      })
   }
 
   async getByName ({ name }: { name: BrandName }): Promise<BrandPrimitives | null> {
     return await fetch(`${API_URL}/brands/name/${name.value}`).then(
-      async res => await (res.json() as Promise<BrandPrimitives | null>)
-    )
+      async res => {
+        if (!res.ok) {
+          throw new Error(await res.text())
+        }
+        return await (res.json() as Promise<BrandPrimitives | null>)
+      })
+      .catch(() => {
+        throw new Error(errorApiMessage)
+      })
   }
 }
