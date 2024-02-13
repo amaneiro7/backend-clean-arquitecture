@@ -10,7 +10,7 @@ const Select = lazy(async () => await import('../../ui/select'))
 
 interface Props {
   value: string
-  categoryId?: number
+  categoryId: number
   onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
   isForm?: boolean
 }

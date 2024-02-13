@@ -8,6 +8,7 @@ import { AppContextProvider } from '../sections/Context/AppContext.tsx'
 import { apiRepository } from '../modules/shared/infraestructure/ApiRepository.ts'
 
 const Home = lazy(async () => await import('../sections/home/index.tsx'))
+const ComputerPage = lazy(async () => await import('../sections/Device/features/computer/ComputerTablePage.tsx'))
 const CreateDeviceForm = lazy(async () => await import('../sections/Device/device/CreateDeviceForm.tsx'))
 const CreateBrandForm = lazy(async () => await import('../sections/Device/brand/CreateBrandForm.tsx'))
 const CreateModelForm = lazy(async () => await import('../sections/Device/model/CreateModelForm.tsx'))
@@ -25,6 +26,7 @@ function App () {
               <Layout>
                   <Routes>
                     <Route path='/' element={<Home />}/>
+                    <Route path='/computer' element={<ComputerPage />}/>
                     <Route path='/login' element={<Login />}/>
                     <Route path='/device/add' element={<CreateDeviceForm/>} />
                     <Route path='/device/edit/:id' element={<CreateDeviceForm/>} />

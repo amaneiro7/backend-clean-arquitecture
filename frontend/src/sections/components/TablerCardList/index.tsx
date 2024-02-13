@@ -24,12 +24,10 @@ export const TableCardList: React.FC<Props> = ({ item }) => {
             }}
           >
             <EditIcon />
-            {/* Editar */}
           </Link>
 
           <a href='#'>
             <DeleteIcon />
-            {/* Eliminar */}
           </a>
         </td>
     </>

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { AddIcon } from '../../ui/icon/AddIcon'
 import { EditIcon } from '../../ui/icon/EditIcon'
 import { useModel } from './useMode'
+import { type ModelApiresponse } from '../../../modules/shared/domain/types/responseTypes'
 
 const Select = lazy(async () => await import('../../ui/select'))
 
@@ -11,8 +12,8 @@ interface Props {
   value: string
   onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
   isForm?: boolean
-  categoryId?: number
-  brandId?: string
+  categoryId: number
+  brandId: string
 }
 
 const ModelSelect: FC<Props> = ({ value = '', onChange, isForm = true, brandId, categoryId }) => {
@@ -20,7 +21,7 @@ const ModelSelect: FC<Props> = ({ value = '', onChange, isForm = true, brandId, 
   const { models } = useModel(repository)
 
   const filterdModel = useMemo(() => {
-    return models.filter(model => {
+    return (models as ModelApiresponse[]).filter(model => {
       const category = model.categoryId === categoryId || (categoryId === 0)
       const brand = model.brandId === brandId || (brandId === '')
       return category && brand

@@ -4,8 +4,11 @@ import { useAppContext } from '../Context/AppContext'
 import { useInputsData } from './useInputData'
 import debounce from 'just-debounce-it'
 import { useDevice } from '../Device/device/useDevice'
+import { type DevicesMappedApiResponse } from '../../modules/shared/domain/types/responseTypes'
 
-const TableCard = lazy(async () => await import('../components/TableCard'))
+const TableHeader = lazy(async () => await import('../components/TableHeader'))
+const DeviceTableCard = lazy(async () => await import('../Device/device/DeviceTableCard'))
+const TableStructure = lazy(async () => await import('../components/Table'))
 const Button = lazy(async () => await import('../ui/button'))
 const BrandSelect = lazy(async () => await import('../Device/brand/BrandSelect'))
 const CategorySelect = lazy(async () => await import('../Device/category/CategorySelect'))
@@ -34,6 +37,11 @@ function Home () {
     debounceGetdevices()
   }
 
+  const handleClear = () => {
+    clearInputs()
+    debounceGetdevices()
+  }
+
   return (
     <main className='max-w-full h-full flex flex-col gap-5 p-5'>
       <div>
@@ -57,8 +65,9 @@ function Home () {
         </Suspense>
           <BrandSelect
             value={inputData.brandId}
+            categoryId={inputData.categoryId}
             onChange={handleChange}
-          isForm={false}
+            isForm={false}
           />
         </Suspense>
         <Suspense>
@@ -82,13 +91,26 @@ function Home () {
         </Suspense>
           <ModelSelect
             value={inputData.modelId}
+            brandId={inputData.brandId}
+            categoryId={inputData.categoryId}
             onChange={handleChange}
-          isForm={false}
+            isForm={false}
+          />
+        </Suspense>
+        <Suspense>
+          <Button
+            actionType='CANCEL'
+            type='button'
+            text='Limpiar'
+            handle={handleClear}
           />
         </Suspense>
       </header>
       <Suspense>
-        <TableCard device={devices}/>
+        <TableStructure>
+          <TableHeader headerTitle={['Categoria', 'Serial', 'Activo', 'Status', 'Marca', 'Modelo']}/>
+          <DeviceTableCard device={devices as DevicesMappedApiResponse[]}/>
+        </TableStructure>
       </Suspense>
     </main>
   )

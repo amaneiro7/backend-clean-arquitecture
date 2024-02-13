@@ -16,7 +16,24 @@ export class SequelizeComputerRepository implements ComputerRepository {
 
   async searchAll (): Promise<ComputerPrimitives[]> {
     return await ComputerModel.findAll({
-      include: ['device', 'processor', 'hardDriveCapacity', 'hardDriveType', 'operatingSystem', 'operatingSystemArq']
+      include: [
+        {
+          association: 'device',
+          include: [
+            {
+              association: 'model',
+              include: ['brand']
+            },
+            'status'
+          ]
+        },
+        'category',
+        'processor',
+        'hardDriveCapacity',
+        'hardDriveType',
+        'operatingSystem',
+        'operatingSystemArq'
+      ]
     })
   }
 

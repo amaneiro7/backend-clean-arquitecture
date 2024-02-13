@@ -1,17 +1,13 @@
 import { useEffect, useState } from 'react'
 import { type Repository } from '../../../../modules/shared/domain/repository'
-import { Uuid } from '../../../../modules/shared/domain/value-object/Uuid'
+import { AllComputerGetter } from '../../../../modules/devices/fetures/computer/application/AllComputerGetter'
+import { type ComputerPrimitives } from '../../../../modules/devices/fetures/computer/domain/Computer'
 
 export const useComputer = (repository: Repository) => {
-  const dataGetter = new AllCom(repository)
+  const dataGetter = new AllComputerGetter(repository)
   const [loading, setLoading] = useState(true)
+  const [data, setData] = useState<ComputerPrimitives[]>([])
   const [error, setError] = useState(null)
-  //   const [data, setData] = useState<HardDrivePrimitives[]>([])
-
-  async function createHardDrive ({ categoryId, deviceId, hardDriveCapacityId, hardDriveTypeId, health }: Omit<HardDrivePrimitives, 'id'>) {
-    const id = Uuid.random().value
-    await new HardDriveCreator(repository).create({ id, categoryId, deviceId, health, hardDriveTypeId, hardDriveCapacityId })
-  }
 
   function fetchData () {
     setLoading(true)
@@ -36,9 +32,8 @@ export const useComputer = (repository: Repository) => {
   }, [])
 
   return {
-    hardDrive: data,
+    computer: data,
     loading,
-    error,
-    createHardDrive
+    error
   }
 }

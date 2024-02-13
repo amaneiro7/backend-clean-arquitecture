@@ -2,6 +2,7 @@ import { type BrandRepository } from '../../devices/brand/domain/BrandRepository
 import { type CategoryRepository } from '../../devices/category/domain/CategoryRepository'
 import { type DeviceRepository } from '../../devices/devices/devices/domain/DeviceRepository'
 import { type StatusRepository } from '../../devices/devices/status/domain/StatusRepository'
+import { type ComputerRepository } from '../../devices/fetures/computer/domain/ComputerRepository'
 import { type HardDriveRepository } from '../../devices/fetures/hardDrive/hardDrive/domain/HardDriveRepository'
 import { type HardDriveCapacityRepository } from '../../devices/fetures/hardDrive/hardDriveCapacity/domain/HardDriveCapacityRepository'
 import { type HardDriveTypeRepository } from '../../devices/fetures/hardDrive/hardDriveType/domain/HardDriveTypeRepository'
@@ -23,5 +24,6 @@ export interface Repository {
   hardDriveType: HardDriveTypeRepository
   hardDriveCapacity: HardDriveCapacityRepository
   hardDrive: HardDriveRepository
+  computer: ComputerRepository
   memoryRamType: MemoryRamTypeRepository
 }

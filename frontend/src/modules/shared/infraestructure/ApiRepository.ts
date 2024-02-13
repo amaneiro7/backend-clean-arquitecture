@@ -2,6 +2,7 @@ import { ApiBrandRepository } from '../../devices/brand/infraestructure/ApiBrand
 import { ApiCategoryRepository } from '../../devices/category/infraestructure/ApiCategoryRepository'
 import { ApiDeviceRepository } from '../../devices/devices/devices/infraestructure/ApiDeviceRepository'
 import { ApiStatusRepository } from '../../devices/devices/status/infraestructure/ApiStatusRepository'
+import { ApiComputerRepository } from '../../devices/fetures/computer/infrastructure/ApiComputerRepository'
 import { ApiHardDriveCapacityRepository } from '../../devices/fetures/hardDrive/hardDriveCapacity/infrastructure/ApiHardDriveCapacityRepository'
 import { ApiHardDriveTypeRepository } from '../../devices/fetures/hardDrive/hardDriveType/infrastructure/ApiHardDriveTypeRepository'
 import { ApiMemoryRamTypeRepository } from '../../devices/fetures/memoryRam/memoryRamType/infrastructure/ApiMemoryRamTypeRepository'
@@ -22,6 +23,7 @@ export const apiRepository: Repository = {
   operatingSystemArq: new ApiOperatingSystemArqRepository(),
   hardDriveCapacity: new ApiHardDriveCapacityRepository(),
   hardDriveType: new ApiHardDriveTypeRepository(),
-  memoryRamType: new ApiMemoryRamTypeRepository()
+  memoryRamType: new ApiMemoryRamTypeRepository(),
+  computer: new ApiComputerRepository()
 
 }

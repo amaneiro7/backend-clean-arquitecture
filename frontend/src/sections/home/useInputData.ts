@@ -1,9 +1,9 @@
 import { useSearchParams } from 'react-router-dom'
 
 export interface InputData {
-  categoryId: number | string
+  categoryId: number | ''
   brandId: string
-  statusId: number | string
+  statusId: number | ''
   activo: string
   serial: string
   modelId: string

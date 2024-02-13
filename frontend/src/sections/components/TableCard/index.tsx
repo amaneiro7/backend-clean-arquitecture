@@ -1,11 +1,10 @@
-import { type DevicesMappedApiResponse } from '../../../modules/shared/domain/types/responseTypes'
 import { TableCardList } from '../TablerCardList'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 
-interface Props {
-  device: DevicesMappedApiResponse[]
+interface Props<T> {
+  data: T[]
 }
-const TableCard: React.FC<Props> = ({ device }) => {
+const TableCard = <T,>({ data }: Props<T>) => {
   // const [parent] = useAutoAnimate(/* optional config */)
 
   return (
@@ -24,7 +23,7 @@ const TableCard: React.FC<Props> = ({ device }) => {
               </tr>
             </thead>
             <tbody>
-              {device.map((item) => (
+              {data.map((item) => (
                 <tr
                     key={item.id}
                     className=' odd:bg-slate-200 even:bg-slate-100 [&>td]:align-middle [&>td]:whitespace-break-spaces [&>td]:border-b-2 [&>td]:border-b-gray-300 [&>td]:p-3 [&>td]:pb-2'
