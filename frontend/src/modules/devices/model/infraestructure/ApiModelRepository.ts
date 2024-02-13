@@ -9,17 +9,13 @@ import { type ModelRepository } from '../domain/ModelRepository'
 export class ApiModelRepository implements ModelRepository {
   async save ({ model }: { model: Model }): Promise<void> {
     try {
-      const modelPrimitives = model.toPrimitives()
+      const { name, categoryId, brandId } = model.toPrimitives()
       const res = await fetch(`${API_URL}/models`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          name: modelPrimitives.name,
-          categoryId: modelPrimitives.categoryId,
-          brandId: modelPrimitives.brandId
-        })
+        body: JSON.stringify({ name, categoryId, brandId })
       })
 
       if (!res.ok) {
@@ -32,17 +28,13 @@ export class ApiModelRepository implements ModelRepository {
 
   async update ({ id, model }: { id: ModelId, model: Model }): Promise<void> {
     try {
-      const modelPrimitives = model.toPrimitives()
+      const { name, brandId, categoryId } = model.toPrimitives()
       const res = await fetch(`${API_URL}/models/${id.value}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          name: modelPrimitives.name,
-          categroyId: modelPrimitives.categoryId,
-          brandId: modelPrimitives.brandId
-        })
+        body: JSON.stringify({ name, categoryId, brandId })
       })
       if (!res.ok) {
         throw new Error(await res.text())
@@ -54,28 +46,50 @@ export class ApiModelRepository implements ModelRepository {
 
   async getAll (): Promise<ModelPrimitives[]> {
     return await fetch(`${API_URL}/models`)
-      .then(async res => await (res.json() as Promise<ModelApiresponse[]>))
-      .then(res => res.map(e => ({
-        id: e.id,
-        name: e.name,
-        categoryId: e.category.id,
-        categoryName: e.category.name,
-        brandId: e.brand.id,
-        brandName: e.brand.name,
-        createdAt: e.createdAt,
-        updatedAt: e.updatedAt
+      .then(async res => {
+        if (!res.ok) {
+          throw new Error(await res.text())
+        }
+        return await (res.json() as Promise<ModelApiresponse[]>)
+      })
+      .then(res => res.map(data => ({
+        id: data.id,
+        name: data.name,
+        categoryId: data.category.id,
+        categoryName: data.category.name,
+        brandId: data.brand.id,
+        brandName: data.brand.name,
+        createdAt: data.createdAt,
+        updatedAt: data.updatedAt
       }) satisfies ModelMappedApiResponse))
+      .catch(() => {
+        throw new Error(errorApiMessage)
+      })
   }
 
   async getById ({ id }: { id: ModelId }): Promise<ModelPrimitives | null> {
     return await fetch(`${API_URL}/models/${id.value}`).then(
-      async res => await (res.json() as Promise<ModelPrimitives | null>)
-    )
+      async res => {
+        if (!res.ok) {
+          throw new Error(await res.text())
+        }
+        return await (res.json() as Promise<ModelPrimitives | null>)
+      })
+      .catch(() => {
+        throw new Error(errorApiMessage)
+      })
   }
 
   async getByName ({ name }: { name: ModelName }): Promise<ModelPrimitives | null> {
     return await fetch(`${API_URL}/models/name/${name.value}`).then(
-      async res => await (res.json() as Promise<ModelPrimitives | null>)
-    )
+      async res => {
+        if (!res.ok) {
+          throw new Error(await res.text())
+        }
+        return await (res.json() as Promise<ModelPrimitives | null>)
+      })
+      .catch(() => {
+        throw new Error(errorApiMessage)
+      })
   }
 }

@@ -18,14 +18,14 @@ export interface ComputerPrimitives {
   activo: string | null
   statusId: number
   modelId: string
-  processorId: string
+  processorId: string | null
   memoryRamCapacity: number
-  hardDriveCapacityId: number
-  hardDriveTypeId: number
-  operatingSystemId: number
-  operatingSystemArqId: number
-  macAddress: string
-  ipAddress: string
+  hardDriveCapacityId: number | null
+  hardDriveTypeId: number | null
+  operatingSystemId: number | null
+  operatingSystemArqId: number | null
+  macAddress: string | null
+  ipAddress: string | null
 }
 
 export class Computer extends Device {
@@ -34,14 +34,14 @@ export class Computer extends Device {
     activo: DeviceActivo,
     statusId: StatusId,
     modelId: ModelId,
-    private readonly processorId: ProcessorId,
+    private readonly processorId: ProcessorId | null,
     private readonly memoryRamCapacity: MemoryRamCapacity,
-    private readonly hardDriveCapacityId: HardDriveCapacityId,
-    private readonly hardDriveTypeId: HardDriveTypeId,
-    private readonly operatingSystemId: OperatingSystemId,
-    private readonly operatingSystemArqId: OperatingSystemArqId,
-    private readonly macAddress: MACAddress,
-    private readonly ipAddress: IPAddress
+    private readonly hardDriveCapacityId: HardDriveCapacityId | null,
+    private readonly hardDriveTypeId: HardDriveTypeId | null,
+    private readonly operatingSystemId: OperatingSystemId | null,
+    private readonly operatingSystemArqId: OperatingSystemArqId | null,
+    private readonly macAddress: MACAddress | null,
+    private readonly ipAddress: IPAddress | null
   ) {
     super(serial, activo, statusId, modelId)
   }
@@ -65,17 +65,25 @@ export class Computer extends Device {
     macAddress,
     ipAddress
   }: ComputerPrimitives) {
+    if (hardDriveCapacityId == null) {
+      hardDriveCapacityId = null
+      operatingSystemId = null
+    }
+    if (operatingSystemId == null) {
+      operatingSystemArqId = null
+    }
+
     return new Computer(
       new DeviceSerial(serial),
       new DeviceActivo(activo),
       new StatusId(statusId),
       new ModelId(modelId),
-      new ProcessorId(processorId),
+      processorId != null ? new ProcessorId(processorId) : null,
       new MemoryRamCapacity(memoryRamCapacity),
-      new HardDriveCapacityId(hardDriveCapacityId),
-      new HardDriveTypeId(hardDriveTypeId),
-      new OperatingSystemId(operatingSystemId),
-      new OperatingSystemArqId(operatingSystemArqId),
+      hardDriveCapacityId != null ? new HardDriveCapacityId(hardDriveCapacityId) : null,
+      hardDriveTypeId != null ? new HardDriveTypeId(hardDriveTypeId) : null,
+      operatingSystemId != null ? new OperatingSystemId(operatingSystemId) : null,
+      operatingSystemArqId != null ? new OperatingSystemArqId(operatingSystemArqId) : null,
       new MACAddress(macAddress),
       new IPAddress(ipAddress)
     )
@@ -87,14 +95,14 @@ export class Computer extends Device {
       activo: this.activoValue(),
       statusId: this.statusIdValue(),
       modelId: this.modelIdValue(),
-      processorId: this.processorId.value,
-      hardDriveCapacityId: this.hardDriveCapacityId.value,
-      hardDriveTypeId: this.hardDriveTypeId.value,
       memoryRamCapacity: this.memoryRamCapacity.value,
-      operatingSystemId: this.operatingSystemId.value,
-      operatingSystemArqId: this.operatingSystemArqId.value,
-      macAddress: this.macAddress.value,
-      ipAddress: this.ipAddress.value
+      processorId: this.processorId?.value ?? null,
+      hardDriveCapacityId: this.hardDriveCapacityId?.value ?? null,
+      hardDriveTypeId: this.hardDriveTypeId?.value ?? null,
+      operatingSystemId: this.operatingSystemId?.value ?? null,
+      operatingSystemArqId: this.operatingSystemArqId?.value ?? null,
+      macAddress: this.macAddress?.value ?? null,
+      ipAddress: this.ipAddress?.value ?? null
     }
   }
 }

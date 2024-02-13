@@ -8,13 +8,13 @@ import { type DeviceRepository } from '../domain/DeviceRepository'
 export class ApiDeviceRepository implements DeviceRepository {
   async save ({ device }: { device: Device }): Promise<void> {
     try {
-      const devicePrimitives = device.toPrimitives()
+      const { activo, serial, modelId, statusId } = device.toPrimitives()
       const res = await fetch(`${API_URL}/devices`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(devicePrimitives)
+        body: JSON.stringify({ activo, serial, modelId, statusId })
       })
       if (!res.ok) {
         throw new Error(await res.text())
@@ -26,13 +26,13 @@ export class ApiDeviceRepository implements DeviceRepository {
 
   async update ({ id, device }: { id: DeviceId, device: Device }): Promise<void> {
     try {
-      const devicePrimitives = device.toPrimitives()
+      const { serial, activo, statusId, modelId } = device.toPrimitives()
       const res = await fetch(`${API_URL}/devices/${id.value}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(devicePrimitives)
+        body: JSON.stringify({ serial, activo, statusId, modelId })
       })
       if (!res.ok) {
         throw new Error(await res.text())
@@ -48,24 +48,32 @@ export class ApiDeviceRepository implements DeviceRepository {
     const apiURL = new URL(`${API_URL}/devices`)
     apiURL.search = searchParams.toString()
     return await fetch(apiURL)
-      .then(async res => await (res.json() as Promise<DevicesApiResponse[]>))
-      .then(res => res.map(e => ({
-        id: e.id,
-        serial: e.serial,
-        activo: e.activo ?? 'Sin Serial',
-        statusId: e.status.id,
-        statusName: e.status.name,
-        modelId: e.model.id,
-        modelName: e.model.name,
-        categoryId: e.model.category.id,
-        categoryName: e.model.category.name,
-        brandId: e.model.brand.id,
-        brandName: e.model.brand.name,
-        computer: e.computer,
-        hardDrive: e.hardDrive,
-        createdAt: e.createdAt,
-        updatedAt: e.updatedAt
+      .then(async res => {
+        if (!res.ok) {
+          throw new Error(await res.text())
+        }
+        return await (res.json() as Promise<DevicesApiResponse[]>)
+      })
+      .then(res => res.map(data => ({
+        id: data.id,
+        serial: data.serial,
+        activo: data.activo ?? 'Sin Serial',
+        statusId: data.status.id,
+        statusName: data.status.name,
+        modelId: data.model.id,
+        modelName: data.model.name,
+        categoryId: data.model.category.id,
+        categoryName: data.model.category.name,
+        brandId: data.model.brand.id,
+        brandName: data.model.brand.name,
+        computer: data.computer,
+        hardDrive: data.hardDrive,
+        createdAt: data.createdAt,
+        updatedAt: data.updatedAt
       }) satisfies DevicesMappedApiResponse))
+      .catch(() => {
+        throw new Error(errorApiMessage)
+      })
   }
 
   async getById ({ id }: { id: DeviceId }): Promise<DevicePrimitives> {
@@ -76,22 +84,25 @@ export class ApiDeviceRepository implements DeviceRepository {
         }
         return await (await res.json() as Promise<DevicesApiResponse>)
       })
-      .then(d => ({
-        id: d.id,
-        serial: d.serial,
-        activo: d.activo ?? '',
-        statusId: d.status.id,
-        statusName: d.status.name,
-        modelId: d.model.id,
-        modelName: d.model.name,
-        categoryId: d.model.category.id,
-        categoryName: d.model.category.name,
-        brandId: d.model.brand.id,
-        brandName: d.model.brand.name,
-        computer: d.computer,
-        hardDrive: d.hardDrive,
-        createdAt: d.createdAt,
-        updatedAt: d.updatedAt
+      .then(data => ({
+        id: data.id,
+        serial: data.serial,
+        activo: data.activo ?? '',
+        statusId: data.status.id,
+        statusName: data.status.name,
+        modelId: data.model.id,
+        modelName: data.model.name,
+        categoryId: data.model.category.id,
+        categoryName: data.model.category.name,
+        brandId: data.model.brand.id,
+        brandName: data.model.brand.name,
+        computer: data.computer,
+        hardDrive: data.hardDrive,
+        createdAt: data.createdAt,
+        updatedAt: data.updatedAt
       } satisfies DevicesMappedApiResponse))
+      .catch(() => {
+        throw new Error(errorApiMessage)
+      })
   }
 }
