@@ -31,18 +31,25 @@ export class ApiModelRepository implements ModelRepository {
   }
 
   async update ({ id, model }: { id: ModelId, model: Model }): Promise<void> {
-    const modelPrimitives = model.toPrimitives()
-    await fetch(`${API_URL}/models/${id.value}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        name: modelPrimitives.name,
-        categroyId: modelPrimitives.categoryId,
-        brandId: modelPrimitives.brandId
+    try {
+      const modelPrimitives = model.toPrimitives()
+      const res = await fetch(`${API_URL}/models/${id.value}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: modelPrimitives.name,
+          categroyId: modelPrimitives.categoryId,
+          brandId: modelPrimitives.brandId
+        })
       })
-    })
+      if (!res.ok) {
+        throw new Error(await res.text())
+      }
+    } catch (error) {
+      throw new Error(errorApiMessage)
+    }
   }
 
   async getAll (): Promise<ModelPrimitives[]> {

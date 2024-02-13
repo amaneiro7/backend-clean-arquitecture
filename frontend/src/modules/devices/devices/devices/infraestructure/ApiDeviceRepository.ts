@@ -1,34 +1,45 @@
 import { type DevicesMappedApiResponse, type DevicesApiResponse } from '../../../../shared/domain/types/responseTypes'
 import { API_URL } from '../../../../shared/infraestructure/config'
+import { errorApiMessage } from '../../../../shared/infraestructure/errorMessage'
 import { type DevicePrimitives, type Device } from '../domain/Device'
 import { type DeviceId } from '../domain/DeviceId'
 import { type DeviceRepository } from '../domain/DeviceRepository'
 
 export class ApiDeviceRepository implements DeviceRepository {
   async save ({ device }: { device: Device }): Promise<void> {
-    const devicePrimitives = device.toPrimitives()
-    console.log(devicePrimitives)
-
-    await fetch(`${API_URL}/devices`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(devicePrimitives)
-    })
+    try {
+      const devicePrimitives = device.toPrimitives()
+      const res = await fetch(`${API_URL}/devices`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(devicePrimitives)
+      })
+      if (!res.ok) {
+        throw new Error(await res.text())
+      }
+    } catch (error) {
+      throw new Error(errorApiMessage)
+    }
   }
 
   async update ({ id, device }: { id: DeviceId, device: Device }): Promise<void> {
-    const devicePrimitives = device.toPrimitives()
-    console.log(devicePrimitives)
-
-    await fetch(`${API_URL}/devices/${id.value}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(devicePrimitives)
-    })
+    try {
+      const devicePrimitives = device.toPrimitives()
+      const res = await fetch(`${API_URL}/devices/${id.value}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(devicePrimitives)
+      })
+      if (!res.ok) {
+        throw new Error(await res.text())
+      }
+    } catch (error) {
+      throw new Error(errorApiMessage)
+    }
   }
 
   async getAll (): Promise<DevicePrimitives[]> {
