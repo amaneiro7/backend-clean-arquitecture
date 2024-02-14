@@ -17,15 +17,15 @@ const DeviceFeatures = lazy(async () => await import('./DeviceFeatures'))
 const initialState = {
   serial: '',
   activo: '',
-  statusId: 0,
+  statusId: '',
   modelId: '',
-  categoryId: 0,
+  categoryId: '',
   brandId: '',
   memoryRamCapacity: 0,
-  hardDriveCapacityId: 0,
-  hardDriveTypeId: 0,
-  operatingSystemId: 0,
-  operatingSystemArqId: 0,
+  hardDriveCapacityId: '',
+  hardDriveTypeId: '',
+  operatingSystemId: '',
+  operatingSystemArqId: '',
   ipAddress: '',
   macAddress: '',
   health: 100
@@ -82,6 +82,7 @@ export default function CreateDeviceForm () {
           <CategorySelect
             value={formData.categoryId}
             onChange={handleChange}
+            isRequired={true}
           />
         </Suspense>
         <Suspense>
@@ -89,6 +90,7 @@ export default function CreateDeviceForm () {
             value={formData.brandId}
             onChange={handleChange}
             categoryId={formData.categoryId}
+            isRequired={true}
           />
         </Suspense>
         <div className='flex gap-4'>
@@ -111,6 +113,7 @@ export default function CreateDeviceForm () {
           <StatusSelect
               value={formData.statusId}
               onChange={handleChange}
+              isRequired={true}
             />
           </Suspense>
         <Suspense>
@@ -119,6 +122,7 @@ export default function CreateDeviceForm () {
             onChange={handleChange}
             categoryId={formData.categoryId}
             brandId={formData.brandId}
+            isRequired={true}
           />
         </Suspense>
         <Suspense>

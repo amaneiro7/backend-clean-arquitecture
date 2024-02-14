@@ -13,9 +13,10 @@ interface Props {
   categoryId: number
   onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
   isForm?: boolean
+  isRequired: boolean
 }
 
-const BrandSelect: FC<Props> = ({ value, onChange, categoryId, isForm = true }) => {
+const BrandSelect: FC<Props> = ({ value, onChange, categoryId, isForm = true, isRequired }) => {
   const { repository } = useAppContext()
   const { brands } = useBrand(repository)
 
@@ -48,6 +49,7 @@ const BrandSelect: FC<Props> = ({ value, onChange, categoryId, isForm = true }) 
                  isHidden={true}
                  isDisabled={false}
                  value={value}
+                 isRequired={isRequired}
 
             />
             {isForm && <Link

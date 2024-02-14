@@ -25,6 +25,7 @@ const AddComputerFeatures: FC<Props> = ({ formData, onChange }) => {
             isForm={true}
             onChange={onChange}
             value={formData.processorId}
+            isRequired={false}
           />
           <MemoryRamCapacityInput
             onChange={onChange}
@@ -34,32 +35,36 @@ const AddComputerFeatures: FC<Props> = ({ formData, onChange }) => {
             <HardDriveCapacitySelect
               onChange={onChange}
               value={formData.hardDriveCapacityId}
+              isRequired={false}
             />
             <HardDriveTypeSelect
               onChange={onChange}
               value={formData.hardDriveTypeId}
+              isRequired={false}
             />
           </div>
           <div className='flex gap-4'>
             <OperatingSystemArqSelect
               onChange={onChange}
               value={formData.operatingSystemArqId}
+              isRequired={false}
             />
             <OperatingSystemVersionSelect
               onChange={onChange}
               value={formData.operatingSystemId}
+              isRequired={false}
               />
           </div>
           <div className='flex gap-4'>
           <IpAddressInput
               onChange={onChange}
               value={formData.ipAddress}
-              isForm={true}
+              isRequired={false}
           />
           <MacAddressInput
               onChange={onChange}
               value={formData.macAddress}
-              isForm={true}
+              isRequired={false}
           />
           </div>
         </>

@@ -3,12 +3,13 @@ import FormInput from '../../../ui/text-field'
 import { MACAddress } from '../../../../modules/devices/fetures/computer/domain/MACAddress'
 
 interface Props {
-  value: string
+  value: string | null
   onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
   isForm?: boolean
+  isRequired?: boolean
 }
 
-const MacAddressInput: FC<Props> = ({ value, onChange, isForm = false }) => {
+const MacAddressInput: FC<Props> = ({ value, onChange, isForm = false, isRequired }) => {
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
   const isFirstInput = useRef(true)
@@ -33,13 +34,13 @@ const MacAddressInput: FC<Props> = ({ value, onChange, isForm = false }) => {
   return (
     <FormInput
         id='macAddress'
-        isRequired={isForm}
         name="macAddress"
         type="text"
         label='Direccion MAC'
         placeholder='-- Ingrese la MAC del equipo --'
+        isRequired={isRequired}
         handle={onChange}
-        value={value}
+        value={value ?? ''}
         isError={isError}
         errorMessage={errorMessage}
     />

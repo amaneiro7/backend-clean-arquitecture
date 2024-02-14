@@ -4,13 +4,13 @@ import { HardDrive, type HardDrivePrimitives } from '../../../fetures/hardDrive/
 import { Device, type DevicePrimitives } from '../domain/Device'
 import { DeviceId } from '../domain/DeviceId'
 
-interface Props extends DevicePrimitives {
+export interface DeviceProps extends DevicePrimitives {
   categoryId: number
 }
 export class DeviceCreator {
   constructor (private readonly repository: Repository) {}
 
-  async create ({ id, serial, activo, statusId, modelId, categoryId, ...otherParams }: Props): Promise<void> {
+  async create ({ id, serial, activo, statusId, modelId, categoryId, ...otherParams }: DeviceProps): Promise<void> {
     let device
     if (Computer.isComputerCategory({ categoryId })) {
       const { processorId, memoryRamCapacity, hardDriveTypeId, hardDriveCapacityId, operatingSystemArqId, operatingSystemId, ipAddress, macAddress } = otherParams as ComputerPrimitives

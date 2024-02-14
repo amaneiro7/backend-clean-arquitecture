@@ -6,9 +6,10 @@ interface Props {
   value: number
   onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
   isForm?: boolean
+  isRequired?: boolean
 }
 
-const MemoryRamCapacityInput: FC<Props> = ({ value, onChange, isForm = true }) => {
+const MemoryRamCapacityInput: FC<Props> = ({ value, onChange, isForm = true, isRequired }) => {
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
   const isFirstInput = useRef(true)
@@ -36,6 +37,7 @@ const MemoryRamCapacityInput: FC<Props> = ({ value, onChange, isForm = true }) =
       label='Memoria Ram'
       onChange={onChange}
       placeholder='--- Ingrese la Capcacidad de Memoria ---'
+      isRequired={isRequired}
       value={value}
       max={MemoryRamCapacity.max}
       min={MemoryRamCapacity.min}

@@ -5,11 +5,12 @@ import { useHardDriveType } from './useHardDriveType'
 const Select = lazy(async () => await import('../../../ui/select'))
 
 interface Props {
-  value: string | number
+  value: number | null | ''
   onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  isRequired?: boolean
 }
 
-const HardDriveTypeSelect: FC<Props> = ({ value = 0, onChange }) => {
+const HardDriveTypeSelect: FC<Props> = ({ value, onChange, isRequired }) => {
   const { repository } = useAppContext()
   const { hardDriveType } = useHardDriveType(repository)
   return (
@@ -22,7 +23,8 @@ const HardDriveTypeSelect: FC<Props> = ({ value = 0, onChange }) => {
                 placeholder='-- Filtre por Tipo de Disco --'
                 isHidden={false}
                 isDisabled={false}
-                value={value}
+                isRequired={isRequired}
+                value={value === '' || value === 0 || value === null || value === undefined ? '' : value}
             />
         </Suspense>
   )

@@ -12,8 +12,6 @@ export class DevicePostController {
       await new DeviceCreator(this.repository).run(req.body)
       res.status(httpStatus.CREATED).send()
     } catch (error) {
-      console.log(error)
-
       next(error)
     }
   }

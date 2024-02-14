@@ -56,6 +56,7 @@ export default function CreateProcessorForm () {
       <ProcessorNameInput
           value={formData.name}
           onChange={handleChange}
+          isRequired={true}
       />
     </FormContainer>
   )

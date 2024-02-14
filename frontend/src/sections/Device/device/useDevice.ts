@@ -2,8 +2,7 @@ import { useEffect, useState } from 'react'
 import { type DevicePrimitives } from '../../../modules/devices/devices/devices/domain/Device'
 import { AllDeviceGetter } from '../../../modules/devices/devices/devices/application/AllDeviceGetter'
 import { type Repository } from '../../../modules/shared/domain/repository'
-import { type CreateDeviceProps, DeviceCreator } from '../../../modules/devices/devices/devices/application/DeviceCreator'
-import { Uuid } from '../../../modules/shared/domain/value-object/Uuid'
+import { DeviceCreator, type DeviceProps } from '../../../modules/devices/devices/devices/application/DeviceCreator'
 import { DeviceGetter } from '../../../modules/devices/devices/devices/application/DeviceGetter'
 
 export const useDevice = (repository: Repository) => {
@@ -13,11 +12,10 @@ export const useDevice = (repository: Repository) => {
   const [devices, setDevices] = useState<DevicePrimitives[]>([])
   const [hasUrlSearch, setHasUrlSearch] = useState(false)
 
-  async function createDevice (formData: CreateDeviceProps) {
+  async function createDevice (formData: DeviceProps) {
     const deviceCreator = new DeviceCreator(repository)
-    const id = Uuid.random().value
     await deviceCreator.create(formData)
-    // getDevices()
+    getDevices()
   }
 
   function getDevices () {
@@ -39,9 +37,9 @@ export const useDevice = (repository: Repository) => {
   useEffect(() => {
     getDevices()
 
-    return () => {
-      setDevices([])
-    }
+    // return () => {
+    //   setDevices([])
+    // }
   }, [hasUrlSearch])
 
   const handleHasUrlSearch = () => {

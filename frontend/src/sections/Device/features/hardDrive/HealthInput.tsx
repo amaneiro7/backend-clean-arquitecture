@@ -6,9 +6,10 @@ interface Props {
   value: number
   onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
   isForm?: boolean
+  isRequired?: boolean
 }
 
-const HealthInput: FC<Props> = ({ value, onChange, isForm = false }) => {
+const HealthInput: FC<Props> = ({ value, onChange, isForm = false, isRequired }) => {
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
   const isFirstInput = useRef(true)
@@ -37,6 +38,7 @@ const HealthInput: FC<Props> = ({ value, onChange, isForm = false }) => {
       onChange={onChange}
       placeholder='--- Ingrese el estado de salud del Disco ---'
       value={value}
+      isRequired={isRequired}
       max={HardDriveHealth.NAME_MAX_LENGTH}
       min={HardDriveHealth.NAME_MIN_LENGTH}
       error={isError}

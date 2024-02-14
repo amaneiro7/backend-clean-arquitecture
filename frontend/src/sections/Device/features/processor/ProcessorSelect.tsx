@@ -4,16 +4,18 @@ import { useAppContext } from '../../../Context/AppContext'
 import { useProcessor } from './useProcessor'
 import { AddIcon } from '../../../ui/icon/AddIcon'
 import { EditIcon } from '../../../ui/icon/EditIcon'
+import { type ProcessorApiresponse } from '../../../../modules/shared/domain/types/responseTypes'
 
 const Select = lazy(async () => await import('../../../ui/select'))
 
 interface Props {
-  value: string
+  value: string | null
   onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
   isForm?: boolean
+  isRequired?: boolean
 }
 
-const ProcessorSelect: FC<Props> = ({ value = '', onChange, isForm = true }) => {
+const ProcessorSelect: FC<Props> = ({ value = '', onChange, isForm = true, isRequired }) => {
   const { repository } = useAppContext()
   const { processors } = useProcessor(repository)
   return (
@@ -29,11 +31,12 @@ const ProcessorSelect: FC<Props> = ({ value = '', onChange, isForm = true }) => 
                  label='Procesador'
                  name='processorId'
                  onChange={onChange}
-                 options={processors}
+                 options={processors as ProcessorApiresponse[]}
                  placeholder='-- Filtre por Procesador --'
+                 isRequired={isRequired}
                  isHidden={false}
                  isDisabled={false}
-                 value={value}
+                 value={value === '' || value === null || value === undefined ? '' : value}
             />
             {isForm && <Link
               className='absolute -right-11'

@@ -15,7 +15,7 @@ const SerialInput: FC<Props> = ({ value, onChange, isForm = false }) => {
   useEffect(() => {
     if (!isForm) return
 
-    if (isFirstInput.current) {
+    if (isFirstInput.current || value === '') {
       isFirstInput.current = value === ''
       return
     }

@@ -7,9 +7,10 @@ const Select = lazy(async () => await import('../../ui/select'))
 interface Props {
   value: number | string
   onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  isRequired: boolean
 }
 
-const CategorySelect: FC<Props> = ({ value, onChange }) => {
+const CategorySelect: FC<Props> = ({ value, onChange, isRequired }) => {
   const { repository } = useAppContext()
   const { categories } = useCategory(repository)
   return (
@@ -20,8 +21,9 @@ const CategorySelect: FC<Props> = ({ value, onChange }) => {
                  onChange={onChange}
                  options={categories}
                  placeholder='-- Filtre por Categoria --'
-                 isHidden={false}
+                 isHidden={true}
                  isDisabled={false}
+                 isRequired={isRequired}
                  value={value}
             />
         </Suspense>

@@ -3,17 +3,18 @@ import FormInput from '../../../ui/text-field'
 import { IPAddress } from '../../../../modules/devices/fetures/computer/domain/IPAddress'
 
 interface Props {
-  value: string
+  value: string | null
   onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
   isForm?: boolean
+  isRequired?: boolean
 }
 
-const IpAddressInput: FC<Props> = ({ value, onChange, isForm = false }) => {
+const IpAddressInput: FC<Props> = ({ value, onChange, isForm = false, isRequired }) => {
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
   const isFirstInput = useRef(true)
   useEffect(() => {
-    if (!isForm) return
+    if (!isForm || value === '') return
 
     if (isFirstInput.current) {
       isFirstInput.current = value === ''
@@ -33,13 +34,13 @@ const IpAddressInput: FC<Props> = ({ value, onChange, isForm = false }) => {
   return (
     <FormInput
         id='ipAddress'
-        isRequired={isForm}
         name="ipAddress"
         type="text"
         label='Direccion IP'
         placeholder='-- Ingrese la IP del equipo --'
+        isRequired={isRequired}
         handle={onChange}
-        value={value}
+        value={value ?? ''}
         isError={isError}
         errorMessage={errorMessage}
     />

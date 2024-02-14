@@ -5,9 +5,10 @@ import { ProcessorName } from '../../../../modules/devices/fetures/processor/dom
 interface Props {
   value: string
   onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  isRequired?: boolean
 }
 
-const ProcessorNameInput: FC<Props> = ({ value, onChange }) => {
+const ProcessorNameInput: FC<Props> = ({ value, onChange, isRequired }) => {
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
   const isFirstInput = useRef(true)
@@ -34,6 +35,7 @@ const ProcessorNameInput: FC<Props> = ({ value, onChange }) => {
       type="text"
       label='Name'
       placeholder='-- Ingrese el Nombre del Procesador'
+      isRequired={isRequired}
       handle={onChange}
       value={value}
       isError={isError}

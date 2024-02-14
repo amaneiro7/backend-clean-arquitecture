@@ -15,6 +15,7 @@ interface Props {
   isDisabled?: boolean
   onChange: OnChangeInputs
   placeholder: string
+  isRequired?: boolean
 }
 
 interface Options {
@@ -31,9 +32,9 @@ const Select: FC<Props> = ({
   isHidden = true,
   isDisabled = true,
   onChange,
-  placeholder
+  placeholder,
+  isRequired = false
 }) => {
-  const defaultPlaceholderValue = typeof value === 'string' ? '' : 0
   return (
       <FormControl className='w-full'>
           <InputLabelMui id='simple-select-label'>{label}</InputLabelMui>
@@ -45,9 +46,10 @@ const Select: FC<Props> = ({
                   name={name}
                   onChange={onChange}
                   defaultValue={defaultValue}
-                  required
+                  required={isRequired}
+                  disabled={isDisabled}
               >
-                  <MenuItemMui value={defaultPlaceholderValue} hidden={isHidden} disabled={isDisabled}><em>{placeholder}</em></MenuItemMui>
+                  <MenuItemMui value='' hidden={isHidden} disabled={isDisabled}><em>{placeholder}</em></MenuItemMui>
                   {options?.map(elem =>
                       <MenuItemMui
                           key={elem.id}

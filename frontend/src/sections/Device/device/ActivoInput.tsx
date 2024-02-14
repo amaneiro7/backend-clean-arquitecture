@@ -15,7 +15,7 @@ const ActivoInput: FC<Props> = ({ value, onChange, isForm = false }) => {
   useEffect(() => {
     if (!isForm) return
 
-    if (isFirstInput.current) {
+    if (isFirstInput.current || value === '') {
       isFirstInput.current = value === ''
       return
     }
@@ -37,6 +37,7 @@ const ActivoInput: FC<Props> = ({ value, onChange, isForm = false }) => {
       type="text"
       label='Activo'
       placeholder='-- Ingrese el Activo del equipo'
+      isRequired={false}
       handle={onChange}
       value={value}
       isError={isError}

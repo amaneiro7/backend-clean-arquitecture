@@ -11,6 +11,7 @@ interface NumberInputProps {
   errorMessage?: string
   placeholder: string
   label: string
+  isRequired?: boolean
 }
 
 const NumberInput: FC<NumberInputProps> = ({
@@ -23,7 +24,8 @@ const NumberInput: FC<NumberInputProps> = ({
   error,
   errorMessage,
   placeholder,
-  label
+  label,
+  isRequired = false
 }) => {
   const [isFocused, setIsFocused] = useState(false)
 
@@ -46,6 +48,7 @@ const NumberInput: FC<NumberInputProps> = ({
         type="number"
         value={value}
         onChange={onChange}
+        required={isRequired}
         min={min}
         max={max}
         step={step}

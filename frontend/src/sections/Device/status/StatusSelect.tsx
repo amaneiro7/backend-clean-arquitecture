@@ -7,9 +7,10 @@ const Select = lazy(async () => await import('../../ui/select'))
 interface Props {
   value: number | string
   onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  isRequired: boolean
 }
 
-const StatusSelect: FC<Props> = ({ value = 0, onChange }) => {
+const StatusSelect: FC<Props> = ({ value, onChange, isRequired }) => {
   const { repository } = useAppContext()
   const { status } = useStatus(repository)
   return (
@@ -24,6 +25,7 @@ const StatusSelect: FC<Props> = ({ value = 0, onChange }) => {
                  isDisabled={false}
                  value={value}
                  defaultValue={value}
+                 isRequired={isRequired}
             />
         </Suspense>
   )

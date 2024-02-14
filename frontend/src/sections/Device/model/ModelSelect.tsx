@@ -14,9 +14,10 @@ interface Props {
   isForm?: boolean
   categoryId: number
   brandId: string
+  isRequired: boolean
 }
 
-const ModelSelect: FC<Props> = ({ value = '', onChange, isForm = true, brandId, categoryId }) => {
+const ModelSelect: FC<Props> = ({ value = '', onChange, isForm = true, brandId, categoryId, isRequired }) => {
   const { repository } = useAppContext()
   const { models } = useModel(repository)
 
@@ -46,6 +47,7 @@ const ModelSelect: FC<Props> = ({ value = '', onChange, isForm = true, brandId, 
           isHidden={false}
           isDisabled={false}
           value={value}
+          isRequired={isRequired}
         />
         {isForm && <Link
           className='absolute -right-11'

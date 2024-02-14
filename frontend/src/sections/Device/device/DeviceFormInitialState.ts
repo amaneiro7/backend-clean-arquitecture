@@ -7,16 +7,16 @@ import { useDevice } from './useDevice'
 interface defaultProps {
   serial: string
   activo: string
-  statusId: number
+  statusId: number | ''
   modelId: string
-  categoryId: number
+  categoryId: number | ''
   brandId: string
   processorId?: string
   memoryRamCapacity?: number
-  hardDriveCapacityId?: number
-  hardDriveTypeId?: number
-  operatingSystemArqId?: number
-  OperatingSystemVersionId?: number
+  hardDriveCapacityId?: number | ''
+  hardDriveTypeId?: number | ''
+  operatingSystemArqId?: number | ''
+  OperatingSystemVersionId?: number | ''
   macAddress?: string
   ipAddress?: string
   health?: number
@@ -25,16 +25,16 @@ interface defaultProps {
 const defaultInitialState: defaultProps = {
   serial: '',
   activo: '',
-  statusId: 0,
+  statusId: '',
   modelId: '',
-  categoryId: 0,
+  categoryId: '',
   brandId: '',
   processorId: '',
   memoryRamCapacity: 0,
-  hardDriveCapacityId: 0,
-  hardDriveTypeId: 0,
-  operatingSystemArqId: 0,
-  OperatingSystemVersionId: 0,
+  hardDriveCapacityId: '',
+  hardDriveTypeId: '',
+  operatingSystemArqId: '',
+  OperatingSystemVersionId: '',
   macAddress: '',
   ipAddress: '',
   health: 100
