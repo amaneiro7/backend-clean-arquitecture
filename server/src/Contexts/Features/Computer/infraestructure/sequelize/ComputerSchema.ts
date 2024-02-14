@@ -28,7 +28,7 @@ export function initComputerModel (sequelize: Sequelize): void {
         allowNull: false,
         validate: {
           isIn: {
-            args: [[1]],
+            args: [[1, 2, 3, 4]],
             msg: 'No pertenece a esta categoria'
           }
         }

@@ -22,8 +22,8 @@ const ModelSelect: FC<Props> = ({ value = '', onChange, isForm = true, brandId, 
 
   const filterdModel = useMemo(() => {
     return (models as ModelApiresponse[]).filter(model => {
-      const category = model.categoryId === categoryId || (categoryId === 0)
-      const brand = model.brandId === brandId || (brandId === '')
+      const category = model.categoryId === categoryId || (categoryId === 0 || categoryId === undefined || categoryId === '')
+      const brand = model.brandId === brandId || (brandId === 0 || brandId === undefined || brandId === '')
       return category && brand
     })
   }, [models, categoryId, brandId])

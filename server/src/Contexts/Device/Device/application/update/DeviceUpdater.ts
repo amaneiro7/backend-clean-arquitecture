@@ -25,7 +25,7 @@ interface DeviceParams {
   health: number
 }
 
-type FieldValidator = (repository: Repository, field: any) => Promise<void>
+type FieldValidator = (repository: Repository, field: any, entity: Device) => Promise<void>
 type FieldUpdater = (field: any) => void
 
 interface ValidationConfig {
@@ -61,7 +61,7 @@ export class DeviceUpdater {
 
     for (const validation of validations) {
       if (validation.field !== undefined) {
-        await validation.validator(this.repository, validation.field)
+        await validation.validator(this.repository, validation.field, deviceEntity)
         validation.updater(validation.field)
       }
     }

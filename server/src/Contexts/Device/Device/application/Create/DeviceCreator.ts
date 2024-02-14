@@ -30,12 +30,11 @@ export class DeviceCreator {
   async run (params: DeviceParams): Promise<void> {
     const { activo, serial, statusId, modelId, ...otherParams } = params
 
+    const device = Device.create({ activo, serial, statusId, modelId })
     await ValidationField.ensureActivoDoesNotExist(this.repository, activo)
     await ValidationField.ensureSerialDoesNotExist(this.repository, serial)
     await ValidationField.ensureModelIdExist(this.repository, modelId)
     await ValidationField.ensureStatusIdExist(this.repository, statusId)
-
-    const device = Device.create({ activo, serial, statusId, modelId })
 
     const modelSeriesId = new ModelSeriesId(device.modelSeriesValue)
     const modelSeriesCategory = await new ModelSeriesFinder(this.repository).searchById(modelSeriesId)

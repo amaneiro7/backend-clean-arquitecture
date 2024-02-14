@@ -25,13 +25,13 @@ export class ApiDeviceRepository implements DeviceRepository {
 
   async update ({ id, device }: { id: DeviceId, device: Device }): Promise<void> {
     try {
-      const { serial, activo, statusId, modelId } = device.toPrimitives()
+      // const { serial, activo, statusId, modelId } = device.toPrimitives()
       const res = await fetch(`${API_URL}/devices/${id.value}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ serial, activo, statusId, modelId })
+        body: JSON.stringify(device.toPrimitives())
       })
       if (!res.ok) {
         throw new Error(await res.text())

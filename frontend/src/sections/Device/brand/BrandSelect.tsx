@@ -20,7 +20,7 @@ const BrandSelect: FC<Props> = ({ value, onChange, categoryId, isForm = true }) 
   const { brands } = useBrand(repository)
 
   const filterdBrand = useMemo(() => {
-    if (categoryId === undefined || categoryId === 0) {
+    if (categoryId === 0 || categoryId === undefined || categoryId === '') {
       return brands
     }
 
