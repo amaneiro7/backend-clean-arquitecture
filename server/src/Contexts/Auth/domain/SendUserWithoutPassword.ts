@@ -14,7 +14,6 @@ interface UserProps extends UserPrimitives {
 
 export function SendUserWithoutPassowrd (user: UserPrimitives, refreshToken: string): Return {
   const { id, lastName, name, email, roleId, role } = user as UserProps
-  console.log(role)
 
   return {
     user: {
