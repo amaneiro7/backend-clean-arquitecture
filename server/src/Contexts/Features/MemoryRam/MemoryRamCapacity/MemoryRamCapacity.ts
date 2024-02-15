@@ -3,6 +3,7 @@ import { NumberValueObject } from '../../../Shared/domain/value-object/NumberVal
 
 // Define a class for representing memory ram capacity as a value object
 export class MemoryRamCapacity extends NumberValueObject {
+  private readonly minSizeMemoryRam = 512
   // Constructor for the MemoryRamCapacityValue class
   constructor (readonly value: number) {
     super(value) // Call the constructor of the parent class
@@ -30,6 +31,6 @@ export class MemoryRamCapacity extends NumberValueObject {
   * @returns true if the value is a power of 2 and not zero, and is a multiple of 512, otherwise returns false
   */
   private isMemoryRamCapacityValueValid (value: number): boolean {
-    return (value & (value - 1)) === 0 && value !== 0 && (value & 511) === 0
+    return (value % this.minSizeMemoryRam) === 0
   }
 }

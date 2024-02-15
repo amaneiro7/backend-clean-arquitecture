@@ -10,7 +10,7 @@ export class MemoryRamCapacity {
   }
 
   public static isValid (value: number): boolean {
-    return (value & (value - 1)) === 0 && value !== 0 && (value & this.minStep - 1) === 0
+    return (value % this.minStep) === 0
   }
 
   public static invalidMessage (value: number): string {

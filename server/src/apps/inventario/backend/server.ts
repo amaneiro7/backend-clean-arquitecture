@@ -1,4 +1,5 @@
 import compress from 'compression'
+import cookieParser from 'cookie-parser'
 import errorHandler from 'errorhandler'
 import express, { json, urlencoded, type Request, type Response } from 'express'
 import cors from 'cors'
@@ -27,6 +28,7 @@ export class Server {
     this.app.use(helmet.hidePoweredBy())
     this.app.use(helmet.frameguard({ action: 'deny' }))
     this.app.use(compress())
+    this.app.use(cookieParser())
     const router = Router()
     router.use(errorHandler())
 
