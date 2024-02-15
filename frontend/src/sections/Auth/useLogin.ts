@@ -33,10 +33,13 @@ export const useLogin = (repository: Repository) => {
       setUser(null)
 
     //   navigate('/login')
-    } else {
+    }
+    if (token) {
       console.log('Si hay token')
     }
   }, [window.history])
+  console.log(window.history)
+
   console.log(user)
 
   return {
