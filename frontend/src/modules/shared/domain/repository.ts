@@ -11,6 +11,7 @@ import { type OperatingSystemRepository } from '../../devices/fetures/operatingS
 import { type OperatingSystemArqRepository } from '../../devices/fetures/operatingSystem/operatingSystemArq/domain/OperatingSystemArqRepository'
 import { type ProcessorRepository } from '../../devices/fetures/processor/domain/ProcessorRepository'
 import { type ModelRepository } from '../../devices/model/domain/ModelRepository'
+import { type RoleRepository } from '../../user/role/domain/RoleRepository'
 
 export interface Repository {
   brand: BrandRepository
@@ -26,4 +27,6 @@ export interface Repository {
   hardDrive: HardDriveRepository
   computer: ComputerRepository
   memoryRamType: MemoryRamTypeRepository
+  role: RoleRepository
+  user: UserRepository
 }

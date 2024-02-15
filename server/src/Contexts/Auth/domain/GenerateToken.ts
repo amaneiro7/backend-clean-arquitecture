@@ -9,22 +9,22 @@ export interface Tokens {
 
 export interface JwtPayloadUser extends JwtPayload {
   email: string
-  role: string
+  roleId: number
 }
 
 const accessTokenExpiresIn: string = '1h'
 const refreshTokenExpiresIn: string = '7d'
 
-export function generateTokens (user: Pick<UserPrimitives, 'id' | 'email' | 'role'>): string {
-  const { id, email, role } = user
+export function generateTokens (user: Pick<UserPrimitives, 'id' | 'email' | 'roleId'>): string[] {
+  const { id, email, roleId } = user
   const token: JwtPayloadUser = {
     sub: id,
     email,
-    role,
+    roleId,
     iss: 'SoporteTecnicoBNC'
   }
   const secret = config.accessTokenSecret
   const accessToken = sign(token, secret, { expiresIn: accessTokenExpiresIn })
-  // const refreshToken = sign(token, secret, { expiresIn: refreshTokenExpiresIn })
-  return accessToken
+  const refreshToken = sign(token, secret, { expiresIn: refreshTokenExpiresIn })
+  return [accessToken, refreshToken]
 }

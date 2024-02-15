@@ -1,4 +1,4 @@
-import { type RoleTypes, Roles } from './Role'
+import { RoleId } from '../Role/domain/RoleId'
 import { UserEmail } from './UserEmail'
 import { UserId } from './UserId'
 import { UserLastName } from './UserLastName'
@@ -9,7 +9,7 @@ export interface UserPrimitives {
   id: string
   email: string
   name: string
-  role: RoleTypes
+  roleId: number
   lastName: string
   password: string
 }
@@ -19,18 +19,18 @@ export class User {
     private readonly id: UserId,
     private email: UserEmail,
     private name: UserName,
-    private role: Roles,
+    private roleId: RoleId,
     private lastName: UserLastName,
     private password: UserPassword
   ) {}
 
-  static create ({ email, name, lastName, role, password }: { email: string, name: string, lastName: string, role: RoleTypes, password: string }): User {
+  static create ({ email, name, lastName, roleId, password }: UserPrimitives): User {
     const id = UserId.random().toString()
     return new User(
       new UserId(id),
       new UserEmail(email),
       new UserName(name),
-      new Roles(role),
+      new RoleId(roleId),
       new UserLastName(lastName),
       new UserPassword(password)
     )
@@ -41,7 +41,7 @@ export class User {
       new UserId(primitives.id),
       new UserEmail(primitives.email),
       new UserName(primitives.name),
-      new Roles(primitives.role),
+      new RoleId(primitives.roleId),
       new UserLastName(primitives.lastName),
       new UserPassword(primitives.password)
     )
@@ -49,12 +49,12 @@ export class User {
 
   toPrimitives (): UserPrimitives {
     return {
-      id: this.id.value,
-      name: this.name.value,
-      lastName: this.lastName.value,
-      email: this.email.value,
-      role: this.role.value,
-      password: this.password.value
+      id: this.idValue,
+      name: this.nameValue,
+      lastName: this.lastNameValue,
+      email: this.emailValue,
+      roleId: this.roleValue,
+      password: this.passwordValue
     }
   }
 
@@ -70,8 +70,8 @@ export class User {
     this.lastName = new UserLastName(newLastName)
   }
 
-  updateRole (newRole: RoleTypes): void {
-    this.role = new Roles(newRole)
+  updateRole (newRole: number): void {
+    this.roleId = new RoleId(newRole)
   }
 
   updatePassword (newPassword: string): void {
@@ -94,8 +94,8 @@ export class User {
     return this.lastName.value
   }
 
-  get roleValue (): RoleTypes {
-    return this.role.value
+  get roleValue (): number {
+    return this.roleId.value
   }
 
   get passwordValue (): string {

@@ -11,6 +11,7 @@ import { SequelizeOperatingSystemRepository } from '../../../../Features/Operati
 import { SequelizeOperatingSystemArqRepository } from '../../../../Features/OperatingSystem/OperatingSystemArq/infraestructure/sequelize/SequelizeOperatingSystemArqRepository'
 import { SequelizeProcessorRepository } from '../../../../Features/Processor/infraestructure/sequelize/SequelizeProcessorRepository'
 import { SequelizeModelSeriesRepository } from '../../../../ModelSeries/ModelSeries/infraestructure/Sequelize/SequelizeModelSeriesRepository'
+import { SequelizeRolesRepository } from '../../../../User/Role/infrastructure/sequelize/SequelizeRolesRepository'
 import { SequelizeUserRepository } from '../../../../User/infrastructure/persistence/Sequelize/SequelizeUserRepository'
 import { type Repository } from '../../../domain/Repository'
 import { initializeDatabase } from './SequelizeConfig'
@@ -31,5 +32,6 @@ export const sequelizeRepository: Repository = {
   memoryRamType: new SequelizeMemoryRamTypeRepository(),
   operatingSystemVersion: new SequelizeOperatingSystemRepository(),
   operatingSystemArq: new SequelizeOperatingSystemArqRepository(),
-  computer: new SequelizeComputerRepository()
+  computer: new SequelizeComputerRepository(),
+  role: new SequelizeRolesRepository()
 }

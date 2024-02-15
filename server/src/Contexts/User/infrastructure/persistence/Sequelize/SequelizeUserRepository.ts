@@ -4,7 +4,10 @@ import { UserModel } from './UserSchema'
 
 export class SequelizeUserRepository implements UserRepository {
   async searchByEmail (userEmail: string): Promise<UserPrimitives | null> {
-    return await UserModel.findOne({ where: { email: userEmail } })
+    return await UserModel.findOne({
+      where: { email: userEmail },
+      include: ['role']
+    })
   }
 
   async save (payload: UserPrimitives): Promise<void> {

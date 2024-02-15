@@ -11,6 +11,8 @@ import { OperatingSystemArqModel } from '../../../../Features/OperatingSystem/Op
 import { ProcessorModel } from '../../../../Features/Processor/infraestructure/sequelize/ProcessorSchema'
 
 import { ModelSeriesModel } from '../../../../ModelSeries/ModelSeries/infraestructure/Sequelize/ModelSeriesSchema'
+import { RolesModel } from '../../../../User/Role/infrastructure/sequelize/RolesSchema'
+import { UserModel } from '../../../../User/infrastructure/persistence/Sequelize/UserSchema'
 
 // Define associations between different Sequelize models
 export function InitSequelizeAssociation (): void {
@@ -59,4 +61,10 @@ export function InitSequelizeAssociation (): void {
   ComputerModel.belongsTo(HardDriveTypeModel, { as: 'hardDriveType' })
   ComputerModel.belongsTo(OperatingSystemModel, { as: 'operatingSystem' })
   ComputerModel.belongsTo(OperatingSystemArqModel, { as: 'operatingSystemArq' })
+
+  // Role Associations
+  RolesModel.hasMany(UserModel, { as: 'user' }) // A role can have many users or all
+
+  // User Associations
+  UserModel.belongsTo(RolesModel, { as: 'role' }) // A user belongs to a role
 }

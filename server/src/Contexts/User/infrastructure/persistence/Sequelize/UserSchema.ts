@@ -1,12 +1,11 @@
 import { DataTypes, Model, type Sequelize } from 'sequelize'
 import { type UserPrimitives } from '../../../domain/User'
-import { Roles, type RoleTypes } from '../../../domain/Role'
 
 export class UserModel extends Model<UserPrimitives> implements UserPrimitives {
   readonly id!: string
   readonly email!: string
   readonly name!: string
-  readonly role!: RoleTypes
+  readonly roleId!: number
   readonly lastName!: string
   readonly password!: string
 }
@@ -35,10 +34,9 @@ export function initUserModel (sequelize: Sequelize): void {
         allowNull: false,
         type: DataTypes.STRING
       },
-      role: {
+      roleId: {
         allowNull: false,
-        type: DataTypes.ENUM,
-        values: Roles.toPrimitive()
+        type: DataTypes.INTEGER
       },
       password: {
         allowNull: false,

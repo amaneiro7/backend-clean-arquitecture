@@ -11,7 +11,7 @@ module.exports = {
         email: 'admin@bnc.com.ve',
         name: 'admin',
         last_name: 'admin',
-        role: 'Admin',
+        role_id: 1,
         password: hashSync('Admin12345*', 10),
         created_at: new Date(),
         updated_at: new Date()
