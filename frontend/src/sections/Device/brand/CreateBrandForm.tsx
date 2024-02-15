@@ -24,16 +24,11 @@ export default function CreateBrandForm () {
   }, [preloadedBrandState])
 
   useEffect(() => {
-    if (formStatus === FormStatus.Loading) {
-      toast.loading('Cargando...')
-    }
     if (formStatus === FormStatus.Success) {
-      toast.success('Marca creada exitosamente')
       resetFormStatus()
       resetForm()
     }
     if (formStatus === FormStatus.Error) {
-      toast.error('Error al crear la Marca')
       resetFormStatus()
     }
   }, [formStatus])

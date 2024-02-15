@@ -1,21 +1,47 @@
-import { lazy, useState } from 'react'
+import { lazy, useEffect, useState } from 'react'
 import TextField from '../../ui/text-field'
 import { Copyright } from '../../ui/copyright'
 import { Checkbox } from '../../ui/checkbox'
 import { Link } from 'react-router-dom'
 import Logo from '../../ui/Logo'
 import { login } from '../../services/api'
+import { useGenericFormData } from '../../Hooks/useGenericFormData'
+import { FormStatus, useLoginForm } from './useLoginForm'
+import EmailInput from './EmailInput'
+import PasswordInput from './PasswordInput'
+
+const initialState = {
+  email: '',
+  password: ''
+}
 
 const Button = lazy(async () => await import('../../ui/button'))
 
 export default function Login () {
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
+  const { formData, updateForm, resetForm } = useGenericFormData(initialState)
+  const { formStatus, resetFormStatus, submitForm } = useLoginForm()
+  //   const [email, setEmail] = useState<string>('')
+  //   const [password, setPassword] = useState<string>('')
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
-    await login({ email, password })
+    const { email, password } = formData
+    await submitForm({ email, password })
   }
+
+  const handleChange = (ev: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    updateForm({ [ev.target.name]: ev.target.value })
+  }
+
+  useEffect(() => {
+    if (formStatus === FormStatus.Success) {
+      resetFormStatus()
+      resetForm()
+    }
+    if (formStatus === FormStatus.Error) {
+      resetFormStatus()
+    }
+  }, [formStatus])
 
   return (
         <section className="bg-gray-50 dark:bg-gray-900">
@@ -28,22 +54,14 @@ export default function Login () {
                         <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                             Iniciar Sesión
                         </h1>
-                        <form className="space-y-4 md:space-y-6" action="#">
-                            <TextField
-                                name="email"
-                                label="Correo electrónico"
-                                type="email"
-                                placeholder=""
-                                value={email}
-                                handle={(e) => { setEmail(e.target.value) }}
+                        <form className="space-y-4 md:space-y-6" action="submit" onSubmit={(event) => { void handleSubmit(event) }}>
+                            <EmailInput
+                                onChange={handleChange}
+                                value={formData.email}
                             />
-                            <TextField
-                                name="password"
-                                label="Contraseña"
-                                type="password"
-                                placeholder=""
-                                value={password}
-                                handle={(e) => { setPassword(e.target.value) }}
+                            <PasswordInput
+                                onChange={handleChange}
+                                value={formData.password}
                             />
                             <div className="flex items-center justify-between">
                                 <Checkbox
@@ -58,7 +76,6 @@ export default function Login () {
                                 actionType='ACTION'
                                 text='Iniciar Sesión'
                                 type='submit'
-                                handle={handleSubmit}
                             />
                             <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                                 Don’t have an account yet? <a href="#" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</a>

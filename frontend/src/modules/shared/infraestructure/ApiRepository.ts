@@ -10,6 +10,8 @@ import { ApiOperatingSystemRepository } from '../../devices/fetures/operatingSys
 import { ApiOperatingSystemArqRepository } from '../../devices/fetures/operatingSystem/operatingSystemArq/infrastructure/ApiOperatingSystemArqRepository'
 import { ApiProcessorRepository } from '../../devices/fetures/processor/infrastructure/ApiProcessorRepository'
 import { ApiModelRepository } from '../../devices/model/infraestructure/ApiModelRepository'
+import { ApiRoleRepository } from '../../user/role/infrastructure/ApiRoleRepository'
+import { ApiUserRepository } from '../../user/user/infrastructure/ApiUserRepository'
 import { type Repository } from '../domain/repository'
 
 export const apiRepository: Repository = {
@@ -24,6 +26,7 @@ export const apiRepository: Repository = {
   hardDriveCapacity: new ApiHardDriveCapacityRepository(),
   hardDriveType: new ApiHardDriveTypeRepository(),
   memoryRamType: new ApiMemoryRamTypeRepository(),
-  computer: new ApiComputerRepository()
-
+  computer: new ApiComputerRepository(),
+  role: new ApiRoleRepository(),
+  user: new ApiUserRepository()
 }

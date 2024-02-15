@@ -12,6 +12,7 @@ import { type OperatingSystemArqRepository } from '../../devices/fetures/operati
 import { type ProcessorRepository } from '../../devices/fetures/processor/domain/ProcessorRepository'
 import { type ModelRepository } from '../../devices/model/domain/ModelRepository'
 import { type RoleRepository } from '../../user/role/domain/RoleRepository'
+import { type UserRepository } from '../../user/user/domain/UserRepository'
 
 export interface Repository {
   brand: BrandRepository
