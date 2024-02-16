@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useAppContext } from '../../Context/AppContext'
-import { useLogin } from '../../Auth/useLogin'
 import { toastMessage } from '../../utils/toaster'
 
 export const enum FormStatus {
@@ -16,20 +15,19 @@ export function useLoginForm (): {
   resetFormStatus: () => void
 } {
   const [formStatus, setFormStatus] = useState(FormStatus.Initial)
-  const { repository } = useAppContext()
-  const { getLogin } = useLogin(repository)
+  const { useAuth } = useAppContext()
 
   async function submitForm ({ email, password }: { email: string, password: string }) {
     setFormStatus(FormStatus.Loading)
     toastMessage({ type: 'loading', message: 'Cargando...' })
 
     try {
-      await getLogin({ email, password })
+      await useAuth.getLogin({ email, password })
       setFormStatus(FormStatus.Success)
       toastMessage({ type: 'success', message: 'Usuario Logeado exitosamente' })
-    } catch (error) {
+    } catch (error: any) {
       setFormStatus(FormStatus.Error)
-      toastMessage({ type: 'error', message: 'Ha ocurrido un error' })
+      toastMessage({ type: 'error', message: error.message })
     }
   }
 

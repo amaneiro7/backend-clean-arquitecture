@@ -5,9 +5,10 @@ import { UserEmail } from '../../../modules/user/user/domain/UserEmail'
 interface Props {
   value: string
   onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  isRequired?: boolean
 }
 
-const EmailInput: FC<Props> = ({ value, onChange }) => {
+const EmailInput: FC<Props> = ({ value, onChange, isRequired = true }) => {
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
   const isFirstInput = useRef(true)
@@ -38,6 +39,7 @@ const EmailInput: FC<Props> = ({ value, onChange }) => {
       value={value}
       isError={isError}
       errorMessage={errorMessage}
+      isRequired={isRequired}
   />
   )
 }

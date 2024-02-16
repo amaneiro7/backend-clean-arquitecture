@@ -1,5 +1,4 @@
 import { API_URL } from '../../../shared/infraestructure/config'
-import { errorApiMessage } from '../../../shared/infraestructure/errorMessage'
 import { type UserPrimitives } from '../domain/User'
 import { type UserRepository } from '../domain/UserRepository'
 
@@ -20,8 +19,8 @@ export class ApiUserRepository implements UserRepository {
         throw new Error(await res.text())
       }
       return await (res.json() as Promise<UserPrimitives>)
-    } catch (error) {
-      throw new Error(errorApiMessage)
+    } catch (error: any) {
+      throw new Error(error.message)
     }
   }
 }

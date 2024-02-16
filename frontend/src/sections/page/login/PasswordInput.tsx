@@ -5,9 +5,10 @@ import { UserPassword } from '../../../modules/user/user/domain/UserPassword'
 interface Props {
   value: string
   onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  isRequired?: boolean
 }
 
-const PasswordInput: FC<Props> = ({ value, onChange }) => {
+const PasswordInput: FC<Props> = ({ value, onChange, isRequired = true }) => {
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
   const isFirstInput = useRef(true)
@@ -36,6 +37,7 @@ const PasswordInput: FC<Props> = ({ value, onChange }) => {
       placeholder='-- Ingrese la Contraseña --'
       handle={onChange}
       value={value}
+      isRequired={isRequired}
       isError={isError}
       errorMessage={errorMessage}
   />
