@@ -1,7 +1,8 @@
 import { Link, NavLink } from 'react-router-dom'
 import { useAppContext } from '../../Context/AppContext'
-import { routes } from '../../Context/routes'
+
 import Logo from '../../ui/Logo'
+import { routes } from '../../Routes/routes'
 // import logo from '../../../src/assets/Logo.png'
 
 export default function Header () {
@@ -14,23 +15,24 @@ export default function Header () {
               <Logo/>
             </Link>
           </div>
-          <li className='flex gap-8 [&>a]:transition-all'>
+          <ul className='flex gap-8 [&>a]:transition-all'>
             {routes.map(route => {
               if (route.auth === 'private' && user == null) return null
               if (route.auth === 'public' && user != null) return null
 
               return (
+                <li key={route.id} >
                   <NavLink
-                  key={route.id}
                     className={({ isActive }) => isActive ? 'text-primary border-b border-primary' : undefined}
                     to={route.path}
                   >
                     {route.name} <br />
                   </NavLink>
+                </li>
 
               )
             })}
-          </li>
+          </ul>
             {/* <NavLink className={({ isActive }) => isActive ? 'text-primary border-b border-primary' : undefined} to='/device/add'>Agregar <br /></NavLink>
             <NavLink className={({ isActive }) => isActive ? 'text-primary border-b border-primary' : undefined} to='/dashboard'>Dashboard <br /></NavLink>
             {user !== undefined ? <NavLink className={({ isActive }) => isActive ? 'text-primary border-b border-primary' : undefined} to='/login'>Iniciar Sesión <br /></NavLink> : null} */}

@@ -1,10 +1,8 @@
-import { lazy, useEffect, useState } from 'react'
-import TextField from '../../ui/text-field'
+import { lazy, useEffect } from 'react'
 import { Copyright } from '../../ui/copyright'
 import { Checkbox } from '../../ui/checkbox'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Logo from '../../ui/Logo'
-import { login } from '../../services/api'
 import { useGenericFormData } from '../../Hooks/useGenericFormData'
 import { FormStatus, useLoginForm } from './useLoginForm'
 import EmailInput from './EmailInput'
@@ -20,6 +18,7 @@ const Button = lazy(async () => await import('../../ui/button'))
 export default function Login () {
   const { formData, updateForm, resetForm } = useGenericFormData(initialState)
   const { formStatus, resetFormStatus, submitForm } = useLoginForm()
+  const navigate = useNavigate()
   //   const [email, setEmail] = useState<string>('')
   //   const [password, setPassword] = useState<string>('')
 
@@ -37,6 +36,7 @@ export default function Login () {
     if (formStatus === FormStatus.Success) {
       resetFormStatus()
       resetForm()
+      navigate('/')
     }
     if (formStatus === FormStatus.Error) {
       resetFormStatus()
