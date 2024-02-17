@@ -12,7 +12,7 @@ export class AuthPostController {
       if (user === undefined) throw new Error('User not found')
       const [accessToken, refreshToken] = generateTokens(user)
       const infoUser = SendUserWithoutPassowrd(user, refreshToken)
-      res.cookie('token', accessToken, { httpOnly: true })
+      res.cookie('accessToken', accessToken, { httpOnly: true })
       res.status(httpStatus.OK).json(infoUser)
     } catch (error) {
       next(error)

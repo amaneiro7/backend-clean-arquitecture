@@ -1,6 +1,7 @@
 import { lazy } from 'react'
-import { Navigate, Route, Routes } from 'react-router-dom'
-import { useAppContext } from '../Context/AppContext.tsx'
+import { Route, Routes } from 'react-router-dom'
+import ProtectedRoute from './ProtectedRoute.tsx'
+import { Layout } from '../components/layout/index.tsx'
 
 const Home = lazy(async () => await import('../home/index.tsx'))
 const ComputerPage = lazy(async () => await import('../Device/features/computer/ComputerTablePage.tsx'))
@@ -11,46 +12,35 @@ const CreateProcessorForm = lazy(async () => await import('../Device/features/pr
 const Login = lazy(async () => await import('../page/login/index.tsx'))
 const NotFound = lazy(async () => await import('../page/404/index.tsx'))
 
-export const appRoutes = [
-  { path: '/', auth: 'public', element: <Home /> },
-  { path: '/computer', auth: 'public', element: <ComputerPage /> },
-  { path: '/login', auth: 'public', element: <Login /> },
-  { path: '/device/add', auth: 'public', element: <CreateDeviceForm /> },
-  { path: '/device/edit/:id', auth: 'public', element: <CreateDeviceForm /> },
-  { path: '/brand/add', auth: 'public', element: <CreateBrandForm /> },
-  { path: '/brand/edit/:id', auth: 'public', element: <CreateBrandForm /> },
-  { path: '/model/add', auth: 'public', element: <CreateModelForm /> },
-  { path: '/model/edit/:id', auth: 'public', element: <CreateModelForm /> },
-  { path: '/processor/add', auth: 'public', element: <CreateProcessorForm /> },
-  { path: '/processor/edit/:id', auth: 'public', element: <CreateProcessorForm /> },
-  { path: '*', auth: 'public', element: <NotFound /> }
+export const privateRouter = [
+  { path: '/', element: <Home /> },
+  { path: '/computer', element: <ComputerPage /> },
+  { path: '/device/add', element: <CreateDeviceForm /> },
+  { path: '/device/edit/:id', element: <CreateDeviceForm /> },
+  { path: '/brand/add', element: <CreateBrandForm /> },
+  { path: '/brand/edit/:id', element: <CreateBrandForm /> },
+  { path: '/model/add', element: <CreateModelForm /> },
+  { path: '/model/edit/:id', element: <CreateModelForm /> },
+  { path: '/processor/add', element: <CreateProcessorForm /> },
+  { path: '/processor/edit/:id', element: <CreateProcessorForm /> }
 ]
 
 export const AppRoutes = () => {
-  const { useAuth: { user } } = useAppContext()
-  const isProtected = user != null
   return (
-     <Routes>
-        {appRoutes.map((route, index) => {
-          if (route.auth === 'public') {
-            return (
-                    <Route
-                        key={index}
-                        path={route.path}
-                        element={route.element}
-                    />
-            )
-          } else {
-            return (
-                      <Route
-                          key={index}
-                          path={route.path}
-                          element={!isProtected ? <Navigate to={'/login'} /> : route.element}
-
-                      />
-            )
-          }
-        })}
-     </Routes>
+    <Routes>
+      {
+        privateRouter.map(route => (
+          <Route key={route.path} path={route.path} element={
+            <Layout>
+              <ProtectedRoute>
+                {route.element}
+              </ProtectedRoute>
+            </Layout>
+          } />
+        ))
+      }
+      <Route path='/login' element={<Login />} />
+      <Route path='*' element={<NotFound />} />
+    </Routes>
   )
 }

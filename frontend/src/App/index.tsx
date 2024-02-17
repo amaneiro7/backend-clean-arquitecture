@@ -1,9 +1,5 @@
-import { Suspense } from 'react'
-import { BrowserRouter, RouterProvider } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 import ErrorBoundary from './ErrorBoundary.tsx'
-
-import Loading from '../sections/components/Loading/index.tsx'
-import { Layout } from '../sections/components/layout/index.tsx'
 import { AppContextProvider } from '../sections/Context/AppContext.tsx'
 import { apiRepository } from '../modules/shared/infraestructure/ApiRepository.ts'
 import { AppRoutes } from '../sections/Routes/index.tsx'
@@ -13,11 +9,7 @@ function App () {
     <ErrorBoundary>
       <BrowserRouter>
         <AppContextProvider repository={repository}>
-          <Suspense fallback={<Loading />}>
-              <Layout>
-                <AppRoutes />
-              </Layout>
-          </Suspense>
+            <AppRoutes />
         </AppContextProvider>
       </BrowserRouter>
     </ErrorBoundary>

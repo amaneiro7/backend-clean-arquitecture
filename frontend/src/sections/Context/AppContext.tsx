@@ -25,5 +25,9 @@ export const AppContextProvider = ({ children, repository }: PropsWithChildren<{
 }
 
 export const useAppContext = () => {
-  return useContext(AppContext)
+  const context = useContext(AppContext)
+  if (context === undefined) {
+    throw new Error('useAppContext must be used within a AppContextProvider')
+  }
+  return context
 }
