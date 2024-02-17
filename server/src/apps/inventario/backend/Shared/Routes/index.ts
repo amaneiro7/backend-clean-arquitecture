@@ -16,6 +16,8 @@ import { createOperatingSystemArqRouter } from '../../Features/OperatingSystem/r
 import { createOperatingSystemVersionsRouter } from '../../Features/OperatingSystem/routes/operatingSystemVersions.routes'
 import { createHardDriveRouter } from '../../Features/HardDrive/routes/hardDrive.routes'
 import { createComputerRouter } from '../../Features/Computer/routes/computer.routes'
+import { authenticate } from '../Middleware/authenticate'
+import { validateToken } from '../Middleware/validateTokenHttpOnly'
 
 // import { createUserRouter } from './user.routes'
 // import { createAuthRouter } from './auth.routes'
@@ -29,10 +31,11 @@ interface Props {
 export const routerApi = ({ app, repository }: Props): Router => {
   const router = Router()
   app.use('/api/v1/', router)
+  router.use('/check-token', authenticate, validateToken)
   router.use('/categories', createCategoryRouter({ repository }))
   router.use('/brands', createBrandRouter({ repository }))
   router.use('/models', createModelSeriesRouter({ repository }))
-  router.use('/devices', createDeviceRouter({ repository }))
+  router.use('/devices', authenticate, createDeviceRouter({ repository }))
   router.use('/status', createStatusRouter({ repository }))
   router.use('/computers', createComputerRouter({ repository }))
   router.use('/processors', createProcessorRouter({ repository }))

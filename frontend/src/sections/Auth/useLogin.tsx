@@ -14,6 +14,10 @@ export const useLogin = (repository: Repository) => {
       })
   }
 
+  useEffect(() => {
+
+  })
+
   function logout () {
     setUser(null)
     Cookie.remove('token', { path: '/' })

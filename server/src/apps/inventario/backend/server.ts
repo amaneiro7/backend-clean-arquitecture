@@ -44,7 +44,7 @@ export class Server {
     await new Promise<void>(resolve => {
       const env = this.app.get('env') as string
       this.httpServer = this.app.listen(this.port, () => {
-        console.log(`  Mock Backend App is running at http://localhost:${this.port} in ${env} mode`)
+        console.log(`  Inventario Backend App is running at http://localhost:${this.port} in ${env} mode`)
         console.log('  Press CTRL-C to stop\n')
         resolve()
       })
