@@ -1,7 +1,7 @@
 import compress from 'compression'
 import cookieParser from 'cookie-parser'
 import errorHandler from 'errorhandler'
-import express, { json, urlencoded, type Request, type Response } from 'express'
+import express, { type NextFunction, json, urlencoded, type Request, type Response } from 'express'
 import cors from 'cors'
 import Router from 'express-promise-router'
 import helmet from 'helmet'
@@ -11,6 +11,8 @@ import httpStatus from 'http-status'
 import { routerApi } from './Shared/Routes'
 import { type Repository } from '../../../Contexts/Shared/domain/Repository'
 import { options } from './cors'
+import morgan from 'morgan'
+import { logger } from './Shared/Middleware/winstonError'
 
 export class Server {
   private readonly app: express.Express
@@ -31,6 +33,18 @@ export class Server {
     this.app.use(helmet.frameguard({ action: 'deny' }))
     this.app.use(compress())
     this.app.use(cookieParser())
+    this.app.use(morgan('combined', {
+      stream: {
+        write: message => {
+          logger.info(message)
+        }
+      }
+    }))
+
+    this.app.use((err: Error, req: Request, res: Response, next: NextFunction): void => {
+      logger.error('Error;', err)
+      next(err)
+    })
 
     const router = Router()
     router.use(errorHandler())

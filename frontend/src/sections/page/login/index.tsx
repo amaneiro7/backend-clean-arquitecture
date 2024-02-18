@@ -1,12 +1,14 @@
 import { lazy, useEffect } from 'react'
 import { Copyright } from '../../ui/copyright'
 import { Checkbox } from '../../ui/checkbox'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom'
 import Logo from '../../ui/Logo'
 import { useGenericFormData } from '../../Hooks/useGenericFormData'
 import { FormStatus, useLoginForm } from './useLoginForm'
 import EmailInput from './EmailInput'
 import PasswordInput from './PasswordInput'
+import { useAppContext } from '../../Context/AppContext'
+import { ToasterComponent } from '../../utils/toaster'
 
 const initialState = {
   email: '',
@@ -19,8 +21,10 @@ export default function Login () {
   const { formData, updateForm, resetForm } = useGenericFormData(initialState)
   const { formStatus, resetFormStatus, submitForm } = useLoginForm()
   const navigate = useNavigate()
-  //   const [email, setEmail] = useState<string>('')
-  //   const [password, setPassword] = useState<string>('')
+  const location = useLocation()
+  const { useAuth: { user } } = useAppContext()
+
+  const from = location.state?.from?.pathname ?? '/'
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
@@ -36,15 +40,20 @@ export default function Login () {
     if (formStatus === FormStatus.Success) {
       resetFormStatus()
       resetForm()
-      navigate('/')
+      navigate(from, { replace: true })
     }
     if (formStatus === FormStatus.Error) {
       resetFormStatus()
     }
   }, [formStatus])
 
+  if (user !== null) {
+    return <Navigate to={from} />
+  }
+
   return (
         <section className="bg-gray-50 dark:bg-gray-900">
+          <ToasterComponent />
             <div className="flex flex-col items-center justify-center gap-2 px-6 py-8 mx-auto md:h-screen lg:py-0">
                 <a href="#" >
                     <Logo />

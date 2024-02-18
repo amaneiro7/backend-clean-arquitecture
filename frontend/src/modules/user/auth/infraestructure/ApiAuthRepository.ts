@@ -23,4 +23,21 @@ export class ApiAuthRepository implements AuthRepository {
       throw new Error(error.message)
     }
   }
+
+  async checkToken (): Promise<boolean> {
+    try {
+      const res = await fetch(`${API_URL}/check-token`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      if (!res.ok) {
+        throw new Error(await res.text())
+      }
+      return true
+    } catch (error: any) {
+      throw new Error(error.message)
+    }
+  }
 }

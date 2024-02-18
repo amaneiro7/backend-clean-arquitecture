@@ -13,7 +13,7 @@ export class AuthPostController {
       const [accessToken, refreshToken] = generateTokens(user)
       const infoUser = SendUserWithoutPassowrd(user, refreshToken)
       // res.cookie('accessToken', JSON.stringify(accessToken), { httpOnly: true, sameSite: 'none' })
-      res.cookie('accessToken', accessToken, { httpOnly: true })
+      res.cookie('accessToken', accessToken, { httpOnly: true, sameSite: 'lax', secure: true })
       res.status(httpStatus.OK).json(infoUser)
     } catch (error) {
       next(error)
