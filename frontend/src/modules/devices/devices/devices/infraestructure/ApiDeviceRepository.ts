@@ -46,7 +46,9 @@ export class ApiDeviceRepository implements DeviceRepository {
     const searchParams = url.searchParams
     const apiURL = new URL(`${API_URL}/devices`)
     apiURL.search = searchParams.toString()
-    return await fetch(apiURL)
+    return await fetch(apiURL, {
+      credentials: 'include'
+    })
       .then(async res => {
         if (!res.ok) {
           throw new Error(await res.text())

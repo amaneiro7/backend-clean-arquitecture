@@ -16,7 +16,10 @@ export const options: CorsOptions = {
 
     callback(new Error('Not allowed by CORS'))
   },
-  credentials: true
+  credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Credentials', 'Access-Control-Allow-Origin'],
+  exposedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Credentials', 'Access-Control-Allow-Origin'],
+  preflightContinue: false
 }
 
 // otra forma de administrar los cors de forma manual

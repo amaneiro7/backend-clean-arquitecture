@@ -10,6 +10,7 @@ export class ApiAuthRepository implements AuthRepository {
         headers: {
           'Content-Type': 'application/json'
         },
+        credentials: 'include',
         body: JSON.stringify({
           email,
           password
@@ -28,6 +29,7 @@ export class ApiAuthRepository implements AuthRepository {
     try {
       const res = await fetch(`${API_URL}/check-token`, {
         method: 'GET',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json'
         }

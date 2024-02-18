@@ -1,17 +1,17 @@
+import express, { type NextFunction, json, urlencoded, type Request, type Response } from 'express'
+import Router from 'express-promise-router'
 import compress from 'compression'
 import cookieParser from 'cookie-parser'
 import errorHandler from 'errorhandler'
-import express, { type NextFunction, json, urlencoded, type Request, type Response } from 'express'
 import cors from 'cors'
-import Router from 'express-promise-router'
 import helmet from 'helmet'
+import morgan from 'morgan'
 import type * as http from 'http'
 import httpStatus from 'http-status'
 
-import { routerApi } from './Shared/Routes'
 import { type Repository } from '../../../Contexts/Shared/domain/Repository'
+import { routerApi } from './Shared/Routes'
 import { options } from './cors'
-import morgan from 'morgan'
 import { logger } from './Shared/Middleware/winstonError'
 
 export class Server {
