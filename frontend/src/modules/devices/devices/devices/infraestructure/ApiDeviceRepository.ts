@@ -1,59 +1,21 @@
 import { type DevicesMappedApiResponse, type DevicesApiResponse } from '../../../../shared/domain/types/responseTypes'
-import { API_URL } from '../../../../shared/infraestructure/config'
-import { errorApiMessage } from '../../../../shared/infraestructure/errorMessage'
 import { makeRequest } from '../../../../shared/infraestructure/fetching'
 import { type DevicePrimitives, type Device } from '../domain/Device'
 import { type DeviceId } from '../domain/DeviceId'
 import { type DeviceRepository } from '../domain/DeviceRepository'
 
 export class ApiDeviceRepository implements DeviceRepository {
+  private readonly endpoint: string = 'devices'
   async save ({ device }: { device: Device }): Promise<void> {
-    try {
-      const res = await fetch(`${API_URL}/devices`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        credentials: 'include',
-        body: JSON.stringify(device.toPrimitives())
-      })
-      if (!res.ok) {
-        throw new Error(await res.text())
-      }
-    } catch (error) {
-      throw new Error(errorApiMessage)
-    }
+    await makeRequest({ method: 'POST', endpoint: this.endpoint, data: device.toPrimitives() })
   }
 
   async update ({ id, device }: { id: DeviceId, device: Device }): Promise<void> {
-    try {
-      // const { serial, activo, statusId, modelId } = device.toPrimitives()
-      const res = await fetch(`${API_URL}/devices/${id.value}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        credentials: 'include',
-        body: JSON.stringify(device.toPrimitives())
-      })
-      if (!res.ok) {
-        throw new Error(await res.text())
-      }
-    } catch (error) {
-      throw new Error(errorApiMessage)
-    }
+    await makeRequest({ method: 'PATCH', endpoint: `${this.endpoint}/${id.value}`, data: device.toPrimitives() })
   }
 
   async getAll (): Promise<DevicePrimitives[]> {
-    // return await fetch(apiURL, { credentials: 'include' })
-    //   .then(async res => {
-    //     if (!res.ok) {
-    //       throw new Error(await res.text())
-    //     }
-    //     return await (res.json() as Promise<DevicesApiResponse[]>)
-    //   })
-
-    return await makeRequest<DevicesApiResponse[]>({ method: 'GET', endpoint: 'devices' })
+    return await makeRequest<DevicesApiResponse[]>({ method: 'GET', endpoint: this.endpoint })
       .then(res => res.map(data => ({
         id: data.id,
         serial: data.serial,
@@ -71,19 +33,10 @@ export class ApiDeviceRepository implements DeviceRepository {
         createdAt: data.createdAt,
         updatedAt: data.updatedAt
       }) satisfies DevicesMappedApiResponse))
-      .catch(() => {
-        throw new Error(errorApiMessage)
-      })
   }
 
   async getById ({ id }: { id: DeviceId }): Promise<DevicePrimitives> {
-    return await fetch(`${API_URL}/devices/${id.value}`, { credentials: 'include' })
-      .then(async (res) => {
-        if (!res.ok) {
-          throw new Error(await res.text())
-        }
-        return await (await res.json() as Promise<DevicesApiResponse>)
-      })
+    return await makeRequest<DevicesApiResponse>({ method: 'GET', endpoint: `${this.endpoint}/${id.value}` })
       .then(data => ({
         id: data.id,
         serial: data.serial,
@@ -101,8 +54,5 @@ export class ApiDeviceRepository implements DeviceRepository {
         createdAt: data.createdAt,
         updatedAt: data.updatedAt
       } satisfies DevicesMappedApiResponse))
-      .catch(() => {
-        throw new Error(errorApiMessage)
-      })
   }
 }

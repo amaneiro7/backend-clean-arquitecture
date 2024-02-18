@@ -10,7 +10,7 @@ export class DevicePostController {
   create = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       await new DeviceCreator(this.repository).run(req.body)
-      res.status(httpStatus.CREATED).send()
+      res.status(httpStatus.CREATED).json({ message: 'Device Created' })
     } catch (error) {
       next(error)
     }
@@ -20,7 +20,7 @@ export class DevicePostController {
     try {
       const { id } = req.params
       await new DeviceUpdater(this.repository).run({ id, params: req.body })
-      res.status(httpStatus.CREATED).send()
+      res.status(httpStatus.CREATED).json({ message: 'Device Updated' })
     } catch (error) {
       next(error)
     }

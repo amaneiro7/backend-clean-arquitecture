@@ -44,16 +44,11 @@ export default function CreateDeviceForm () {
   }, [preloadedDeviceState])
 
   useEffect(() => {
-    if (formStatus === FormStatus.Loading) {
-      toast.loading('Cargando...')
-    }
     if (formStatus === FormStatus.Success) {
-      toast.success('Dispositivo creado exitosamente')
       resetFormStatus()
       resetForm()
     }
     if (formStatus === FormStatus.Error) {
-      toast.error('Error al crear dispositivo')
       resetFormStatus()
     }
   }, [formStatus])
