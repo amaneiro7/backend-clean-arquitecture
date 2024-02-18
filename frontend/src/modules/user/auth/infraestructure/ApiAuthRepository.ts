@@ -1,8 +1,8 @@
 import { API_URL } from '../../../shared/infraestructure/config'
-import { type UserPrimitives } from '../domain/User'
-import { type UserRepository } from '../domain/UserRepository'
+import { type UserPrimitives } from '../../user/domain/User'
+import { type AuthRepository } from '../domain/AuthRepository'
 
-export class ApiUserRepository implements UserRepository {
+export class ApiAuthRepository implements AuthRepository {
   async loginLocal ({ email, password }: Pick<UserPrimitives, 'email' | 'password'>): Promise<UserPrimitives> {
     try {
       const res = await fetch(`${API_URL}/auth/login/local`, {

@@ -20,6 +20,8 @@ export class Server {
   constructor ({ port, repository }: { port: string, repository: Repository }) {
     this.port = port
     this.app = express()
+
+    // Middlewares
     this.app.use(json())
     this.app.use(cors(options))
     this.app.use(urlencoded({ extended: true }))
@@ -29,6 +31,7 @@ export class Server {
     this.app.use(helmet.frameguard({ action: 'deny' }))
     this.app.use(compress())
     this.app.use(cookieParser())
+
     const router = Router()
     router.use(errorHandler())
 

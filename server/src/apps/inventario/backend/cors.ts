@@ -15,7 +15,8 @@ export const options: CorsOptions = {
     }
 
     callback(new Error('Not allowed by CORS'))
-  }
+  },
+  credentials: true
 }
 
 // otra forma de administrar los cors de forma manual

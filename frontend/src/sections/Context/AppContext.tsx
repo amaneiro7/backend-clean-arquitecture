@@ -12,7 +12,7 @@ export interface ContextState {
   useAuth: UseAuth
 }
 
-export const AppContext = createContext({} satisfies ContextState)
+export const AppContext = createContext({} as ContextState)
 
 export const AppContextProvider = ({ children, repository }: PropsWithChildren<{ repository: Repository }>) => {
   const useAuth = useLogin(repository)

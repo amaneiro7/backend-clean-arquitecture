@@ -1,3 +1,4 @@
+import { type Repository } from '../domain/repository'
 import { ApiBrandRepository } from '../../devices/brand/infraestructure/ApiBrandRepository'
 import { ApiCategoryRepository } from '../../devices/category/infraestructure/ApiCategoryRepository'
 import { ApiDeviceRepository } from '../../devices/devices/devices/infraestructure/ApiDeviceRepository'
@@ -11,8 +12,7 @@ import { ApiOperatingSystemArqRepository } from '../../devices/fetures/operating
 import { ApiProcessorRepository } from '../../devices/fetures/processor/infrastructure/ApiProcessorRepository'
 import { ApiModelRepository } from '../../devices/model/infraestructure/ApiModelRepository'
 import { ApiRoleRepository } from '../../user/role/infrastructure/ApiRoleRepository'
-import { ApiUserRepository } from '../../user/user/infrastructure/ApiUserRepository'
-import { type Repository } from '../domain/repository'
+import { ApiAuthRepository } from '../../user/auth/infraestructure/ApiAuthRepository'
 
 export const apiRepository: Repository = {
   brand: new ApiBrandRepository(),
@@ -28,5 +28,5 @@ export const apiRepository: Repository = {
   memoryRamType: new ApiMemoryRamTypeRepository(),
   computer: new ApiComputerRepository(),
   role: new ApiRoleRepository(),
-  user: new ApiUserRepository()
+  auth: new ApiAuthRepository()
 }

@@ -1,7 +1,8 @@
-import { lazy } from 'react'
+import { Suspense, lazy } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import ProtectedRoute from './ProtectedRoute.tsx'
 import { Layout } from '../components/layout/index.tsx'
+import Loading from '../components/Loading/index.tsx'
 
 const Home = lazy(async () => await import('../home/index.tsx'))
 const ComputerPage = lazy(async () => await import('../Device/features/computer/ComputerTablePage.tsx'))
@@ -32,9 +33,11 @@ export const AppRoutes = () => {
         privateRouter.map(route => (
           <Route key={route.path} path={route.path} element={
             <Layout>
-              <ProtectedRoute>
-                {route.element}
-              </ProtectedRoute>
+              <Suspense fallback={<Loading />}>
+                <ProtectedRoute>
+                  {route.element}
+                </ProtectedRoute>
+              </Suspense>
             </Layout>
           } />
         ))

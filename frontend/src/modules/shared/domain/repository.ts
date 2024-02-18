@@ -11,6 +11,7 @@ import { type OperatingSystemRepository } from '../../devices/fetures/operatingS
 import { type OperatingSystemArqRepository } from '../../devices/fetures/operatingSystem/operatingSystemArq/domain/OperatingSystemArqRepository'
 import { type ProcessorRepository } from '../../devices/fetures/processor/domain/ProcessorRepository'
 import { type ModelRepository } from '../../devices/model/domain/ModelRepository'
+import { type AuthRepository } from '../../user/auth/domain/AuthRepository'
 import { type RoleRepository } from '../../user/role/domain/RoleRepository'
 import { type UserRepository } from '../../user/user/domain/UserRepository'
 
@@ -30,4 +31,5 @@ export interface Repository {
   memoryRamType: MemoryRamTypeRepository
   role: RoleRepository
   user: UserRepository
+  auth: AuthRepository
 }
