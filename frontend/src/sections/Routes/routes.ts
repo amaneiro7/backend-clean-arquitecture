@@ -16,17 +16,5 @@ export const routes = [
     path: '/dashboard',
     name: 'Balance',
     auth: 'private'
-  },
-  {
-    id: 4,
-    path: '/login',
-    name: 'Iniciar Sesion',
-    auth: 'public'
-  },
-  {
-    id: 5,
-    path: '/logout',
-    name: 'Cerrar Sesion',
-    auth: 'private'
   }
 ]

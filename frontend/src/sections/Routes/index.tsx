@@ -32,13 +32,13 @@ export const AppRoutes = () => {
       {
         privateRouter.map(route => (
           <Route key={route.path} path={route.path} element={
-            <Layout>
               <Suspense fallback={<Loading />}>
                 <ProtectedRoute>
-                  {route.element}
+                  <Layout>
+                    {route.element}
+                  </Layout>
                 </ProtectedRoute>
               </Suspense>
-            </Layout>
           } />
         ))
       }

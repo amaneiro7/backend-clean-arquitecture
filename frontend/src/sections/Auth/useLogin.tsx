@@ -9,6 +9,13 @@ import { useLocation } from 'react-router-dom'
 import { SaveSession } from '../../modules/user/user/application/saveSession'
 import { GetSession } from '../../modules/user/user/application/getSession'
 
+export interface UseAuth {
+  getLogin: ({ email, password }: Pick<UserPrimitives, 'email' | 'password'>) => Promise<void>
+  user: UserPrimitives | null
+  logout: () => Promise<void>
+  isSignin: boolean
+}
+
 export const useLogin = (repository: Repository) => {
   const [user, setUser] = useState<UserPrimitives | null>(null)
   const [isSignin, setIsSignin] = useState<boolean>(false)
