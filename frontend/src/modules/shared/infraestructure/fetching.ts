@@ -27,31 +27,12 @@ export async function makeRequest<T> ({
     requestInit.body = JSON.stringify(data)
   }
 
-  console.log(requestInit.body)
-
   return await fetch(apiURL, requestInit).then(async res => {
     if (!res.ok) {
       throw new Error(await res.text())
     }
     return await (res.json() as Promise<T>)
   }).catch((error: any) => {
-    console.log('fetching', error)
     throw new Error(`Error making ${method} request to ${url.toString()}: ${error.message}`)
   })
 }
-
-//   try {
-//     console.log('initial requets')
-//     const res = await fetch(url, requestInit)
-
-//     console.log('ending request')
-//     if (!res.ok) {
-//       throw new Error(await res.text())
-//     }
-
-//     console.log(res)
-//     return await (res.json() as Promise<T>)
-//   } catch (error: any) {
-//     throw new Error(`Error making ${method} request to ${url}: ${error.message}`)
-//   }
-// }

@@ -1,10 +1,10 @@
 import { type Repository } from '../../../shared/domain/repository'
 import { type UserPrimitives } from '../../user/domain/User'
 
-export class SaveSession {
+export class GetSession {
   constructor (private readonly repository: Repository) {}
 
-  async save (user: UserPrimitives): Promise<void> {
-    await this.repository.user.saveSession({ user })
+  async get (): Promise<UserPrimitives> {
+    return await this.repository.user.getSession()
   }
 }

@@ -26,7 +26,7 @@ export interface Repository {
   operatingSystemArq: OperatingSystemArqRepository
   hardDriveType: HardDriveTypeRepository
   hardDriveCapacity: HardDriveCapacityRepository
-  hardDrive: HardDriveRepository
+  // hardDrive: HardDriveRepository
   computer: ComputerRepository
   memoryRamType: MemoryRamTypeRepository
   role: RoleRepository

@@ -13,6 +13,7 @@ import { ApiProcessorRepository } from '../../devices/fetures/processor/infrastr
 import { ApiModelRepository } from '../../devices/model/infraestructure/ApiModelRepository'
 import { ApiRoleRepository } from '../../user/role/infrastructure/ApiRoleRepository'
 import { ApiAuthRepository } from '../../user/auth/infraestructure/ApiAuthRepository'
+import { SessionStorageRepository } from '../../user/user/infrastructure/SessionStorageRepository'
 
 export const apiRepository: Repository = {
   brand: new ApiBrandRepository(),
@@ -28,5 +29,6 @@ export const apiRepository: Repository = {
   memoryRamType: new ApiMemoryRamTypeRepository(),
   computer: new ApiComputerRepository(),
   role: new ApiRoleRepository(),
-  auth: new ApiAuthRepository()
+  auth: new ApiAuthRepository(),
+  user: new SessionStorageRepository()
 }

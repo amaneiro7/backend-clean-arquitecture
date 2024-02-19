@@ -1,5 +1,9 @@
 import { type UserPrimitives } from './User'
 
 export abstract class UserRepository {
-  abstract loginLocal ({ email, password }: Pick<UserPrimitives, 'email' | 'password'>): Promise<UserPrimitives>
+  abstract saveSession ({ user }: { user: UserPrimitives }): Promise<void>
+
+  abstract getSession (): Promise<UserPrimitives>
+
+  abstract logOutSession (): Promise<void>
 }

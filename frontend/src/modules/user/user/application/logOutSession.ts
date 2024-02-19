@@ -1,9 +1,9 @@
 import { type Repository } from '../../../shared/domain/repository'
 
-export class CheckToken {
+export class LogOutSession {
   constructor (private readonly repository: Repository) {}
 
-  async run (): Promise<boolean> {
-    return await this.repository.auth.checkToken()
+  async run (): Promise<void> {
+    await this.repository.user.logOutSession()
   }
 }
