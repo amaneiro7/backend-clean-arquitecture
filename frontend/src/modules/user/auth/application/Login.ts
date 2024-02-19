@@ -5,8 +5,6 @@ export class Login {
   constructor (private readonly repository: Repository) {}
 
   async run (email: string, password: string): Promise<UserPrimitives> {
-    return await this.repository.auth.loginLocal({ email, password }).catch((error) => {
-      throw new Error(error.message)
-    })
+    return await this.repository.auth.loginLocal({ email, password })
   }
 }

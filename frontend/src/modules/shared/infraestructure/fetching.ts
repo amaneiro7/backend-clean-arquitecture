@@ -33,6 +33,6 @@ export async function makeRequest<T> ({
     }
     return await (res.json() as Promise<T>)
   }).catch((error: any) => {
-    throw new Error(`Error making ${method} request to ${url.toString()}: ${error.message}`)
+    throw new Error(error.message)
   })
 }

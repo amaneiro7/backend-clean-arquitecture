@@ -36,10 +36,6 @@ export const useDevice = (repository: Repository) => {
 
   useEffect(() => {
     getDevices()
-
-    // return () => {
-    //   setDevices([])
-    // }
   }, [hasUrlSearch])
 
   const handleHasUrlSearch = () => {
