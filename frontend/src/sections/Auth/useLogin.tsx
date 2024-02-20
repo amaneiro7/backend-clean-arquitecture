@@ -51,7 +51,7 @@ export const useLogin = (repository: Repository) => {
     setUser(null)
     setIsSignin(false)
     await new LogOutSession(repository).run()
-    Cookie.remove('accessToen', { path: '/' })
+    Cookie.remove('accessToken', { path: '/' })
   }
 
   return {

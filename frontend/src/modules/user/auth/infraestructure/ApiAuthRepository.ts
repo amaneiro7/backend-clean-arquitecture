@@ -14,4 +14,8 @@ export class ApiAuthRepository implements AuthRepository {
   async checkToken (): Promise<boolean> {
     return await makeRequest({ endpoint: 'check-token', method: 'GET' }).then(() => { return true })
   }
+
+  async clearToken (): Promise<void> {
+    await makeRequest({ endpoint: 'auth/logout', method: 'DELETE' })
+  }
 }

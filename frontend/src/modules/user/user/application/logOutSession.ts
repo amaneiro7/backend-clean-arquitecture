@@ -5,5 +5,6 @@ export class LogOutSession {
 
   async run (): Promise<void> {
     await this.repository.user.logOutSession()
+    await this.repository.auth.clearToken()
   }
 }
