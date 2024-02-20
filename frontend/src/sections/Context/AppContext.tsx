@@ -1,12 +1,7 @@
 import { createContext, useContext, type PropsWithChildren } from 'react'
 import { type Repository } from '../../modules/shared/domain/repository'
-import { type UserPrimitives } from '../../modules/user/user/domain/User'
-import { useLogin } from '../Auth/useLogin'
+import { type UseAuth, useLogin } from '../Auth/useLogin'
 
-interface UseAuth {
-  getLogin: ({ email, password }: Pick<UserPrimitives, 'email' | 'password'>) => Promise<void>
-  user: UserPrimitives | null
-}
 export interface ContextState {
   repository: Repository
   useAuth: UseAuth
