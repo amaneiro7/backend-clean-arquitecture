@@ -1,36 +1,42 @@
-// Servicio para consultar nombres de tablas o entidades existentes
-class TableService {
-  getExistingTables (): string[] {
-    // Aquí realizas la lógica para consultar la base de datos y obtener la lista de nombres de tablas o entidades existentes
-    // Esta lógica dependerá de la infraestructura de tu aplicación y la tecnología de base de datos que estés utilizando
-    // Por ejemplo, si estás utilizando un ORM, podrías consultar el esquema de la base de datos para obtener los nombres de tablas existentes
-    // Si estás utilizando un enfoque más directo con la base de datos, podrías ejecutar consultas SQL específicas para obtener esta información
-    return ['existing_table1', 'existing_table2'] // Ejemplo: Devolver una lista de nombres de tablas existentes
-  }
-}
+import { InvalidArgumentError } from '../../Shared/domain/value-object/InvalidArgumentError'
+import { StringValueObject } from '../../Shared/domain/value-object/StringValueObject'
 
-// Value Object para table_name
-export class TableName {
-  constructor (
-    private readonly value: string,
-    private readonly tableService: TableService
-  ) {
-    // Aquí puedes agregar validaciones dinámicas basadas en la lista de nombres de tablas o entidades existentes
-    if (!this.isValidTableName(value)) {
-      throw new Error('Table name is not valid')
+// Define a class for representing hard drive Type as a value object
+export class TableName extends StringValueObject {
+  // Define a constant map of accepted hard drive capacities
+  private readonly ACCEPTED_VALUES: Record<string, string> = {
+    USER: 'users',
+    BRAND: 'brands',
+    DEVICE: 'devices',
+    MODEL: 'models',
+    COMPUTER: 'computers',
+    HARDDRIVE: 'hard_drives',
+    PROCESSOR: 'processors'
+  }
+
+  // Constructor for the TableName class
+  constructor (readonly value: string) {
+    super(value) // Call the constructor of the parent class
+
+    // Ensure the validity of the hard drive Type value
+    this.ensureIsValidName(value)
+  }
+
+  // Convert the hard drive Type value to its primitive representation
+  toPrimitives (): string {
+    return this.value
+  }
+
+  // Ensure the validity of the hard drive Type value
+  private ensureIsValidName (value: string): void {
+    if (this.isTableNameValid(value)) {
+      throw new InvalidArgumentError(`<${value}> does not exist`)
     }
   }
 
-  isValidTableName (value: string): boolean {
-    const existingTables = this.tableService.getExistingTables()
-    return existingTables.includes(value)
-  }
-
-  getValue (): string {
-    return this.value
+  // Check if the hard drive Type value is valid
+  private isTableNameValid (value: string): boolean {
+    // Check if the value is in the accepted values
+    return Object.values(this.ACCEPTED_VALUES).includes(value)
   }
 }
-
-// Ejemplo de uso
-// const tableService = new TableService()
-// const tableName = new TableName('existing_table1', tableService) // Ejemplo de validación exitosa

@@ -7,7 +7,7 @@ const acionTypes = {
   DELETE: 'DELETE'
 } as const
 
-type ActionType = typeof acionTypes[keyof typeof acionTypes]
+export type ActionType = typeof acionTypes[keyof typeof acionTypes]
 
 export class Action extends StringValueObject {
   constructor (readonly value: ActionType) {
