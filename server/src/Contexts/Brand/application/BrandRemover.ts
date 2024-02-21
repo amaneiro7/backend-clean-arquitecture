@@ -1,7 +1,7 @@
-import { type Repository } from '../../../Shared/domain/Repository'
-import { BrandCannotDeleteIsNotEmptyError } from '../../domain/BrandCannotDeleteIsNotEmptyError'
-import { BrandDoesNotExistError } from '../../domain/BrandDoesNotExistError'
-import { BrandId } from '../../domain/BrandId'
+import { type Repository } from '../../Shared/domain/Repository'
+import { BrandCannotDeleteIsNotEmptyError } from '../domain/BrandCannotDeleteIsNotEmptyError'
+import { BrandDoesNotExistError } from '../domain/BrandDoesNotExistError'
+import { BrandId } from '../domain/BrandId'
 
 export class BrandRemover {
   constructor (private readonly repository: Repository) {}

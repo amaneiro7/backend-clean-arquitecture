@@ -13,6 +13,7 @@ import { type OperatingSystemRepository } from '../../Features/OperatingSystem/O
 import { type OperatingSystemArqRepository } from '../../Features/OperatingSystem/OperatingSystemArq/domain/OperatingSystemArqRepository'
 import { type ComputerRepository } from '../../Features/Computer/domain/ComputerRepository'
 import { type RoleRepository } from '../../User/Role/domain/RoleRepository'
+import { type HistoryRepository } from '../../History/domain/HistoryRepository'
 
 export interface Repository {
   user: UserRepository
@@ -30,4 +31,5 @@ export interface Repository {
   operatingSystemArq: OperatingSystemArqRepository
   computer: ComputerRepository
   role: RoleRepository
+  history: HistoryRepository
 }

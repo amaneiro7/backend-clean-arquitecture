@@ -1,9 +1,9 @@
-import { type Repository } from '../../../Shared/domain/Repository'
-import { Brand } from '../../domain/Brand'
-import { BrandAlreadyExistError } from '../../domain/BrandAlreadyExistError'
-import { BrandDoesNotExistError } from '../../domain/BrandDoesNotExistError'
-import { BrandId } from '../../domain/BrandId'
-import { BrandName } from '../../domain/BrandName'
+import { type Repository } from '../../Shared/domain/Repository'
+import { Brand } from '../domain/Brand'
+import { BrandAlreadyExistError } from '../domain/BrandAlreadyExistError'
+import { BrandDoesNotExistError } from '../domain/BrandDoesNotExistError'
+import { BrandId } from '../domain/BrandId'
+import { BrandName } from '../domain/BrandName'
 
 export class BrandUpdater {
   constructor (private readonly repository: Repository) {}

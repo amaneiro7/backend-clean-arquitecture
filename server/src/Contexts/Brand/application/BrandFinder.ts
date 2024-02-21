@@ -1,8 +1,8 @@
-import { type Repository } from '../../../Shared/domain/Repository'
-import { type BrandPrimitives } from '../../domain/Brand'
-import { BrandDoesNotExistError } from '../../domain/BrandDoesNotExistError'
-import { type BrandId } from '../../domain/BrandId'
-import { type BrandName } from '../../domain/BrandName'
+import { type Repository } from '../../Shared/domain/Repository'
+import { type BrandPrimitives } from '../domain/Brand'
+import { BrandDoesNotExistError } from '../domain/BrandDoesNotExistError'
+import { type BrandId } from '../domain/BrandId'
+import { type BrandName } from '../domain/BrandName'
 
 export class BrandsFinder {
   constructor (private readonly repository: Repository) {}

@@ -1,7 +1,7 @@
 import { InvalidArgumentError } from '../../Shared/domain/value-object/InvalidArgumentError'
 import { StringValueObject } from '../../Shared/domain/value-object/StringValueObject'
 
-const acionTypes = {
+export const acionTypes = {
   CREATE: 'CREATE',
   UPDATE: 'UPDATE',
   DELETE: 'DELETE'

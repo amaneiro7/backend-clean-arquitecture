@@ -9,6 +9,7 @@ import { HardDriveTypeModel } from '../../../../Features/HardDrive.ts/HardDriveT
 import { OperatingSystemModel } from '../../../../Features/OperatingSystem/OperatingSystem/infraesructure/sequelize/OperatingSystemSchema'
 import { OperatingSystemArqModel } from '../../../../Features/OperatingSystem/OperatingSystemArq/infraestructure/sequelize/OperatingSystemArqSchema'
 import { ProcessorModel } from '../../../../Features/Processor/infraestructure/sequelize/ProcessorSchema'
+import { HistoryModel } from '../../../../History/infrastructure/sequelize/HistorySchema'
 
 import { ModelSeriesModel } from '../../../../ModelSeries/ModelSeries/infraestructure/Sequelize/ModelSeriesSchema'
 import { RolesModel } from '../../../../User/Role/infrastructure/sequelize/RolesSchema'
@@ -35,36 +36,40 @@ export function InitSequelizeAssociation (): void {
   // Device Associations
   DeviceModel.belongsTo(ModelSeriesModel, { as: 'model' }) // A device belongs to a model series
   DeviceModel.belongsTo(StatusModel, { as: 'status' }) // A device belongs to a status
-  DeviceModel.hasOne(HardDriveModel, { as: 'hardDrive', foreignKey: 'device_id' })
-  DeviceModel.hasOne(ComputerModel, { as: 'computer', foreignKey: 'device_id' })
+  DeviceModel.hasOne(HardDriveModel, { as: 'hardDrive', foreignKey: 'device_id' }) // A device has one hard drive
+  DeviceModel.hasOne(ComputerModel, { as: 'computer', foreignKey: 'device_id' }) // A device has one computer
   // HardDrive Associations
-  HardDriveCapacityModel.hasMany(HardDriveModel, { as: 'hardDrive' })
-  HardDriveCapacityModel.hasMany(ComputerModel, { as: 'computer' })
-  HardDriveTypeModel.hasMany(HardDriveModel, { as: 'hardDrive' })
-  HardDriveTypeModel.hasMany(ComputerModel, { as: 'computer' })
-  HardDriveModel.belongsTo(HardDriveCapacityModel, { as: 'hardDriveCapacity' })
-  HardDriveModel.belongsTo(HardDriveTypeModel, { as: 'hardDriveType' })
-  HardDriveModel.belongsTo(DeviceModel, { as: 'device', foreignKey: 'device_id' })
+  HardDriveCapacityModel.hasMany(HardDriveModel, { as: 'hardDrive' }) // A hard drive capacity can have many hard drives
+  HardDriveCapacityModel.hasMany(ComputerModel, { as: 'computer' }) // A hard drive capacity can have many computers
+  HardDriveTypeModel.hasMany(HardDriveModel, { as: 'hardDrive' }) // A hard drive type can have many hard drives
+  HardDriveTypeModel.hasMany(ComputerModel, { as: 'computer' }) // A hard drive type can have many computers
+  HardDriveModel.belongsTo(HardDriveCapacityModel, { as: 'hardDriveCapacity' }) // A hard drive belongs to a hard drive capacity
+  HardDriveModel.belongsTo(HardDriveTypeModel, { as: 'hardDriveType' }) // A hard drive belongs to a hard drive type
+  HardDriveModel.belongsTo(DeviceModel, { as: 'device', foreignKey: 'device_id' }) // A hard drive belongs to a device
 
   // Processor Associations
-  ProcessorModel.hasMany(ComputerModel, { as: 'computer' })
+  ProcessorModel.hasMany(ComputerModel, { as: 'computer' }) // A processor can have many computers
 
   // Operating System Associations
   OperatingSystemModel.hasMany(ComputerModel, { as: 'device' }) // An operating system can have many devices
   OperatingSystemArqModel.hasMany(ComputerModel, { as: 'device' }) // An operating system arq can have many devices
 
   // Computer Associations
-  ComputerModel.belongsTo(CategoryModel, { as: 'category' })
-  ComputerModel.belongsTo(DeviceModel, { as: 'device', foreignKey: 'device_id' })
-  ComputerModel.belongsTo(ProcessorModel, { as: 'processor' })
-  ComputerModel.belongsTo(HardDriveCapacityModel, { as: 'hardDriveCapacity' })
-  ComputerModel.belongsTo(HardDriveTypeModel, { as: 'hardDriveType' })
-  ComputerModel.belongsTo(OperatingSystemModel, { as: 'operatingSystem' })
-  ComputerModel.belongsTo(OperatingSystemArqModel, { as: 'operatingSystemArq' })
+  ComputerModel.belongsTo(CategoryModel, { as: 'category' }) // A computer belongs to a category
+  ComputerModel.belongsTo(DeviceModel, { as: 'device', foreignKey: 'device_id' }) // A computer belongs to a device
+  ComputerModel.belongsTo(ProcessorModel, { as: 'processor' }) // A computer belongs to a processor
+  ComputerModel.belongsTo(HardDriveCapacityModel, { as: 'hardDriveCapacity' }) // A computer belongs to a hard drive
+  ComputerModel.belongsTo(HardDriveTypeModel, { as: 'hardDriveType' }) // A computer belongs to a hard drive
+  ComputerModel.belongsTo(OperatingSystemModel, { as: 'operatingSystem' }) // A computer belongs to an operating system
+  ComputerModel.belongsTo(OperatingSystemArqModel, { as: 'operatingSystemArq' }) // A computer belongs to an operating system arq
 
   // Role Associations
   RolesModel.hasMany(UserModel, { as: 'user' }) // A role can have many users or all
 
   // User Associations
   UserModel.belongsTo(RolesModel, { as: 'role' }) // A user belongs to a role
+  UserModel.hasMany(HistoryModel, { as: 'history' }) // A user can have many history
+
+  // History Associations
+  HistoryModel.belongsTo(UserModel, { as: 'user' }) // a history belongs to a user
 }

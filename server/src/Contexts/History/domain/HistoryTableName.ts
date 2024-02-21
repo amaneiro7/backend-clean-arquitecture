@@ -30,7 +30,7 @@ export class TableName extends StringValueObject {
   // Ensure the validity of the hard drive Type value
   private ensureIsValidName (value: string): void {
     if (this.isTableNameValid(value)) {
-      throw new InvalidArgumentError(`<${value}> does not exist`)
+      throw new InvalidArgumentError(`this table name <${value}> does not exist`)
     }
   }
 

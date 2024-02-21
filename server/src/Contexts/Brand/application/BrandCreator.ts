@@ -1,7 +1,7 @@
-import { type Repository } from '../../../Shared/domain/Repository'
-import { Brand } from '../../domain/Brand'
-import { BrandAlreadyExistError } from '../../domain/BrandAlreadyExistError'
-import { BrandName } from '../../domain/BrandName'
+import { type Repository } from '../../Shared/domain/Repository'
+import { Brand } from '../domain/Brand'
+import { BrandAlreadyExistError } from '../domain/BrandAlreadyExistError'
+import { BrandName } from '../domain/BrandName'
 
 export class BrandCreator {
   constructor (private readonly repository: Repository) {}

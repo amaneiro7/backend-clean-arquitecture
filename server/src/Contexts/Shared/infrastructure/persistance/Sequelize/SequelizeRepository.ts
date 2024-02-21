@@ -10,6 +10,7 @@ import { SequelizeMemoryRamTypeRepository } from '../../../../Features/MemoryRam
 import { SequelizeOperatingSystemRepository } from '../../../../Features/OperatingSystem/OperatingSystem/infraesructure/sequelize/SequelizeOperatingSystemRepository'
 import { SequelizeOperatingSystemArqRepository } from '../../../../Features/OperatingSystem/OperatingSystemArq/infraestructure/sequelize/SequelizeOperatingSystemArqRepository'
 import { SequelizeProcessorRepository } from '../../../../Features/Processor/infraestructure/sequelize/SequelizeProcessorRepository'
+import { SequelizeHistoryRepository } from '../../../../History/infrastructure/sequelize/SequelizeHistoryRepository'
 import { SequelizeModelSeriesRepository } from '../../../../ModelSeries/ModelSeries/infraestructure/Sequelize/SequelizeModelSeriesRepository'
 import { SequelizeRolesRepository } from '../../../../User/Role/infrastructure/sequelize/SequelizeRolesRepository'
 import { SequelizeUserRepository } from '../../../../User/infrastructure/persistence/Sequelize/SequelizeUserRepository'
@@ -33,5 +34,6 @@ export const sequelizeRepository: Repository = {
   operatingSystemVersion: new SequelizeOperatingSystemRepository(),
   operatingSystemArq: new SequelizeOperatingSystemArqRepository(),
   computer: new SequelizeComputerRepository(),
-  role: new SequelizeRolesRepository()
+  role: new SequelizeRolesRepository(),
+  history: new SequelizeHistoryRepository()
 }

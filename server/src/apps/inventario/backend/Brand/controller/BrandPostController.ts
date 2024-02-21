@@ -1,8 +1,8 @@
 import { type NextFunction, type Request, type Response } from 'express'
 import { type Repository } from '../../../../../Contexts/Shared/domain/Repository'
 import httpStatus from 'http-status'
-import { BrandCreator } from '../../../../../Contexts/Brand/application/Create/BrandCreator'
-import { BrandUpdater } from '../../../../../Contexts/Brand/application/update/BrandUpdater'
+import { BrandCreator } from '../../../../../Contexts/Brand/application/BrandCreator'
+import { BrandUpdater } from '../../../../../Contexts/Brand/application/BrandUpdater'
 
 export class BrandPostController {
   constructor (private readonly repository: Repository) {}
