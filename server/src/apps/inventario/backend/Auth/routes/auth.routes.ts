@@ -2,6 +2,7 @@ import { Router } from 'express'
 import passport from 'passport'
 import { Strategy } from '../../../../../Contexts/User/infrastructure/auth/passport'
 import { AuthPostController } from '../controller/AuthPostController'
+import { deleteTokenHttpOnly } from '../../Shared/Middleware/deleteTokenHttpOnly'
 
 // import { validatorHandler } from '../../middleware/validatorHandler'
 
@@ -13,6 +14,10 @@ export const createAuthRouter = (): Router => {
   router.post('/login/local',
     passport.authenticate(Strategy.LOCAL, { session: false }),
     authPostController.loginLocal
+  )
+
+  router.delete('/logout',
+    deleteTokenHttpOnly
   )
 
   // router.patch(
