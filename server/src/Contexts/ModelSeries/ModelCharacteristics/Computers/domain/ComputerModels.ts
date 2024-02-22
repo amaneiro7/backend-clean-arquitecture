@@ -1,15 +1,20 @@
-import { type BrandId } from '../../../../Brand/domain/BrandId'
-import { type CategoryId } from '../../../../Category/domain/CategoryId'
-import { type MemoryRamType } from '../../../../Features/MemoryRam/MemoryRamType/domain/MemoryRamType'
+import { BrandId } from '../../../../Brand/domain/BrandId'
+import { CategoryId } from '../../../../Category/domain/CategoryId'
+import { MemoryRamTypeId } from '../../../../Features/MemoryRam/MemoryRamType/domain/MemoryRamTypeId'
+import { ProcessorSocketId } from '../../../../Features/Processor/ProcessorSocket/domain/ProcessorSocketId'
 import { ModelSeries, type ModelSeriesPrimitives } from '../../../ModelSeries/domain/ModelSeries'
-import { type ModelSeriesId } from '../../../ModelSeries/domain/ModelSeriesId'
-import { type ModelSeriesName } from '../../../ModelSeries/domain/ModelSeriesName'
+import { ModelSeriesId } from '../../../ModelSeries/domain/ModelSeriesId'
+import { ModelSeriesName } from '../../../ModelSeries/domain/ModelSeriesName'
 import { HasBluetooth } from './HasBluetooth'
+import { HasDVI } from './HasDVI'
+import { HasHDMI } from './HasHDMI'
+import { HasVGA } from './HasVGA'
 import { HasWifiAdapter } from './HasWifiAdapter'
+import { MemoryRamSlotQuantity } from './MemoryRamSlotQuantity'
 
 export interface ComputerModelsPrimitives extends ModelSeriesPrimitives {
-  processorSocket: string
-  memoryRamType: string
+  processorSocketId: number
+  memoryRamTypeId: number
   memoryRamSlotQuantity: number
   hasBluetooth: boolean
   hasWifiAdapter: boolean
@@ -24,16 +29,46 @@ export class ComputerModels extends ModelSeries {
     name: ModelSeriesName,
     categoryId: CategoryId,
     brandId: BrandId,
-    private readonly processorSocket: string,
-    private readonly memoryRamType: MemoryRamType,
-    private readonly memoryRamSlotQuantity: number,
+    private readonly processorSocketId: ProcessorSocketId,
+    private readonly memoryRamTypeId: MemoryRamTypeId,
+    private readonly memoryRamSlotQuantity: MemoryRamSlotQuantity,
     private readonly hasBluetooth: HasBluetooth,
     private readonly hasWifiAdapter: HasWifiAdapter,
-    private readonly hasDVI: boolean,
-    private readonly hasHDMI: boolean,
-    private readonly hasVGA: boolean
+    private readonly hasDVI: HasDVI,
+    private readonly hasHDMI: HasHDMI,
+    private readonly hasVGA: HasVGA
   ) {
     super(id, name, categoryId, brandId)
+  }
+
+  static create ({
+    name,
+    categoryId,
+    brandId,
+    processorSocketId,
+    memoryRamTypeId,
+    memoryRamSlotQuantity,
+    hasBluetooth,
+    hasWifiAdapter,
+    hasDVI,
+    hasHDMI,
+    hasVGA
+  }: Omit<ComputerModelsPrimitives, 'id'>): ComputerModels {
+    const id = String(ModelSeriesId.random())
+    return new ComputerModels(
+      new ModelSeriesId(id),
+      new ModelSeriesName(name),
+      new CategoryId(categoryId),
+      new BrandId(brandId),
+      new ProcessorSocketId(processorSocketId),
+      new MemoryRamTypeId(memoryRamTypeId),
+      new MemoryRamSlotQuantity(memoryRamSlotQuantity),
+      new HasBluetooth(hasBluetooth),
+      new HasWifiAdapter(hasWifiAdapter),
+      new HasDVI(hasDVI),
+      new HasHDMI(hasHDMI),
+      new HasVGA(hasVGA)
+    )
   }
 
   static fromPrimitives (primitives: ComputerModelsPrimitives): ComputerModels {
@@ -42,50 +77,63 @@ export class ComputerModels extends ModelSeries {
       new ModelSeriesName(primitives.name),
       new CategoryId(primitives.categoryId),
       new BrandId(primitives.brandId),
+      new ProcessorSocketId(primitives.processorSocketId),
+      new MemoryRamTypeId(primitives.memoryRamTypeId),
+      new MemoryRamSlotQuantity(primitives.memoryRamSlotQuantity),
       new HasBluetooth(primitives.hasBluetooth),
-      new HasWifiAdapter(primitives.hasWifiAdapter)
-
+      new HasWifiAdapter(primitives.hasWifiAdapter),
+      new HasDVI(primitives.hasDVI),
+      new HasHDMI(primitives.hasHDMI),
+      new HasVGA(primitives.hasVGA)
     )
   }
 
-  toPrimitives (): ModelSeriesPrimitives {
+  toPrimitives (): ComputerModelsPrimitives {
     return {
       id: this.idValue,
       name: this.nameValue,
       categoryId: this.categoryIdValue,
-      brandId: this.brandIdValue
+      brandId: this.brandIdValue,
+      processorSocketId: this.ProcessorSocketValue,
+      memoryRamTypeId: this.memoryRamTypeValue,
+      memoryRamSlotQuantity: this.memoryRamSlotQuantityValue,
+      hasBluetooth: this.hasBluetoothValue,
+      hasWifiAdapter: this.hasWifiAdapterValue,
+      hasDVI: this.hasDVIValue,
+      hasHDMI: this.hasHDMIValue,
+      hasVGA: this.hasVGAValue
     }
   }
 
-  get ProcessorSocketValue (): string {
-    return this.processorSocket
+  get ProcessorSocketValue (): number {
+    return this.processorSocketId.value
   }
 
-  get memoryRamTypeValue (): string {
-    return this.memoryRamType
+  get memoryRamTypeValue (): number {
+    return this.memoryRamTypeId.value
   }
 
   get memoryRamSlotQuantityValue (): number {
-    return this.memoryRamSlotQuantity
+    return this.memoryRamSlotQuantity.value
   }
 
   get hasBluetoothValue (): boolean {
-    return this.hasBluetooth
+    return this.hasBluetooth.value
   }
 
   get hasWifiAdapterValue (): boolean {
-    return this.hasWifiAdapter
+    return this.hasWifiAdapter.value
   }
 
   get hasDVIValue (): boolean {
-    return this.hasDVI
+    return this.hasDVI.value
   }
 
   get hasHDMIValue (): boolean {
-    return this.hasHDMI
+    return this.hasHDMI.value
   }
 
   get hasVGAValue (): boolean {
-    return this.hasVGA
+    return this.hasVGA.value
   }
 }
