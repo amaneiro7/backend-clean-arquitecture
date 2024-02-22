@@ -1,4 +1,4 @@
-import { type Repository } from '../../../Shared/domain/Repository'
+import { type Repository } from '../../../../Shared/domain/Repository'
 import { ProcessorCannotDeleteIsNotEmptyError } from '../domain/ProcessorCannotDeleteIsNotEmptyError'
 import { ProcessorDoesNotExistError } from '../domain/ProcessorDoesNotExistError'
 import { ProcessorId } from '../domain/ProcessorId'

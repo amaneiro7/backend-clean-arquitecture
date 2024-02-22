@@ -9,7 +9,7 @@ import { SequelizeHardDriveTypeRepository } from '../../../../Features/HardDrive
 import { SequelizeMemoryRamTypeRepository } from '../../../../Features/MemoryRam/MemoryRamType/infraestructure/sequelize/SequelizeMemoryRamTypeRepository'
 import { SequelizeOperatingSystemRepository } from '../../../../Features/OperatingSystem/OperatingSystem/infraesructure/sequelize/SequelizeOperatingSystemRepository'
 import { SequelizeOperatingSystemArqRepository } from '../../../../Features/OperatingSystem/OperatingSystemArq/infraestructure/sequelize/SequelizeOperatingSystemArqRepository'
-import { SequelizeProcessorRepository } from '../../../../Features/Processor/infraestructure/sequelize/SequelizeProcessorRepository'
+import { SequelizeProcessorRepository } from '../../../../Features/Processor/Processor/infrastructure/sequelize/SequelizeProcessorRepository'
 import { SequelizeHistoryRepository } from '../../../../History/infrastructure/sequelize/SequelizeHistoryRepository'
 import { SequelizeModelSeriesRepository } from '../../../../ModelSeries/ModelSeries/infraestructure/Sequelize/SequelizeModelSeriesRepository'
 import { SequelizeRolesRepository } from '../../../../User/Role/infrastructure/sequelize/SequelizeRolesRepository'

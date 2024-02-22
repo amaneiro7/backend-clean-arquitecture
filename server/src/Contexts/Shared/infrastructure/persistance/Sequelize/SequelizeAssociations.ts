@@ -8,7 +8,7 @@ import { HardDriveCapacityModel } from '../../../../Features/HardDrive.ts/HardDr
 import { HardDriveTypeModel } from '../../../../Features/HardDrive.ts/HardDriveType/infraestructure/sequelize/HardDriveTypeSchema'
 import { OperatingSystemModel } from '../../../../Features/OperatingSystem/OperatingSystem/infraesructure/sequelize/OperatingSystemSchema'
 import { OperatingSystemArqModel } from '../../../../Features/OperatingSystem/OperatingSystemArq/infraestructure/sequelize/OperatingSystemArqSchema'
-import { ProcessorModel } from '../../../../Features/Processor/infraestructure/sequelize/ProcessorSchema'
+import { ProcessorModel } from '../../../../Features/Processor/Processor/infrastructure/sequelize/ProcessorSchema'
 import { HistoryModel } from '../../../../History/infrastructure/sequelize/HistorySchema'
 
 import { ModelSeriesModel } from '../../../../ModelSeries/ModelSeries/infraestructure/Sequelize/ModelSeriesSchema'

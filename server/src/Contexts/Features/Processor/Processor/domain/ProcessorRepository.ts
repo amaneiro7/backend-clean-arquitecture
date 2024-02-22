@@ -1,4 +1,4 @@
-import { type GenericRepository } from '../../../Shared/domain/GenericRepository'
+import { type GenericRepository } from '../../../../Shared/domain/GenericRepository'
 import { type ProcessorPrimitives } from './Processor'
 
 export abstract class ProcessorRepository implements GenericRepository<ProcessorPrimitives> {

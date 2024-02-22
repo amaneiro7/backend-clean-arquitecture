@@ -8,8 +8,8 @@ import { OperatingSystemDoesNotExistError } from '../../OperatingSystem/Operatin
 import { OperatingSystemId } from '../../OperatingSystem/OperatingSystem/domain/OperatingSystemId'
 import { OperatingSystemArqDoesNotExistError } from '../../OperatingSystem/OperatingSystemArq/domain/OperatingSystemArqDoesNotExist'
 import { OperatingSystemArqId } from '../../OperatingSystem/OperatingSystemArq/domain/OperatingSystemArqID'
-import { ProcessorDoesNotExistError } from '../../Processor/domain/ProcessorDoesNotExistError'
-import { ProcessorId } from '../../Processor/domain/ProcessorId'
+import { ProcessorDoesNotExistError } from '../../Processor/Processor/domain/ProcessorDoesNotExistError'
+import { ProcessorId } from '../../Processor/Processor/domain/ProcessorId'
 
 export class ValidationComputerField {
   static async ensureProcessorIdExist (repository: Repository, id: string): Promise<void> {

@@ -1,4 +1,4 @@
-import { type Repository } from '../../../Shared/domain/Repository'
+import { type Repository } from '../../../../Shared/domain/Repository'
 import { Processor } from '../domain/Processor'
 import { ProcessorAlreadyExistError } from '../domain/ProcessorAlreadyExistError'
 import { ProcessorName } from '../domain/ProcessorName'

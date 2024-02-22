@@ -6,7 +6,7 @@ import { HardDriveTypeId } from '../../HardDrive.ts/HardDriveType/domain/HardDri
 import { MemoryRamCapacity } from '../../MemoryRam/MemoryRamCapacity/MemoryRamCapacity'
 import { OperatingSystemId } from '../../OperatingSystem/OperatingSystem/domain/OperatingSystemId'
 import { OperatingSystemArqId } from '../../OperatingSystem/OperatingSystemArq/domain/OperatingSystemArqID'
-import { ProcessorId } from '../../Processor/domain/ProcessorId'
+import { ProcessorId } from '../../Processor/Processor/domain/ProcessorId'
 import { ComputerId } from './ComputerId'
 import { IPAddress } from './IPAddress'
 import { MACAddress } from './MACAddress'

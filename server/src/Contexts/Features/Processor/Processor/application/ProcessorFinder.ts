@@ -1,4 +1,4 @@
-import { type Repository } from '../../../Shared/domain/Repository'
+import { type Repository } from '../../../../Shared/domain/Repository'
 import { type ProcessorPrimitives } from '../domain/Processor'
 import { ProcessorDoesNotExistError } from '../domain/ProcessorDoesNotExistError'
 import { type ProcessorId } from '../domain/ProcessorId'

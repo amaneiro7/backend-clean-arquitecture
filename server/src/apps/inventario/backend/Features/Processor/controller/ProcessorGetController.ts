@@ -2,9 +2,9 @@ import { type NextFunction, type Request, type Response } from 'express'
 
 import httpStatus from 'http-status'
 import { type Repository } from '../../../../../../Contexts/Shared/domain/Repository'
-import { SearchAllProcessors } from '../../../../../../Contexts/Features/Processor/application/ProcessorFinderAll'
-import { ProcessorsFinder } from '../../../../../../Contexts/Features/Processor/application/ProcessorFinder'
-import { ProcessorId } from '../../../../../../Contexts/Features/Processor/domain/ProcessorId'
+import { SearchAllProcessors } from '../../../../../../Contexts/Features/Processor/Processor/application/ProcessorFinderAll'
+import { ProcessorsFinder } from '../../../../../../Contexts/Features/Processor/Processor/application/ProcessorFinder'
+import { ProcessorId } from '../../../../../../Contexts/Features/Processor/Processor/domain/ProcessorId'
 
 export class ProcessorGetController {
   constructor (private readonly repository: Repository) {}
