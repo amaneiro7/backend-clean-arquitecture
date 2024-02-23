@@ -6,7 +6,14 @@ import { InitSequelizeAssociation } from './SequelizeAssociations'
 const { postgres: { dbUrl } } = config
 export const sequelize = new Sequelize(dbUrl, {
   dialect: 'postgres',
-  logging: config.isProd ? console.log : false
+  logging: config.isProd ? console.log : false,
+  pool: {
+    max: 5,
+    min: 0,
+    acquire: 30000,
+    idle: 10000
+  }
+
 })
 function initializeDatabase (): void {
   setupModels(sequelize)
