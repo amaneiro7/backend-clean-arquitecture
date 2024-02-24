@@ -1,6 +1,7 @@
 import { DataTypes, Model, type Sequelize } from 'sequelize'
 import { type HistoryPrimitives } from '../../domain/History'
 import { type ActionType, acionTypes } from '../../domain/HistoryAction'
+import { type Models } from '../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
 
 export class HistoryModel extends Model<HistoryPrimitives> implements HistoryPrimitives {
   readonly id!: string
@@ -11,6 +12,10 @@ export class HistoryModel extends Model<HistoryPrimitives> implements HistoryPri
   readonly userId!: string
   readonly oldData!: object
   readonly newData!: object
+
+  public static associate (models: Models): void {
+    this.belongsTo(models.User, { as: 'user' }) // A history belongs to a user
+  }
 }
 
 export function initHistoryModel (sequelize: Sequelize): void {

@@ -1,5 +1,6 @@
 import { DataTypes, Model, type Sequelize } from 'sequelize'
 import { type HardDrivePrimitives } from '../../domain/HardDrive'
+import { type Models } from '../../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
 
 export class HardDriveModel extends Model<HardDrivePrimitives> implements HardDrivePrimitives {
   readonly id!: string
@@ -8,6 +9,12 @@ export class HardDriveModel extends Model<HardDrivePrimitives> implements HardDr
   readonly health!: number
   readonly hardDriveCapacityId!: number
   readonly hardDriveTypeId!: number
+
+  public static associate (models: Models): void {
+    this.belongsTo(models.HardDriveCapacity, { as: 'hardDriveCapacity' })
+    this.belongsTo(models.HardDriveType, { as: 'hardDriveType' })
+    this.belongsTo(models.Device, { as: 'device', foreignKey: 'device_id' })
+  }
 }
 
 export function initHardDriveModel (sequelize: Sequelize): void {

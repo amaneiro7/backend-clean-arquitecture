@@ -1,5 +1,6 @@
 import { DataTypes, Model, type Sequelize } from 'sequelize'
 import { type UserPrimitives } from '../../../domain/User'
+import { type Models } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
 
 export class UserModel extends Model<UserPrimitives> implements UserPrimitives {
   readonly id!: string
@@ -8,6 +9,11 @@ export class UserModel extends Model<UserPrimitives> implements UserPrimitives {
   readonly roleId!: number
   readonly lastName!: string
   readonly password!: string
+
+  public static associate (models: Models): void {
+    this.belongsTo(models.Role, { as: 'role' }) // A user belongs to a role
+    this.hasMany(models.History, { as: 'history' }) // A user can have many history
+  }
 }
 
 export function initUserModel (sequelize: Sequelize): void {

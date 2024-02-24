@@ -1,9 +1,14 @@
 import { DataTypes, Model, type Sequelize } from 'sequelize'
 import { type StatusPrimitives } from '../../domain/Status'
+import { type Models } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
 
 export class StatusModel extends Model<StatusPrimitives> implements StatusPrimitives {
   readonly id!: number
   readonly name!: string
+
+  public static associate (models: Models): void {
+    this.hasMany(models.Device, { as: 'devices' })
+  }
 }
 
 export function initStatusModel (sequelize: Sequelize): void {

@@ -1,5 +1,6 @@
 import { DataTypes, Model, type Sequelize } from 'sequelize'
 import { type ComputerPrimitives } from '../../domain/Computer'
+import { type Models } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
 
 export class ComputerModel extends Model<ComputerPrimitives> implements ComputerPrimitives {
   readonly id!: string
@@ -13,6 +14,16 @@ export class ComputerModel extends Model<ComputerPrimitives> implements Computer
   readonly operatingSystemArqId!: number | null
   readonly macAddress!: string | null
   readonly ipAddress!: string | null
+
+  public static associate (models: Models): void {
+    this.belongsTo(models.Category, { as: 'category' }) // A computer belongs to a category
+    this.belongsTo(models.Device, { as: 'device', foreignKey: 'device_id' }) // A computer belongs to a device
+    this.belongsTo(models.Processor, { as: 'processor' }) // A computer belongs to a processor
+    this.belongsTo(models.HardDriveCapacity, { as: 'hardDriveCapacity' }) // A computer belongs to a hard drive
+    this.belongsTo(models.HardDriveType, { as: 'hardDriveType' }) // A computer belongs to a hard drive
+    this.belongsTo(models.OperatingSystemVersion, { as: 'operatingSystem' }) // A computer belongs to an operating system
+    this.belongsTo(models.OperatingSystemArq, { as: 'operatingSystemArq' }) // A computer belongs to an operating system arq
+  }
 }
 
 export function initComputerModel (sequelize: Sequelize): void {

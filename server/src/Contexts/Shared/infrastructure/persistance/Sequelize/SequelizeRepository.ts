@@ -1,3 +1,4 @@
+import { type ModelStatic, type Model } from 'sequelize'
 import { SequelizeBrandRepository } from '../../../../Brand/infrastructure/Sequelize/SequelizeBrandRepository'
 import { SequelizeCategoryRepository } from '../../../../Category/infrastructure/Sequelize/SequelizeCategoryRepository'
 import { SequelizeDeviceRepository } from '../../../../Device/Device/infrastructure/sequelize/SequelizeDeviceRepository'
@@ -18,6 +19,26 @@ import { type Repository } from '../../../domain/Repository'
 import { initializeDatabase } from './SequelizeConfig'
 
 initializeDatabase()
+
+export interface Models {
+  Category: ModelStatic<Model<any>>
+  Brand: ModelStatic<Model<any>>
+  Model: ModelStatic<Model<any>>
+  ModelComputer: ModelStatic<Model<any>>
+  Device: ModelStatic<Model<any>>
+  Status: ModelStatic<Model<any>>
+  Computer: ModelStatic<Model<any>>
+  HardDrive: ModelStatic<Model<any>>
+  Processor: ModelStatic<Model<any>>
+  MemoryRamType: ModelStatic<Model<any>>
+  HardDriveCapacity: ModelStatic<Model<any>>
+  HardDriveType: ModelStatic<Model<any>>
+  OperatingSystemVersion: ModelStatic<Model<any>>
+  OperatingSystemArq: ModelStatic<Model<any>>
+  User: ModelStatic<Model<any>>
+  Role: ModelStatic<Model<any>>
+  History: ModelStatic<Model<any>>
+}
 
 export const sequelizeRepository: Repository = {
   user: new SequelizeUserRepository(),
