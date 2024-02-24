@@ -16,6 +16,7 @@ import { initOperatingSystemArqModel } from '../../../../Features/OperatingSyste
 import { initComputerModel } from '../../../../Features/Computer/infraestructure/sequelize/ComputerSchema'
 import { initRolesodel } from '../../../../User/Role/infrastructure/sequelize/RolesSchema'
 import { initHistoryModel } from '../../../../History/infrastructure/sequelize/HistorySchema'
+import { initComputerModels } from '../../../../ModelSeries/ModelCharacteristics/Computers/infraestructure/sequelize/ComputerModelsSchema'
 
 export function setupModels (sequelize: Sequelize): void {
   initCategoryModel(sequelize)
@@ -34,4 +35,5 @@ export function setupModels (sequelize: Sequelize): void {
   initOperatingSystemArqModel(sequelize)
   initComputerModel(sequelize)
   initHistoryModel(sequelize)
+  initComputerModels(sequelize)
 }

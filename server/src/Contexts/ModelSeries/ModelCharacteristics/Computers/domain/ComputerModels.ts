@@ -2,6 +2,7 @@ import { BrandId } from '../../../../Brand/domain/BrandId'
 import { CategoryId } from '../../../../Category/domain/CategoryId'
 import { MemoryRamTypeId } from '../../../../Features/MemoryRam/MemoryRamType/domain/MemoryRamTypeId'
 import { ProcessorSocketId } from '../../../../Features/Processor/ProcessorSocket/domain/ProcessorSocketId'
+import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
 import { ModelSeries, type ModelSeriesPrimitives } from '../../../ModelSeries/domain/ModelSeries'
 import { ModelSeriesId } from '../../../ModelSeries/domain/ModelSeriesId'
 import { ModelSeriesName } from '../../../ModelSeries/domain/ModelSeriesName'
@@ -13,14 +14,14 @@ import { HasWifiAdapter } from './HasWifiAdapter'
 import { MemoryRamSlotQuantity } from './MemoryRamSlotQuantity'
 
 export interface ComputerModelsPrimitives extends ModelSeriesPrimitives {
-  processorSocketId: number
-  memoryRamTypeId: number
-  memoryRamSlotQuantity: number
-  hasBluetooth: boolean
-  hasWifiAdapter: boolean
-  hasDVI: boolean
-  hasHDMI: boolean
-  hasVGA: boolean
+  processorSocketId: Primitives<ProcessorSocketId>
+  memoryRamTypeId: Primitives<MemoryRamTypeId>
+  memoryRamSlotQuantity: Primitives<MemoryRamSlotQuantity>
+  hasBluetooth: Primitives<HasBluetooth>
+  hasWifiAdapter: Primitives<HasWifiAdapter>
+  hasDVI: Primitives<HasDVI>
+  hasHDMI: Primitives<HasHDMI>
+  hasVGA: Primitives<HasVGA>
 }
 
 export class ComputerModels extends ModelSeries {
@@ -105,35 +106,35 @@ export class ComputerModels extends ModelSeries {
     }
   }
 
-  get ProcessorSocketValue (): number {
+  get ProcessorSocketValue (): Primitives<ProcessorSocketId> {
     return this.processorSocketId.value
   }
 
-  get memoryRamTypeValue (): number {
+  get memoryRamTypeValue (): Primitives<MemoryRamTypeId> {
     return this.memoryRamTypeId.value
   }
 
-  get memoryRamSlotQuantityValue (): number {
+  get memoryRamSlotQuantityValue (): Primitives<MemoryRamSlotQuantity> {
     return this.memoryRamSlotQuantity.value
   }
 
-  get hasBluetoothValue (): boolean {
+  get hasBluetoothValue (): Primitives<HasBluetooth> {
     return this.hasBluetooth.value
   }
 
-  get hasWifiAdapterValue (): boolean {
+  get hasWifiAdapterValue (): Primitives<HasWifiAdapter> {
     return this.hasWifiAdapter.value
   }
 
-  get hasDVIValue (): boolean {
+  get hasDVIValue (): Primitives<HasDVI> {
     return this.hasDVI.value
   }
 
-  get hasHDMIValue (): boolean {
+  get hasHDMIValue (): Primitives<HasHDMI> {
     return this.hasHDMI.value
   }
 
-  get hasVGAValue (): boolean {
+  get hasVGAValue (): Primitives<HasVGA> {
     return this.hasVGA.value
   }
 }

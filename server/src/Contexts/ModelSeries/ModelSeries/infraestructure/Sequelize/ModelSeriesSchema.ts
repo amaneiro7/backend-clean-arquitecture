@@ -7,6 +7,7 @@ export class ModelSeriesModel extends Model<ModelSeriesPrimitives> implements Mo
   readonly categoryId!: number
   readonly brandId!: string
 }
+
 export function initModelSeriesModel (sequelize: Sequelize): void {
   ModelSeriesModel.init(
     {

@@ -13,6 +13,14 @@ export class SequelizeModelSeriesRepository implements ModelSeriesRepository {
     }) ?? null
   }
 
+  async searchByCategory (categoryId: number): Promise<ModelSeriesPrimitives[]> {
+    return await ModelSeriesModel.findAll(
+      {
+        where: { categoryId },
+        include: ['category', 'brand']
+      })
+  }
+
   async searchByName (name: string): Promise<ModelSeriesPrimitives | null> {
     return await ModelSeriesModel.findOne(
       {

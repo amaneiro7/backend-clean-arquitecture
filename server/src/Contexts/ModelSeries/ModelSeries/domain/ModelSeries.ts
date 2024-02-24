@@ -1,13 +1,14 @@
 import { BrandId } from '../../../Brand/domain/BrandId'
 import { CategoryId } from '../../../Category/domain/CategoryId'
+import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
 import { ModelSeriesId } from './ModelSeriesId'
 import { ModelSeriesName } from './ModelSeriesName'
 
 export interface ModelSeriesPrimitives {
-  id: string
-  name: string
-  brandId: string
-  categoryId: number
+  id: Primitives<ModelSeriesId>
+  name: Primitives<ModelSeriesName>
+  categoryId: Primitives<CategoryId>
+  brandId: Primitives<BrandId>
 }
 
 export class ModelSeries {
@@ -18,7 +19,7 @@ export class ModelSeries {
     private brandId: BrandId
   ) {}
 
-  static create ({ name, brandId, categoryId }: { name: string, brandId: string, categoryId: number }): ModelSeries {
+  static create ({ name, brandId, categoryId }: Omit<ModelSeriesPrimitives, 'id'>): ModelSeries {
     const id = String(ModelSeriesId.random())
     return new ModelSeries(
       new ModelSeriesId(id),
@@ -58,19 +59,19 @@ export class ModelSeries {
     }
   }
 
-  get idValue (): string {
+  get idValue (): Primitives<ModelSeriesId> {
     return this.id.value
   }
 
-  get nameValue (): string {
+  get nameValue (): Primitives<ModelSeriesName> {
     return this.name.value
   }
 
-  get categoryIdValue (): number {
+  get categoryIdValue (): Primitives<CategoryId> {
     return this.categoryId.value
   }
 
-  get brandIdValue (): string {
+  get brandIdValue (): Primitives<BrandId> {
     return this.brandId.value
   }
 }

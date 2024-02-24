@@ -1,14 +1,19 @@
-import { type GenericRepository } from '../../../Shared/domain/GenericRepository'
+import { type CategoryId } from '../../../Category/domain/CategoryId'
+import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
 import { type ModelSeriesPrimitives } from './ModelSeries'
+import { type ModelSeriesId } from './ModelSeriesId'
+import { type ModelSeriesName } from './ModelSeriesName'
 
-export abstract class ModelSeriesRepository implements GenericRepository<ModelSeriesPrimitives> {
+export abstract class ModelSeriesRepository {
   abstract save (payload: ModelSeriesPrimitives): Promise<void>
 
   abstract searchAll (): Promise<ModelSeriesPrimitives[]>
 
-  abstract searchById (id: string): Promise<ModelSeriesPrimitives | null>
+  abstract searchById (id: Primitives<ModelSeriesId>): Promise<ModelSeriesPrimitives | null>
 
-  abstract searchByName (name: string): Promise<ModelSeriesPrimitives | null>
+  abstract searchByName (name: Primitives<ModelSeriesName>): Promise<ModelSeriesPrimitives | null>
 
-  abstract remove (id: string): Promise<void>
+  abstract searchByCategory (categoryId: Primitives<CategoryId>): Promise<ModelSeriesPrimitives[]>
+
+  abstract remove (id: Primitives<ModelSeriesId>): Promise<void>
 }
