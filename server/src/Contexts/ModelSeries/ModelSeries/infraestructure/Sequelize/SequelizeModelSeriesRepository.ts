@@ -3,6 +3,8 @@ import { sequelize } from '../../../../Shared/infrastructure/persistance/Sequeli
 import { type Models } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
 import { ComputerModels } from '../../../ModelCharacteristics/Computers/Computer/domain/ComputerModels'
 import { LaptopsModels } from '../../../ModelCharacteristics/Computers/Laptops/domain/LaptopsModels'
+import { MonitorModels } from '../../../ModelCharacteristics/Monitors/domain/MonitorModels'
+import { ModelPrinters } from '../../../ModelCharacteristics/Printers/Printers/domain/ModelPrinters'
 import { type ModelSeriesPrimitives } from '../../domain/ModelSeries'
 import { type ModelSeriesId } from '../../domain/ModelSeriesId'
 import { type ModelSeriesRepository } from '../../domain/ModelSeriesRepository'
@@ -55,6 +57,14 @@ export class SequelizeModelSeriesRepository implements ModelSeriesRepository {
     if (LaptopsModels.isLaptopCategory({ categoryId })) {
       await this.createModelLaptopIfCategoryMatches(id, payload)
     }
+
+    if (MonitorModels.isMonitorCategory({ categoryId })) {
+      await this.createModelMonitorIfCategoryMatches(id, payload)
+    }
+
+    if (ModelPrinters.isPrinterCategory({ categoryId })) {
+      await this.createModelPrinterIfCategoryMatches(id, payload)
+    }
   }
 
   private async createModelComputerIfCategoryMatches (id: Primitives<ModelSeriesId>, payload: ModelSeriesPrimitives): Promise<void> {
@@ -63,6 +73,14 @@ export class SequelizeModelSeriesRepository implements ModelSeriesRepository {
 
   private async createModelLaptopIfCategoryMatches (id: Primitives<ModelSeriesId>, payload: ModelSeriesPrimitives): Promise<void> {
     await this.models.ModelLaptop.create({ modelSeriesId: id, ...payload })
+  }
+
+  private async createModelMonitorIfCategoryMatches (id: Primitives<ModelSeriesId>, payload: ModelSeriesPrimitives): Promise<void> {
+    await this.models.ModelMonitor.create({ modelSeriesId: id, ...payload })
+  }
+
+  private async createModelPrinterIfCategoryMatches (id: Primitives<ModelSeriesId>, payload: ModelSeriesPrimitives): Promise<void> {
+    await this.models.ModelPrinter.create({ modelSeriesId: id, ...payload })
   }
 
   async remove (id: string): Promise<void> {
