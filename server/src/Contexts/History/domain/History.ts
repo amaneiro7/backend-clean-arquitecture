@@ -1,4 +1,4 @@
-import { UserId } from '../../User/domain/UserId'
+import { UserId } from '../../User/user/domain/UserId'
 import { CreatedAt } from './CreatedAt'
 import { Action, type ActionType } from './HistoryAction'
 import { HistoryId } from './HistoryId'

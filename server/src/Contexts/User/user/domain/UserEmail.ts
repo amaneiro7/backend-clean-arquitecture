@@ -1,5 +1,5 @@
-import { InvalidArgumentError } from '../../Shared/domain/value-object/InvalidArgumentError'
-import { StringValueObject } from '../../Shared/domain/value-object/StringValueObject'
+import { InvalidArgumentError } from '../../../Shared/domain/value-object/InvalidArgumentError'
+import { StringValueObject } from '../../../Shared/domain/value-object/StringValueObject'
 
 export class UserEmail extends StringValueObject {
   private readonly validEmailRegExp =

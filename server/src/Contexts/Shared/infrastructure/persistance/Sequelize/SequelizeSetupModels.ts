@@ -3,7 +3,7 @@ import { initModelSeriesModel } from '../../../../ModelSeries/ModelSeries/infrae
 import { initCategoryModel } from '../../../../Category/infrastructure/Sequelize/CategorySchema'
 import { initBrandModel } from '../../../../Brand/infrastructure/Sequelize/BrandSchema'
 import { initDeviceModel } from '../../../../Device/Device/infrastructure/sequelize/DeviceSchema'
-import { initUserModel } from '../../../../User/infrastructure/persistence/Sequelize/UserSchema'
+import { initUserModel } from '../../../../User/user/infrastructure/persistance/Sequelize/UserSchema'
 import { initStatusModel } from '../../../../Device/Status/infrastructure/sequelize/StatusSchema'
 import { initHardDriveCapacityModel } from '../../../../Features/HardDrive.ts/HardDriveCapacity/infraestructure/sequelize/HardDriveCapacitySchema'
 import { initHardDriveTypeModel } from '../../../../Features/HardDrive.ts/HardDriveType/infraestructure/sequelize/HardDriveTypeSchema'

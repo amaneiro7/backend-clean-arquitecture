@@ -1,7 +1,7 @@
 import { type Repository } from '../../../Shared/domain/Repository'
-import { type UserPrimitives } from '../../domain/User'
-import { UserDoesNotExistError } from '../../domain/UserDoesNotExistError'
-import { type UserEmail } from '../../domain/UserEmail'
+import { type UserPrimitives } from '../domain/User'
+import { UserDoesNotExistError } from '../domain/UserDoesNotExistError'
+import { type UserEmail } from '../domain/UserEmail'
 
 export class UserFinder {
   constructor (private readonly repository: Repository) {}

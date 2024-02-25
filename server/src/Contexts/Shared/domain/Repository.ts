@@ -3,7 +3,7 @@ import { type CategoryRepository } from '../../Category/domain/CategoryRepositor
 import { type StatusRepository } from '../../Device/Status/domain/StatusRepository'
 import { type DeviceRepository } from '../../Device/Device/domain/DeviceRepository'
 import { type ModelSeriesRepository } from '../../ModelSeries/ModelSeries/domain/ModelSeriesRepository'
-import { type UserRepository } from '../../User/domain/UserRepository'
+import { type UserRepository } from '../../User/user/domain/UserRepository'
 import { type HardDriveTypeRepository } from '../../Features/HardDrive.ts/HardDriveType/domain/HardDriveTypeRepository'
 import { type HardDriveCapacityRepository } from '../../Features/HardDrive.ts/HardDriveCapacity/domain/HardDriveCapacityRepository'
 import { type HardDriveRepository } from '../../Features/HardDrive.ts/HardDrive/domain/HardDriveRepository'

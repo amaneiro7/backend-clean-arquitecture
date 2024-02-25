@@ -1,5 +1,5 @@
 import { type Repository } from '../../../Contexts/Shared/domain/Repository'
-import { createPassportInstance } from '../../../Contexts/User/infrastructure/auth/passport'
+import { createPassportInstance } from '../../../Contexts/User/user/infrastructure/auth/passport'
 import { Server } from './server'
 
 export class InventarioBackendApp {

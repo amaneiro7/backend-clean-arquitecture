@@ -1,6 +1,6 @@
 import { DataTypes, Model, type Sequelize } from 'sequelize'
 import { type UserPrimitives } from '../../../domain/User'
-import { type Models } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
+import { type Models } from '../../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
 
 export class UserModel extends Model<UserPrimitives> implements UserPrimitives {
   readonly id!: string

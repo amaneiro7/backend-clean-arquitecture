@@ -1,6 +1,6 @@
 import { sign, type JwtPayload } from 'jsonwebtoken'
 import { config } from '../../Shared/infrastructure/config'
-import { type UserPrimitives } from '../../User/domain/User'
+import { type UserPrimitives } from '../../User/user/domain/User'
 
 export interface Tokens {
   accessToken: string

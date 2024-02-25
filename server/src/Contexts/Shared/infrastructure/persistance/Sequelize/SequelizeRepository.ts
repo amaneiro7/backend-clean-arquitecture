@@ -14,7 +14,7 @@ import { SequelizeProcessorRepository } from '../../../../Features/Processor/Pro
 import { SequelizeHistoryRepository } from '../../../../History/infrastructure/sequelize/SequelizeHistoryRepository'
 import { SequelizeModelSeriesRepository } from '../../../../ModelSeries/ModelSeries/infraestructure/Sequelize/SequelizeModelSeriesRepository'
 import { SequelizeRolesRepository } from '../../../../User/Role/infrastructure/sequelize/SequelizeRolesRepository'
-import { SequelizeUserRepository } from '../../../../User/infrastructure/persistence/Sequelize/SequelizeUserRepository'
+import { SequelizeUserRepository } from '../../../../User/user/infrastructure/persistance/Sequelize/SequelizeUserRepository'
 import { type Repository } from '../../../domain/Repository'
 import { initializeDatabase } from './SequelizeConfig'
 import { SequelizeProcessorSocketRepository } from '../../../../Features/Processor/ProcessorSocket/infrastructure/sequelize/SequelizeProcessorSocketRepository'

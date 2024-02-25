@@ -1,4 +1,4 @@
-import { type Repository } from '../../Shared/domain/Repository'
+import { type Repository } from '../../../Shared/domain/Repository'
 import { UserDoesNotExistError } from '../domain/UserDoesNotExistError'
 import { UserEmail } from '../domain/UserEmail'
 

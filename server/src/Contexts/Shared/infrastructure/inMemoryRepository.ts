@@ -5,7 +5,7 @@ import { InMemoryComputerFeaturesRepository } from '../../Features/infrastructur
 import { InMemoryHardDriveRepository } from '../../Features/infrastructure/HardDriveInMemory'
 import { InMemoryComputerProcessorRepository } from '../../Features/infrastructure/ProcessorInMemory'
 import { InMemoryModelSeriesRepository } from '../../ModelSeries/ModelSeries/infraestructure/InMemoryModelSeriesRepository'
-import { InMemoryUserRepository } from '../../User/infrastructure/persistence/InMemoryUserRepository'
+import { InMemoryUserRepository } from '../../User/user/infrastructure/persistance/InMemoryUserRepository'
 import { type Repository } from '../domain/Repository'
 
 export const repositoryInMemory: Repository = {

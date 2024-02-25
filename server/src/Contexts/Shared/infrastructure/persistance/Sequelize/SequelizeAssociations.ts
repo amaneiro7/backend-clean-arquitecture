@@ -19,7 +19,7 @@ import { ModelPrinterModel } from '../../../../ModelSeries/ModelCharacteristics/
 
 import { ModelSeriesModel } from '../../../../ModelSeries/ModelSeries/infraestructure/Sequelize/ModelSeriesSchema'
 import { RolesModel } from '../../../../User/Role/infrastructure/sequelize/RolesSchema'
-import { UserModel } from '../../../../User/infrastructure/persistence/Sequelize/UserSchema'
+import { UserModel } from '../../../../User/user/infrastructure/persistance/Sequelize/UserSchema'
 import { sequelize } from './SequelizeConfig'
 import { type Models } from './SequelizeRepository'
 

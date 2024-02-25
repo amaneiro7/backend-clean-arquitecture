@@ -1,4 +1,4 @@
-import { RoleId } from '../Role/domain/RoleId'
+import { RoleId } from '../../Role/domain/RoleId'
 import { UserEmail } from './UserEmail'
 import { UserId } from './UserId'
 import { UserLastName } from './UserLastName'
@@ -24,7 +24,7 @@ export class User {
     private password: UserPassword
   ) {}
 
-  static create ({ email, name, lastName, roleId, password }: UserPrimitives): User {
+  static create ({ email, name, lastName, roleId, password }: Omit<UserPrimitives, 'id'>): User {
     const id = UserId.random().toString()
     return new User(
       new UserId(id),

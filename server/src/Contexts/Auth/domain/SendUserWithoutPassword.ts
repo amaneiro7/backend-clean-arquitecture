@@ -1,4 +1,4 @@
-import { type UserPrimitives } from '../../User/domain/User'
+import { type UserPrimitives } from '../../User/user/domain/User'
 
 type UserWithoutPassowrd = Omit<UserProps, 'password'>
 interface Return {

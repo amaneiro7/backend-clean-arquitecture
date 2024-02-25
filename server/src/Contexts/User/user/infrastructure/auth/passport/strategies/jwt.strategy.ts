@@ -1,5 +1,5 @@
 import { ExtractJwt, Strategy, type StrategyOptions } from 'passport-jwt'
-import { config } from '../../../../../Shared/infrastructure/config'
+import { config } from '../../../../../../Shared/infrastructure/config'
 import { type Request } from 'express'
 
 const jwtOptions: StrategyOptions = {

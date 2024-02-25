@@ -1,6 +1,6 @@
 import { Strategy } from 'passport-local'
-import { type Repository } from '../../../../../Shared/domain/Repository'
-import { UserLoginLocal } from '../../../../../Auth/application/login/UserLoginLocal'
+import { type Repository } from '../../../../../../Shared/domain/Repository'
+import { UserLoginLocal } from '../../../../../../Auth/application/login/UserLoginLocal'
 
 export async function createLocalStrategy ({ repository }: { repository: Repository }): Promise<Strategy> {
   return new Strategy({

@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import passport from 'passport'
-import { Strategy } from '../../../../../Contexts/User/infrastructure/auth/passport'
+import { Strategy } from '../../../../../Contexts/User/user/infrastructure/auth/passport'
 import { AuthPostController } from '../controller/AuthPostController'
 import { deleteTokenHttpOnly } from '../../Shared/Middleware/deleteTokenHttpOnly'
 

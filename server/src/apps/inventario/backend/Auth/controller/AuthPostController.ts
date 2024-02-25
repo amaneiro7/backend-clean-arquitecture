@@ -1,7 +1,7 @@
 import { type NextFunction, type Request, type Response } from 'express'
 import httpStatus from 'http-status'
 
-import { type UserPrimitives } from '../../../../../Contexts/User/domain/User'
+import { type UserPrimitives } from '../../../../../Contexts/User/user/domain/User'
 import { generateTokens } from '../../../../../Contexts/Auth/domain/GenerateToken'
 import { SendUserWithoutPassowrd } from '../../../../../Contexts/Auth/domain/SendUserWithoutPassword'
 
