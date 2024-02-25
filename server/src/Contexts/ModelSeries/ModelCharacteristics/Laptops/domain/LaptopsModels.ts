@@ -1,20 +1,22 @@
-import { BrandId } from '../../../Brand/domain/BrandId'
-import { CategoryId } from '../../../Category/domain/CategoryId'
-import { MemoryRamTypeId } from '../../../Features/MemoryRam/MemoryRamType/domain/MemoryRamTypeId'
-import { ProcessorSocketId } from '../../../Features/Processor/ProcessorSocket/domain/ProcessorSocketId'
-import { ModelSeriesId } from '../../ModelSeries/domain/ModelSeriesId'
-import { ModelSeriesName } from '../../ModelSeries/domain/ModelSeriesName'
-import { ComputerModels, type ComputerModelsPrimitives } from '../Computers/domain/ComputerModels'
-import { HasBluetooth } from '../Computers/domain/HasBluetooth'
-import { HasDVI } from '../Computers/domain/HasDVI'
-import { HasHDMI } from '../Computers/domain/HasHDMI'
-import { HasVGA } from '../Computers/domain/HasVGA'
-import { HasWifiAdapter } from '../Computers/domain/HasWifiAdapter'
-import { MemoryRamSlotQuantity } from '../Computers/domain/MemoryRamSlotQuantity'
+import { BrandId } from '../../../../Brand/domain/BrandId'
+import { CategoryDefaultData, type CategoryValues } from '../../../../Category/domain/CategoryDefaultData'
+import { CategoryId } from '../../../../Category/domain/CategoryId'
+import { MemoryRamTypeId } from '../../../../Features/MemoryRam/MemoryRamType/domain/MemoryRamTypeId'
+import { ProcessorSocketId } from '../../../../Features/Processor/ProcessorSocket/domain/ProcessorSocketId'
+import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
+import { ModelSeriesId } from '../../../ModelSeries/domain/ModelSeriesId'
+import { ModelSeriesName } from '../../../ModelSeries/domain/ModelSeriesName'
+import { ComputerModels, type ComputerModelsPrimitives } from '../../Computers/domain/ComputerModels'
+import { HasBluetooth } from '../../Computers/domain/HasBluetooth'
+import { HasDVI } from '../../Computers/domain/HasDVI'
+import { HasHDMI } from '../../Computers/domain/HasHDMI'
+import { HasVGA } from '../../Computers/domain/HasVGA'
+import { HasWifiAdapter } from '../../Computers/domain/HasWifiAdapter'
+import { MemoryRamSlotQuantity } from '../../Computers/domain/MemoryRamSlotQuantity'
 import { BatterModelName } from './BatteryModelName'
 
 export interface LaptopsModelsPrimitives extends ComputerModelsPrimitives {
-  batteryModel: string
+  batteryModel: Primitives<BatterModelName>
 }
 
 export class LaptopsModels extends ComputerModels {
@@ -69,6 +71,11 @@ export class LaptopsModels extends ComputerModels {
     )
   }
 
+  public static isLaptopCategory ({ categoryId }: { categoryId: Primitives<CategoryId> }): boolean {
+    const AcceptedComputerCategories: CategoryValues[] = ['Laptops']
+    return AcceptedComputerCategories.includes(CategoryDefaultData[categoryId])
+  }
+
   static fromPrimitives (primitives: LaptopsModelsPrimitives): LaptopsModels {
     return new LaptopsModels(
       new ModelSeriesId(primitives.id),
@@ -105,7 +112,7 @@ export class LaptopsModels extends ComputerModels {
     }
   }
 
-  get BatteryModelValue (): string {
+  get BatteryModelValue (): Primitives<BatterModelName> {
     return this.batteryModel.value
   }
 }

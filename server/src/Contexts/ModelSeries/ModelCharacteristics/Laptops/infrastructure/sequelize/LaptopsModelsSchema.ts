@@ -1,23 +1,24 @@
 import { DataTypes, Model, type Sequelize } from 'sequelize'
-import { type ComputerModelsPrimitives } from '../../domain/ComputerModels'
 import { type Primitives } from '../../../../../Shared/domain/value-object/Primitives'
 import { type ProcessorSocketId } from '../../../../../Features/Processor/ProcessorSocket/domain/ProcessorSocketId'
 import { type MemoryRamTypeId } from '../../../../../Features/MemoryRam/MemoryRamType/domain/MemoryRamTypeId'
-import { type MemoryRamSlotQuantity } from '../../domain/MemoryRamSlotQuantity'
-import { type HasBluetooth } from '../../domain/HasBluetooth'
-import { type HasWifiAdapter } from '../../domain/HasWifiAdapter'
-import { type HasDVI } from '../../domain/HasDVI'
-import { type HasHDMI } from '../../domain/HasHDMI'
-import { type HasVGA } from '../../domain/HasVGA'
 import { type CategoryId } from '../../../../../Category/domain/CategoryId'
 import { type ModelSeriesId } from '../../../../ModelSeries/domain/ModelSeriesId'
 import { type Models } from '../../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
+import { type LaptopsModelsPrimitives } from '../../domain/LaptopsModels'
+import { type MemoryRamSlotQuantity } from '../../../Computers/domain/MemoryRamSlotQuantity'
+import { type HasBluetooth } from '../../../Computers/domain/HasBluetooth'
+import { type HasWifiAdapter } from '../../../Computers/domain/HasWifiAdapter'
+import { type HasDVI } from '../../../Computers/domain/HasDVI'
+import { type HasHDMI } from '../../../Computers/domain/HasHDMI'
+import { type HasVGA } from '../../../Computers/domain/HasVGA'
+import { type BatterModelName } from '../../domain/BatteryModelName'
 
-interface ComputerModelsCreationAttributes extends Omit<ComputerModelsPrimitives, 'name' | 'brandId'> {
+interface LaptopModelsCreationAttributes extends Omit<LaptopsModelsPrimitives, 'name' | 'brandId'> {
   modelSeriesId: Primitives<ModelSeriesId>
 }
 
-export class ComputerModelsModel extends Model<ComputerModelsCreationAttributes> implements ComputerModelsCreationAttributes {
+export class LaptopModelsModel extends Model<LaptopModelsCreationAttributes> implements LaptopModelsCreationAttributes {
   public id!: Primitives<ModelSeriesId>
   public modelSeriesId!: Primitives<ModelSeriesId>
   public categoryId!: Primitives<CategoryId>
@@ -29,15 +30,16 @@ export class ComputerModelsModel extends Model<ComputerModelsCreationAttributes>
   public hasDVI!: Primitives<HasDVI>
   public hasHDMI!: Primitives<HasHDMI>
   public hasVGA!: Primitives<HasVGA>
+  public batteryModel!: Primitives<BatterModelName>
 
   public static associate (models: Models): void {
-    this.belongsTo(models.Model, { as: 'model', foreignKey: 'modelSeriesId' }) // A computer model belongs to a model
+    this.belongsTo(models.Model, { as: 'model', foreignKey: 'modelSeriesId' }) // A Laptop model belongs to a model
     this.belongsTo(models.Category, { as: 'category' }) // A computer model belongs to a category
   }
 }
 
-export function initComputerModels (sequelize: Sequelize): void {
-  ComputerModelsModel.init(
+export function initLaptopModels (sequelize: Sequelize): void {
+  LaptopModelsModel.init(
     {
       id: {
         type: DataTypes.UUID,
@@ -54,8 +56,8 @@ export function initComputerModels (sequelize: Sequelize): void {
         allowNull: false,
         validate: {
           isIn: {
-            args: [[1, 2, 4]],
-            msg: 'Solo puede pertenecer a la categoria de Computadoras, Servidores o All in One'
+            args: [[3]],
+            msg: 'Solo puede pertenecer a la categoria de Laptops'
           }
         }
       },
@@ -95,10 +97,14 @@ export function initComputerModels (sequelize: Sequelize): void {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         field: 'has_vga'
+      },
+      batteryModel: {
+        type: DataTypes.STRING,
+        allowNull: false
       }
     },
     {
-      modelName: 'ModelComputer',
+      modelName: 'ModelLaptop',
       underscored: true,
       sequelize
     }

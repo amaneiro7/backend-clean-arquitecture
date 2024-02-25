@@ -16,6 +16,7 @@ import { initComputerModel } from '../../../../Features/Computer/infraestructure
 import { initRolesodel } from '../../../../User/Role/infrastructure/sequelize/RolesSchema'
 import { initHistoryModel } from '../../../../History/infrastructure/sequelize/HistorySchema'
 import { initComputerModels } from '../../../../ModelSeries/ModelCharacteristics/Computers/infraestructure/sequelize/ComputerModelsSchema'
+import { initLaptopModels } from '../../../../ModelSeries/ModelCharacteristics/Laptops/infrastructure/sequelize/LaptopsModelsSchema'
 
 export function setupModels (sequelize: Sequelize): void {
   initCategoryModel(sequelize)
@@ -35,4 +36,5 @@ export function setupModels (sequelize: Sequelize): void {
   initComputerModel(sequelize)
   initHistoryModel(sequelize)
   initComputerModels(sequelize)
+  initLaptopModels(sequelize)
 }

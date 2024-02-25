@@ -25,6 +25,7 @@ export interface Models {
   Brand: ModelStatic<Model<any>>
   Model: ModelStatic<Model<any>>
   ModelComputer: ModelStatic<Model<any>>
+  ModelLaptop: ModelStatic<Model<any>>
   Device: ModelStatic<Model<any>>
   Status: ModelStatic<Model<any>>
   Computer: ModelStatic<Model<any>>
