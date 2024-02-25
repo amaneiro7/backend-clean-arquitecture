@@ -17,6 +17,7 @@ import { SequelizeRolesRepository } from '../../../../User/Role/infrastructure/s
 import { SequelizeUserRepository } from '../../../../User/infrastructure/persistence/Sequelize/SequelizeUserRepository'
 import { type Repository } from '../../../domain/Repository'
 import { initializeDatabase } from './SequelizeConfig'
+import { SequelizeProcessorSocketRepository } from '../../../../Features/Processor/ProcessorSocket/infrastructure/sequelize/SequelizeProcessorSocketRepository'
 
 initializeDatabase()
 
@@ -31,6 +32,7 @@ export interface Models {
   Computer: ModelStatic<Model<any>>
   HardDrive: ModelStatic<Model<any>>
   Processor: ModelStatic<Model<any>>
+  ProcessorSocket: ModelStatic<Model<any>>
   MemoryRamType: ModelStatic<Model<any>>
   HardDriveCapacity: ModelStatic<Model<any>>
   HardDriveType: ModelStatic<Model<any>>
@@ -49,6 +51,7 @@ export const sequelizeRepository: Repository = {
   status: new SequelizeStatusRepository(),
   device: new SequelizeDeviceRepository(),
   processor: new SequelizeProcessorRepository(),
+  processorSocket: new SequelizeProcessorSocketRepository(),
   hardDriveType: new SequelizeHardDriveTypeRepository(),
   hardDriveCapacity: new SequelizeHardDriveCapacityRepository(),
   hardDrive: new SequelizeHardDriveRepository(),

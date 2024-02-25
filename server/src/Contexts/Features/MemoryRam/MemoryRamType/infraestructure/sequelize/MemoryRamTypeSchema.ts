@@ -1,9 +1,18 @@
 import { DataTypes, Model, type Sequelize } from 'sequelize'
 import { type MemoryRamTypePrimitives } from '../../domain/MemoryRamType'
+import { type Models } from '../../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
+import { type Primitives } from '../../../../../Shared/domain/value-object/Primitives'
+import { type MemoryRamTypeId } from '../../domain/MemoryRamTypeId'
+import { type MemoryRamTypeName } from '../../domain/MemoryRamTypeName'
 
 export class MemoryRamTypeModel extends Model<MemoryRamTypePrimitives> implements MemoryRamTypePrimitives {
-  readonly id!: number
-  readonly name!: string
+  readonly id!: Primitives<MemoryRamTypeId>
+  readonly name!: Primitives<MemoryRamTypeName>
+
+  public static associate (models: Models): void {
+    this.hasMany(models.ModelComputer, { as: 'modelComputer' })
+    this.hasMany(models.ModelLaptop, { as: 'modelLaptop' })
+  }
 }
 
 export function initMemoryRamTypeModel (sequelize: Sequelize): void {

@@ -6,9 +6,11 @@ import { ComputerModel } from '../../../../Features/Computer/infraestructure/seq
 import { HardDriveModel } from '../../../../Features/HardDrive.ts/HardDrive/infraestructure/sequelize/HardDriveSchema'
 import { HardDriveCapacityModel } from '../../../../Features/HardDrive.ts/HardDriveCapacity/infraestructure/sequelize/HardDriveCapacitySchema'
 import { HardDriveTypeModel } from '../../../../Features/HardDrive.ts/HardDriveType/infraestructure/sequelize/HardDriveTypeSchema'
+import { MemoryRamTypeModel } from '../../../../Features/MemoryRam/MemoryRamType/infraestructure/sequelize/MemoryRamTypeSchema'
 import { OperatingSystemModel } from '../../../../Features/OperatingSystem/OperatingSystem/infraesructure/sequelize/OperatingSystemSchema'
 import { OperatingSystemArqModel } from '../../../../Features/OperatingSystem/OperatingSystemArq/infraestructure/sequelize/OperatingSystemArqSchema'
 import { ProcessorModel } from '../../../../Features/Processor/Processor/infrastructure/sequelize/ProcessorSchema'
+import { ProcessorSocketModel } from '../../../../Features/Processor/ProcessorSocket/infrastructure/sequelize/ProcessorSocketSchema'
 import { HistoryModel } from '../../../../History/infrastructure/sequelize/HistorySchema'
 import { ComputerModelsModel } from '../../../../ModelSeries/ModelCharacteristics/Computers/infraestructure/sequelize/ComputerModelsSchema'
 
@@ -31,6 +33,8 @@ export function InitSequelizeAssociation (): void {
   HardDriveTypeModel.associate(models) // HardDriveType Associations
   HardDriveModel.associate(models) // HardDrive Associations
   ProcessorModel.associate(models) // Processor Associations
+  ProcessorSocketModel.associate(models) // ProcessorSocket Associations
+  MemoryRamTypeModel.associate(models) // MemoryRamType Associations
   OperatingSystemModel.associate(models) // OperatingSystem Associations
   OperatingSystemArqModel.associate(models) // OperatingSystemArq Associations
   ComputerModel.associate(models)// Computer Associations

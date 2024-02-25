@@ -17,6 +17,7 @@ import { initRolesodel } from '../../../../User/Role/infrastructure/sequelize/Ro
 import { initHistoryModel } from '../../../../History/infrastructure/sequelize/HistorySchema'
 import { initComputerModels } from '../../../../ModelSeries/ModelCharacteristics/Computers/infraestructure/sequelize/ComputerModelsSchema'
 import { initLaptopModels } from '../../../../ModelSeries/ModelCharacteristics/Laptops/infrastructure/sequelize/LaptopsModelsSchema'
+import { initProcessorSocketModel } from '../../../../Features/Processor/ProcessorSocket/infrastructure/sequelize/ProcessorSocketSchema'
 
 export function setupModels (sequelize: Sequelize): void {
   initCategoryModel(sequelize)
@@ -30,6 +31,7 @@ export function setupModels (sequelize: Sequelize): void {
   initHardDriveTypeModel(sequelize)
   initHardDriveModel(sequelize)
   initProcessorModel(sequelize)
+  initProcessorSocketModel(sequelize)
   initMemoryRamTypeModel(sequelize)
   initOperatingSystemModel(sequelize)
   initOperatingSystemArqModel(sequelize)

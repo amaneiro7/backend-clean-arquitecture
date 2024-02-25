@@ -14,6 +14,7 @@ import { type OperatingSystemArqRepository } from '../../Features/OperatingSyste
 import { type ComputerRepository } from '../../Features/Computer/domain/ComputerRepository'
 import { type RoleRepository } from '../../User/Role/domain/RoleRepository'
 import { type HistoryRepository } from '../../History/domain/HistoryRepository'
+import { type ProcessorSocketRepository } from '../../Features/Processor/ProcessorSocket/domain/ProcessorSocketRepository'
 
 export interface Repository {
   user: UserRepository
@@ -26,6 +27,7 @@ export interface Repository {
   hardDriveCapacity: HardDriveCapacityRepository
   hardDrive: HardDriveRepository
   processor: ProcessorRepository
+  processorSocket: ProcessorSocketRepository
   memoryRamType: MemoryRamTypeRepository
   operatingSystemVersion: OperatingSystemRepository
   operatingSystemArq: OperatingSystemArqRepository
