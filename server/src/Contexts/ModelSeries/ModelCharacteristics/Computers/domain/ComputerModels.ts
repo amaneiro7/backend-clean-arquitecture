@@ -73,6 +73,11 @@ export class ComputerModels extends ModelSeries {
     )
   }
 
+  public static isComputerCategory ({ categoryId }: { categoryId: Primitives<CategoryId> }): boolean {
+    const AcceptedComputerCategories: CategoryValues[] = ['Computadoras', 'All in One', 'Servidores']
+    return AcceptedComputerCategories.includes(CategoryDefaultData[categoryId])
+  }
+
   static fromPrimitives (primitives: ComputerModelsPrimitives): ComputerModels {
     return new ComputerModels(
       new ModelSeriesId(primitives.id),
@@ -88,11 +93,6 @@ export class ComputerModels extends ModelSeries {
       new HasHDMI(primitives.hasHDMI),
       new HasVGA(primitives.hasVGA)
     )
-  }
-
-  public static isComputerCategory ({ categoryId }: { categoryId: Primitives<CategoryId> }): boolean {
-    const AcceptedComputerCategories: CategoryValues[] = ['Computadoras', 'All in One', 'Servidores']
-    return AcceptedComputerCategories.includes(CategoryDefaultData[categoryId])
   }
 
   toPrimitives (): ComputerModelsPrimitives {
