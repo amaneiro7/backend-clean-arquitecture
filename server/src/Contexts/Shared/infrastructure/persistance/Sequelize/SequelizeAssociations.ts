@@ -15,6 +15,7 @@ import { HistoryModel } from '../../../../History/infrastructure/sequelize/Histo
 import { ComputerModelsModel } from '../../../../ModelSeries/ModelCharacteristics/Computers/Computer/infrastructure/sequelize/ComputerModelsSchema'
 import { LaptopModelsModel } from '../../../../ModelSeries/ModelCharacteristics/Computers/Laptops/infraestructure/sequelize/LaptopsModelsSchema'
 import { MonitorModelsModel } from '../../../../ModelSeries/ModelCharacteristics/Monitors/infraestructure/MonitorModelSchema'
+import { ModelPrinterModel } from '../../../../ModelSeries/ModelCharacteristics/Printers/Printers/insfraestructure/sequelize/ModelPrinterSchema'
 
 import { ModelSeriesModel } from '../../../../ModelSeries/ModelSeries/infraestructure/Sequelize/ModelSeriesSchema'
 import { RolesModel } from '../../../../User/Role/infrastructure/sequelize/RolesSchema'
@@ -31,6 +32,7 @@ export function InitSequelizeAssociation (): void {
   ComputerModelsModel.associate(models) // Computer Models Associations
   LaptopModelsModel.associate(models) // ModelLaptop Associations
   MonitorModelsModel.associate(models) // ModelMonitor Associations
+  ModelPrinterModel.associate(models) // ModelPrinter Associations
   StatusModel.associate(models) // Status Associations
   DeviceModel.associate(models)// Device Associations
   HardDriveCapacityModel.associate(models) // HardDriveCapacity Associations

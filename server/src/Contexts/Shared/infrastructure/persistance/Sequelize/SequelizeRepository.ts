@@ -28,6 +28,7 @@ export interface Models {
   ModelComputer: ModelStatic<Model<any>>
   ModelLaptop: ModelStatic<Model<any>>
   ModelMonitor: ModelStatic<Model<any>>
+  ModelPrinter: ModelStatic<Model<any>>
   Device: ModelStatic<Model<any>>
   Status: ModelStatic<Model<any>>
   Computer: ModelStatic<Model<any>>
