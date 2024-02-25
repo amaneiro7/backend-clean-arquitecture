@@ -1,6 +1,6 @@
 import { type Repository } from '../../../Shared/domain/Repository'
-import { ComputerModels, type ComputerModelsPrimitives } from '../../ModelCharacteristics/Computers/domain/ComputerModels'
-import { LaptopsModels, type LaptopsModelsPrimitives } from '../../ModelCharacteristics/Laptops/domain/LaptopsModels'
+import { ComputerModels, type ComputerModelsPrimitives } from '../../ModelCharacteristics/Computers/Computer/domain/ComputerModels'
+import { LaptopsModels, type LaptopsModelsPrimitives } from '../../ModelCharacteristics/Computers/Laptops/domain/LaptopsModels'
 import { ModelSeries, type ModelSeriesPrimitives } from '../domain/ModelSeries'
 import { ModelSeriesAlreadyExistError } from '../domain/ModelSeriesAlreadyExistError'
 import { ModelSeriesName } from '../domain/ModelSeriesName'

@@ -12,8 +12,8 @@ import { OperatingSystemArqModel } from '../../../../Features/OperatingSystem/Op
 import { ProcessorModel } from '../../../../Features/Processor/Processor/infrastructure/sequelize/ProcessorSchema'
 import { ProcessorSocketModel } from '../../../../Features/Processor/ProcessorSocket/infrastructure/sequelize/ProcessorSocketSchema'
 import { HistoryModel } from '../../../../History/infrastructure/sequelize/HistorySchema'
-import { ComputerModelsModel } from '../../../../ModelSeries/ModelCharacteristics/Computers/infraestructure/sequelize/ComputerModelsSchema'
-import { LaptopModelsModel } from '../../../../ModelSeries/ModelCharacteristics/Laptops/infrastructure/sequelize/LaptopsModelsSchema'
+import { ComputerModelsModel } from '../../../../ModelSeries/ModelCharacteristics/Computers/Computer/infrastructure/sequelize/ComputerModelsSchema'
+import { LaptopModelsModel } from '../../../../ModelSeries/ModelCharacteristics/Computers/Laptops/infraestructure/sequelize/LaptopsModelsSchema'
 import { MonitorModelsModel } from '../../../../ModelSeries/ModelCharacteristics/Monitors/infraestructure/MonitorModelSchema'
 
 import { ModelSeriesModel } from '../../../../ModelSeries/ModelSeries/infraestructure/Sequelize/ModelSeriesSchema'

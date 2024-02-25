@@ -1,5 +1,5 @@
-import { BooleanValueObject } from '../../../../Shared/domain/value-object/BooleanValueObject'
-import { InvalidArgumentError } from '../../../../Shared/domain/value-object/InvalidArgumentError'
+import { BooleanValueObject } from '../../../../../Shared/domain/value-object/BooleanValueObject'
+import { InvalidArgumentError } from '../../../../../Shared/domain/value-object/InvalidArgumentError'
 
 export class HasDVI extends BooleanValueObject {
   constructor (readonly value: boolean) {

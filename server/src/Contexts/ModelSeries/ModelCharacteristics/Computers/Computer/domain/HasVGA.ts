@@ -1,7 +1,7 @@
-import { BooleanValueObject } from '../../../../Shared/domain/value-object/BooleanValueObject'
-import { InvalidArgumentError } from '../../../../Shared/domain/value-object/InvalidArgumentError'
+import { BooleanValueObject } from '../../../../../Shared/domain/value-object/BooleanValueObject'
+import { InvalidArgumentError } from '../../../../../Shared/domain/value-object/InvalidArgumentError'
 
-export class HasWifiAdapter extends BooleanValueObject {
+export class HasVGA extends BooleanValueObject {
   constructor (readonly value: boolean) {
     super(value)
 

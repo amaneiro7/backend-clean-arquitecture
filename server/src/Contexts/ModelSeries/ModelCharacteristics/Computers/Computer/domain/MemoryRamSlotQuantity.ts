@@ -1,5 +1,5 @@
-import { InvalidArgumentError } from '../../../../Shared/domain/value-object/InvalidArgumentError'
-import { NumberValueObject } from '../../../../Shared/domain/value-object/NumberValueObject'
+import { InvalidArgumentError } from '../../../../../Shared/domain/value-object/InvalidArgumentError'
+import { NumberValueObject } from '../../../../../Shared/domain/value-object/NumberValueObject'
 
 export class MemoryRamSlotQuantity extends NumberValueObject {
   private readonly MAX_SLOTS = 8
