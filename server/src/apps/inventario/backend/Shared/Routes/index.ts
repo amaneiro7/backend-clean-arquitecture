@@ -18,6 +18,7 @@ import { createHardDriveRouter } from '../../Features/HardDrive/routes/hardDrive
 import { createComputerRouter } from '../../Features/Computer/routes/computer.routes'
 import { authenticate } from '../Middleware/authenticate'
 import { validateToken } from '../Middleware/validateTokenHttpOnly'
+import { createProcessorSocketRouter } from '../../Features/Processor/routes/processorSocket.routes'
 
 // import { createUserRouter } from './user.routes'
 // import { createAuthRouter } from './auth.routes'
@@ -39,6 +40,7 @@ export const routerApi = ({ app, repository }: Props): Router => {
   router.use('/status', createStatusRouter({ repository }))
   router.use('/computers', createComputerRouter({ repository }))
   router.use('/processors', createProcessorRouter({ repository }))
+  router.use('/processorsockets', createProcessorSocketRouter({ repository }))
   router.use('/auth', createAuthRouter())
   router.use('/memoryramtypes', createMemoryRamRouter({ repository }))
   router.use('/harddrive', createHardDriveRouter({ repository }))
