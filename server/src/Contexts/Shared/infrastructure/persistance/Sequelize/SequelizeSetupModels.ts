@@ -20,6 +20,7 @@ import { initLaptopModels } from '../../../../ModelSeries/ModelCharacteristics/C
 import { initProcessorSocketModel } from '../../../../Features/Processor/ProcessorSocket/infrastructure/sequelize/ProcessorSocketSchema'
 import { initMonitorModels } from '../../../../ModelSeries/ModelCharacteristics/Monitors/infraestructure/MonitorModelSchema'
 import { initModelPrinter } from '../../../../ModelSeries/ModelCharacteristics/Printers/Printers/insfraestructure/sequelize/ModelPrinterSchema'
+import { initStateModel } from '../../../../Location/State/infrastructure/sequelize/StateSchema'
 
 export function setupModels (sequelize: Sequelize): void {
   initCategoryModel(sequelize)
@@ -43,4 +44,5 @@ export function setupModels (sequelize: Sequelize): void {
   initLaptopModels(sequelize)
   initMonitorModels(sequelize)
   initModelPrinter(sequelize)
+  initStateModel(sequelize)
 }

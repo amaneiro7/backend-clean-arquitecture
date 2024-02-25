@@ -18,6 +18,7 @@ import { SequelizeUserRepository } from '../../../../User/user/infrastructure/pe
 import { type Repository } from '../../../domain/Repository'
 import { initializeDatabase } from './SequelizeConfig'
 import { SequelizeProcessorSocketRepository } from '../../../../Features/Processor/ProcessorSocket/infrastructure/sequelize/SequelizeProcessorSocketRepository'
+import { SequelizeStateRepository } from '../../../../Location/State/infrastructure/sequelize/SequelizeStateRepository'
 
 initializeDatabase()
 
@@ -43,6 +44,7 @@ export interface Models {
   User: ModelStatic<Model<any>>
   Role: ModelStatic<Model<any>>
   History: ModelStatic<Model<any>>
+  State: ModelStatic<Model<any>>
 }
 
 export const sequelizeRepository: Repository = {
@@ -62,5 +64,6 @@ export const sequelizeRepository: Repository = {
   operatingSystemArq: new SequelizeOperatingSystemArqRepository(),
   computer: new SequelizeComputerRepository(),
   role: new SequelizeRolesRepository(),
-  history: new SequelizeHistoryRepository()
+  history: new SequelizeHistoryRepository(),
+  state: new SequelizeStateRepository()
 }

@@ -1,4 +1,3 @@
-import { RoleTypes } from '../../domain/Role'
 import { type UserPrimitives } from '../../domain/User'
 import { UserPassword } from '../../domain/UserPassword'
 import { type UserRepository } from '../../domain/UserRepository'
@@ -9,7 +8,7 @@ const users: UserPrimitives[] = [
     email: 'admin@bnc.com.ve',
     name: 'admin',
     lastName: 'admin',
-    role: RoleTypes.ADMIN,
+    roleId: 1,
     password: new UserPassword('Admin12345*').toString()
   }
 ]
