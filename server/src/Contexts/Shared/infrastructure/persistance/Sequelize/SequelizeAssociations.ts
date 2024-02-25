@@ -13,6 +13,8 @@ import { ProcessorModel } from '../../../../Features/Processor/Processor/infrast
 import { ProcessorSocketModel } from '../../../../Features/Processor/ProcessorSocket/infrastructure/sequelize/ProcessorSocketSchema'
 import { HistoryModel } from '../../../../History/infrastructure/sequelize/HistorySchema'
 import { ComputerModelsModel } from '../../../../ModelSeries/ModelCharacteristics/Computers/infraestructure/sequelize/ComputerModelsSchema'
+import { LaptopModelsModel } from '../../../../ModelSeries/ModelCharacteristics/Laptops/infrastructure/sequelize/LaptopsModelsSchema'
+import { MonitorModelsModel } from '../../../../ModelSeries/ModelCharacteristics/Monitors/infraestructure/MonitorModelSchema'
 
 import { ModelSeriesModel } from '../../../../ModelSeries/ModelSeries/infraestructure/Sequelize/ModelSeriesSchema'
 import { RolesModel } from '../../../../User/Role/infrastructure/sequelize/RolesSchema'
@@ -27,6 +29,8 @@ export function InitSequelizeAssociation (): void {
   BrandModel.associate(models) // Brand Associations
   ModelSeriesModel.associate(models) // Model Associations
   ComputerModelsModel.associate(models) // Computer Models Associations
+  LaptopModelsModel.associate(models) // ModelLaptop Associations
+  MonitorModelsModel.associate(models) // ModelMonitor Associations
   StatusModel.associate(models) // Status Associations
   DeviceModel.associate(models)// Device Associations
   HardDriveCapacityModel.associate(models) // HardDriveCapacity Associations

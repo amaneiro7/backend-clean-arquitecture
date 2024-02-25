@@ -18,6 +18,7 @@ import { initHistoryModel } from '../../../../History/infrastructure/sequelize/H
 import { initComputerModels } from '../../../../ModelSeries/ModelCharacteristics/Computers/infraestructure/sequelize/ComputerModelsSchema'
 import { initLaptopModels } from '../../../../ModelSeries/ModelCharacteristics/Laptops/infrastructure/sequelize/LaptopsModelsSchema'
 import { initProcessorSocketModel } from '../../../../Features/Processor/ProcessorSocket/infrastructure/sequelize/ProcessorSocketSchema'
+import { initMonitorModels } from '../../../../ModelSeries/ModelCharacteristics/Monitors/infraestructure/MonitorModelSchema'
 
 export function setupModels (sequelize: Sequelize): void {
   initCategoryModel(sequelize)
@@ -39,4 +40,5 @@ export function setupModels (sequelize: Sequelize): void {
   initHistoryModel(sequelize)
   initComputerModels(sequelize)
   initLaptopModels(sequelize)
+  initMonitorModels(sequelize)
 }
