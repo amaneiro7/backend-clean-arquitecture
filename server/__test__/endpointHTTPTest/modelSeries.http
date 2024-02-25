@@ -10,9 +10,17 @@ POST http://localhost:5000/api/v1/models
 Content-Type: application/json
 
 {
-  "name": "WD5000AAKX",
-  "categoryId": 9,
-  "brandId": "449021a8-ab13-4738-a303-7a4754ecc5a4"
+  "name": "m76e",
+  "categoryId": 1,
+  "brandId": "449021a8-ab13-4738-a303-7a4754ecc5a4",
+  "processorSocketId": 1,
+  "memoryRamTypeId": 1,
+  "memoryRamSlotQuantity": 4,
+  "hasBluetooth": false,
+  "hasWifiAdapter": false,
+  "hasDVI": false,
+  "hasHDMI": false,
+  "hasVGA": true
 }
 ### Modificar una marca con POST
 PATCH  http://localhost:5000/api/v1/models/3d1e09a7-58e8-4b92-b0c4-517e8aec335c

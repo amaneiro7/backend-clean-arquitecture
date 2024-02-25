@@ -9,9 +9,8 @@ export class ModelSeriesPostController {
 
   create = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const { name, categoryId, brandId } = req.body
-      await new ModelSeriesCreator(this.repository).run({ name, brandId, categoryId })
-      res.status(httpStatus.CREATED).send()
+      await new ModelSeriesCreator(this.repository).run(req.body)
+      res.status(httpStatus.CREATED).json({ message: 'Model Created' })
     } catch (error) {
       next(error)
     }
@@ -22,7 +21,7 @@ export class ModelSeriesPostController {
       const { name, categoryId, brandId } = req.body
       const { id } = req.params
       await new ModelSeriesUpdater(this.repository).run({ id, newName: name, categoryId, brandId })
-      res.status(httpStatus.CREATED).send()
+      res.status(httpStatus.CREATED).json({ message: 'Model Updated' })
     } catch (error) {
       next(error)
     }

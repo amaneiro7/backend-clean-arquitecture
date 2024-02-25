@@ -13,8 +13,13 @@ import { type CategoryId } from '../../../../../Category/domain/CategoryId'
 import { type ModelSeriesId } from '../../../../ModelSeries/domain/ModelSeriesId'
 import { type Models } from '../../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
 
-export class ComputerModelsModel extends Model<Omit<ComputerModelsPrimitives, 'name' | 'brandId'>> implements Omit<ComputerModelsPrimitives, 'name' | 'brandId'> {
+interface ComputerModelsCreationAttributes extends Omit<ComputerModelsPrimitives, 'name' | 'brandId'> {
+  modelSeriesId: Primitives<ModelSeriesId>
+}
+
+export class ComputerModelsModel extends Model<ComputerModelsCreationAttributes> implements ComputerModelsCreationAttributes {
   public id!: Primitives<ModelSeriesId>
+  public modelSeriesId!: Primitives<ModelSeriesId>
   public categoryId!: Primitives<CategoryId>
   public processorSocketId!: Primitives<ProcessorSocketId>
   public memoryRamTypeId!: Primitives<MemoryRamTypeId>
@@ -26,7 +31,7 @@ export class ComputerModelsModel extends Model<Omit<ComputerModelsPrimitives, 'n
   public hasVGA!: Primitives<HasVGA>
 
   public static associate (models: Models): void {
-    this.belongsTo(models.Model, { as: 'model' }) // A computer model belongs to a model
+    this.belongsTo(models.Model, { as: 'model', foreignKey: 'modelSeriesId' }) // A computer model belongs to a model
     this.belongsTo(models.Category, { as: 'category' }) // A computer model belongs to a category
   }
 }
@@ -37,6 +42,11 @@ export function initComputerModels (sequelize: Sequelize): void {
       id: {
         type: DataTypes.UUID,
         primaryKey: true,
+        allowNull: false
+      },
+      modelSeriesId: {
+        type: DataTypes.UUID,
+        unique: true,
         allowNull: false
       },
       categoryId: {

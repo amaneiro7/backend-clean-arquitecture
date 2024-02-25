@@ -21,7 +21,6 @@ import { type Models } from './SequelizeRepository'
 // Define associations between different Sequelize models
 export function InitSequelizeAssociation (): void {
   const models = sequelize.models as unknown as Models
-  console.log(models)
   CategoryModel.associate(models) // Category Associations
   BrandModel.associate(models) // Brand Associations
   ModelSeriesModel.associate(models) // Model Associations
