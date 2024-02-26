@@ -30,13 +30,13 @@ export class OperatingSystemVersion extends StringValueObject {
 
   // Ensure the validity of the Operating System Version value
   private ensureIsValidName (value: string): void {
-    if (this.isOperatingSystemNameValid(value)) {
+    if (this.isValid(value)) {
       throw new InvalidArgumentError(`<${value}> is not a valid name`)
     }
   }
 
   // Check if the Operating System Version value is valid
-  private isOperatingSystemNameValid (value: string): boolean {
+  private isValid (value: string): boolean {
     // Check if the value is in the accepted values
     return Object.values(this.ACCEPTED_VALUES).includes(value)
   }

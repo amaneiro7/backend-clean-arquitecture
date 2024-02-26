@@ -12,7 +12,9 @@ import { OperatingSystemArqModel } from '../../../../Features/OperatingSystem/Op
 import { ProcessorModel } from '../../../../Features/Processor/Processor/infrastructure/sequelize/ProcessorSchema'
 import { ProcessorSocketModel } from '../../../../Features/Processor/ProcessorSocket/infrastructure/sequelize/ProcessorSocketSchema'
 import { HistoryModel } from '../../../../History/infrastructure/sequelize/HistorySchema'
+import { CityModel } from '../../../../Location/City/infrastructure/sequelize/CitySchema'
 import { StateModel } from '../../../../Location/State/infrastructure/sequelize/StateSchema'
+import { TypeOfSiteModel } from '../../../../Location/TypeOfSite/infrastructure/sequelize/TypeOfSiteSchema'
 import { ComputerModelsModel } from '../../../../ModelSeries/ModelCharacteristics/Computers/Computer/infrastructure/sequelize/ComputerModelsSchema'
 import { LaptopModelsModel } from '../../../../ModelSeries/ModelCharacteristics/Computers/Laptops/infraestructure/sequelize/LaptopsModelsSchema'
 import { MonitorModelsModel } from '../../../../ModelSeries/ModelCharacteristics/Monitors/infraestructure/MonitorModelSchema'
@@ -49,4 +51,6 @@ export function InitSequelizeAssociation (): void {
   UserModel.associate(models)// User Associations
   HistoryModel.associate(models)// History Associations
   StateModel.associate(models)// State Associations
+  CityModel.associate(models) // City Associations
+  TypeOfSiteModel.associate(models) // TypeOfSite Associations
 }

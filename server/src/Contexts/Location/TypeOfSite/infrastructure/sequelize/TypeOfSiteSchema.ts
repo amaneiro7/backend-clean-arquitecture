@@ -1,22 +1,20 @@
 import { DataTypes, Model, type Sequelize } from 'sequelize'
-import { type StatePrimitives } from '../../domain/State'
+import { type TypeOfSitePrimitives } from '../../domain/TypeOfSite'
 
 import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
-import { type StateId } from '../../domain/StateId'
-import { type StateName } from '../../domain/StateName'
+import { type TypeOfSiteId } from '../../domain/TypeOfSiteId'
+import { type TypeOfSiteName } from '../../domain/TypeOfSiteName'
 import { type Models } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
 
-export class StateModel extends Model<StatePrimitives> implements StatePrimitives {
-  readonly id!: Primitives<StateId>
-  readonly name!: Primitives<StateName>
+export class TypeOfSiteModel extends Model<TypeOfSitePrimitives> implements TypeOfSitePrimitives {
+  readonly id!: Primitives<TypeOfSiteId>
+  readonly name!: Primitives<TypeOfSiteName>
 
-  public static associate (models: Models): void {
-    this.hasMany(models.City) // A state has many cities
-  }
+  public static associate (models: Models): void {}
 }
 
-export function initStateModel (sequelize: Sequelize): void {
-  StateModel.init(
+export function initTypeOfSiteModel (sequelize: Sequelize): void {
+  TypeOfSiteModel.init(
     {
       id: {
         type: DataTypes.INTEGER,
@@ -30,7 +28,7 @@ export function initStateModel (sequelize: Sequelize): void {
       }
     },
     {
-      modelName: 'State',
+      modelName: 'TypeOfSite',
       timestamps: false,
       underscored: true,
       sequelize

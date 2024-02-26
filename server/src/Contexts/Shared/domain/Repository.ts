@@ -16,6 +16,8 @@ import { type RoleRepository } from '../../User/Role/domain/RoleRepository'
 import { type HistoryRepository } from '../../History/domain/HistoryRepository'
 import { type ProcessorSocketRepository } from '../../Features/Processor/ProcessorSocket/domain/ProcessorSocketRepository'
 import { type StateRepository } from '../../Location/State/domain/StateRepository'
+import { type CityRepository } from '../../Location/City/domain/CityRepository'
+import { type TypeOfSiteRepository } from '../../Location/TypeOfSite/domain/TypeOfSiteRepository'
 
 export interface Repository {
   user: UserRepository
@@ -36,4 +38,6 @@ export interface Repository {
   role: RoleRepository
   history: HistoryRepository
   state: StateRepository
+  city: CityRepository
+  typeOfSite: TypeOfSiteRepository
 }

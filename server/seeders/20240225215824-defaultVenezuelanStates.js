@@ -9,6 +9,7 @@ const states = {
   CARABOBO: 'Carabobo',
   COJEDES: 'Cojedes',
   DELTAAMACURO: 'Delta Amacuro',
+  DISTRITOCAPITAL: 'Distrito Capital',
   FALCON: 'Falcón',
   GUARICO: 'Guárico',
   LARA: 'Lara',
