@@ -11,7 +11,7 @@ export class StateModel extends Model<StatePrimitives> implements StatePrimitive
   readonly name!: Primitives<StateName>
 
   public static associate (models: Models): void {
-    this.hasMany(models.City) // A state has many cities
+    this.hasMany(models.City, { as: 'cities', foreignKey: 'stateId' }) // A state has many cities
   }
 }
 

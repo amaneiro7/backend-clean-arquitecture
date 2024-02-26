@@ -12,7 +12,7 @@ export class CityModel extends Model<CityPrimitives> implements CityPrimitives {
   readonly name!: Primitives<CityName>
 
   public static associate (models: Models): void {
-    this.belongsTo(models.State) // An City can belong to a state
+    this.belongsTo(models.State, { as: 'state', foreignKey: 'stateId' }) // An City can belong to a state
   }
 }
 

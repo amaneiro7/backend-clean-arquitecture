@@ -6,7 +6,9 @@ import { CityModel } from './CitySchema'
 
 export class SequelizeCityRepository extends CityRepository {
   async searchAll (): Promise<CityPrimitives[]> {
-    return await CityModel.findAll()
+    return await CityModel.findAll({
+      include: ['state']
+    })
   }
 
   async searchById (id: Primitives<CityId>): Promise<CityPrimitives | null> {

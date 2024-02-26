@@ -19,6 +19,9 @@ import { createComputerRouter } from '../../Features/Computer/routes/computer.ro
 import { authenticate } from '../Middleware/authenticate'
 import { validateToken } from '../Middleware/validateTokenHttpOnly'
 import { createProcessorSocketRouter } from '../../Features/Processor/routes/processorSocket.routes'
+import { createCityRouter } from '../../Location/routes/city.routes'
+import { createStateRouter } from '../../Location/routes/state.routes'
+import { createTypeOfSiteRouter } from '../../Location/routes/typeOfSite.routes'
 
 // import { createUserRouter } from './user.routes'
 // import { createAuthRouter } from './auth.routes'
@@ -48,6 +51,9 @@ export const routerApi = ({ app, repository }: Props): Router => {
   router.use('/harddrivecapacities', createHardDriveCapacityRouter({ repository }))
   router.use('/operatingsystemarqs', createOperatingSystemArqRouter({ repository }))
   router.use('/operatingsystems', createOperatingSystemVersionsRouter({ repository }))
+  router.use('/cities', createCityRouter({ repository }))
+  router.use('/states', createStateRouter({ repository }))
+  router.use('/typeofsites', createTypeOfSiteRouter({ repository }))
   // router.use('/users', createUserRouter({ router, repository }))
   // router.use('/profiles', createProfileRouter({ router, repository }))
   router.use((err: Error, req: Request, res: Response, _next: () => void) => {
