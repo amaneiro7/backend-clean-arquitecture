@@ -6,7 +6,8 @@ export class TypeOfSiteName extends StringValueObject {
   // Define a constant map of accepted states names
   private readonly ACCEPTED_VALUES: Record<string, string> = {
     ADMINISTRATIVE: 'Sede Administrativa',
-    AGENCY: 'Agencia'
+    AGENCY: 'Agencia',
+    WEREHOURSE: 'Almacén'
   }
 
   constructor (readonly value: string) {

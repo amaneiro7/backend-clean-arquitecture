@@ -20,6 +20,7 @@ import { type CityRepository } from '../../Location/City/domain/CityRepository'
 import { type TypeOfSiteRepository } from '../../Location/TypeOfSite/domain/TypeOfSiteRepository'
 import { type RegionRepository } from '../../Location/Region/domain/RegionRepository'
 import { type SiteRepository } from '../../Location/Site/domain/SiteRepository'
+import { type LocationRepository } from '../../Location/Location/domain/LocationRepository'
 
 export interface Repository {
   user: UserRepository
@@ -44,4 +45,5 @@ export interface Repository {
   typeOfSite: TypeOfSiteRepository
   region: RegionRepository
   site: SiteRepository
+  location: LocationRepository
 }

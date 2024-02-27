@@ -13,6 +13,7 @@ import { ProcessorModel } from '../../../../Features/Processor/Processor/infrast
 import { ProcessorSocketModel } from '../../../../Features/Processor/ProcessorSocket/infrastructure/sequelize/ProcessorSocketSchema'
 import { HistoryModel } from '../../../../History/infrastructure/sequelize/HistorySchema'
 import { CityModel } from '../../../../Location/City/infrastructure/sequelize/CitySchema'
+import { LocationModel } from '../../../../Location/Location/infrastructure/sequelize/LocationSchema'
 import { RegionModel } from '../../../../Location/Region/infrastrcuture/sequelize/RegionSchema'
 import { SiteModels } from '../../../../Location/Site/infrastructure/sequelize/SiteSchema'
 import { StateModel } from '../../../../Location/State/infrastructure/sequelize/StateSchema'
@@ -57,4 +58,5 @@ export function InitSequelizeAssociation (): void {
   TypeOfSiteModel.associate(models) // TypeOfSite Associations
   RegionModel.associate(models) // Region Associations
   SiteModels.associate(models) // Site Associations
+  LocationModel.associate(models) // Location Associations
 }

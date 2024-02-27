@@ -15,6 +15,7 @@ export class SiteModels extends Model<SitePrimitives> implements SitePrimitives 
 
   public static associate (models: Models): void {
     this.belongsTo(models.City, { as: 'city', foreignKey: 'cityId' })
+    this.hasMany(models.Location, { as: 'location', foreignKey: 'siteId' })
   }
 }
 

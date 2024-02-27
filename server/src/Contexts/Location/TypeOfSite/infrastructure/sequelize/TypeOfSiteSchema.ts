@@ -10,7 +10,9 @@ export class TypeOfSiteModel extends Model<TypeOfSitePrimitives> implements Type
   readonly id!: Primitives<TypeOfSiteId>
   readonly name!: Primitives<TypeOfSiteName>
 
-  public static associate (models: Models): void {}
+  public static associate (models: Models): void {
+    this.hasMany(models.Location, { as: 'location', foreignKey: 'siteId' })
+  }
 }
 
 export function initTypeOfSiteModel (sequelize: Sequelize): void {
