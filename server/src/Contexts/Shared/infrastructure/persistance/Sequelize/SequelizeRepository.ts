@@ -22,6 +22,7 @@ import { SequelizeStateRepository } from '../../../../Location/State/infrastruct
 import { SequelizeCityRepository } from '../../../../Location/City/infrastructure/sequelize/SequelizeCityRepository'
 import { SequelizeTypeOfSiteRepository } from '../../../../Location/TypeOfSite/infrastructure/sequelize/SequelizeTypeOfSiteRepository'
 import { SequelizeRegionRepository } from '../../../../Location/Region/infrastrcuture/sequelize/SequelizeCityRepository'
+import { SequelizeSiteRepository } from '../../../../Location/Site/infrastructure/sequelize/SequelizeSiteRepository'
 
 initializeDatabase()
 
@@ -51,6 +52,7 @@ export interface Models {
   City: ModelStatic<Model<any>>
   TypeOfSite: ModelStatic<Model<any>>
   Region: ModelStatic<Model<any>>
+  Site: ModelStatic<Model<any>>
 }
 
 export const sequelizeRepository: Repository = {
@@ -74,5 +76,6 @@ export const sequelizeRepository: Repository = {
   state: new SequelizeStateRepository(),
   city: new SequelizeCityRepository(),
   typeOfSite: new SequelizeTypeOfSiteRepository(),
-  region: new SequelizeRegionRepository()
+  region: new SequelizeRegionRepository(),
+  site: new SequelizeSiteRepository()
 }

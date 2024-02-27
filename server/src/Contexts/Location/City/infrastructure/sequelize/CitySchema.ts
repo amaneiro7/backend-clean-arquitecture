@@ -12,7 +12,8 @@ export class CityModel extends Model<CityPrimitives> implements CityPrimitives {
   readonly name!: Primitives<CityName>
 
   public static associate (models: Models): void {
-    this.belongsTo(models.State, { as: 'state', foreignKey: 'stateId' }) // An City can belong to a state
+    this.belongsTo(models.State, { as: 'state', foreignKey: 'stateId' }) // A City can belong to a state
+    this.hasMany(models.Site, { as: 'sites', foreignKey: 'cityId' }) //  A city has many Sites
   }
 }
 

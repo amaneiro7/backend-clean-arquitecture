@@ -30,6 +30,7 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     return queryInterface.bulkInsert('states', Object.values(states).map((name, index) => ({
       id: index + 1,
+      region_id: 9,
       name
     })))
   },

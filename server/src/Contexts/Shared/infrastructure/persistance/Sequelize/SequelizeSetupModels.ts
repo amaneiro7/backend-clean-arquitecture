@@ -24,6 +24,7 @@ import { initStateModel } from '../../../../Location/State/infrastructure/sequel
 import { initCityModel } from '../../../../Location/City/infrastructure/sequelize/CitySchema'
 import { initTypeOfSiteModel } from '../../../../Location/TypeOfSite/infrastructure/sequelize/TypeOfSiteSchema'
 import { initRegionModel } from '../../../../Location/Region/infrastrcuture/sequelize/RegionSchema'
+import { initSiteModel } from '../../../../Location/Site/infrastructure/sequelize/SiteSchema'
 
 export function setupModels (sequelize: Sequelize): void {
   initCategoryModel(sequelize)
@@ -51,4 +52,5 @@ export function setupModels (sequelize: Sequelize): void {
   initCityModel(sequelize)
   initTypeOfSiteModel(sequelize)
   initRegionModel(sequelize)
+  initSiteModel(sequelize)
 }
