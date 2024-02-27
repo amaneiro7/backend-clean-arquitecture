@@ -23,6 +23,7 @@ import { initModelPrinter } from '../../../../ModelSeries/ModelCharacteristics/P
 import { initStateModel } from '../../../../Location/State/infrastructure/sequelize/StateSchema'
 import { initCityModel } from '../../../../Location/City/infrastructure/sequelize/CitySchema'
 import { initTypeOfSiteModel } from '../../../../Location/TypeOfSite/infrastructure/sequelize/TypeOfSiteSchema'
+import { initRegionModel } from '../../../../Location/Region/infrastrcuture/sequelize/RegionSchema'
 
 export function setupModels (sequelize: Sequelize): void {
   initCategoryModel(sequelize)
@@ -49,4 +50,5 @@ export function setupModels (sequelize: Sequelize): void {
   initStateModel(sequelize)
   initCityModel(sequelize)
   initTypeOfSiteModel(sequelize)
+  initRegionModel(sequelize)
 }

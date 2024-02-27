@@ -21,6 +21,7 @@ import { SequelizeProcessorSocketRepository } from '../../../../Features/Process
 import { SequelizeStateRepository } from '../../../../Location/State/infrastructure/sequelize/SequelizeStateRepository'
 import { SequelizeCityRepository } from '../../../../Location/City/infrastructure/sequelize/SequelizeCityRepository'
 import { SequelizeTypeOfSiteRepository } from '../../../../Location/TypeOfSite/infrastructure/sequelize/SequelizeTypeOfSiteRepository'
+import { SequelizeRegionRepository } from '../../../../Location/Region/infrastrcuture/sequelize/SequelizeCityRepository'
 
 initializeDatabase()
 
@@ -49,6 +50,7 @@ export interface Models {
   State: ModelStatic<Model<any>>
   City: ModelStatic<Model<any>>
   TypeOfSite: ModelStatic<Model<any>>
+  Region: ModelStatic<Model<any>>
 }
 
 export const sequelizeRepository: Repository = {
@@ -71,5 +73,6 @@ export const sequelizeRepository: Repository = {
   history: new SequelizeHistoryRepository(),
   state: new SequelizeStateRepository(),
   city: new SequelizeCityRepository(),
-  typeOfSite: new SequelizeTypeOfSiteRepository()
+  typeOfSite: new SequelizeTypeOfSiteRepository(),
+  region: new SequelizeRegionRepository()
 }

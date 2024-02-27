@@ -18,6 +18,7 @@ import { type ProcessorSocketRepository } from '../../Features/Processor/Process
 import { type StateRepository } from '../../Location/State/domain/StateRepository'
 import { type CityRepository } from '../../Location/City/domain/CityRepository'
 import { type TypeOfSiteRepository } from '../../Location/TypeOfSite/domain/TypeOfSiteRepository'
+import { type RegionRepository } from '../../Location/Region/domain/RegionRepository'
 
 export interface Repository {
   user: UserRepository
@@ -40,4 +41,5 @@ export interface Repository {
   state: StateRepository
   city: CityRepository
   typeOfSite: TypeOfSiteRepository
+  region: RegionRepository
 }
