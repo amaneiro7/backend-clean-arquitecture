@@ -26,6 +26,10 @@ import { initTypeOfSiteModel } from '../../../../Location/TypeOfSite/infrastruct
 import { initRegionModel } from '../../../../Location/Region/infrastrcuture/sequelize/RegionSchema'
 import { initSiteModel } from '../../../../Location/Site/infrastructure/sequelize/SiteSchema'
 import { initLocationModel } from '../../../../Location/Location/infrastructure/sequelize/LocationSchema'
+import { initVicepresidenciaEjecutivaModel } from '../../../../employee/Area/VicepresidenciaEjecutiva/infrastructure/sequelize/VicepresidenciaEjecutivaSchema'
+import { initVicepresidenciaModel } from '../../../../employee/Area/VicePresidencia/infrastructure/sequelize/VicePresidenciaSchema'
+import { initGerenciaModel } from '../../../../employee/Area/Gerencia/infrastructure/sequelize/GerenciaSchema'
+import { initCoordinacionModel } from '../../../../employee/Area/Coordinacion/infrastructure/sequelize/CoordinacionSchema'
 
 export function setupModels (sequelize: Sequelize): void {
   initCategoryModel(sequelize)
@@ -55,4 +59,8 @@ export function setupModels (sequelize: Sequelize): void {
   initRegionModel(sequelize)
   initSiteModel(sequelize)
   initLocationModel(sequelize)
+  initVicepresidenciaEjecutivaModel(sequelize)
+  initVicepresidenciaModel(sequelize)
+  initGerenciaModel(sequelize)
+  initCoordinacionModel(sequelize)
 }

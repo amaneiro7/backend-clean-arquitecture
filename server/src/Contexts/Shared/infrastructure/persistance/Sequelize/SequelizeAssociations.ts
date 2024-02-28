@@ -26,6 +26,10 @@ import { ModelPrinterModel } from '../../../../ModelSeries/ModelCharacteristics/
 import { ModelSeriesModel } from '../../../../ModelSeries/ModelSeries/infraestructure/Sequelize/ModelSeriesSchema'
 import { RolesModel } from '../../../../User/Role/infrastructure/sequelize/RolesSchema'
 import { UserModel } from '../../../../User/user/infrastructure/persistance/Sequelize/UserSchema'
+import { CoordinacionModel } from '../../../../employee/Area/Coordinacion/infrastructure/sequelize/CoordinacionSchema'
+import { GerenciaModel } from '../../../../employee/Area/Gerencia/infrastructure/sequelize/GerenciaSchema'
+import { VicepresidenciaModel } from '../../../../employee/Area/VicePresidencia/infrastructure/sequelize/VicePresidenciaSchema'
+import { VicepresidenciaEjecutivaModel } from '../../../../employee/Area/VicepresidenciaEjecutiva/infrastructure/sequelize/VicepresidenciaEjecutivaSchema'
 import { sequelize } from './SequelizeConfig'
 import { type Models } from './SequelizeRepository'
 
@@ -59,4 +63,8 @@ export function InitSequelizeAssociation (): void {
   RegionModel.associate(models) // Region Associations
   SiteModels.associate(models) // Site Associations
   LocationModel.associate(models) // Location Associations
+  VicepresidenciaModel.associate(models) // Vicepresidencia Associations
+  VicepresidenciaEjecutivaModel.associate(models) // VicepresidenciaEjecutiva Associations
+  GerenciaModel.associate(models) // Gerencia Associations
+  CoordinacionModel.associate(models) // Coordinacion Associations
 }

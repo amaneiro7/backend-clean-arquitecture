@@ -10,7 +10,7 @@ export class VicepresidenciaEjecutivaModel extends Model<VicepresidenciaEjecutiv
   readonly name!: Primitives<VicepresidenciaEjecutivaName>
 
   public static associate (models: Models): void {
-
+    this.hasMany(models.Vicepresidencia, { as: 'vicepresidencia', foreignKey: 'vicepresidenciaEjecutivaId' })
   }
 }
 
@@ -29,8 +29,9 @@ export function initVicepresidenciaEjecutivaModel (sequelize: Sequelize): void {
       }
     },
     {
-      tableName: 'ViceprecidenciasEjecutivas',
-      modelName: 'ViceprecidenciasEjecutiva',
+      modelName: 'ViceprecidenciaEjecutiva',
+      underscored: true,
+      timestamps: false,
       sequelize
     }
   )

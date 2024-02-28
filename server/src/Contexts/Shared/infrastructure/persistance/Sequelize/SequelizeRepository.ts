@@ -55,6 +55,10 @@ export interface Models {
   Region: ModelStatic<Model<any>>
   Site: ModelStatic<Model<any>>
   Location: ModelStatic<Model<any>>
+  VicepresidenciaEjecutiva: ModelStatic<Model<any>>
+  Vicepresidencia: ModelStatic<Model<any>>
+  Gerencia: ModelStatic<Model<any>>
+  Coordinacion: ModelStatic<Model<any>>
 }
 
 export const sequelizeRepository: Repository = {

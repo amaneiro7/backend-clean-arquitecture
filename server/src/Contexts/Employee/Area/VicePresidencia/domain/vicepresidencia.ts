@@ -1,37 +1,46 @@
 import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
-import { VicePresidenciaId } from './vicepresidenciaId'
-import { VicePresidenciaName } from './vicepresidenciaName'
+import { VicepresidenciaEjecutivaId } from '../../VicepresidenciaEjecutiva/domain/VicepresidenciaEjecutivaId'
+import { VicepresidenciaId } from './vicepresidenciaId'
+import { VicepresidenciaName } from './vicepresidenciaName'
 
 export interface VicepresidenciaPrimitives {
-  id: Primitives<VicePresidenciaId>
-  name: Primitives<VicePresidenciaName>
+  id: Primitives<VicepresidenciaId>
+  vicepresidenciaEjecutivaId: Primitives<VicepresidenciaEjecutivaId>
+  name: Primitives<VicepresidenciaName>
 }
 
 export class Vicepresidencia {
   constructor (
-    private readonly id: VicePresidenciaId,
-    private readonly name: VicePresidenciaName
+    private readonly id: VicepresidenciaId,
+    private readonly vicepresidenciaEjecutivaId: VicepresidenciaEjecutivaId,
+    private readonly name: VicepresidenciaName
   ) {}
 
   static fromPrimitives (primitives: VicepresidenciaPrimitives): Vicepresidencia {
     return new Vicepresidencia(
-      new VicePresidenciaId(primitives.id),
-      new VicePresidenciaName(primitives.name)
+      new VicepresidenciaId(primitives.id),
+      new VicepresidenciaEjecutivaId(primitives.vicepresidenciaEjecutivaId),
+      new VicepresidenciaName(primitives.name)
     )
   }
 
   toPrimitive (): VicepresidenciaPrimitives {
     return {
       id: this.idValue,
+      vicepresidenciaEjecutivaId: this.vicepresidenciaEjecutivaValue,
       name: this.nameValue
     }
   }
 
-  get idValue (): Primitives<VicePresidenciaId> {
+  get idValue (): Primitives<VicepresidenciaId> {
     return this.id.value
   }
 
-  get nameValue (): Primitives<VicePresidenciaName> {
+  get vicepresidenciaEjecutivaValue (): Primitives<VicepresidenciaEjecutivaId> {
+    return this.vicepresidenciaEjecutivaId.value
+  }
+
+  get nameValue (): Primitives<VicepresidenciaName> {
     return this.name.value
   }
 }
