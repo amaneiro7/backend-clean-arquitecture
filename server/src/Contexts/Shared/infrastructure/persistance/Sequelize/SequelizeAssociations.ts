@@ -28,7 +28,7 @@ import { RolesModel } from '../../../../User/Role/infrastructure/sequelize/Roles
 import { UserModel } from '../../../../User/user/infrastructure/persistance/Sequelize/UserSchema'
 import { CoordinacionModel } from '../../../../employee/Area/Coordinacion/infrastructure/sequelize/CoordinacionSchema'
 import { GerenciaModel } from '../../../../employee/Area/Gerencia/infrastructure/sequelize/GerenciaSchema'
-import { VicepresidenciaModel } from '../../../../employee/Area/VicePresidencia/infrastructure/sequelize/VicePresidenciaSchema'
+import { VicepresidenciaModel } from '../../../../employee/Area/VicePresidencia/infrastructure/sequelize/VicepresidenciaSchema'
 import { VicepresidenciaEjecutivaModel } from '../../../../employee/Area/VicepresidenciaEjecutiva/infrastructure/sequelize/VicepresidenciaEjecutivaSchema'
 import { sequelize } from './SequelizeConfig'
 import { type Models } from './SequelizeRepository'

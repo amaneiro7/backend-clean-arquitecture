@@ -21,6 +21,11 @@ import { type TypeOfSiteRepository } from '../../Location/TypeOfSite/domain/Type
 import { type RegionRepository } from '../../Location/Region/domain/RegionRepository'
 import { type SiteRepository } from '../../Location/Site/domain/SiteRepository'
 import { type LocationRepository } from '../../Location/Location/domain/LocationRepository'
+import { type VicepresidenciaEjecutivaRepository } from '../../employee/Area/VicepresidenciaEjecutiva/domain/VicepresidenciaEjecutivaRepository'
+import { type VicepresidenciaRepository } from '../../employee/Area/VicePresidencia/domain/vicepresidenciaRepository'
+import { type GerenciaRepository } from '../../employee/Area/Gerencia/domain/GerenciaRepository'
+import { type CoordinacionRepository } from '../../employee/Area/Coordinacion/domain/CoordinacionRepository'
+import { type CargoRepository } from '../../employee/Cargo/domain/CargoRepository'
 
 export interface Repository {
   user: UserRepository
@@ -46,4 +51,10 @@ export interface Repository {
   region: RegionRepository
   site: SiteRepository
   location: LocationRepository
+  vicepresidenciaEjecutiva: VicepresidenciaEjecutivaRepository
+  vicepresidencia: VicepresidenciaRepository
+  gerencia: GerenciaRepository
+  coordinacion: CoordinacionRepository
+  cargo: CargoRepository
+
 }

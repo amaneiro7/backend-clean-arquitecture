@@ -27,9 +27,9 @@ import { initRegionModel } from '../../../../Location/Region/infrastrcuture/sequ
 import { initSiteModel } from '../../../../Location/Site/infrastructure/sequelize/SiteSchema'
 import { initLocationModel } from '../../../../Location/Location/infrastructure/sequelize/LocationSchema'
 import { initVicepresidenciaEjecutivaModel } from '../../../../employee/Area/VicepresidenciaEjecutiva/infrastructure/sequelize/VicepresidenciaEjecutivaSchema'
-import { initVicepresidenciaModel } from '../../../../employee/Area/VicePresidencia/infrastructure/sequelize/VicePresidenciaSchema'
 import { initGerenciaModel } from '../../../../employee/Area/Gerencia/infrastructure/sequelize/GerenciaSchema'
 import { initCoordinacionModel } from '../../../../employee/Area/Coordinacion/infrastructure/sequelize/CoordinacionSchema'
+import { initVicepresidenciaModel } from '../../../../employee/Area/VicePresidencia/infrastructure/sequelize/VicepresidenciaSchema'
 
 export function setupModels (sequelize: Sequelize): void {
   initCategoryModel(sequelize)
