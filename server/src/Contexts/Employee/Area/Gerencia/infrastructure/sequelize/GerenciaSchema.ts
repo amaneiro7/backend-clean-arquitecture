@@ -3,17 +3,20 @@ import { type Primitives } from '../../../../../Shared/domain/value-object/Primi
 import { type GerenciaId } from '../../domain/GerenciaId'
 import { type GerenciaName } from '../../domain/GerenciaName'
 import { type GerenciaPrimitives } from '../../domain/Gerencia'
+import { type Models } from '../../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
 
 export class GerenciaModel extends Model<GerenciaPrimitives> implements GerenciaPrimitives {
   readonly id!: Primitives<GerenciaId>
   readonly name!: Primitives<GerenciaName>
+
+  public static associate (models: Models): void {}
 }
 
 export function initGerenciaModel (sequelize: Sequelize): void {
   GerenciaModel.init(
     {
       id: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true
       },

@@ -1,9 +1,10 @@
 import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
-import { VicePresidenciaId, VicePresienciaId } from './vicepresidenciaId'
+import { VicePresidenciaId } from './vicepresidenciaId'
+import { VicePresidenciaName } from './vicepresidenciaName'
 
 export interface VicepresidenciaPrimitives {
   id: Primitives<VicePresidenciaId>
-  name: Primitives<VicePresidencia>
+  name: Primitives<VicePresidenciaName>
 }
 
 export class Vicepresidencia {

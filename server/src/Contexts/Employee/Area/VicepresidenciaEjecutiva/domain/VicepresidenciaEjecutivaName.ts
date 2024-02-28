@@ -1,7 +1,7 @@
 import { InvalidArgumentError } from '../../../../Shared/domain/value-object/InvalidArgumentError'
 import { StringValueObject } from '../../../../Shared/domain/value-object/StringValueObject'
 
-export class VPEName extends StringValueObject {
+export class VicepresidenciaEjecutivaName extends StringValueObject {
   private readonly NAME_MAX_LENGTH = 30
   private readonly NAME_MIN_LENGTH = 15
 
