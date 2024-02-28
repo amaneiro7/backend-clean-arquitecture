@@ -30,6 +30,7 @@ import { CoordinacionModel } from '../../../../employee/Area/Coordinacion/infras
 import { GerenciaModel } from '../../../../employee/Area/Gerencia/infrastructure/sequelize/GerenciaSchema'
 import { VicepresidenciaModel } from '../../../../employee/Area/VicePresidencia/infrastructure/sequelize/VicepresidenciaSchema'
 import { VicepresidenciaEjecutivaModel } from '../../../../employee/Area/VicepresidenciaEjecutiva/infrastructure/sequelize/VicepresidenciaEjecutivaSchema'
+import { CargoModel } from '../../../../employee/Cargo/infrastructure/sequelize/CargoSchema'
 import { sequelize } from './SequelizeConfig'
 import { type Models } from './SequelizeRepository'
 
@@ -67,4 +68,5 @@ export function InitSequelizeAssociation (): void {
   VicepresidenciaModel.associate(models) // Vicepresidencia Associations
   GerenciaModel.associate(models) // Gerencia Associations
   CoordinacionModel.associate(models) // Coordinacion Associations
+  CargoModel.associate(models) // Cargo Associations
 }

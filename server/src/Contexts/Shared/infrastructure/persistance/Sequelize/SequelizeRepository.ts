@@ -24,6 +24,11 @@ import { SequelizeTypeOfSiteRepository } from '../../../../Location/TypeOfSite/i
 import { SequelizeRegionRepository } from '../../../../Location/Region/infrastrcuture/sequelize/SequelizeCityRepository'
 import { SequelizeSiteRepository } from '../../../../Location/Site/infrastructure/sequelize/SequelizeSiteRepository'
 import { SequelizeLocationRepository } from '../../../../Location/Location/infrastructure/sequelize/SequelizeLocationRepository'
+import { SequelizeCargoRepository } from '../../../../employee/Cargo/infrastructure/sequelize/SequelizeCargoRepository'
+import { SequelizeCoordinacionRepository } from '../../../../employee/Area/Coordinacion/infrastructure/sequelize/SequelizeCoordinacionRepository'
+import { SequelizeGerenciaRepository } from '../../../../employee/Area/Gerencia/infrastructure/sequelize/SequelizeGerenciaRepository'
+import { SequelizeVicepresidenciaRepository } from '../../../../employee/Area/VicePresidencia/infrastructure/sequelize/SequelizeVicepresidenciaRepository'
+import { SequelizeVicepresidenciaEjecutivaRepository } from '../../../../employee/Area/VicepresidenciaEjecutiva/infrastructure/sequelize/SequelizeVicepresidenciaEjecutivaRepository'
 
 initializeDatabase()
 
@@ -59,6 +64,7 @@ export interface Models {
   Vicepresidencia: ModelStatic<Model<any>>
   Gerencia: ModelStatic<Model<any>>
   Coordinacion: ModelStatic<Model<any>>
+  Cargo: ModelStatic<Model<any>>
 }
 
 export const sequelizeRepository: Repository = {
@@ -84,5 +90,10 @@ export const sequelizeRepository: Repository = {
   typeOfSite: new SequelizeTypeOfSiteRepository(),
   region: new SequelizeRegionRepository(),
   site: new SequelizeSiteRepository(),
-  location: new SequelizeLocationRepository()
+  location: new SequelizeLocationRepository(),
+  cargo: new SequelizeCargoRepository(),
+  coordinacion: new SequelizeCoordinacionRepository(),
+  gerencia: new SequelizeGerenciaRepository(),
+  vicepresidencia: new SequelizeVicepresidenciaRepository(),
+  vicepresidenciaEjecutiva: new SequelizeVicepresidenciaEjecutivaRepository()
 }

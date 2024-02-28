@@ -37,6 +37,8 @@ export function initGerenciaModel (sequelize: Sequelize): void {
     },
     {
       modelName: 'Gerencia',
+      underscored: true,
+      timestamps: false,
       sequelize
     }
   )

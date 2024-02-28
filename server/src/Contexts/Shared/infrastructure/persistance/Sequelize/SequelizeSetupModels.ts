@@ -30,6 +30,7 @@ import { initVicepresidenciaEjecutivaModel } from '../../../../employee/Area/Vic
 import { initGerenciaModel } from '../../../../employee/Area/Gerencia/infrastructure/sequelize/GerenciaSchema'
 import { initCoordinacionModel } from '../../../../employee/Area/Coordinacion/infrastructure/sequelize/CoordinacionSchema'
 import { initVicepresidenciaModel } from '../../../../employee/Area/VicePresidencia/infrastructure/sequelize/VicepresidenciaSchema'
+import { initCargoModel } from '../../../../employee/Cargo/infrastructure/sequelize/CargoSchema'
 
 export function setupModels (sequelize: Sequelize): void {
   initCategoryModel(sequelize)
@@ -63,4 +64,5 @@ export function setupModels (sequelize: Sequelize): void {
   initVicepresidenciaModel(sequelize)
   initGerenciaModel(sequelize)
   initCoordinacionModel(sequelize)
+  initCargoModel(sequelize)
 }
