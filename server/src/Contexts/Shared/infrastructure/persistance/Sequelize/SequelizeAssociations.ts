@@ -63,8 +63,8 @@ export function InitSequelizeAssociation (): void {
   RegionModel.associate(models) // Region Associations
   SiteModels.associate(models) // Site Associations
   LocationModel.associate(models) // Location Associations
-  VicepresidenciaModel.associate(models) // Vicepresidencia Associations
   VicepresidenciaEjecutivaModel.associate(models) // VicepresidenciaEjecutiva Associations
+  VicepresidenciaModel.associate(models) // Vicepresidencia Associations
   GerenciaModel.associate(models) // Gerencia Associations
   CoordinacionModel.associate(models) // Coordinacion Associations
 }

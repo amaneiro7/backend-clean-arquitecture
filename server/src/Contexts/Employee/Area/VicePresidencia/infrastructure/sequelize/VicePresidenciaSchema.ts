@@ -20,12 +20,12 @@ export function initVicepresidenciaModel (sequelize: Sequelize): void {
   VicepresidenciaModel.init(
     {
       id: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true
       },
       vicepresidenciaEjecutivaId: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false
       },
       name: {
@@ -35,7 +35,7 @@ export function initVicepresidenciaModel (sequelize: Sequelize): void {
       }
     },
     {
-      modelName: 'Viceprecidencia',
+      modelName: 'Vicepresidencia',
       underscored: true,
       timestamps: false,
       sequelize

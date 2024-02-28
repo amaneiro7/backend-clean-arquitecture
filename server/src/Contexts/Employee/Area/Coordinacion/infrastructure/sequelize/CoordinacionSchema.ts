@@ -4,12 +4,16 @@ import { type CoordinacionId } from '../../domain/CoordinacionId'
 import { type CoordinacionName } from '../../domain/CoordinacionName'
 import { type CoordinacionPrimitives } from '../../domain/Coordinacion'
 import { type Models } from '../../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
+import { type GerenciaId } from '../../../Gerencia/domain/GerenciaId'
 
 export class CoordinacionModel extends Model<CoordinacionPrimitives> implements CoordinacionPrimitives {
   readonly id!: Primitives<CoordinacionId>
+  readonly gerenciaId!: Primitives<GerenciaId>
   readonly name!: Primitives<CoordinacionName>
 
-  public static associate (models: Models): void {}
+  public static associate (models: Models): void {
+    this.belongsTo(models.Gerencia, { as: 'gerencia', foreignKey: 'gerenciaId' })
+  }
 }
 
 export function initCoordinacionModel (sequelize: Sequelize): void {
@@ -19,6 +23,10 @@ export function initCoordinacionModel (sequelize: Sequelize): void {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true
+      },
+      gerenciaId: {
+        type: DataTypes.INTEGER,
+        allowNull: false
       },
       name: {
         type: DataTypes.STRING,

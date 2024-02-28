@@ -18,7 +18,7 @@ export function initVicepresidenciaEjecutivaModel (sequelize: Sequelize): void {
   VicepresidenciaEjecutivaModel.init(
     {
       id: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true
       },
@@ -29,7 +29,7 @@ export function initVicepresidenciaEjecutivaModel (sequelize: Sequelize): void {
       }
     },
     {
-      modelName: 'ViceprecidenciaEjecutiva',
+      modelName: 'VicepresidenciaEjecutiva',
       underscored: true,
       timestamps: false,
       sequelize
