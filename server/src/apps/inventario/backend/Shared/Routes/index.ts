@@ -22,6 +22,14 @@ import { createProcessorSocketRouter } from '../../Features/Processor/routes/pro
 import { createCityRouter } from '../../Location/routes/city.routes'
 import { createStateRouter } from '../../Location/routes/state.routes'
 import { createTypeOfSiteRouter } from '../../Location/routes/typeOfSite.routes'
+import { createRegionRouter } from '../../Location/routes/region.routes'
+import { createSiteRouter } from '../../Location/routes/site.routes'
+import { createLocationRouter } from '../../Location/routes/location.routes'
+import { createCargoRouter } from '../../Employee/routes/cargo.routes'
+import { createCoordinacionRouter } from '../../Employee/routes/coordinacion.routes'
+import { createGerenciaRouter } from '../../Employee/routes/gerencia.routes'
+import { createVicepresidenciaRouter } from '../../Employee/routes/vicepresidencia.routes'
+import { createVicepresidenciaEjecutivaRouter } from '../../Employee/routes/vicepresidenciaEjecutiva.routes'
 
 // import { createUserRouter } from './user.routes'
 // import { createAuthRouter } from './auth.routes'
@@ -53,7 +61,16 @@ export const routerApi = ({ app, repository }: Props): Router => {
   router.use('/operatingsystems', createOperatingSystemVersionsRouter({ repository }))
   router.use('/cities', createCityRouter({ repository }))
   router.use('/states', createStateRouter({ repository }))
+  router.use('/regions', createRegionRouter({ repository }))
+  router.use('/sites', createSiteRouter({ repository }))
+  router.use('/locations', createLocationRouter({ repository }))
   router.use('/typeofsites', createTypeOfSiteRouter({ repository }))
+  router.use('/cargos', createCargoRouter({ repository }))
+  router.use('/coordinaciones', createCoordinacionRouter({ repository }))
+  router.use('/gerencias', createGerenciaRouter({ repository }))
+  router.use('/vicepresidencias', createVicepresidenciaRouter({ repository }))
+  router.use('/vicepresidenciasejecutivas', createVicepresidenciaEjecutivaRouter({ repository }))
+
   // router.use('/users', createUserRouter({ router, repository }))
   // router.use('/profiles', createProfileRouter({ router, repository }))
   router.use((err: Error, req: Request, res: Response, _next: () => void) => {
