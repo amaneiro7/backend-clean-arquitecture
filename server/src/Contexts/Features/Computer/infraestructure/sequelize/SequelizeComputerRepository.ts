@@ -1,4 +1,4 @@
-import { type ComputerPrimitives } from '../../domain/Computer'
+import { type ComputerPrimitives } from '../../domain/Computer.old'
 import { type ComputerRepository } from '../../domain/ComputerRepository'
 import { ComputerModel } from './ComputerSchema'
 

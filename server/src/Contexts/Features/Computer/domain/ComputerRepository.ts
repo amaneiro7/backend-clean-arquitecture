@@ -1,4 +1,4 @@
-import { type ComputerPrimitives } from './Computer'
+import { type ComputerPrimitives } from './Computer.old'
 
 export abstract class ComputerRepository {
   abstract save (payload: ComputerPrimitives): Promise<void>

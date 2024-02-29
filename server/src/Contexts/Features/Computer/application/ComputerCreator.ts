@@ -1,5 +1,5 @@
 import { type Repository } from '../../../Shared/domain/Repository'
-import { Computer, type ComputerPrimitives } from '../domain/Computer'
+import { Computer, type ComputerPrimitives } from '../domain/Computer.old'
 import { ValidationComputerField } from './ValidationComputerField'
 
 interface ComputerParams extends Omit<ComputerPrimitives, 'id'> {

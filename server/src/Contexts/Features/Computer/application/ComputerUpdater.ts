@@ -1,6 +1,6 @@
 import { type DeviceId } from '../../../Device/Device/domain/DeviceId'
 import { type Repository } from '../../../Shared/domain/Repository'
-import { Computer } from '../domain/Computer'
+import { Computer } from '../domain/Computer.old'
 import { ComputerDoesNotExistError } from '../domain/ComputerDoesNotExistError'
 import { ValidationComputerField } from './ValidationComputerField'
 

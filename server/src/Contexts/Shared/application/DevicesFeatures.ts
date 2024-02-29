@@ -1,5 +1,5 @@
 import { ComputerCreator } from '../../Features/Computer/application/ComputerCreator'
-import { Computer } from '../../Features/Computer/domain/Computer'
+import { Computer } from '../../Features/Computer/domain/Computer.old'
 import { HardDriveCreator } from '../../Features/HardDrive.ts/HardDrive/application/HardDriveCreator'
 import { HardDrive } from '../../Features/HardDrive.ts/HardDrive/domain/HardDrive'
 import { type Repository } from '../domain/Repository'

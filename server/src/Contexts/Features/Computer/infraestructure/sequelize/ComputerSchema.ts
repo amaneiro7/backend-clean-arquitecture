@@ -1,5 +1,5 @@
 import { DataTypes, Model, type Sequelize } from 'sequelize'
-import { type ComputerPrimitives } from '../../domain/Computer'
+import { type ComputerPrimitives } from '../../domain/Computer.old'
 import { type Models } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
 
 export class ComputerModel extends Model<ComputerPrimitives> implements ComputerPrimitives {

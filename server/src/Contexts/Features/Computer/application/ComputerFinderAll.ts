@@ -1,5 +1,5 @@
 import { type Repository } from '../../../Shared/domain/Repository'
-import { type ComputerPrimitives } from '../domain/Computer'
+import { type ComputerPrimitives } from '../domain/Computer.old'
 
 export class SearchAllComputer {
   constructor (private readonly repository: Repository) {}

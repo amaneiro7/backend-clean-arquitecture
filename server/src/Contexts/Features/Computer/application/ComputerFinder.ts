@@ -1,6 +1,6 @@
 import { type DeviceId } from '../../../Device/Device/domain/DeviceId'
 import { type Repository } from '../../../Shared/domain/Repository'
-import { type ComputerPrimitives } from '../domain/Computer'
+import { type ComputerPrimitives } from '../domain/Computer.old'
 import { ComputerDoesNotExistError } from '../domain/ComputerDoesNotExistError'
 
 export class ComputerFinder {

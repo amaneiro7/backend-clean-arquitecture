@@ -56,7 +56,7 @@ export class ComputerModels extends ModelSeries {
     hasHDMI,
     hasVGA
   }: Omit<ComputerModelsPrimitives, 'id'>): ComputerModels {
-    const id = String(ModelSeriesId.random())
+    const id = ModelSeriesId.random().toString()
     return new ComputerModels(
       new ModelSeriesId(id),
       new ModelSeriesName(name),

@@ -1,5 +1,5 @@
 import { ComputerValidation } from '../../../../Features/Computer/application/ComputerCreator'
-import { Computer } from '../../../../Features/Computer/domain/Computer'
+import { Computer } from '../../../../Features/Computer/domain/Computer.old'
 import { HardDriveValidation } from '../../../../Features/HardDrive.ts/HardDrive/application/HardDriveCreator'
 import { HardDrive } from '../../../../Features/HardDrive.ts/HardDrive/domain/HardDrive'
 import { ModelSeriesFinder } from '../../../../ModelSeries/ModelSeries/application/ModelSeriesFinder'

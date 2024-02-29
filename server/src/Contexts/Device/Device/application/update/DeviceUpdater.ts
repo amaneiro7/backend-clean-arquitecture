@@ -1,5 +1,5 @@
 import { ComputerUpdater } from '../../../../Features/Computer/application/ComputerUpdater'
-import { Computer } from '../../../../Features/Computer/domain/Computer'
+import { Computer } from '../../../../Features/Computer/domain/Computer.old'
 import { HardDriveUpdater } from '../../../../Features/HardDrive.ts/HardDrive/application/HardDriveUpdater'
 import { HardDrive } from '../../../../Features/HardDrive.ts/HardDrive/domain/HardDrive'
 import { ModelSeriesDoesNotExistError } from '../../../../ModelSeries/ModelSeries/domain/ModelSeriesDoesNotExistError'
