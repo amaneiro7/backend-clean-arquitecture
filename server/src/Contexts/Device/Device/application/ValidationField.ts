@@ -2,6 +2,7 @@
 import { ModelSeriesDoesNotExistError } from '../../../ModelSeries/ModelSeries/domain/ModelSeriesDoesNotExistError'
 import { ModelSeriesId } from '../../../ModelSeries/ModelSeries/domain/ModelSeriesId'
 import { type Repository } from '../../../Shared/domain/Repository'
+import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
 import { StatusDoesNotExistError } from '../../Status/domain/StatusDoesNotExistError'
 import { StatusId } from '../../Status/domain/StatusId'
 import { type Device } from '../domain/Device'
@@ -10,8 +11,8 @@ import { DeviceAlreadyExistError } from '../domain/DeviceAlreadyExistError'
 import { DeviceSerial } from '../domain/DeviceSerial'
 
 export class ValidationField {
-  static async ensureSerialDoesNotExist (repository: Repository, serial: string, entity?: Device): Promise<void> {
-    if (entity !== undefined && serial === entity.serialValue) {
+  static async ensureSerialDoesNotExist (repository: Repository, serial: Primitives<DeviceSerial>, entity?: Device): Promise<void> {
+    if (serial === null || (entity !== undefined && serial === entity.serialValue)) {
       return
     }
     if (await repository.device.searchBySerial(new DeviceSerial(serial).toString()) !== null) {
@@ -19,8 +20,8 @@ export class ValidationField {
     }
   }
 
-  static async ensureActivoDoesNotExist (repository: Repository, activo: string, entity?: Device): Promise<void> {
-    if (entity !== undefined && activo === entity.activoValue) {
+  static async ensureActivoDoesNotExist (repository: Repository, activo: Primitives<DeviceActivo>, entity?: Device): Promise<void> {
+    if (activo === null || (entity !== undefined && activo === entity.activoValue)) {
       return
     }
     if (await repository.device.searchByActivo(new DeviceActivo(activo).toString()) !== null) {
