@@ -7,8 +7,8 @@ export class HardDriveTypeModel extends Model<HardDriveTypePrimitives> implement
   readonly name!: string
 
   public static associate (models: Models): void {
-    this.hasMany(models.HardDrive, { as: 'hardDrive' })
-    this.hasMany(models.Computer, { as: 'computer' })
+    this.hasMany(models.DeviceHardDrive, { as: 'hardDrive', foreignKey: 'hardDriveTypeId' }) // A hard drive type can have many hard drive
+    this.hasMany(models.DeviceComputer, { as: 'computer', foreignKey: 'hardDriveTypeId' }) // A hard drive type can have many computer
   }
 }
 

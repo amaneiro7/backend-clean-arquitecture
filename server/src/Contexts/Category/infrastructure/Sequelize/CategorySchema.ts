@@ -7,14 +7,14 @@ export class CategoryModel extends Model<CategoryPrimitives> implements Category
   readonly name!: string
 
   public static associate (models: Models): void {
-    CategoryModel.hasMany(models.Model, { as: 'model' }) // A category can have many model series
-    CategoryModel.hasMany(models.HardDrive, { as: 'hardDrive' }) // A category can have many hard drive
-    CategoryModel.hasMany(models.Computer, { as: 'computer' }) // A category can have many computer
+    CategoryModel.hasMany(models.Model, { as: 'model', foreignKey: 'categoryId' }) // A category can have many model series
     CategoryModel.hasMany(models.Device, { as: 'device', foreignKey: 'categoryId' }) // A category can have many device
-    CategoryModel.hasMany(models.ModelComputer, { as: 'modelComputer' }) // A category can have many computer model
-    CategoryModel.hasMany(models.ModelLaptop, { as: 'modelLaptop' }) // A category can have many laptop model
-    CategoryModel.hasMany(models.ModelMonitor, { as: 'modelMonitor' }) // A category can have many monitor model
-    CategoryModel.hasMany(models.ModelPrinter, { as: 'modelPrinter' }) // A category can have many printer model
+    CategoryModel.hasMany(models.DeviceHardDrive, { as: 'deviceHardDrive', foreignKey: 'categoryId' }) // A category can have many hard drive
+    CategoryModel.hasMany(models.DeviceComputer, { as: 'deviceComputer', foreignKey: 'categoryId' }) // A category can have many computer
+    CategoryModel.hasMany(models.ModelComputer, { as: 'modelComputer', foreignKey: 'categoryId' }) // A category can have many computer model
+    CategoryModel.hasMany(models.ModelLaptop, { as: 'modelLaptop', foreignKey: 'categoryId' }) // A category can have many laptop model
+    CategoryModel.hasMany(models.ModelMonitor, { as: 'modelMonitor', foreignKey: 'categoryId' }) // A category can have many monitor model
+    CategoryModel.hasMany(models.ModelPrinter, { as: 'modelPrinter', foreignKey: 'categoryId' }) // A category can have many printer model
   }
 }
 

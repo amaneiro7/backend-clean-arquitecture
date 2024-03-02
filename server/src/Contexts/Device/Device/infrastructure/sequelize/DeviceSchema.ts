@@ -24,8 +24,8 @@ export class DeviceModel extends Model<DevicePrimitives> implements DevicePrimit
     this.belongsTo(models.Brand, { as: 'brand', foreignKey: 'brandId' }) // A device belongs to a brand
     this.belongsTo(models.Model, { as: 'model', foreignKey: 'modelId' }) // A device belongs to a model series
     this.belongsTo(models.Status, { as: 'status', foreignKey: 'statusId' }) // A device belongs to a status
-    this.hasOne(models.HardDrive, { as: 'hardDrive', foreignKey: 'deviceId' }) // A device has one hard drive
-    this.hasOne(models.Computer, { as: 'computer', foreignKey: 'deviceId' }) // A device has one computer
+    this.hasOne(models.DeviceHardDrive, { as: 'hardDrive', foreignKey: 'deviceId' }) // A device has one hard drive
+    this.hasOne(models.DeviceComputer, { as: 'computer', foreignKey: 'deviceId' }) // A device has one computer
   }
 }
 

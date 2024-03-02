@@ -7,8 +7,8 @@ export class HardDriveCapacityModel extends Model<HardDriveCapacityPrimitives> i
   readonly value!: number
 
   public static associate (models: Models): void {
-    this.hasMany(models.HardDrive, { as: 'hardDrive' })
-    this.hasMany(models.Computer, { as: 'computer' })
+    this.hasMany(models.DeviceHardDrive, { as: 'hardDrive', foreignKey: 'hardDriveCapacityId' }) // A hard drive capacity can have many hard drive
+    this.hasMany(models.DeviceComputer, { as: 'computer', foreignKey: 'hardDriveCapacityId' }) // A hard drive capacity can have many computer
   }
 }
 

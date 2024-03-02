@@ -7,7 +7,7 @@ export class OperatingSystemArqModel extends Model<OperatingSystemArqPrimitives>
   readonly name!: string
 
   public static associate (models: Models): void {
-    this.hasMany(models.Computer, { as: 'computer' }) // An operating system arq can have many computer
+    this.hasMany(models.DeviceComputer, { as: 'computer', foreignKey: 'operatingSystemArqId' }) // An operating system arq can have many computer
   }
 }
 

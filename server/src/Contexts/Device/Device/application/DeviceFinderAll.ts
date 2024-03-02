@@ -1,6 +1,6 @@
 import type QueryString from 'qs'
-import { type Repository } from '../../../../Shared/domain/Repository'
-import { type DevicePrimitives } from '../../domain/Device'
+import { type Repository } from '../../../Shared/domain/Repository'
+import { type DevicePrimitives } from '../domain/Device'
 
 export class SearchAllDevices {
   constructor (private readonly repository: Repository) {}

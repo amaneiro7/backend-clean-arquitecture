@@ -1,4 +1,4 @@
-import { type Filter } from '../../../../Shared/domain/criteria/Filter'
+import { type Filter } from '../../../Shared/domain/criteria/Filter'
 
 export class SearchDeviceByCriteriaQuery {
   constructor (

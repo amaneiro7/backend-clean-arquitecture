@@ -10,8 +10,8 @@ export class MemoryRamTypeModel extends Model<MemoryRamTypePrimitives> implement
   readonly name!: Primitives<MemoryRamTypeName>
 
   public static associate (models: Models): void {
-    this.hasMany(models.ModelComputer, { as: 'modelComputer' })
-    this.hasMany(models.ModelLaptop, { as: 'modelLaptop' })
+    this.hasMany(models.ModelComputer, { as: 'modelComputer', foreignKey: 'memoryRamTypeId' }) // A memory ram type can have many model
+    this.hasMany(models.ModelLaptop, { as: 'modelLaptop', foreignKey: 'memoryRamTypeId' }) // A memory ram type can have many laptop
   }
 }
 

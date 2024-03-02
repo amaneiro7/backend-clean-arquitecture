@@ -1,7 +1,7 @@
 import { type NextFunction, type Request, type Response } from 'express'
 import { type Repository } from '../../../../../Contexts/Shared/domain/Repository'
 import httpStatus from 'http-status'
-import { DeviceRemover } from '../../../../../Contexts/Device/Device/application/remove/DeviceRemover'
+import { DeviceRemover } from '../../../../../Contexts/Device/Device/application/DeviceRemover'
 
 export class DeviceDeleteController {
   constructor (private readonly repository: Repository) {}

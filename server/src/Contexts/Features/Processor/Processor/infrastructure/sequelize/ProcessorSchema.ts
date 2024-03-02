@@ -7,7 +7,7 @@ export class ProcessorModel extends Model<ProcessorPrimitives> implements Proces
   readonly name!: string
 
   public static associate (models: Models): void {
-    this.hasMany(models.Computer, { as: 'computer' })
+    this.hasMany(models.DeviceComputer, { as: 'computer', foreignKey: 'processorId' }) // A processor can have many computer
   }
 }
 export function initProcessorModel (sequelize: Sequelize): void {

@@ -1,8 +1,8 @@
-import { ComputerValidation } from '../../../../Features/Computer/application/ComputerCreator'
-import { DeviceComputer, type DeviceComputerPrimitives } from '../../../../Features/Computer/domain/Computer'
-import { type Repository } from '../../../../Shared/domain/Repository'
-import { Device, type DevicePrimitives } from '../../domain/Device'
-import { ValidationField } from '../ValidationField'
+import { ComputerValidation } from '../../../Features/Computer/application/ComputerCreator'
+import { DeviceComputer, type DeviceComputerPrimitives } from '../../../Features/Computer/domain/Computer'
+import { type Repository } from '../../../Shared/domain/Repository'
+import { Device, type DevicePrimitives } from '../domain/Device'
+import { ValidationField } from './ValidationField'
 
 export interface DeviceParams extends Omit<DevicePrimitives, 'id'> {}
 

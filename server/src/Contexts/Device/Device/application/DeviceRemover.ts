@@ -1,6 +1,6 @@
-import { type Repository } from '../../../../Shared/domain/Repository'
-import { DeviceDoesNotExistError } from '../../domain/DeviceDoesNotExistError'
-import { DeviceId } from '../../domain/DeviceId'
+import { type Repository } from '../../../Shared/domain/Repository'
+import { DeviceDoesNotExistError } from '../domain/DeviceDoesNotExistError'
+import { DeviceId } from '../domain/DeviceId'
 
 export class DeviceRemover {
   constructor (private readonly repository: Repository) {}

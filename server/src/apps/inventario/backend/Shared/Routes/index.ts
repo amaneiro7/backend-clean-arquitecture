@@ -14,8 +14,6 @@ import { createHardDriveTypeRouter } from '../../Features/HardDrive/routes/hardD
 import { createHardDriveCapacityRouter } from '../../Features/HardDrive/routes/hardDriveCapacity.routes'
 import { createOperatingSystemArqRouter } from '../../Features/OperatingSystem/routes/operatingSystemArq.routes'
 import { createOperatingSystemVersionsRouter } from '../../Features/OperatingSystem/routes/operatingSystemVersions.routes'
-import { createHardDriveRouter } from '../../Features/HardDrive/routes/hardDrive.routes'
-import { createComputerRouter } from '../../Features/Computer/routes/computer.routes'
 import { authenticate } from '../Middleware/authenticate'
 import { validateToken } from '../Middleware/validateTokenHttpOnly'
 import { createProcessorSocketRouter } from '../../Features/Processor/routes/processorSocket.routes'
@@ -49,12 +47,10 @@ export const routerApi = ({ app, repository }: Props): Router => {
   router.use('/models', createModelSeriesRouter({ repository }))
   router.use('/devices', authenticate, createDeviceRouter({ repository }))
   router.use('/status', createStatusRouter({ repository }))
-  router.use('/computers', createComputerRouter({ repository }))
   router.use('/processors', createProcessorRouter({ repository }))
   router.use('/processorsockets', createProcessorSocketRouter({ repository }))
   router.use('/auth', createAuthRouter())
   router.use('/memoryramtypes', createMemoryRamRouter({ repository }))
-  router.use('/harddrive', createHardDriveRouter({ repository }))
   router.use('/harddrivetypes', createHardDriveTypeRouter({ repository }))
   router.use('/harddrivecapacities', createHardDriveCapacityRouter({ repository }))
   router.use('/operatingsystemarqs', createOperatingSystemArqRouter({ repository }))

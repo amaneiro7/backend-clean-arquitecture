@@ -7,7 +7,7 @@ export class OperatingSystemModel extends Model<OperatingSystemPrimitives> imple
   readonly version!: string
 
   public static associate (models: Models): void {
-    this.hasMany(models.Computer, { as: 'computer' }) // An operating system can have many computers
+    this.hasMany(models.DeviceComputer, { as: 'computer', foreignKey: 'operatingSystemId' }) // An operating system can have many computers
   }
 }
 
