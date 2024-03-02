@@ -43,6 +43,7 @@ export interface Models {
   Device: ModelStatic<Model<any>>
   Status: ModelStatic<Model<any>>
   Computer: ModelStatic<Model<any>>
+  DeviceComputer: ModelStatic<Model<any>>
   HardDrive: ModelStatic<Model<any>>
   Processor: ModelStatic<Model<any>>
   ProcessorSocket: ModelStatic<Model<any>>

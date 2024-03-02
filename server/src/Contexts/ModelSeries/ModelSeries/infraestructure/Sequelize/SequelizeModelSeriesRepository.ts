@@ -40,15 +40,14 @@ export class SequelizeModelSeriesRepository implements ModelSeriesRepository {
 
   async save (payload: ModelSeriesPrimitives): Promise<void> {
     const { id, name, categoryId, brandId } = payload
-    let model = await ModelSeriesModel.findByPk(id) ?? null
+    const model = await ModelSeriesModel.findByPk(id) ?? null
 
     if (model === null) {
-      model = await ModelSeriesModel.create({ id, name, categoryId, brandId })
+      await ModelSeriesModel.create({ id, name, categoryId, brandId })
     } else {
       model.set({ id, name, categoryId, brandId })
+      await model.save()
     }
-
-    await model?.save()
 
     if (ComputerModels.isComputerCategory({ categoryId })) {
       await this.createModelComputerIfCategoryMatches(id, payload)

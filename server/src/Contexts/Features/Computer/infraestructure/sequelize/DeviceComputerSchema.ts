@@ -100,7 +100,7 @@ export function initComputerModel (sequelize: Sequelize): void {
       }
     },
     {
-      modelName: 'Computer',
+      modelName: 'DeviceComputer',
       underscored: true,
       timestamps: true,
       sequelize

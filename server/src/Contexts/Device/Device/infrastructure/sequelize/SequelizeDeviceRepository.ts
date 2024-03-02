@@ -4,7 +4,13 @@ import { DeviceModel } from './DeviceSchema'
 import { type FindOptions, Op } from 'sequelize'
 import { type DevicesApiResponse } from './DeviceResponse'
 import type QueryString from 'qs'
+import { sequelize } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeConfig'
+import { DeviceComputer } from '../../../../Features/Computer/domain/Computer'
+import { type Models } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
+import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
+import { type DeviceId } from '../../domain/DeviceId'
 export class SequelizeDeviceRepository implements DeviceRepository {
+  private readonly models = sequelize.models as unknown as Models
   async searchAll (query: QueryString.ParsedQs): Promise<DevicePrimitives[]> {
     const options: FindOptions<DevicesApiResponse> = {
       include: [
@@ -102,14 +108,29 @@ export class SequelizeDeviceRepository implements DeviceRepository {
   }
 
   async save (payload: DevicePrimitives): Promise<void> {
-    const { id } = payload
-    const device = await DeviceModel.findByPk(id) ?? null
-    if (device === null) {
-      await DeviceModel.create({ ...payload })
-    } else {
-      device.set({ ...payload })
-      await device.save()
+    const t = await sequelize.transaction()
+    try {
+      const { id, serial, activo, statusId, categoryId, brandId, modelId } = payload
+      const device = await DeviceModel.findByPk(id) ?? null
+      if (device === null) {
+        await DeviceModel.create({ id, serial, activo, statusId, categoryId, brandId, modelId }, { transaction: t })
+      } else {
+        device.set({ id, serial, activo, statusId, categoryId, brandId, modelId })
+        await device.save({ transaction: t })
+      }
+
+      if (DeviceComputer.isComputerCategory({ categoryId })) {
+        await this.creareDeviceComputerIfCategoryMatches(id, payload)
+      }
+
+      await t.commit()
+    } catch (error) {
+      await t.rollback()
     }
+  }
+
+  private async creareDeviceComputerIfCategoryMatches (id: Primitives<DeviceId>, payload: DevicePrimitives): Promise<void> {
+    await this.models.DeviceComputer.create({ deviceId: id, ...payload })
   }
 
   async remove (deviceId: string): Promise<void> {
