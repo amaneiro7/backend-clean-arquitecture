@@ -11,14 +11,15 @@ import { type OperatingSystemId } from '../../../OperatingSystem/OperatingSystem
 import { type OperatingSystemArqId } from '../../../OperatingSystem/OperatingSystemArq/domain/OperatingSystemArqID'
 import { type MACAddress } from '../../domain/MACAddress'
 import { type IPAddress } from '../../domain/IPAddress'
+import { type CategoryId } from '../../../../Category/domain/CategoryId'
 
 interface DeviceComputerCreationAttributes extends Omit<DeviceComputerPrimitives, 'serial' | 'activo' | 'statusId' | 'brandId' | 'modelId'> {
   deviceId: Primitives<DeviceId>
 }
 export class DeviceComputerModel extends Model<DeviceComputerCreationAttributes> implements DeviceComputerCreationAttributes {
-  readonly deviceId!: string
-  readonly id!: string
-  readonly categoryId!: number
+  readonly deviceId!: Primitives<DeviceId>
+  readonly id!: Primitives<DeviceId>
+  readonly categoryId!: Primitives<CategoryId>
   readonly processorId!: Primitives<ProcessorId> | null
   readonly memoryRamCapacity!: Primitives<MemoryRamCapacity>
   readonly hardDriveCapacityId!: Primitives<HardDriveCapacityId> | null
@@ -39,7 +40,7 @@ export class DeviceComputerModel extends Model<DeviceComputerCreationAttributes>
   }
 }
 
-export function initComputerModel (sequelize: Sequelize): void {
+export function initDeviceComputerModel (sequelize: Sequelize): void {
   DeviceComputerModel.init(
     {
       id: {

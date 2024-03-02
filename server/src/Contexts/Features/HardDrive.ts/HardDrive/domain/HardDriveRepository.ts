@@ -1,4 +1,4 @@
-import { type HardDrivePrimitives } from './HardDrive'
+import { type HardDrivePrimitives } from './HardDriveold'
 
 export abstract class HardDriveRepository {
   abstract searchAll (): Promise<HardDrivePrimitives[]>

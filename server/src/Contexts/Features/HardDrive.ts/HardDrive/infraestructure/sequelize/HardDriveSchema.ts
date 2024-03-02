@@ -1,5 +1,5 @@
 import { DataTypes, Model, type Sequelize } from 'sequelize'
-import { type HardDrivePrimitives } from '../../domain/HardDrive'
+import { type HardDrivePrimitives } from '../../domain/HardDriveold'
 import { type Models } from '../../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
 
 export class HardDriveModel extends Model<HardDrivePrimitives> implements HardDrivePrimitives {

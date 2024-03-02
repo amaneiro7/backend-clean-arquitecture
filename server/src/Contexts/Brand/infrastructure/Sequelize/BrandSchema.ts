@@ -8,6 +8,7 @@ export class BrandModel extends Model<BrandPrimitives> implements BrandPrimitive
 
   public static associate (models: Models): void {
     this.hasMany(models.Model, { as: 'model' }) // A brand can have many model series
+    this.hasMany(models.Device, { as: 'device' }) // A brand can have many device
   }
 }
 

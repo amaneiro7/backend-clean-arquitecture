@@ -1,5 +1,5 @@
 import { type Repository } from '../../../../Shared/domain/Repository'
-import { type HardDrivePrimitives } from '../domain/HardDrive'
+import { type HardDrivePrimitives } from '../domain/HardDriveold'
 
 export class SearchAllHardDrive {
   constructor (private readonly repository: Repository) {}

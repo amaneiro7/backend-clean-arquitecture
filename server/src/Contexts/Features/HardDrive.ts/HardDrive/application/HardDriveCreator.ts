@@ -1,5 +1,5 @@
 import { type Repository } from '../../../../Shared/domain/Repository'
-import { HardDrive } from '../domain/HardDrive'
+import { HardDrive } from '../domain/HardDriveold'
 import { ValidationHardDriveField } from './ValidationHardDrive'
 
 export class HardDriveValidation {

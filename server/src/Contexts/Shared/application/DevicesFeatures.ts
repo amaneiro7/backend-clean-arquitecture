@@ -1,7 +1,7 @@
 import { ComputerCreator } from '../../Features/Computer/application/ComputerCreator'
 import { Computer } from '../../Features/Computer/domain/Computer.old'
 import { HardDriveCreator } from '../../Features/HardDrive.ts/HardDrive/application/HardDriveCreator'
-import { HardDrive } from '../../Features/HardDrive.ts/HardDrive/domain/HardDrive'
+import { HardDrive } from '../../Features/HardDrive.ts/HardDrive/domain/HardDriveold'
 import { type Repository } from '../domain/Repository'
 import { InvalidArgumentError } from '../domain/value-object/InvalidArgumentError'
 

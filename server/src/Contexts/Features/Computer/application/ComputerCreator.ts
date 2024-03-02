@@ -1,11 +1,6 @@
 import { type Repository } from '../../../Shared/domain/Repository'
-import { Computer, type ComputerPrimitives } from '../domain/Computer.old'
+import { DeviceComputer, type DeviceComputerPrimitives } from '../domain/Computer'
 import { ValidationComputerField } from './ValidationComputerField'
-
-interface ComputerParams extends Omit<ComputerPrimitives, 'id'> {
-  categoryId: number
-  deviceId: string
-}
 
 type FieldValidator = (repository: Repository, field: any) => Promise<void>
 
@@ -17,10 +12,7 @@ interface ValidationConfig {
 export class ComputerValidation {
   constructor (private readonly repository: Repository) {}
 
-  async run (params: ComputerParams): Promise<Computer> {
-    const { categoryId, deviceId, processorId, memoryRamCapacity, hardDriveCapacityId, hardDriveTypeId, operatingSystemId, operatingSystemArqId, ipAddress, macAddress } = params
-    console.log(memoryRamCapacity)
-
+  async run ({ serial, activo, statusId, categoryId, brandId, modelId, processorId, memoryRamCapacity, operatingSystemArqId, operatingSystemId, hardDriveCapacityId, hardDriveTypeId, ipAddress, macAddress }: Omit<DeviceComputerPrimitives, 'id'>): Promise<DeviceComputer> {
     const validations: ValidationConfig[] = [
       { field: processorId, validator: ValidationComputerField.ensureProcessorIdExist },
       { field: operatingSystemId, validator: ValidationComputerField.ensureOperatingSystemExist },
@@ -34,6 +26,6 @@ export class ComputerValidation {
       }
     }
 
-    return Computer.create({ categoryId, deviceId, hardDriveCapacityId, hardDriveTypeId, ipAddress, macAddress, memoryRamCapacity, operatingSystemArqId, operatingSystemId, processorId })
+    return DeviceComputer.create({ serial, activo, statusId, categoryId, brandId, modelId, processorId, memoryRamCapacity, operatingSystemArqId, operatingSystemId, hardDriveCapacityId, hardDriveTypeId, ipAddress, macAddress })
   }
 }

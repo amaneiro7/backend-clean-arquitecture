@@ -1,5 +1,5 @@
 import { type Repository } from '../../../../Shared/domain/Repository'
-import { type HardDrivePrimitives } from '../domain/HardDrive'
+import { type HardDrivePrimitives } from '../domain/HardDriveold'
 import { HardDriveDoesNotExistError } from '../domain/HardDriveDoesNotExist'
 import { type HardDriveId } from '../domain/HardDriveId'
 

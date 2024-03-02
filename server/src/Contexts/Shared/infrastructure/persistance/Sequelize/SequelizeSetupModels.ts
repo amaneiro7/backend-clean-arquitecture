@@ -7,12 +7,10 @@ import { initUserModel } from '../../../../User/user/infrastructure/persistance/
 import { initStatusModel } from '../../../../Device/Status/infrastructure/sequelize/StatusSchema'
 import { initHardDriveCapacityModel } from '../../../../Features/HardDrive.ts/HardDriveCapacity/infraestructure/sequelize/HardDriveCapacitySchema'
 import { initHardDriveTypeModel } from '../../../../Features/HardDrive.ts/HardDriveType/infraestructure/sequelize/HardDriveTypeSchema'
-import { initHardDriveModel } from '../../../../Features/HardDrive.ts/HardDrive/infraestructure/sequelize/HardDriveSchema'
 import { initProcessorModel } from '../../../../Features/Processor/Processor/infrastructure/sequelize/ProcessorSchema'
 import { initMemoryRamTypeModel } from '../../../../Features/MemoryRam/MemoryRamType/infraestructure/sequelize/MemoryRamTypeSchema'
 import { initOperatingSystemModel } from '../../../../Features/OperatingSystem/OperatingSystem/infraesructure/sequelize/OperatingSystemSchema'
 import { initOperatingSystemArqModel } from '../../../../Features/OperatingSystem/OperatingSystemArq/infraestructure/sequelize/OperatingSystemArqSchema'
-import { initComputerModel } from '../../../../Features/Computer/infraestructure/sequelize/ComputerSchema'
 import { initRolesodel } from '../../../../User/Role/infrastructure/sequelize/RolesSchema'
 import { initHistoryModel } from '../../../../History/infrastructure/sequelize/HistorySchema'
 import { initComputerModels } from '../../../../ModelSeries/ModelCharacteristics/Computers/Computer/infrastructure/sequelize/ComputerModelsSchema'
@@ -31,6 +29,8 @@ import { initGerenciaModel } from '../../../../employee/Area/Gerencia/infrastruc
 import { initCoordinacionModel } from '../../../../employee/Area/Coordinacion/infrastructure/sequelize/CoordinacionSchema'
 import { initVicepresidenciaModel } from '../../../../employee/Area/VicePresidencia/infrastructure/sequelize/VicepresidenciaSchema'
 import { initCargoModel } from '../../../../employee/Cargo/infrastructure/sequelize/CargoSchema'
+import { initDeviceHardDriveModel } from '../../../../Features/HardDrive.ts/HardDrive/infraestructure/sequelize/DeviceHardDriveSchema'
+import { initDeviceComputerModel } from '../../../../Features/Computer/infraestructure/sequelize/DeviceComputerSchema'
 
 export function setupModels (sequelize: Sequelize): void {
   initCategoryModel(sequelize)
@@ -38,17 +38,17 @@ export function setupModels (sequelize: Sequelize): void {
   initModelSeriesModel(sequelize)
   initStatusModel(sequelize)
   initDeviceModel(sequelize)
+  initDeviceHardDriveModel(sequelize)
   initRolesodel(sequelize)
   initUserModel(sequelize)
   initHardDriveCapacityModel(sequelize)
   initHardDriveTypeModel(sequelize)
-  initHardDriveModel(sequelize)
   initProcessorModel(sequelize)
   initProcessorSocketModel(sequelize)
   initMemoryRamTypeModel(sequelize)
   initOperatingSystemModel(sequelize)
   initOperatingSystemArqModel(sequelize)
-  initComputerModel(sequelize)
+  initDeviceComputerModel(sequelize)
   initHistoryModel(sequelize)
   initComputerModels(sequelize)
   initLaptopModels(sequelize)

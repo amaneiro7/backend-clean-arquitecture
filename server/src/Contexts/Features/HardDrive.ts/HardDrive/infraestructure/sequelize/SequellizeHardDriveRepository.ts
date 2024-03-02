@@ -1,4 +1,4 @@
-import { type HardDrivePrimitives } from '../../domain/HardDrive'
+import { type HardDrivePrimitives } from '../../domain/HardDriveold'
 import { type HardDriveRepository } from '../../domain/HardDriveRepository'
 import { HardDriveModel } from './HardDriveSchema'
 

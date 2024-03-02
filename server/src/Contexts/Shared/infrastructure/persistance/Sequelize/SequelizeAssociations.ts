@@ -2,8 +2,8 @@ import { BrandModel } from '../../../../Brand/infrastructure/Sequelize/BrandSche
 import { CategoryModel } from '../../../../Category/infrastructure/Sequelize/CategorySchema'
 import { DeviceModel } from '../../../../Device/Device/infrastructure/sequelize/DeviceSchema'
 import { StatusModel } from '../../../../Device/Status/infrastructure/sequelize/StatusSchema'
-import { ComputerModel } from '../../../../Features/Computer/infraestructure/sequelize/ComputerSchema'
-import { HardDriveModel } from '../../../../Features/HardDrive.ts/HardDrive/infraestructure/sequelize/HardDriveSchema'
+import { DeviceComputerModel } from '../../../../Features/Computer/infraestructure/sequelize/DeviceComputerSchema'
+import { DeviceHardDriveModel } from '../../../../Features/HardDrive.ts/HardDrive/infraestructure/sequelize/DeviceHardDriveSchema'
 import { HardDriveCapacityModel } from '../../../../Features/HardDrive.ts/HardDriveCapacity/infraestructure/sequelize/HardDriveCapacitySchema'
 import { HardDriveTypeModel } from '../../../../Features/HardDrive.ts/HardDriveType/infraestructure/sequelize/HardDriveTypeSchema'
 import { MemoryRamTypeModel } from '../../../../Features/MemoryRam/MemoryRamType/infraestructure/sequelize/MemoryRamTypeSchema'
@@ -22,7 +22,6 @@ import { ComputerModelsModel } from '../../../../ModelSeries/ModelCharacteristic
 import { LaptopModelsModel } from '../../../../ModelSeries/ModelCharacteristics/Computers/Laptops/infraestructure/sequelize/LaptopsModelsSchema'
 import { MonitorModelsModel } from '../../../../ModelSeries/ModelCharacteristics/Monitors/infraestructure/MonitorModelSchema'
 import { ModelPrinterModel } from '../../../../ModelSeries/ModelCharacteristics/Printers/Printers/insfraestructure/sequelize/ModelPrinterSchema'
-
 import { ModelSeriesModel } from '../../../../ModelSeries/ModelSeries/infraestructure/Sequelize/ModelSeriesSchema'
 import { RolesModel } from '../../../../User/Role/infrastructure/sequelize/RolesSchema'
 import { UserModel } from '../../../../User/user/infrastructure/persistance/Sequelize/UserSchema'
@@ -46,15 +45,15 @@ export function InitSequelizeAssociation (): void {
   ModelPrinterModel.associate(models) // ModelPrinter Associations
   StatusModel.associate(models) // Status Associations
   DeviceModel.associate(models)// Device Associations
+  DeviceComputerModel.associate(models) // DeviceComputer Associations
+  DeviceHardDriveModel.associate(models) // DeviceHardDrive Associations
   HardDriveCapacityModel.associate(models) // HardDriveCapacity Associations
   HardDriveTypeModel.associate(models) // HardDriveType Associations
-  HardDriveModel.associate(models) // HardDrive Associations
   ProcessorModel.associate(models) // Processor Associations
   ProcessorSocketModel.associate(models) // ProcessorSocket Associations
   MemoryRamTypeModel.associate(models) // MemoryRamType Associations
   OperatingSystemModel.associate(models) // OperatingSystem Associations
   OperatingSystemArqModel.associate(models) // OperatingSystemArq Associations
-  ComputerModel.associate(models)// Computer Associations
   RolesModel.associate(models) // Role Associations
   UserModel.associate(models)// User Associations
   HistoryModel.associate(models)// History Associations

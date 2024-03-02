@@ -3,8 +3,6 @@ import { SequelizeBrandRepository } from '../../../../Brand/infrastructure/Seque
 import { SequelizeCategoryRepository } from '../../../../Category/infrastructure/Sequelize/SequelizeCategoryRepository'
 import { SequelizeDeviceRepository } from '../../../../Device/Device/infrastructure/sequelize/SequelizeDeviceRepository'
 import { SequelizeStatusRepository } from '../../../../Device/Status/infrastructure/sequelize/SequelizeStatusRepository'
-import { SequelizeComputerRepository } from '../../../../Features/Computer/infraestructure/sequelize/SequelizeComputerRepository'
-import { SequelizeHardDriveRepository } from '../../../../Features/HardDrive.ts/HardDrive/infraestructure/sequelize/SequellizeHardDriveRepository'
 import { SequelizeHardDriveCapacityRepository } from '../../../../Features/HardDrive.ts/HardDriveCapacity/infraestructure/sequelize/SequelizeHardDriveCapacity'
 import { SequelizeHardDriveTypeRepository } from '../../../../Features/HardDrive.ts/HardDriveType/infraestructure/sequelize/SequelizeHardDriveTypeRepository'
 import { SequelizeMemoryRamTypeRepository } from '../../../../Features/MemoryRam/MemoryRamType/infraestructure/sequelize/SequelizeMemoryRamTypeRepository'
@@ -40,11 +38,10 @@ export interface Models {
   ModelLaptop: ModelStatic<Model<any>>
   ModelMonitor: ModelStatic<Model<any>>
   ModelPrinter: ModelStatic<Model<any>>
-  Device: ModelStatic<Model<any>>
   Status: ModelStatic<Model<any>>
-  Computer: ModelStatic<Model<any>>
+  Device: ModelStatic<Model<any>>
   DeviceComputer: ModelStatic<Model<any>>
-  HardDrive: ModelStatic<Model<any>>
+  DeviceHardDrive: ModelStatic<Model<any>>
   Processor: ModelStatic<Model<any>>
   ProcessorSocket: ModelStatic<Model<any>>
   MemoryRamType: ModelStatic<Model<any>>
@@ -79,11 +76,9 @@ export const sequelizeRepository: Repository = {
   processorSocket: new SequelizeProcessorSocketRepository(),
   hardDriveType: new SequelizeHardDriveTypeRepository(),
   hardDriveCapacity: new SequelizeHardDriveCapacityRepository(),
-  hardDrive: new SequelizeHardDriveRepository(),
   memoryRamType: new SequelizeMemoryRamTypeRepository(),
   operatingSystemVersion: new SequelizeOperatingSystemRepository(),
   operatingSystemArq: new SequelizeOperatingSystemArqRepository(),
-  computer: new SequelizeComputerRepository(),
   role: new SequelizeRolesRepository(),
   history: new SequelizeHistoryRepository(),
   state: new SequelizeStateRepository(),

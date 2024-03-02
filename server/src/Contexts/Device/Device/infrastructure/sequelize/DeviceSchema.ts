@@ -20,7 +20,7 @@ export class DeviceModel extends Model<DevicePrimitives> implements DevicePrimit
   readonly modelId!: Primitives<ModelSeriesId>
 
   public static associate (models: Models): void {
-    this.belongsTo(models.Category, { as: 'model', foreignKey: 'categoryId' }) // A device belongs to a model
+    this.belongsTo(models.Category, { as: 'category', foreignKey: 'categoryId' }) // A device belongs to a category
     this.belongsTo(models.Brand, { as: 'brand', foreignKey: 'brandId' }) // A device belongs to a brand
     this.belongsTo(models.Model, { as: 'model', foreignKey: 'modelId' }) // A device belongs to a model series
     this.belongsTo(models.Status, { as: 'status', foreignKey: 'statusId' }) // A device belongs to a status

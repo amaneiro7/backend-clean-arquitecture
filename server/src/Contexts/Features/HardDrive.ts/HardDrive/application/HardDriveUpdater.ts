@@ -1,6 +1,6 @@
 import { type DeviceId } from '../../../../Device/Device/domain/DeviceId'
 import { type Repository } from '../../../../Shared/domain/Repository'
-import { HardDrive } from '../domain/HardDrive'
+import { HardDrive } from '../domain/HardDriveold'
 import { HardDriveDoesNotExistError } from '../domain/HardDriveDoesNotExist'
 
 interface HardDriveParams {

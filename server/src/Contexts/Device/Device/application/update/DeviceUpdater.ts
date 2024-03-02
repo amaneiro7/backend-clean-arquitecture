@@ -1,7 +1,7 @@
 import { ComputerUpdater } from '../../../../Features/Computer/application/ComputerUpdater'
 import { Computer } from '../../../../Features/Computer/domain/Computer.old'
 import { HardDriveUpdater } from '../../../../Features/HardDrive.ts/HardDrive/application/HardDriveUpdater'
-import { HardDrive } from '../../../../Features/HardDrive.ts/HardDrive/domain/HardDrive'
+import { HardDrive } from '../../../../Features/HardDrive.ts/HardDrive/domain/HardDriveold'
 import { ModelSeriesDoesNotExistError } from '../../../../ModelSeries/ModelSeries/domain/ModelSeriesDoesNotExistError'
 import { type Repository } from '../../../../Shared/domain/Repository'
 import { Device } from '../../domain/Device'

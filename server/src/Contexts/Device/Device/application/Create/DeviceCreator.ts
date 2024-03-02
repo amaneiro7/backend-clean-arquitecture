@@ -1,10 +1,5 @@
 import { ComputerValidation } from '../../../../Features/Computer/application/ComputerCreator'
 import { DeviceComputer, type DeviceComputerPrimitives } from '../../../../Features/Computer/domain/Computer'
-import { Computer } from '../../../../Features/Computer/domain/Computer.old'
-import { HardDriveValidation } from '../../../../Features/HardDrive.ts/HardDrive/application/HardDriveCreator'
-import { HardDrive } from '../../../../Features/HardDrive.ts/HardDrive/domain/HardDrive'
-import { ModelSeriesFinder } from '../../../../ModelSeries/ModelSeries/application/ModelSeriesFinder'
-import { ModelSeriesId } from '../../../../ModelSeries/ModelSeries/domain/ModelSeriesId'
 import { type Repository } from '../../../../Shared/domain/Repository'
 import { Device, type DevicePrimitives } from '../../domain/Device'
 import { ValidationField } from '../ValidationField'
@@ -26,23 +21,11 @@ export class DeviceCreator {
     // const modelSeriesCategory = await new ModelSeriesFinder(this.repository).searchById(modelSeriesId)
     // const categoryId = modelSeriesCategory.category.id
 
-    // if (Computer.isComputerCategory({ categoryId })) {
-    //   const computer = await new ComputerValidation(this.repository).run({ ...otherParams, categoryId, deviceId: device.idValue })
-    //   await this.repository.device.save(device.toPrimitives())
-    //   await this.repository.computer.save(computer.toPrimitive())
-    // } else if (HardDrive.isHardDriveCategory({ categoryId })) {
-    //   const hardDrive = await new HardDriveValidation(this.repository).run({ ...otherParams, categoryId, deviceId: device.idValue })
-    //   await this.repository.device.save(device.toPrimitives())
-    //   await this.repository.hardDrive.save(hardDrive.toPrimitive())
-    // } else {
-    //   await this.repository.device.save(device.toPrimitives())
-    // }
-
     if (DeviceComputer.isComputerCategory({ categoryId })) {
-      const computerParams = otherParams as DeviceComputerPrimitives
-      device = DeviceComputer.create({ ...computerParams, serial, activo, statusId, categoryId, brandId, modelId })
+      const { processorId, memoryRamCapacity, operatingSystemArqId, operatingSystemId, hardDriveCapacityId, hardDriveTypeId, ipAddress, macAddress } = otherParams as DeviceComputerPrimitives
+      device = await new ComputerValidation(this.repository).run({ serial, activo, statusId, categoryId, brandId, modelId, processorId, memoryRamCapacity, operatingSystemArqId, operatingSystemId, hardDriveCapacityId, hardDriveTypeId, ipAddress, macAddress })
     } else {
-      device = Device.create({ serial, activo, statusId, categoryId, brandId, modelId, ...otherParams })
+      device = Device.create({ serial, activo, statusId, categoryId, brandId, modelId })
     }
     await this.repository.device.save(device.toPrimitives())
   }
