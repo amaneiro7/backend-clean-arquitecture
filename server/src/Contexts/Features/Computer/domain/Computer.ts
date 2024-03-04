@@ -100,6 +100,27 @@ export class DeviceComputer extends Device {
     }
   }
 
+  static fromPrimitives (primitives: DeviceComputerPrimitives): DeviceComputer {
+    return new DeviceComputer(
+      new DeviceId(primitives.id),
+      new DeviceSerial(primitives.serial),
+      new DeviceActivo(primitives.activo),
+      new StatusId(primitives.statusId),
+      new CategoryId(primitives.categoryId),
+      new BrandId(primitives.brandId),
+      new ModelSeriesId(primitives.modelId),
+      primitives.processorId != null ? new ProcessorId(primitives.processorId) : null,
+      new MemoryRamCapacity(primitives.memoryRamCapacity),
+      primitives.hardDriveCapacityId != null ? new HardDriveCapacityId(primitives.hardDriveCapacityId) : null,
+      primitives.hardDriveTypeId != null ? new HardDriveTypeId(primitives.hardDriveTypeId) : null,
+      primitives.operatingSystemId != null ? new OperatingSystemId(primitives.operatingSystemId) : null,
+      primitives.operatingSystemArqId != null ? new OperatingSystemArqId(primitives.operatingSystemArqId) : null,
+      new MACAddress(primitives.macAddress),
+      new IPAddress(primitives.ipAddress
+      )
+    )
+  }
+
   updateProcessor (newProcessorId: string | null): void {
     this.processorId = newProcessorId != null ? new ProcessorId(newProcessorId) : null
   }

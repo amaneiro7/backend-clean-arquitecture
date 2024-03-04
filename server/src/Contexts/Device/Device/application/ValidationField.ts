@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-extraneous-class */
+import { ModelSeriesFinder } from '../../../ModelSeries/ModelSeries/application/ModelSeriesFinder'
 import { ModelSeriesDoesNotExistError } from '../../../ModelSeries/ModelSeries/domain/ModelSeriesDoesNotExistError'
 import { ModelSeriesId } from '../../../ModelSeries/ModelSeries/domain/ModelSeriesId'
 import { type Repository } from '../../../Shared/domain/Repository'
@@ -33,9 +34,13 @@ export class ValidationField {
     if (entity !== undefined && modelId === entity.modelSeriesValue) {
       return
     }
-    if (await repository.modelSeries.searchById(new ModelSeriesId(modelId).value) === null) {
+    const modelSeries = await new ModelSeriesFinder(repository).searchById(new ModelSeriesId(modelId))
+    if (modelSeries === null) {
       throw new ModelSeriesDoesNotExistError(modelId)
     }
+    const { brandId, categoryId } = modelSeries
+    entity?.updateBrandId(brandId)
+    entity?.updateCategoryId(categoryId)
   }
 
   static async ensureStatusIdExist (repository: Repository, statusId: number, entity?: Device): Promise<void> {
