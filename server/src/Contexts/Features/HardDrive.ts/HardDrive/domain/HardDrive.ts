@@ -28,8 +28,8 @@ export class DeviceHardDrive extends Device {
     brandId: BrandId,
     modelId: ModelSeriesId,
     private health: HardDriveHealth,
-    private readonly hardDriveCapacityId: HardDriveCapacityId,
-    private readonly hardDriveTypeId: HardDriveTypeId
+    private hardDriveCapacityId: HardDriveCapacityId,
+    private hardDriveTypeId: HardDriveTypeId
   ) {
     super(id, serial, activo, statusId, categoryId, brandId, modelId)
   }
@@ -65,8 +65,16 @@ export class DeviceHardDrive extends Device {
     return AcceptedHardDriveCategories.includes(CategoryDefaultData[categoryId])
   }
 
-  updateHealth (newHealth: number): void {
+  updateHealth (newHealth: Primitives<HardDriveHealth>): void {
     this.health = new HardDriveHealth(newHealth)
+  }
+
+  updateHardDriveCapacity (newHardDriveCapacityId: Primitives<HardDriveCapacityId>): void {
+    this.hardDriveCapacityId = new HardDriveCapacityId(newHardDriveCapacityId)
+  }
+
+  updateHardDriveType (newHardDriveType: Primitives<HardDriveTypeId>): void {
+    this.hardDriveTypeId = new HardDriveTypeId(newHardDriveType)
   }
 
   static fromPrimitives (primitives: DeviceHardDrivePrimitives): DeviceHardDrive {
