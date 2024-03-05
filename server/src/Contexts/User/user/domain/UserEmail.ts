@@ -16,8 +16,12 @@ export class UserEmail extends StringValueObject {
   }
 
   private ensureIsValidEmail (value: string): void {
-    if (!this.validEmailRegExp.test(value)) {
+    if (!this.isValid(value)) {
       throw new InvalidArgumentError(`<${value}> is not a valid email`)
     }
+  }
+
+  private isValid (name: string): boolean {
+    return this.validEmailRegExp.test(name)
   }
 }
