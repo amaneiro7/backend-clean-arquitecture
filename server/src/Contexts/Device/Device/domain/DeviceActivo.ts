@@ -16,13 +16,13 @@ export class DeviceActivo extends AcceptedNullValueObject<string> {
   }
 
   private ensureIsValidActivo (value: string | null): void {
-    if (this.isDeviceActivoValid(value)) {
+    if (!this.isValid(value)) {
       throw new InvalidArgumentError(`<${value}> is not a valid name`)
     }
   }
 
-  private isDeviceActivoValid (name: string | null): boolean {
-    if (name === null) return false
-    return name.length <= this.NAME_MIN_LENGTH && name.length >= this.NAME_MAX_LENGTH
+  private isValid (name: string | null): boolean {
+    if (name === null) return true
+    return name.length >= this.NAME_MIN_LENGTH && name.length <= this.NAME_MAX_LENGTH
   }
 }

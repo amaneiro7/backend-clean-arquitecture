@@ -1,9 +1,7 @@
 export type Primitives = string | number | boolean | Date
 
 export abstract class AcceptedNullValueObject<T extends Primitives> {
-  readonly value: T | null
-
-  constructor (value: T | null) {
+  constructor (readonly value: T | null) {
     if (value === '' || value === undefined) {
       this.value = null
     } else {
