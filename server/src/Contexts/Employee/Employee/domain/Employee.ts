@@ -75,7 +75,7 @@ export class Employee {
       new VicepresidenciaEjecutivaId(vicepresidenciaEjecutivaId),
       new VicepresidenciaId(vicepresidenciaId),
       new EmployeeGerenciaId(gerenciaId),
-      new EmployeeCoordinacionId(coordinacionId)
+      new EmployeeCoordinacionId(coordinacionId, cargoId)
     )
   }
 
@@ -123,8 +123,8 @@ export class Employee {
     this.gerenciaId = new EmployeeGerenciaId(newGerenciaId)
   }
 
-  updatecoordinacion (newCoordinacionId: Primitives<EmployeeCoordinacionId>): void {
-    this.coordinacionId = new EmployeeCoordinacionId(newCoordinacionId)
+  updatecoordinacion (newCoordinacionId: Primitives<EmployeeCoordinacionId>, cargoId: Primitives<CargoId>): void {
+    this.coordinacionId = new EmployeeCoordinacionId(newCoordinacionId, cargoId)
   }
 
   static fromPrimitives (primitives: EmployeePrimitives): Employee {
@@ -141,7 +141,7 @@ export class Employee {
       new VicepresidenciaEjecutivaId(primitives.vicepresidenciaEjecutivaId),
       new VicepresidenciaId(primitives.vicepresidenciaId),
       new EmployeeGerenciaId(primitives.gerenciaId),
-      new EmployeeCoordinacionId(primitives.coordinacionId)
+      new EmployeeCoordinacionId(primitives.coordinacionId, primitives.cargoId)
     )
   }
 

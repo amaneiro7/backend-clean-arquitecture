@@ -3,6 +3,7 @@ import { InvalidArgumentError } from '../../../Shared/domain/value-object/Invali
 import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
 import { CoordinacionId } from '../../Area/Coordinacion/domain/CoordinacionId'
 import { type CargoId } from '../../Cargo/domain/CargoId'
+import { CargoName, type CargosValues } from '../../Cargo/domain/CargoName'
 
 export class EmployeeCoordinacionId extends AcceptedNullValueObject<Primitives<CoordinacionId>> {
   constructor (
@@ -10,12 +11,20 @@ export class EmployeeCoordinacionId extends AcceptedNullValueObject<Primitives<C
     private readonly cargoId: Primitives<CargoId>
   ) {
     super(value)
-
+    this.nullIsCargoisHigherThanCoordinador(cargoId)
     this.ensureIsValidCoordinacionId(value)
   }
 
   toPrimitives (): Primitives<CoordinacionId> | null {
     return this.value
+  }
+
+  private nullIsCargoisHigherThanCoordinador (cargo: Primitives<CargoId>): void {
+    const positionHigerThanCoordinator: CargosValues[] = ['Gerente', 'Vicepresidente', 'Vicepresidente Ejecutivo']
+    const IsPositionHigherThanCoordinator = positionHigerThanCoordinator.includes(CargoName.AcceptedCargos[cargo])
+    if (IsPositionHigherThanCoordinator) {
+      this.updateValue(null) // Is position higher than coordinator, so set it as null
+    }
   }
 
   private ensureIsValidCoordinacionId (id: Primitives<CoordinacionId> | null): void {

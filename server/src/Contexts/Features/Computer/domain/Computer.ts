@@ -75,9 +75,9 @@ export class DeviceComputer extends Device {
     )
   }
 
-  static isComputerCategory ({ categoryId }: { categoryId: number }): boolean {
-    const AcceptedComputerCategories: CategoryValues[] = ['Computadoras', 'All in One', 'Laptops', 'Servidores']
-    return AcceptedComputerCategories.includes(CategoryDefaultData[categoryId])
+  static isComputerCategory ({ categoryId }: { categoryId: Primitives<CategoryId> }): boolean {
+    const acceptedComputerCategories: CategoryValues[] = ['Computadoras', 'All in One', 'Laptops', 'Servidores']
+    return acceptedComputerCategories.includes(CategoryDefaultData[categoryId])
   }
 
   toPrimitives (): DeviceComputerPrimitives {

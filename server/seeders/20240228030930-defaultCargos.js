@@ -1,7 +1,17 @@
 'use strict';
 
 const cargos = [
-  'Analista', 'Especialista Senior', 'Coordinador', 'Gerente', 'Vicepresidente', 'Vicepresidente Ejecutivo'
+  'Analista', 
+  'Especialista Senior', 
+  'Coordinador', 
+  'Gerente', 
+  'Vicepresidente', 
+  'Vicepresidente Ejecutivo',
+  'Cajero de Agencia',
+  'Coordinador de Agencia',
+  'Promotor de Agencia',
+  'SubGerente de Agencia',
+  'Gerente de Agencia'
 ]
 
 /** @type {import('sequelize-cli').Migration} */
