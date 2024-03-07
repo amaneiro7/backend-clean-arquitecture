@@ -1,8 +1,12 @@
 import { LocationId } from '../../../Location/Location/domain/LocationId'
 import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
 import { UserEmail } from '../../../User/user/domain/UserEmail'
+import { VicepresidenciaId } from '../../Area/VicePresidencia/domain/vicepresidenciaId'
+import { VicepresidenciaEjecutivaId } from '../../Area/VicepresidenciaEjecutiva/domain/VicepresidenciaEjecutivaId'
 import { CargoId } from '../../Cargo/domain/CargoId'
 import { EmployeeCedula } from './EmployeeCedula'
+import { EmployeeCoordinacionId } from './EmployeeCoordinacionId'
+import { EmployeeGerenciaId } from './EmployeeGerenciaId'
 import { EmployeeId } from './EmployeeId'
 import { EmployeeLastName } from './EmployeeLastName'
 import { EmployeeName } from './EmployeeName'
@@ -19,6 +23,10 @@ export interface EmployeePrimitives {
   cargoId: Primitives<CargoId>
   extension: Primitives<Extension>
   phoneNumber: Primitives<PhoneNumber>
+  vicepresidenciaEjecutivaId: Primitives<VicepresidenciaEjecutivaId>
+  vicepresidenciaId: Primitives<VicepresidenciaId>
+  gerenciaId: Primitives<EmployeeGerenciaId>
+  coordinacionId: Primitives<EmployeeCoordinacionId>
 }
 
 export class Employee {
@@ -31,7 +39,12 @@ export class Employee {
     private email: UserEmail,
     private cargoId: CargoId,
     private extension: Extension,
-    private phoneNumber: PhoneNumber
+    private phoneNumber: PhoneNumber,
+    private vicepresidenciaEjecutivaId: VicepresidenciaEjecutivaId,
+    private vicepresidenciaId: VicepresidenciaId,
+    private gerenciaId: EmployeeGerenciaId,
+    private coordinacionId: EmployeeCoordinacionId
+
   ) {}
 
   static create ({
@@ -42,7 +55,11 @@ export class Employee {
     email,
     cargoId,
     extension,
-    phoneNumber
+    phoneNumber,
+    vicepresidenciaEjecutivaId,
+    vicepresidenciaId,
+    gerenciaId,
+    coordinacionId
   }: Omit<EmployeePrimitives, 'id'>): Employee {
     const id = EmployeeId.random().value
     return new Employee(
@@ -54,7 +71,11 @@ export class Employee {
       new UserEmail(email),
       new CargoId(cargoId),
       new Extension(extension),
-      new PhoneNumber(phoneNumber)
+      new PhoneNumber(phoneNumber),
+      new VicepresidenciaEjecutivaId(vicepresidenciaEjecutivaId),
+      new VicepresidenciaId(vicepresidenciaId),
+      new EmployeeGerenciaId(gerenciaId),
+      new EmployeeCoordinacionId(coordinacionId)
     )
   }
 
@@ -90,6 +111,22 @@ export class Employee {
     this.phoneNumber = new PhoneNumber(newPhoneNumber)
   }
 
+  updatevicepresidenciaEjecutiva (newVicepresidenciaEjecutivaId: Primitives<VicepresidenciaEjecutivaId>): void {
+    this.vicepresidenciaEjecutivaId = new VicepresidenciaEjecutivaId(newVicepresidenciaEjecutivaId)
+  }
+
+  updatevicepresidencia (newVicepresidenciaId: Primitives<VicepresidenciaId>): void {
+    this.vicepresidenciaId = new VicepresidenciaId(newVicepresidenciaId)
+  }
+
+  updategerencia (newGerenciaId: Primitives<EmployeeGerenciaId>): void {
+    this.gerenciaId = new EmployeeGerenciaId(newGerenciaId)
+  }
+
+  updatecoordinacion (newCoordinacionId: Primitives<EmployeeCoordinacionId>): void {
+    this.coordinacionId = new EmployeeCoordinacionId(newCoordinacionId)
+  }
+
   static fromPrimitives (primitives: EmployeePrimitives): Employee {
     return new Employee(
       new EmployeeId(primitives.id),
@@ -100,7 +137,11 @@ export class Employee {
       new UserEmail(primitives.email),
       new CargoId(primitives.cargoId),
       new Extension(primitives.extension),
-      new PhoneNumber(primitives.phoneNumber)
+      new PhoneNumber(primitives.phoneNumber),
+      new VicepresidenciaEjecutivaId(primitives.vicepresidenciaEjecutivaId),
+      new VicepresidenciaId(primitives.vicepresidenciaId),
+      new EmployeeGerenciaId(primitives.gerenciaId),
+      new EmployeeCoordinacionId(primitives.coordinacionId)
     )
   }
 
@@ -114,7 +155,11 @@ export class Employee {
       email: this.emailValue,
       cargoId: this.cargoValue,
       extension: this.extensionValue,
-      phoneNumber: this.phoneNumberValue
+      phoneNumber: this.phoneNumberValue,
+      vicepresidenciaEjecutivaId: this.vicepresidenciaEjecutivaValue,
+      vicepresidenciaId: this.vicepresidenciaValue,
+      gerenciaId: this.gerenciaValue,
+      coordinacionId: this.coordinacionValue
     }
   }
 
@@ -152,5 +197,21 @@ export class Employee {
 
   get phoneNumberValue (): Primitives<PhoneNumber> {
     return this.phoneNumber.value
+  }
+
+  get vicepresidenciaEjecutivaValue (): Primitives<VicepresidenciaEjecutivaId> {
+    return this.vicepresidenciaEjecutivaId.value
+  }
+
+  get vicepresidenciaValue (): Primitives<VicepresidenciaId> {
+    return this.vicepresidenciaId.value
+  }
+
+  get gerenciaValue (): Primitives<EmployeeGerenciaId> {
+    return this.gerenciaId.value
+  }
+
+  get coordinacionValue (): Primitives<EmployeeCoordinacionId> {
+    return this.coordinacionId.value
   }
 }

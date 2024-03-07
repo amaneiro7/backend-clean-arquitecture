@@ -3,7 +3,7 @@ import { InvalidArgumentError } from '../../../Shared/domain/value-object/Invali
 import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
 import { GerenciaId } from '../../Area/Gerencia/domain/GerenciaId'
 
-export class NullableGerenciaId extends AcceptedNullValueObject<Primitives<GerenciaId>> {
+export class EmployeeGerenciaId extends AcceptedNullValueObject<Primitives<GerenciaId>> {
   constructor (readonly value: Primitives<GerenciaId> | null) {
     super(value)
 
