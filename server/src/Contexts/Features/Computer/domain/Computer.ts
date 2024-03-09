@@ -3,6 +3,7 @@ import { CategoryDefaultData, type CategoryValues } from '../../../Category/doma
 import { CategoryId } from '../../../Category/domain/CategoryId'
 import { Device, type DevicePrimitives } from '../../../Device/Device/domain/Device'
 import { DeviceActivo } from '../../../Device/Device/domain/DeviceActivo'
+import { DeviceEmployee } from '../../../Device/Device/domain/DeviceEmployee'
 import { DeviceId } from '../../../Device/Device/domain/DeviceId'
 import { DeviceSerial } from '../../../Device/Device/domain/DeviceSerial'
 import { StatusId } from '../../../Device/Status/domain/StatusId'
@@ -37,6 +38,7 @@ export class DeviceComputer extends Device {
     categoryId: CategoryId,
     brandId: BrandId,
     modelId: ModelSeriesId,
+    employeeId: DeviceEmployee,
     private processorId: ProcessorId | null,
     private memoryRamCapacity: MemoryRamCapacity,
     private hardDriveCapacityId: HardDriveCapacityId | null,
@@ -47,11 +49,11 @@ export class DeviceComputer extends Device {
     private ipAddress: IPAddress
 
   ) {
-    super(id, serial, activo, statusId, categoryId, brandId, modelId)
+    super(id, serial, activo, statusId, categoryId, brandId, modelId, employeeId)
   }
 
   static create ({
-    serial, activo, statusId, categoryId, brandId, modelId,
+    serial, activo, statusId, categoryId, brandId, modelId, employeeId,
     processorId, memoryRamCapacity, hardDriveCapacityId, hardDriveTypeId,
     operatingSystemId, operatingSystemArqId, macAddress, ipAddress
   }: Omit<DeviceComputerPrimitives, 'id'>): DeviceComputer {
@@ -64,6 +66,7 @@ export class DeviceComputer extends Device {
       new CategoryId(categoryId),
       new BrandId(brandId),
       new ModelSeriesId(modelId),
+      new DeviceEmployee(employeeId),
       processorId != null ? new ProcessorId(processorId) : null,
       new MemoryRamCapacity(memoryRamCapacity),
       hardDriveCapacityId != null ? new HardDriveCapacityId(hardDriveCapacityId) : null,
@@ -89,6 +92,7 @@ export class DeviceComputer extends Device {
       categoryId: this.categoryValue,
       brandId: this.brandValue,
       modelId: this.modelSeriesValue,
+      employeeId: this.employeeeValue,
       processorId: this.processorId != null ? this.processorValue : null,
       memoryRamCapacity: this.memoryRamCapacityValue,
       hardDriveCapacityId: this.hardDriveCapacityId != null ? this.hardDriveCapacityValue : null,
@@ -109,6 +113,7 @@ export class DeviceComputer extends Device {
       new CategoryId(primitives.categoryId),
       new BrandId(primitives.brandId),
       new ModelSeriesId(primitives.modelId),
+      new DeviceEmployee(primitives.employeeId),
       primitives.processorId != null ? new ProcessorId(primitives.processorId) : null,
       new MemoryRamCapacity(primitives.memoryRamCapacity),
       primitives.hardDriveCapacityId != null ? new HardDriveCapacityId(primitives.hardDriveCapacityId) : null,

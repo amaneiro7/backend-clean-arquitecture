@@ -13,7 +13,8 @@ import { type MACAddress } from '../../domain/MACAddress'
 import { type IPAddress } from '../../domain/IPAddress'
 import { type CategoryId } from '../../../../Category/domain/CategoryId'
 
-interface DeviceComputerCreationAttributes extends Omit<DeviceComputerPrimitives, 'serial' | 'activo' | 'statusId' | 'brandId' | 'modelId'> {
+interface DeviceComputerCreationAttributes extends Pick<DeviceComputerPrimitives, 'id' | 'categoryId' | 'processorId' | 'memoryRamCapacity' | 'hardDriveCapacityId'
+| 'hardDriveTypeId' | 'operatingSystemId' | 'operatingSystemArqId' | 'macAddress' | 'ipAddress' > {
   deviceId: Primitives<DeviceId>
 }
 export class DeviceComputerModel extends Model<DeviceComputerCreationAttributes> implements DeviceComputerCreationAttributes {

@@ -6,6 +6,7 @@ import { StatusId } from '../../Status/domain/StatusId'
 import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
 import { CategoryId } from '../../../Category/domain/CategoryId'
 import { BrandId } from '../../../Brand/domain/BrandId'
+import { DeviceEmployee } from './DeviceEmployee'
 
 export interface DevicePrimitives {
   id: Primitives<DeviceId>
@@ -15,6 +16,7 @@ export interface DevicePrimitives {
   categoryId: Primitives<CategoryId>
   brandId: Primitives<BrandId>
   modelId: Primitives<ModelSeriesId>
+  employeeId: Primitives<DeviceEmployee>
 }
 
 export class Device {
@@ -25,10 +27,11 @@ export class Device {
     private statusId: StatusId,
     private categoryId: CategoryId,
     private brandId: BrandId,
-    private modelId: ModelSeriesId
+    private modelId: ModelSeriesId,
+    private employeeId: DeviceEmployee
   ) {}
 
-  static create ({ serial, activo, statusId, categoryId, brandId, modelId }: Omit<DevicePrimitives, 'id'>): Device {
+  static create ({ serial, activo, statusId, categoryId, brandId, modelId, employeeId }: Omit<DevicePrimitives, 'id'>): Device {
     const id = DeviceId.random().toString()
     return new Device(
       new DeviceId(id),
@@ -37,7 +40,8 @@ export class Device {
       new StatusId(statusId),
       new CategoryId(categoryId),
       new BrandId(brandId),
-      new ModelSeriesId(modelId)
+      new ModelSeriesId(modelId),
+      new DeviceEmployee(employeeId)
     )
   }
 
@@ -65,6 +69,10 @@ export class Device {
     this.brandId = new BrandId(newBrandId)
   }
 
+  updateEmployee (newEmployee: Primitives<DeviceEmployee>): void {
+    this.employeeId = new DeviceEmployee(newEmployee)
+  }
+
   static fromPrimitives (primitives: DevicePrimitives): Device {
     return new Device(
       new DeviceId(primitives.id),
@@ -73,7 +81,8 @@ export class Device {
       new StatusId(primitives.statusId),
       new CategoryId(primitives.categoryId),
       new BrandId(primitives.brandId),
-      new ModelSeriesId(primitives.modelId)
+      new ModelSeriesId(primitives.modelId),
+      new DeviceEmployee(primitives.employeeId)
     )
   }
 
@@ -85,7 +94,8 @@ export class Device {
       statusId: this.statusValue,
       categoryId: this.categoryValue,
       brandId: this.brandValue,
-      modelId: this.modelSeriesValue
+      modelId: this.modelSeriesValue,
+      employeeId: this.employeeeValue
     }
   }
 
@@ -115,5 +125,9 @@ export class Device {
 
   get modelSeriesValue (): Primitives<ModelSeriesId> {
     return this.modelId.value
+  }
+
+  get employeeeValue (): Primitives<DeviceEmployee> {
+    return this.employeeId.value
   }
 }

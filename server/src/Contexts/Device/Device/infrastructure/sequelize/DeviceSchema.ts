@@ -9,6 +9,7 @@ import { type DeviceActivo } from '../../domain/DeviceActivo'
 import { type StatusId } from '../../../Status/domain/StatusId'
 import { type BrandId } from '../../../../Brand/domain/BrandId'
 import { type ModelSeriesId } from '../../../../ModelSeries/ModelSeries/domain/ModelSeriesId'
+import { type DeviceEmployee } from '../../domain/DeviceEmployee'
 
 export class DeviceModel extends Model<DevicePrimitives> implements DevicePrimitives {
   readonly id!: Primitives<DeviceId>
@@ -18,6 +19,7 @@ export class DeviceModel extends Model<DevicePrimitives> implements DevicePrimit
   readonly categoryId!: Primitives<CategoryId>
   readonly brandId!: Primitives<BrandId>
   readonly modelId!: Primitives<ModelSeriesId>
+  readonly employeeId!: Primitives<DeviceEmployee>
 
   public static associate (models: Models): void {
     this.belongsTo(models.Category, { as: 'category', foreignKey: 'categoryId' }) // A device belongs to a category
@@ -26,6 +28,7 @@ export class DeviceModel extends Model<DevicePrimitives> implements DevicePrimit
     this.belongsTo(models.Status, { as: 'status', foreignKey: 'statusId' }) // A device belongs to a status
     this.hasOne(models.DeviceHardDrive, { as: 'hardDrive', foreignKey: 'deviceId' }) // A device has one hard drive
     this.hasOne(models.DeviceComputer, { as: 'computer', foreignKey: 'deviceId' }) // A device has one computer
+    this.belongsTo(models.Employee, { as: 'employee', foreignKey: 'employeeId' }) // A device belongs to an employee
   }
 }
 
@@ -62,6 +65,10 @@ export function initDeviceModel (sequelize: Sequelize): void {
       modelId: {
         type: DataTypes.UUID,
         allowNull: false
+      },
+      employeeId: {
+        type: DataTypes.UUID,
+        allowNull: true
       }
     },
     {

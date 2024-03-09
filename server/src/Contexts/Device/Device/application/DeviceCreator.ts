@@ -13,7 +13,7 @@ export interface DeviceParams extends Omit<DevicePrimitives, 'id'> {}
 export class DeviceCreator {
   constructor (private readonly repository: Repository) {}
 
-  async run ({ serial, activo, statusId, modelId, ...otherParams }: DeviceParams): Promise<void> {
+  async run ({ serial, activo, statusId, modelId, employeeId, ...otherParams }: DeviceParams): Promise<void> {
     await ValidationField.ensureActivoDoesNotExist(this.repository, activo)
     await ValidationField.ensureSerialDoesNotExist(this.repository, serial)
     await ValidationField.ensureModelIdExist(this.repository, modelId)
@@ -25,12 +25,12 @@ export class DeviceCreator {
 
     if (DeviceComputer.isComputerCategory({ categoryId })) {
       const { processorId, memoryRamCapacity, operatingSystemArqId, operatingSystemId, hardDriveCapacityId, hardDriveTypeId, ipAddress, macAddress } = otherParams as DeviceComputerPrimitives
-      device = await new ComputerValidation(this.repository).run({ serial, activo, statusId, categoryId, brandId, modelId, processorId, memoryRamCapacity, operatingSystemArqId, operatingSystemId, hardDriveCapacityId, hardDriveTypeId, ipAddress, macAddress })
+      device = await new ComputerValidation(this.repository).run({ serial, activo, statusId, categoryId, brandId, modelId, employeeId, processorId, memoryRamCapacity, operatingSystemArqId, operatingSystemId, hardDriveCapacityId, hardDriveTypeId, ipAddress, macAddress })
     } else if (DeviceHardDrive.isHardDriveCategory({ categoryId })) {
       const { hardDriveCapacityId, hardDriveTypeId, health } = otherParams as DeviceHardDrivePrimitives
-      device = await new HardDriveValidation(this.repository).run({ serial, activo, statusId, categoryId, brandId, modelId, hardDriveCapacityId, hardDriveTypeId, health })
+      device = await new HardDriveValidation(this.repository).run({ serial, activo, statusId, categoryId, brandId, modelId, employeeId, hardDriveCapacityId, hardDriveTypeId, health })
     } else {
-      device = Device.create({ serial, activo, statusId, categoryId, brandId, modelId })
+      device = Device.create({ serial, activo, statusId, categoryId, brandId, modelId, employeeId })
     }
     await this.repository.device.save(device.toPrimitives())
   }

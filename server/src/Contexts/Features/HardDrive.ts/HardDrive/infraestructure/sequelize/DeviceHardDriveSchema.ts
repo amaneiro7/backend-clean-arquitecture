@@ -9,7 +9,7 @@ import { type HardDriveHealth } from '../../domain/HardDriveHealth'
 import { type HardDriveCapacityId } from '../../../HardDriveCapacity/domain/HardDriveCapacityId'
 import { type HardDriveTypeId } from '../../../HardDriveType/domain/HardDriveTypeId'
 
-interface DeviceHardDriveCreationAttributes extends Omit<DeviceHardDrivePrimitives, 'serial' | 'activo' | 'statusId' | 'brandId' | 'modelId'> {
+interface DeviceHardDriveCreationAttributes extends Pick<DeviceHardDrivePrimitives, 'id' | 'categoryId' | 'health' | 'hardDriveCapacityId' | 'hardDriveTypeId'> {
   deviceId: Primitives<DeviceId>
 }
 export class DeviceHardDriveModel extends Model<DeviceHardDriveCreationAttributes> implements HardDrivePrimitives {

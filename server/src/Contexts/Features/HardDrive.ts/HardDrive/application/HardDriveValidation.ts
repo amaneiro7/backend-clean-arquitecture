@@ -13,7 +13,7 @@ interface ValidationConfig {
 export class HardDriveValidation {
   constructor (private readonly repository: Repository) {}
 
-  async run ({ serial, activo, statusId, categoryId, brandId, modelId, hardDriveCapacityId, hardDriveTypeId, health }: Omit<DeviceHardDrivePrimitives, 'id'>): Promise<DeviceHardDrive> {
+  async run ({ serial, activo, statusId, categoryId, brandId, modelId, employeeId, hardDriveCapacityId, hardDriveTypeId, health }: Omit<DeviceHardDrivePrimitives, 'id'>): Promise<DeviceHardDrive> {
     const validations: ValidationConfig[] = [
       { field: hardDriveCapacityId, validator: ValidationHardDriveField.ensureHardDriveCapacityExist },
       { field: hardDriveTypeId, validator: ValidationHardDriveField.ensureHardDriveTypeExist }
@@ -24,6 +24,6 @@ export class HardDriveValidation {
       }
     }
 
-    return DeviceHardDrive.create({ serial, activo, statusId, categoryId, brandId, modelId, hardDriveCapacityId, hardDriveTypeId, health })
+    return DeviceHardDrive.create({ serial, activo, statusId, categoryId, brandId, modelId, employeeId, hardDriveCapacityId, hardDriveTypeId, health })
   }
 }
