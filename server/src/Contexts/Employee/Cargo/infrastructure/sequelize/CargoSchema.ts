@@ -10,7 +10,7 @@ export class CargoModel extends Model<CargoPrimitives> implements CargoPrimitive
   readonly name!: Primitives<CargoName>
 
   public static associate (models: Models): void {
-
+    this.hasMany(models.Employee, { as: 'employees', foreignKey: 'cargoId' })
   }
 }
 

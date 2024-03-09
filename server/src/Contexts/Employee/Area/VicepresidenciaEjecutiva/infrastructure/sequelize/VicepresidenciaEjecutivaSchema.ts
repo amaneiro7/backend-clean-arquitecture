@@ -10,7 +10,8 @@ export class VicepresidenciaEjecutivaModel extends Model<VicepresidenciaEjecutiv
   readonly name!: Primitives<VicepresidenciaEjecutivaName>
 
   public static associate (models: Models): void {
-    this.hasMany(models.Vicepresidencia, { as: 'vicepresidencia', foreignKey: 'vicepresidenciaEjecutivaId' })
+    this.hasMany(models.Vicepresidencia, { as: 'vicepresidencia', foreignKey: 'vicepresidenciaEjecutivaId' }) // A VicepresidenciaEjecutiva has Many Vicepresidencias
+    this.hasMany(models.Employee, { as: 'employees', foreignKey: 'cargoId' }) // A VicepresidenciaEjecutiva has Many employees
   }
 }
 

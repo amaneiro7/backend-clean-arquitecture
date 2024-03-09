@@ -31,6 +31,7 @@ import { initVicepresidenciaModel } from '../../../../employee/Area/VicePresiden
 import { initCargoModel } from '../../../../employee/Cargo/infrastructure/sequelize/CargoSchema'
 import { initDeviceHardDriveModel } from '../../../../Features/HardDrive.ts/HardDrive/infraestructure/sequelize/DeviceHardDriveSchema'
 import { initDeviceComputerModel } from '../../../../Features/Computer/infraestructure/sequelize/DeviceComputerSchema'
+import { initEmployeeModel } from '../../../../employee/Employee/infrastructure/sequelize/EmployeeSchema'
 
 export function setupModels (sequelize: Sequelize): void {
   initCategoryModel(sequelize)
@@ -65,4 +66,5 @@ export function setupModels (sequelize: Sequelize): void {
   initGerenciaModel(sequelize)
   initCoordinacionModel(sequelize)
   initCargoModel(sequelize)
+  initEmployeeModel(sequelize)
 }

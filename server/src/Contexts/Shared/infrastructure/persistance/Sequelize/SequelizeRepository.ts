@@ -27,6 +27,7 @@ import { SequelizeCoordinacionRepository } from '../../../../employee/Area/Coord
 import { SequelizeGerenciaRepository } from '../../../../employee/Area/Gerencia/infrastructure/sequelize/SequelizeGerenciaRepository'
 import { SequelizeVicepresidenciaRepository } from '../../../../employee/Area/VicePresidencia/infrastructure/sequelize/SequelizeVicepresidenciaRepository'
 import { SequelizeVicepresidenciaEjecutivaRepository } from '../../../../employee/Area/VicepresidenciaEjecutiva/infrastructure/sequelize/SequelizeVicepresidenciaEjecutivaRepository'
+import { SequelizeEmployeeRepository } from '../../../../employee/Employee/infrastructure/sequelize/SequelizeEmployeeRepository'
 
 initializeDatabase()
 
@@ -63,6 +64,7 @@ export interface Models {
   Gerencia: ModelStatic<Model<any>>
   Coordinacion: ModelStatic<Model<any>>
   Cargo: ModelStatic<Model<any>>
+  Employee: ModelStatic<Model<any>>
 }
 
 export const sequelizeRepository: Repository = {
@@ -91,5 +93,6 @@ export const sequelizeRepository: Repository = {
   coordinacion: new SequelizeCoordinacionRepository(),
   gerencia: new SequelizeGerenciaRepository(),
   vicepresidencia: new SequelizeVicepresidenciaRepository(),
-  vicepresidenciaEjecutiva: new SequelizeVicepresidenciaEjecutivaRepository()
+  vicepresidenciaEjecutiva: new SequelizeVicepresidenciaEjecutivaRepository(),
+  employee: new SequelizeEmployeeRepository()
 }

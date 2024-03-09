@@ -24,6 +24,7 @@ import { type VicepresidenciaRepository } from '../../employee/Area/VicePresiden
 import { type GerenciaRepository } from '../../employee/Area/Gerencia/domain/GerenciaRepository'
 import { type CoordinacionRepository } from '../../employee/Area/Coordinacion/domain/CoordinacionRepository'
 import { type CargoRepository } from '../../employee/Cargo/domain/CargoRepository'
+import { type EmployeeRepository } from '../../employee/Employee/domain/EmployeeRepository'
 
 export interface Repository {
   user: UserRepository
@@ -52,5 +53,6 @@ export interface Repository {
   gerencia: GerenciaRepository
   coordinacion: CoordinacionRepository
   cargo: CargoRepository
+  employee: EmployeeRepository
 
 }

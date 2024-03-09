@@ -1,42 +1,42 @@
 import { AcceptedNullValueObject } from '../../../Shared/domain/value-object/AcceptedNullValueObjects'
 import { InvalidArgumentError } from '../../../Shared/domain/value-object/InvalidArgumentError'
 import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
-import { GerenciaId } from '../../Area/Gerencia/domain/GerenciaId'
+import { VicepresidenciaId } from '../../Area/VicePresidencia/domain/vicepresidenciaId'
 import { type CargoId } from '../../Cargo/domain/CargoId'
 import { CargoName, type CargosValues } from '../../Cargo/domain/CargoName'
 
-export class EmployeeGerenciaId extends AcceptedNullValueObject<Primitives<GerenciaId>> {
+export class EmployeeVicepresidenciaId extends AcceptedNullValueObject<Primitives<VicepresidenciaId>> {
   constructor (
-    readonly value: Primitives<GerenciaId> | null,
+    readonly value: Primitives<VicepresidenciaId> | null,
     private readonly cargoId: Primitives<CargoId>
   ) {
     super(value)
     this.nullIsCargoisHigherThanCoordinador(cargoId)
-    this.ensureIsValidGerenciaId(value)
+    this.ensureIsValidVicepresidenciaId(value)
   }
 
-  toPrimitives (): Primitives<GerenciaId> | null {
+  toPrimitives (): Primitives<VicepresidenciaId> | null {
     return this.value
   }
 
   private nullIsCargoisHigherThanCoordinador (cargo: Primitives<CargoId>): void {
-    const positionHigerThanCoordinator: CargosValues[] = ['Vicepresidente', 'Vicepresidente Ejecutivo']
+    const positionHigerThanCoordinator: CargosValues[] = ['Vicepresidente Ejecutivo']
     const IsPositionHigherThanCoordinator = positionHigerThanCoordinator.includes(CargoName.AcceptedCargos[cargo])
     if (IsPositionHigherThanCoordinator) {
       this.updateValue(null) // Is position higher than coordinator, so set it as null
     }
   }
 
-  private ensureIsValidGerenciaId (id: Primitives<GerenciaId> | null): void {
+  private ensureIsValidVicepresidenciaId (id: Primitives<VicepresidenciaId> | null): void {
     if (!this.isValid(id)) {
-      throw new InvalidArgumentError('GerenciaId is required')
+      throw new InvalidArgumentError('VicepresidenciaId is required')
     }
   }
 
-  private isValid (id: Primitives<GerenciaId> | null): boolean {
+  private isValid (id: Primitives<VicepresidenciaId> | null): boolean {
     if (id === null) return true
-    const gerenciaId = new GerenciaId(id)
-    if (gerenciaId instanceof GerenciaId) {
+    const vicepresidenciaId = new VicepresidenciaId(id)
+    if (vicepresidenciaId instanceof VicepresidenciaId) {
       return true
     }
 

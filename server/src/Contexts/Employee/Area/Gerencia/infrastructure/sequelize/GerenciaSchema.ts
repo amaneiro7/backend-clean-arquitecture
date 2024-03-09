@@ -12,8 +12,9 @@ export class GerenciaModel extends Model<GerenciaPrimitives> implements Gerencia
   readonly name!: Primitives<GerenciaName>
 
   public static associate (models: Models): void {
-    this.belongsTo(models.Vicepresidencia, { as: 'vicepresidencia', foreignKey: 'gerenciaId' })
-    this.hasMany(models.Coordinacion, { as: 'coordinacion', foreignKey: 'coordinacionId' })
+    this.belongsTo(models.Vicepresidencia, { as: 'vicepresidencia', foreignKey: 'gerenciaId' }) // A Gerencia belongs to Many Vicepresidencias
+    this.hasMany(models.Coordinacion, { as: 'coordinacion', foreignKey: 'coordinacionId' }) // A Gerencia has Many Coordinaciones
+    this.hasMany(models.Employee, { as: 'employees', foreignKey: 'cargoId' }) // A Gerencia has Many employees
   }
 }
 

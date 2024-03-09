@@ -6,6 +6,7 @@ import { type CargoId } from '../../Cargo/domain/CargoId'
 import { CargoName, type CargosValues } from '../../Cargo/domain/CargoName'
 
 export class EmployeeCoordinacionId extends AcceptedNullValueObject<Primitives<CoordinacionId>> {
+  static readonly positionHigerThanCoordinator: CargosValues[] = ['Gerente', 'Vicepresidente', 'Vicepresidente Ejecutivo']
   constructor (
     readonly value: Primitives<CoordinacionId> | null,
     private readonly cargoId: Primitives<CargoId>
@@ -20,8 +21,7 @@ export class EmployeeCoordinacionId extends AcceptedNullValueObject<Primitives<C
   }
 
   private nullIsCargoisHigherThanCoordinador (cargo: Primitives<CargoId>): void {
-    const positionHigerThanCoordinator: CargosValues[] = ['Gerente', 'Vicepresidente', 'Vicepresidente Ejecutivo']
-    const IsPositionHigherThanCoordinator = positionHigerThanCoordinator.includes(CargoName.AcceptedCargos[cargo])
+    const IsPositionHigherThanCoordinator = EmployeeCoordinacionId.positionHigerThanCoordinator.includes(CargoName.AcceptedCargos[cargo])
     if (IsPositionHigherThanCoordinator) {
       this.updateValue(null) // Is position higher than coordinator, so set it as null
     }

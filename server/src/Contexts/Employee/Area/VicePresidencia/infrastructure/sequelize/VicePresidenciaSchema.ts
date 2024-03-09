@@ -11,8 +11,9 @@ export class VicepresidenciaModel extends Model<VicepresidenciaPrimitives> imple
   readonly name!: Primitives<VicepresidenciaName>
 
   public static associate (models: Models): void {
-    this.belongsTo(models.VicepresidenciaEjecutiva, { as: 'vicepresidenciaEjecutiva', foreignKey: 'vicepresidenciaEjecutivaId' })
-    this.hasMany(models.Gerencia, { as: 'gerencia', foreignKey: 'gerenciaId' })
+    this.belongsTo(models.VicepresidenciaEjecutiva, { as: 'vicepresidenciaEjecutiva', foreignKey: 'vicepresidenciaEjecutivaId' }) // A Vicepresidencia belongs to Many Vicepresidencias
+    this.hasMany(models.Gerencia, { as: 'gerencia', foreignKey: 'gerenciaId' }) // A Vicepresidencia has Many Gerencias
+    this.hasMany(models.Employee, { as: 'employees', foreignKey: 'cargoId' }) // A Vicepresidencia has Many employees
   }
 }
 
