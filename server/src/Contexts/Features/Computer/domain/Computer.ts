@@ -7,6 +7,7 @@ import { DeviceEmployee } from '../../../Device/Device/domain/DeviceEmployee'
 import { DeviceId } from '../../../Device/Device/domain/DeviceId'
 import { DeviceSerial } from '../../../Device/Device/domain/DeviceSerial'
 import { StatusId } from '../../../Device/Status/domain/StatusId'
+import { LocationId } from '../../../Location/Location/domain/LocationId'
 import { ModelSeriesId } from '../../../ModelSeries/ModelSeries/domain/ModelSeriesId'
 import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
 import { HardDriveCapacityId } from '../../HardDrive.ts/HardDriveCapacity/domain/HardDriveCapacityId'
@@ -39,6 +40,7 @@ export class DeviceComputer extends Device {
     brandId: BrandId,
     modelId: ModelSeriesId,
     employeeId: DeviceEmployee,
+    locationId: LocationId,
     private processorId: ProcessorId | null,
     private memoryRamCapacity: MemoryRamCapacity,
     private hardDriveCapacityId: HardDriveCapacityId | null,
@@ -49,11 +51,11 @@ export class DeviceComputer extends Device {
     private ipAddress: IPAddress
 
   ) {
-    super(id, serial, activo, statusId, categoryId, brandId, modelId, employeeId)
+    super(id, serial, activo, statusId, categoryId, brandId, modelId, employeeId, locationId)
   }
 
   static create ({
-    serial, activo, statusId, categoryId, brandId, modelId, employeeId,
+    serial, activo, statusId, categoryId, brandId, modelId, employeeId, locationId,
     processorId, memoryRamCapacity, hardDriveCapacityId, hardDriveTypeId,
     operatingSystemId, operatingSystemArqId, macAddress, ipAddress
   }: Omit<DeviceComputerPrimitives, 'id'>): DeviceComputer {
@@ -67,6 +69,7 @@ export class DeviceComputer extends Device {
       new BrandId(brandId),
       new ModelSeriesId(modelId),
       new DeviceEmployee(employeeId),
+      new LocationId(locationId),
       processorId != null ? new ProcessorId(processorId) : null,
       new MemoryRamCapacity(memoryRamCapacity),
       hardDriveCapacityId != null ? new HardDriveCapacityId(hardDriveCapacityId) : null,
@@ -93,6 +96,7 @@ export class DeviceComputer extends Device {
       brandId: this.brandValue,
       modelId: this.modelSeriesValue,
       employeeId: this.employeeeValue,
+      locationId: this.locationValue,
       processorId: this.processorId != null ? this.processorValue : null,
       memoryRamCapacity: this.memoryRamCapacityValue,
       hardDriveCapacityId: this.hardDriveCapacityId != null ? this.hardDriveCapacityValue : null,
@@ -114,6 +118,7 @@ export class DeviceComputer extends Device {
       new BrandId(primitives.brandId),
       new ModelSeriesId(primitives.modelId),
       new DeviceEmployee(primitives.employeeId),
+      new LocationId(primitives.locationId),
       primitives.processorId != null ? new ProcessorId(primitives.processorId) : null,
       new MemoryRamCapacity(primitives.memoryRamCapacity),
       primitives.hardDriveCapacityId != null ? new HardDriveCapacityId(primitives.hardDriveCapacityId) : null,

@@ -12,6 +12,7 @@ import { StatusId } from '../../../../Device/Status/domain/StatusId'
 import { DeviceActivo } from '../../../../Device/Device/domain/DeviceActivo'
 import { DeviceSerial } from '../../../../Device/Device/domain/DeviceSerial'
 import { DeviceEmployee } from '../../../../Device/Device/domain/DeviceEmployee'
+import { LocationId } from '../../../../Location/Location/domain/LocationId'
 
 export interface DeviceHardDrivePrimitives extends DevicePrimitives {
   health: Primitives<HardDriveHealth>
@@ -29,11 +30,12 @@ export class DeviceHardDrive extends Device {
     brandId: BrandId,
     modelId: ModelSeriesId,
     employeeId: DeviceEmployee,
+    locationId: LocationId,
     private health: HardDriveHealth,
     private hardDriveCapacityId: HardDriveCapacityId,
     private hardDriveTypeId: HardDriveTypeId
   ) {
-    super(id, serial, activo, statusId, categoryId, brandId, modelId, employeeId)
+    super(id, serial, activo, statusId, categoryId, brandId, modelId, employeeId, locationId)
   }
 
   static create ({
@@ -44,6 +46,7 @@ export class DeviceHardDrive extends Device {
     brandId,
     modelId,
     employeeId,
+    locationId,
     health,
     hardDriveCapacityId,
     hardDriveTypeId
@@ -58,6 +61,7 @@ export class DeviceHardDrive extends Device {
       new BrandId(brandId),
       new ModelSeriesId(modelId),
       new DeviceEmployee(employeeId),
+      new LocationId(locationId),
       new HardDriveHealth(health),
       new HardDriveCapacityId(hardDriveCapacityId),
       new HardDriveTypeId(hardDriveTypeId)
@@ -91,6 +95,7 @@ export class DeviceHardDrive extends Device {
       new BrandId(primitives.brandId),
       new ModelSeriesId(primitives.modelId),
       new DeviceEmployee(primitives.employeeId),
+      new LocationId(primitives.locationId),
       new HardDriveHealth(primitives.health),
       new HardDriveCapacityId(primitives.hardDriveCapacityId),
       new HardDriveTypeId(primitives.hardDriveTypeId)
@@ -107,6 +112,7 @@ export class DeviceHardDrive extends Device {
       brandId: this.brandValue,
       modelId: this.modelSeriesValue,
       employeeId: this.employeeeValue,
+      locationId: this.locationValue,
       health: this.healthValue,
       hardDriveCapacityId: this.hardDriveCapacityValue,
       hardDriveTypeId: this.hardDriveTypeValue

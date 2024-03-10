@@ -19,6 +19,7 @@ export class LocationModel extends Model<LocationPrimitives> implements Location
     this.belongsTo(models.TypeOfSite, { as: 'typeOfSite', foreignKey: 'typeOfSiteId' }) // A Location belongs to Many Type Of Site
     this.belongsTo(models.Site, { as: 'site', foreignKey: 'siteId' }) //  A Location belongs to Many sites
     this.hasMany(models.Employee, { as: 'employees', foreignKey: 'cargoId' }) // A Location has Many employees
+    this.hasMany(models.Device, { as: 'devices', foreignKey: 'locationId' }) // A Location has Many devices
   }
 }
 
