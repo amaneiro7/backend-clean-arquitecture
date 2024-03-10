@@ -5,6 +5,7 @@ import { ModelSeriesFinder } from '../../../ModelSeries/ModelSeries/application/
 import { ModelSeriesDoesNotExistError } from '../../../ModelSeries/ModelSeries/domain/ModelSeriesDoesNotExistError'
 import { ModelSeriesId } from '../../../ModelSeries/ModelSeries/domain/ModelSeriesId'
 import { type Repository } from '../../../Shared/domain/Repository'
+import { InvalidArgumentError } from '../../../Shared/domain/value-object/InvalidArgumentError'
 import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
 import { EmployeeDoesNotExistError } from '../../../employee/Employee/domain/EmployeeDoesNotExistError'
 import { EmployeeId } from '../../../employee/Employee/domain/EmployeeId'
@@ -64,6 +65,12 @@ export class ValidationField {
     const location = await repository.location.searchById(new LocationId(locationId).value)
     if (location === null) {
       throw new LocationDoesNotExistError(locationId)
+    }
+    if (entity?.statusValue === 2 && location.siteId !== 3) {
+      throw new InvalidArgumentError('Location must be site in Werehouse')
+    }
+    if (entity?.statusValue !== 3 && location.siteId !== 1) {
+      throw new InvalidArgumentError('Location must be site in Administrative site or in an Agency')
     }
   }
 

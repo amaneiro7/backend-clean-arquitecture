@@ -14,13 +14,6 @@ export class DeviceCreator {
   constructor (private readonly repository: Repository) {}
 
   async run ({ serial, activo, statusId, modelId, employeeId, locationId, ...otherParams }: DeviceParams): Promise<void> {
-    await ValidationField.ensureActivoDoesNotExist(this.repository, activo)
-    await ValidationField.ensureSerialDoesNotExist(this.repository, serial)
-    await ValidationField.ensureModelIdExist(this.repository, modelId)
-    await ValidationField.ensureStatusIdExist(this.repository, statusId)
-    await ValidationField.ensureEmployeeIdExist(this.repository, employeeId)
-    await ValidationField.ensureLocationIdExist(this.repository, locationId)
-
     let device
     const modelSeriesId = new ModelSeriesId(modelId)
     const { brandId, categoryId } = await new ModelSeriesFinder(this.repository).searchById(modelSeriesId)
@@ -34,6 +27,12 @@ export class DeviceCreator {
     } else {
       device = Device.create({ serial, activo, statusId, categoryId, brandId, modelId, employeeId, locationId })
     }
+    await ValidationField.ensureActivoDoesNotExist(this.repository, activo)
+    await ValidationField.ensureSerialDoesNotExist(this.repository, serial)
+    await ValidationField.ensureStatusIdExist(this.repository, statusId)
+    await ValidationField.ensureEmployeeIdExist(this.repository, employeeId)
+    await ValidationField.ensureLocationIdExist(this.repository, locationId, device)
+
     await this.repository.device.save(device.toPrimitives())
   }
 }
