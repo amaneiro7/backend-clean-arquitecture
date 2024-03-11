@@ -10,7 +10,7 @@ export class RegionModel extends Model<RegionPrimitives> implements RegionPrimit
   readonly name!: Primitives<RegionName>
 
   public static associate (models: Models): void {
-    this.hasMany(models.State, { as: 'state', foreignKey: 'stateId' }) // An Region can hava many states
+    this.hasMany(models.State, { as: 'state', foreignKey: 'regionId' }) // An Region can hava many states
   }
 }
 
