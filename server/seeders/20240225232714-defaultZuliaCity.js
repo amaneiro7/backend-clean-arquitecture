@@ -21,10 +21,10 @@ const cities = [
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    return queryInterface.bulkInsert('cities', cities.map((city, index) => ({
-      id: index + 1,
-      state_id: city.stateId,
-      name: city.name
+    return queryInterface.bulkInsert('cities', cities.map(({ name, stateId }, index) => ({
+      id: stateId * 100 + index + 1,
+      state_id: stateId,
+      name: name
     })), {})
   },
 

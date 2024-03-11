@@ -4,14 +4,8 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
     return queryInterface.bulkInsert('operating_system_arqs', [      
-        {
-          id: 1,
-          name: 'x86',
-        },
-        {
-          id: 2,
-          name: 'x64',
-        }        
+        {  id: 1, name: 'x86'},
+        {  id: 2, name: 'x64'}        
   ], {})
   },
 

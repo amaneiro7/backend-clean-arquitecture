@@ -15,7 +15,7 @@ export const sequelize = new Sequelize(dbUrl, {
   }
 
 })
-function initializeDatabase (): void {
+export function initializeDatabase (): void {
   setupModels(sequelize)
   InitSequelizeAssociation()
 
@@ -31,5 +31,3 @@ function initializeDatabase (): void {
     console.error('Error syncing database:', error)
   })
 }
-
-export { initializeDatabase }
