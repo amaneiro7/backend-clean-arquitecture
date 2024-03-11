@@ -1,14 +1,16 @@
-import { type GenericRepository } from '../../../../Shared/domain/GenericRepository'
+import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
 import { type ProcessorPrimitives } from './Processor'
+import { type ProcessorId } from './ProcessorId'
+import { type ProcessorNumberModel } from './ProcessorNumberModel'
 
-export abstract class ProcessorRepository implements GenericRepository<ProcessorPrimitives> {
+export abstract class ProcessorRepository {
   abstract searchAll (): Promise<ProcessorPrimitives[]>
 
   abstract save (payload: ProcessorPrimitives): Promise<void>
 
-  abstract searchById (id: string): Promise<ProcessorPrimitives | null>
+  abstract searchById (id: Primitives<ProcessorId>): Promise<ProcessorPrimitives | null>
 
-  abstract searchByName (name: string): Promise<ProcessorPrimitives | null>
+  abstract searchByNumberModel (numberModel: Primitives<ProcessorNumberModel>): Promise<ProcessorPrimitives | null>
 
-  abstract remove (id: string): Promise<void>
+  abstract remove (id: Primitives<ProcessorId>): Promise<void>
 }

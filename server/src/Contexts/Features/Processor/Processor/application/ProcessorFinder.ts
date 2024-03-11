@@ -16,11 +16,11 @@ export class ProcessorsFinder {
     return processor
   }
 
-  async searchByName (processorName: ProcessorName): Promise<ProcessorPrimitives> {
-    const processor = await this.repository.processor.searchByName(processorName.value)
+  async searchByName (numberModel: ProcessorName): Promise<ProcessorPrimitives> {
+    const processor = await this.repository.processor.searchByNumberModel(numberModel.value)
 
     if (processor === null) {
-      throw new ProcessorDoesNotExistError(processorName.value)
+      throw new ProcessorDoesNotExistError(numberModel.value)
     }
 
     return processor

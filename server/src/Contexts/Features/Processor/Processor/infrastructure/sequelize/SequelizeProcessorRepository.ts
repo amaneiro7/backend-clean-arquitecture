@@ -1,4 +1,6 @@
+import { type Primitives } from '../../../../../Shared/domain/value-object/Primitives'
 import { type ProcessorPrimitives } from '../../domain/Processor'
+import { type ProcessorNumberModel } from '../../domain/ProcessorNumberModel'
 import { type ProcessorRepository } from '../../domain/ProcessorRepository'
 import { ProcessorModel } from './ProcessorSchema'
 
@@ -11,8 +13,8 @@ export class SequelizeProcessorRepository implements ProcessorRepository {
     return await ProcessorModel.findByPk(id) ?? null
   }
 
-  async searchByName (name: string): Promise<ProcessorPrimitives | null> {
-    return await ProcessorModel.findOne({ where: { name } }) ?? null
+  async searchByNumberModel (numberModel: Primitives<ProcessorNumberModel>): Promise<ProcessorPrimitives | null> {
+    return await ProcessorModel.findOne({ where: { numberModel } }) ?? null
   }
 
   async save (payload: ProcessorPrimitives): Promise<void> {

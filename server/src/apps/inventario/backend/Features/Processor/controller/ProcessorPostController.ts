@@ -9,8 +9,8 @@ export class ProcessorPostController {
 
   create = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const { name } = req.body
-      await new ProcessorCreator(this.repository).run({ name })
+      const { productCollection, numberModel, cores, threads, frequency } = req.body
+      await new ProcessorCreator(this.repository).run({ productCollection, numberModel, cores, threads, frequency })
       res.status(httpStatus.CREATED).send()
     } catch (error) {
       next(error)
@@ -19,9 +19,9 @@ export class ProcessorPostController {
 
   update = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const { name } = req.body
+      const { productCollection, numberModel, cores, threads, frequency } = req.body
       const { id } = req.params
-      await new ProcessorUpdater(this.repository).run({ id, newName: name })
+      await new ProcessorUpdater(this.repository).run({ id, params: { productCollection, numberModel, cores, threads, frequency } })
       res.status(httpStatus.CREATED).send()
     } catch (error) {
       next(error)

@@ -1,23 +1,22 @@
 import { type Repository } from '../../../../Shared/domain/Repository'
-import { Processor } from '../domain/Processor'
+import { Processor, type ProcessorPrimitives } from '../domain/Processor'
 import { ProcessorAlreadyExistError } from '../domain/ProcessorAlreadyExistError'
-import { ProcessorName } from '../domain/ProcessorName'
+import { ProcessorNumberModel } from '../domain/ProcessorNumberModel'
 
+export interface ProcessorParams extends Omit<ProcessorPrimitives, 'id' | 'name'> {}
 export class ProcessorCreator {
   constructor (private readonly repository: Repository) {}
 
-  async run (params: { name: string }): Promise<void> {
-    const { name } = params
-
-    const processor = Processor.create({ name })
-    await this.ensureProcessorNameDoesNotExist(name)
+  async run ({ productCollection, numberModel, cores, threads, frequency }: ProcessorParams): Promise<void> {
+    const processor = Processor.create({ productCollection, numberModel, cores, threads, frequency })
+    await this.ensureProcessorNameDoesNotExist(numberModel)
 
     await this.repository.processor.save(processor.toPrimitive())
   }
 
-  private async ensureProcessorNameDoesNotExist (name: string): Promise<void> {
-    if (await this.repository.processor.searchByName(new ProcessorName(name).value) !== null) {
-      throw new ProcessorAlreadyExistError(name)
+  private async ensureProcessorNameDoesNotExist (numberModel: string): Promise<void> {
+    if (await this.repository.processor.searchByNumberModel(new ProcessorNumberModel(numberModel).value) !== null) {
+      throw new ProcessorAlreadyExistError(numberModel)
     }
   }
 }

@@ -1,0 +1,29 @@
+### obtener todas las marcas
+GET http://localhost:5000/api/v1/processors
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3MTJlNTJjZC0zMGY5LTQwMTUtYWNkYi01NmM4NTUzZWY4ODgiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3MDQ1ODM4ODEsImV4cCI6MTcwNDU4NDc4MX0.Ovojg_8RGS5N6_VvUXlFvD9f5hMx0zTIS-NhRLxHqzQ
+
+### Obtener por id
+GET http://localhost:5000/api/v1/processors/241bf55d-b649-4109-af7c-0e6890ded3fc
+
+### Crear una marca con POST con error
+POST http://localhost:5000/api/v1/processors
+Content-Type: application/json
+
+{
+  "name": "siragon"  
+}
+### Crear una marca con POST
+POST http://localhost:5000/api/v1/processors
+Content-Type: application/json
+
+{
+  "name": "siragon"  
+}
+### Modificar una marca con POST
+PATCH  http://localhost:5000/api/v1/processors/1ba4ce78-0908-41b6-8636-9bcc7b67e555
+Content-Type: application/json
+
+{
+  "name": "Samsung"
+}
+

@@ -1,27 +1,19 @@
-import { InvalidArgumentError } from '../../../../Shared/domain/value-object/InvalidArgumentError'
-import { StringValueObject } from '../../../../Shared/domain/value-object/StringValueObject'
+import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
+import { type ProcessorFrequency } from './ProcessorFrequency'
+import { type ProcessorNumberModel } from './ProcessorNumberModel'
+import { type ProcessorProductCollection } from './ProcessorProductCollection'
 
-export class ProcessorName extends StringValueObject {
-  private readonly NAME_MAX_LENGTH = 100
-  private readonly NAME_MIN_LENGTH = 3
-
-  constructor (readonly value: string) {
-    super(value)
-
-    this.ensureIsValidName(value)
+export class ProcessorName {
+  readonly value: string
+  constructor (
+    readonly productCollection: Primitives<ProcessorProductCollection>,
+    readonly numberModel: Primitives<ProcessorNumberModel>,
+    readonly frequency: Primitives<ProcessorFrequency>
+  ) {
+    this.value = `${productCollection} ${numberModel} CPU @ ${frequency}GHz`
   }
 
   toPrimitives (): string {
     return this.value
-  }
-
-  private ensureIsValidName (value: string): void {
-    if (this.isProcessorNameValid(value)) {
-      throw new InvalidArgumentError(`<${value}> is not a valid name`)
-    }
-  }
-
-  private isProcessorNameValid (name: string): boolean {
-    return name.length <= this.NAME_MIN_LENGTH && name.length <= this.NAME_MAX_LENGTH
   }
 }
