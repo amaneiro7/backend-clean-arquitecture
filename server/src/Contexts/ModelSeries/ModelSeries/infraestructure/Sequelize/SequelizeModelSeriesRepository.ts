@@ -13,12 +13,12 @@ import { ModelSeriesModel } from './ModelSeriesSchema'
 export class SequelizeModelSeriesRepository implements ModelSeriesRepository {
   private readonly models = sequelize.models as unknown as Models
   async searchAll (): Promise<ModelSeriesPrimitives[]> {
-    return await ModelSeriesModel.findAll({ include: ['category', 'brand', 'modelComputer'] })
+    return await ModelSeriesModel.findAll({ include: ['category', 'brand', 'modelComputer', 'modelLaptop', 'modelMonitor', 'modelPrinter'] })
   }
 
   async searchById (id: string): Promise<ModelSeriesPrimitives | null> {
     return await ModelSeriesModel.findByPk(id, {
-      include: ['category', 'brand', 'modelComputer']
+      include: ['category', 'brand', 'modelComputer', 'modelLaptop', 'modelMonitor', 'modelPrinter']
     }) ?? null
   }
 
