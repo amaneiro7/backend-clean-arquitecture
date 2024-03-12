@@ -6,7 +6,21 @@ import { LocationModel } from './LocationSchema'
 
 export class SequelizeLocationRepository implements LocationRepository {
   async searchAll (): Promise<LocationPrimitives[]> {
-    return await LocationModel.findAll()
+    return await LocationModel.findAll({
+      include: [
+        'typeOfSite',
+        {
+          association: 'site',
+          include: [{
+            association: 'city',
+            include: [{
+              association: 'state',
+              include: ['region']
+            }]
+          }]
+        }
+      ]
+    })
   }
 
   async searchById (id: Primitives<LocationId>): Promise<LocationPrimitives | null> {

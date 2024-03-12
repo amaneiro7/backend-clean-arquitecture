@@ -6,7 +6,11 @@ import { SiteModels } from './SiteSchema'
 
 export class SequelizeSiteRepository implements SiteRepository {
   async searchAll (): Promise<SitePrimitives[]> {
-    return await SiteModels.findAll()
+    return await SiteModels.findAll({
+      include: [
+        { association: 'city', include: ['state'] }
+      ]
+    })
   }
 
   async searchById (id: Primitives<SiteId>): Promise<SitePrimitives | null> {
