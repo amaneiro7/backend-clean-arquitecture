@@ -9,7 +9,8 @@ const categoriesToInsert = [
   { id: 6, name: 'Impresoras Financieras' },
   { id: 7, name: 'Impresoras Laser' },
   { id: 8, name: 'Impresoras Tinta' },
-  { id: 9, name: 'Discos Duros' }
+  { id: 9, name: 'Discos Duros' },
+  { id: 10, name: 'Teclados' },
 ]
 module.exports = {
   async up (queryInterface, Sequelize) {

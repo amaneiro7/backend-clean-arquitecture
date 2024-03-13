@@ -26,8 +26,17 @@ const brands = [
     { id: "6b4b6a1f-e938-47fe-b637-c4402625b6cd", name: "Wincor-Nixdorf" },
     { id: "c06794db-6ce9-4b33-8001-f9e4735d066b", name: "Olivetti" },
     { id: "a3133903-e6b2-43d3-8739-eaa730798c5a", name: "Seagate" },
-    { id: "805074f3-b63a-4008-80db-200897a2f899", name: "Kingston" }
+    { id: "805074f3-b63a-4008-80db-200897a2f899", name: "Kingston" },
+    { id: "175745a5-894b-44f6-9edf-230caeae7f28", name: "AOC" },
+    { id: "87e04f23-222c-4b9e-af44-cf3da04ddec3", name: "Compaq" },
+    { id: "a0ac3c3f-2309-4ecf-961a-4dad9548b4bb", name: "Diebold" },
+    { id: "cf7fa379-b3d7-4605-8324-026ab9835e3b", name: "Genius" },
+    { id: "9b2dffe4-9afc-474b-b1ae-5703566bef57", name: "Unisys" },
 ]
+
+
+
+
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {

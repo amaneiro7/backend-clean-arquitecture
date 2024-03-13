@@ -716,5 +716,7 @@ module.exports = {
 
   async down (queryInterface, Sequelize) {
     return queryInterface.bulkDelete('models', null, {})
+      .then(() => queryInterface.bulkDelete('model_computers', null, {}))
+      .then(() => queryInterface.bulkDelete('model_laptops', null, {}))
   }
 }

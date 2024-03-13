@@ -37,7 +37,7 @@ module.exports = {
     return queryInterface.bulkInsert('models', modelPrinter.map(({id, name, categoryId, brandId}) => ({
       id,
       name,
-      category_Id: categoryId,
+      category_id: categoryId,
       brand_id: brandId,
       created_at: new Date(),
       updated_at: new Date()
