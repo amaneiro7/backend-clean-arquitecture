@@ -1,7 +1,7 @@
 'use strict';
 const { randomUUID } = require('node:crypto')
 
-const models = [
+const models = [    
     { 
       id: "21969859-daa0-4916-a554-edff77e8f9ac", 
       name: "M70e", 
@@ -87,6 +87,48 @@ const models = [
       hasVGA: true
     },
     { 
+      id: 'cb7c8589-4fbd-45c5-94d9-3d251273d295', 
+      name: "M710S", 
+      categoryId: 1, 
+      brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6", 
+      processorSocketId: 7, 
+      memoryRamTypeId: 5, 
+      memoryRamSlotQuantity: 2, 
+      hasBluetooth: false, 
+      hasWifiAdapter: false, 
+      hasDVI: false, 
+      hasHDMI: false, 
+      hasVGA: true
+    },
+    { 
+      id: '7003ef87-9563-4783-a758-16c471010243', 
+      name: "M720S", 
+      categoryId: 1, 
+      brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6", 
+      processorSocketId: 7, 
+      memoryRamTypeId: 5, 
+      memoryRamSlotQuantity: 2, 
+      hasBluetooth: false, 
+      hasWifiAdapter: false, 
+      hasDVI: false, 
+      hasHDMI: false, 
+      hasVGA: true
+    },
+    { 
+      id: 'ab48a708-cead-47c7-b974-9121c0e71265', 
+      name: "M810Z", 
+      categoryId: 1, 
+      brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6", 
+      processorSocketId: 7, 
+      memoryRamTypeId: 5, 
+      memoryRamSlotQuantity: 2, 
+      hasBluetooth: false, 
+      hasWifiAdapter: false, 
+      hasDVI: false, 
+      hasHDMI: false, 
+      hasVGA: true
+    },
+    { 
       id: "ba260f98-0042-4be7-9d9d-1c6dca5010c3", 
       name: "M91p", 
       categoryId: 1, 
@@ -127,37 +169,7 @@ const models = [
       hasDVI: false, 
       hasHDMI: false, 
       hasVGA: true
-    },
-    { 
-      id: "eeb3420d-a6b8-4c0f-bcc8-048707ecc758", 
-      name: "Latitude 5300", 
-      categoryId: 3, 
-      brandId: "8aecf369-ba1b-4ca2-bf4b-636013caacdc", 
-      processorSocketId: 12, 
-      memoryRamTypeId: 6, 
-      memoryRamSlotQuantity: 2, 
-      hasBluetooth: true, 
-      hasWifiAdapter: true, 
-      hasDVI: false, 
-      hasHDMI: true, 
-      hasVGA: false,
-      batteryModel: 'MXV9V'
-    },
-    { 
-      id: "24a4ae7d-8570-45f3-b103-ea35a0f7c43c", 
-      name: "Latitude 5400", 
-      categoryId: 3, 
-      brandId: "8aecf369-ba1b-4ca2-bf4b-636013caacdc", 
-      processorSocketId: 12, 
-      memoryRamTypeId: 6, 
-      memoryRamSlotQuantity: 2, 
-      hasBluetooth: true, 
-      hasWifiAdapter: true, 
-      hasDVI: false, 
-      hasHDMI: true, 
-      hasVGA: false,
-      batteryModel: '1V1XF'
-    },
+    },    
     { 
       id: "cdfd08c0-59d0-4bfc-a021-e6d53e1325fc", 
       name: "HP Compaq Elite 8300 SFF", 
@@ -172,6 +184,36 @@ const models = [
       hasHDMI: false, 
       hasVGA: true
     },
+    { 
+      id: '6c9eb83a-41df-4380-9a7e-2569bee4f03b', 
+      name: "HP EliteDesk 800 G1 SFF", 
+      categoryId: 1, 
+      brandId: "56a07947-0a09-488b-a597-64ef3e365c32", 
+      processorSocketId: 6, 
+      memoryRamTypeId: 5, 
+      memoryRamSlotQuantity: 4, 
+      hasBluetooth: false, 
+      hasWifiAdapter: false, 
+      hasDVI: false, 
+      hasHDMI: false,
+      hasVGA: true
+    },
+    { 
+      id: '67d21f64-2fee-4818-849d-fe7d062287c2', 
+      name: "HP EliteDesk 800 G4 SFF", 
+      categoryId: 1, 
+      brandId: "56a07947-0a09-488b-a597-64ef3e365c32", 
+      processorSocketId: 7, 
+      memoryRamTypeId: 3, 
+      memoryRamSlotQuantity: 4, 
+      hasBluetooth: false, 
+      hasWifiAdapter: false, 
+      hasDVI: false, 
+      hasHDMI: true,
+      hasVGA: true
+    },
+    
+
     { 
       id: "b67c290e-c186-4ab7-9fd3-92689e1bcbaa", 
       name: "HP Compaq Pro 4300 SFF PC", 
@@ -257,6 +299,34 @@ const models = [
       hasVGA: true
     },
     { 
+      id: "15b7a063-4e99-4ec1-90ca-94a6e0edf000", 
+      name: "HP Compaq dc5100 Small Form Factor", 
+      categoryId: 1, 
+      brandId: "56a07947-0a09-488b-a597-64ef3e365c32", 
+      processorSocketId: 1, 
+      memoryRamTypeId: 1,
+      memoryRamSlotQuantity: 4, 
+      hasBluetooth: false, 
+      hasWifiAdapter: false, 
+      hasDVI: false, 
+      hasHDMI: false, 
+      hasVGA: true
+    },
+    { 
+      id: '868a0697-ecfa-471b-8705-31c298e6399a', 
+      name: "HP 200 G1 MT", 
+      categoryId: 1,
+      brandId: "8aecf369-ba1b-4ca2-bf4b-636013caacdc", 
+      processorSocketId: 11, 
+      memoryRamTypeId: 4,
+      memoryRamSlotQuantity: 2,
+      hasBluetooth: false, 
+      hasWifiAdapter: false, 
+      hasDVI: false, 
+      hasHDMI: false, 
+      hasVGA: true
+    },
+    { 
       id: "bf10b490-f61d-4932-8bf4-05822213212d", 
       name: "HP EliteBook 8470p", 
       categoryId: 3, 
@@ -317,12 +387,27 @@ const models = [
       batteryModel: 'L11119-855'
     },
     { 
+      id: "3fdb6958-f036-47e7-a583-89956e7f9d78", 
+      name: "HP EliteBook 1040 G4", 
+      categoryId: 3, 
+      brandId: "56a07947-0a09-488b-a597-64ef3e365c32", 
+      processorSocketId: 17, 
+      memoryRamTypeId: 6, 
+      memoryRamSlotQuantity: 2, 
+      hasBluetooth: true, 
+      hasWifiAdapter: true, 
+      hasDVI: false, 
+      hasHDMI: true, 
+      hasVGA: false,
+      batteryModel: '805096-00512'
+    },
+    { 
       id: "206ecb35-1e43-47e2-85b4-f7b6405ab638", 
       name: "HP ProBook 4440s", 
       categoryId: 3, 
       brandId: "56a07947-0a09-488b-a597-64ef3e365c32", 
       processorSocketId: 13, 
-      memoryRamTypeId: 3, 
+      memoryRamTypeId: 4, 
       memoryRamSlotQuantity: 4, 
       hasBluetooth: true, 
       hasWifiAdapter: true, 
@@ -330,8 +415,256 @@ const models = [
       hasHDMI: false, 
       hasVGA: true,
       batteryModel: '633802-001'
-    }
+    },
+    { 
+      id: "eeb3420d-a6b8-4c0f-bcc8-048707ecc758", 
+      name: "Latitude 5300", 
+      categoryId: 3, 
+      brandId: "8aecf369-ba1b-4ca2-bf4b-636013caacdc", 
+      processorSocketId: 12, 
+      memoryRamTypeId: 6, 
+      memoryRamSlotQuantity: 2, 
+      hasBluetooth: true, 
+      hasWifiAdapter: true, 
+      hasDVI: false, 
+      hasHDMI: true, 
+      hasVGA: false,
+      batteryModel: 'MXV9V'
+    },
+    { 
+      id: "24a4ae7d-8570-45f3-b103-ea35a0f7c43c", 
+      name: "Latitude 5400", 
+      categoryId: 3, 
+      brandId: "8aecf369-ba1b-4ca2-bf4b-636013caacdc", 
+      processorSocketId: 12, 
+      memoryRamTypeId: 6, 
+      memoryRamSlotQuantity: 2, 
+      hasBluetooth: true, 
+      hasWifiAdapter: true, 
+      hasDVI: false, 
+      hasHDMI: true, 
+      hasVGA: false,
+      batteryModel: '1V1XF'
+    },    
+    {
+      id: 'eaf80960-440d-462b-8276-fac5227ba608',
+      name: 'MacBook Pro Retina',
+      categoryId: 3,
+      brandId: "5d669522-ef76-4a78-a6ce-7fa4237f4c6e",
+      processorSocketId: 18,
+      memoryRamTypeId: 3,
+      memoryRamSlotQuantity: 1,
+      hasBluetooth: true,
+      hasWifiAdapter: true,
+      hasDVI: false,
+      hasHDMI: false,
+      hasVGA: false,
+      batteryModel: 'A1582'
+    },
+    {
+      id: '666c3659-f97a-4f4b-a082-dc6cb87c5795',
+      name: 'HP Pavilion dv4 Notebook PC',
+      categoryId: 3, 
+      brandId: "56a07947-0a09-488b-a597-64ef3e365c32", 
+      processorSocketId: 13, 
+      memoryRamTypeId: 4, 
+      memoryRamSlotQuantity: 2, 
+      hasBluetooth: true, 
+      hasWifiAdapter: true, 
+      hasDVI: false, 
+      hasHDMI: false, 
+      hasVGA: true,
+      batteryModel: 'L11119-855'
+      
+    },
+    {
+      id: '17212b01-df51-4a56-81ce-c02f67e3756b',
+      name: 'HP Pavilion G4-1388la',
+      categoryId: 3, 
+      brandId: "56a07947-0a09-488b-a597-64ef3e365c32", 
+      processorSocketId: 13, 
+      memoryRamTypeId: 4, 
+      memoryRamSlotQuantity: 2, 
+      hasBluetooth: true, 
+      hasWifiAdapter: true, 
+      hasDVI: false, 
+      hasHDMI: false, 
+      hasVGA: true,
+      batteryModel: '593553-001'
+      
+    },
+    {
+      id: '763223a6-bf6e-48bc-a5c7-4773cf7bdc2c',
+      name: 'E49',
+      categoryId: 3, 
+      brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6", 
+      processorSocketId: 13, 
+      memoryRamTypeId: 4, 
+      memoryRamSlotQuantity: 2, 
+      hasBluetooth: true, 
+      hasWifiAdapter: true, 
+      hasDVI: false, 
+      hasHDMI: false, 
+      hasVGA: true,
+      batteryModel: '710416-001'
+      
+    },
+    {
+      id: '6f20dc8d-da9d-4a71-860b-a2049314c0df',
+      name: 'G480',
+      categoryId: 3, 
+      brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6", 
+      processorSocketId: 13, 
+      memoryRamTypeId: 4, 
+      memoryRamSlotQuantity: 2, 
+      hasBluetooth: true, 
+      hasWifiAdapter: true, 
+      hasDVI: false, 
+      hasHDMI: false, 
+      hasVGA: true,
+      batteryModel: 'L11S6Y01'
+      
+    },
+    {
+      id: '8e7394ee-c130-4417-a398-a6c597c2e6e1',
+      name: 'G50-70',
+      categoryId: 3, 
+      brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6", 
+      processorSocketId: 18, 
+      memoryRamTypeId: 4, 
+      memoryRamSlotQuantity: 2, 
+      hasBluetooth: true, 
+      hasWifiAdapter: true, 
+      hasDVI: false, 
+      hasHDMI: false, 
+      hasVGA: true,
+      batteryModel: 'L12M4E01'
+      
+    },
+    {
+      id: '67e1f755-1611-4f84-9478-08fd9bc35af3',
+      name: 'L412',
+      categoryId: 3, 
+      brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6", 
+      processorSocketId: 13, 
+      memoryRamTypeId: 4, 
+      memoryRamSlotQuantity: 2, 
+      hasBluetooth: true, 
+      hasWifiAdapter: true, 
+      hasDVI: false, 
+      hasHDMI: false, 
+      hasVGA: true,
+      batteryModel: '42T4795'
+      
+    },
+    {
+      id: '69d91018-3cd0-48d4-b33d-e8a0638cf693',
+      name: 'SL400',
+      categoryId: 3, 
+      brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6", 
+      processorSocketId: 4, 
+      memoryRamTypeId: 2, 
+      memoryRamSlotQuantity: 2, 
+      hasBluetooth: true, 
+      hasWifiAdapter: true, 
+      hasDVI: false, 
+      hasHDMI: false, 
+      hasVGA: true,
+      batteryModel: '42T4704'      
+    },
+    {
+      id: 'c558ac7b-0e11-4d4a-a0c7-1d39c630afd3',
+      name: 'SL410',
+      categoryId: 3, 
+      brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6", 
+      processorSocketId: 4, 
+      memoryRamTypeId: 2, 
+      memoryRamSlotQuantity: 2, 
+      hasBluetooth: true, 
+      hasWifiAdapter: true, 
+      hasDVI: false, 
+      hasHDMI: false, 
+      hasVGA: true,
+      batteryModel: '42T4793'      
+    },
+    {
+      id: '8279679f-afda-4102-bcd3-b34422ef3772',
+      name: 'T61',
+      categoryId: 3, 
+      brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6", 
+      processorSocketId: 5, 
+      memoryRamTypeId: 2, 
+      memoryRamSlotQuantity: 2, 
+      hasBluetooth: true, 
+      hasWifiAdapter: true, 
+      hasDVI: false, 
+      hasHDMI: false, 
+      hasVGA: true,
+      batteryModel: '42T5262' 
+    },
+    {
+      id: '5f3103cb-bcba-4aeb-978c-50a2ad12c38b',
+      name: 'V330-14IKB',
+      categoryId: 3, 
+      brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6", 
+      processorSocketId: 19, 
+      memoryRamTypeId: 6, 
+      memoryRamSlotQuantity: 2, 
+      hasBluetooth: true, 
+      hasWifiAdapter: true, 
+      hasDVI: false, 
+      hasHDMI: false, 
+      hasVGA: true,
+      batteryModel: 'L17M2PB5' 
+    },
+    {
+      id: '208c2653-294a-4ed5-bf79-848dc312aac6',
+      name: 'X230',
+      categoryId: 3, 
+      brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6", 
+      processorSocketId: 14, 
+      memoryRamTypeId: 4, 
+      memoryRamSlotQuantity: 2, 
+      hasBluetooth: true, 
+      hasWifiAdapter: true, 
+      hasDVI: false, 
+      hasHDMI: false, 
+      hasVGA: true,
+      batteryModel: '45N1025' 
+    },
+    {
+      id: 'd983ef90-3a17-4dce-a0d1-6ba7c19d729e',
+      name: 'X1 Carbon 7th',
+      categoryId: 3, 
+      brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6", 
+      processorSocketId: 4, 
+      memoryRamTypeId: 6, 
+      memoryRamSlotQuantity: 2, 
+      hasBluetooth: true, 
+      hasWifiAdapter: true, 
+      hasDVI: false, 
+      hasHDMI: true, 
+      hasVGA: false,
+      batteryModel: '45N1025' 
+    },
+    {
+      id: 'cbd39f5a-d5da-4f52-8a31-6a61c34cc088',
+      name: 'X1 Carbon 5th',
+      categoryId: 3, 
+      brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6", 
+      processorSocketId: 13, 
+      memoryRamTypeId: 4, 
+      memoryRamSlotQuantity: 2, 
+      hasBluetooth: true, 
+      hasWifiAdapter: true, 
+      hasDVI: false, 
+      hasHDMI: true, 
+      hasVGA: false,
+      batteryModel: '45N1025' 
+    },
   ]
+ 
+  
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
