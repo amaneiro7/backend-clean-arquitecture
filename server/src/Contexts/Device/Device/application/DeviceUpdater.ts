@@ -24,7 +24,7 @@ export class DeviceUpdater {
   constructor (private readonly repository: Repository) {}
 
   async run ({ id, params }: { id: string, params: PartialDeviceParams }): Promise<void> {
-    const { activo, modelId, serial, statusId, categoryId, employeeId, locationId } = params
+    const { activo, modelId, serial, statusId, categoryId, employeeId, locationId, observation } = params
     const devideId = new DeviceId(id).value
 
     const device = await this.repository.device.searchById(devideId)
@@ -63,7 +63,8 @@ export class DeviceUpdater {
         { field: modelId, validator: ValidationField.ensureModelIdExist, updater: deviceEntity.updateModelId },
         { field: statusId, validator: ValidationField.ensureStatusIdExist, updater: deviceEntity.updateStatus },
         { field: employeeId, validator: ValidationField.ensureEmployeeIdExist, updater: deviceEntity.updateEmployee },
-        { field: locationId, validator: ValidationField.ensureLocationIdExist, updater: deviceEntity.updateLocation }
+        { field: locationId, validator: ValidationField.ensureLocationIdExist, updater: deviceEntity.updateLocation },
+        { field: observation, validator: ValidationField.ensureObservationIsValid, updater: deviceEntity.updateObservation }
       )
     }
 

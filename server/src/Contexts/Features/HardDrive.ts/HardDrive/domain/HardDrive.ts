@@ -13,6 +13,7 @@ import { DeviceActivo } from '../../../../Device/Device/domain/DeviceActivo'
 import { DeviceSerial } from '../../../../Device/Device/domain/DeviceSerial'
 import { DeviceEmployee } from '../../../../Device/Device/domain/DeviceEmployee'
 import { LocationId } from '../../../../Location/Location/domain/LocationId'
+import { DeviceObservation } from '../../../../Device/Device/domain/DeviceObservation'
 
 export interface DeviceHardDrivePrimitives extends DevicePrimitives {
   health: Primitives<HardDriveHealth>
@@ -31,11 +32,12 @@ export class DeviceHardDrive extends Device {
     modelId: ModelSeriesId,
     employeeId: DeviceEmployee,
     locationId: LocationId,
+    observation: DeviceObservation,
     private health: HardDriveHealth,
     private hardDriveCapacityId: HardDriveCapacityId,
     private hardDriveTypeId: HardDriveTypeId
   ) {
-    super(id, serial, activo, statusId, categoryId, brandId, modelId, employeeId, locationId)
+    super(id, serial, activo, statusId, categoryId, brandId, modelId, employeeId, locationId, observation)
   }
 
   static create ({
@@ -47,6 +49,7 @@ export class DeviceHardDrive extends Device {
     modelId,
     employeeId,
     locationId,
+    observation,
     health,
     hardDriveCapacityId,
     hardDriveTypeId
@@ -62,6 +65,7 @@ export class DeviceHardDrive extends Device {
       new ModelSeriesId(modelId),
       new DeviceEmployee(employeeId),
       new LocationId(locationId),
+      new DeviceObservation(observation),
       new HardDriveHealth(health),
       new HardDriveCapacityId(hardDriveCapacityId),
       new HardDriveTypeId(hardDriveTypeId)
@@ -96,6 +100,7 @@ export class DeviceHardDrive extends Device {
       new ModelSeriesId(primitives.modelId),
       new DeviceEmployee(primitives.employeeId),
       new LocationId(primitives.locationId),
+      new DeviceObservation(primitives.observation),
       new HardDriveHealth(primitives.health),
       new HardDriveCapacityId(primitives.hardDriveCapacityId),
       new HardDriveTypeId(primitives.hardDriveTypeId)
@@ -113,6 +118,7 @@ export class DeviceHardDrive extends Device {
       modelId: this.modelSeriesValue,
       employeeId: this.employeeeValue,
       locationId: this.locationValue,
+      observation: this.observationValue,
       health: this.healthValue,
       hardDriveCapacityId: this.hardDriveCapacityValue,
       hardDriveTypeId: this.hardDriveTypeValue

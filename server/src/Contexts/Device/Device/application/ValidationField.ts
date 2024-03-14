@@ -15,6 +15,7 @@ import { type Device } from '../domain/Device'
 import { DeviceActivo } from '../domain/DeviceActivo'
 import { DeviceAlreadyExistError } from '../domain/DeviceAlreadyExistError'
 import { type DeviceEmployee } from '../domain/DeviceEmployee'
+import { type DeviceObservation } from '../domain/DeviceObservation'
 import { DeviceSerial } from '../domain/DeviceSerial'
 
 export class ValidationField {
@@ -85,5 +86,12 @@ export class ValidationField {
     if (await repository.employee.searchById(new EmployeeId(employeeId).value) === null) {
       throw new EmployeeDoesNotExistError(employeeId)
     }
+  }
+
+  static async ensureObservationIsValid (repository: Repository, observation: Primitives<DeviceObservation>, entity?: Device): Promise<void> {
+    if (entity !== undefined && observation === entity.observationValue) {
+      return
+    }
+    console.log(observation)
   }
 }
