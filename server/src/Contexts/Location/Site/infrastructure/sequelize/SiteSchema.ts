@@ -14,8 +14,8 @@ export class SiteModels extends Model<SitePrimitives> implements SitePrimitives 
   readonly name!: Primitives<SiteName>
 
   public static associate (models: Models): void {
-    this.belongsTo(models.City, { as: 'city', foreignKey: 'cityId' })
-    this.hasMany(models.Location, { as: 'location', foreignKey: 'siteId' })
+    this.belongsTo(models.City, { as: 'city', foreignKey: 'cityId' }) // A Site belongs to Many City
+    this.hasMany(models.Location, { as: 'location', foreignKey: 'siteId' }) // A Site has Many Locations
   }
 }
 

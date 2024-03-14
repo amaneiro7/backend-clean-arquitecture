@@ -11,7 +11,7 @@ export class TypeOfSiteModel extends Model<TypeOfSitePrimitives> implements Type
   readonly name!: Primitives<TypeOfSiteName>
 
   public static associate (models: Models): void {
-    this.hasMany(models.Location, { as: 'location', foreignKey: 'siteId' })
+    this.hasMany(models.Location, { as: 'location', foreignKey: 'typeOfSiteId' })
   }
 }
 
