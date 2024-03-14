@@ -185,6 +185,20 @@ const models = [
       hasVGA: true
     },
     { 
+      id: '78e6fc44-7d45-47e6-9d78-aecc66ed74d4', 
+      name: "HP Compaq Elite 8000 SFF", 
+      categoryId: 1, 
+      brandId: "56a07947-0a09-488b-a597-64ef3e365c32", 
+      processorSocketId: 1, 
+      memoryRamTypeId: 3, 
+      memoryRamSlotQuantity: 4, 
+      hasBluetooth: false, 
+      hasWifiAdapter: false, 
+      hasDVI: false, 
+      hasHDMI: false, 
+      hasVGA: true
+    },
+    { 
       id: '6c9eb83a-41df-4380-9a7e-2569bee4f03b', 
       name: "HP EliteDesk 800 G1 SFF", 
       categoryId: 1, 
@@ -278,6 +292,20 @@ const models = [
       processorSocketId: 1, 
       memoryRamTypeId: 1, 
       memoryRamSlotQuantity: 4, 
+      hasBluetooth: false, 
+      hasWifiAdapter: false, 
+      hasDVI: false, 
+      hasHDMI: false, 
+      hasVGA: true
+    },
+    { 
+      id: "ff79cbfc-d1a1-4eb9-b2e3-dc7bc0037df9", 
+      name: "HP Proliant ML110 Gen9", 
+      categoryId: 2, 
+      brandId: "56a07947-0a09-488b-a597-64ef3e365c32", 
+      processorSocketId: 20, 
+      memoryRamTypeId: 5,
+      memoryRamSlotQuantity: 8, 
       hasBluetooth: false, 
       hasWifiAdapter: false, 
       hasDVI: false, 

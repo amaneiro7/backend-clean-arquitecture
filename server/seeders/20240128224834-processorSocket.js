@@ -22,6 +22,7 @@ module.exports = {
         { id: 17, name: 'FCBGA 1440' },
         { id: 18, name: 'FCBGA 1168' },
         { id: 19, name: 'FCBGA 1356' },
+        { id: 20, name: 'FCLGA 2011' },
     ])
   },
 
