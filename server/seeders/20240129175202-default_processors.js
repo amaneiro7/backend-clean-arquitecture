@@ -12,6 +12,7 @@ const processors = [
   {id: "ea6d8d8e-7cee-42fb-82be-6ffbad0379af", product_collection: "Intel(R) Core(TM)", number_model: "i3-3120M", frequency: "2.50GHz", cores: 2, threads: true },
   {id: "0a787f22-2325-49a5-b7c6-8446a3abdab0", product_collection: "Intel(R) Core(TM)", number_model: "i3-3220", frequency: "3.30GHz", cores: 2, threads: true },
   {id: "de2af95c-f81e-4555-aa14-18269537212d", product_collection: "Intel(R) Core(TM)", number_model: "i3-4150", frequency: "3.50GHz", cores: 4, threads: false },
+  {id: '7bd1fe16-44ac-4fe9-86ae-59348026174e', product_collection: "Intel(R) Core(TM)", number_model: "i3-4030U", frequency: "1.90GHz", cores: 2, threads: false },
   {id: "8778d460-5f17-4adb-904d-1124585f3e44", product_collection: "Intel(R) Core(TM)", number_model: "i3-M380", frequency: "2.53GHz", cores: 2, threads: true },
   {id: "1229f9dd-9039-45b9-8eef-e1ac7a4aeef4", product_collection: "Intel(R) Core(TM)", number_model: "i5-2400", frequency: "3.10GHz", cores: 4, threads: false },
   {id: "beea8cd2-448f-4d0f-848b-60cf2b205aca", product_collection: "Intel(R) Core(TM)", number_model: "i5-2450M", frequency: "2.50GHz", cores: 2, threads: true },

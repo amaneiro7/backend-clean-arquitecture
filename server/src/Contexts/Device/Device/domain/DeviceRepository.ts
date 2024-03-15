@@ -10,6 +10,8 @@ export abstract class DeviceRepository {
 
   abstract searchBySerial (serial: string): Promise<DevicePrimitives | null>
 
+  abstract searchByComputerName (computerName: string): Promise<any | null>
+
   abstract searchByActivo (activo: string): Promise<DevicePrimitives | null>
 
   abstract remove (deviceId: string): Promise<void>

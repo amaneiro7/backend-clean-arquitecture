@@ -4,9 +4,11 @@
     "password": "Man12345*",
     "database": "inventoryApp",
     "host": "localhost",
-    "dialect": "postgres",    
+    "dialect": "postgres",
+    "migrationStorage": "sequelize",
+    "migrationStorageTableName": "sequelize_migrations",
     "seederStorage": "sequelize",
-    "seederStorageTableName": "sequelize_data"
+    "seederStorageTableName": "sequelize_data"    
   },
   "test": {
     "username": "root",

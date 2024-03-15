@@ -7,10 +7,14 @@
   "scripts": {
     "start": "nodemon server.ts",
     "dev": "cross-env NODE_ENV=development nodemon ./src/apps/inventario/backend/start.ts",
+    "model:generate": "sequelize-cli model:generate --name",
+    "model:all": "sequelize-cli db:migrate",
+    "model:undo": "sequelize-cli db:migrate:undo",
+    "model:undo:all": "sequelize-cli db:migrate:undo:all",    
     "seed:all": "sequelize-cli db:seed:all",
-    "seed:undo": "npx sequelize-cli db:seed:undo",
-    "seed:undo:all": "npx sequelize-cli db:seed:undo:all",
-    "seed:generate": "npx sequelize-cli seed:generate --name"
+    "seed:undo": "sequelize-cli db:seed:undo",
+    "seed:undo:all": "sequelize-cli db:seed:undo:all",
+    "seed:generate": "sequelize-cli seed:generate --name"
   },
   "keywords": [
     "typescript",

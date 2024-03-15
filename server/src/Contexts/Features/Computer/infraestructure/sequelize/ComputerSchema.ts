@@ -1,19 +1,47 @@
 import { DataTypes, Model, type Sequelize } from 'sequelize'
-import { type ComputerPrimitives } from '../../domain/Computer.old'
 import { type Models } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
+import { type DeviceComputerPrimitives } from '../../domain/Computer'
+import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
+import { type DeviceId } from '../../../../Device/Device/domain/DeviceId'
+import { type ComputerName } from '../../domain/ComputerName'
+import { type ProcessorId } from '../../../Processor/Processor/domain/ProcessorId'
+import { type MemoryRamCapacity } from '../../../MemoryRam/MemoryRamCapacity/MemoryRamCapacity'
+import { type HardDriveCapacityId } from '../../../HardDrive.ts/HardDriveCapacity/domain/HardDriveCapacityId'
+import { type HardDriveTypeId } from '../../../HardDrive.ts/HardDriveType/domain/HardDriveTypeId'
+import { type OperatingSystemId } from '../../../OperatingSystem/OperatingSystem/domain/OperatingSystemId'
+import { type OperatingSystemArqId } from '../../../OperatingSystem/OperatingSystemArq/domain/OperatingSystemArqID'
+import { type MACAddress } from '../../domain/MACAddress'
+import { type IPAddress } from '../../domain/IPAddress'
 
-export class ComputerModel extends Model<ComputerPrimitives> implements ComputerPrimitives {
+interface DeviceComputerCreationAttributes extends Pick<DeviceComputerPrimitives,
+'id' |
+'categoryId' |
+'computerName' |
+'processorId' |
+'memoryRamCapacity' |
+'hardDriveCapacityId' |
+'hardDriveTypeId' |
+'operatingSystemId' |
+'operatingSystemArqId' |
+'macAddress' |
+'ipAddress'
+> {
+  deviceId: Primitives<DeviceId>
+}
+
+export class ComputerModel extends Model<DeviceComputerCreationAttributes> implements DeviceComputerCreationAttributes {
   readonly id!: string
   readonly categoryId!: number
   readonly deviceId!: string
-  readonly processorId!: string | null
-  readonly memoryRamCapacity!: number
-  readonly hardDriveCapacityId!: number | null
-  readonly hardDriveTypeId!: number | null
-  readonly operatingSystemId!: number | null
-  readonly operatingSystemArqId!: number | null
-  readonly macAddress!: string | null
-  readonly ipAddress!: string | null
+  readonly computerName!: Primitives<ComputerName>
+  readonly processorId!: Primitives<ProcessorId> | null
+  readonly memoryRamCapacity!: Primitives<MemoryRamCapacity>
+  readonly hardDriveCapacityId!: Primitives<HardDriveCapacityId> | null
+  readonly hardDriveTypeId!: Primitives<HardDriveTypeId> | null
+  readonly operatingSystemId!: Primitives<OperatingSystemId> | null
+  readonly operatingSystemArqId!: Primitives<OperatingSystemArqId> | null
+  readonly macAddress!: Primitives<MACAddress>
+  readonly ipAddress!: Primitives<IPAddress>
 
   public static associate (models: Models): void {
     this.belongsTo(models.Category, { as: 'category' }) // A computer belongs to a category
@@ -47,6 +75,12 @@ export function initComputerModel (sequelize: Sequelize): void {
       deviceId: {
         type: DataTypes.UUID,
         allowNull: false
+      },
+      computerName: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        unique: true,
+        defaultValue: null
       },
       processorId: {
         type: DataTypes.UUID,

@@ -12,8 +12,9 @@ import { type OperatingSystemArqId } from '../../../OperatingSystem/OperatingSys
 import { type MACAddress } from '../../domain/MACAddress'
 import { type IPAddress } from '../../domain/IPAddress'
 import { type CategoryId } from '../../../../Category/domain/CategoryId'
+import { type ComputerName } from '../../domain/ComputerName'
 
-interface DeviceComputerCreationAttributes extends Pick<DeviceComputerPrimitives, 'id' | 'categoryId' | 'processorId' | 'memoryRamCapacity' | 'hardDriveCapacityId'
+interface DeviceComputerCreationAttributes extends Pick<DeviceComputerPrimitives, 'id' | 'categoryId' | 'computerName' | 'processorId' | 'memoryRamCapacity' | 'hardDriveCapacityId'
 | 'hardDriveTypeId' | 'operatingSystemId' | 'operatingSystemArqId' | 'macAddress' | 'ipAddress' > {
   deviceId: Primitives<DeviceId>
 }
@@ -21,6 +22,7 @@ export class DeviceComputerModel extends Model<DeviceComputerCreationAttributes>
   readonly deviceId!: Primitives<DeviceId>
   readonly id!: Primitives<DeviceId>
   readonly categoryId!: Primitives<CategoryId>
+  readonly computerName!: Primitives<ComputerName>
   readonly processorId!: Primitives<ProcessorId> | null
   readonly memoryRamCapacity!: Primitives<MemoryRamCapacity>
   readonly hardDriveCapacityId!: Primitives<HardDriveCapacityId> | null
@@ -62,6 +64,12 @@ export function initDeviceComputerModel (sequelize: Sequelize): void {
       deviceId: {
         type: DataTypes.UUID,
         allowNull: false
+      },
+      computerName: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        unique: true,
+        defaultValue: null
       },
       processorId: {
         type: DataTypes.UUID,

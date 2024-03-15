@@ -17,18 +17,20 @@ import { MemoryRamCapacity } from '../../MemoryRam/MemoryRamCapacity/MemoryRamCa
 import { OperatingSystemId } from '../../OperatingSystem/OperatingSystem/domain/OperatingSystemId'
 import { OperatingSystemArqId } from '../../OperatingSystem/OperatingSystemArq/domain/OperatingSystemArqID'
 import { ProcessorId } from '../../Processor/Processor/domain/ProcessorId'
+import { ComputerName } from './ComputerName'
 import { IPAddress } from './IPAddress'
 import { MACAddress } from './MACAddress'
 
 export interface DeviceComputerPrimitives extends DevicePrimitives {
+  computerName: Primitives<ComputerName>
   processorId: Primitives<ProcessorId> | null
   memoryRamCapacity: Primitives<MemoryRamCapacity>
   hardDriveCapacityId: Primitives<HardDriveCapacityId> | null
   hardDriveTypeId: Primitives<HardDriveTypeId> | null
   operatingSystemId: Primitives<OperatingSystemId> | null
   operatingSystemArqId: Primitives<OperatingSystemArqId> | null
-  macAddress: Primitives<MACAddress> | null
-  ipAddress: Primitives<IPAddress> | null
+  macAddress: Primitives<MACAddress>
+  ipAddress: Primitives<IPAddress>
 }
 
 export class DeviceComputer extends Device {
@@ -43,6 +45,7 @@ export class DeviceComputer extends Device {
     employeeId: DeviceEmployee,
     locationId: LocationId,
     observation: DeviceObservation,
+    private computerName: ComputerName,
     private processorId: ProcessorId | null,
     private memoryRamCapacity: MemoryRamCapacity,
     private hardDriveCapacityId: HardDriveCapacityId | null,
@@ -57,7 +60,7 @@ export class DeviceComputer extends Device {
   }
 
   static create ({
-    serial, activo, statusId, categoryId, brandId, modelId, employeeId, locationId, observation,
+    serial, activo, statusId, categoryId, brandId, modelId, employeeId, locationId, computerName, observation,
     processorId, memoryRamCapacity, hardDriveCapacityId, hardDriveTypeId,
     operatingSystemId, operatingSystemArqId, macAddress, ipAddress
   }: Omit<DeviceComputerPrimitives, 'id'>): DeviceComputer {
@@ -73,6 +76,7 @@ export class DeviceComputer extends Device {
       new DeviceEmployee(employeeId),
       new LocationId(locationId),
       new DeviceObservation(observation),
+      new ComputerName(computerName),
       processorId != null ? new ProcessorId(processorId) : null,
       new MemoryRamCapacity(memoryRamCapacity),
       hardDriveCapacityId != null ? new HardDriveCapacityId(hardDriveCapacityId) : null,
@@ -101,6 +105,7 @@ export class DeviceComputer extends Device {
       employeeId: this.employeeeValue,
       locationId: this.locationValue,
       observation: this.observationValue,
+      computerName: this.computerNameValue,
       processorId: this.processorId != null ? this.processorValue : null,
       memoryRamCapacity: this.memoryRamCapacityValue,
       hardDriveCapacityId: this.hardDriveCapacityId != null ? this.hardDriveCapacityValue : null,
@@ -124,6 +129,7 @@ export class DeviceComputer extends Device {
       new DeviceEmployee(primitives.employeeId),
       new LocationId(primitives.locationId),
       new DeviceObservation(primitives.observation),
+      new ComputerName(primitives.computerName),
       primitives.processorId != null ? new ProcessorId(primitives.processorId) : null,
       new MemoryRamCapacity(primitives.memoryRamCapacity),
       primitives.hardDriveCapacityId != null ? new HardDriveCapacityId(primitives.hardDriveCapacityId) : null,
@@ -134,6 +140,10 @@ export class DeviceComputer extends Device {
       new IPAddress(primitives.ipAddress
       )
     )
+  }
+
+  updateComputerName (newComputerName: Primitives<ComputerName>): void {
+    this.computerName = new ComputerName(newComputerName)
   }
 
   updateProcessor (newProcessorId: string | null): void {
@@ -166,6 +176,10 @@ export class DeviceComputer extends Device {
 
   updateMACAddress (newMACAddress: string | null): void {
     this.macAddress = new MACAddress(newMACAddress)
+  }
+
+  get computerNameValue (): Primitives<ComputerName> {
+    return this.computerName.value
   }
 
   get memoryRamCapacityValue (): number {

@@ -107,6 +107,10 @@ export class SequelizeDeviceRepository implements DeviceRepository {
     return await DeviceModel.findOne({ where: { serial } })
   }
 
+  async searchByComputerName (computerName: string): Promise<any | null> {
+    return await this.models.DeviceComputer.findOne({ where: { computerName } }) ?? null
+  }
+
   async save (payload: DevicePrimitives): Promise<void> {
     const t = await sequelize.transaction()
     try {

@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-extraneous-class */
+import { DeviceAlreadyExistError } from '../../../Device/Device/domain/DeviceAlreadyExistError'
 import { type Repository } from '../../../Shared/domain/Repository'
 import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
 import { HardDriveCapacityDoesNotExistError } from '../../HardDrive.ts/HardDriveCapacity/domain/HardDriveCapacityDoesNotExist'
@@ -13,6 +14,7 @@ import { OperatingSystemArqId } from '../../OperatingSystem/OperatingSystemArq/d
 import { ProcessorDoesNotExistError } from '../../Processor/Processor/domain/ProcessorDoesNotExistError'
 import { ProcessorId } from '../../Processor/Processor/domain/ProcessorId'
 import { type DeviceComputer } from '../domain/Computer'
+import { type ComputerName } from '../domain/ComputerName'
 import { type IPAddress } from '../domain/IPAddress'
 import { type MACAddress } from '../domain/MACAddress'
 
@@ -23,6 +25,15 @@ export class ValidationComputerField {
     }
     if (await repository.processor.searchById(new ProcessorId(id).value) === null) {
       throw new ProcessorDoesNotExistError(id)
+    }
+  }
+
+  static async ensureComputerNameDoesNotExist (repository: Repository, computerName: Primitives<ComputerName>, entity?: DeviceComputer): Promise<void> {
+    if ((entity !== undefined && computerName === entity.computerNameValue) || computerName === null) {
+      return
+    }
+    if (await repository.device.searchByComputerName(computerName) !== null) {
+      throw new DeviceAlreadyExistError(computerName)
     }
   }
 

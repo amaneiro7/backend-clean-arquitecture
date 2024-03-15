@@ -34,6 +34,7 @@ module.exports = {
             id: device.id,
             category_id: device.categoryId,
             device_id: device.id,
+            computer_name: device.computerName,
             processor_id: device.processorId,
             memory_ram_capacity: device.memoryRamCapacity,
             hard_drive_capacity_id: device.hardDriveCapacityId,
