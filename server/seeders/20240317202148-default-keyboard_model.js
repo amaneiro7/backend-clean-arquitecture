@@ -1,17 +1,12 @@
 'use strict';
 
 const { randomUUID } = require('node:crypto');
-const { lenovoLaptops } = require('./deviceData/LaptopsLenovoAlmacen');
-const { HPLaptops } = require('./deviceData/LaptopsHPAlmacen');
-
-
-
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    const laptopsDevice = lenovoLaptops.concat(HPLaptops)
-    const deviceWithRandomUUID = laptopsDevice.map((device) => {
+
+    const deviceWithRandomUUID = .map((device) => {
       const id = randomUUID()
       return {
         ...device,
@@ -57,8 +52,6 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    return queryInterface.bulkDelete('devices', null, {}).then(() => {
-      return queryInterface.bulkDelete('device_computers', null, {})
-    })
+    
   }
 };

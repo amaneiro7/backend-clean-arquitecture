@@ -15,12 +15,12 @@ module.exports = {
         { id: 9, version: 'Windows Server 2012' },
         { id: 10, version: 'Windows Server 2016' },
         { id: 11, version: 'Windows Server 2019' },
-        { id: 12, version: 'MacOS' },
-        { id: 13, version: 'Ubuntu' },
-        { id: 14, version: 'Debian' },
-        { id: 15, version: 'CentOS' },
-        { id: 16, version: 'OpenSUSE' },
-        { id: 17, version: 'Red Hat Enterprise Linux' },
+        { id: 12, version: 'Ubuntu' },
+        { id: 13, version: 'Debian' },
+        { id: 14, version: 'CentOS' },
+        { id: 15, version: 'OpenSUSE' },
+        { id: 16, version: 'Red Hat Enterprise Linux' },
+        { id: 17, version: 'macOS Monterrey' },
   ], {})
   },
 
