@@ -18,8 +18,10 @@ import { RegionModel } from '../../../../Location/Region/infrastrcuture/sequeliz
 import { SiteModels } from '../../../../Location/Site/infrastructure/sequelize/SiteSchema'
 import { StateModel } from '../../../../Location/State/infrastructure/sequelize/StateSchema'
 import { TypeOfSiteModel } from '../../../../Location/TypeOfSite/infrastructure/sequelize/TypeOfSiteSchema'
+import { InputTypeModel } from '../../../../ModelSeries/InputType/infrastructure/sequelize/InputTypeSchema'
 import { ComputerModelsModel } from '../../../../ModelSeries/ModelCharacteristics/Computers/Computer/infrastructure/sequelize/ComputerModelsSchema'
 import { LaptopModelsModel } from '../../../../ModelSeries/ModelCharacteristics/Computers/Laptops/infraestructure/sequelize/LaptopsModelsSchema'
+import { KeyboardModelsModel } from '../../../../ModelSeries/ModelCharacteristics/Keyboards/infraestructure/KeyboardModelSchema'
 import { MonitorModelsModel } from '../../../../ModelSeries/ModelCharacteristics/Monitors/infraestructure/MonitorModelSchema'
 import { ModelPrinterModel } from '../../../../ModelSeries/ModelCharacteristics/Printers/Printers/insfraestructure/sequelize/ModelPrinterSchema'
 import { ModelSeriesModel } from '../../../../ModelSeries/ModelSeries/infraestructure/Sequelize/ModelSeriesSchema'
@@ -44,6 +46,7 @@ export function InitSequelizeAssociation (): void {
   LaptopModelsModel.associate(models) // ModelLaptop Associations
   MonitorModelsModel.associate(models) // ModelMonitor Associations
   ModelPrinterModel.associate(models) // ModelPrinter Associations
+  KeyboardModelsModel.associate(models) // ModelKeyboard Associations
   StatusModel.associate(models) // Status Associations
   DeviceModel.associate(models)// Device Associations
   DeviceComputerModel.associate(models) // DeviceComputer Associations
@@ -70,4 +73,5 @@ export function InitSequelizeAssociation (): void {
   CoordinacionModel.associate(models) // Coordinacion Associations
   CargoModel.associate(models) // Cargo Associations
   EmployeeModel.associate(models) // Employee Associations
+  InputTypeModel.associate(models) // InputType Associations
 }

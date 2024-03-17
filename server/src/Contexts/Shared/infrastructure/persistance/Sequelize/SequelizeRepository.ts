@@ -28,6 +28,7 @@ import { SequelizeGerenciaRepository } from '../../../../employee/Area/Gerencia/
 import { SequelizeVicepresidenciaRepository } from '../../../../employee/Area/VicePresidencia/infrastructure/sequelize/SequelizeVicepresidenciaRepository'
 import { SequelizeVicepresidenciaEjecutivaRepository } from '../../../../employee/Area/VicepresidenciaEjecutiva/infrastructure/sequelize/SequelizeVicepresidenciaEjecutivaRepository'
 import { SequelizeEmployeeRepository } from '../../../../employee/Employee/infrastructure/sequelize/SequelizeEmployeeRepository'
+import { SequelizeInputTypeRepository } from '../../../../ModelSeries/InputType/infrastructure/sequelize/SequelizeInputTypeRepository'
 
 initializeDatabase()
 
@@ -39,6 +40,7 @@ export interface Models {
   ModelLaptop: ModelStatic<Model<any>>
   ModelMonitor: ModelStatic<Model<any>>
   ModelPrinter: ModelStatic<Model<any>>
+  ModelKeyboard: ModelStatic<Model<any>>
   Status: ModelStatic<Model<any>>
   Device: ModelStatic<Model<any>>
   DeviceComputer: ModelStatic<Model<any>>
@@ -65,6 +67,7 @@ export interface Models {
   Coordinacion: ModelStatic<Model<any>>
   Cargo: ModelStatic<Model<any>>
   Employee: ModelStatic<Model<any>>
+  InputType: ModelStatic<Model<any>>
 }
 
 export const sequelizeRepository: Repository = {
@@ -94,5 +97,6 @@ export const sequelizeRepository: Repository = {
   gerencia: new SequelizeGerenciaRepository(),
   vicepresidencia: new SequelizeVicepresidenciaRepository(),
   vicepresidenciaEjecutiva: new SequelizeVicepresidenciaEjecutivaRepository(),
-  employee: new SequelizeEmployeeRepository()
+  employee: new SequelizeEmployeeRepository(),
+  inputType: new SequelizeInputTypeRepository()
 }

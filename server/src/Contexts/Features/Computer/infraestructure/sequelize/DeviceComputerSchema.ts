@@ -66,10 +66,9 @@ export function initDeviceComputerModel (sequelize: Sequelize): void {
         allowNull: false
       },
       computerName: {
-        type: DataTypes.STRING,
         allowNull: true,
-        unique: true,
-        defaultValue: null
+        type: DataTypes.STRING,
+        unique: true
       },
       processorId: {
         type: DataTypes.UUID,

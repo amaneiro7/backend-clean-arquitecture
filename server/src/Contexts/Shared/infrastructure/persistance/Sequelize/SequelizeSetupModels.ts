@@ -32,6 +32,8 @@ import { initCargoModel } from '../../../../employee/Cargo/infrastructure/sequel
 import { initDeviceHardDriveModel } from '../../../../Features/HardDrive.ts/HardDrive/infraestructure/sequelize/DeviceHardDriveSchema'
 import { initDeviceComputerModel } from '../../../../Features/Computer/infraestructure/sequelize/DeviceComputerSchema'
 import { initEmployeeModel } from '../../../../employee/Employee/infrastructure/sequelize/EmployeeSchema'
+import { initInputTypeModel } from '../../../../ModelSeries/InputType/infrastructure/sequelize/InputTypeSchema'
+import { initKeyboardModels } from '../../../../ModelSeries/ModelCharacteristics/Keyboards/infraestructure/KeyboardModelSchema'
 
 export function setupModels (sequelize: Sequelize): void {
   initCategoryModel(sequelize)
@@ -55,6 +57,7 @@ export function setupModels (sequelize: Sequelize): void {
   initLaptopModels(sequelize)
   initMonitorModels(sequelize)
   initModelPrinter(sequelize)
+  initKeyboardModels(sequelize)
   initStateModel(sequelize)
   initCityModel(sequelize)
   initTypeOfSiteModel(sequelize)
@@ -67,4 +70,5 @@ export function setupModels (sequelize: Sequelize): void {
   initCoordinacionModel(sequelize)
   initCargoModel(sequelize)
   initEmployeeModel(sequelize)
+  initInputTypeModel(sequelize)
 }
