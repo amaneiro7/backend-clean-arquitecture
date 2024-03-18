@@ -108,7 +108,7 @@ function Home () {
       </header>
       <Suspense>
         <TableStructure>
-          <TableHeader headerTitle={['Categoria', 'Serial', 'Activo', 'Status', 'Marca', 'Modelo']}/>
+          <TableHeader headerTitle={['Categoria', 'Serial', 'Activo', 'Status', 'Marca', 'Modelo', 'Ubicación', 'Observaciones']}/>
           <DeviceTableCard device={devices as DevicesMappedApiResponse[]}/>
         </TableStructure>
       </Suspense>

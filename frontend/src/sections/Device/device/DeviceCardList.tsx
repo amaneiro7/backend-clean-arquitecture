@@ -10,13 +10,7 @@ interface Props {
 export const DeviceTableCardList: React.FC<Props> = ({ item }) => {
   return (
     <>
-        <td className='sticky z-10 top-0 left-0'>{item.categoryName}</td>
-        <td>{item.serial}</td>
-        <td>{item.activo}</td>
-        <td>{item.statusName}</td>
-        <td>{item.brandName}</td>
-        <td>{item.modelName}</td>
-        <td className='sticky z-10 top-0 right-0 flex'>
+        <td className='flex'>
           <Link
             to={`/device/edit/${item.id}`}
             state={{
@@ -30,6 +24,14 @@ export const DeviceTableCardList: React.FC<Props> = ({ item }) => {
             <DeleteIcon />
           </a>
         </td>
+        <td className='whitespace-nowrap'>{item.categoryName}</td>
+        <td>{item.serial}</td>
+        <td>{item.activo}</td>
+        <td>{item.statusName}</td>
+        <td>{item.brandName}</td>
+        <td className='whitespace-nowrap text-ellipsis'>{item.modelName}</td>
+        <td>{item.locationName}</td>
+        <td>{item.observation}</td>
     </>
   )
 }

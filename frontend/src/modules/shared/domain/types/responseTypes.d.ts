@@ -3,12 +3,21 @@ export interface DevicesApiResponse {
   activo: null | string
   serial: string
   statusId: number
+  categoryId: string
+  brandId: string
   modelId: string
+  employeeId: string | null
+  locationId: number
+  observation: string
   createdAt: Date
   updatedAt: Date
   ModelId: string
   StatusId: number
   model: ModelApiresponse
+  category: Category
+  brand: Brand
+  location: Location
+  employee: Employee | null
   status: Status
   computer: Computer | null
   hardDrive: HardDrive | null
@@ -19,13 +28,18 @@ export interface DevicesMappedApiResponse {
   activo: string
   serial: string
   statusId: number
-  statusName: string
-  modelId: string
-  modelName: string
   categoryId: number
   categoryName: string
   brandId: string
   brandName: string
+  statusName: string
+  modelId: string
+  modelName: string
+  observation: string
+  locationId: number
+  locationName: string
+  employeeId: string | null
+  employeeName: string
   computer: Computer | null
   hardDrive: HardDrive | null
   createdAt: Date
@@ -104,6 +118,46 @@ export interface Status {
   name: string
 }
 export interface Category {
+  id: number
+  name: string
+}
+
+export interface Location {
+  id: number
+  name: string
+  siteId: number
+  typeOfSiteId: number
+  site: Site
+  typeOfSite: TypeOfSite
+}
+
+export interface Site {
+  id: number
+  name: string
+  address: string
+  cityId: number
+  city: City
+}
+
+export interface City {
+  id: number
+  name: string
+  stateId: number
+  state: State
+}
+export interface State {
+  id: number
+  name: string
+  regionId: number
+  region: Region
+}
+
+export interface Region {
+  id: number
+  name: string
+}
+
+export interface TypeOfSite {
   id: number
   name: string
 }

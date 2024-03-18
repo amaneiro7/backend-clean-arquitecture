@@ -16,27 +16,36 @@ export class ApiDeviceRepository implements DeviceRepository {
 
   async getAll (): Promise<DevicePrimitives[]> {
     return await makeRequest<DevicesApiResponse[]>({ method: 'GET', endpoint: this.endpoint })
-      .then(res => {
-        console.log(res)
-        return res
-      })
+      // .then(res => {
+      //   console.log(res)
+      //   return res
+      // })
       .then(res => res.map(data => ({
         id: data.id,
         serial: data.serial,
         activo: data.activo ?? 'Sin Serial',
         statusId: data.status.id,
         statusName: data.status.name,
+        categoryId: data.category.id,
+        categoryName: data.category.name,
+        brandId: data.brand.id,
+        brandName: data.brand.name,
         modelId: data.model.id,
         modelName: data.model.name,
-        categoryId: data.model.category.id,
-        categoryName: data.model.category.name,
-        brandId: data.model.brand.id,
-        brandName: data.model.brand.name,
+        locationId: data.location.id,
+        locationName: data.location.name,
+        observation: data.observation,
+        employeeId: data.employee?.id ?? null,
+        employeeName: data.employee?.name ?? 'Vacante',
         computer: data.computer,
         hardDrive: data.hardDrive,
         createdAt: data.createdAt,
         updatedAt: data.updatedAt
       }) satisfies DevicesMappedApiResponse))
+      // .then(res => {
+      //   console.log(res)
+      //   return res
+      // })
   }
 
   async getById ({ id }: { id: DeviceId }): Promise<DevicePrimitives> {
@@ -47,12 +56,17 @@ export class ApiDeviceRepository implements DeviceRepository {
         activo: data.activo ?? '',
         statusId: data.status.id,
         statusName: data.status.name,
+        categoryId: data.category.id,
+        categoryName: data.category.name,
+        brandId: data.brand.id,
+        brandName: data.brand.name,
         modelId: data.model.id,
         modelName: data.model.name,
-        categoryId: data.model.category.id,
-        categoryName: data.model.category.name,
-        brandId: data.model.brand.id,
-        brandName: data.model.brand.name,
+        locationId: data.location.id,
+        locationName: data.location.name,
+        observation: data.observation,
+        employeeId: data.employee?.id ?? null,
+        employeeName: data.employee?.name ?? '',
         computer: data.computer,
         hardDrive: data.hardDrive,
         createdAt: data.createdAt,

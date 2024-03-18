@@ -19,6 +19,8 @@ const TableCard = <T,>({ data }: Props<T>) => {
                 <th>status</th>
                 <th>Marca</th>
                 <th>Modelo</th>
+                <th>Ubicación</th>
+                <th>Observación</th>
                 <th className='sticky z-10 top-0 left-0'>Acciones</th>
               </tr>
             </thead>
