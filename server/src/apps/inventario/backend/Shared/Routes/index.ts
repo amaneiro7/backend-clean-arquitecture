@@ -28,6 +28,7 @@ import { createCoordinacionRouter } from '../../Employee/routes/coordinacion.rou
 import { createGerenciaRouter } from '../../Employee/routes/gerencia.routes'
 import { createVicepresidenciaRouter } from '../../Employee/routes/vicepresidencia.routes'
 import { createVicepresidenciaEjecutivaRouter } from '../../Employee/routes/vicepresidenciaEjecutiva.routes'
+import { createInputTypeRouter } from '../../ModelSeries/routes/inputType.routes'
 
 // import { createUserRouter } from './user.routes'
 // import { createAuthRouter } from './auth.routes'
@@ -55,6 +56,7 @@ export const routerApi = ({ app, repository }: Props): Router => {
   router.use('/harddrivecapacities', createHardDriveCapacityRouter({ repository }))
   router.use('/operatingsystemarqs', createOperatingSystemArqRouter({ repository }))
   router.use('/operatingsystems', createOperatingSystemVersionsRouter({ repository }))
+  router.use('/inputtypes', createInputTypeRouter({ repository }))
   router.use('/cities', createCityRouter({ repository }))
   router.use('/states', createStateRouter({ repository }))
   router.use('/regions', createRegionRouter({ repository }))
