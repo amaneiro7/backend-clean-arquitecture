@@ -5,6 +5,8 @@
   "type": "commonjs",
   "main": "server.js",
   "scripts": {
+    "build": "tsc --build",
+    "clean": "tsc --build --clean",
     "start": "nodemon server.ts",
     "dev": "cross-env NODE_ENV=development nodemon ./src/apps/inventario/backend/start.ts",
     "model:generate": "sequelize-cli model:generate --name",
