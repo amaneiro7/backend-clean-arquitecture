@@ -1,9 +1,26 @@
+import { type BrandId } from '../../../../Brand/domain/BrandId'
+import { type CategoryId } from '../../../../Category/domain/CategoryId'
+import { type LocationId } from '../../../../Location/Location/domain/LocationId'
+import { type ModelSeriesId } from '../../../../ModelSeries/ModelSeries/domain/ModelSeriesId'
+import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
+import { type StatusId } from '../../../Status/domain/StatusId'
+import { type DeviceActivo } from '../../domain/DeviceActivo'
+import { type DeviceEmployee } from '../../domain/DeviceEmployee'
+import { type DeviceId } from '../../domain/DeviceId'
+import { type DeviceObservation } from '../../domain/DeviceObservation'
+import { type DeviceSerial } from '../../domain/DeviceSerial'
+
 export interface DevicesApiResponse {
-  id: string
-  activo: null | string
-  serial: string
-  statusId: number
-  modelId: string
+  id: Primitives<DeviceId>
+  serial: Primitives<DeviceSerial>
+  activo: Primitives<DeviceActivo>
+  statusId: Primitives<StatusId>
+  categoryId: Primitives<CategoryId>
+  brandId: Primitives<BrandId>
+  modelId: Primitives<ModelSeriesId>
+  employeeId: Primitives<DeviceEmployee>
+  locationId: Primitives<LocationId>
+  observation: Primitives<DeviceObservation>
   createdAt: Date
   updatedAt: Date
   ModelId: string

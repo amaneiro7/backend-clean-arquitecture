@@ -16,6 +16,10 @@ export class ApiDeviceRepository implements DeviceRepository {
 
   async getAll (): Promise<DevicePrimitives[]> {
     return await makeRequest<DevicesApiResponse[]>({ method: 'GET', endpoint: this.endpoint })
+      .then(res => {
+        console.log(res)
+        return res
+      })
       .then(res => res.map(data => ({
         id: data.id,
         serial: data.serial,

@@ -14,11 +14,18 @@ export class SequelizeDeviceRepository implements DeviceRepository {
   async searchAll (query: QueryString.ParsedQs): Promise<DevicePrimitives[]> {
     const options: FindOptions<DevicesApiResponse> = {
       include: [
-        {
-          association: 'model',
-          include: ['category', 'brand']
-        },
+        'model',
+        'category',
+        'brand',
         'status',
+        'employee',
+        {
+          association: 'location',
+          include: [
+            'typeOfSite',
+            { association: 'site', include: [{ association: 'city', include: [{ association: 'state', include: ['region'] }] }] }
+          ]
+        },
         {
           association: 'computer',
           include: ['processor', 'hardDriveCapacity', 'hardDriveType', 'operatingSystem', 'operatingSystemArq']
@@ -52,30 +59,29 @@ export class SequelizeDeviceRepository implements DeviceRepository {
       }
     }
     const { statusId } = query
-    if (typeof statusId === 'number') {
+    if (typeof statusId === 'string') {
       options.where = {
-        statusId
+        statusId: Number(statusId)
       }
     }
 
     const { categoryId } = query
-    if (typeof categoryId === 'string' && Array.isArray(options.include)) {
-      const id = Number(categoryId)
-      options.include.push({
-        association: 'model',
-        where: {
-          categoryId: id
-        }
-      })
+    if (typeof categoryId === 'string') {
+      options.where = {
+        categoryId
+      }
+    }
+    const { modelId } = query
+    if (typeof modelId === 'string') {
+      options.where = {
+        modelId
+      }
     }
     const { brandId } = query
-    if (typeof brandId === 'string' && Array.isArray(options.include)) {
-      options.include.push({
-        association: 'model',
-        where: {
-          brandId
-        }
-      })
+    if (typeof brandId === 'string') {
+      options.where = {
+        brandId
+      }
     }
 
     return await DeviceModel.findAll(options)
