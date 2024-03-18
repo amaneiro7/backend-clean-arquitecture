@@ -1,7 +1,7 @@
 import { type NextFunction, type Request, type Response } from 'express'
 import httpStatus from 'http-status'
 import { type Repository } from '../../../../../Contexts/Shared/domain/Repository'
-import { SearchAllCargo } from '../../../../../Contexts/employee/Cargo/application/CargoFinderAll'
+import { SearchAllCargo } from '../../../../../Contexts/Employee/Cargo/application/CargoFinderAll'
 
 export class CargoGetController {
   constructor (private readonly repository: Repository) {}

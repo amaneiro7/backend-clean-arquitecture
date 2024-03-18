@@ -1,7 +1,7 @@
 import { AcceptedNullValueObject } from '../../../Shared/domain/value-object/AcceptedNullValueObjects'
 import { InvalidArgumentError } from '../../../Shared/domain/value-object/InvalidArgumentError'
 import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
-import { EmployeeId } from '../../../employee/Employee/domain/EmployeeId'
+import { EmployeeId } from '../../../Employee/Employee/domain/EmployeeId'
 
 export class DeviceEmployee extends AcceptedNullValueObject<Primitives<EmployeeId>> {
   constructor (
