@@ -1,5 +1,4 @@
 import { DataTypes, Model, type Sequelize } from 'sequelize'
-import { type HardDrivePrimitives } from '../../domain/HardDriveold'
 import { type Models } from '../../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
 import { type Primitives } from '../../../../../Shared/domain/value-object/Primitives'
 import { type DeviceId } from '../../../../../Device/Device/domain/DeviceId'
@@ -12,7 +11,7 @@ import { type HardDriveTypeId } from '../../../HardDriveType/domain/HardDriveTyp
 interface DeviceHardDriveCreationAttributes extends Pick<DeviceHardDrivePrimitives, 'id' | 'categoryId' | 'health' | 'hardDriveCapacityId' | 'hardDriveTypeId'> {
   deviceId: Primitives<DeviceId>
 }
-export class DeviceHardDriveModel extends Model<DeviceHardDriveCreationAttributes> implements HardDrivePrimitives {
+export class DeviceHardDriveModel extends Model<DeviceHardDriveCreationAttributes> implements DeviceHardDriveCreationAttributes {
   readonly deviceId!: Primitives<DeviceId>
   readonly id!: Primitives<DeviceId>
   readonly categoryId!: Primitives<CategoryId>

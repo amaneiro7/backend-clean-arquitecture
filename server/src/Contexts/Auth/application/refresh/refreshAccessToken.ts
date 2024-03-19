@@ -6,6 +6,6 @@ export class RefreshToken {
   constructor (private readonly repository: Repository) {}
 
   async run ({ refreshToken }: { refreshToken: JwtPayload | string }): Promise<void> {
-    const refreshTokenDecoded = validateRefreshToken(refreshToken)
+    const refreshTokenDecoded = validateRefreshToken(String(refreshToken))
   }
 }
