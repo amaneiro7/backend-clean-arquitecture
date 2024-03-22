@@ -42,20 +42,20 @@ interface Props {
 export const routerApi = ({ app, repository }: Props): Router => {
   const router = Router()
   app.use('/api/v1/', router)
-  router.use('/check-token', authenticate, validateToken)
+  router.use('/check-token', authenticate, validateToken) //
   router.use('/categories', createCategoryRouter({ repository }))
-  router.use('/brands', createBrandRouter({ repository }))
-  router.use('/models', createModelSeriesRouter({ repository }))
-  router.use('/devices', authenticate, createDeviceRouter({ repository }))
-  router.use('/status', createStatusRouter({ repository }))
-  router.use('/processors', createProcessorRouter({ repository }))
+  router.use('/brands', createBrandRouter({ repository })) //
+  router.use('/models', createModelSeriesRouter({ repository })) //
+  router.use('/devices', authenticate, createDeviceRouter({ repository })) //
+  router.use('/status', createStatusRouter({ repository })) //
+  router.use('/processors', createProcessorRouter({ repository })) //
   router.use('/processorsockets', createProcessorSocketRouter({ repository }))
   router.use('/auth', createAuthRouter())
   router.use('/memoryramtypes', createMemoryRamRouter({ repository }))
   router.use('/harddrivetypes', createHardDriveTypeRouter({ repository }))
   router.use('/harddrivecapacities', createHardDriveCapacityRouter({ repository }))
-  router.use('/operatingsystemarqs', createOperatingSystemArqRouter({ repository }))
-  router.use('/operatingsystems', createOperatingSystemVersionsRouter({ repository }))
+  router.use('/operatingsystemarqs', createOperatingSystemArqRouter({ repository })) //
+  router.use('/operatingsystems', createOperatingSystemVersionsRouter({ repository })) //
   router.use('/inputtypes', createInputTypeRouter({ repository }))
   router.use('/cities', createCityRouter({ repository }))
   router.use('/states', createStateRouter({ repository }))
