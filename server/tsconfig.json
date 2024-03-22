@@ -112,11 +112,7 @@
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
   },
-<<<<<<< HEAD
-  "include": ["./src"],
-=======
-  "include": ["**/*.ts", "seeders/deviceData/inputType.js"],
->>>>>>> 2ff2c0bdba40f55abfbf24b4ccc07c1059862a80
+  "include": ["**/*.ts",],
   "exclude": [
     "node_modules",
     "./dist",

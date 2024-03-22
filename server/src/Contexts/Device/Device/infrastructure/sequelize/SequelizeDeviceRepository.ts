@@ -45,6 +45,7 @@ export class SequelizeDeviceRepository implements DeviceRepository {
     const { activo } = query
     if (typeof activo === 'string') {
       options.where = {
+        ...options.where,
         activo: {
           [Op.iLike]: `%${activo}%`
         }
@@ -53,6 +54,7 @@ export class SequelizeDeviceRepository implements DeviceRepository {
     const { serial } = query
     if (typeof serial === 'string') {
       options.where = {
+        ...options.where,
         serial: {
           [Op.iLike]: `%${serial}%`
         }
@@ -61,6 +63,7 @@ export class SequelizeDeviceRepository implements DeviceRepository {
     const { statusId } = query
     if (typeof statusId === 'string') {
       options.where = {
+        ...options.where,
         statusId: Number(statusId)
       }
     }
@@ -68,21 +71,26 @@ export class SequelizeDeviceRepository implements DeviceRepository {
     const { categoryId } = query
     if (typeof categoryId === 'string') {
       options.where = {
+        ...options.where,
         categoryId
       }
     }
     const { modelId } = query
     if (typeof modelId === 'string') {
       options.where = {
+        ...options.where,
         modelId
       }
     }
     const { brandId } = query
     if (typeof brandId === 'string') {
       options.where = {
+        ...options.where,
         brandId
       }
     }
+
+    console.log(options)
 
     return await DeviceModel.findAll(options)
   }
