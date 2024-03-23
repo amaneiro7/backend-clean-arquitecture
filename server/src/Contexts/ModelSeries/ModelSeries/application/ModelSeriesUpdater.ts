@@ -8,6 +8,7 @@ import { ModelSeriesId } from '../domain/ModelSeriesId'
 import { ModelSeriesName } from '../domain/ModelSeriesName'
 import { type Repository } from '../../../Shared/domain/Repository'
 import { ModelSeries } from '../domain/ModelSeries'
+import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
 
 export class ModelSeriesUpdater {
   constructor (private readonly repository: Repository) {}
@@ -26,9 +27,8 @@ export class ModelSeriesUpdater {
     }
 
     if (categoryId !== undefined) {
-      const id = Number(categoryId)
-      await this.ensureCategoryIdExist(id)
-      modelEntity.updateCategoryId(id)
+      await this.ensureCategoryIdExist(categoryId)
+      modelEntity.updateCategoryId(categoryId)
     }
 
     if (brandId !== undefined) {
@@ -45,7 +45,7 @@ export class ModelSeriesUpdater {
     }
   }
 
-  private async ensureCategoryIdExist (categoryId: number): Promise<void> {
+  private async ensureCategoryIdExist (categoryId: Primitives<CategoryId>): Promise<void> {
     if (await this.repository.category.searchById(new CategoryId(categoryId).value) === null) {
       throw new CategoryDoesNotExistError(categoryId.toString())
     }

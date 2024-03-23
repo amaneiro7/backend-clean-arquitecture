@@ -29,15 +29,15 @@ export class ModelSeries {
     )
   }
 
-  updateName (newName: string): void {
+  updateName (newName: Primitives<ModelSeriesName>): void {
     this.name = new ModelSeriesName(newName)
   }
 
-  updateCategoryId (newCategoryId: number): void {
+  updateCategoryId (newCategoryId: Primitives<CategoryId>): void {
     this.categoryId = new CategoryId(newCategoryId)
   }
 
-  updateBrandId (newBrandId: string): void {
+  updateBrandId (newBrandId: Primitives<BrandId>): void {
     this.brandId = new BrandId(newBrandId)
   }
 

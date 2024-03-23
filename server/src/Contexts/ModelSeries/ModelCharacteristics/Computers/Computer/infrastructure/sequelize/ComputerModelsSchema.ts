@@ -52,7 +52,7 @@ export function initComputerModels (sequelize: Sequelize): void {
         allowNull: false
       },
       categoryId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
         validate: {
           isIn: {

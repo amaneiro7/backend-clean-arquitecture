@@ -38,7 +38,7 @@ export function initModelSeriesModel (sequelize: Sequelize): void {
         unique: true
       },
       categoryId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false
       },
       brandId: {

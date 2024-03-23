@@ -1,3 +1,4 @@
+import { type CategoryId } from '../../../../Category/domain/CategoryId'
 import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
 import { sequelize } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeConfig'
 import { type Models } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
@@ -22,7 +23,7 @@ export class SequelizeModelSeriesRepository implements ModelSeriesRepository {
     }) ?? null
   }
 
-  async searchByCategory (categoryId: number): Promise<ModelSeriesPrimitives[]> {
+  async searchByCategory (categoryId: Primitives<CategoryId>): Promise<ModelSeriesPrimitives[]> {
     return await ModelSeriesModel.findAll(
       {
         where: { categoryId },

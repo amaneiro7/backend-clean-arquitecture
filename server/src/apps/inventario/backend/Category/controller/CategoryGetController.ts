@@ -21,7 +21,7 @@ export class CategoryGetController {
   getById = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const { id } = req.params
-      const data = await new CategoriesFinder(this.repository).searchById(new CategoryId(Number(id)))
+      const data = await new CategoriesFinder(this.repository).searchById(new CategoryId(id))
       res.status(httpStatus.OK).json(data)
     } catch (error) {
       next(error)
@@ -30,8 +30,8 @@ export class CategoryGetController {
 
   getByName = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const { id } = req.params
-      const data = await new CategoriesFinder(this.repository).searchByName(new CategoryName(id))
+      const { name } = req.params
+      const data = await new CategoriesFinder(this.repository).searchByName(new CategoryName(name))
       res.status(httpStatus.OK).json(data)
     } catch (error) {
       next(error)
