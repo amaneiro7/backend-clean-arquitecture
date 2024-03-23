@@ -1,9 +1,10 @@
+import { type Primitives } from '../../../shared/domain/value-object/Primitives'
 import { type CategoryId } from './CategoryId'
 import { type CategoryName } from './CategoryName'
 
 export interface CategoryPrimitives {
-  id: number
-  name: string
+  id: Primitives<CategoryId>
+  name: Primitives<CategoryName>
 }
 
 export class Category {
@@ -12,11 +13,11 @@ export class Category {
     private readonly name: CategoryName
   ) {}
 
-  idValue (): number {
+  idValue (): Primitives<CategoryId> {
     return this.id.value
   }
 
-  nameValue (): string {
+  nameValue (): Primitives<CategoryName> {
     return this.name.value
   }
 
