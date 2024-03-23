@@ -56,7 +56,7 @@ export function initComputerModels (sequelize: Sequelize): void {
         allowNull: false,
         validate: {
           isIn: {
-            args: [[1, 2, 4]],
+            args: [['1', '2', '4']],
             msg: 'Solo puede pertenecer a la categoria de Computadoras, Servidores o All in One'
           }
         }

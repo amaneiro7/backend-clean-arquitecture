@@ -36,11 +36,11 @@ export function initModelPrinter (sequelize: Sequelize): void {
         allowNull: false
       },
       categoryId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
         validate: {
           isIn: {
-            args: [[7, 8]],
+            args: [['7', '8']],
             msg: 'Solo puede pertenecer a la categoria de Impresoras Laser e Impresoras Tinta'
           }
         }

@@ -42,11 +42,11 @@ export function initMonitorModels (sequelize: Sequelize): void {
         allowNull: false
       },
       categoryId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
         validate: {
           isIn: {
-            args: [[5]],
+            args: [['5']],
             msg: 'Solo puede pertenecer a la categoria de Monitores'
           }
         }

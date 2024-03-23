@@ -54,11 +54,11 @@ export function initLaptopModels (sequelize: Sequelize): void {
         allowNull: false
       },
       categoryId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
         validate: {
           isIn: {
-            args: [[3]],
+            args: [['3']],
             msg: 'Solo puede pertenecer a la categoria de Laptops'
           }
         }

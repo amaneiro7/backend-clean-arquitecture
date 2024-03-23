@@ -36,11 +36,11 @@ export function initDeviceHardDriveModel (sequelize: Sequelize): void {
         allowNull: false
       },
       categoryId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
         validate: {
           isIn: {
-            args: [[9]],
+            args: [['9']],
             msg: 'No pertenece a esta categoria'
           }
         }

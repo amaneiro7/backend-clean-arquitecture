@@ -35,11 +35,11 @@ export function initKeyboardModels (sequelize: Sequelize): void {
         allowNull: false
       },
       categoryId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
         validate: {
           isIn: {
-            args: [[10]],
+            args: [['10']],
             msg: 'Solo puede pertenecer a la categoria de Keyboardes'
           }
         }

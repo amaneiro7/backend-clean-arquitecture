@@ -52,11 +52,11 @@ export function initDeviceComputerModel (sequelize: Sequelize): void {
         primaryKey: true
       },
       categoryId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
         validate: {
           isIn: {
-            args: [[1, 2, 3, 4]],
+            args: [['1', '2', '3', '4']],
             msg: 'No pertenece a esta categoria'
           }
         }
