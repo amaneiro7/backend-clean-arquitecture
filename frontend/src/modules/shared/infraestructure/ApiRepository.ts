@@ -3,7 +3,6 @@ import { ApiBrandRepository } from '../../devices/brand/infraestructure/ApiBrand
 import { ApiCategoryRepository } from '../../devices/category/infraestructure/ApiCategoryRepository'
 import { ApiDeviceRepository } from '../../devices/devices/devices/infraestructure/ApiDeviceRepository'
 import { ApiStatusRepository } from '../../devices/devices/status/infraestructure/ApiStatusRepository'
-import { ApiComputerRepository } from '../../devices/fetures/computer/infrastructure/ApiComputerRepository'
 import { ApiHardDriveCapacityRepository } from '../../devices/fetures/hardDrive/hardDriveCapacity/infrastructure/ApiHardDriveCapacityRepository'
 import { ApiHardDriveTypeRepository } from '../../devices/fetures/hardDrive/hardDriveType/infrastructure/ApiHardDriveTypeRepository'
 import { ApiMemoryRamTypeRepository } from '../../devices/fetures/memoryRam/memoryRamType/infrastructure/ApiMemoryRamTypeRepository'
@@ -14,6 +13,17 @@ import { ApiModelRepository } from '../../devices/model/infraestructure/ApiModel
 import { ApiRoleRepository } from '../../user/role/infrastructure/ApiRoleRepository'
 import { ApiAuthRepository } from '../../user/auth/infraestructure/ApiAuthRepository'
 import { SessionStorageRepository } from '../../user/user/infrastructure/SessionStorageRepository'
+import { ApiVicepresidenciaEjecutivaRepository } from '../../employee/area/vicepresidenciaejecutiva/infraestructure/ApiVicepresidenciaEjecutivaRepository'
+import { ApiVicepresidenciaRepository } from '../../employee/area/vicepresidencia/infraestructure/ApiVicepresidenciaRepository'
+import { ApiGerenciaRepository } from '../../employee/area/gerencia/infraestructure/ApiGerenciaRepository'
+import { ApiCoordinacionRepository } from '../../employee/area/coordinacion/infraestructure/ApiGerenciaRepository'
+import { ApiCargoRepository } from '../../employee/cargo/infraestructure/ApiCargoRepository'
+import { ApiCityRepository } from '../../location/city/infraestructure/ApiCityRepository'
+import { ApiLocationRepository } from '../../location/locations/infraestructure/ApiLocationRepository'
+import { ApiRegionRepository } from '../../location/region/infraestructure/ApiRegionRepository'
+import { ApiStateRepository } from '../../location/state/infraestructure/ApiStateRepository'
+import { ApiSiteRepository } from '../../location/site/infraestructure/ApiSiteRepository'
+import { ApiTypeOfSiteRepository } from '../../location/typeofsites/infraestructure/ApiTypeOfSiteRepository'
 
 export const apiRepository: Repository = {
   brand: new ApiBrandRepository(),
@@ -27,8 +37,18 @@ export const apiRepository: Repository = {
   hardDriveCapacity: new ApiHardDriveCapacityRepository(),
   hardDriveType: new ApiHardDriveTypeRepository(),
   memoryRamType: new ApiMemoryRamTypeRepository(),
-  computer: new ApiComputerRepository(),
   role: new ApiRoleRepository(),
   auth: new ApiAuthRepository(),
-  user: new SessionStorageRepository()
+  user: new SessionStorageRepository(),
+  vicepresidenciaEjecutiva: new ApiVicepresidenciaEjecutivaRepository(),
+  vicepresidencia: new ApiVicepresidenciaRepository(),
+  gerencia: new ApiGerenciaRepository(),
+  coordinacion: new ApiCoordinacionRepository(),
+  cargo: new ApiCargoRepository(),
+  city: new ApiCityRepository(),
+  location: new ApiLocationRepository(),
+  region: new ApiRegionRepository(),
+  state: new ApiStateRepository(),
+  site: new ApiSiteRepository(),
+  typeOfSite: new ApiTypeOfSiteRepository()
 }
