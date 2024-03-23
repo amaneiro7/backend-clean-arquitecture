@@ -1,5 +1,3 @@
-// import { NumberValueObject } from '../../Shared/domain/value-object/NumberValueObject'
-import { NumberValueObject } from '../../Shared/domain/value-object/NumberValueObject'
-// import { Uuid } from '../../Shared/domain/value-object/Uuid'
+import { StringValueObject } from '../../Shared/domain/value-object/StringValueObject'
 
-export class CategoryId extends NumberValueObject {}
+export class CategoryId extends StringValueObject {}

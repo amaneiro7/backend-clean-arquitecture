@@ -7,7 +7,8 @@ export const CategoryDefault = {
   DOCMATRIXPRINTER: 'Impresoras Financieras',
   LASERPRINTER: 'Impresoras Laser',
   INKJETPRNTER: 'Impresoras Tinta',
-  HARDDRIVE: 'Discos Duros'
+  HARDDRIVE: 'Discos Duros',
+  KEYBOARDS: 'Teclados'
 } as const
 
 export type CategoryDefaultValues = typeof CategoryDefault[keyof typeof CategoryDefault]

@@ -1,10 +1,13 @@
 import { DataTypes, Model, type Sequelize } from 'sequelize'
 import { type CategoryPrimitives } from '../../domain/Category'
 import { type Models } from '../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
+import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
+import { type CategoryId } from '../../domain/CategoryId'
+import { type CategoryName } from '../../domain/CategoryName'
 
 export class CategoryModel extends Model<CategoryPrimitives> implements CategoryPrimitives {
-  readonly id!: number
-  readonly name!: string
+  readonly id!: Primitives<CategoryId>
+  readonly name!: Primitives<CategoryName>
 
   public static associate (models: Models): void {
     CategoryModel.hasMany(models.Model, { as: 'model', foreignKey: 'categoryId' }) // A category can have many model series
@@ -22,7 +25,7 @@ export function initCategoryModel (sequelize: Sequelize): void {
   CategoryModel.init(
     {
       id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         primaryKey: true,
         allowNull: false
       },

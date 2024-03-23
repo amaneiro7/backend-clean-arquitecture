@@ -72,7 +72,7 @@ export class DeviceHardDrive extends Device {
     )
   }
 
-  static isHardDriveCategory ({ categoryId }: { categoryId: number }): boolean {
+  static isHardDriveCategory ({ categoryId }: { categoryId: Primitives<CategoryId> }): boolean {
     const AcceptedHardDriveCategories: CategoryValues[] = ['Discos Duros']
     return AcceptedHardDriveCategories.includes(CategoryDefaultData[categoryId])
   }

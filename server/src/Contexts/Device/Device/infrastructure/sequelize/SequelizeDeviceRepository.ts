@@ -89,9 +89,6 @@ export class SequelizeDeviceRepository implements DeviceRepository {
         brandId
       }
     }
-
-    console.log(options)
-
     return await DeviceModel.findAll(options)
   }
 

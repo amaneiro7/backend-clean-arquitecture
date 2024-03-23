@@ -60,7 +60,7 @@ export function initDeviceModel (sequelize: Sequelize): void {
         allowNull: false
       },
       categoryId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false
       },
       brandId: {
