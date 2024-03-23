@@ -1,7 +1,7 @@
 import { ModelId } from '../../../model/domain/ModelId'
 import { StatusId } from '../../status/domain/StatusId'
 import { DeviceActivo } from './DeviceActivo'
-import { DeviceSerial } from './DeviceSeria'
+import { DeviceSerial } from './DeviceSerial'
 
 export interface DevicePrimitives {
   id?: string

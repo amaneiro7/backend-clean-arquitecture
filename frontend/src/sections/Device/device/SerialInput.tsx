@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type FC } from 'react'
 import FormInput from '../../ui/text-field'
-import { DeviceSerial } from '../../../modules/devices/devices/devices/domain/DeviceSeria'
+import { DeviceSerial } from '../../../modules/devices/devices/devices/domain/DeviceSerial'
 
 interface Props {
   value: string

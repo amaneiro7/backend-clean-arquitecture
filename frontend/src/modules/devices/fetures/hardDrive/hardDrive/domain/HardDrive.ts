@@ -1,7 +1,7 @@
 import { CategoryDefaultData, type CategoryValues } from '../../../../category/domain/CategoryDefaultData'
 import { Device } from '../../../../devices/devices/domain/Device'
 import { DeviceActivo } from '../../../../devices/devices/domain/DeviceActivo'
-import { DeviceSerial } from '../../../../devices/devices/domain/DeviceSeria'
+import { DeviceSerial } from '../../../../devices/devices/domain/DeviceSerial'
 import { StatusId } from '../../../../devices/status/domain/StatusId'
 import { ModelId } from '../../../../model/domain/ModelId'
 import { HardDriveCapacityId } from '../../hardDriveCapacity/domain/HardDriveCapacityId'
