@@ -16,6 +16,8 @@ module.exports = {
         "react"
     ],
     "rules": {
+        '@typescript-eslint/prefer-nullish-coalescing': 'off',
+        '@typescript-eslint/strict-boolean-expressions': 'off',
         '@typescript-eslint/explicit-function-return-type': 'off',
         'react/react-in-jsx-scope': 'off',        
         'react/prop-types': 'off',        
