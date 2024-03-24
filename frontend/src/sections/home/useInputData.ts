@@ -1,7 +1,9 @@
 import { useSearchParams } from 'react-router-dom'
+import { type CategoryId } from '../../modules/devices/category/domain/CategoryId'
+import { type Primitives } from '../../modules/shared/domain/value-object/Primitives'
 
 export interface InputData {
-  categoryId: number | ''
+  categoryId: Primitives<CategoryId>
   brandId: string
   statusId: number | ''
   activo: string
@@ -18,7 +20,7 @@ export const useInputsData = (): {
 } => {
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const categoryId = Number(searchParams.get('categoryId')) ?? ''
+  const categoryId = searchParams.get('categoryId') ?? ''
   const brandId = searchParams.get('brandId') ?? ''
   const statusId = Number(searchParams.get('statusId')) ?? ''
   const activo = searchParams.get('activo') ?? ''
@@ -44,7 +46,7 @@ export const useInputsData = (): {
   }
 
   const inputData = {
-    categoryId: categoryId === 0 ? '' : categoryId,
+    categoryId: categoryId ?? '',
     brandId: brandId ?? '',
     statusId: statusId === 0 ? '' : statusId,
     activo: activo ?? '',

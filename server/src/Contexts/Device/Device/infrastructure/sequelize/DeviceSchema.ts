@@ -56,7 +56,7 @@ export function initDeviceModel (sequelize: Sequelize): void {
         unique: true
       },
       statusId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false
       },
       categoryId: {

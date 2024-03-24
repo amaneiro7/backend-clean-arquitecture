@@ -1,16 +1,18 @@
 import { type ChangeEvent, type FC, Suspense, lazy } from 'react'
 import { useAppContext } from '../../Context/AppContext'
 import { useCategory } from './useCategory'
+import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
+import { type CategoryId } from '../../../modules/devices/category/domain/CategoryId'
 
 const Select = lazy(async () => await import('../../ui/select'))
 
 interface Props {
-  value: number | string
+  value: Primitives<CategoryId>
   onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
-  isRequired: boolean
+  isRequired?: boolean
 }
 
-const CategorySelect: FC<Props> = ({ value, onChange, isRequired }) => {
+const CategorySelect: FC<Props> = ({ value, onChange, isRequired = false }) => {
   const { repository } = useAppContext()
   const { categories } = useCategory(repository)
   return (

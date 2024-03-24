@@ -50,7 +50,7 @@ export class ValidationField {
     entity?.updateCategoryId(categoryId)
   }
 
-  static async ensureStatusIdExist (repository: Repository, statusId: number, entity?: Device): Promise<void> {
+  static async ensureStatusIdExist (repository: Repository, statusId: Primitives<StatusId>, entity?: Device): Promise<void> {
     if (entity !== undefined && statusId === entity.statusValue) {
       return
     }
@@ -60,17 +60,17 @@ export class ValidationField {
   }
 
   static async ensureLocationIdExist (repository: Repository, locationId: Primitives<LocationId>, entity?: Device): Promise<void> {
-    if (entity !== undefined && locationId === entity.statusValue) {
+    if (entity !== undefined && locationId === entity.locationValue) {
       return
     }
     const location = await repository.location.searchById(new LocationId(locationId).value)
     if (location === null) {
       throw new LocationDoesNotExistError(locationId)
     }
-    if (entity?.statusValue === 2 && location.siteId !== 3) {
+    if (entity?.statusValue === '2' && location.siteId !== 3) {
       throw new InvalidArgumentError('Location must be site in Werehouse')
     }
-    if (entity?.statusValue !== 3 && location.siteId !== 1) {
+    if (entity?.statusValue !== '3' && location.siteId !== 1) {
       throw new InvalidArgumentError('Location must be site in Administrative site or in an Agency')
     }
   }
