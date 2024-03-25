@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { OrderBy } from './OrderBy'
 import { OrderType, OrderTypes } from './OrderType'
 
@@ -8,22 +7,17 @@ export class Order {
     readonly orderType: OrderType
   ) {}
 
-  static fromPrimitives (orderBy: string | null, orderType: string | null): Order {
-    return orderBy !== null
-      ? new Order(new OrderBy(orderBy), new OrderType(orderBy as OrderTypes))
-      : Order.none()
-  }
-
-  static none (): Order {
-    return new Order(new OrderBy(''), new OrderType(OrderTypes.NONE))
-  }
-
-  static desc (orderBy: string): Order {
-    return new Order(new OrderBy(orderBy), new OrderType(OrderTypes.DESC))
-  }
-
-  static asc (orderBy: string): Order {
-    return new Order(new OrderBy(orderBy), new OrderType(OrderTypes.ASC))
+  public static fromPrimitives (orderBy?: string, orderType?: string): Order {
+    if (orderBy === undefined) {
+      return new Order(
+        new OrderBy(''),
+        new OrderType(OrderTypes.NONE)
+      )
+    }
+    return new Order(
+      new OrderBy(orderBy),
+      OrderType.fromValue(orderType ?? OrderTypes.ASC)
+    )
   }
 
   public hasOrder (): boolean {

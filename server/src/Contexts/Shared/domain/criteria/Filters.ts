@@ -1,15 +1,17 @@
-import { Filter, type FiltersPrimitives } from './Filter'
+import { Filter } from './Filter'
 
 export class Filters {
-  constructor (readonly value: Filter[]) {}
+  constructor (
+    readonly filters: Filter[]
+  ) {}
 
-  static fromPrimitives (filters: FiltersPrimitives[]): Filters {
-    return new Filters(
-      filters.map(filter => Filter.fromPrimitives(filter.field, filter.operator, filter.value))
-    )
+  // Esto es simplemente otra forma de instanciar nuestra clase
+  // La usamos cuando queremos hacer logica extra en nuestra instanciación
+  static fromValues (filters: Array<Map<string, string>>): Filters {
+    return new Filters(filters.map(Filter.fromValues))
   }
 
-  toPrimitives (): FiltersPrimitives[] {
-    return this.value.map(filter => filter.toPrimitives())
+  public static none (): Filters {
+    return new Filters([])
   }
 }
