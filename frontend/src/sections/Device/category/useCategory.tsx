@@ -3,6 +3,12 @@ import { type Repository } from '../../../modules/shared/domain/repository'
 import { AllCategoryGetter } from '../../../modules/devices/category/application/AllCategoryGetter'
 import { type CategoryPrimitives } from '../../../modules/devices/category/domain/Category'
 
+export interface UseCategory {
+  categories: CategoryPrimitives[]
+  loading: boolean
+  error: string | null
+}
+
 export const useCategory = (repository: Repository) => {
   const allCategoryGetter = new AllCategoryGetter(repository)
   const [loading, setLoading] = useState(true)

@@ -1,35 +1,35 @@
 import { type FC, Suspense, lazy } from 'react'
 import { useAppContext } from '../../Context/AppContext'
-import { type StatusId } from '../../../modules/devices/devices/status/domain/StatusId'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { type OnChange } from '../../../modules/shared/domain/types/types'
+import { type LocationId } from '../../../modules/location/locations/domain/locationId'
 
 const Select = lazy(async () => await import('../../ui/select'))
 
 interface Props {
-  value: Primitives<StatusId>
+  value: Primitives<LocationId>
   onChange: OnChange
   isRequired?: boolean
 }
 
-const StatusSelect: FC<Props> = ({ value, onChange, isRequired = false }) => {
-  const { status: { status } } = useAppContext()
+const LocationSelect: FC<Props> = ({ value, onChange, isRequired = false }) => {
+  const { location: { locations } } = useAppContext()
+
   return (
         <Suspense>
             <Select
-                 label='Estado'
-                 name='statusId'
+                 label='Ubicación'
+                 name='locationId'
                  onChange={onChange}
-                 options={status}
-                 placeholder='-- Filtre por Estado --'
-                 isHidden={false}
+                 options={locations}
+                 placeholder='-- Filtre por Ubicación --'
+                 isHidden={true}
                  isDisabled={false}
-                 value={value}
-                 defaultValue={value}
                  isRequired={isRequired}
+                 value={value}
             />
         </Suspense>
   )
 }
 
-export default StatusSelect
+export default LocationSelect

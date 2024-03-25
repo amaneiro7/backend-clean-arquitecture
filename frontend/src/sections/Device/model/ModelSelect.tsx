@@ -5,26 +5,30 @@ import { AddIcon } from '../../ui/icon/AddIcon'
 import { EditIcon } from '../../ui/icon/EditIcon'
 import { useModel } from './useMode'
 import { type ModelApiresponse } from '../../../modules/shared/domain/types/responseTypes'
+import { type CategoryId } from '../../../modules/devices/category/domain/CategoryId'
+import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
+import { type BrandId } from '../../../modules/devices/brand/domain/BrandId'
+import { type ModelId } from '../../../modules/devices/model/domain/ModelId'
 
 const Select = lazy(async () => await import('../../ui/select'))
 
 interface Props {
-  value: string
+  value: Primitives<ModelId>
   onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
   isForm?: boolean
-  categoryId: number
-  brandId: string
-  isRequired: boolean
+  categoryId: Primitives<CategoryId>
+  brandId: Primitives<BrandId>
+  isRequired?: boolean
 }
 
-const ModelSelect: FC<Props> = ({ value = '', onChange, isForm = true, brandId, categoryId, isRequired }) => {
+const ModelSelect: FC<Props> = ({ value = '', onChange, isForm = true, brandId, categoryId, isRequired = false }) => {
   const { repository } = useAppContext()
   const { models } = useModel(repository)
 
   const filterdModel = useMemo(() => {
-    return (models as ModelApiresponse[]).filter(model => {
-      const category = model.categoryId === categoryId || (categoryId === 0 || categoryId === undefined || categoryId === '')
-      const brand = model.brandId === brandId || (brandId === 0 || brandId === undefined || brandId === '')
+    return (models as unknown as ModelApiresponse[]).filter(model => {
+      const category = model.categoryId === categoryId || (categoryId === undefined || categoryId === '')
+      const brand = model.brandId === brandId || (brandId === undefined || brandId === '')
       return category && brand
     })
   }, [models, categoryId, brandId])

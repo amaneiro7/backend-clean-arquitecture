@@ -2,8 +2,8 @@ import { Select as SelectMui } from '../../mui/Select'
 import { InputLabel as InputLabelMui } from '../../mui/InputLabel'
 import { MenuItem as MenuItemMui } from '../../mui/MenuItem'
 import { FormControl } from '../../mui/FormControl'
-import { type OnChangeInputs } from '../../../types/types'
 import { type FC } from 'react'
+import { type OnChange } from '../../../modules/shared/domain/types/types'
 
 interface Props {
   name: string
@@ -13,7 +13,7 @@ interface Props {
   options: Options[]
   isHidden?: boolean
   isDisabled?: boolean
-  onChange: OnChangeInputs
+  onChange: OnChange
   placeholder: string
   isRequired?: boolean
 }
@@ -36,8 +36,8 @@ const Select: FC<Props> = ({
   isRequired = false
 }) => {
   return (
-      <FormControl className='w-full'>
-          <InputLabelMui id='simple-select-label'>{label}</InputLabelMui>
+      <FormControl size='small' className='w-full'>
+          <InputLabelMui className='p-0' id='simple-select-label'>{label}</InputLabelMui>
               <SelectMui
                   labelId='simple-select-label'
                   id='simple-select'

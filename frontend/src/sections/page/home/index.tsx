@@ -1,21 +1,22 @@
 import { useNavigate } from 'react-router-dom'
-import { Suspense, lazy, useCallback } from 'react'
-import { useAppContext } from '../Context/AppContext'
+import { Suspense, lazy } from 'react'
+import { useAppContext } from '../../Context/AppContext'
 import { useInputsData } from './useInputData'
-import debounce from 'just-debounce-it'
-import { useDevice } from '../Device/device/useDevice'
-import { type DevicesMappedApiResponse } from '../../modules/shared/domain/types/responseTypes'
+import { useDevice } from '../../Device/device/useDevice'
+import { type DevicesMappedApiResponse } from '../../../modules/shared/domain/types/responseTypes'
+import { useDebounceGetdevices } from '../../Hooks/useDebounceGetDevices'
+import TabsComponent from '../../ui/tabs'
 
-const TableHeader = lazy(async () => await import('../components/TableHeader'))
-const DeviceTableCard = lazy(async () => await import('../Device/device/DeviceTableCard'))
-const TableStructure = lazy(async () => await import('../components/Table'))
-const Button = lazy(async () => await import('../ui/button'))
-const BrandSelect = lazy(async () => await import('../Device/brand/BrandSelect'))
-const CategorySelect = lazy(async () => await import('../Device/category/CategorySelect'))
-const SerialInput = lazy(async () => await import('../Device/device/SerialInput'))
-const ActivoInput = lazy(async () => await import('../Device/device/ActivoInput'))
-const ModelSelect = lazy(async () => await import('../Device/model/ModelSelect'))
-const StatusSelect = lazy(async () => await import('../Device/status/StatusSelect'))
+const TableHeader = lazy(async () => await import('../../components/TableHeader'))
+const DeviceTableCard = lazy(async () => await import('../../Device/device/DeviceTableCard'))
+const TableStructure = lazy(async () => await import('../../components/Table'))
+const Button = lazy(async () => await import('../../ui/button'))
+const BrandSelect = lazy(async () => await import('../../Device/brand/BrandSelect'))
+// const CategorySelect = lazy(async () => await import('../../Device/category/CategorySelect'))
+const SerialInput = lazy(async () => await import('../../Device/device/SerialInput'))
+const ActivoInput = lazy(async () => await import('../../Device/device/ActivoInput'))
+const ModelSelect = lazy(async () => await import('../../Device/model/ModelSelect'))
+const StatusSelect = lazy(async () => await import('../../Device/status/StatusSelect'))
 
 function Home () {
   const { repository } = useAppContext()
@@ -24,22 +25,15 @@ function Home () {
 
   const { inputData, updateInputData, clearInputs } = useInputsData()
 
-  const debounceGetdevices = useCallback(
-    debounce(() => {
-      handleHasUrlSearch()
-    }, 300),
-    [handleHasUrlSearch]
-  )
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target
     updateInputData(name, value)
-    debounceGetdevices()
+    useDebounceGetdevices(handleHasUrlSearch)
   }
 
   const handleClear = () => {
     clearInputs()
-    debounceGetdevices()
+    useDebounceGetdevices(handleHasUrlSearch)
   }
 
   return (
@@ -56,13 +50,13 @@ function Home () {
         />
       </Suspense>
       <header className="grid grid-cols-[repeat(auto-fit,_250px)] gap-5 place-content-center">
-        <Suspense>
+        {/* <Suspense>
           <CategorySelect
             value={inputData.categoryId}
             onChange={handleChange}
           />
+        </Suspense> */}
         <Suspense>
-        </Suspense>
           <BrandSelect
             value={inputData.brandId}
             categoryId={inputData.categoryId}
@@ -75,20 +69,20 @@ function Home () {
             value={inputData.statusId}
             onChange={handleChange}
           />
-        <Suspense>
         </Suspense>
+        <Suspense>
           <SerialInput
             value={inputData.serial}
             onChange={handleChange}
           />
-        <Suspense>
         </Suspense>
+        <Suspense>
           <ActivoInput
             value={inputData.activo}
             onChange={handleChange}
           />
-        <Suspense>
         </Suspense>
+        <Suspense>
           <ModelSelect
             value={inputData.modelId}
             brandId={inputData.brandId}
@@ -96,8 +90,8 @@ function Home () {
             onChange={handleChange}
             isForm={false}
           />
-        </Suspense>
         <Suspense>
+        </Suspense>
           <Button
             actionType='CANCEL'
             type='button'
@@ -106,6 +100,10 @@ function Home () {
           />
         </Suspense>
       </header>
+      <TabsComponent
+        value={inputData.categoryId}
+        onChange={updateInputData}
+      />
       <Suspense>
         <TableStructure>
           <TableHeader headerTitle={['Categoria', 'Serial', 'Activo', 'Status', 'Marca', 'Modelo', 'Ubicación', 'Observaciones']}/>

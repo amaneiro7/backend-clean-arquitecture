@@ -1,9 +1,10 @@
+import { type Primitives } from '../../../../shared/domain/value-object/Primitives'
 import { type StatusId } from './StatusId'
 import { type StatusName } from './StatusName'
 
 export interface StatusPrimitives {
-  id: number
-  name: string
+  id: Primitives<StatusId>
+  name: Primitives<StatusName>
 }
 export class Status {
   constructor (
@@ -11,11 +12,11 @@ export class Status {
     private readonly name: StatusName
   ) {}
 
-  idValue (): number {
+  idValue (): Primitives<StatusId> {
     return this.id.value
   }
 
-  nameValue (): string {
+  nameValue (): Primitives<StatusName> {
     return this.name.value
   }
 

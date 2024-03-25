@@ -19,6 +19,7 @@ export default function FormInput ({ id, name, value, type, placeholder, handle,
             id={id}
             required={isRequired}
             fullWidth
+            size='small'
             name={name}
             value={value}
             label={label}

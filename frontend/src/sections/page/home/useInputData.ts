@@ -1,14 +1,19 @@
 import { useSearchParams } from 'react-router-dom'
-import { type CategoryId } from '../../modules/devices/category/domain/CategoryId'
-import { type Primitives } from '../../modules/shared/domain/value-object/Primitives'
+import { type CategoryId } from '../../../modules/devices/category/domain/CategoryId'
+import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
+import { type BrandId } from '../../../modules/devices/brand/domain/BrandId'
+import { type StatusId } from '../../../modules/devices/devices/status/domain/StatusId'
+import { type DeviceActivo } from '../../../modules/devices/devices/devices/domain/DeviceActivo'
+import { type DeviceSerial } from '../../../modules/devices/devices/devices/domain/DeviceSerial'
+import { type ModelId } from '../../../modules/devices/model/domain/ModelId'
 
 export interface InputData {
   categoryId: Primitives<CategoryId>
-  brandId: string
-  statusId: number | ''
-  activo: string
-  serial: string
-  modelId: string
+  brandId: Primitives<BrandId>
+  statusId: Primitives<StatusId>
+  activo: Primitives<DeviceActivo>
+  serial: Primitives<DeviceSerial>
+  modelId: Primitives<ModelId>
 }
 
 type UpdateInputData = (field: string, value: string | number) => void
@@ -22,7 +27,7 @@ export const useInputsData = (): {
 
   const categoryId = searchParams.get('categoryId') ?? ''
   const brandId = searchParams.get('brandId') ?? ''
-  const statusId = Number(searchParams.get('statusId')) ?? ''
+  const statusId = searchParams.get('statusId') ?? ''
   const activo = searchParams.get('activo') ?? ''
   const serial = searchParams.get('serial') ?? ''
   const modelId = searchParams.get('modelId') ?? ''
@@ -48,7 +53,7 @@ export const useInputsData = (): {
   const inputData = {
     categoryId: categoryId ?? '',
     brandId: brandId ?? '',
-    statusId: statusId === 0 ? '' : statusId,
+    statusId: statusId ?? '',
     activo: activo ?? '',
     serial: serial ?? '',
     modelId: modelId ?? ''

@@ -1,19 +1,32 @@
 import { createContext, useContext, type PropsWithChildren } from 'react'
 import { type Repository } from '../../modules/shared/domain/repository'
 import { type UseAuth, useLogin } from '../Auth/useLogin'
+import { type UseCategory, useCategory } from '../Device/category/useCategory'
+import { useDevice, type UseDevice } from '../Device/device/useDevice'
+import { useStatus, type UseStatus } from '../Device/status/useStatus'
+import { useLocation, type UseLocation } from '../Device/location/useLocation'
 
 export interface ContextState {
   repository: Repository
   useAuth: UseAuth
+  category: UseCategory
+  device: UseDevice
+  status: UseStatus
+  location: UseLocation
 }
 
+// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
 export const AppContext = createContext({} as ContextState)
 
 export const AppContextProvider = ({ children, repository }: PropsWithChildren<{ repository: Repository }>) => {
   const useAuth = useLogin(repository)
+  const category = useCategory(repository)
+  const device = useDevice(repository)
+  const status = useStatus(repository)
+  const location = useLocation(repository)
 
   return (
-    <AppContext.Provider value={{ repository, useAuth }}>
+    <AppContext.Provider value={{ repository, useAuth, category, device, status, location }}>
       {children}
     </AppContext.Provider>
   )

@@ -5,6 +5,15 @@ import { type Repository } from '../../../modules/shared/domain/repository'
 import { DeviceCreator, type DeviceProps } from '../../../modules/devices/devices/devices/application/DeviceCreator'
 import { DeviceGetter } from '../../../modules/devices/devices/devices/application/DeviceGetter'
 
+export interface UseDevice {
+  devices: DevicePrimitives[]
+  loading: boolean
+  error: string | null
+  getDevice: DeviceGetter
+  createDevice: (formData: DeviceProps) => Promise<void>
+  handleHasUrlSearch: () => void
+}
+
 export const useDevice = (repository: Repository) => {
   const allDeviceGetter = new AllDeviceGetter(repository)
   const [loading, setLoading] = useState(true)

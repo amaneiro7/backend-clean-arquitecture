@@ -1,9 +1,12 @@
+import { type CategoryId } from '../../../devices/category/domain/CategoryId'
+import { type Primitives } from '../value-object/Primitives'
+
 export interface DevicesApiResponse {
   id: string
   activo: null | string
   serial: string
   statusId: number
-  categoryId: string
+  categoryId: Primitives<CategoryId>
   brandId: string
   modelId: string
   employeeId: string | null
@@ -28,7 +31,7 @@ export interface DevicesMappedApiResponse {
   activo: string
   serial: string
   statusId: number
-  categoryId: number
+  categoryId: Primitives<CategoryId>
   categoryName: string
   brandId: string
   brandName: string
@@ -56,11 +59,11 @@ export interface BrandApiResponse {
 export interface ModelApiresponse {
   id: string
   name: string
-  categoryId: number
+  categoryId: Primitives<CategoryId>
   brandId: string
   createdAt: Date
   updatedAt: Date
-  CategoryId: number
+  CategoryId: Primitives<CategoryId>
   BrandId: string
   category: Category
   brand: Brand
@@ -68,7 +71,7 @@ export interface ModelApiresponse {
 export interface ModelMappedApiResponse {
   id: string
   name: string
-  categoryId: number
+  categoryId: Primitives<CategoryId>
   categoryName: string
   brandId: string
   brandName: string
@@ -78,7 +81,7 @@ export interface ModelMappedApiResponse {
 
 export interface Computer {
   id: string
-  categoryId: number
+  categoryId: Primitives<CategoryId>
   deviceId: string
   processorId: string
   memoryRamCapacity: number
@@ -90,7 +93,7 @@ export interface Computer {
   ipAddress: string
   createdAt: Date
   updatedAt: Date
-  CategoryId: number
+  CategoryId: Primitives<CategoryId>
   device_id: string
   HardDriveCapacityId: number
   HardDriveTypeId: number
@@ -186,14 +189,14 @@ export interface ProcessorApiresponse {
 
 export interface HardDrive {
   id: string
-  categoryId: number
+  categoryId: Primitives<CategoryId>
   deviceId: string
   health: number
   hardDriveCapacityId: number
   hardDriveTypeId: number
   createdAt: Date
   updatedAt: Date
-  CategoryId: number
+  CategoryId: Primitives<CategoryId>
   device_id: string
   HardDriveCapacityId: number
   HardDriveTypeId: number

@@ -4,6 +4,12 @@ import { type Repository } from '../../../modules/shared/domain/repository'
 import { type StatusPrimitives } from '../../../modules/devices/devices/status/domain/Status'
 import { AllStatusGetter } from '../../../modules/devices/devices/status/application/AllStatusGetter'
 
+export interface UseStatus {
+  status: StatusPrimitives[]
+  loading: boolean
+  error: Error | null
+}
+
 export const useStatus = (repository: Repository) => {
   const allStatusGetter = new AllStatusGetter(repository)
   const [loading, setLoading] = useState(true)

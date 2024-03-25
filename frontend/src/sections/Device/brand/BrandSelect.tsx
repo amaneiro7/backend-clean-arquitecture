@@ -1,27 +1,31 @@
-import { type ChangeEvent, type FC, Suspense, lazy, useMemo } from 'react'
+import { type FC, Suspense, lazy, useMemo } from 'react'
 import { useAppContext } from '../../Context/AppContext'
 import { Link } from 'react-router-dom'
 import { AddIcon } from '../../ui/icon/AddIcon'
 import { EditIcon } from '../../ui/icon/EditIcon'
 import { useBrand } from './useBrand'
 import { type BrandApiResponse } from '../../../modules/shared/domain/types/responseTypes'
+import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
+import { type BrandId } from '../../../modules/devices/brand/domain/BrandId'
+import { type CategoryId } from '../../../modules/devices/category/domain/CategoryId'
+import { type OnChange } from '../../../modules/shared/domain/types/types'
 
 const Select = lazy(async () => await import('../../ui/select'))
 
 interface Props {
-  value: string
-  categoryId: number
-  onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  value: Primitives<BrandId>
+  categoryId: Primitives<CategoryId>
+  onChange: OnChange
   isForm?: boolean
-  isRequired: boolean
+  isRequired?: boolean
 }
 
-const BrandSelect: FC<Props> = ({ value, onChange, categoryId, isForm = true, isRequired }) => {
+const BrandSelect: FC<Props> = ({ value, onChange, categoryId, isForm = true, isRequired = false }) => {
   const { repository } = useAppContext()
   const { brands } = useBrand(repository)
 
   const filterdBrand = useMemo(() => {
-    if (categoryId === 0 || categoryId === undefined || categoryId === '') {
+    if (categoryId === undefined || categoryId === '') {
       return brands
     }
 
