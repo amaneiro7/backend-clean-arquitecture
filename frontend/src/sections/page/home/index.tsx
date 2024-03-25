@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom'
 import { Suspense, lazy } from 'react'
 import { useAppContext } from '../../Context/AppContext'
 import { useInputsData } from './useInputData'
-import { useDevice } from '../../Device/device/useDevice'
 import { type DevicesMappedApiResponse } from '../../../modules/shared/domain/types/responseTypes'
 import { useDebounceGetdevices } from '../../Hooks/useDebounceGetDevices'
 import TabsComponent from '../../ui/tabs'
@@ -19,8 +18,7 @@ const ModelSelect = lazy(async () => await import('../../Device/model/ModelSelec
 const StatusSelect = lazy(async () => await import('../../Device/status/StatusSelect'))
 
 function Home () {
-  const { repository } = useAppContext()
-  const { devices, handleHasUrlSearch } = useDevice(repository)
+  const { device: { devices, handleHasUrlSearch } } = useAppContext()
   const navigate = useNavigate()
 
   const { inputData, updateInputData, clearInputs } = useInputsData()
