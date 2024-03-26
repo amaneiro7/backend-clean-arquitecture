@@ -1,3 +1,4 @@
+import { type Criteria } from '../../../Shared/domain/criteria/Criteria'
 import { type DevicePrimitives } from './Device'
 import type QueryString from 'qs'
 
@@ -13,6 +14,8 @@ export abstract class DeviceRepository {
   abstract searchByComputerName (computerName: string): Promise<any | null>
 
   abstract searchByActivo (activo: string): Promise<DevicePrimitives | null>
+
+  abstract matching (criteria: Criteria): Promise<DevicePrimitives[]>
 
   abstract remove (deviceId: string): Promise<void>
 }

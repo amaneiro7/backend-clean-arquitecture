@@ -14,13 +14,17 @@ export class Order {
     )
   }
 
-  public static fromPrimitives (orderBy: string | null, orderType: string | null): Order {
-    return orderBy !== null
-      ? new Order(new OrderBy(orderBy), new OrderType(orderType as OrderTypes))
+  public static fromValues (orderBy?: string, orderType?: string): Order {
+    return orderBy !== undefined
+      ? new Order(new OrderBy(orderBy), OrderType.fromValue(orderType ?? OrderTypes.ASC))
       : Order.none()
   }
 
-  isNone (): boolean {
+  public isNone (): boolean {
     return this.orderType.isNone()
+  }
+
+  public hasOrder (): boolean {
+    return !this.orderType.isNone()
   }
 }

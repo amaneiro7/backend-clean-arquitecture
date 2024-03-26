@@ -9,7 +9,9 @@ import { DeviceComputer } from '../../../../Features/Computer/domain/Computer'
 import { type Models } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
 import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
 import { type DeviceId } from '../../domain/DeviceId'
-export class SequelizeDeviceRepository implements DeviceRepository {
+import { type Criteria } from '../../../../Shared/domain/criteria/Criteria'
+import { CriteriaToSequelizeConverter } from '../../../../Shared/infrastructure/criteria/CriteriaToSequelizeConverter'
+export class SequelizeDeviceRepository extends CriteriaToSequelizeConverter implements DeviceRepository {
   private readonly models = sequelize.models as unknown as Models
   async searchAll (query: QueryString.ParsedQs): Promise<DevicePrimitives[]> {
     const options: FindOptions<DevicesApiResponse> = {
@@ -89,6 +91,35 @@ export class SequelizeDeviceRepository implements DeviceRepository {
         brandId
       }
     }
+    return await DeviceModel.findAll(options)
+  }
+
+  async matching (criteria: Criteria): Promise<DevicePrimitives[]> {    
+    const options = this.convert(criteria)
+
+    options.include = [
+      'model',
+      'category',
+      'brand',
+      'status',
+      'employee',
+      {
+        association: 'location',
+        include: [
+          'typeOfSite',
+          { association: 'site', include: [{ association: 'city', include: [{ association: 'state', include: ['region'] }] }] }
+        ]
+      },
+      {
+        association: 'computer',
+        include: ['processor', 'hardDriveCapacity', 'hardDriveType', 'operatingSystem', 'operatingSystemArq']
+      },
+      {
+        association: 'hardDrive',
+        include: ['hardDriveCapacity', 'hardDriveType']
+      }
+    ],    
+  
     return await DeviceModel.findAll(options)
   }
 

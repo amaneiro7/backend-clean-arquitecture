@@ -5,8 +5,8 @@ export class Filters {
 
   // Esto es simplemente otra forma de instanciar nuestra clase
   // La usamos cuando queremos hacer logica extra en nuestra instanciación
-  static fromPrimitives (filters: FiltersPrimitives[]): Filters {
-    return new Filters(filters.map(filter => Filter.fromPrimitives(filter.field, filter.operator, filter.value)))
+  static fromValues (filters: Array<Map<string, string>>): Filters {
+    return new Filters(filters.map(filter => Filter.fromValues(filter)))
   }
 
   toPrimitives (): FiltersPrimitives[] {
