@@ -3,24 +3,24 @@ import { OrderType, OrderTypes } from './OrderType'
 
 export class Order {
   constructor (
-    readonly orderBy: OrderBy,
-    readonly orderType: OrderType
+    public readonly orderBy: OrderBy,
+    public readonly orderType: OrderType
   ) {}
 
-  public static fromPrimitives (orderBy?: string, orderType?: string): Order {
-    if (orderBy === undefined) {
-      return new Order(
-        new OrderBy(''),
-        new OrderType(OrderTypes.NONE)
-      )
-    }
+  static none (): Order {
     return new Order(
-      new OrderBy(orderBy),
-      OrderType.fromValue(orderType ?? OrderTypes.ASC)
+      new OrderBy(''),
+      new OrderType(OrderTypes.NONE)
     )
   }
 
-  public hasOrder (): boolean {
-    return !this.orderType.isNone()
+  public static fromPrimitives (orderBy: string | null, orderType: string | null): Order {
+    return orderBy !== null
+      ? new Order(new OrderBy(orderBy), new OrderType(orderType as OrderTypes))
+      : Order.none()
+  }
+
+  isNone (): boolean {
+    return this.orderType.isNone()
   }
 }

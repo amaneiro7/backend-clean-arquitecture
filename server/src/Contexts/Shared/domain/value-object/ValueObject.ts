@@ -1,6 +1,6 @@
 import { InvalidArgumentError } from './InvalidArgumentError'
 
-export type Primitives = string | number | boolean | Date
+type Primitives = string | number | boolean | Date
 
 type Optional<T> = T | undefined | null
 

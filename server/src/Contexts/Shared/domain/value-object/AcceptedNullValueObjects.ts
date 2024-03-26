@@ -1,4 +1,4 @@
-export type Primitives = string | number | boolean | Date
+type Primitives = string | number | boolean | Date
 
 export abstract class AcceptedNullValueObject<T extends Primitives> {
   value: T | null

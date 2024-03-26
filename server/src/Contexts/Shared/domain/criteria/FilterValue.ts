@@ -1,3 +1,3 @@
-import { StringValueObject } from '../value-object/StringValueObject'
-
-export class FilterValue extends StringValueObject {}
+export class FilterValue {
+  constructor (public readonly value: string) {}
+}

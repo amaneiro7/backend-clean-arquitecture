@@ -1,3 +1,3 @@
-import { StringValueObject } from '../value-object/StringValueObject'
-
-export class OrderBy extends StringValueObject {}
+export class OrderBy {
+  constructor (public readonly value: string) {}
+}
