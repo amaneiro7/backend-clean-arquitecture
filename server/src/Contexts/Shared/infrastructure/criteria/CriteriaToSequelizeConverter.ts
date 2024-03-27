@@ -1,15 +1,7 @@
-// cretae a class CriteriaToSequelizeConverter from CriteriaPattern?
 import { type FindOptions, Op } from 'sequelize'
 import { type Criteria } from '../../domain/criteria/Criteria'
 import { type Filter } from '../../domain/criteria/Filter'
 
-// interface CriteriaPattern {
-//   property: string
-//   operator: '=' | '!=' | '>' | '<' | '>=' | '<='
-//   value: string | number | boolean
-// }
-
-//   type CriteriaToSequelizeConverter = (criteria: CriteriaPattern[]) => WhereOptions<any>
 type Mappings = Record<string, string>
 
 export class CriteriaToSequelizeConverter {
@@ -22,16 +14,15 @@ export class CriteriaToSequelizeConverter {
       }, {})
 
       if (criteria.hasOrder()) {
-        query.order = {
-          [criteria.order.orderBy.value]: criteria.order.orderType.value
-        }
+        query.order = [
+          [criteria.order.orderBy.value, criteria.order.orderType.value]]
       }
 
-      if (criteria.limit !== null) {
+      if (criteria.limit !== undefined) {
         query.limit = criteria.limit
       }
 
-      if (criteria.limit !== null && criteria.offset !== null) {
+      if (criteria.limit !== undefined && criteria.offset !== undefined) {
         query.offset = criteria.limit * (criteria.offset - 1)
       }
     }
@@ -58,32 +49,3 @@ export class CriteriaToSequelizeConverter {
     return { [field]: filter.value.value }
   }
 }
-// const criteriaToSequelize: CriteriaToSequelizeConverter = (criteria: CriteriaPattern[]) => {
-//   const where: WhereOptions<any> = {}
-//   criteria.forEach((criterion: CriteriaPattern) => {
-//     const { property, operator, value } = criterion
-//     if (operator === '=') {
-//       where[property] = value
-//     } else if (operator === '!=') {
-//       where[property] = { [Op.not]: value }
-//     } else if (operator === '>') {
-//       where[property] = { [Op.gt]: value }
-//     } else if (operator === '<') {
-//       where[property] = { [Op.lt]: value }
-//     } else if (operator === '>=') {
-//       where[property] = { [Op.gte]: value }
-//     } else if (operator === '<=') {
-//       where[property] = { [Op.lte]: value }
-//     }
-//   })
-//   return where
-// }
-
-// // Example usage
-// const whereClause = criteriaToSequelize([
-//   { property: 'age', operator: '>', value: 18 },
-//   { property: 'gender', operator: '=', value: 'male' }
-// ])
-
-// // Result
-// // { age: { gt: 18 }, gender: 'male' }

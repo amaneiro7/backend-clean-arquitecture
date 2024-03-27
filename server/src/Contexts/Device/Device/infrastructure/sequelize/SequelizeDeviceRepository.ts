@@ -94,7 +94,7 @@ export class SequelizeDeviceRepository extends CriteriaToSequelizeConverter impl
     return await DeviceModel.findAll(options)
   }
 
-  async matching (criteria: Criteria): Promise<DevicePrimitives[]> {    
+  async matching (criteria: Criteria): Promise<DevicePrimitives[]> {
     const options = this.convert(criteria)
 
     options.include = [
@@ -118,8 +118,10 @@ export class SequelizeDeviceRepository extends CriteriaToSequelizeConverter impl
         association: 'hardDrive',
         include: ['hardDriveCapacity', 'hardDriveType']
       }
-    ],    
-  
+    ]
+    console.log('ORDER', options.order)
+    console.log('WHERE', options.where)
+
     return await DeviceModel.findAll(options)
   }
 

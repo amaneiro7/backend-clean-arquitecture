@@ -25,6 +25,6 @@ export class Order {
   }
 
   public hasOrder (): boolean {
-    return !this.orderType.isNone()
+    return this.orderType !== undefined && this.orderType !== null && !this.orderType.isNone()
   }
 }

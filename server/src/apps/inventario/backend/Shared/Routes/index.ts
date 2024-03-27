@@ -46,7 +46,7 @@ export const routerApi = ({ app, repository }: Props): Router => {
   router.use('/categories', createCategoryRouter({ repository }))
   router.use('/brands', createBrandRouter({ repository })) //
   router.use('/models', createModelSeriesRouter({ repository })) //
-  router.use('/devices', authenticate, createDeviceRouter({ repository })) //
+  router.use('/devices', createDeviceRouter({ repository })) //
   router.use('/status', createStatusRouter({ repository })) //
   router.use('/processors', createProcessorRouter({ repository })) //
   router.use('/processorsockets', createProcessorSocketRouter({ repository }))
