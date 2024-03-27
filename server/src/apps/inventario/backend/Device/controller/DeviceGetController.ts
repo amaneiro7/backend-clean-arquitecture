@@ -37,11 +37,10 @@ export class DeviceGetController {
   getByCriteria = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const { filters, orderBy, orderType, limit, offset } = req.query
-      console.log('DeviceGetController Filters', filters)
-      console.log(filters ? typeof JSON.parse(String(filters)) : 'undefined')
+      console.log(orderBy, orderType)
+
       const query = new SearchByCriteriaQuery(
-        // filters ? filters as unknown as FiltersPrimitives[] : [],
-        [],
+        filters ? filters as unknown as FiltersPrimitives[] : [],
         orderBy ? orderBy as string : undefined,
         orderType ? orderType as string : undefined,
         limit ? Number(limit) : undefined,

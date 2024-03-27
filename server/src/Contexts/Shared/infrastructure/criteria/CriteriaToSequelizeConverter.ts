@@ -6,25 +6,25 @@ type Mappings = Record<string, string>
 
 export class CriteriaToSequelizeConverter {
   convert (criteria: Criteria, mappings: Mappings = {}): FindOptions<any> {
+    console.log('CriteriaToSquelizeCoonverter', criteria)
     const query: FindOptions<any> = {}
 
     if (criteria.hasFilters()) {
       query.where = criteria.filters.value.reduce((acc, filter) => {
         return { ...acc, ...this.generateWhereQuery(filter, mappings) }
       }, {})
+    }
+    if (criteria.hasOrder()) {
+      query.order = [
+        [criteria.order.orderBy.value, criteria.order.orderType.value]]
+    }
 
-      if (criteria.hasOrder()) {
-        query.order = [
-          [criteria.order.orderBy.value, criteria.order.orderType.value]]
-      }
+    if (criteria.limit !== undefined) {
+      query.limit = criteria.limit
+    }
 
-      if (criteria.limit !== undefined) {
-        query.limit = criteria.limit
-      }
-
-      if (criteria.limit !== undefined && criteria.offset !== undefined) {
-        query.offset = criteria.limit * (criteria.offset - 1)
-      }
+    if (criteria.limit !== undefined && criteria.offset !== undefined) {
+      query.offset = criteria.limit * (criteria.offset - 1)
     }
 
     return query

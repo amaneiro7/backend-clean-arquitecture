@@ -15,7 +15,7 @@ export class Criteria {
   }
 
   hasFilters (): boolean {
-    return this.filters.isEmpty()
+    return !this.filters.isEmpty()
   }
 
   hasOrder (): boolean {
