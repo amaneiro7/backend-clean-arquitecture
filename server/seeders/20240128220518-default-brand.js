@@ -1,11 +1,11 @@
 'use strict';
-const { randomUUID } = require('node:crypto');
-const { brands } = require('./deviceData/brands');
+
+const brandsData = require('./BrandData/brands');
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    return queryInterface.bulkInsert('brands', brands.map(({id, name}) => ({
+    return queryInterface.bulkInsert('brands', brandsData.map(({id, name}) => ({
         id,
         name,
         created_at: new Date(),

@@ -60,7 +60,7 @@ module.exports = {
       {
         id: randomUUID(),
         email: 'krincon@bnc.com.ve',
-        name: 'Kristable',
+        name: 'Kristabel',
         last_name: 'Rincón',
         role_id: 2,
         password: hashSync('Admin12345*', 10),

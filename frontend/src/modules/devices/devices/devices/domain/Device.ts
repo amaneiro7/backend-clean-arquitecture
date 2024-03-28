@@ -1,14 +1,16 @@
+import { type Primitives } from '../../../../shared/domain/value-object/Primitives'
 import { ModelId } from '../../../model/domain/ModelId'
 import { StatusId } from '../../status/domain/StatusId'
 import { DeviceActivo } from './DeviceActivo'
+import { type DeviceId } from './DeviceId'
 import { DeviceSerial } from './DeviceSerial'
 
 export interface DevicePrimitives {
-  id?: string
-  serial: string
-  activo: string | null
-  statusId: number
-  modelId: string
+  id?: Primitives<DeviceId>
+  serial: Primitives<DeviceSerial>
+  activo: Primitives<DeviceActivo>
+  statusId: Primitives<StatusId>
+  modelId: Primitives<ModelId>
 }
 export class Device {
   constructor (
@@ -27,19 +29,19 @@ export class Device {
     )
   }
 
-  serialValue (): string {
+  serialValue (): Primitives<DeviceSerial> {
     return this.serial.value
   }
 
-  activoValue (): string | null {
+  activoValue (): Primitives<DeviceActivo> | null {
     return this.activo.value
   }
 
-  statusIdValue (): number {
+  statusIdValue (): Primitives<StatusId> {
     return this.statusId.value
   }
 
-  modelIdValue (): string {
+  modelIdValue (): Primitives<ModelId> {
     return this.modelId.value
   }
 

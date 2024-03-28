@@ -1,4 +1,5 @@
-const { modelPrinter } = require("./modelPrinter")
+const { modelPrinter } = require("../modelsSeries/modelPrinter")
+
 const impresorasFinancieraAlmacen = [
     {
         serial: '5004028933',

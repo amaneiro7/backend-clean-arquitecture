@@ -1,12 +1,11 @@
 'use strict';
 
+const operatingSystemArq = require('./operatingSystem/operatingSystemArq');
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    return queryInterface.bulkInsert('operating_system_arqs', [      
-        {  id: 1, name: 'x86'},
-        {  id: 2, name: 'x64'}        
-  ], {})
+    return queryInterface.bulkInsert('operating_system_arqs', operatingSystemArq.map(({id, name}) => ({id, name})), {})
   },
 
   async down (queryInterface, Sequelize) {

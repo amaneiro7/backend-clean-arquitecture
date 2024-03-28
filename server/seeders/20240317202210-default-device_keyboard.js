@@ -23,6 +23,6 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    return await queryInterface.bulkDelete('devices', keyboadAlmacen.map((device) => device.serial), {})
+    return await queryInterface.bulkDelete('devices', null, {})
   }
 };

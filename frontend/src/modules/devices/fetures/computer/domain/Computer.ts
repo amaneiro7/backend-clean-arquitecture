@@ -1,4 +1,6 @@
+import { type Primitives } from '../../../../shared/domain/value-object/Primitives'
 import { CategoryDefaultData, type CategoryValues } from '../../../category/domain/CategoryDefaultData'
+import { type CategoryId } from '../../../category/domain/CategoryId'
 import { Device } from '../../../devices/devices/domain/Device'
 import { DeviceActivo } from '../../../devices/devices/domain/DeviceActivo'
 import { DeviceSerial } from '../../../devices/devices/domain/DeviceSerial'
@@ -14,18 +16,18 @@ import { IPAddress } from './IPAddress'
 import { MACAddress } from './MACAddress'
 
 export interface ComputerPrimitives {
-  serial: string
-  activo: string | null
-  statusId: number
-  modelId: string
-  processorId: string | null
-  memoryRamCapacity: number
-  hardDriveCapacityId: number | null
-  hardDriveTypeId: number | null
-  operatingSystemId: number | null
-  operatingSystemArqId: number | null
-  macAddress: string | null
-  ipAddress: string | null
+  serial: Primitives<DeviceSerial>
+  activo: Primitives<DeviceActivo>
+  statusId: Primitives<StatusId>
+  modelId: Primitives<ModelId>
+  processorId: Primitives<ProcessorId> | null
+  memoryRamCapacity: Primitives<MemoryRamCapacity>
+  hardDriveCapacityId: Primitives<HardDriveCapacityId> | null
+  hardDriveTypeId: Primitives<HardDriveTypeId> | null
+  operatingSystemId: Primitives<OperatingSystemId> | null
+  operatingSystemArqId: Primitives<OperatingSystemArqId> | null
+  macAddress: Primitives<MACAddress> | null
+  ipAddress: Primitives<IPAddress> | null
 }
 
 export class Computer extends Device {
@@ -46,7 +48,7 @@ export class Computer extends Device {
     super(serial, activo, statusId, modelId)
   }
 
-  static isComputerCategory ({ categoryId }: { categoryId: number }): boolean {
+  static isComputerCategory ({ categoryId }: { categoryId: Primitives<CategoryId> }): boolean {
     const AcceptedComputerCategories: CategoryValues[] = ['Computadoras', 'All in One', 'Laptops', 'Servidores']
     return AcceptedComputerCategories.includes(CategoryDefaultData[categoryId])
   }

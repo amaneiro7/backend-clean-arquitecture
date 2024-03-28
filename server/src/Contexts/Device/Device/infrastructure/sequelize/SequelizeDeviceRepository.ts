@@ -119,9 +119,6 @@ export class SequelizeDeviceRepository extends CriteriaToSequelizeConverter impl
         include: ['hardDriveCapacity', 'hardDriveType']
       }
     ]
-    console.log('ORDER', options.order)
-    console.log('WHERE', options.where)
-
     return await DeviceModel.findAll(options)
   }
 

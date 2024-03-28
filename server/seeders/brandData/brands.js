@@ -1,4 +1,4 @@
-const brands = [
+const brandsData = [
     { id: "56a07947-0a09-488b-a597-64ef3e365c32", name: "Hewlett-Packard" },
     { id: "b2eb94d1-4860-4e2c-95e3-b67317df8448", name: "IBM" },
     { id: "8eea3327-4b72-4954-98af-effcd7bc9c35", name: "Acer" },
@@ -31,4 +31,4 @@ const brands = [
     { id: "9b2dffe4-9afc-474b-b1ae-5703566bef57", name: "Unisys" },
 ]
 
-module.exports = { brands }
+module.exports = brandsData

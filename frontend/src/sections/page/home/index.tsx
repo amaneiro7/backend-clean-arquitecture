@@ -5,17 +5,19 @@ import { useInputsData } from './useInputData'
 import { type DevicesMappedApiResponse } from '../../../modules/shared/domain/types/responseTypes'
 import { useDebounceGetdevices } from '../../Hooks/useDebounceGetDevices'
 import TabsComponent from '../../ui/tabs'
+import { Computer } from '../../../modules/devices/fetures/computer/domain/Computer'
 
 const TableHeader = lazy(async () => await import('../../components/TableHeader'))
 const DeviceTableCard = lazy(async () => await import('../../Device/device/DeviceTableCard'))
 const TableStructure = lazy(async () => await import('../../components/Table'))
 const Button = lazy(async () => await import('../../ui/button'))
 const BrandSelect = lazy(async () => await import('../../Device/brand/BrandSelect'))
-// const CategorySelect = lazy(async () => await import('../../Device/category/CategorySelect'))
+const CategorySelect = lazy(async () => await import('../../Device/category/CategorySelect'))
 const SerialInput = lazy(async () => await import('../../Device/device/SerialInput'))
 const ActivoInput = lazy(async () => await import('../../Device/device/ActivoInput'))
 const ModelSelect = lazy(async () => await import('../../Device/model/ModelSelect'))
 const StatusSelect = lazy(async () => await import('../../Device/status/StatusSelect'))
+const LocationSelect = lazy(async () => await import('../../Device/location/LocationSelect'))
 
 function Home () {
   const { device: { devices, handleHasUrlSearch } } = useAppContext()
@@ -34,6 +36,15 @@ function Home () {
     useDebounceGetdevices(handleHasUrlSearch)
   }
 
+  const defaultHeaderTitle = ['Categoria', 'Serial', 'Activo', 'Status', 'Marca', 'Modelo', 'Ubicación', 'Observaciones']
+  const headerTitleComputer = ['Nombre', 'Procesador', 'Memoria Ram', 'Disco Duro', 'Tipo', 'Sistema Operativo', 'Arquitectura', 'Diracción MAC', 'Dirección IP']
+  let headerTitle
+  if (Computer.isComputerCategory({ categoryId: inputData.categoryId })) {
+    headerTitle = defaultHeaderTitle.concat(headerTitleComputer)
+  } else {
+    headerTitle = defaultHeaderTitle
+  }
+
   return (
     <main className='max-w-full h-full flex flex-col gap-5 p-5'>
       <div>
@@ -48,12 +59,12 @@ function Home () {
         />
       </Suspense>
       <header className="grid grid-cols-[repeat(auto-fit,_250px)] gap-5 place-content-center">
-        {/* <Suspense>
+        <Suspense>
           <CategorySelect
             value={inputData.categoryId}
             onChange={handleChange}
           />
-        </Suspense> */}
+        </Suspense>
         <Suspense>
           <BrandSelect
             value={inputData.brandId}
@@ -88,8 +99,15 @@ function Home () {
             onChange={handleChange}
             isForm={false}
           />
-        <Suspense>
         </Suspense>
+        <Suspense>
+          <LocationSelect
+            value={inputData.modelId}
+            onChange={handleChange}
+            isForm={false}
+          />
+        </Suspense>
+        <Suspense>
           <Button
             actionType='CANCEL'
             type='button'
@@ -98,14 +116,14 @@ function Home () {
           />
         </Suspense>
       </header>
-      <TabsComponent
+      {/* <TabsComponent
         value={inputData.categoryId}
         onChange={updateInputData}
-      />
+      /> */}
       <Suspense>
         <TableStructure>
-          <TableHeader headerTitle={['Categoria', 'Serial', 'Activo', 'Status', 'Marca', 'Modelo', 'Ubicación', 'Observaciones']}/>
-          <DeviceTableCard device={devices as DevicesMappedApiResponse[]}/>
+          <TableHeader headerTitle={headerTitle}/>
+          <DeviceTableCard category={inputData.categoryId} device={devices as unknown as DevicesMappedApiResponse[]}/>
         </TableStructure>
       </Suspense>
     </main>

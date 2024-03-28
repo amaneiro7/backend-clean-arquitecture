@@ -1,13 +1,11 @@
 'use strict';
+
+const hddTypes = require('./DiscoDuro/hddType');
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    return queryInterface.bulkInsert('hard_drive_types', [
-      { id: 1, name: 'HDD' },
-      { id: 2, name: 'SDD' },
-      { id: 3, name: 'SDD M.2' },
-      { id: 4, name: 'IDE' }   
-    ])
+    return queryInterface.bulkInsert('hard_drive_types', hddTypes.map(({id, name}) => ({id, name})), {})
   },
 
   async down (queryInterface, Sequelize) {

@@ -23,6 +23,6 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    return await queryInterface.bulkDelete('devices', impresorasFinancieraAlmacen.map((printer) => printer.serial), {})
+    return await queryInterface.bulkDelete('devices', null, {})
   }
 };

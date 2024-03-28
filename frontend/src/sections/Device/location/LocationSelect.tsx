@@ -9,10 +9,11 @@ const Select = lazy(async () => await import('../../ui/select'))
 interface Props {
   value: Primitives<LocationId>
   onChange: OnChange
+  isForm?: boolean
   isRequired?: boolean
 }
 
-const LocationSelect: FC<Props> = ({ value, onChange, isRequired = false }) => {
+const LocationSelect: FC<Props> = ({ value, onChange, isRequired = false, isForm = true }) => {
   const { location: { locations } } = useAppContext()
 
   return (

@@ -1,6 +1,6 @@
 'use strict';
 
-const { modelPrinter } = require('./deviceData/modelPrinter');
+const { modelPrinter } = require('./modelsSeries/modelPrinter');
 
 
 /** @type {import('sequelize-cli').Migration} */

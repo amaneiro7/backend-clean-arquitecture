@@ -3,11 +3,17 @@ import { DeleteIcon } from '../../ui/icon/DeleIcon'
 import { EditIcon } from '../../ui/icon/EditIcon'
 
 import { type DevicesMappedApiResponse } from '../../../modules/shared/domain/types/responseTypes'
+import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
+import { type CategoryId } from '../../../modules/devices/category/domain/CategoryId'
+import { Computer } from '../../../modules/devices/fetures/computer/domain/Computer'
 
 interface Props {
   item: DevicesMappedApiResponse
+  category?: Primitives<CategoryId>
 }
-export const DeviceTableCardList: React.FC<Props> = ({ item }) => {
+export const DeviceTableCardList: React.FC<Props> = ({ item, category }) => {
+  console.log(item)
+
   return (
     <>
         <td className='flex'>
@@ -32,6 +38,13 @@ export const DeviceTableCardList: React.FC<Props> = ({ item }) => {
         <td className='whitespace-nowrap text-ellipsis'>{item.modelName}</td>
         <td>{item.locationName}</td>
         <td>{item.observation}</td>
+        {/* {
+          Computer.isComputerCategory({ categoryId: category }) &&
+             <>
+                <td>{item?.computer?.processor.name}</td>
+              </>
+
+        } */}
     </>
   )
 }

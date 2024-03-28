@@ -6,7 +6,6 @@ type Mappings = Record<string, string>
 
 export class CriteriaToSequelizeConverter {
   convert (criteria: Criteria, mappings: Mappings = {}): FindOptions<any> {
-    console.log('CriteriaToSquelizeCoonverter', criteria)
     const query: FindOptions<any> = {}
 
     if (criteria.hasFilters()) {
