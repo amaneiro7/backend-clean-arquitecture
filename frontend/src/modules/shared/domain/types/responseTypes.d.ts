@@ -1,21 +1,30 @@
+import { type BrandId } from '../../../devices/brand/domain/BrandId'
+import { type BrandName } from '../../../devices/brand/domain/BrandName'
 import { type CategoryId } from '../../../devices/category/domain/CategoryId'
+import { type CategoryName } from '../../../devices/category/domain/CategoryName'
+import { type DeviceActivo } from '../../../devices/devices/devices/domain/DeviceActivo'
+import { type DeviceId } from '../../../devices/devices/devices/domain/DeviceId'
+import { type DeviceSerial } from '../../../devices/devices/devices/domain/DeviceSerial'
+import { type StatusId } from '../../../devices/devices/status/domain/StatusId'
+import { type StatusName } from '../../../devices/devices/status/domain/StatusName'
+import { type ModelId } from '../../../devices/model/domain/ModelId'
+import { type ModelName } from '../../../devices/model/domain/ModelName'
+import { type LocationId } from '../../../location/locations/domain/locationId'
 import { type Primitives } from '../value-object/Primitives'
 
 export interface DevicesApiResponse {
-  id: string
-  activo: null | string
-  serial: string
-  statusId: number
+  id: Primitives<DeviceId>
+  activo: Primitives<DeviceActivo>
+  serial: Primitives<DeviceSerial>
+  statusId: Primitives<StatusId>
   categoryId: Primitives<CategoryId>
-  brandId: string
-  modelId: string
+  brandId: Primitives<BrandId>
+  modelId: Primitives<ModelId>
   employeeId: string | null
-  locationId: number
+  locationId: Primitives<LocationId>
   observation: string
   createdAt: Date
   updatedAt: Date
-  ModelId: string
-  StatusId: number
   model: ModelApiresponse
   category: Category
   brand: Brand
@@ -27,20 +36,20 @@ export interface DevicesApiResponse {
 }
 
 export interface DevicesMappedApiResponse {
-  id: string
-  activo: string
-  serial: string
-  statusId: number
+  id: Primitives<DeviceId>
+  activo: Primitives<DeviceActivo>
+  serial: Primitives<DeviceSerial>
+  statusId: Primitives<StatusId>
   categoryId: Primitives<CategoryId>
-  categoryName: string
-  brandId: string
-  brandName: string
-  statusName: string
-  modelId: string
-  modelName: string
+  categoryName: Primitives<CategoryName>
+  brandId: Primitives<BrandId>
+  brandName: Primitives<BrandName>
+  statusName: Primitives<StatusName>
+  modelId: Primitives<ModelId>
+  modelName: Primitives<ModelName>
   observation: string
-  locationId: number
-  locationName: string
+  locationId: Primitives<>
+  locationName: Primitives<>
   employeeId: string | null
   employeeName: string
   computer: Computer | null
@@ -57,24 +66,23 @@ export interface BrandApiResponse {
 }
 
 export interface ModelApiresponse {
-  id: string
-  name: string
+  id: Primitives<ModelId>
+  name: Primitives<ModelName>
   categoryId: Primitives<CategoryId>
-  brandId: string
+  brandId: Primitives<BrandId>
   createdAt: Date
   updatedAt: Date
   CategoryId: Primitives<CategoryId>
-  BrandId: string
   category: Category
   brand: Brand
 }
 export interface ModelMappedApiResponse {
-  id: string
-  name: string
+  id: Primitives<ModelId>
+  name: Primitives<ModelName>
   categoryId: Primitives<CategoryId>
-  categoryName: string
-  brandId: string
-  brandName: string
+  categoryName: Primitives<CategoryName>
+  brandId: Primitives<BrandId>
+  brandName: Primitives<BrandName>
   createdAt: Date
   updatedAt: Date
 }
@@ -117,12 +125,12 @@ export interface HardDriveType {
 }
 
 export interface Status {
-  id: number
-  name: string
+  id: Primitives<StatusId>
+  name: Primitives<StatusName>
 }
 export interface Category {
-  id: number
-  name: string
+  id: Primitives<CategoryId>
+  name: Primitives<CategoryName>
 }
 
 export interface Location {

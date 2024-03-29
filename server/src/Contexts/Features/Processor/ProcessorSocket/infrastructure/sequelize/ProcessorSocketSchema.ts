@@ -19,7 +19,7 @@ export function initProcessorSocketModel (sequelize: Sequelize): void {
   ProcessorSocketModel.init(
     {
       id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         primaryKey: true,
         allowNull: false
       },

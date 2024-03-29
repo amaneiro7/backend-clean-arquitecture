@@ -1,3 +1,5 @@
+import { Criteria } from '../../../../shared/domain/criteria/Criteria'
+import { type Query } from '../../../../shared/domain/criteria/Query'
 import { type DevicesMappedApiResponse, type DevicesApiResponse } from '../../../../shared/domain/types/responseTypes'
 import { makeRequest } from '../../../../shared/infraestructure/fetching'
 import { type DevicePrimitives, type Device } from '../domain/Device'
@@ -14,12 +16,19 @@ export class ApiDeviceRepository implements DeviceRepository {
     await makeRequest({ method: 'PATCH', endpoint: `${this.endpoint}/${id.value}`, data: device.toPrimitives() })
   }
 
+  async getByCriteria (query: Query): Promise<DevicePrimitives[]> {
+    const filters = query.filters.map(
+      (filter, index) =>
+      `filters[${index}][field]=${filter.field}&filters[${index}][operator]=${filter.operator}&filters[${index}][value]=${filter.value}`
+    )
+
+    const params = filters.join('&')
+
+    return await makeRequest<DevicesApiResponse[]>({ method: 'GET', endpoint: `${this.endpoint}?${params}` })
+  }
+
   async getAll (): Promise<DevicePrimitives[]> {
     return await makeRequest<DevicesApiResponse[]>({ method: 'GET', endpoint: this.endpoint })
-      // .then(res => {
-      //   console.log(res)
-      //   return res
-      // })
       .then(res => res.map(data => ({
         id: data.id,
         serial: data.serial,
@@ -42,10 +51,6 @@ export class ApiDeviceRepository implements DeviceRepository {
         createdAt: data.createdAt,
         updatedAt: data.updatedAt
       }) satisfies DevicesMappedApiResponse))
-      // .then(res => {
-      //   console.log(res)
-      //   return res
-      // })
   }
 
   async getById ({ id }: { id: DeviceId }): Promise<DevicePrimitives> {

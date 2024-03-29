@@ -2,8 +2,7 @@ import { EnumCriteriaValueObject } from './EnumCriteriaValueObject'
 
 export enum OrderTypes {
   ASC = 'asc',
-  DESC = 'desc',
-  NONE = 'none'
+  DESC = 'desc'
 }
 
 // Extendemos y ahora OrderTypes pasa a ser T
@@ -23,17 +22,6 @@ export class OrderType extends EnumCriteriaValueObject<OrderTypes> {
     }
 
     throw new Error(`The order type ${value} is invalid`)
-  }
-
-  // Una vez instanciado podemos acceder a nuestros metodos que no son staticos
-
-  // isNone() y isAsc() son encapsulaciones de condicionales, ambas retornan un booleano
-  public isNone (): boolean {
-    return this.value === OrderTypes.NONE
-  }
-
-  public isAsc (): boolean {
-    return this.value === OrderTypes.ASC
   }
 
   // Contrato definido en EnumValueObject
