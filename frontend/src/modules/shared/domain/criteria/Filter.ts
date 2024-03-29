@@ -1,29 +1,44 @@
+import { type Primitives } from '../value-object/Primitives'
 import { FilterField } from './FilterField'
 import { FilterOperator } from './FilterOperators'
 import { FilterValue } from './FilterValue'
 
-export class Filter {
-  readonly field: FilterField
-  readonly operator: FilterOperator
-  readonly value: FilterValue
+export interface FiltersPrimitives {
+  field: Primitives<FilterField>
+  operator: Primitives<FilterOperator>
+  value: Primitives<FilterValue>
+}
 
-  constructor (field: FilterField, operator: FilterOperator, value: FilterValue) {
-    this.field = field
-    this.operator = operator
-    this.value = value
-  }
+export class Filter {
+  constructor (
+    readonly field: FilterField,
+    readonly operator: FilterOperator,
+    readonly value: FilterValue
+  ) {}
 
   // Esto es simplemente otra forma de instanciar nuestra clase
   // La usamos cuando queremos hacer logica extra en nuestra instanciación
-  public static fromValues (values: Map<string, string>): Filter {
+  static fromValues (values: Map<string, string>): Filter {
     const field = values.get('field')
     const operator = values.get('operator')
     const value = values.get('value')
 
-    if (!field || !operator || !value) {
+    if (field === undefined || operator === undefined || value === undefined) {
       throw new Error('The filter is invalid')
     }
 
-    return new Filter(new FilterField(field), FilterOperator.fromValue(operator), new FilterValue(value))
+    return new Filter(
+      new FilterField(field),
+      FilterOperator.fromValue(operator),
+      new FilterValue(value)
+    )
+  }
+
+  toPrimitives (): FiltersPrimitives {
+    return {
+      field: this.field.value,
+      operator: this.operator.value,
+      value: this.value.value
+    }
   }
 }

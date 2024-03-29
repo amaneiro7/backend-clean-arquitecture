@@ -1,13 +1,14 @@
-import { type ChangeEvent, type FC, Suspense, lazy } from 'react'
+import { type FC, Suspense, lazy } from 'react'
 import { useAppContext } from '../../Context/AppContext'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { type CategoryId } from '../../../modules/devices/category/domain/CategoryId'
+import { type OnChange } from '../../../modules/shared/domain/types/types'
 
 const Select = lazy(async () => await import('../../ui/select'))
 
 interface Props {
   value: Primitives<CategoryId>
-  onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  onChange: OnChange
   isRequired?: boolean
 }
 

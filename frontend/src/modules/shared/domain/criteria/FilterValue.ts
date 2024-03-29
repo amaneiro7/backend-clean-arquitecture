@@ -1,3 +1,3 @@
-import { StringCriteriaValueObject } from './StringCriteriaValueObject'
-
-export class FilterValue extends StringCriteriaValueObject {}
+export class FilterValue {
+  constructor (public readonly value: string) {}
+}

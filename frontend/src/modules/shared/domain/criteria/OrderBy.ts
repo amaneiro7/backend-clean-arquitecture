@@ -1,3 +1,3 @@
-import { StringCriteriaValueObject } from './StringCriteriaValueObject'
-
-export class OrderBy extends StringCriteriaValueObject {}
+export class OrderBy {
+  constructor (public readonly value: string) {}
+}

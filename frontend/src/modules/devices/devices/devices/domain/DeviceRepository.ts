@@ -1,4 +1,4 @@
-import { type Query } from '../../../../shared/domain/criteria/Query'
+import { type Query } from '../../../../shared/domain/criteria/Criteria'
 import { type Device, type DevicePrimitives } from './Device'
 import { type DeviceId } from './DeviceId'
 

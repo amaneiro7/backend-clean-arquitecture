@@ -1,5 +1,5 @@
 import { Criteria } from '../../../../shared/domain/criteria/Criteria'
-import { type Query } from '../../../../shared/domain/criteria/Query'
+import { type Query } from '../../../../shared/domain/criteria/Criteria'
 import { type DevicesMappedApiResponse, type DevicesApiResponse } from '../../../../shared/domain/types/responseTypes'
 import { makeRequest } from '../../../../shared/infraestructure/fetching'
 import { type DevicePrimitives, type Device } from '../domain/Device'

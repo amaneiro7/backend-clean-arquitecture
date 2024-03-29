@@ -4,8 +4,16 @@ import { AllDeviceGetter } from '../../../modules/devices/devices/devices/applic
 import { type Repository } from '../../../modules/shared/domain/repository'
 import { DeviceCreator, type DeviceProps } from '../../../modules/devices/devices/devices/application/DeviceCreator'
 import { DeviceGetter } from '../../../modules/devices/devices/devices/application/DeviceGetter'
-import { type Query } from '../../../modules/shared/domain/criteria/Query'
+import { type Query } from '../../../modules/shared/domain/criteria/Criteria'
 import { DeviceGetterByCriteria } from '../../../modules/devices/devices/devices/application/DeviceGetterByCriteria'
+import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
+import { type FilterField } from '../../../modules/shared/domain/criteria/FilterField'
+import { type FilterOperator } from '../../../modules/shared/domain/criteria/FilterOperators'
+import { type FilterValue } from '../../../modules/shared/domain/criteria/FilterValue'
+import { type OrderBy } from '../../../modules/shared/domain/criteria/OrderBy'
+import { type OrderType } from '../../../modules/shared/domain/criteria/OrderType'
+import { type Limit } from '../../../modules/shared/domain/criteria/Limit'
+import { type Offset } from '../../../modules/shared/domain/criteria/Offset'
 
 export interface UseDevice {
   devices: DevicePrimitives[]
@@ -14,12 +22,23 @@ export interface UseDevice {
   getDevice: DeviceGetter
   createDevice: (formData: DeviceProps) => Promise<void>
   handleHasUrlSearch: () => void
+  handleQuery: (queryParams: QueryParams) => void
+}
+
+interface QueryParams {
+  field?: Primitives<FilterField>
+  operator?: Primitives<FilterOperator>
+  value?: Primitives<FilterValue>
+  orderBy?: Primitives<OrderBy>
+  OrderType?: Primitives<OrderType>
+  limit?: Primitives<Limit>
+  offset?: Primitives<Offset>
 }
 
 export const useDevice = (repository: Repository) => {
   const allDeviceGetter = new AllDeviceGetter(repository)
   const deviceByCriteria = new DeviceGetterByCriteria(repository)
-  const [query, setQuery] = useState<Query>({})
+  const [query, setQuery] = useState<QueryParams>({})
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [devices, setDevices] = useState<DevicePrimitives[]>([])
@@ -31,7 +50,7 @@ export const useDevice = (repository: Repository) => {
     getDevices()
   }
 
-  function searchDevices (query: Query) {
+  function searchDevices () {
     setLoading(true)
     deviceByCriteria
       .get(query)
@@ -65,8 +84,19 @@ export const useDevice = (repository: Repository) => {
     getDevices()
   }, [hasUrlSearch])
 
+  useEffect(() => {
+    searchDevices()
+  }, [query])
+
   const handleHasUrlSearch = () => {
     setHasUrlSearch(prev => !prev)
+  }
+
+  const handleQuery = (queryParams: Query) => {
+    setQuery(prev => ({
+      ...prev,
+      ...queryParams
+    }))
   }
 
   return {
@@ -75,6 +105,7 @@ export const useDevice = (repository: Repository) => {
     error,
     getDevice,
     createDevice,
-    handleHasUrlSearch
+    handleHasUrlSearch,
+    handleQuery
   }
 }

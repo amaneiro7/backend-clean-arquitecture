@@ -1,3 +1,3 @@
 export class Limit {
-  constructor (public readonly limit?: number) {}
+  constructor (public readonly value: number) {}
 }
