@@ -12,8 +12,6 @@ interface Props {
   category?: Primitives<CategoryId>
 }
 export const DeviceTableCardList: React.FC<Props> = ({ item, category }) => {
-  console.log(item)
-
   return (
     <>
         <td className='flex'>

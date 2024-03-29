@@ -1,11 +1,11 @@
+import React, { Suspense, lazy } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Suspense, lazy } from 'react'
 import { useAppContext } from '../../Context/AppContext'
 import { useInputsData } from './useInputData'
 import { type DevicesMappedApiResponse } from '../../../modules/shared/domain/types/responseTypes'
-import { useDebounceGetdevices } from '../../Hooks/useDebounceGetDevices'
-import TabsComponent from '../../ui/tabs'
 import { Computer } from '../../../modules/devices/fetures/computer/domain/Computer'
+import { useDebounceGetdevices } from '../../Hooks/useDebounceGetDevices'
+import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
 
 const TableHeader = lazy(async () => await import('../../components/TableHeader'))
 const DeviceTableCard = lazy(async () => await import('../../Device/device/DeviceTableCard'))
@@ -20,14 +20,20 @@ const StatusSelect = lazy(async () => await import('../../Device/status/StatusSe
 const LocationSelect = lazy(async () => await import('../../Device/location/LocationSelect'))
 
 function Home () {
-  const { device: { devices, handleHasUrlSearch } } = useAppContext()
+  const { device: { devices, handleHasUrlSearch, handleQuery } } = useAppContext()
   const navigate = useNavigate()
 
   const { inputData, updateInputData, clearInputs } = useInputsData()
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, operator?: Operator) => {
     const { name, value } = event.target
+    const filters = [{
+      field: name,
+      operator: operator ?? Operator.EQUAL,
+      value
+    }]
     updateInputData(name, value)
+    handleQuery({ filters })
     useDebounceGetdevices(handleHasUrlSearch)
   }
 

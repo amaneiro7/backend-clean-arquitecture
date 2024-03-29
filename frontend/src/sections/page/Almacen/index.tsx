@@ -1,11 +1,10 @@
 import { useNavigate } from 'react-router-dom'
-import { Suspense, lazy } from 'react'
+import { Suspense, lazy, useCallback } from 'react'
 import { useAppContext } from '../../Context/AppContext'
 import { useInputsData } from './useInputData'
 import { type DevicesMappedApiResponse } from '../../../modules/shared/domain/types/responseTypes'
-import { useDebounceGetdevices } from '../../Hooks/useDebounceGetDevices'
 import { Computer } from '../../../modules/devices/fetures/computer/domain/Computer'
-import { type Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
+import debounce from 'just-debounce-it'
 
 const TableHeader = lazy(async () => await import('../../components/TableHeader'))
 const DeviceTableCard = lazy(async () => await import('../../Device/device/DeviceTableCard'))
@@ -20,20 +19,37 @@ const StatusSelect = lazy(async () => await import('../../Device/status/StatusSe
 const LocationSelect = lazy(async () => await import('../../Device/location/LocationSelect'))
 
 function AlmacenPage () {
-  const { device: { devices, handleHasUrlSearch } } = useAppContext()
+  const { device: { devices, handleHasUrlSearch, handleQuery } } = useAppContext()
   const navigate = useNavigate()
 
   const { inputData, updateInputData, clearInputs } = useInputsData()
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, operator?: Operator) => {
-    const { name: field, value } = event.target
-    updateInputData({ field, value, operator })
-    useDebounceGetdevices(handleHasUrlSearch)
+  const debounceGetdevices = useCallback(
+    debounce(() => {
+      if (handleHasUrlSearch) {
+        handleHasUrlSearch()
+      } else {
+        console.error('handleHasUrlSearch is null or undefined')
+      }
+    }, 300),
+    [handleHasUrlSearch]
+  )
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = event.target
+    // const filters = [{
+    //   field,
+    //   operator: operator ?? Operator.EQUAL,
+    //   value
+    // }]
+    updateInputData({ name, value })
+    // handleQuery({ filters })
+    debounceGetdevices()
   }
 
   const handleClear = () => {
     clearInputs()
-    useDebounceGetdevices(handleHasUrlSearch)
+    debounceGetdevices()
   }
 
   const defaultHeaderTitle = ['Categoria', 'Serial', 'Activo', 'Status', 'Marca', 'Modelo', 'Ubicación', 'Observaciones']

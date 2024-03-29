@@ -1,11 +1,11 @@
-import { type Query } from '../../../../shared/domain/criteria/Criteria'
+import { type Criteria } from '../../../../shared/domain/criteria/Criteria'
 import { type Device, type DevicePrimitives } from './Device'
 import { type DeviceId } from './DeviceId'
 
 export abstract class DeviceRepository {
   abstract getAll (): Promise<DevicePrimitives[]>
 
-  abstract getByCriteria (query: Query): Promise<DevicePrimitives[]>
+  abstract getByCriteria (criteria: Criteria): Promise<DevicePrimitives[]>
 
   abstract getById ({ id }: { id: DeviceId }): Promise<DevicePrimitives>
 

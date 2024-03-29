@@ -6,13 +6,23 @@ import { type Order } from './Order'
 
 export class Criteria {
   constructor (
-    public readonly filters: Filters,
+    public readonly filters?: Filters,
     public readonly order?: Order,
     public readonly limit?: Limit,
     public readonly offset?: Offset
   ) {
     if (offset !== undefined && limit === undefined) {
       throw new InvalidArgumentError('Limit must be defined if offset is defined')
+    }
+  }
+
+  toPrimitives (): any {
+    return {
+      filters: this.filters?.value,
+      orderBy: this.order?.orderBy.value,
+      orderType: this.order?.orderType.value,
+      limit: this.limit?.value,
+      offset: this.offset?.value
     }
   }
 

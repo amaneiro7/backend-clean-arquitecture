@@ -7,7 +7,6 @@ import { type DeviceActivo } from '../../../modules/devices/devices/devices/doma
 import { type DeviceSerial } from '../../../modules/devices/devices/devices/domain/DeviceSerial'
 import { type ModelId } from '../../../modules/devices/model/domain/ModelId'
 import { type LocationId } from '../../../modules/location/locations/domain/locationId'
-import { type FiltersPrimitives } from '../../../modules/shared/domain/criteria/Filter'
 
 export interface InputData {
   categoryId: Primitives<CategoryId>
@@ -19,7 +18,11 @@ export interface InputData {
   locationId: Primitives<LocationId>
 }
 
-type UpdateInputData = ({ field, operator, value }: FiltersPrimitives) => void
+type UpdateInputData = ({ name, value }: inputDataType) => void
+interface inputDataType {
+  name: string
+  value: string
+}
 
 export const useInputsData = (): {
   inputData: InputData
@@ -28,15 +31,15 @@ export const useInputsData = (): {
 } => {
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const updateInputData = ({ field, operator, value }: FiltersPrimitives) => {
+  const updateInputData = ({ name, value }: inputDataType) => {
     if (value === '') {
       setSearchParams(prev => {
-        prev.delete(field)
+        prev.delete(name)
         return prev
       })
     } else {
       setSearchParams(prev => {
-        prev.set(field, String(value))
+        prev.set(name, value)
         return prev
       })
     }
