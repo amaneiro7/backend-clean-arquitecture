@@ -8,7 +8,7 @@ import { type BrandApiResponse } from '../../../modules/shared/domain/types/resp
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { type BrandId } from '../../../modules/devices/brand/domain/BrandId'
 import { type CategoryId } from '../../../modules/devices/category/domain/CategoryId'
-import { type OnChange } from '../../../modules/shared/domain/types/types'
+import { type Event, type OnChange } from '../../../modules/shared/domain/types/types'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
 
 const Select = lazy(async () => await import('../../ui/select'))
@@ -48,7 +48,10 @@ const BrandSelect: FC<Props> = ({ value, onChange, categoryId, isForm = true, is
             <Select
                  label='Marca'
                  name='brandId'
-                 onChange={(event) => { onChange(event, Operator.EQUAL) }}
+                 onChange={(event) => {
+                   const { name, value } = event.target
+                   onChange(name, value, Operator.EQUAL)
+                 }}
                  options={filterdBrand as BrandApiResponse[]}
                  placeholder='-- Filtre por Marca --'
                  isHidden={true}

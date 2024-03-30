@@ -12,6 +12,7 @@ const TableHeader = lazy(async () => await import('../../components/TableHeader'
 const DeviceTableCard = lazy(async () => await import('../../Device/device/DeviceTableCard'))
 const TableStructure = lazy(async () => await import('../../components/Table'))
 const Button = lazy(async () => await import('../../ui/button'))
+const TabsComponent = lazy(async () => await import('../../ui/tabs'))
 const BrandSelect = lazy(async () => await import('../../Device/brand/BrandSelect'))
 const CategorySelect = lazy(async () => await import('../../Device/category/CategorySelect'))
 const SerialInput = lazy(async () => await import('../../Device/device/SerialInput'))
@@ -32,8 +33,7 @@ function Home () {
     , [handleQuery]
   )
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, operator?: Operator) => {
-    const { name, value } = event.target
+  const handleChange = (name: string, value: string, operator?: Operator) => {
     const filters = [{
       field: name,
       operator: operator ?? Operator.EQUAL,
@@ -69,13 +69,19 @@ function Home () {
           handle={() => { navigate('/device/add') }}
         />
       </Suspense>
-      <header className="grid grid-cols-[repeat(auto-fit,_250px)] gap-5 place-content-center">
         <Suspense>
-          <CategorySelect
+          <TabsComponent
             value={inputData.categoryId}
             onChange={handleChange}
           />
         </Suspense>
+      <header className="grid grid-cols-[repeat(auto-fit,_250px)] gap-5 place-content-center">
+        {/* <Suspense>
+          <CategorySelect
+            value={inputData.categoryId}
+            onChange={handleChange}
+          />
+        </Suspense> */}
         <Suspense>
           <BrandSelect
             value={inputData.brandId}
@@ -127,10 +133,6 @@ function Home () {
           />
         </Suspense>
       </header>
-      {/* <TabsComponent
-        value={inputData.categoryId}
-        onChange={updateInputData}
-      /> */}
       <Suspense>
         <TableStructure>
           <TableHeader headerTitle={headerTitle}/>

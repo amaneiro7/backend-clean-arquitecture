@@ -3,17 +3,18 @@ import { type FC, useState } from 'react'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { type CategoryId } from '../../../modules/devices/category/domain/CategoryId'
 import { useAppContext } from '../../Context/AppContext'
-import { useDebounceGetdevices } from '../../Hooks/useDebounceGetDevices'
+import { type OnChange } from '../../../modules/shared/domain/types/types'
+import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
 
 interface Props {
   value: Primitives<CategoryId>
-  onChange: (field, value) => void
+  onChange: OnChange
 }
 const TabsComponent: FC<Props> = ({
   value,
   onChange
 }) => {
-  const { category: { categories: tabItems }, device: { handleHasUrlSearch } } = useAppContext()
+  const { category: { categories: tabItems } } = useAppContext()
   const [selectedTab, setSelectedTab] = useState('')
 
   return (
@@ -21,8 +22,7 @@ const TabsComponent: FC<Props> = ({
       className="max-w-screen-xl mt-2 mx-auto px-4 md:px-8"
       value={value}
       onValueChange={(value => {
-        onChange('categoryId', value)
-        useDebounceGetdevices(handleHasUrlSearch)
+        onChange('categoryId', value, Operator.EQUAL)
       })}
     >
       <Tabs.List

@@ -1,1 +1,2 @@
-export type OnChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, operator?: Operator) => void
+export type Event = React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+export type OnChange = (name: string, value: string, operator?: Operator) => void
