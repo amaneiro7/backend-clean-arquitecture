@@ -1,10 +1,13 @@
 import { useEffect, useRef, useState, type FC } from 'react'
 import FormInput from '../../ui/text-field'
 import { DeviceActivo } from '../../../modules/devices/devices/devices/domain/DeviceActivo'
+import { type OnChange } from '../../../modules/shared/domain/types/types'
+import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
+import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
 
 interface Props {
-  value: string
-  onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  value: Primitives<DeviceActivo>
+  onChange: OnChange
   isForm?: boolean
 }
 
@@ -38,7 +41,7 @@ const ActivoInput: FC<Props> = ({ value, onChange, isForm = false }) => {
       label='Activo'
       placeholder='-- Ingrese el Activo del equipo'
       isRequired={false}
-      handle={onChange}
+      handle={(event) => { onChange(event, Operator.CONTAINS) }}
       value={value}
       isError={isError}
       errorMessage={errorMessage}

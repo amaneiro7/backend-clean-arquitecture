@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { type DevicePrimitives } from '../../../modules/devices/devices/devices/domain/Device'
-import { AllDeviceGetter } from '../../../modules/devices/devices/devices/application/AllDeviceGetter'
 import { type Repository } from '../../../modules/shared/domain/repository'
 import { DeviceCreator, type DeviceProps } from '../../../modules/devices/devices/devices/application/DeviceCreator'
 import { DeviceGetter } from '../../../modules/devices/devices/devices/application/DeviceGetter'
@@ -13,23 +12,20 @@ export interface UseDevice {
   error: string | null
   getDevice: DeviceGetter
   createDevice: (formData: DeviceProps) => Promise<void>
-  handleHasUrlSearch: () => void
   handleQuery: (queryParams: SearchByCriteriaQuery) => void
 }
 
 export const useDevice = (repository: Repository) => {
-  const allDeviceGetter = new AllDeviceGetter(repository)
   const deviceByCriteria = new DeviceGetterByCriteria(repository)
-  const [query, setQuery] = useState<SearchByCriteriaQuery>({})
+  const [query, setQuery] = useState<SearchByCriteriaQuery>({ filters: [] })
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [devices, setDevices] = useState<DevicePrimitives[]>([])
-  const [hasUrlSearch, setHasUrlSearch] = useState(false)
 
   async function createDevice (formData: DeviceProps) {
     const deviceCreator = new DeviceCreator(repository)
     await deviceCreator.create(formData)
-    getDevices()
+    searchDevices()
   }
 
   function searchDevices () {
@@ -38,20 +34,7 @@ export const useDevice = (repository: Repository) => {
       .get(query)
       .then((devices) => {
         setDevices(devices)
-        setLoading(false)
-      })
-      .catch((error) => {
-        setError(error)
-        setLoading(false)
-      })
-  }
-
-  function getDevices () {
-    setLoading(true)
-    allDeviceGetter
-      .get()
-      .then((devices) => {
-        setDevices(devices)
+        console.log('He sido llamado')
         setLoading(false)
       })
       .catch((error) => {
@@ -63,25 +46,34 @@ export const useDevice = (repository: Repository) => {
   const getDevice = new DeviceGetter(repository)
 
   useEffect(() => {
-    getDevices()
-  }, [hasUrlSearch])
-
-  useEffect(() => {
     searchDevices()
   }, [query])
 
-  const handleHasUrlSearch = () => {
-    setHasUrlSearch(prev => !prev)
-  }
-
   const handleQuery = (queryParams: SearchByCriteriaQuery) => {
-    setQuery(prev => ({
-      ...prev,
-      ...queryParams
-    }))
-  }
+    const { filters } = queryParams
+    const updateFilters = query
+    if (filters.length > 0) {
+      const findFilterIndex = query.filters.findIndex(({ field }) => field === filters[0].field)
 
-  console.log('Use Devices query', query)
+      if (findFilterIndex === -1) {
+        updateFilters.filters = [...query.filters, ...filters]
+      } else {
+        updateFilters.filters[findFilterIndex] = queryParams.filters[0]
+      }
+    }
+
+    const updatedQuery: SearchByCriteriaQuery = {
+      filters: updateFilters.filters.filter((elem) => elem.value !== '')
+
+    }
+
+    setQuery(prev => {
+      return {
+        ...prev,
+        ...updatedQuery
+      }
+    })
+  }
 
   return {
     devices,
@@ -89,7 +81,6 @@ export const useDevice = (repository: Repository) => {
     error,
     getDevice,
     createDevice,
-    handleHasUrlSearch,
     handleQuery
   }
 }

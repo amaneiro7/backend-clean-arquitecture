@@ -8,10 +8,10 @@ import { type Query } from './Query'
 
 export class SearchByCriteriaQuery implements Query {
   constructor (
-    public readonly filters?: FiltersPrimitives[],
-    public readonly orderBy?: Primitives<OrderBy>,
-    public readonly orderType?: Primitives<OrderType>,
-    public readonly limit?: Primitives<Limit>,
-    public readonly offset?: Primitives<Offset>
+    public filters?: FiltersPrimitives[],
+    public orderBy?: Primitives<OrderBy>,
+    public orderType?: Primitives<OrderType>,
+    public limit?: Primitives<Limit>,
+    public offset?: Primitives<Offset>
   ) {}
 }

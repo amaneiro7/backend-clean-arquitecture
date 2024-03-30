@@ -1,10 +1,13 @@
 import { useEffect, useRef, useState, type FC } from 'react'
 import FormInput from '../../ui/text-field'
 import { DeviceSerial } from '../../../modules/devices/devices/devices/domain/DeviceSerial'
+import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
+import { type OnChange } from '../../../modules/shared/domain/types/types'
+import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
 
 interface Props {
-  value: string
-  onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  value: Primitives<DeviceSerial>
+  onChange: OnChange
   isForm?: boolean
 }
 
@@ -38,7 +41,7 @@ const SerialInput: FC<Props> = ({ value, onChange, isForm = false }) => {
       type="text"
       label='Serial'
       placeholder='-- Ingrese el Serial del equipo'
-      handle={onChange}
+      handle={(event) => { onChange(event, Operator.CONTAINS) }}
       value={value}
       isError={isError}
       errorMessage={errorMessage}

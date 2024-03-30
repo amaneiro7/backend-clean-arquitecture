@@ -29,6 +29,28 @@ export class ApiDeviceRepository implements DeviceRepository {
         console.log('Infrastructure getByCriteria Response', res)
         return res
       })
+      .then(res => res.map(data => ({
+        id: data.id,
+        serial: data.serial,
+        activo: data.activo ?? 'Sin Serial',
+        statusId: data.status.id,
+        statusName: data.status.name,
+        categoryId: data.category.id,
+        categoryName: data.category.name,
+        brandId: data.brand.id,
+        brandName: data.brand.name,
+        modelId: data.model.id,
+        modelName: data.model.name,
+        locationId: data.location.id,
+        locationName: data.location.name,
+        observation: data.observation,
+        employeeId: data.employee?.id ?? null,
+        employeeName: data.employee?.name ?? 'Vacante',
+        computer: data.computer,
+        hardDrive: data.hardDrive,
+        createdAt: data.createdAt,
+        updatedAt: data.updatedAt
+      }) satisfies DevicesMappedApiResponse))
   }
 
   async getAll (): Promise<DevicePrimitives[]> {

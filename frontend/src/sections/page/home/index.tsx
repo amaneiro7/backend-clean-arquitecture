@@ -1,11 +1,12 @@
-import React, { Suspense, lazy } from 'react'
+import React, { Suspense, lazy, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAppContext } from '../../Context/AppContext'
 import { useInputsData } from './useInputData'
 import { type DevicesMappedApiResponse } from '../../../modules/shared/domain/types/responseTypes'
 import { Computer } from '../../../modules/devices/fetures/computer/domain/Computer'
-import { useDebounceGetdevices } from '../../Hooks/useDebounceGetDevices'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
+import debounce from 'just-debounce-it'
+import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
 
 const TableHeader = lazy(async () => await import('../../components/TableHeader'))
 const DeviceTableCard = lazy(async () => await import('../../Device/device/DeviceTableCard'))
@@ -20,10 +21,16 @@ const StatusSelect = lazy(async () => await import('../../Device/status/StatusSe
 const LocationSelect = lazy(async () => await import('../../Device/location/LocationSelect'))
 
 function Home () {
-  const { device: { devices, handleHasUrlSearch, handleQuery } } = useAppContext()
+  const { device: { devices, handleQuery } } = useAppContext()
   const navigate = useNavigate()
-
   const { inputData, updateInputData, clearInputs } = useInputsData()
+
+  const debounceGetDevices = useCallback(
+    debounce((query: SearchByCriteriaQuery) => {
+      handleQuery(query)
+    }, 300)
+    , [handleQuery]
+  )
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, operator?: Operator) => {
     const { name, value } = event.target
@@ -33,13 +40,11 @@ function Home () {
       value
     }]
     updateInputData(name, value)
-    handleQuery({ filters })
-    useDebounceGetdevices(handleHasUrlSearch)
+    debounceGetDevices({ filters })
   }
 
   const handleClear = () => {
     clearInputs()
-    useDebounceGetdevices(handleHasUrlSearch)
   }
 
   const defaultHeaderTitle = ['Categoria', 'Serial', 'Activo', 'Status', 'Marca', 'Modelo', 'Ubicación', 'Observaciones']
