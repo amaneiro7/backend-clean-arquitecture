@@ -29,9 +29,7 @@ const TabsComponent: FC<Props> = ({
         className="hidden gap-x-3 py-1 overflow-x-auto px-px text-sm sm:flex"
         aria-label="Manage your account"
       >
-        <Tabs.Trigger
-        value=''
-        >
+        <Tabs.Trigger value='' className="data-[state=active]:bg-gray-100 data-[state=active]:text-gray-700 data-[state=active]:shadow-sm outline-gray-800 py-1.5 px-3 rounded-lg duration-150 text-gray-500 hover:text-gray-700 hover:bg-gray-100 active:bg-gray-100 font-medium">
             Todos
         </Tabs.Trigger>
         {tabItems.map((item) => (

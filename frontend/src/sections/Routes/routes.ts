@@ -70,10 +70,50 @@ const dropdownNavs = [
   }
 ]
 
-export const navigation = [
-  { name: 'Inicio', path: '/', isDrapdown: false },
-  { name: 'Agregar Dispositivo', path: '/device/add' },
-  { name: 'drapdown', path: '#', isDrapdown: true, navs: dropdownNavs },
-  { name: 'Customers', path: 'dashboad', isDrapdown: false },
-  { name: 'Balance', path: 'dashboad', isDrapdown: false }
+export const navigation: Navigation[] = [
+  {
+    name: 'Inicio',
+    path: '/',
+    isDrapdown: false
+  },
+  {
+    name: 'Agregar Dispositivo',
+    path: '/device/add',
+    isDrapdown: false
+  },
+  {
+    name: 'drapdown',
+    path: '#',
+    isDrapdown: true,
+    navs: dropdownNavs
+  },
+  {
+    name: 'Customers',
+    path: 'dashboad',
+    isDrapdown: false
+  },
+  {
+    name: 'Balance',
+    path: 'dashboad',
+    isDrapdown: false
+  }
 ]
+
+export interface Navigation {
+  name: string
+  path: string
+  isDrapdown: boolean
+  navs?: DropDown[]
+}
+
+export interface DropDown {
+  label: string
+  navs: DropDownNavs[]
+}
+
+export interface DropDownNavs {
+  title: string
+  desc: string
+  path: string
+  icon: string
+}

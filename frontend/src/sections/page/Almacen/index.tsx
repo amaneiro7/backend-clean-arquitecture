@@ -1,55 +1,49 @@
-import { useNavigate } from 'react-router-dom'
 import { Suspense, lazy, useCallback } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useAppContext } from '../../Context/AppContext'
 import { useInputsData } from './useInputData'
 import { type DevicesMappedApiResponse } from '../../../modules/shared/domain/types/responseTypes'
 import { Computer } from '../../../modules/devices/fetures/computer/domain/Computer'
+import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
 import debounce from 'just-debounce-it'
+import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
 
 const TableHeader = lazy(async () => await import('../../components/TableHeader'))
 const DeviceTableCard = lazy(async () => await import('../../Device/device/DeviceTableCard'))
 const TableStructure = lazy(async () => await import('../../components/Table'))
 const Button = lazy(async () => await import('../../ui/button'))
+const TabsComponent = lazy(async () => await import('../../ui/tabs'))
 const BrandSelect = lazy(async () => await import('../../Device/brand/BrandSelect'))
-const CategorySelect = lazy(async () => await import('../../Device/category/CategorySelect'))
 const SerialInput = lazy(async () => await import('../../Device/device/SerialInput'))
 const ActivoInput = lazy(async () => await import('../../Device/device/ActivoInput'))
 const ModelSelect = lazy(async () => await import('../../Device/model/ModelSelect'))
 const StatusSelect = lazy(async () => await import('../../Device/status/StatusSelect'))
 const LocationSelect = lazy(async () => await import('../../Device/location/LocationSelect'))
 
-function AlmacenPage () {
-  const { device: { devices, handleHasUrlSearch, handleQuery } } = useAppContext()
+export default function AlmacenPage () {
+  const { device: { devices, handleQuery } } = useAppContext()
   const navigate = useNavigate()
-
   const { inputData, updateInputData, clearInputs } = useInputsData()
 
-  const debounceGetdevices = useCallback(
-    debounce(() => {
-      if (handleHasUrlSearch) {
-        handleHasUrlSearch()
-      } else {
-        console.error('handleHasUrlSearch is null or undefined')
-      }
-    }, 300),
-    [handleHasUrlSearch]
+  const debounceGetDevices = useCallback(
+    debounce((query: SearchByCriteriaQuery) => {
+      handleQuery(query)
+    }, 300)
+    , [handleQuery]
   )
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = event.target
-    // const filters = [{
-    //   field,
-    //   operator: operator ?? Operator.EQUAL,
-    //   value
-    // }]
+  const handleChange = (name: string, value: string, operator?: Operator) => {
+    const filters = [{
+      field: name,
+      operator: operator ?? Operator.EQUAL,
+      value
+    }]
     updateInputData({ name, value })
-    // handleQuery({ filters })
-    debounceGetdevices()
+    debounceGetDevices({ filters })
   }
 
   const handleClear = () => {
     clearInputs()
-    debounceGetdevices()
   }
 
   const defaultHeaderTitle = ['Categoria', 'Serial', 'Activo', 'Status', 'Marca', 'Modelo', 'Ubicación', 'Observaciones']
@@ -74,13 +68,13 @@ function AlmacenPage () {
           handle={() => { navigate('/device/add') }}
         />
       </Suspense>
-      <header className="grid grid-cols-[repeat(auto-fit,_250px)] gap-5 place-content-center">
         <Suspense>
-          <CategorySelect
+          <TabsComponent
             value={inputData.categoryId}
             onChange={handleChange}
           />
         </Suspense>
+      <header className="grid grid-cols-[repeat(auto-fit,_250px)] gap-5 place-content-center">
         <Suspense>
           <BrandSelect
             value={inputData.brandId}
@@ -132,10 +126,6 @@ function AlmacenPage () {
           />
         </Suspense>
       </header>
-      {/* <TabsComponent
-        value={inputData.categoryId}
-        onChange={updateInputData}
-      /> */}
       <Suspense>
         <TableStructure>
           <TableHeader headerTitle={headerTitle}/>
@@ -145,5 +135,3 @@ function AlmacenPage () {
     </main>
   )
 }
-
-export default AlmacenPage
