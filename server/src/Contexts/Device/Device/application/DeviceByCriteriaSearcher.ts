@@ -19,7 +19,10 @@ export class DeviceByCriteriaSearcher {
         FilterOperator.fromValue(filter.operator),
         new FilterValue(filter.value))
     })
-    const order = Order.fromValues(query.orderBy, query.orderType)
+    const order = Order.fromValues(
+      query.orderBy ?? 'categoryId',
+      query.orderType
+    )
     const criteria = new Criteria(new Filters(filters), order, query.limit, query.offset)
     return await this.repository.device.matching(criteria)
   }

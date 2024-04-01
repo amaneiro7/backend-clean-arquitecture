@@ -44,9 +44,9 @@ export default function AlmacenPage () {
 
   useEffect(() => {
     const initialFilter = [{
-      field: 'statusId',
-      operator: Operator.EQUAL,
-      value: '2'
+      field: 'typeOfSite',
+      operator: Operator.CONTAINS,
+      value: 'Almac'
     }]
     handleQuery({
       filters: initialFilter
