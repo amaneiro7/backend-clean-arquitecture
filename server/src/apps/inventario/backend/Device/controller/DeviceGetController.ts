@@ -2,7 +2,6 @@
 import { type NextFunction, type Request, type Response } from 'express'
 import { type Repository } from '../../../../../Contexts/Shared/domain/Repository'
 import httpStatus from 'http-status'
-import { SearchAllDevices } from '../../../../../Contexts/Device/Device/application/DeviceFinderAll'
 import { DeviceFinder } from '../../../../../Contexts/Device/Device/application/DeviceFinder'
 import { DeviceId } from '../../../../../Contexts/Device/Device/domain/DeviceId'
 import { DeviceSerial } from '../../../../../Contexts/Device/Device/domain/DeviceSerial'
@@ -13,16 +12,6 @@ import { type FiltersPrimitives } from '../../../../../Contexts/Shared/domain/cr
 
 export class DeviceGetController {
   constructor (private readonly repository: Repository) {}
-
-  getAll = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    try {
-      const data = await new SearchAllDevices(this.repository).search(req.query)
-      res.status(httpStatus.OK).json(data)
-    } catch (error) {
-      next(error)
-    }
-  }
-
   getById = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const { id } = req.params
@@ -36,8 +25,6 @@ export class DeviceGetController {
   getByCriteria = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const { filters, orderBy, orderType, limit, offset } = req.query
-      console.log(orderBy, orderType)
-
       const query = new SearchByCriteriaQuery(
         filters ? filters as unknown as FiltersPrimitives[] : [],
         orderBy ? orderBy as string : undefined,

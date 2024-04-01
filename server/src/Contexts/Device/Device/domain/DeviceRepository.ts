@@ -1,11 +1,8 @@
 import { type Criteria } from '../../../Shared/domain/criteria/Criteria'
 import { type DevicePrimitives } from './Device'
-import type QueryString from 'qs'
 
 export abstract class DeviceRepository {
   abstract save (payload: DevicePrimitives): Promise<void>
-
-  abstract searchAll (query: QueryString.ParsedQs): Promise<DevicePrimitives[]>
 
   abstract searchById (deviceId: string): Promise<DevicePrimitives | null>
 

@@ -10,11 +10,7 @@ export async function makeRequest<T> ({
   endpoint,
   data
 }: RequestParams): Promise<T> {
-  const url = new URL(window.location.href)
-  const searchParams = url.searchParams
   const apiURL = new URL(`${API_URL}${endpoint}`)
-  apiURL.search = searchParams.toString()
-
   const requestInit: RequestInit = {
     method,
     headers: {

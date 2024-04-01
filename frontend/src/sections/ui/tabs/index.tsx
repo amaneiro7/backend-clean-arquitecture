@@ -3,12 +3,12 @@ import { type FC, useState } from 'react'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { type CategoryId } from '../../../modules/devices/category/domain/CategoryId'
 import { useAppContext } from '../../Context/AppContext'
-import { type OnChange } from '../../../modules/shared/domain/types/types'
+import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
 
 interface Props {
   value: Primitives<CategoryId>
-  onChange: OnChange
+  onChange: OnHandleChange
 }
 const TabsComponent: FC<Props> = ({
   value,

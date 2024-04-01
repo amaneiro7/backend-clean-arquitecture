@@ -1,4 +1,4 @@
-import { Suspense, lazy, useCallback } from 'react'
+import { Suspense, lazy, useCallback, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAppContext } from '../../Context/AppContext'
 import { useInputsData } from './useInputData'
@@ -41,6 +41,17 @@ export default function AlmacenPage () {
     updateInputData({ name, value })
     debounceGetDevices({ filters })
   }
+
+  useEffect(() => {
+    const initialFilter = [{
+      field: 'statusId',
+      operator: Operator.EQUAL,
+      value: '2'
+    }]
+    handleQuery({
+      filters: initialFilter
+    })
+  }, [])
 
   const handleClear = () => {
     clearInputs()
@@ -112,7 +123,7 @@ export default function AlmacenPage () {
         </Suspense>
         <Suspense>
           <LocationSelect
-            value={inputData.modelId}
+            value={inputData.locationId}
             onChange={handleChange}
             isForm={false}
           />

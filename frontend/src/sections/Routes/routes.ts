@@ -18,7 +18,7 @@ export const routes = [
 
 const dropdownNavs = [
   {
-    label: 'Products',
+    label: 'Equipos en Uso',
     navs: [
       {
         title: 'Analytics',
@@ -34,12 +34,12 @@ const dropdownNavs = [
       }
     ]
   }, {
-    label: 'Resources',
+    label: 'Equipos en Almacen',
     navs: [
       {
-        title: 'Blog',
-        desc: 'Duis aute irure dolor in reprehenderit',
-        path: 'javascript:void(0)',
+        title: 'Almacén',
+        desc: 'Equipos que se encuentran en el almacen',
+        path: '/almacen',
         icon: 'icon'
       },
       {
@@ -82,7 +82,7 @@ export const navigation: Navigation[] = [
     isDrapdown: false
   },
   {
-    name: 'drapdown',
+    name: 'Listado de Dispositivos',
     path: '#',
     isDrapdown: true,
     navs: dropdownNavs

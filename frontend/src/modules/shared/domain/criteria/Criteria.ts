@@ -1,8 +1,17 @@
 import { InvalidArgumentError } from '../value-object/InvalidArgumentError'
+import { type Filter } from './Filter'
 import { type Filters } from './Filters'
 import { type Limit } from './Limit'
 import { type Offset } from './Offset'
 import { type Order } from './Order'
+
+interface CriteriaPrimitives {
+  filters: Filter[]
+  orderBy: string
+  orderType: string
+  limit: number
+  offset: number
+}
 
 export class Criteria {
   constructor (
@@ -16,7 +25,7 @@ export class Criteria {
     }
   }
 
-  toPrimitives (): any {
+  toPrimitives (): CriteriaPrimitives {
     return {
       filters: this.filters?.value,
       orderBy: this.order?.orderBy.value,

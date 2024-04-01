@@ -1,19 +1,20 @@
 import { type FC, Suspense, lazy } from 'react'
 import { useAppContext } from '../../Context/AppContext'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
-import { type OnChange } from '../../../modules/shared/domain/types/types'
+import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
 import { type LocationId } from '../../../modules/location/locations/domain/locationId'
+import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
 
 const Select = lazy(async () => await import('../../ui/select'))
 
 interface Props {
   value: Primitives<LocationId>
-  onChange: OnChange
-  isForm?: boolean
+  onChange: OnHandleChange
   isRequired?: boolean
+  isForm?: boolean
 }
 
-const LocationSelect: FC<Props> = ({ value, onChange, isRequired = false, isForm = true }) => {
+const LocationSelect: FC<Props> = ({ value, onChange, isRequired = false }) => {
   const { location: { locations } } = useAppContext()
 
   return (
@@ -21,7 +22,10 @@ const LocationSelect: FC<Props> = ({ value, onChange, isRequired = false, isForm
             <Select
                  label='Ubicación'
                  name='locationId'
-                 onChange={onChange}
+                 onChange={(event) => {
+                   const { name, value } = event.target
+                   onChange(name, value, Operator.EQUAL)
+                 }}
                  options={locations}
                  placeholder='-- Filtre por Ubicación --'
                  isHidden={true}

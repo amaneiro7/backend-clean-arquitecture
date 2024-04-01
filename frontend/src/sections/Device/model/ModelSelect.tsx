@@ -1,4 +1,4 @@
-import { type ChangeEvent, type FC, Suspense, lazy, useMemo } from 'react'
+import { Suspense, lazy, useMemo } from 'react'
 import { useAppContext } from '../../Context/AppContext'
 import { Link } from 'react-router-dom'
 import { AddIcon } from '../../ui/icon/AddIcon'
@@ -9,20 +9,21 @@ import { type CategoryId } from '../../../modules/devices/category/domain/Catego
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { type BrandId } from '../../../modules/devices/brand/domain/BrandId'
 import { type ModelId } from '../../../modules/devices/model/domain/ModelId'
-import { type OnChange } from '../../../modules/shared/domain/types/types'
+import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
+import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
 
 const Select = lazy(async () => await import('../../ui/select'))
 
 interface Props {
   value: Primitives<ModelId>
-  onChange: OnChange
+  onChange: OnHandleChange
   isForm?: boolean
   categoryId: Primitives<CategoryId>
   brandId: Primitives<BrandId>
   isRequired?: boolean
 }
 
-const ModelSelect: FC<Props> = ({ value = '', onChange, isForm = true, brandId, categoryId, isRequired = false }) => {
+const ModelSelect: React.FC<Props> = ({ value = '', onChange, isForm = true, brandId, categoryId, isRequired = false }) => {
   const { repository } = useAppContext()
   const { models } = useModel(repository)
 
@@ -46,7 +47,10 @@ const ModelSelect: FC<Props> = ({ value = '', onChange, isForm = true, brandId, 
         <Select
           label='Modelo'
           name='modelId'
-          onChange={onChange}
+          onChange={(event) => {
+            const { name, value } = event.target
+            onChange(name, value, Operator.EQUAL)
+          }}
           options={filterdModel}
           placeholder='-- Filtre por Modelo --'
           isHidden={false}

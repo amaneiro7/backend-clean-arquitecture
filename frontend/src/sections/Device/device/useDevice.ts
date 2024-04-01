@@ -34,7 +34,6 @@ export const useDevice = (repository: Repository) => {
       .get(query)
       .then((devices) => {
         setDevices(devices)
-        console.log('He sido llamado')
         setLoading(false)
       })
       .catch((error) => {
