@@ -23,12 +23,12 @@ export function initSiteModel (sequelize: Sequelize): void {
   SiteModels.init(
     {
       id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         primaryKey: true,
         allowNull: false
       },
       cityId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
       },
       address: {

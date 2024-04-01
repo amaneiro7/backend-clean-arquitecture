@@ -1,16 +1,13 @@
 'use strict';
 
-const cities = [  
-  { name: 'Catia la Mar', stateId: 22 },
-  { name: 'La Guaira', stateId: 22 } ,
-  { name: 'Naiguatá', stateId: 22 } ,
-]
+const { randomUUID } = require('node:crypto');
+const cities = require('./location/cities');
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    return queryInterface.bulkInsert('cities', cities.map(({ name, stateId }, index) => ({
-      id: stateId * 100 + index + 1,
+    return queryInterface.bulkInsert('cities', cities.map(({ name, stateId }) => ({
+      id: randomUUID(),
       state_id: stateId,
       name: name
     })), {})

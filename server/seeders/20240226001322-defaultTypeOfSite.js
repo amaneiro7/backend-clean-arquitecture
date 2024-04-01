@@ -1,19 +1,16 @@
 'use strict';
-const typeOfSite = {
-  ADMINISTRATIVE: 'Sede Administrativa',
-  AGENCY: 'Agencia',
-  WEREHOUSE: 'Almacén'
-}
+
+const typeOfSite = require('./location/typeOfSite');
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    return queryInterface.bulkInsert('type_of_sites', 
-      Object.values(typeOfSite)
-        .map((name, index) => ({
-          id: index + 1, 
-          name
-        })
-      ))
+    return queryInterface.bulkInsert('type_of_sites', typeOfSite.map(({id, name}) => ({
+      id,
+      name
+    }))
+      
+      )
   },
 
   async down (queryInterface, Sequelize) {

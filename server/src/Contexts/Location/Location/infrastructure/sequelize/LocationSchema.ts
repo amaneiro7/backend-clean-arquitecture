@@ -27,16 +27,16 @@ export function initLocationModel (sequelize: Sequelize): void {
   LocationModel.init(
     {
       id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         primaryKey: true,
         allowNull: false
       },
       typeOfSiteId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false
       },
       siteId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
       },
       name: {

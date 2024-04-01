@@ -18,7 +18,7 @@ export function initRegionModel (sequelize: Sequelize): void {
   RegionModel.init(
     {
       id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         primaryKey: true,
         allowNull: false
       },
