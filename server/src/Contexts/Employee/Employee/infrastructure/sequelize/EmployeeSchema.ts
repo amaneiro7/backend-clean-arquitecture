@@ -1,4 +1,4 @@
-import { DataTypes, Model } from 'sequelize'
+import { DataTypes, Model, type Sequelize } from 'sequelize'
 import { type EmployeePrimitives } from '../../domain/Employee'
 import { type Models } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
 import { type EmployeeId } from '../../domain/EmployeeId'
@@ -36,14 +36,14 @@ export class EmployeeModel extends Model<EmployeePrimitives> implements Employee
     this.belongsTo(models.Cargo, { as: 'cargo', foreignKey: 'cargoId' }) // An employee belongs to a cargo
     this.belongsTo(models.Location, { as: 'location', foreignKey: 'locationId' }) // An employee belongs to a location
     this.belongsTo(models.VicepresidenciaEjecutiva, { as: 'vicepresidenciaEjecutiva', foreignKey: 'vicepresidenciaEjecutivaId' }) // An employee belongs to a vicepresidencia
-    this.belongsTo(models.Vicepresidencia, { as: 'vicepresidencia', foreignKey: '' }) // An employee belongs to a vicepresidencia
-    this.belongsTo(models.Gerencia, { as: 'gerencia', foreignKey: 'vicepresidenciaId' }) // An employee belongs to a gerencia
-    this.belongsTo(models.Coordinacion, { as: 'coordinacion', foreignKey: 'gerenciaId' }) // An employee belongs to a coordinacion
-    this.hasMany(models.Device, { as: 'devices', foreignKey: 'coordinacionId' }) // An employee has many devices
+    this.belongsTo(models.Vicepresidencia, { as: 'vicepresidencia', foreignKey: 'vicepresidenciaId' }) // An employee belongs to a vicepresidencia
+    this.belongsTo(models.Gerencia, { as: 'gerencia', foreignKey: 'gerenciaId' }) // An employee belongs to a gerencia
+    this.belongsTo(models.Coordinacion, { as: 'coordinacion', foreignKey: 'coordinacionId' }) // An employee belongs to a coordinacion
+    this.hasMany(models.Device, { as: 'devices', foreignKey: 'employeeId' }) // An employee has many devices
   }
 }
 
-export function initEmployeeModel (sequelize: any): void {
+export function initEmployeeModel (sequelize: Sequelize): void {
   EmployeeModel.init(
     {
       id: {
@@ -64,7 +64,7 @@ export function initEmployeeModel (sequelize: any): void {
         allowNull: false
       },
       locationId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
       },
       email: {
@@ -75,7 +75,7 @@ export function initEmployeeModel (sequelize: any): void {
         }
       },
       cargoId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
       },
       extension: {

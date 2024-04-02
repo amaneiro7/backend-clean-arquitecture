@@ -76,7 +76,7 @@ export function initDeviceModel (sequelize: Sequelize): void {
         allowNull: true
       },
       locationId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
       },
       observation: {

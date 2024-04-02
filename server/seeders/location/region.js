@@ -10,4 +10,4 @@ const regions = [
     {id: '9', name:  'Insular'},
 ]
 
-moduloe.exports = regions
+module.exports = regions

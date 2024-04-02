@@ -1,12 +1,14 @@
 'use strict';
 
+const sites = require('./location/sites');
+
 
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-   return queryInterface.bulkInsert('sites', sites.map(({cityId, address, name}, index) => ({
-    id: cityId * 100 + index,
+   return queryInterface.bulkInsert('sites', sites.map(({id, cityId, address, name}) => ({
+    id,
     city_id: cityId,
     address,
     name

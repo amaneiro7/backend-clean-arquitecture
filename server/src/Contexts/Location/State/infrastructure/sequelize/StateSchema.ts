@@ -22,7 +22,7 @@ export function initStateModel (sequelize: Sequelize): void {
   StateModel.init(
     {
       id: {
-        type: DataTypes.UUID,
+        type: DataTypes.STRING,
         primaryKey: true,
         allowNull: false
       },

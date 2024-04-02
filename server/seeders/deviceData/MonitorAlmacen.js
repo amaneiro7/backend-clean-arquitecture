@@ -1,3 +1,4 @@
+const locations = require("../location/locations")
 const monitores = [
     {
         serial: 'CEQBAHA047491',
@@ -7,7 +8,7 @@ const monitores = [
         brandId: "175745a5-894b-44f6-9edf-230caeae7f28",
         modelId: '41f8efa2-4f2c-4c37-af9e-89b837226b90',
         employeeId: null,
-        locationId: 24080915,        
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,        
     },   
     {
         serial: 'CN40230QJ8',
@@ -17,7 +18,7 @@ const monitores = [
         brandId: "87e04f23-222c-4b9e-af44-cf3da04ddec3",
         modelId: 'fddc4fa1-d858-486f-bc67-3d13d7916bdc',
         employeeId: null,
-        locationId: 24080915,        
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,        
     },
     {
         serial: 'CN402303RN',
@@ -27,7 +28,7 @@ const monitores = [
         brandId: "87e04f23-222c-4b9e-af44-cf3da04ddec3",
         modelId: 'fddc4fa1-d858-486f-bc67-3d13d7916bdc',
         employeeId: null,
-        locationId: 24080915,        
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,        
     },
     {
         serial: 'CN40230R5P',
@@ -37,7 +38,7 @@ const monitores = [
         brandId: "87e04f23-222c-4b9e-af44-cf3da04ddec3",
         modelId: 'fddc4fa1-d858-486f-bc67-3d13d7916bdc',
         employeeId: null,
-        locationId: 24080915,        
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,        
     },
     {
         serial: 'CN40230QHB',
@@ -47,7 +48,7 @@ const monitores = [
         brandId: "87e04f23-222c-4b9e-af44-cf3da04ddec3",
         modelId: 'fddc4fa1-d858-486f-bc67-3d13d7916bdc',
         employeeId: null,
-        locationId: 24080915,        
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,        
     },
     {
         serial: 'CN40230QJG',
@@ -57,7 +58,7 @@ const monitores = [
         brandId: "87e04f23-222c-4b9e-af44-cf3da04ddec3",
         modelId: 'fddc4fa1-d858-486f-bc67-3d13d7916bdc',
         employeeId: null,
-        locationId: 24080915,        
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,        
     },
     {
         serial: 'CN401809TB',
@@ -67,7 +68,7 @@ const monitores = [
         brandId: "87e04f23-222c-4b9e-af44-cf3da04ddec3",
         modelId: 'fddc4fa1-d858-486f-bc67-3d13d7916bdc',
         employeeId: null,
-        locationId: 24080915,        
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,        
     },
     {
         serial: 'CN40230QL6',
@@ -77,7 +78,7 @@ const monitores = [
         brandId: "87e04f23-222c-4b9e-af44-cf3da04ddec3",
         modelId: 'fddc4fa1-d858-486f-bc67-3d13d7916bdc',
         employeeId: null,
-        locationId: 24080915,        
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,        
     },
     {
         serial: 'CN40230R5G',
@@ -87,7 +88,7 @@ const monitores = [
         brandId: "87e04f23-222c-4b9e-af44-cf3da04ddec3",
         modelId: 'fddc4fa1-d858-486f-bc67-3d13d7916bdc',
         employeeId: null,
-        locationId: 24080915,        
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,        
     },
     {
         serial: 'CN40230QH8',
@@ -97,7 +98,7 @@ const monitores = [
         brandId: "87e04f23-222c-4b9e-af44-cf3da04ddec3",
         modelId: 'fddc4fa1-d858-486f-bc67-3d13d7916bdc',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3CQ8172V65',
@@ -107,7 +108,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3CQ819565J',
@@ -117,7 +118,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3CQ819567M',
@@ -127,7 +128,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3CQ81956BR',
@@ -137,7 +138,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3CQ81956C5',
@@ -147,7 +148,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3CQ81956C8',
@@ -157,7 +158,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3CQ81956CH',
@@ -167,7 +168,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3CQ81956YP',
@@ -177,7 +178,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3CQ819578M',
@@ -187,7 +188,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3CQ82605J3',
@@ -197,7 +198,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3CQ8260665',
@@ -207,7 +208,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3CQ8261FZT',
@@ -217,7 +218,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3CQ8261G1W',
@@ -227,7 +228,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3CQ8261G26',
@@ -237,7 +238,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3CQ8261G2L',
@@ -247,7 +248,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3CQ8261G5F',
@@ -257,7 +258,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3CQ8261G9T',
@@ -267,7 +268,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3CQ8261G9Y',
@@ -277,7 +278,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3CQ8261GB2',
@@ -287,7 +288,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3CQ8261GD1',
@@ -297,7 +298,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3CQ8261GD3',
@@ -307,7 +308,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3CQ8261GHK',
@@ -317,7 +318,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3CQ8261GH3',
@@ -327,7 +328,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3CQ8261GHZ',
@@ -337,7 +338,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3CQ8270DVJ',
@@ -347,7 +348,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3CQ82718NX',
@@ -357,7 +358,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3CQ82718TG',
@@ -367,7 +368,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3CQ8271941',
@@ -377,7 +378,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3CQ83344C8',
@@ -387,7 +388,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3CQ83344CK',
@@ -397,7 +398,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3CQ9010BMD',
@@ -407,7 +408,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3CQ9010CCK',
@@ -417,7 +418,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3CQ9010CCQ',
@@ -427,7 +428,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3CQ9010DST',
@@ -437,7 +438,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3CQ9010CFD',
@@ -447,7 +448,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3CQ9331CXZ',
@@ -457,7 +458,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3CQ9331QDW',
@@ -467,7 +468,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3CQ9331QW3',
@@ -477,7 +478,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3QC81956YN',
@@ -487,7 +488,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC903PHJD',
@@ -497,7 +498,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC807PCWH',
@@ -507,7 +508,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC807PCWS',
@@ -517,7 +518,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC807PCY8',
@@ -527,7 +528,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC807PCYJ',
@@ -537,7 +538,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC807PCYQ',
@@ -547,7 +548,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC807PD0C',
@@ -557,7 +558,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC807PD0J',
@@ -567,7 +568,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC811RG5N',
@@ -577,7 +578,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC811RNB2',
@@ -587,7 +588,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC811RNBD',
@@ -597,7 +598,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC826PD6W',
@@ -607,7 +608,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC826PD77',
@@ -617,7 +618,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC826PD78',
@@ -627,7 +628,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC826PD87',
@@ -637,7 +638,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC826PD8F',
@@ -647,7 +648,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC826QY07',
@@ -657,7 +658,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC826QY08',
@@ -667,7 +668,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC826QY0S',
@@ -677,7 +678,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC826QY1G',
@@ -687,7 +688,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC826QY22',
@@ -697,7 +698,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC826QY3K',
@@ -707,7 +708,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC826QY3L',
@@ -717,7 +718,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC826QY48',
@@ -727,7 +728,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC826QY52',
@@ -737,7 +738,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC826QYMC',
@@ -747,7 +748,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC826QYX2',
@@ -757,7 +758,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC829SWHT',
@@ -767,7 +768,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC829SX00',
@@ -777,7 +778,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC829SX05',
@@ -787,7 +788,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC830P0GS',
@@ -797,7 +798,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC830P0QY',
@@ -807,7 +808,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC830P0RQ',
@@ -817,7 +818,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC830P0RS',
@@ -827,7 +828,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC830P0RY',
@@ -837,7 +838,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC830P21G',
@@ -847,7 +848,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC830P21Y',
@@ -857,7 +858,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC830P221',
@@ -867,7 +868,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC830P24X',
@@ -877,7 +878,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC830P2CC',
@@ -887,7 +888,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC834PV19',
@@ -897,7 +898,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC834PV1C',
@@ -907,7 +908,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC834PVDN',
@@ -917,7 +918,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC836Q8XJ',
@@ -927,7 +928,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC836Q9GP',
@@ -937,7 +938,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC837PLCM',
@@ -947,7 +948,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC837PM13',
@@ -957,7 +958,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC837PM4C',
@@ -967,7 +968,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC837PMHQ',
@@ -977,7 +978,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC837PMJ0',
@@ -987,7 +988,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC837PMJ6',
@@ -997,7 +998,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC837PMJ7',
@@ -1007,7 +1008,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC837PMJC',
@@ -1017,7 +1018,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC837PMLR',
@@ -1027,7 +1028,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC837PMTV',
@@ -1037,7 +1038,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC837PN4Y',
@@ -1047,7 +1048,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC902QKN9',
@@ -1057,7 +1058,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC902QKQ0',
@@ -1067,7 +1068,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC902QKYB',
@@ -1077,7 +1078,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC903PHDP',
@@ -1087,7 +1088,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC903PHFZ',
@@ -1097,7 +1098,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC924NYZB',
@@ -1107,7 +1108,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942NYF0',
@@ -1117,7 +1118,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942NYF1',
@@ -1127,7 +1128,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942NYF4',
@@ -1137,7 +1138,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942NYG6',
@@ -1147,7 +1148,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942NYGS',
@@ -1157,7 +1158,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942NYGX',
@@ -1167,7 +1168,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942NYGY',
@@ -1177,7 +1178,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942NYH6',
@@ -1187,7 +1188,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942NYH7',
@@ -1197,7 +1198,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942NYH9',
@@ -1207,7 +1208,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942NYHR',
@@ -1217,7 +1218,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942NYHY',
@@ -1227,7 +1228,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942NYJ3',
@@ -1237,7 +1238,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942NYJ5',
@@ -1247,7 +1248,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942NYJG',
@@ -1257,7 +1258,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942NYJH',
@@ -1267,7 +1268,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942NYJN',
@@ -1277,7 +1278,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942NYK0',
@@ -1287,7 +1288,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942NYKH',
@@ -1297,7 +1298,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942NYKK',
@@ -1307,7 +1308,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942NYKP',
@@ -1317,7 +1318,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942NYZ7',
@@ -1327,7 +1328,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942NZ0S',
@@ -1337,7 +1338,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942NZ0V',
@@ -1347,7 +1348,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942NZ2G',
@@ -1357,7 +1358,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942NZ3W',
@@ -1367,7 +1368,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942NZ3X',
@@ -1377,7 +1378,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942NZ4H',
@@ -1387,7 +1388,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942NZ4M',
@@ -1397,7 +1398,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942P0SH',
@@ -1407,7 +1408,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942P0SL',
@@ -1417,7 +1418,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942P0SQ',
@@ -1427,7 +1428,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942P0SX',
@@ -1437,7 +1438,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942P0SY',
@@ -1447,7 +1448,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942P0T2',
@@ -1457,7 +1458,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942P0T6',
@@ -1467,7 +1468,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942P0TG',
@@ -1477,7 +1478,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942P0TX',
@@ -1487,7 +1488,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942P0VV',
@@ -1497,7 +1498,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942P0XB',
@@ -1507,7 +1508,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942P0XC',
@@ -1517,7 +1518,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942P0Y4',
@@ -1527,7 +1528,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942P11W',
@@ -1537,7 +1538,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942P2MX',
@@ -1547,7 +1548,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942P2P3',
@@ -1557,7 +1558,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942P2QH',
@@ -1567,7 +1568,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC942P2QS',
@@ -1577,7 +1578,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CND74608QM',
@@ -1587,7 +1588,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CND74617B5',
@@ -1597,7 +1598,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CND7512FZY',
@@ -1607,7 +1608,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CND810107R',
@@ -1617,7 +1618,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CND8121MQ0',
@@ -1627,7 +1628,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CND8121MZ5',
@@ -1637,7 +1638,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CND8121MZ6',
@@ -1647,7 +1648,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CND8121MZ8',
@@ -1657,7 +1658,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CND8121PXB',
@@ -1667,7 +1668,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CND8121PXH',
@@ -1677,7 +1678,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '246b7822-3a1a-4e01-85da-ac15c5f1dbf1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC048QY0J',
@@ -1687,7 +1688,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: 'ba307a95-6471-4a96-849b-b2619d365ce2',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC112NRT1',
@@ -1697,7 +1698,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: 'ba307a95-6471-4a96-849b-b2619d365ce2',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC112NS7V',
@@ -1707,7 +1708,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: 'ba307a95-6471-4a96-849b-b2619d365ce2',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC112NRP0',
@@ -1717,7 +1718,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: 'ba307a95-6471-4a96-849b-b2619d365ce2',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC112RNP2',
@@ -1727,7 +1728,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: 'ba307a95-6471-4a96-849b-b2619d365ce2',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC935R8TC',
@@ -1737,7 +1738,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: 'ba307a95-6471-4a96-849b-b2619d365ce2',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC001S12S',
@@ -1747,7 +1748,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: 'd60bb7d5-0e9a-49b6-99c3-2e4fd9d47edf',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3CQ95214FR',
@@ -1757,7 +1758,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: 'd60bb7d5-0e9a-49b6-99c3-2e4fd9d47edf',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC001S136',
@@ -1767,7 +1768,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: 'd60bb7d5-0e9a-49b6-99c3-2e4fd9d47edf',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC001S1LM',
@@ -1777,7 +1778,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: 'd60bb7d5-0e9a-49b6-99c3-2e4fd9d47edf',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC134QGX2',
@@ -1787,7 +1788,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: 'd60bb7d5-0e9a-49b6-99c3-2e4fd9d47edf',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC001S1MN',
@@ -1797,7 +1798,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: 'd60bb7d5-0e9a-49b6-99c3-2e4fd9d47edf',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC014R8DH',
@@ -1807,7 +1808,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: 'd60bb7d5-0e9a-49b6-99c3-2e4fd9d47edf',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC001S1NJ',
@@ -1817,7 +1818,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: 'd60bb7d5-0e9a-49b6-99c3-2e4fd9d47edf',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC001S1MW',
@@ -1827,7 +1828,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: 'd60bb7d5-0e9a-49b6-99c3-2e4fd9d47edf',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC001S2DY',
@@ -1837,7 +1838,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: 'd60bb7d5-0e9a-49b6-99c3-2e4fd9d47edf',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC001S102',
@@ -1847,7 +1848,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: 'd60bb7d5-0e9a-49b6-99c3-2e4fd9d47edf',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC00S110J',
@@ -1857,7 +1858,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: 'd60bb7d5-0e9a-49b6-99c3-2e4fd9d47edf',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC001S2G3',
@@ -1867,7 +1868,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: 'd60bb7d5-0e9a-49b6-99c3-2e4fd9d47edf',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC001S1NQ',
@@ -1877,7 +1878,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: 'd60bb7d5-0e9a-49b6-99c3-2e4fd9d47edf',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC001S2G2',
@@ -1887,7 +1888,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: 'd60bb7d5-0e9a-49b6-99c3-2e4fd9d47edf',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3CQ9510W58',
@@ -1897,7 +1898,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: 'd60bb7d5-0e9a-49b6-99c3-2e4fd9d47edf',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC009RJB2',
@@ -1907,7 +1908,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: 'd60bb7d5-0e9a-49b6-99c3-2e4fd9d47edf',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC001S17T',
@@ -1917,7 +1918,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: 'd60bb7d5-0e9a-49b6-99c3-2e4fd9d47edf',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CNC001S10B',
@@ -1927,7 +1928,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: 'd60bb7d5-0e9a-49b6-99c3-2e4fd9d47edf',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CMC107QP4V',
@@ -1937,7 +1938,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: 'e8f9b7c3-235a-490e-86fc-47d1790d7269',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CMC212RP9B',
@@ -1947,7 +1948,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: 'e8f9b7c3-235a-490e-86fc-47d1790d7269',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3CQ4314FLP',
@@ -1957,7 +1958,7 @@ const monitores = [
         brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
         modelId: '6d8386d3-0157-4dbd-a277-d5d8747736aa',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'V249492',
@@ -1967,7 +1968,7 @@ const monitores = [
         brandId: "b2eb94d1-4860-4e2c-95e3-b67317df8448",
         modelId: '5b06266f-89d8-4bba-9cd8-77f7f70260bd',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'V16R247',
@@ -1977,7 +1978,7 @@ const monitores = [
         brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
         modelId: '1c972fc0-c2b3-4286-9eb4-f359a346ebf2',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'V1Y7987',
@@ -1987,7 +1988,7 @@ const monitores = [
         brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
         modelId: '1c972fc0-c2b3-4286-9eb4-f359a346ebf2',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'V1MRL76',
@@ -1997,7 +1998,7 @@ const monitores = [
         brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
         modelId: 'bf5b0633-0150-4d48-ab00-8fe4324a6bbf',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'V1ZDF62',
@@ -2007,7 +2008,7 @@ const monitores = [
         brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
         modelId: 'bf5b0633-0150-4d48-ab00-8fe4324a6bbf',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'V3B6472',
@@ -2017,7 +2018,7 @@ const monitores = [
         brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
         modelId: 'bf5b0633-0150-4d48-ab00-8fe4324a6bbf',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'V1MRL02',
@@ -2027,7 +2028,7 @@ const monitores = [
         brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
         modelId: 'bf5b0633-0150-4d48-ab00-8fe4324a6bbf',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'V1XRV94',
@@ -2037,7 +2038,7 @@ const monitores = [
         brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
         modelId: 'bf5b0633-0150-4d48-ab00-8fe4324a6bbf',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'V1XTY73',
@@ -2047,7 +2048,7 @@ const monitores = [
         brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
         modelId: 'bf5b0633-0150-4d48-ab00-8fe4324a6bbf',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'V1MRK97',
@@ -2057,7 +2058,7 @@ const monitores = [
         brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
         modelId: 'bf5b0633-0150-4d48-ab00-8fe4324a6bbf',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'V1MRK69',
@@ -2067,7 +2068,7 @@ const monitores = [
         brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
         modelId: 'bf5b0633-0150-4d48-ab00-8fe4324a6bbf',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'VNBA3AN',
@@ -2077,7 +2078,7 @@ const monitores = [
         brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
         modelId: 'e4f9ec71-c4ba-444e-9d5b-b4eb6f11dac1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'VNBA3F1',
@@ -2087,7 +2088,7 @@ const monitores = [
         brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
         modelId: 'e4f9ec71-c4ba-444e-9d5b-b4eb6f11dac1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'VNBA3F9',
@@ -2097,7 +2098,7 @@ const monitores = [
         brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
         modelId: 'e4f9ec71-c4ba-444e-9d5b-b4eb6f11dac1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'VNBA10H',
@@ -2107,7 +2108,7 @@ const monitores = [
         brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
         modelId: 'e4f9ec71-c4ba-444e-9d5b-b4eb6f11dac1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'V366162',
@@ -2117,7 +2118,7 @@ const monitores = [
         brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
         modelId: '80ac0abe-1d7b-4d0b-b025-d24d6c556b8f',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'V1ZGD45',
@@ -2127,7 +2128,7 @@ const monitores = [
         brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
         modelId: '80ac0abe-1d7b-4d0b-b025-d24d6c556b8f',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'V1ZGD39',
@@ -2137,7 +2138,7 @@ const monitores = [
         brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
         modelId: '80ac0abe-1d7b-4d0b-b025-d24d6c556b8f',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'V366100',
@@ -2147,7 +2148,7 @@ const monitores = [
         brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
         modelId: '80ac0abe-1d7b-4d0b-b025-d24d6c556b8f',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'V3F5620',
@@ -2157,7 +2158,7 @@ const monitores = [
         brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
         modelId: '80ac0abe-1d7b-4d0b-b025-d24d6c556b8f',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'V302716',
@@ -2167,7 +2168,7 @@ const monitores = [
         brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
         modelId: '80ac0abe-1d7b-4d0b-b025-d24d6c556b8f',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'V3F5795',
@@ -2177,7 +2178,7 @@ const monitores = [
         brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
         modelId: '80ac0abe-1d7b-4d0b-b025-d24d6c556b8f',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'V1ZGF06',
@@ -2187,7 +2188,7 @@ const monitores = [
         brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
         modelId: '80ac0abe-1d7b-4d0b-b025-d24d6c556b8f',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'V302412',
@@ -2197,7 +2198,7 @@ const monitores = [
         brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
         modelId: '80ac0abe-1d7b-4d0b-b025-d24d6c556b8f',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'V3F5786',
@@ -2207,7 +2208,7 @@ const monitores = [
         brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
         modelId: '80ac0abe-1d7b-4d0b-b025-d24d6c556b8f',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'V366107',
@@ -2217,7 +2218,7 @@ const monitores = [
         brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
         modelId: '80ac0abe-1d7b-4d0b-b025-d24d6c556b8f',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'V3F5756',
@@ -2227,7 +2228,7 @@ const monitores = [
         brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
         modelId: '80ac0abe-1d7b-4d0b-b025-d24d6c556b8f',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'V302705',
@@ -2237,7 +2238,7 @@ const monitores = [
         brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
         modelId: '80ac0abe-1d7b-4d0b-b025-d24d6c556b8f',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'V1ZGD36',
@@ -2247,7 +2248,7 @@ const monitores = [
         brandId: "412c0a12-1642-4ce7-a95e-e038cd1e6ed6",
         modelId: '80ac0abe-1d7b-4d0b-b025-d24d6c556b8f',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '703UXBPV709',
@@ -2257,7 +2258,7 @@ const monitores = [
         brandId: "285b4361-baa2-434b-8ac2-942f86a15ee4",
         modelId: 'e4f9ec71-c4ba-444e-9d5b-b4eb6f11dac1',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '801MXUN3C822',
@@ -2267,7 +2268,7 @@ const monitores = [
         brandId: "285b4361-baa2-434b-8ac2-942f86a15ee4",
         modelId: '12b8a855-82fd-42ff-82d5-2275baad9b8d',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '801MXKD3C821',
@@ -2277,7 +2278,7 @@ const monitores = [
         brandId: "285b4361-baa2-434b-8ac2-942f86a15ee4",
         modelId: '12b8a855-82fd-42ff-82d5-2275baad9b8d',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '104NDAYA1328',
@@ -2287,7 +2288,7 @@ const monitores = [
         brandId: "285b4361-baa2-434b-8ac2-942f86a15ee4",
         modelId: '7e31f965-dd8a-4e04-8a8c-053bfeba74a4',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CM19H9NS503635K',
@@ -2297,7 +2298,7 @@ const monitores = [
         brandId: "421bd0fd-a7b9-4e93-bef3-eda0844fc43b",
         modelId: '0e8cf793-3544-49e7-a13e-f91161226c45',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CM17H9FS132801D',
@@ -2307,7 +2308,7 @@ const monitores = [
         brandId: "421bd0fd-a7b9-4e93-bef3-eda0844fc43b",
         modelId: '2cd3b34d-a0a2-4fb5-8528-b5926cca2677',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'CM17H9FS132833T',
@@ -2317,7 +2318,7 @@ const monitores = [
         brandId: "421bd0fd-a7b9-4e93-bef3-eda0844fc43b",
         modelId: '2cd3b34d-a0a2-4fb5-8528-b5926cca2677',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'MJ19HCHY303895Z',
@@ -2327,7 +2328,7 @@ const monitores = [
         brandId: "421bd0fd-a7b9-4e93-bef3-eda0844fc43b",
         modelId: '2a79ca84-4029-4f4b-a635-0cda81682315',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'V893H9NZA08304X',
@@ -2337,7 +2338,7 @@ const monitores = [
         brandId: "421bd0fd-a7b9-4e93-bef3-eda0844fc43b",
         modelId: 'fa27fec3-d49b-484b-a751-c07b48387883',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'ZT14H4LC203531E',
@@ -2347,7 +2348,7 @@ const monitores = [
         brandId: "421bd0fd-a7b9-4e93-bef3-eda0844fc43b",
         modelId: '2f5fe84f-4550-4da6-ad14-db31ccd54ea6',
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
 ]
 	

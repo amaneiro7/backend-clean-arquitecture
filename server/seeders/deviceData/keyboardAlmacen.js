@@ -1,4 +1,5 @@
 const { keyboardModel } = require("./keyboardModel")
+const locations = require("../location/locations")
 
 const keyboadAlmacen = [
     {
@@ -9,7 +10,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'RT7D20')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'RT7D20')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'TH-07N124-37171-2C7-0494',
@@ -19,7 +20,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'RT7D20')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'RT7D20')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'TH-07N124-37171-2CC-0525',
@@ -29,7 +30,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'RT7D20')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'RT7D20')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'YB31C1U20488',
@@ -39,7 +40,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'GK-070006/U')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'GK-070006/U')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'ZM2320003827',
@@ -49,7 +50,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'GK-100016')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'GK-100016')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'ZM8502154179',
@@ -59,7 +60,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'K639')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'K639')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'ZM8502154167',
@@ -69,7 +70,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'K639')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'K639')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'WE9891086256',
@@ -79,7 +80,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'K639')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'K639')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'ZM8502154180',
@@ -89,7 +90,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'K639')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'K639')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'WE130VG14835',
@@ -99,7 +100,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-100011')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-100011')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'WE130VG14833',
@@ -109,7 +110,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-100011')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-100011')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'ZCE961100676',
@@ -119,7 +120,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0138')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0138')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3310GVBW8JGV',
@@ -129,7 +130,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0HVBY0CWZ',
@@ -139,7 +140,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370BVBUH417',
@@ -149,7 +150,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BDAEV0QVB4C11T',
@@ -159,7 +160,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'B93CBOACPTLUFL',
@@ -169,7 +170,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370BGAUH7RO',
@@ -179,7 +180,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0HVBY0H2Z',
@@ -189,7 +190,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'B93CB0ACPTLRBB',
@@ -199,7 +200,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0HVBY344N',
@@ -209,7 +210,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370GVBW8HO1',
@@ -219,7 +220,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0HVBY0F28',
@@ -229,7 +230,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370GVBW856O',
@@ -239,7 +240,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0OVBOVECY',
@@ -249,7 +250,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370ACPU7FL1',
@@ -259,7 +260,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BADU0KVBZS2YZ',
@@ -269,7 +270,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0HVBY0DF1',
@@ -279,7 +280,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370GVBW8HW7',
@@ -289,7 +290,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370GVBX375R',
@@ -299,7 +300,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC33700GVBW8JBS',
@@ -309,7 +310,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370GVBW80FL',
@@ -319,7 +320,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370GVBVB1BGZ',
@@ -329,7 +330,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0KVBZR50Q',
@@ -339,7 +340,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0JVBZB3GM',
@@ -349,7 +350,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0HVBY77JN',
@@ -359,7 +360,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0JVBZ7FVQ',
@@ -369,7 +370,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0HVBY0ERJ',
@@ -379,7 +380,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0HVBYA29H',
@@ -389,7 +390,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370BGAUH3LU',
@@ -399,7 +400,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370BGAUI4TB',
@@ -409,7 +410,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0HVBYA86M',
@@ -419,7 +420,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370CVBV19WY',
@@ -429,7 +430,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370GVBW8H6Z',
@@ -439,7 +440,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370GVBW8INW',
@@ -449,7 +450,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0HVBY78NY',
@@ -459,7 +460,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0HVBY0ETA',
@@ -469,7 +470,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370GVBW48JJH',
@@ -479,7 +480,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370BGAUH6D6',
@@ -489,7 +490,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BDAEV0Q5Y4HCQJ',
@@ -499,7 +500,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0HVBY0FE1',
@@ -509,7 +510,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC33170GVBW8JHO',
@@ -519,7 +520,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BUAUDU0KBZS31H',
@@ -529,7 +530,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BDAEV0Q5Y4G20',
@@ -539,7 +540,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370GVW8CQF',
@@ -549,7 +550,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370CVBV1A4E',
@@ -559,7 +560,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370GVBX34OT',
@@ -569,7 +570,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370GVBX28CR',
@@ -579,7 +580,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUD0HVBY78NE',
@@ -589,7 +590,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BDAEV0Q5Y4HCQL',
@@ -599,7 +600,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0HVBY0CBA',
@@ -609,7 +610,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0KVBZR519',
@@ -619,7 +620,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370CVBV1A7Z',
@@ -629,7 +630,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370BGAUI7G4',
@@ -639,7 +640,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0JVBZ7FTC',
@@ -649,7 +650,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370GVBWT6T4',
@@ -659,7 +660,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370BGAUH6JM',
@@ -669,7 +670,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0OVB216Z9',
@@ -679,7 +680,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0KVBZGAOD',
@@ -689,7 +690,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0JVBZE8PF',
@@ -699,7 +700,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0HVBY7AD7',
@@ -709,7 +710,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BUAUDU0HVBY75UH',
@@ -719,7 +720,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BDAEV0Q5Y4G232',
@@ -729,7 +730,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BDAEV0Q5Y4HCS6',
@@ -739,7 +740,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0HVBY0FEQ',
@@ -749,7 +750,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BDAEV0Q5Y4G4LM',
@@ -759,7 +760,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0HVBY0D99',
@@ -769,7 +770,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370GVBW8ISL',
@@ -779,7 +780,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370GVBW80FG',
@@ -789,7 +790,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BDAEV0Q5Y4G4HL',
@@ -799,7 +800,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0KVBZG8GQ',
@@ -809,7 +810,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0HVBY0GDL',
@@ -819,7 +820,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370GVBW86N3',
@@ -829,7 +830,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BUDU0HVBY0H3F',
@@ -839,7 +840,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BDAEV0Q5Y4G4HI',
@@ -849,7 +850,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'B93AB0LVBTY2DG',
@@ -859,7 +860,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0HVBYA6M',
@@ -869,7 +870,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0HVBY0AS6',
@@ -879,7 +880,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0JVBZB2I4',
@@ -889,7 +890,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370GVBX33IL',
@@ -899,7 +900,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0OVB0VEFD',
@@ -909,7 +910,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0HVBY0EX8',
@@ -919,7 +920,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0HVBYA37U',
@@ -929,7 +930,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370GVBVU3T2',
@@ -939,7 +940,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BDAEV0Q5Y4G1YG',
@@ -949,7 +950,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0HVBY0ET1',
@@ -959,7 +960,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370BVBUE60S',
@@ -969,7 +970,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0JVBZB3JV',
@@ -979,7 +980,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BDAEV0QVB4I32B',
@@ -989,7 +990,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BDAEV0Q5Y4HF6P',
@@ -999,7 +1000,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0HVBY0FA7',
@@ -1009,7 +1010,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370GVBWT6YX',
@@ -1019,7 +1020,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370GVBWT8W0',
@@ -1029,7 +1030,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0JVBZB3KE',
@@ -1039,7 +1040,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0HVBYA5FY',
@@ -1049,7 +1050,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370FVBVU2CA',
@@ -1059,7 +1060,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0OVB2I71A',
@@ -1069,7 +1070,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0HVBY0FMV',
@@ -1079,7 +1080,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370FVBVU3ST',
@@ -1089,7 +1090,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370GVBW8HUQ',
@@ -1099,7 +1100,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0HVBYA5EL',
@@ -1109,7 +1110,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370GVBX33L8',
@@ -1119,7 +1120,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0KVB0HC3H',
@@ -1129,7 +1130,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0KVB0M19Z',
@@ -1139,7 +1140,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BDAEV0Q5Y4G74W',
@@ -1149,7 +1150,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370FVBW713X',
@@ -1159,7 +1160,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0HVBY0C5H',
@@ -1169,7 +1170,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0HVBY0EWU',
@@ -1179,7 +1180,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370GVBW8HV1',
@@ -1189,7 +1190,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370BGAUHAVG',
@@ -1199,7 +1200,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370GVBW8JI4',
@@ -1209,7 +1210,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0JVBZB3M0',
@@ -1219,7 +1220,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0JVBZ3K2',
@@ -1229,7 +1230,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BDAEV0Q5Y4G1Z7',
@@ -1239,7 +1240,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370FVBVU2BY',
@@ -1249,7 +1250,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BDAEV0QVBAD48T',
@@ -1259,7 +1260,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0KVB0M50A',
@@ -1269,7 +1270,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370GVBW8JG2',
@@ -1279,7 +1280,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BDAEV0Q5Y4HFIA',
@@ -1289,7 +1290,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370BVBUH0BF',
@@ -1299,7 +1300,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370BVBUH0F3',
@@ -1309,7 +1310,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BDAEV0Q5Y4HFBB',
@@ -1319,7 +1320,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370FVBVU23R',
@@ -1329,7 +1330,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370GVBW83IN',
@@ -1339,7 +1340,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370BVBUH44L',
@@ -1349,7 +1350,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370BVBUH0CQ',
@@ -1359,7 +1360,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BDAEV0QVB4I3EJ',
@@ -1369,7 +1370,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0HVBY75OS',
@@ -1379,7 +1380,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0OVB0V8WW',
@@ -1389,7 +1390,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370GVBW8T26',
@@ -1399,7 +1400,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370CVBV11J8',
@@ -1409,7 +1410,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BDAEV0Q5Y4G71L',
@@ -1419,7 +1420,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BDAEV0QVB3U3NZ',
@@ -1429,7 +1430,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370BVBUH4L5',
@@ -1439,7 +1440,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'B29AB0LVBTY28N',
@@ -1449,7 +1450,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370GVBW8INT',
@@ -1459,7 +1460,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0JVBZE9D3',
@@ -1469,7 +1470,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0JVBZ7EEW',
@@ -1479,7 +1480,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370FVBVU709',
@@ -1489,7 +1490,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BDAEV0QVB4I2ZD',
@@ -1499,7 +1500,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0KVB0M60D',
@@ -1509,7 +1510,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0JVBZB3DK',
@@ -1519,7 +1520,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0JVBZ7EDQ',
@@ -1529,7 +1530,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370GVBX28F7',
@@ -1539,7 +1540,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370GVBX36L0',
@@ -1549,7 +1550,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370GVBX33QA',
@@ -1559,7 +1560,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BDAEV0Q5Y4HFI5',
@@ -1569,7 +1570,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BDAEV0Q5Y4G1YF',
@@ -1579,7 +1580,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0JVBZ7FT5',
@@ -1589,7 +1590,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0OVB0V985',
@@ -1599,7 +1600,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0JVBZ7GPX',
@@ -1609,7 +1610,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370GVBWT9P7',
@@ -1619,7 +1620,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370BGAUI4TC',
@@ -1629,7 +1630,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0OVB0VC3W',
@@ -1639,7 +1640,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BDAEV0QVB4C3O6',
@@ -1649,7 +1650,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0JVBZ7GPT',
@@ -1659,7 +1660,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0KVB0ACOD',
@@ -1669,7 +1670,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370CVBV1980',
@@ -1679,7 +1680,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0JVBZB3NQ',
@@ -1689,7 +1690,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BDAEV0Q5Y4HF9U',
@@ -1699,7 +1700,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370GVBX28EG',
@@ -1709,7 +1710,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0JVBZ7EE1',
@@ -1719,7 +1720,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0HVBY0ESE',
@@ -1729,7 +1730,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0JVBZ7C1H',
@@ -1739,7 +1740,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'B93AB0LVBTY2H1',
@@ -1749,7 +1750,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'B93CB0LVBTSFR7',
@@ -1759,7 +1760,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BDAEV0Q5Y4G0BX',
@@ -1769,7 +1770,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370GVBWTEPG',
@@ -1779,7 +1780,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0HVBY0CTO',
@@ -1789,7 +1790,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0JVBZB2IB',
@@ -1799,7 +1800,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0JVBZB2ID',
@@ -1809,7 +1810,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0JVBZ7FVT',
@@ -1819,7 +1820,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BDAEV0QVB4F34I',
@@ -1829,7 +1830,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0HVBYA9IT',
@@ -1839,7 +1840,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'B6A760JGAQV054',
@@ -1849,7 +1850,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0133')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0133')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAURM0MGA2P0L9',
@@ -1859,7 +1860,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUHR0MGA2N1SM',
@@ -1869,7 +1870,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUHR0MGA2N1VD',
@@ -1879,7 +1880,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUHR0MGA2N1SO',
@@ -1889,7 +1890,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUHR0MGA2N1VO',
@@ -1899,7 +1900,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUHR0MVB3B3JD',
@@ -1909,7 +1910,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BAUDU0HVBZCGIZ',
@@ -1919,7 +1920,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BDALC0NVB3VASI',
@@ -1929,7 +1930,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3720DVBVL188',
@@ -1939,7 +1940,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0316')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0316')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BCYST0AHH6P31Y',
@@ -1949,7 +1950,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'PR1101U')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'PR1101U')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BCYST0ACP7F7HR',
@@ -1959,7 +1960,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2085')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2085')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'B93CB0ACPSUL88',
@@ -1969,7 +1970,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370ACPU7IF5',
@@ -1979,7 +1980,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'B93CB0ACPTV4P7',
@@ -1989,7 +1990,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'B93CB0ACPSSKCC',
@@ -1999,7 +2000,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'B93CB0ACPTV2YS',
@@ -2009,7 +2010,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370ACPU7FHQ',
@@ -2019,7 +2020,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'B93CB0ADPTGAC8',
@@ -2029,7 +2030,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'B93CB0ACPTLVAX',
@@ -2039,7 +2040,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'B93CB0CPTLUBO',
@@ -2049,7 +2050,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'B93CB0ACPSOT8X',
@@ -2059,7 +2060,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370ACPU7FL5',
@@ -2069,7 +2070,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'B93CB0ACPSUL9Q',
@@ -2079,7 +2080,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'B93CB0ACPSVXN1',
@@ -2089,7 +2090,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'B93CB0ACPSVW3W',
@@ -2099,7 +2100,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'B93CB0ADPSW2TL',
@@ -2109,7 +2110,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'B93CB0ACPSVW7R',
@@ -2119,7 +2120,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'B93CB0ACPSUIBT',
@@ -2129,7 +2130,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'B93CB0ACPTLW5R',
@@ -2139,7 +2140,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'B93CB0ACPS0TB',
@@ -2149,7 +2150,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370ACPU6GEW',
@@ -2159,7 +2160,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'B93CB0ACPTLUOF',
@@ -2169,7 +2170,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'B93CB0ACPSSEUH',
@@ -2179,7 +2180,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'B93CB0ACPTLTES',
@@ -2189,7 +2190,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'B93CB0ACPTLVCT',
@@ -2199,7 +2200,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'B93CB0ACPTIHW9',
@@ -2209,7 +2210,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370ACPU26PE',
@@ -2219,7 +2220,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'B93CB0ADPSW11V',
@@ -2229,7 +2230,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'B93VB0ACPSUL8E',
@@ -2239,7 +2240,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'B93CB0ACPSULJI',
@@ -2249,7 +2250,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'B93CB0ACPSG4B3',
@@ -2259,7 +2260,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'B93CB0ACPTLUAW',
@@ -2269,7 +2270,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'B93CB0ACPTT2KS',
@@ -2279,7 +2280,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BC3370ACPU7EG6',
@@ -2289,7 +2290,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2880')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: 'BADGP0BDP5L9VT',
@@ -2299,7 +2300,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2885')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-2885')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '1S89P83220131742B',
@@ -2309,7 +2310,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '429091',
@@ -2319,7 +2320,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '170907',
@@ -2329,7 +2330,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '382346',
@@ -2339,7 +2340,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '171238',
@@ -2349,7 +2350,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '109816',
@@ -2359,7 +2360,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '125854',
@@ -2369,7 +2370,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KB-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '5647449',
@@ -2379,7 +2380,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '2098469',
@@ -2389,7 +2390,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '5647440',
@@ -2399,7 +2400,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3363054',
@@ -2409,7 +2410,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '5642498',
@@ -2419,7 +2420,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3354089',
@@ -2429,7 +2430,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '1S41A53123362847E',
@@ -2439,7 +2440,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '1S41A53122528146E',
@@ -2449,7 +2450,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '1S41A5312252523772E',
@@ -2459,7 +2460,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3362866',
@@ -2469,7 +2470,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '5642511',
@@ -2479,7 +2480,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '2523234',
@@ -2489,7 +2490,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3354092',
@@ -2499,7 +2500,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '5647024',
@@ -2509,7 +2510,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '5642487',
@@ -2519,7 +2520,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '5642524',
@@ -2529,7 +2530,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3358071',
@@ -2539,7 +2540,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '2104035',
@@ -2549,7 +2550,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '2523414',
@@ -2559,7 +2560,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '5644664',
@@ -2569,7 +2570,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3359147',
@@ -2579,7 +2580,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '2523613',
@@ -2589,7 +2590,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '1019418',
@@ -2599,7 +2600,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '2525225',
@@ -2609,7 +2610,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '5642507',
@@ -2619,7 +2620,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '5644624',
@@ -2629,7 +2630,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '2100462',
@@ -2639,7 +2640,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '5642581',
@@ -2649,7 +2650,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '2529334',
@@ -2659,7 +2660,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '5641192',
@@ -2669,7 +2670,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '2529223',
@@ -2679,7 +2680,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '5647443',
@@ -2689,7 +2690,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '1011947',
@@ -2699,7 +2700,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '5645301',
@@ -2709,7 +2710,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '5642544',
@@ -2719,7 +2720,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '998444',
@@ -2729,7 +2730,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '2523595',
@@ -2739,7 +2740,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '2523820',
@@ -2749,7 +2750,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '5647446',
@@ -2759,7 +2760,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '2523688',
@@ -2769,7 +2770,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '5647470',
@@ -2779,7 +2780,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '2532105',
@@ -2789,7 +2790,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '5647916',
@@ -2799,7 +2800,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '2523586',
@@ -2809,7 +2810,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '2098318',
@@ -2819,7 +2820,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '5642503',
@@ -2829,7 +2830,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '2523212',
@@ -2839,7 +2840,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '5644691',
@@ -2849,7 +2850,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '2104374',
@@ -2859,7 +2860,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '4037038',
@@ -2869,7 +2870,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '2532126',
@@ -2879,7 +2880,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '2330308',
@@ -2889,7 +2890,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3359265',
@@ -2899,7 +2900,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '5645299',
@@ -2909,7 +2910,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '2782332',
@@ -2919,7 +2920,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '5644678',
@@ -2929,7 +2930,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '5647459',
@@ -2939,7 +2940,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '4037071',
@@ -2949,7 +2950,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '1019489',
@@ -2959,7 +2960,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '2529307',
@@ -2969,7 +2970,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '5642536',
@@ -2979,7 +2980,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '2523239',
@@ -2989,7 +2990,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '3358041',
@@ -2999,7 +3000,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '1019542',
@@ -3009,7 +3010,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-0225')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '20538',
@@ -3019,7 +3020,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KUF0452')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KUF0452')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '20545',
@@ -3029,7 +3030,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KUF0452')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KUF0452')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '20552',
@@ -3039,7 +3040,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KUF0452')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KUF0452')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '20543',
@@ -3049,7 +3050,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KUF0452')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KUF0452')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '20532',
@@ -3059,7 +3060,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KUF0452')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KUF0452')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '20494',
@@ -3069,7 +3070,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KUF0452')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KUF0452')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '40905571',
@@ -3079,7 +3080,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'LXH-EKB-10YA')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'LXH-EKB-10YA')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '40900787',
@@ -3089,7 +3090,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'LXH-EKB-10YA')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'LXH-EKB-10YA')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '40906748',
@@ -3099,7 +3100,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'LXH-EKB-10YA')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'LXH-EKB-10YA')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '40906516',
@@ -3109,7 +3110,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'LXH-EKB-10YA')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'LXH-EKB-10YA')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '1375696',
@@ -3119,7 +3120,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-8825')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-8825')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '2705393',
@@ -3129,7 +3130,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-8825')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-8825')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '2709091',
@@ -3139,7 +3140,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-8825')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-8825')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '393934',
@@ -3149,7 +3150,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-8825')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-8825')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '1726811',
@@ -3159,7 +3160,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-8825')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-8825')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '394660',
@@ -3169,7 +3170,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-8825')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-8825')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '604116',
@@ -3179,7 +3180,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-8825')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-8825')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '1374549',
@@ -3189,7 +3190,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-8825')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-8825')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '1375718',
@@ -3199,7 +3200,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-8825')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-8825')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '1671831',
@@ -3209,7 +3210,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-8825')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-8825')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '605524',
@@ -3219,7 +3220,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-8825')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-8825')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '1513405',
@@ -3229,7 +3230,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-8825')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-8825')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '605492',
@@ -3239,7 +3240,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-8825')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-8825')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '1672005',
@@ -3249,7 +3250,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-8825')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-8825')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '2559468',
@@ -3259,7 +3260,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-8825')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-8825')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '2709089',
@@ -3269,7 +3270,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-8825')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-8825')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '2709061',
@@ -3279,7 +3280,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-8825')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-8825')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '604094',
@@ -3289,7 +3290,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'SK-8825')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'SK-8825')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '65807660116',
@@ -3299,7 +3300,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === '1366')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === '1366')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '65807661934',
@@ -3309,7 +3310,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === '1366')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === '1366')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '65807661499',
@@ -3319,7 +3320,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === '1366')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === '1366')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '65807873470',
@@ -3329,7 +3330,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === '1366')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === '1366')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '65807662014',
@@ -3339,7 +3340,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === '1366')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === '1366')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '65807873471',
@@ -3349,7 +3350,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === '1366')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === '1366')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '65807660118',
@@ -3359,7 +3360,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === '1366')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === '1366')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
     {
         serial: '353201377352',
@@ -3369,7 +3370,7 @@ const keyboadAlmacen = [
         modelId: keyboardModel.filter(keyboard => keyboard.name === 'KU-1079')[0].id,
         brandId: keyboardModel.filter(keyboard => keyboard.name === 'KU-1079')[0].brandId,
         employeeId: null,
-        locationId: 24080915,
+        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
     },
 ]
 

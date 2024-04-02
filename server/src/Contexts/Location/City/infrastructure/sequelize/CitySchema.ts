@@ -26,7 +26,7 @@ export function initCityModel (sequelize: Sequelize): void {
         allowNull: false
       },
       stateId: {
-        type: DataTypes.UUID,
+        type: DataTypes.STRING,
         allowNull: false
       },
       name: {

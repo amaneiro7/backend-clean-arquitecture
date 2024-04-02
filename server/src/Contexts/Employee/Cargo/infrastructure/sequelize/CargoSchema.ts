@@ -17,7 +17,7 @@ export class CargoModel extends Model<CargoPrimitives> implements CargoPrimitive
 export function initCargoModel (sequelize: Sequelize): void {
   CargoModel.init({
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
       primaryKey: true
     },

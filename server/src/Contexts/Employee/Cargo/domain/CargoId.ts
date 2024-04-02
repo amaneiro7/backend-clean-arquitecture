@@ -1,3 +1,3 @@
-import { NumberValueObject } from '../../../Shared/domain/value-object/NumberValueObject'
+import { StringValueObject } from '../../../Shared/domain/value-object/StringValueObject'
 
-export class CargoId extends NumberValueObject {}
+export class CargoId extends StringValueObject {}

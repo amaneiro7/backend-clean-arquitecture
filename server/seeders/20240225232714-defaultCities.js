@@ -6,8 +6,8 @@ const cities = require('./location/cities');
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    return queryInterface.bulkInsert('cities', cities.map(({ name, stateId }) => ({
-      id: randomUUID(),
+    return queryInterface.bulkInsert('cities', cities.map(({ id, name, stateId }) => ({
+      id,
       state_id: stateId,
       name: name
     })), {})
