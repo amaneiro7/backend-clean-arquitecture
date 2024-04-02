@@ -22,12 +22,12 @@ export function initStateModel (sequelize: Sequelize): void {
   StateModel.init(
     {
       id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         primaryKey: true,
         allowNull: false
       },
       regionId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false
       },
       name: {

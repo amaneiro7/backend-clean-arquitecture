@@ -1,3 +1,3 @@
-import { NumberValueObject } from '../../../Shared/domain/value-object/NumberValueObject'
+import { UUID } from 'sequelize'
 
-export class SiteId extends NumberValueObject {}
+export class SiteId extends UUID {}

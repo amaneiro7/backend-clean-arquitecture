@@ -19,7 +19,7 @@ export function initTypeOfSiteModel (sequelize: Sequelize): void {
   TypeOfSiteModel.init(
     {
       id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         primaryKey: true,
         allowNull: false
       },
