@@ -37,6 +37,8 @@ export const useDevice = (repository: Repository) => {
         setLoading(false)
       })
       .catch((error) => {
+        console.error('searchDevices', error)
+
         setError(error)
         setLoading(false)
       })
@@ -46,18 +48,22 @@ export const useDevice = (repository: Repository) => {
 
   useEffect(() => {
     searchDevices()
+    return () => {
+      setDevices([])
+      setQuery({ filters: [] })
+    }
   }, [query])
 
   const handleQuery = (queryParams: SearchByCriteriaQuery) => {
     const { filters } = queryParams
     const updateFilters = query
-    if (filters.length > 0) {
+    if (filters !== undefined && filters.length > 0) {
       const findFilterIndex = query.filters.findIndex(({ field }) => field === filters[0].field)
 
       if (findFilterIndex === -1) {
         updateFilters.filters = [...query.filters, ...filters]
       } else {
-        updateFilters.filters[findFilterIndex] = queryParams.filters[0]
+        updateFilters.filters[findFilterIndex] = filters[0]
       }
     }
 

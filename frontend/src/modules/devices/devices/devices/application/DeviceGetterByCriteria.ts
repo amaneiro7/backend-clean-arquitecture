@@ -19,6 +19,7 @@ export class DeviceGetterByCriteria {
         FilterOperator.fromValue(filter.operator),
         new FilterValue(filter.value))
     })
+    console.log(filters)
     const order = Order.fromValues(query.orderBy, query.orderType)
     const limit = new Limit(query.limit)
     const offset = new Limit(query.offset)

@@ -43,23 +43,29 @@ export default function AlmacenPage () {
   }
 
   useEffect(() => {
-    const initialFilter = [{
-      field: 'typeOfSite',
-      operator: Operator.CONTAINS,
-      value: 'Almac'
-    }]
     handleQuery({
-      filters: initialFilter
+      filters: [{
+        field: 'typeOfSite',
+        operator: Operator.EQUAL,
+        value: '3'
+      }]
     })
   }, [])
 
   const handleClear = () => {
     clearInputs()
+    handleQuery({
+      filters: [{
+        field: 'typeOfSite',
+        operator: Operator.EQUAL,
+        value: '3'
+      }]
+    })
   }
 
   const defaultHeaderTitle = ['Categoria', 'Serial', 'Activo', 'Status', 'Marca', 'Modelo', 'Ubicación', 'Observaciones']
   const headerTitleComputer = ['Nombre', 'Procesador', 'Memoria Ram', 'Disco Duro', 'Tipo', 'Sistema Operativo', 'Arquitectura', 'Diracción MAC', 'Dirección IP']
-  let headerTitle
+  let headerTitle: string[]
   if (Computer.isComputerCategory({ categoryId: inputData.categoryId })) {
     headerTitle = defaultHeaderTitle.concat(headerTitleComputer)
   } else {

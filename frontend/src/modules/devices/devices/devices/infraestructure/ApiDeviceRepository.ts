@@ -17,17 +17,20 @@ export class ApiDeviceRepository implements DeviceRepository {
 
   async getByCriteria (criteria: Criteria): Promise<DevicePrimitives[]> {
     const criteriaPrimitives = criteria.toPrimitives()
-    const filters = criteriaPrimitives.filters.map(
+    const filters = criteriaPrimitives.filters.length > 0 && criteriaPrimitives.filters.map(
       (filter, index) => {
         const { field, operator, value } = filter.toPrimitives()
         return `filters[${index}][field]=${field}&filters[${index}][operator]=${operator}&filters[${index}][value]=${value}`
       }
     )
 
-    const params = filters.join('&')
-    console.log('Infrastructure getByCriteria Response', params)
+    const params = filters ? filters.join('&') : undefined
 
     return await makeRequest<DevicesApiResponse[]>({ method: 'GET', endpoint: `${this.endpoint}?${params}` })
+      .then(res => {
+        console.log('Infra', res)
+        return res
+      })
       .then(res => res.map(data => ({
         id: data.id,
         serial: data.serial,
