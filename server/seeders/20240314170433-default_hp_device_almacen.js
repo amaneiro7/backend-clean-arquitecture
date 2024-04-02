@@ -8,8 +8,6 @@ const { HP5700 } = require('./deviceData/HP5700Almacen');
 const { HP5800 } = require('./deviceData/HP5800Almacen');
 const { HP4300_8000_Proliant } = require('./deviceData/HP4300Almacen');
 
-
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {

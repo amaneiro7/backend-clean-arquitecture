@@ -31,17 +31,8 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    try {
-      return await queryInterface.sequelize.transaction(async (t) => {
-        await queryInterface.bulkDelete('model_keyboards', keyboardModel.map(model => ({
-          id: model.id
-        })), { transaction: t })
-        await queryInterface.bulkDelete('models', keyboardModel.map(model => ({
-          id: model.id
-        })), { transaction: t })
-      })      
-    } catch (error) {
-      throw new Error(error)
-    }
+    return queryInterface.bulkDelete('devices', null, {}).then(() => {
+      return queryInterface.bulkDelete('model_keyboards', null, {})
+    })    
   }
 };
