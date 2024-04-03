@@ -17,6 +17,8 @@ export class ApiDeviceRepository implements DeviceRepository {
 
   async getByCriteria (criteria: Criteria): Promise<DevicePrimitives[]> {
     const criteriaPrimitives = criteria.toPrimitives()
+    console.log('Infra criteriaprimitives', criteriaPrimitives)
+
     const filters = criteriaPrimitives.filters.length > 0 && criteriaPrimitives.filters.map(
       (filter, index) => {
         const { field, operator, value } = filter.toPrimitives()
@@ -24,11 +26,16 @@ export class ApiDeviceRepository implements DeviceRepository {
       }
     )
 
-    const params = filters ? filters.join('&') : undefined
+    console.log('infra filters', filters)
 
+    const params = filters ? `${filters.join('&')}&limit=${criteriaPrimitives.limit}&offset=${criteriaPrimitives.offset}` : undefined
+
+    console.log('Infra params', params)
     return await makeRequest<DevicesApiResponse[]>({ method: 'GET', endpoint: `${this.endpoint}?${params}` })
       .then(res => {
-        console.log('Infra', res)
+        res.forEach(data => {
+          if (data.id === null) { console.log('Infra', data.id) }
+        })
         return res
       })
       .then(res => res.map(data => ({
@@ -53,6 +60,10 @@ export class ApiDeviceRepository implements DeviceRepository {
         createdAt: data.createdAt,
         updatedAt: data.updatedAt
       }) satisfies DevicesMappedApiResponse))
+      .catch((error: any) => {
+        console.error('Infra', error)
+        throw new Error(error.message)
+      })
   }
 
   async getAll (): Promise<DevicePrimitives[]> {

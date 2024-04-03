@@ -48,10 +48,6 @@ export const useDevice = (repository: Repository) => {
 
   useEffect(() => {
     searchDevices()
-    return () => {
-      setDevices([])
-      setQuery({ filters: [] })
-    }
   }, [query])
 
   const handleQuery = (queryParams: SearchByCriteriaQuery) => {
