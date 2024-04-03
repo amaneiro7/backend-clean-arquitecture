@@ -16,14 +16,6 @@ export class DeviceEmployee extends AcceptedNullValueObject<Primitives<EmployeeI
     return this.value
   }
 
-  //   private nullIsCargoisHigherThanCoordinador (cargo: Primitives<CargoId>): void {
-  //     const positionHigerThanCoordinator: CargosValues[] = ['Vicepresidente Ejecutivo']
-  //     const IsPositionHigherThanCoordinator = positionHigerThanCoordinator.includes(CargoName.AcceptedCargos[cargo])
-  //     if (IsPositionHigherThanCoordinator) {
-  //       this.updateValue(null) // Is position higher than coordinator, so set it as null
-  //     }
-  //   }
-
   private ensureIsValidEmployeeId (id: Primitives<EmployeeId> | null): void {
     if (!this.isValid(id)) {
       throw new InvalidArgumentError('EmployeeId is required')

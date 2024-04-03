@@ -21,15 +21,15 @@ const StatusSelect = lazy(async () => await import('../../Device/status/StatusSe
 const LocationSelect = lazy(async () => await import('../../Device/location/LocationSelect'))
 
 export default function AlmacenPage () {
-  const { device: { devices, handleQuery } } = useAppContext()
+  const { device: { devices }, addFilter, cleanFilters } = useAppContext()
   const navigate = useNavigate()
   const { inputData, updateInputData, clearInputs } = useInputsData()
 
   const debounceGetDevices = useCallback(
     debounce((query: SearchByCriteriaQuery) => {
-      handleQuery(query)
+      addFilter(query)
     }, 300)
-    , [handleQuery]
+    , [addFilter]
   )
 
   const handleChange = (name: string, value: string, operator?: Operator) => {
@@ -43,7 +43,7 @@ export default function AlmacenPage () {
   }
 
   useEffect(() => {
-    handleQuery({
+    cleanFilters({
       filters: [{
         field: 'typeOfSite',
         operator: Operator.EQUAL,
@@ -54,12 +54,8 @@ export default function AlmacenPage () {
 
   const handleClear = () => {
     clearInputs()
-    handleQuery({
-      filters: [{
-        field: 'typeOfSite',
-        operator: Operator.EQUAL,
-        value: '3'
-      }]
+    cleanFilters({
+      filters: []
     })
   }
 

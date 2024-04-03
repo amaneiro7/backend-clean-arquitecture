@@ -12,12 +12,10 @@ export interface UseDevice {
   error: string | null
   getDevice: DeviceGetter
   createDevice: (formData: DeviceProps) => Promise<void>
-  handleQuery: (queryParams: SearchByCriteriaQuery) => void
 }
 
-export const useDevice = (repository: Repository) => {
+export const useDevice = (repository: Repository, query: SearchByCriteriaQuery) => {
   const deviceByCriteria = new DeviceGetterByCriteria(repository)
-  const [query, setQuery] = useState<SearchByCriteriaQuery>({ filters: [] })
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [devices, setDevices] = useState<DevicePrimitives[]>([])
@@ -50,38 +48,11 @@ export const useDevice = (repository: Repository) => {
     searchDevices()
   }, [query])
 
-  const handleQuery = (queryParams: SearchByCriteriaQuery) => {
-    const { filters } = queryParams
-    const updateFilters = query
-    if (filters !== undefined && filters.length > 0) {
-      const findFilterIndex = query.filters.findIndex(({ field }) => field === filters[0].field)
-
-      if (findFilterIndex === -1) {
-        updateFilters.filters = [...query.filters, ...filters]
-      } else {
-        updateFilters.filters[findFilterIndex] = filters[0]
-      }
-    }
-
-    const updatedQuery: SearchByCriteriaQuery = {
-      filters: updateFilters.filters.filter((elem) => elem.value !== '')
-
-    }
-
-    setQuery(prev => {
-      return {
-        ...prev,
-        ...updatedQuery
-      }
-    })
-  }
-
   return {
     devices,
     loading,
     error,
     getDevice,
-    createDevice,
-    handleQuery
+    createDevice
   }
 }
