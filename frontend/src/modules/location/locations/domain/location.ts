@@ -4,8 +4,8 @@ import { type LocationId } from './locationId'
 export interface LocationPrimitives {
   id: Primitives<LocationId>
   name: string
-  typeOfSiteId: number
-  siteId: number
+  typeOfSiteId: string
+  siteId: string
   subnet: string | null
 }
 
@@ -13,8 +13,8 @@ export class Location {
   constructor (
     private readonly id: LocationId,
     private readonly name: string,
-    private readonly typeOfSiteId: number,
-    private readonly siteId: number,
+    private readonly typeOfSiteId: string,
+    private readonly siteId: string,
     private readonly subnet: string | null
   ) {}
 
@@ -26,11 +26,11 @@ export class Location {
     return this.name
   }
 
-  typeOfSiteValue (): number {
+  typeOfSiteValue (): string {
     return this.typeOfSiteId
   }
 
-  siteValue (): number {
+  siteValue (): string {
     return this.siteId
   }
 

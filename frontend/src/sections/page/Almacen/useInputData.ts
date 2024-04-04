@@ -56,7 +56,7 @@ export const useInputsData = (): {
     activo: searchParams.get('activo') ?? '',
     serial: searchParams.get('serial') ?? '',
     modelId: searchParams.get('modelId') ?? '',
-    locationId: searchParams.get('locationId') ?? ''
+    locationId: searchParams.get('locationId') ?? ''    
   }
 
   return {

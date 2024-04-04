@@ -126,6 +126,8 @@ export default function AlmacenPage () {
         <Suspense>
           <LocationSelect
             value={inputData.locationId}
+            typeOfSiteId={'3'}
+            statusId={inputData.statusId}
             onChange={handleChange}
             isForm={false}
           />

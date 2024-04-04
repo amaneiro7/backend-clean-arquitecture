@@ -6,7 +6,7 @@ export type CargosValues = typeof CargoName.AcceptedCargos[keyof typeof CargoNam
 export class CargoName extends StringValueObject {
   private readonly NAME_MAX_LENGTH = 30
   private readonly NAME_MIN_LENGTH = 15
-  public static AcceptedCargos: Readonly<Record<number, string>> = {
+  public static AcceptedCargos: Readonly<Record<string, string>> = {
     1: 'Analista',
     2: 'Especialista Senior',
     3: 'Coordinador',

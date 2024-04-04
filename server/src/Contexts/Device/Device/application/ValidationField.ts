@@ -67,10 +67,10 @@ export class ValidationField {
     if (location === null) {
       throw new LocationDoesNotExistError(locationId)
     }
-    if (entity?.statusValue === '2' && location.siteId !== 3) {
+    if (entity?.statusValue === '2' && location.siteId !== '3') {
       throw new InvalidArgumentError('Location must be site in Werehouse')
     }
-    if (entity?.statusValue !== '3' && location.siteId !== 1) {
+    if (entity?.statusValue !== '3' && location.siteId !== '1') {
       throw new InvalidArgumentError('Location must be site in Administrative site or in an Agency')
     }
   }
