@@ -19,10 +19,9 @@ export class DeviceGetterByCriteria {
         FilterOperator.fromValue(filter.operator),
         new FilterValue(filter.value))
     })
-    console.log(filters)
     const order = Order.fromValues(query.orderBy, query.orderType)
-    const limit = new Limit(query.limit ?? 10)
-    const offset = new Limit(query.offset ?? 1)
+    const limit = new Limit(query.limit)
+    const offset = new Limit(query.offset)
     const criteria = new Criteria(new Filters(filters), order, limit, offset)
 
     return await this.repository.device.getByCriteria(criteria)

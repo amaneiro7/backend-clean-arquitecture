@@ -48,7 +48,7 @@ export interface DevicesMappedApiResponse {
   modelId: Primitives<ModelId>
   modelName: Primitives<ModelName>
   observation: string
-  locationId: Primitives<>
+  locationId: Primitives<LocationId>
   locationName: Primitives<>
   employeeId: string | null
   employeeName: string
@@ -134,7 +134,7 @@ export interface Category {
 }
 
 export interface Location {
-  id: number
+  id: Primitives<LocationId>
   name: string
   siteId: number
   typeOfSiteId: number

@@ -8,25 +8,16 @@ import { type Primitives } from '../../../../Shared/domain/value-object/Primitiv
 import { type DeviceId } from '../../domain/DeviceId'
 import { type Criteria } from '../../../../Shared/domain/criteria/Criteria'
 import { CriteriaToSequelizeConverter } from '../../../../Shared/infrastructure/criteria/CriteriaToSequelizeConverter'
-import { Operator } from '../../../../Shared/domain/criteria/FilterOperator'
-export class SequelizeDeviceRepository extends CriteriaToSequelizeConverter implements DeviceRepository {
+export class SequelizeDeviceRepository extends CriteriaToSequelizeConverter<DeviceModel> implements DeviceRepository {
   private readonly models = sequelize.models as unknown as Models
   async matching (criteria: Criteria): Promise<DevicePrimitives[]> {
     const options = this.convert(criteria)
-
     options.include = [
       'model',
       'category',
       'brand',
       'status',
       'employee',
-      {
-        association: 'location',
-        include: [
-          'typeOfSite',
-          { association: 'site', include: [{ association: 'city', include: [{ association: 'state', include: ['region'] }] }] }
-        ]
-      },
       {
         association: 'computer',
         include: ['processor', 'hardDriveCapacity', 'hardDriveType', 'operatingSystem', 'operatingSystemArq']
@@ -37,31 +28,29 @@ export class SequelizeDeviceRepository extends CriteriaToSequelizeConverter impl
       }
     ]
 
-    // eslint-disable-next-line no-prototype-builtins
-    if (options.where !== undefined && options?.where.hasOwnProperty('typeOfSite')) {
-      options.include = [
-        ...options.include,
-        {
-          association: 'location',
-          include: [
-            {
-              association: 'typeOfSite',
-              where: {
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-expect-error
-                name: options.where.typeOfSite
-              }
-            }
-          ]
+    if (criteria.searchValueInArray('typeOfSite')) {
+      options.include.push({
+        association: 'location',
+        include: [
+          'typeOfSite',
+          { association: 'site', include: [{ association: 'city', include: [{ association: 'state', include: ['region'] }] }] }
+        ],
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        where: { typeOfSiteId: options.where.typeOfSite }
+      })
 
-        }
-      ]
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
       delete options.where.typeOfSite
-      console.log('La propiedad typeOfSite ha sido eliminada.', options)
     } else {
-      console.log('La propiedad typeOfSite no está presente en las opciones.')
+      options.include.push({
+        association: 'location',
+        include: [
+          'typeOfSite',
+          { association: 'site', include: [{ association: 'city', include: [{ association: 'state', include: ['region'] }] }] }
+        ]
+      })
     }
     return await DeviceModel.findAll(options)
   }

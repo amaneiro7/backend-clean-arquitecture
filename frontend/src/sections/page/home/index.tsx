@@ -22,15 +22,15 @@ const StatusSelect = lazy(async () => await import('../../Device/status/StatusSe
 const LocationSelect = lazy(async () => await import('../../Device/location/LocationSelect'))
 
 function Home () {
-  const { device: { devices, handleQuery } } = useAppContext()
+  const { device: { devices }, addFilter, cleanFilters } = useAppContext()
   const navigate = useNavigate()
   const { inputData, updateInputData, clearInputs } = useInputsData()
 
   const debounceGetDevices = useCallback(
     debounce((query: SearchByCriteriaQuery) => {
-      handleQuery(query)
+      addFilter(query)
     }, 300)
-    , [handleQuery]
+    , [addFilter]
   )
 
   const handleChange = (name: string, value: string, operator?: Operator) => {
@@ -44,6 +44,7 @@ function Home () {
   }
 
   const handleClear = () => {
+    cleanFilters()
     clearInputs()
   }
 

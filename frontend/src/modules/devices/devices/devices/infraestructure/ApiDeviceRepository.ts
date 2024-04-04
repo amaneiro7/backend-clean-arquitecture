@@ -17,7 +17,6 @@ export class ApiDeviceRepository implements DeviceRepository {
 
   async getByCriteria (criteria: Criteria): Promise<DevicePrimitives[]> {
     const criteriaPrimitives = criteria.toPrimitives()
-    console.log('Infra criteriaprimitives', criteriaPrimitives)
 
     const filters = criteriaPrimitives.filters.length > 0 && criteriaPrimitives.filters.map(
       (filter, index) => {
@@ -25,19 +24,11 @@ export class ApiDeviceRepository implements DeviceRepository {
         return `filters[${index}][field]=${field}&filters[${index}][operator]=${operator}&filters[${index}][value]=${value}`
       }
     )
-
-    console.log('infra filters', filters)
-
-    const params = filters ? `${filters.join('&')}&limit=${criteriaPrimitives.limit}&offset=${criteriaPrimitives.offset}` : undefined
-
-    console.log('Infra params', params)
-    return await makeRequest<DevicesApiResponse[]>({ method: 'GET', endpoint: `${this.endpoint}?${params}` })
-      .then(res => {
-        res.forEach(data => {
-          if (data.id === null) { console.log('Infra', data.id) }
-        })
-        return res
-      })
+    const paramsLimitAndOffset = criteriaPrimitives.limit ? `limit=${criteriaPrimitives.limit}&offset=${criteriaPrimitives.offset}` : undefined
+    const paramsOrder = criteriaPrimitives.orderBy ? `orderBy=${criteriaPrimitives.orderBy}&orderType=${criteriaPrimitives.orderType}` : undefined
+    const paramsFilters = filters ? `${filters.join('&')}` : undefined
+    const queryParams = [paramsFilters, paramsLimitAndOffset, paramsOrder].filter(Boolean).join('&')
+    return await makeRequest<DevicesApiResponse[]>({ method: 'GET', endpoint: `${this.endpoint}?${queryParams}` })
       .then(res => res.map(data => ({
         id: data.id,
         serial: data.serial,

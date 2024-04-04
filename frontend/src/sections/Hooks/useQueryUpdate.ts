@@ -8,11 +8,11 @@ export const useSearchByCriteriaQuery = () => {
 
   const addFilter = (payload: SearchByCriteriaQuery) => {
     const filterIndex = query.filters.findIndex(filter => filter.field === payload.filters[0].field)
-    let newFilter = []
+    const newFilter = [...query.filters]
     if (filterIndex >= 0) {
-      newFilter = [...query.filters]
+      newFilter[filterIndex] = payload.filters[0]
     } else {
-      newFilter = [...query.filters, ...payload.filters]
+      newFilter.push(payload.filters[0])
     }
     const filterWithoutEmptyValues = newFilter.filter(filter => filter.value !== '')
     setQuery(prev => ({ ...prev, filters: filterWithoutEmptyValues }))

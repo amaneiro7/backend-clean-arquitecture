@@ -4,9 +4,9 @@ import { type Filter } from '../../domain/criteria/Filter'
 
 type Mappings = Record<string, string>
 
-export class CriteriaToSequelizeConverter {
-  convert (criteria: Criteria, mappings: Mappings = {}): FindOptions<any> {
-    const query: FindOptions<any> = {}
+export class CriteriaToSequelizeConverter<T> {
+  convert (criteria: Criteria, mappings: Mappings = {}): FindOptions<T> {
+    const query: FindOptions<T> = {}
 
     if (criteria.hasFilters()) {
       query.where = criteria.filters.value.reduce((acc, filter) => {
