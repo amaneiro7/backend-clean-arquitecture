@@ -72,7 +72,7 @@ export default function AgenciaPage () {
   return (
     <main className='max-w-full h-full flex flex-col gap-5 p-5'>
       <div>
-        <h1 className='text-lg text-primary font-bold'>InventarioAPP</h1>
+        <h1 className='text-lg text-primary font-bold'>Equipos de Agencia</h1>
       </div>
       <Suspense>
         <Button

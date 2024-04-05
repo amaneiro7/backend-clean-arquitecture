@@ -27,9 +27,9 @@ const dropdownNavs = [
         icon: 'icon'
       },
       {
-        title: 'Reports',
-        desc: 'Duis aute irure dolor in reprehenderit',
-        path: 'javascript:void(0)',
+        title: 'Agencia',
+        desc: 'Equipos asignados en agencia',
+        path: '/agencia',
         icon: 'icon'
       }
     ]

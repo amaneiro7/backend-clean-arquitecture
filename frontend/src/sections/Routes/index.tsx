@@ -6,6 +6,7 @@ import Loading from '../components/Loading/index.tsx'
 
 const Home = lazy(async () => await import('../page/home/index.tsx'))
 const AlmacenPage = lazy(async () => await import('../page/Almacen/index.tsx'))
+const AgenciaPage = lazy(async () => await import('../page/Agencia/index.tsx'))
 const ComputerPage = lazy(async () => await import('../Device/features/computer/ComputerTablePage.tsx'))
 const CreateDeviceForm = lazy(async () => await import('../Device/device/CreateDeviceForm.tsx'))
 const CreateBrandForm = lazy(async () => await import('../Device/brand/CreateBrandForm.tsx'))
@@ -17,6 +18,7 @@ const NotFound = lazy(async () => await import('../page/404/index.tsx'))
 export const privateRouter = [
   { path: '/', element: <Home /> },
   { path: '/almacen', element: <AlmacenPage /> },
+  { path: '/agencia', element: <AgenciaPage /> },
   { path: '/computer', element: <ComputerPage /> },
   { path: '/device/add', element: <CreateDeviceForm /> },
   { path: '/device/edit/:id', element: <CreateDeviceForm /> },
