@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import { DeleteIcon } from '../../ui/icon/DeleIcon'
 import { EditIcon } from '../../ui/icon/EditIcon'
-
 import { type DevicesMappedApiResponse } from '../../../modules/shared/domain/types/responseTypes'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { type CategoryId } from '../../../modules/devices/category/domain/CategoryId'
@@ -36,13 +35,15 @@ export const DeviceTableCardList: React.FC<Props> = ({ item, category }) => {
         <td className='whitespace-nowrap text-ellipsis'>{item.modelName}</td>
         <td>{item.locationName}</td>
         <td>{item.observation}</td>
-        {/* {
-          Computer.isComputerCategory({ categoryId: category }) &&
+        {(Computer.isComputerCategory({ categoryId: category }) && item.computer !== null) &&
              <>
-                <td>{item?.computer?.processor.name}</td>
+                <td>{item?.computer?.processor?.name}</td>
+                <td>{item?.computer?.memoryRamCapacity ? `${item?.computer?.memoryRamCapacity} GB` : 'Sin Memoria'}</td>
+                <td>{item?.computer?.hardDriveCapacity?.value ? `${item?.computer?.hardDriveCapacity?.value} GB` : 'Sin Disco'}</td>
+                <td>{item?.computer?.hardDriveType?.name ?? ''}</td>
               </>
 
-        } */}
+        }
     </>
   )
 }

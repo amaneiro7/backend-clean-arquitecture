@@ -60,7 +60,8 @@ export default function AlmacenPage () {
   }
 
   const defaultHeaderTitle = ['Categoria', 'Serial', 'Activo', 'Status', 'Marca', 'Modelo', 'Ubicación', 'Observaciones']
-  const headerTitleComputer = ['Nombre', 'Procesador', 'Memoria Ram', 'Disco Duro', 'Tipo', 'Sistema Operativo', 'Arquitectura', 'Diracción MAC', 'Dirección IP']
+  // const headerTitleComputer = ['Nombre', 'Procesador', 'Memoria Ram', 'Disco Duro', 'Tipo', 'Sistema Operativo', 'Arquitectura', 'Diracción MAC', 'Dirección IP']
+  const headerTitleComputer = ['Procesador', 'Memoria Ram', 'Disco Duro', 'Tipo']
   let headerTitle: string[]
   if (Computer.isComputerCategory({ categoryId: inputData.categoryId })) {
     headerTitle = defaultHeaderTitle.concat(headerTitleComputer)
