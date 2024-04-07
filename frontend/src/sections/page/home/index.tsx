@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useCallback } from 'react'
+import { Suspense, lazy, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAppContext } from '../../Context/AppContext'
 import { useInputsData } from './useInputData'
@@ -7,14 +7,16 @@ import { Computer } from '../../../modules/devices/fetures/computer/domain/Compu
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
 import debounce from 'just-debounce-it'
 import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
+import Table from '../../components/TableComponent/Table'
+import TableHeader from '../../components/TableComponent/TableHeader'
+import TableBody from '../../components/TableComponent/TableBody'
+import TableRow from '../../components/TableComponent/TableRow'
+import TableHead from '../../components/TableComponent/TableHead'
+import TableCell from '../../components/TableComponent/TableCell'
 
-const TableHeader = lazy(async () => await import('../../components/TableHeader'))
-const DeviceTableCard = lazy(async () => await import('../../Device/device/DeviceTableCard'))
-const TableStructure = lazy(async () => await import('../../components/Table'))
 const Button = lazy(async () => await import('../../ui/button'))
 const TabsComponent = lazy(async () => await import('../../ui/tabs'))
 const BrandSelect = lazy(async () => await import('../../Device/brand/BrandSelect'))
-const CategorySelect = lazy(async () => await import('../../Device/category/CategorySelect'))
 const SerialInput = lazy(async () => await import('../../Device/device/SerialInput'))
 const ActivoInput = lazy(async () => await import('../../Device/device/ActivoInput'))
 const ModelSelect = lazy(async () => await import('../../Device/model/ModelSelect'))
@@ -135,10 +137,29 @@ function Home () {
         </Suspense>
       </header>
       <Suspense>
-        <TableStructure>
-          <TableHeader headerTitle={headerTitle}/>
-          <DeviceTableCard category={inputData.categoryId} device={devices as unknown as DevicesMappedApiResponse[]}/>
-        </TableStructure>
+        <Table className=''>
+          <TableHeader>
+            <TableRow>
+              {headerTitle.map((title, index) => (
+                <TableHead key={`head-${index}`} name={title} />
+              ))}
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {(devices as unknown as DevicesMappedApiResponse[]).map((device) => (
+              <TableRow key={device.id}>
+                <TableCell value={device.categoryName}/>
+                <TableCell value={device.serial}/>
+                <TableCell value={device.activo}/>
+                <TableCell value={device.statusName}/>
+                <TableCell value={device.brandName}/>
+                <TableCell value={device.modelName}/>
+                <TableCell value={device.locationName}/>
+                <TableCell value={device.observation}/>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
       </Suspense>
     </main>
   )

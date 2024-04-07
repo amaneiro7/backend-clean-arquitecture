@@ -6,7 +6,7 @@ import Loading from '../components/Loading/index.tsx'
 
 const Home = lazy(async () => await import('../page/home/index.tsx'))
 const AlmacenPage = lazy(async () => await import('../page/Almacen/index.tsx'))
-const AgenciaPage = lazy(async () => await import('../page/Agencia/index.tsx'))
+const AgenciaPage = lazy(async () => await import('../page/AgenciaPerDevice/index.tsx'))
 const ComputerPage = lazy(async () => await import('../Device/features/computer/ComputerTablePage.tsx'))
 const CreateDeviceForm = lazy(async () => await import('../Device/device/CreateDeviceForm.tsx'))
 const CreateBrandForm = lazy(async () => await import('../Device/brand/CreateBrandForm.tsx'))

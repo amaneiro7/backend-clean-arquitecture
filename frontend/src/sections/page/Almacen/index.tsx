@@ -7,6 +7,7 @@ import { Computer } from '../../../modules/devices/fetures/computer/domain/Compu
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
 import debounce from 'just-debounce-it'
 import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
+import { HardDrive } from '../../../modules/devices/fetures/hardDrive/hardDrive/domain/HardDrive'
 
 const TableHeader = lazy(async () => await import('../../components/TableHeader'))
 const DeviceTableCard = lazy(async () => await import('../../Device/device/DeviceTableCard'))
@@ -60,11 +61,13 @@ export default function AlmacenPage () {
   }
 
   const defaultHeaderTitle = ['Categoria', 'Serial', 'Activo', 'Status', 'Marca', 'Modelo', 'Ubicación', 'Observaciones']
-  // const headerTitleComputer = ['Nombre', 'Procesador', 'Memoria Ram', 'Disco Duro', 'Tipo', 'Sistema Operativo', 'Arquitectura', 'Diracción MAC', 'Dirección IP']
-  const headerTitleComputer = ['Procesador', 'Memoria Ram', 'Disco Duro', 'Tipo']
   let headerTitle: string[]
   if (Computer.isComputerCategory({ categoryId: inputData.categoryId })) {
+    const headerTitleComputer = ['Procesador', 'Memoria Ram', 'Disco Duro', 'Tipo']
     headerTitle = defaultHeaderTitle.concat(headerTitleComputer)
+  } else if (HardDrive.isHardDriveCategory({ categoryId: inputData.categoryId })) {
+    const headerTitleHardDrive = ['Capacidad', 'Tipo', 'Estado de salud']
+    headerTitle = defaultHeaderTitle.concat(headerTitleHardDrive)
   } else {
     headerTitle = defaultHeaderTitle
   }

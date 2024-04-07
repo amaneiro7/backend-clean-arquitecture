@@ -1,12 +1,10 @@
 import type TableHead from './TableHead'
 import type TableRow from './TableRow'
 
-function TableHeader ({ children }: { children: React.ReactElement<typeof TableRow<typeof TableHead>> }) {
+export default function TableHeader ({ children }: { children: React.ReactElement<typeof TableRow<typeof TableHead>> }) {
   return (
-    <thead>
+    <thead className='bg-slate-200 sticky z-50'>
       {children}
     </thead>
   )
 }
-
-export default TableHeader

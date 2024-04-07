@@ -1,4 +1,6 @@
+import { type Primitives } from '../../../../../shared/domain/value-object/Primitives'
 import { CategoryDefaultData, type CategoryValues } from '../../../../category/domain/CategoryDefaultData'
+import { type CategoryId } from '../../../../category/domain/CategoryId'
 import { Device } from '../../../../devices/devices/domain/Device'
 import { DeviceActivo } from '../../../../devices/devices/domain/DeviceActivo'
 import { DeviceSerial } from '../../../../devices/devices/domain/DeviceSerial'
@@ -31,7 +33,7 @@ export class HardDrive extends Device {
     super(serial, activo, statusId, modelId)
   }
 
-  static isHardDriveCategory ({ categoryId }: { categoryId: number }): boolean {
+  static isHardDriveCategory ({ categoryId }: { categoryId: Primitives<CategoryId> }): boolean {
     const AcceptedHardDriveCategories: CategoryValues[] = ['Discos Duros']
     return AcceptedHardDriveCategories.includes(CategoryDefaultData[categoryId])
   }

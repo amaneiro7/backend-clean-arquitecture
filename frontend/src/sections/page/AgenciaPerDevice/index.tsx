@@ -7,13 +7,18 @@ import { Computer } from '../../../modules/devices/fetures/computer/domain/Compu
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
 import debounce from 'just-debounce-it'
 import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
+import { HardDrive } from '../../../modules/devices/fetures/hardDrive/hardDrive/domain/HardDrive'
+import { PageTitle } from '../../components/PageTitle'
+import Table from '../../components/TableComponent/Table'
+import { TableRow } from '@mui/material'
+import TableBody from '../../components/TableComponent/TableBody'
+import TableHead from '../../components/TableComponent/TableHead'
+import TableCell from '../../components/TableComponent/TableCell'
+import TableHeader from '../../components/TableComponent/TableHeader'
 
-const TableHeader = lazy(async () => await import('../../components/TableHeader'))
-const DeviceTableCard = lazy(async () => await import('../../Device/device/DeviceTableCard'))
-const TableStructure = lazy(async () => await import('../../components/Table'))
 const Button = lazy(async () => await import('../../ui/button'))
-const TabsComponent = lazy(async () => await import('../../ui/tabs'))
 const BrandSelect = lazy(async () => await import('../../Device/brand/BrandSelect'))
+const CategorySelect = lazy(async () => await import('../../Device/category/CategorySelect'))
 const SerialInput = lazy(async () => await import('../../Device/device/SerialInput'))
 const ActivoInput = lazy(async () => await import('../../Device/device/ActivoInput'))
 const ModelSelect = lazy(async () => await import('../../Device/model/ModelSelect'))
@@ -59,21 +64,22 @@ export default function AgenciaPage () {
     })
   }
 
-  const defaultHeaderTitle = ['Categoria', 'Serial', 'Activo', 'Status', 'Marca', 'Modelo', 'Ubicación', 'Observaciones']
+  const defaultHeaderTitle = ['Usuario', 'Ubicación', 'Categoria', 'Serial', 'Activo', 'Status', 'Marca', 'Modelo', 'Observaciones']
   // const headerTitleComputer = ['Nombre', 'Procesador', 'Memoria Ram', 'Disco Duro', 'Tipo', 'Sistema Operativo', 'Arquitectura', 'Diracción MAC', 'Dirección IP']
-  const headerTitleComputer = ['Procesador', 'Memoria Ram', 'Disco Duro', 'Tipo']
   let headerTitle: string[]
   if (Computer.isComputerCategory({ categoryId: inputData.categoryId })) {
+    const headerTitleComputer = ['Procesador', 'Memoria Ram', 'Disco Duro', 'Tipo']
     headerTitle = defaultHeaderTitle.concat(headerTitleComputer)
+  } else if (HardDrive.isHardDriveCategory({ categoryId: inputData.categoryId })) {
+    const headerTitleHardDrive = ['Capacidad', 'Tipo', 'Estado de salud']
+    headerTitle = defaultHeaderTitle.concat(headerTitleHardDrive)
   } else {
     headerTitle = defaultHeaderTitle
   }
 
   return (
     <main className='max-w-full h-full flex flex-col gap-5 p-5'>
-      <div>
-        <h1 className='text-lg text-primary font-bold'>Equipos de Agencia</h1>
-      </div>
+      <PageTitle title='Equipos de Agencia' />
       <Suspense>
         <Button
           type='button'
@@ -82,13 +88,13 @@ export default function AgenciaPage () {
           handle={() => { navigate('/device/add') }}
         />
       </Suspense>
+      <header className="grid grid-cols-[repeat(auto-fit,_250px)] gap-5 place-content-center">
         <Suspense>
-          <TabsComponent
-            value={inputData.categoryId}
+          <CategorySelect
+            value={inputData.brandId}
             onChange={handleChange}
           />
         </Suspense>
-      <header className="grid grid-cols-[repeat(auto-fit,_250px)] gap-5 place-content-center">
         <Suspense>
           <BrandSelect
             value={inputData.brandId}
@@ -143,10 +149,28 @@ export default function AgenciaPage () {
         </Suspense>
       </header>
       <Suspense>
-        <TableStructure>
-          <TableHeader headerTitle={headerTitle}/>
-          <DeviceTableCard category={inputData.categoryId} device={devices as unknown as DevicesMappedApiResponse[]}/>
-        </TableStructure>
+        <Table className=''>
+          <TableHeader>
+            <TableRow>
+              {headerTitle.map((title, index) => (
+                <TableHead key={index} name={title} />
+              ))}
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+              {(devices as unknown as DevicesMappedApiResponse[]).map((device) => (
+                <TableRow key={device?.id}>
+                  <TableCell value={device.employeeName}/>
+                  <TableCell value={device.locationName}/>
+                  <TableCell value={device.categoryName}/>
+                  <TableCell value={device.serial}/>
+                  <TableCell value={device.activo}/>
+                  <TableCell value={device.brandName}/>
+                  <TableCell value={device.modelName}/>
+                </TableRow>
+              ))}
+          </TableBody>
+        </Table>
       </Suspense>
     </main>
   )
