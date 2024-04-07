@@ -1,9 +1,10 @@
+import { type Primitives } from '../../../../../shared/domain/value-object/Primitives'
 import { type HardDriveTypeId } from './HardDriveTypeId'
 import { type HardDriveTypeName } from './HardDriveTypeName'
 
 export interface HardDriveTypePrimitives {
-  id: number
-  name: string
+  id: Primitives<HardDriveTypeId>
+  name: Primitives<HardDriveTypeName>
 }
 
 export class HardDriveType {
@@ -12,11 +13,11 @@ export class HardDriveType {
     private readonly name: HardDriveTypeName
   ) {}
 
-  idValue (): number {
+  idValue (): Primitives<HardDriveTypeId> {
     return this.id.value
   }
 
-  nameValue (): string {
+  nameValue (): Primitives<HardDriveTypeName> {
     return this.name.value
   }
 

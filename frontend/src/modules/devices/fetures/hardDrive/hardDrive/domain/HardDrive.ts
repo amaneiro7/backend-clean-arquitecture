@@ -1,8 +1,12 @@
+import { LocationId } from '../../../../../location/locations/domain/locationId'
 import { type Primitives } from '../../../../../shared/domain/value-object/Primitives'
+import { BrandId } from '../../../../brand/domain/BrandId'
 import { CategoryDefaultData, type CategoryValues } from '../../../../category/domain/CategoryDefaultData'
-import { type CategoryId } from '../../../../category/domain/CategoryId'
-import { Device } from '../../../../devices/devices/domain/Device'
+import { CategoryId } from '../../../../category/domain/CategoryId'
+import { Device, type DevicePrimitives } from '../../../../devices/devices/domain/Device'
 import { DeviceActivo } from '../../../../devices/devices/domain/DeviceActivo'
+import { DeviceEmployee } from '../../../../devices/devices/domain/DeviceEmployee'
+import { DeviceObservation } from '../../../../devices/devices/domain/DeviceObservation'
 import { DeviceSerial } from '../../../../devices/devices/domain/DeviceSerial'
 import { StatusId } from '../../../../devices/status/domain/StatusId'
 import { ModelId } from '../../../../model/domain/ModelId'
@@ -10,14 +14,10 @@ import { HardDriveCapacityId } from '../../hardDriveCapacity/domain/HardDriveCap
 import { HardDriveTypeId } from '../../hardDriveType/domain/HardDriveTypeId'
 import { HardDriveHealth } from './HardDriveHealth'
 
-export interface HardDrivePrimitives {
-  serial: string
-  activo: string | null
-  statusId: number
-  modelId: string
-  health: number
-  hardDriveCapacityId: number
-  hardDriveTypeId: number
+export interface HardDrivePrimitives extends DevicePrimitives {
+  health: Primitives<HardDriveHealth>
+  hardDriveCapacityId: Primitives<HardDriveCapacityId>
+  hardDriveTypeId: Primitives<HardDriveTypeId>
 }
 
 export class HardDrive extends Device {
@@ -26,11 +26,16 @@ export class HardDrive extends Device {
     activo: DeviceActivo,
     statusId: StatusId,
     modelId: ModelId,
+    categoryId: CategoryId,
+    brandId: BrandId,
+    employeeId: DeviceEmployee,
+    locationId: LocationId,
+    observation: DeviceObservation,
     private readonly health: HardDriveHealth,
     private readonly hardDriveCapacityId: HardDriveCapacityId,
     private readonly hardDriveTypeId: HardDriveTypeId
   ) {
-    super(serial, activo, statusId, modelId)
+    super(serial, activo, statusId, categoryId, brandId, modelId, employeeId, locationId, observation)
   }
 
   static isHardDriveCategory ({ categoryId }: { categoryId: Primitives<CategoryId> }): boolean {
@@ -38,27 +43,32 @@ export class HardDrive extends Device {
     return AcceptedHardDriveCategories.includes(CategoryDefaultData[categoryId])
   }
 
-  public static create ({ serial, activo, statusId, modelId, health, hardDriveCapacityId, hardDriveTypeId }: HardDrivePrimitives) {
+  public static create (params: HardDrivePrimitives) {
     return new HardDrive(
-      new DeviceSerial(serial),
-      new DeviceActivo(activo),
-      new StatusId(statusId),
-      new ModelId(modelId),
-      new HardDriveHealth(health),
-      new HardDriveCapacityId(hardDriveCapacityId),
-      new HardDriveTypeId(hardDriveTypeId)
+      new DeviceSerial(params.serial),
+      new DeviceActivo(params.activo),
+      new StatusId(params.statusId),
+      new ModelId(params.modelId),
+      new CategoryId(params.categoryId),
+      new BrandId(params.brandId),
+      new DeviceEmployee(params.employeeId),
+      new LocationId(params.locationId),
+      new DeviceObservation(params.observation),
+      new HardDriveHealth(params.health),
+      new HardDriveCapacityId(params.hardDriveCapacityId),
+      new HardDriveTypeId(params.hardDriveTypeId)
     )
   }
 
-  healthValue (): number {
+  healthValue (): Primitives<HardDriveHealth> {
     return this.health.value
   }
 
-  hardDriveCapacityIdValue (): number {
+  hardDriveCapacityValue (): Primitives<HardDriveCapacityId> {
     return this.hardDriveCapacityId.value
   }
 
-  hardDriveTypeIdValue (): number {
+  hardDriveTypeValue (): Primitives<HardDriveTypeId> {
     return this.hardDriveTypeId.value
   }
 
@@ -66,11 +76,16 @@ export class HardDrive extends Device {
     return {
       serial: this.serialValue(),
       activo: this.activoValue(),
-      statusId: this.statusIdValue(),
-      modelId: this.modelIdValue(),
+      statusId: this.statusValue(),
+      modelId: this.modelValue(),
+      categoryId: this.categoryValue(),
+      brandId: this.brandValue(),
+      employeeId: this.employeeValue(),
+      locationId: this.locationValue(),
+      observation: this.observationValue(),
       health: this.healthValue(),
-      hardDriveCapacityId: this.hardDriveCapacityIdValue(),
-      hardDriveTypeId: this.hardDriveTypeIdValue()
+      hardDriveCapacityId: this.hardDriveCapacityValue(),
+      hardDriveTypeId: this.hardDriveTypeValue()
     }
   }
 }

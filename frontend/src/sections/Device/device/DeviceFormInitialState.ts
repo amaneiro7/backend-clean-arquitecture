@@ -2,24 +2,39 @@ import { useEffect, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useAppContext } from '../../Context/AppContext'
 import { type DevicesMappedApiResponse } from '../../../modules/shared/domain/types/responseTypes'
-import { useDevice } from './useDevice'
+import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
+import { type DeviceSerial } from '../../../modules/devices/devices/devices/domain/DeviceSerial'
+import { type DeviceActivo } from '../../../modules/devices/devices/devices/domain/DeviceActivo'
+import { type StatusId } from '../../../modules/devices/devices/status/domain/StatusId'
+import { type ModelId } from '../../../modules/devices/model/domain/ModelId'
+import { type CategoryId } from '../../../modules/devices/category/domain/CategoryId'
+import { type BrandId } from '../../../modules/devices/brand/domain/BrandId'
+import { type ProcessorId } from '../../../modules/devices/fetures/processor/domain/ProcessorId'
+import { type MemoryRamCapacity } from '../../../modules/devices/fetures/memoryRam/memoryRamCapacity/MemoryRamCapacity'
+import { type HardDriveCapacityId } from '../../../modules/devices/fetures/hardDrive/hardDriveCapacity/domain/HardDriveCapacityId'
+import { type HardDriveTypeId } from '../../../modules/devices/fetures/hardDrive/hardDriveType/domain/HardDriveTypeId'
+import { type OperatingSystemArqId } from '../../../modules/devices/fetures/operatingSystem/operatingSystemArq/domain/OperatingSystemArqId'
+import { type OperatingSystemId } from '../../../modules/devices/fetures/operatingSystem/operatingSystem/domain/OperatingSystemId'
+import { type MACAddress } from '../../../modules/devices/fetures/computer/domain/MACAddress'
+import { type IPAddress } from '../../../modules/devices/fetures/computer/domain/IPAddress'
+import { type HardDriveHealth } from '../../../modules/devices/fetures/hardDrive/hardDrive/domain/HardDriveHealth'
 
 interface defaultProps {
-  serial: string
-  activo: string
-  statusId: number | ''
-  modelId: string
-  categoryId: number | ''
-  brandId: string
-  processorId?: string
-  memoryRamCapacity?: number
-  hardDriveCapacityId?: number | ''
-  hardDriveTypeId?: number | ''
-  operatingSystemArqId?: number | ''
-  OperatingSystemVersionId?: number | ''
-  macAddress?: string
-  ipAddress?: string
-  health?: number
+  serial: Primitives<DeviceSerial>
+  activo: Primitives<DeviceActivo>
+  statusId: Primitives<StatusId>
+  modelId: Primitives<ModelId>
+  categoryId: Primitives<CategoryId>
+  brandId: Primitives<BrandId>
+  processorId?: Primitives<ProcessorId>
+  memoryRamCapacity?: Primitives<MemoryRamCapacity>
+  hardDriveCapacityId?: Primitives<HardDriveCapacityId>
+  hardDriveTypeId?: Primitives<HardDriveTypeId>
+  operatingSystemArqId?: Primitives<OperatingSystemArqId>
+  OperatingSystemVersionId?: Primitives<OperatingSystemId>
+  macAddress?: Primitives<MACAddress>
+  ipAddress?: Primitives<IPAddress>
+  health?: Primitives<HardDriveHealth>
 }
 
 const defaultInitialState: defaultProps = {
@@ -43,8 +58,7 @@ export const useDeviceInitialState = () => {
   const { id } = useParams()
   const location = useLocation()
   const navigate = useNavigate()
-  const { repository } = useAppContext()
-  const { getDevice } = useDevice(repository)
+  const { device: { getDevice } } = useAppContext()
   const [preloadedDeviceState, setPreloadedDeviceState] = useState(defaultInitialState)
 
   useEffect(() => {

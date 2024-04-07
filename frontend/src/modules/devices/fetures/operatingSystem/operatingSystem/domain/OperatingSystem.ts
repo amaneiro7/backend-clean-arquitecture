@@ -1,9 +1,10 @@
+import { type Primitives } from '../../../../../shared/domain/value-object/Primitives'
 import { type OperatingSystemId } from './OperatingSystemId'
 import { type OperatingSystemName } from './OperatingSystemName'
 
 export interface OperatingSystemPrimitives {
-  id: number
-  name: string
+  id: Primitives<OperatingSystemId>
+  name: Primitives<OperatingSystemName>
 }
 
 export class OperatingSystem {
@@ -12,11 +13,11 @@ export class OperatingSystem {
     private readonly name: OperatingSystemName
   ) {}
 
-  idValue (): number {
+  idValue (): Primitives<OperatingSystemId> {
     return this.id.value
   }
 
-  nameValue (): string {
+  nameValue (): Primitives<OperatingSystemName> {
     return this.name.value
   }
 

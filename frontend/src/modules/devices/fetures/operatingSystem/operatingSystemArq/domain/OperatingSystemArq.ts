@@ -1,9 +1,10 @@
+import { type Primitives } from '../../../../../shared/domain/value-object/Primitives'
 import { type OperatingSystemArqId } from './OperatingSystemArqId'
 import { type OperatingSystemArqName } from './OperatingSystemArqName'
 
 export interface OperatingSystemArqPrimitives {
-  id: number
-  name: string
+  id: Primitives<OperatingSystemArqId>
+  name: Primitives<OperatingSystemArqName>
 }
 
 export class OperatingSystemArq {
@@ -12,11 +13,11 @@ export class OperatingSystemArq {
     private readonly name: OperatingSystemArqName
   ) {}
 
-  idValue (): number {
+  idValue (): Primitives<OperatingSystemArqId> {
     return this.id.value
   }
 
-  nameValue (): string {
+  nameValue (): Primitives<OperatingSystemArqName> {
     return this.name.value
   }
 

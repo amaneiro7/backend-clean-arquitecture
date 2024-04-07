@@ -1,8 +1,12 @@
+import { LocationId } from '../../../../location/locations/domain/locationId'
 import { type Primitives } from '../../../../shared/domain/value-object/Primitives'
+import { BrandId } from '../../../brand/domain/BrandId'
 import { CategoryDefaultData, type CategoryValues } from '../../../category/domain/CategoryDefaultData'
-import { type CategoryId } from '../../../category/domain/CategoryId'
-import { Device } from '../../../devices/devices/domain/Device'
+import { CategoryId } from '../../../category/domain/CategoryId'
+import { Device, type DevicePrimitives } from '../../../devices/devices/domain/Device'
 import { DeviceActivo } from '../../../devices/devices/domain/DeviceActivo'
+import { DeviceEmployee } from '../../../devices/devices/domain/DeviceEmployee'
+import { DeviceObservation } from '../../../devices/devices/domain/DeviceObservation'
 import { DeviceSerial } from '../../../devices/devices/domain/DeviceSerial'
 import { StatusId } from '../../../devices/status/domain/StatusId'
 import { ModelId } from '../../../model/domain/ModelId'
@@ -15,11 +19,7 @@ import { ProcessorId } from '../../processor/domain/ProcessorId'
 import { IPAddress } from './IPAddress'
 import { MACAddress } from './MACAddress'
 
-export interface ComputerPrimitives {
-  serial: Primitives<DeviceSerial>
-  activo: Primitives<DeviceActivo>
-  statusId: Primitives<StatusId>
-  modelId: Primitives<ModelId>
+export interface ComputerPrimitives extends DevicePrimitives {
   processorId: Primitives<ProcessorId> | null
   memoryRamCapacity: Primitives<MemoryRamCapacity>
   hardDriveCapacityId: Primitives<HardDriveCapacityId> | null
@@ -36,6 +36,11 @@ export class Computer extends Device {
     activo: DeviceActivo,
     statusId: StatusId,
     modelId: ModelId,
+    categoryId: CategoryId,
+    brandId: BrandId,
+    employeeId: DeviceEmployee,
+    locationId: LocationId,
+    observation: DeviceObservation,
     private readonly processorId: ProcessorId | null,
     private readonly memoryRamCapacity: MemoryRamCapacity,
     private readonly hardDriveCapacityId: HardDriveCapacityId | null,
@@ -45,7 +50,7 @@ export class Computer extends Device {
     private readonly macAddress: MACAddress | null,
     private readonly ipAddress: IPAddress | null
   ) {
-    super(serial, activo, statusId, modelId)
+    super(serial, activo, statusId, categoryId, brandId, modelId, employeeId, locationId, observation)
   }
 
   static isComputerCategory ({ categoryId }: { categoryId: Primitives<CategoryId> }): boolean {
@@ -53,41 +58,33 @@ export class Computer extends Device {
     return AcceptedComputerCategories.includes(CategoryDefaultData[categoryId])
   }
 
-  public static create ({
-    activo,
-    serial,
-    statusId,
-    modelId,
-    processorId,
-    memoryRamCapacity,
-    hardDriveCapacityId,
-    hardDriveTypeId,
-    operatingSystemId,
-    operatingSystemArqId,
-    macAddress,
-    ipAddress
-  }: ComputerPrimitives) {
-    if (hardDriveCapacityId == null) {
-      hardDriveCapacityId = null
-      operatingSystemId = null
+  public static create (params: ComputerPrimitives) {
+    if (params.hardDriveCapacityId == null) {
+      params.hardDriveCapacityId = null
+      params.operatingSystemId = null
     }
-    if (operatingSystemId == null) {
-      operatingSystemArqId = null
+    if (params.operatingSystemId == null) {
+      params.operatingSystemArqId = null
     }
 
     return new Computer(
-      new DeviceSerial(serial),
-      new DeviceActivo(activo),
-      new StatusId(statusId),
-      new ModelId(modelId),
-      processorId != null ? new ProcessorId(processorId) : null,
-      new MemoryRamCapacity(memoryRamCapacity),
-      hardDriveCapacityId != null ? new HardDriveCapacityId(hardDriveCapacityId) : null,
-      hardDriveTypeId != null ? new HardDriveTypeId(hardDriveTypeId) : null,
-      operatingSystemId != null ? new OperatingSystemId(operatingSystemId) : null,
-      operatingSystemArqId != null ? new OperatingSystemArqId(operatingSystemArqId) : null,
-      new MACAddress(macAddress),
-      new IPAddress(ipAddress)
+      new DeviceSerial(params.serial),
+      new DeviceActivo(params.activo),
+      new StatusId(params.statusId),
+      new ModelId(params.modelId),
+      new CategoryId(params.categoryId),
+      new BrandId(params.brandId),
+      new DeviceEmployee(params.employeeId),
+      new LocationId(params.locationId),
+      new DeviceObservation(params.observation),
+      params.processorId != null ? new ProcessorId(params.processorId) : null,
+      new MemoryRamCapacity(params.memoryRamCapacity),
+      params.hardDriveCapacityId != null ? new HardDriveCapacityId(params.hardDriveCapacityId) : null,
+      params.hardDriveTypeId != null ? new HardDriveTypeId(params.hardDriveTypeId) : null,
+      params.operatingSystemId != null ? new OperatingSystemId(params.operatingSystemId) : null,
+      params.operatingSystemArqId != null ? new OperatingSystemArqId(params.operatingSystemArqId) : null,
+      new MACAddress(params.macAddress),
+      new IPAddress(params.ipAddress)
     )
   }
 
@@ -95,8 +92,13 @@ export class Computer extends Device {
     return {
       serial: this.serialValue(),
       activo: this.activoValue(),
-      statusId: this.statusIdValue(),
-      modelId: this.modelIdValue(),
+      statusId: this.statusValue(),
+      modelId: this.modelValue(),
+      categoryId: this.categoryValue(),
+      brandId: this.brandValue(),
+      employeeId: this.employeeValue(),
+      locationId: this.locationValue(),
+      observation: this.observationValue(),
       memoryRamCapacity: this.memoryRamCapacity.value,
       processorId: this.processorId?.value ?? null,
       hardDriveCapacityId: this.hardDriveCapacityId?.value ?? null,

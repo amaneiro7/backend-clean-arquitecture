@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useAppContext } from '../../Context/AppContext'
-import { useDevice } from './useDevice'
 import { type DeviceProps } from '../../../modules/devices/devices/devices/application/DeviceCreator'
 import { toastMessage } from '../../utils/toaster'
 
@@ -17,8 +16,7 @@ export function useDeviceForm (): {
   resetFormStatus: () => void
 } {
   const [formStatus, setFormStatus] = useState(FormStatus.Initial)
-  const { repository } = useAppContext()
-  const { createDevice } = useDevice(repository)
+  const { device: { createDevice } } = useAppContext()
 
   async function submitForm (formData: DeviceProps) {
     setFormStatus(FormStatus.Loading)

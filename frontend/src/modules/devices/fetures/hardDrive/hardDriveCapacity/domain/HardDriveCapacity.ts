@@ -1,9 +1,10 @@
+import { type Primitives } from '../../../../../shared/domain/value-object/Primitives'
 import { type HardDriveCapacityId } from './HardDriveCapacityId'
 import { type HardDriveCapacityValues } from './HardDriveCapacityName'
 
 export interface HardDriveCapacityPrimitives {
-  id: number
-  name: number
+  id: Primitives<HardDriveCapacityId>
+  name: Primitives<HardDriveCapacityValues>
 }
 
 export class HardDriveCapacity {
@@ -12,11 +13,11 @@ export class HardDriveCapacity {
     private readonly name: HardDriveCapacityValues
   ) {}
 
-  idValue (): number {
+  idValue (): Primitives<HardDriveCapacityId> {
     return this.id.value
   }
 
-  nameValue (): number {
+  nameValue (): Primitives<HardDriveCapacityValues> {
     return this.name.value
   }
 

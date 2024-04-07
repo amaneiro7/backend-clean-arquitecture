@@ -1,3 +1,3 @@
-import { NumberValueObject } from '../../../../../shared/domain/value-object/NumberValueObject'
+import { StringValueObject } from '../../../../../shared/domain/value-object/StringValueObject'
 
-export class HardDriveTypeId extends NumberValueObject {}
+export class HardDriveTypeId extends StringValueObject {}
