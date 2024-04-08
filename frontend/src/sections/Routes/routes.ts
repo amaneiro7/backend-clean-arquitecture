@@ -16,20 +16,20 @@ export const routes = [
   }
 ]
 
-const dropdownNavs = [
+export const dropdownNavs: DropDown[] = [
   {
-    label: 'Equipos en Uso',
+    label: 'Equipos en uso por dispositivo',
     navs: [
       {
-        title: 'Analytics',
-        desc: 'Duis aute irure dolor in reprehenderit',
-        path: 'javascript:void(0)',
+        title: 'Equipos en Torre',
+        desc: 'Equipos asignados en torre',
+        path: '/equipos/torre',
         icon: 'icon'
       },
       {
-        title: 'Agencia',
+        title: 'Equipos en Agencia',
         desc: 'Equipos asignados en agencia',
-        path: '/agencia',
+        path: '/equipos/agencia',
         icon: 'icon'
       }
     ]
@@ -41,29 +41,22 @@ const dropdownNavs = [
         desc: 'Equipos que se encuentran en el almacen',
         path: '/almacen',
         icon: 'icon'
-      },
-      {
-        title: 'Community',
-        desc: 'Duis aute irure dolor in reprehenderit',
-        path: 'javascript:void(0)',
-        icon: 'icon'
-
       }
     ]
   }, {
-    label: 'Company',
+    label: 'Equipos en uso por usuario',
     navs: [
       {
-        title: 'About us',
-        desc: 'Duis aute irure dolor in reprehenderit',
-        path: 'javascript:void(0)',
+        title: 'Empleados en torre',
+        desc: 'Usuarios asignados en torre',
+        path: '/empleados/torre',
         icon: 'icon'
 
       },
       {
-        title: 'Careers',
-        desc: 'Duis aute irure dolor in reprehenderit',
-        path: 'javascript:void(0)',
+        title: 'Empleados en agencia',
+        desc: 'Usuarios asignados en agencia',
+        path: '/empleados/agencia',
         icon: 'icon'
       }
     ]

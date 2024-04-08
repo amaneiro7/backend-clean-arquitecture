@@ -8,10 +8,17 @@ import { Operator } from '../../../modules/shared/domain/criteria/FilterOperator
 import debounce from 'just-debounce-it'
 import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
 import { HardDrive } from '../../../modules/devices/fetures/hardDrive/hardDrive/domain/HardDrive'
+import Table from '../../components/TableComponent/Table'
+import TableHeader from '../../components/TableComponent/TableHeader'
+import TableBody from '../../components/TableComponent/TableBody'
+import TableRow from '../../components/TableComponent/TableRow'
+import TableHead from '../../components/TableComponent/TableHead'
+import TableCell from '../../components/TableComponent/TableCell'
+import PageTitle from '../../components/PageTitle'
 
-const TableHeader = lazy(async () => await import('../../components/TableHeader'))
-const DeviceTableCard = lazy(async () => await import('../../Device/device/DeviceTableCard'))
-const TableStructure = lazy(async () => await import('../../components/Table'))
+// const TableHeader = lazy(async () => await import('../../components/TableHeader'))
+// const DeviceTableCard = lazy(async () => await import('../../Device/device/DeviceTableCard'))
+// const TableStructure = lazy(async () => await import('../../components/Table'))
 const Button = lazy(async () => await import('../../ui/button'))
 const TabsComponent = lazy(async () => await import('../../ui/tabs'))
 const BrandSelect = lazy(async () => await import('../../Device/brand/BrandSelect'))
@@ -61,11 +68,13 @@ export default function AlmacenPage () {
   }
 
   const defaultHeaderTitle = ['Categoria', 'Serial', 'Activo', 'Status', 'Marca', 'Modelo', 'Ubicación', 'Observaciones']
+  const isComputerFilter = Computer.isComputerCategory({ categoryId: inputData.categoryId })
+  const isHardDriveFilter = HardDrive.isHardDriveCategory({ categoryId: inputData.categoryId })
   let headerTitle: string[]
-  if (Computer.isComputerCategory({ categoryId: inputData.categoryId })) {
+  if (isComputerFilter) {
     const headerTitleComputer = ['Procesador', 'Memoria Ram', 'Disco Duro', 'Tipo']
     headerTitle = defaultHeaderTitle.concat(headerTitleComputer)
-  } else if (HardDrive.isHardDriveCategory({ categoryId: inputData.categoryId })) {
+  } else if (isHardDriveFilter) {
     const headerTitleHardDrive = ['Capacidad', 'Tipo', 'Estado de salud']
     headerTitle = defaultHeaderTitle.concat(headerTitleHardDrive)
   } else {
@@ -74,9 +83,7 @@ export default function AlmacenPage () {
 
   return (
     <main className='max-w-full h-full flex flex-col gap-5 p-5'>
-      <div>
-        <h1 className='text-lg text-primary font-bold'>InventarioAPP</h1>
-      </div>
+      <PageTitle title='Inventario de Equipos en el almacén' />
       <Suspense>
         <Button
           type='button'
@@ -146,10 +153,51 @@ export default function AlmacenPage () {
         </Suspense>
       </header>
       <Suspense>
-        <TableStructure>
+        {/* <TableStructure>
           <TableHeader headerTitle={headerTitle}/>
           <DeviceTableCard category={inputData.categoryId} device={devices as unknown as DevicesMappedApiResponse[]}/>
-        </TableStructure>
+        </TableStructure> */}
+        <Table className=''>
+          <TableHeader>
+            <TableRow>
+              {headerTitle.map((title, index) => (
+                <TableHead key={`heade-${index}`} name={title} />
+              ))}
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+              {(devices as unknown as DevicesMappedApiResponse[]).map((device) => (
+                <TableRow key={device.id}>
+                  <TableCell value={device.categoryName} />
+                  <TableCell value={device.serial} />
+                  <TableCell value={device.activo} />
+                  <TableCell value={device.statusName} />
+                  <TableCell value={device.brandName} />
+                  <TableCell value={device.modelName} />
+                  <TableCell value={device.locationName} />
+                  <TableCell value={device.observation} />
+                  {
+                    isHardDriveFilter &&
+                      <>
+                        <TableCell value={device?.hardDrive?.hardDriveCapacity?.value} />
+                        <TableCell value={device?.hardDrive?.hardDriveType?.name} />
+                        <TableCell value={device?.hardDrive?.health} />
+                      </>
+                  }
+                  {
+                    isComputerFilter &&
+                      <>
+                        <TableCell value={device?.computer?.processor?.name} />
+                        <TableCell value={device?.computer?.memoryRamCapacity} />
+                        <TableCell value={device?.computer?.hardDriveCapacity?.value} />
+                        <TableCell value={device?.computer?.hardDriveType?.name} />
+                      </>
+                  }
+                </TableRow>
+              ))
+              }
+          </TableBody>
+        </Table>
       </Suspense>
     </main>
   )

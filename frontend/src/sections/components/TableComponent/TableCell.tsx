@@ -1,4 +1,4 @@
-function TableCell ({ value }: { value: string }) {
+function TableCell ({ value }: { value: string | number }) {
   return (
     <td
       className="align-middle whitespace-nowrap border-b-2 border-b-gray-300 p-3 pb-2"

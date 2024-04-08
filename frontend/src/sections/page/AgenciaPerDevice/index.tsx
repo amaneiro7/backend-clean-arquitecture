@@ -8,7 +8,7 @@ import { Operator } from '../../../modules/shared/domain/criteria/FilterOperator
 import debounce from 'just-debounce-it'
 import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
 import { HardDrive } from '../../../modules/devices/fetures/hardDrive/hardDrive/domain/HardDrive'
-import { PageTitle } from '../../components/PageTitle'
+import PageTitle from '../../components/PageTitle'
 import Table from '../../components/TableComponent/Table'
 import { TableRow } from '@mui/material'
 import TableBody from '../../components/TableComponent/TableBody'
