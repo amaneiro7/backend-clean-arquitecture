@@ -39,7 +39,7 @@ export default function Header () {
     <>
       <HeaderNav state={state}>
         <Nav>
-          <div className='flex items-center justify-between py-3 md:py-5 md:block'>
+          <div className='flex items-center justify-center py-3 md:py-5 md:block'>
             <Link to={'/'}>
               <Logo/>
             </Link>

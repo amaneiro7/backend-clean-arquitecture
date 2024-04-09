@@ -6,7 +6,7 @@ export default function FeaturesCard ({ icon, title, desc, path }: { icon: strin
         <li className='flex gap-x-4 py-2'>
             <div className='flex-none w-12 h-12 bg-indigo-600 text-white rounded-lg flex items-center justify-center'>{icon}</div>
             <div className='space-y-3'>
-                <h4 className='text-lg text-gray-800 font-semibold'>{title}</h4>
+                <h4 className='text-lg text-secondary font-semibold'>{title}</h4>
                 <Paragraph text={desc}/>
                 <Link
                     className='text-sm text-indigo-600 duration-150 hover:text-indigo-400 font-medium inline-flex items-center gap-x-1'

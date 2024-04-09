@@ -1,24 +1,20 @@
+import Banner from '../../components/Banner/Banner'
 import FeaturesCard from '../../components/FeaturesSection/FeaturesCard'
 import FeaturesContainer from '../../components/FeaturesSection/FeaturesContainer'
 import Section from '../../components/FeaturesSection/Section'
-import SectionTitle from '../../components/FeaturesSection/SectionTitle'
-import PageTitle from '../../components/PageTitle'
 import { dropdownNavs } from '../../Routes/routes'
 
 export default function Home () {
   return (
-    <main className='max-w-full h-full flex flex-col gap-5 p-5'>
-      <PageTitle title='InventarioApp' />
+    <main className='max-w-full h-full flex flex-col gap-5 flex-1'>
+
+      <Banner />
 
       <Section>
-        <SectionTitle
-          title="Simple solutions for complex issues"
-          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec congue, nisl eget molestie varius, enim ex faucibus purus"
-        />
         <div className='grid gap-y-8 gap-x-12 sm:grid-cols-2 lg:grid-cols-3'>
           {dropdownNavs.map((feature, index) => (
-            <div className='' key={`feature-${index}`}>
-              <h2 className='font-medium text-lg py-2'>{feature.label}</h2>
+            <div className='border-2 border-secondary rounded-lg px-8 py-4' key={`feature-${index}`}>
+              <h3 className='w-fit font-semibold text-lg text-secondary py-2'>{feature.label}</h3>
               <FeaturesContainer>
               {
                 feature.navs.map((nav, index) => (
