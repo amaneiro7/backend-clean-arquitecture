@@ -15,21 +15,23 @@ export class CargoModel extends Model<CargoPrimitives> implements CargoPrimitive
 }
 
 export function initCargoModel (sequelize: Sequelize): void {
-  CargoModel.init({
-    id: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      primaryKey: true
+  CargoModel.init(
+    {
+      id: {
+        type: DataTypes.STRING,
+        primaryKey: true,
+        allowNull: false
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
+      }
     },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true
-    }
-  }, {
-    modelName: 'Cargo',
-    underscored: true,
-    timestamps: false,
-    sequelize
-  })
+    {
+      modelName: 'Cargo',
+      timestamps: false,
+      underscored: true,
+      sequelize
+    })
 }

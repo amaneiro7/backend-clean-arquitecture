@@ -15,9 +15,12 @@ import { type EmployeeVicepresidenciaId } from '../../domain/EmployeeVicepreside
 import { type EmployeeGerenciaId } from '../../domain/EmployeeGerenciaId'
 import { type EmployeeCoordinacionId } from '../../domain/EmployeeCoordinacionId'
 import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
+import { type EmployeeUserName } from '../../domain/EmployeeUsername'
+import { CargoModel } from '../../../Cargo/infrastructure/sequelize/CargoSchema'
 
 export class EmployeeModel extends Model<EmployeePrimitives> implements EmployeePrimitives {
   public id!: Primitives<EmployeeId>
+  public userName!: Primitives<EmployeeUserName>
   public name!: Primitives<EmployeeName>
   public lastName!: Primitives<EmployeeLastName>
   public cedula!: Primitives<EmployeeCedula>
@@ -32,7 +35,7 @@ export class EmployeeModel extends Model<EmployeePrimitives> implements Employee
   public coordinacionId!: Primitives<EmployeeCoordinacionId>
 
   public static associate (models: Models): void {
-    this.belongsTo(models.Cargo, { as: 'cargo', foreignKey: 'cargoId' }) // An employee belongs to a cargo
+    this.belongsTo(CargoModel, { as: 'cargo', foreignKey: 'cargoId' }) // An employee belongs to a cargo
     this.belongsTo(models.Location, { as: 'location', foreignKey: 'locationId' }) // An employee belongs to a location
     this.belongsTo(models.VicepresidenciaEjecutiva, { as: 'vicepresidenciaEjecutiva', foreignKey: 'vicepresidenciaEjecutivaId' }) // An employee belongs to a vicepresidencia
     this.belongsTo(models.Vicepresidencia, { as: 'vicepresidencia', foreignKey: 'vicepresidenciaId' }) // An employee belongs to a vicepresidencia
@@ -49,6 +52,11 @@ export function initEmployeeModel (sequelize: Sequelize): void {
         type: DataTypes.UUID,
         primaryKey: true,
         allowNull: false
+      },
+      userName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
       },
       name: {
         type: DataTypes.STRING,
@@ -69,15 +77,16 @@ export function initEmployeeModel (sequelize: Sequelize): void {
       email: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
         validate: {
           isEmail: true
         }
       },
-      cargoId: {
-        type: DataTypes.UUID,
+      extension: {
+        type: DataTypes.STRING,
         allowNull: false
       },
-      extension: {
+      cargoId: {
         type: DataTypes.STRING,
         allowNull: false
       },
@@ -100,13 +109,6 @@ export function initEmployeeModel (sequelize: Sequelize): void {
       coordinacionId: {
         type: DataTypes.UUID,
         allowNull: true
-        // validate: {
-        //   customValidator: (value: Primitives<EmployeeCoordinacionId>) => {
-        //     if (value === null && EmployeeCoordinacionId.positionHigerThanCoordinator.includes(CargoName.AcceptedCargos[(this as EmployeeModel).cargoId])) {
-        //       throw new Error('CoordinacionId can not be null if cargoId is higher than Coordinator')
-        //     }
-        //   }
-        // }
       }
     },
     {

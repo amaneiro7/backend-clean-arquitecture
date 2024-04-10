@@ -9,12 +9,14 @@ import { EmployeeGerenciaId } from './EmployeeGerenciaId'
 import { EmployeeId } from './EmployeeId'
 import { EmployeeLastName } from './EmployeeLastName'
 import { EmployeeName } from './EmployeeName'
+import { EmployeeUserName } from './EmployeeUsername'
 import { EmployeeVicepresidenciaId } from './EmployeeVicepresidenciaId'
 import { Extension } from './Extension'
 import { PhoneNumber } from './PhoneNumber'
 
 export interface EmployeePrimitives {
   id: Primitives<EmployeeId>
+  userName: Primitives<EmployeeUserName>
   name: Primitives<EmployeeName>
   lastName: Primitives<EmployeeLastName>
   cedula: Primitives<EmployeeCedula>
@@ -32,6 +34,7 @@ export interface EmployeePrimitives {
 export class Employee {
   constructor (
     private readonly id: EmployeeId,
+    private userName: EmployeeUserName,
     private name: EmployeeName,
     private lastName: EmployeeLastName,
     private cedula: EmployeeCedula,
@@ -47,36 +50,28 @@ export class Employee {
 
   ) {}
 
-  static create ({
-    name,
-    lastName,
-    cedula,
-    locationId,
-    email,
-    cargoId,
-    extension,
-    phoneNumber,
-    vicepresidenciaEjecutivaId,
-    vicepresidenciaId,
-    gerenciaId,
-    coordinacionId
-  }: Omit<EmployeePrimitives, 'id'>): Employee {
+  static create (params: Omit<EmployeePrimitives, 'id'>): Employee {
     const id = EmployeeId.random().value
     return new Employee(
       new EmployeeId(id),
-      new EmployeeName(name),
-      new EmployeeLastName(lastName),
-      new EmployeeCedula(cedula),
-      new LocationId(locationId),
-      new UserEmail(email),
-      new CargoId(cargoId),
-      new Extension(extension),
-      new PhoneNumber(phoneNumber),
-      new VicepresidenciaEjecutivaId(vicepresidenciaEjecutivaId),
-      new EmployeeVicepresidenciaId(vicepresidenciaId, cargoId),
-      new EmployeeGerenciaId(gerenciaId, cargoId),
-      new EmployeeCoordinacionId(coordinacionId, cargoId)
+      new EmployeeUserName(params.userName),
+      new EmployeeName(params.name),
+      new EmployeeLastName(params.lastName),
+      new EmployeeCedula(params.cedula),
+      new LocationId(params.locationId),
+      new UserEmail(params.email),
+      new CargoId(params.cargoId),
+      new Extension(params.extension),
+      new PhoneNumber(params.phoneNumber),
+      new VicepresidenciaEjecutivaId(params.vicepresidenciaEjecutivaId),
+      new EmployeeVicepresidenciaId(params.vicepresidenciaId, params.cargoId),
+      new EmployeeGerenciaId(params.gerenciaId, params.cargoId),
+      new EmployeeCoordinacionId(params.coordinacionId, params.cargoId)
     )
+  }
+
+  updateUserName (newName: Primitives<EmployeeUserName>): void {
+    this.userName = new EmployeeUserName(newName)
   }
 
   updateName (newName: Primitives<EmployeeName>): void {
@@ -130,6 +125,7 @@ export class Employee {
   static fromPrimitives (primitives: EmployeePrimitives): Employee {
     return new Employee(
       new EmployeeId(primitives.id),
+      new EmployeeUserName(primitives.userName),
       new EmployeeName(primitives.name),
       new EmployeeLastName(primitives.lastName),
       new EmployeeCedula(primitives.cedula),
@@ -148,6 +144,7 @@ export class Employee {
   toPrimitive (): EmployeePrimitives {
     return {
       id: this.idValue,
+      userName: this.userNameValue,
       name: this.nameValue,
       lastName: this.lastNameValue,
       cedula: this.cedulaValue,
@@ -165,6 +162,10 @@ export class Employee {
 
   get idValue (): Primitives<EmployeeId> {
     return this.id.value
+  }
+
+  get userNameValue (): Primitives<EmployeeUserName> {
+    return this.userName.value
   }
 
   get nameValue (): Primitives<EmployeeName> {
