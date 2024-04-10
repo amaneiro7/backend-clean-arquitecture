@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useAppContext } from '../../Context/AppContext'
-import { type DeviceProps } from '../../../modules/devices/devices/devices/application/DeviceCreator'
 import { toastMessage } from '../../utils/toaster'
+import { type DevicePrimitives } from '../../../modules/devices/devices/devices/domain/Device'
 
 export const enum FormStatus {
   Loading,
@@ -12,13 +12,13 @@ export const enum FormStatus {
 
 export function useDeviceForm (): {
   formStatus: FormStatus
-  submitForm: (formData: DeviceProps) => Promise<void>
+  submitForm: (formData: DevicePrimitives) => Promise<void>
   resetFormStatus: () => void
 } {
   const [formStatus, setFormStatus] = useState(FormStatus.Initial)
   const { device: { createDevice } } = useAppContext()
 
-  async function submitForm (formData: DeviceProps) {
+  async function submitForm (formData: DevicePrimitives) {
     setFormStatus(FormStatus.Loading)
     toastMessage({ type: 'loading', message: 'Cargando...' })
 

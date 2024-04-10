@@ -20,7 +20,8 @@ export class SequelizeEmployeeRepository extends CriteriaToSequelizeConverter<Em
       'vicepresidenciaEjecutiva',
       'vicepresidencia',
       'gerencia',
-      'coordinacion'
+      'coordinacion',
+      'devices'
     ]
     return await EmployeeModel.findAll(options)
   }

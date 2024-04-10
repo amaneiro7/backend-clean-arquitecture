@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState, type FC } from 'react'
 import { HardDriveHealth } from '../../../../modules/devices/fetures/hardDrive/hardDrive/domain/HardDriveHealth'
 import NumberInput from '../../../ui/number-field'
+import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
+import { type Primitives } from '../../../../modules/shared/domain/value-object/Primitives'
 
 interface Props {
-  value: number
-  onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  value: Primitives<HardDriveHealth>
+  onChange: OnHandleChange
   isForm?: boolean
   isRequired?: boolean
 }
@@ -35,7 +37,10 @@ const HealthInput: FC<Props> = ({ value, onChange, isForm = false, isRequired })
     <NumberInput
       name='health'
       label='Health'
-      onChange={onChange}
+      onChange={(event) => {
+        const { name, value } = event.target
+        onChange(name, value)
+      }}
       placeholder='--- Ingrese el estado de salud del Disco ---'
       value={value}
       isRequired={isRequired}

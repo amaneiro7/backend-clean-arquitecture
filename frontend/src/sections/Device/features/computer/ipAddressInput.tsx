@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState, type FC } from 'react'
 import FormInput from '../../../ui/text-field'
 import { IPAddress } from '../../../../modules/devices/fetures/computer/domain/IPAddress'
+import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
+import { type Primitives } from '../../../../modules/shared/domain/value-object/Primitives'
 
 interface Props {
-  value: string | null
-  onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  value: Primitives<IPAddress>
+  onChange: OnHandleChange
   isForm?: boolean
   isRequired?: boolean
 }
@@ -39,7 +41,10 @@ const IpAddressInput: FC<Props> = ({ value, onChange, isForm = false, isRequired
         label='Direccion IP'
         placeholder='-- Ingrese la IP del equipo --'
         isRequired={isRequired}
-        handle={onChange}
+        handle={(event) => {
+          const { name, value } = event.target
+          onChange(name, value)
+        }}
         value={value ?? ''}
         isError={isError}
         errorMessage={errorMessage}

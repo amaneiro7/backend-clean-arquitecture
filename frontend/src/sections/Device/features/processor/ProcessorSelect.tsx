@@ -1,16 +1,18 @@
-import { type ChangeEvent, type FC, Suspense, lazy } from 'react'
+import { type FC, Suspense, lazy } from 'react'
 import { Link } from 'react-router-dom'
 import { useAppContext } from '../../../Context/AppContext'
 import { useProcessor } from './useProcessor'
 import { AddIcon } from '../../../ui/icon/AddIcon'
 import { EditIcon } from '../../../ui/icon/EditIcon'
 import { type ProcessorApiresponse } from '../../../../modules/shared/domain/types/responseTypes'
+import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
+import { Operator } from '../../../../modules/shared/domain/criteria/FilterOperators'
 
 const Select = lazy(async () => await import('../../../ui/select'))
 
 interface Props {
   value: string | null
-  onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  onChange: OnHandleChange
   isForm?: boolean
   isRequired?: boolean
 }
@@ -30,13 +32,16 @@ const ProcessorSelect: FC<Props> = ({ value = '', onChange, isForm = true, isReq
             <Select
                  label='Procesador'
                  name='processorId'
-                 onChange={onChange}
+                 onChange={(event) => {
+                   const { name, value } = event.target
+                   onChange(name, value, Operator.EQUAL)
+                 }}
                  options={processors as ProcessorApiresponse[]}
                  placeholder='-- Filtre por Procesador --'
                  isRequired={isRequired}
                  isHidden={false}
                  isDisabled={false}
-                 value={value === '' || value === null || value === undefined ? '' : value}
+                 value={value}
             />
             {isForm && <Link
               className='absolute -right-11'

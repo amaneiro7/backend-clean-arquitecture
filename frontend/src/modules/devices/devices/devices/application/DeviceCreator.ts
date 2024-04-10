@@ -4,50 +4,23 @@ import { HardDrive, type HardDrivePrimitives } from '../../../fetures/hardDrive/
 import { Device, type DevicePrimitives } from '../domain/Device'
 import { DeviceId } from '../domain/DeviceId'
 
-export interface DeviceProps extends DevicePrimitives {
-  categoryId: number
-}
 export class DeviceCreator {
   constructor (private readonly repository: Repository) {}
 
-  async create ({ id, serial, activo, statusId, modelId, categoryId, ...otherParams }: DeviceProps): Promise<void> {
-    let device
-    if (Computer.isComputerCategory({ categoryId })) {
-      const { processorId, memoryRamCapacity, hardDriveTypeId, hardDriveCapacityId, operatingSystemArqId, operatingSystemId, ipAddress, macAddress } = otherParams as ComputerPrimitives
-
-      device = Computer.create({
-        serial,
-        activo,
-        statusId,
-        modelId,
-        processorId,
-        memoryRamCapacity,
-        hardDriveTypeId,
-        hardDriveCapacityId,
-        operatingSystemArqId,
-        operatingSystemId,
-        ipAddress,
-        macAddress
-      })
-    } else if (HardDrive.isHardDriveCategory({ categoryId })) {
-      const { hardDriveCapacityId, hardDriveTypeId, health } = otherParams as HardDrivePrimitives
-      device = HardDrive.create({
-        serial,
-        activo,
-        statusId,
-        modelId,
-        hardDriveCapacityId,
-        hardDriveTypeId,
-        health
-      })
+  async create (params: DevicePrimitives): Promise<void> {
+    let device: Device | Computer | HardDrive | DeviceId
+    if (Computer.isComputerCategory({ categoryId: params.categoryId })) {
+      device = Computer.create(params as ComputerPrimitives)
+    } else if (HardDrive.isHardDriveCategory({ categoryId: params.categoryId })) {
+      device = HardDrive.create(params as HardDrivePrimitives)
     } else {
-      device = Device.create({ serial, activo, statusId, modelId })
+      device = Device.create(params)
     }
 
-    if (id === undefined) {
+    if (params.id === undefined) {
       await this.repository.device.save({ device })
     } else {
-      const deviceId = new DeviceId(id)
+      const deviceId = new DeviceId(params.id)
       await this.repository.device.update({ id: deviceId, device })
     }
   }

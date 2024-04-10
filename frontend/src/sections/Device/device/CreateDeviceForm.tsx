@@ -1,6 +1,5 @@
 import { type FormEvent, useEffect, lazy, Suspense } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { toast } from 'sonner'
 import { useDeviceForm, FormStatus } from './useDeviceForm'
 import { useDeviceInitialState } from './DeviceFormInitialState'
 import { useGenericFormData } from '../../Hooks/useGenericFormData'
@@ -21,6 +20,9 @@ const initialState = {
   modelId: '',
   categoryId: '',
   brandId: '',
+  employeeId: '',
+  observation: '',
+  locationId: '',
   memoryRamCapacity: 0,
   hardDriveCapacityId: '',
   hardDriveTypeId: '',
@@ -62,8 +64,8 @@ export default function CreateDeviceForm () {
     navigate('/')
   }
 
-  const handleChange = (ev: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    updateForm({ [ev.target.name]: ev.target.value })
+  const handleChange = (name: string, value: string) => {
+    updateForm({ [name]: value })
   }
 
   return (

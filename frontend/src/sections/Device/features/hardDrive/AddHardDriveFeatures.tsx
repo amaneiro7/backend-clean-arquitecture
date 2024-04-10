@@ -1,15 +1,12 @@
-import { type ChangeEvent, type FC } from 'react'
+import { type FC } from 'react'
 import HardDriveCapacitySelect from '../hardDrive/HardDriveCapacitySelect'
 import HardDriveTypeSelect from '../hardDrive/HardDriveTypeSelect'
 import HealthInput from './HealthInput'
 import { HardDrive, type HardDrivePrimitives } from '../../../../modules/devices/fetures/hardDrive/hardDrive/domain/HardDrive'
-
-interface FormDataProps extends HardDrivePrimitives {
-  categoryId: number
-}
+import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
 interface Props {
-  onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
-  formData: FormDataProps
+  onChange: OnHandleChange
+  formData: HardDrivePrimitives
 }
 
 const AddHardDriveFeatures: FC<Props> = ({ formData, onChange }) => {

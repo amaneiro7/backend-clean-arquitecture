@@ -16,10 +16,12 @@ import { MemoryRamCapacity } from '../../memoryRam/memoryRamCapacity/MemoryRamCa
 import { OperatingSystemId } from '../../operatingSystem/operatingSystem/domain/OperatingSystemId'
 import { OperatingSystemArqId } from '../../operatingSystem/operatingSystemArq/domain/OperatingSystemArqId'
 import { ProcessorId } from '../../processor/domain/ProcessorId'
+import { ComputerName } from './ComputerName'
 import { IPAddress } from './IPAddress'
 import { MACAddress } from './MACAddress'
 
 export interface ComputerPrimitives extends DevicePrimitives {
+  computerName: Primitives<ComputerName>
   processorId: Primitives<ProcessorId> | null
   memoryRamCapacity: Primitives<MemoryRamCapacity>
   hardDriveCapacityId: Primitives<HardDriveCapacityId> | null
@@ -41,6 +43,7 @@ export class Computer extends Device {
     employeeId: DeviceEmployee,
     locationId: LocationId,
     observation: DeviceObservation,
+    private readonly computerName: ComputerName,
     private readonly processorId: ProcessorId | null,
     private readonly memoryRamCapacity: MemoryRamCapacity,
     private readonly hardDriveCapacityId: HardDriveCapacityId | null,
@@ -77,6 +80,7 @@ export class Computer extends Device {
       new DeviceEmployee(params.employeeId),
       new LocationId(params.locationId),
       new DeviceObservation(params.observation),
+      new ComputerName(params.computerName, params.statusId),
       params.processorId != null ? new ProcessorId(params.processorId) : null,
       new MemoryRamCapacity(params.memoryRamCapacity),
       params.hardDriveCapacityId != null ? new HardDriveCapacityId(params.hardDriveCapacityId) : null,
@@ -99,6 +103,7 @@ export class Computer extends Device {
       employeeId: this.employeeValue(),
       locationId: this.locationValue(),
       observation: this.observationValue(),
+      computerName: this.computerName.value,
       memoryRamCapacity: this.memoryRamCapacity.value,
       processorId: this.processorId?.value ?? null,
       hardDriveCapacityId: this.hardDriveCapacityId?.value ?? null,

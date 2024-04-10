@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState, type FC } from 'react'
 import { MemoryRamCapacity } from '../../../../modules/devices/fetures/memoryRam/memoryRamCapacity/MemoryRamCapacity'
 import NumberInput from '../../../ui/number-field'
+import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
 
 interface Props {
   value: number
-  onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  onChange: OnHandleChange
   isForm?: boolean
   isRequired?: boolean
 }
@@ -35,7 +36,10 @@ const MemoryRamCapacityInput: FC<Props> = ({ value, onChange, isForm = true, isR
     <NumberInput
       name='memoryRamCapacity'
       label='Memoria Ram'
-      onChange={onChange}
+      onChange={(event) => {
+        const { name, value } = event.target
+        onChange(name, value)
+      }}
       placeholder='--- Ingrese la Capcacidad de Memoria ---'
       isRequired={isRequired}
       value={value}

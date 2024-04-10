@@ -68,6 +68,7 @@ export const useDeviceInitialState = () => {
     }
 
     if (location.state?.device !== undefined) {
+      console.log('useDeviceInitialState', location.state)
       const { device } = location.state
       setPreloadedDeviceState(device)
     } else {

@@ -35,17 +35,17 @@ export class Device {
     private readonly observation: DeviceObservation
   ) {}
 
-  public static create ({ serial, activo, statusId, modelId, categoryId, brandId, employeeId, locationId, observation }: DevicePrimitives): Device {
+  public static create (params: DevicePrimitives): Device {
     return new Device(
-      new DeviceSerial(serial),
-      new DeviceActivo(activo),
-      new StatusId(statusId),
-      new CategoryId(categoryId),
-      new BrandId(brandId),
-      new ModelId(modelId),
-      new DeviceEmployee(employeeId),
-      new LocationId(locationId),
-      new DeviceObservation(observation)
+      new DeviceSerial(params.serial),
+      new DeviceActivo(params.activo),
+      new StatusId(params.statusId),
+      new CategoryId(params.categoryId),
+      new BrandId(params.brandId),
+      new ModelId(params.modelId),
+      new DeviceEmployee(params.employeeId),
+      new LocationId(params.locationId),
+      new DeviceObservation(params.observation)
     )
   }
 

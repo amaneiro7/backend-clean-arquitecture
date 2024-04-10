@@ -1,5 +1,6 @@
+import { type FC } from 'react'
+import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
 import ProcessorSelect from '../processor/ProcessorSelect'
-import { type ChangeEvent, type FC } from 'react'
 import MemoryRamCapacityInput from '../memoryRam/MemoryRamCapacityInput'
 import HardDriveCapacitySelect from '../hardDrive/HardDriveCapacitySelect'
 import HardDriveTypeSelect from '../hardDrive/HardDriveTypeSelect'
@@ -10,7 +11,7 @@ import IpAddressInput from './ipAddressInput'
 import MacAddressInput from './MacAddressInput'
 
 interface Props {
-  onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  onChange: OnHandleChange
   formData: ComputerPrimitives
 }
 

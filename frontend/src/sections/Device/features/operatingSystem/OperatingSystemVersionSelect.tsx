@@ -1,12 +1,15 @@
-import { type ChangeEvent, type FC, lazy, Suspense } from 'react'
+import { type FC, lazy, Suspense } from 'react'
 import { useAppContext } from '../../../Context/AppContext'
 import { useOperatingSystemVersions } from './useOperatingSystemVersion'
+import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
+import { type Primitives } from '../../../../modules/shared/domain/value-object/Primitives'
+import { type OperatingSystemId } from '../../../../modules/devices/fetures/operatingSystem/operatingSystem/domain/OperatingSystemId'
 
 const Select = lazy(async () => await import('../../../ui/select'))
 
 interface Props {
-  value: number | null | ''
-  onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  value: Primitives<OperatingSystemId>
+  onChange: OnHandleChange
   isRequired?: boolean
 }
 
@@ -18,13 +21,16 @@ const OperatingSystemVersionSelect: FC<Props> = ({ value, onChange, isRequired }
       <Select
         label='Sistemas Operativo'
         name='operatingSystemId'
-        onChange={onChange}
+        onChange={(event) => {
+          const { name, value } = event.target
+          onChange(name, value)
+        }}
         options={operatingSystem}
         placeholder='-- Filtre por Sistema Operativo --'
         isRequired={isRequired}
         isHidden={false}
         isDisabled={false}
-        value={value === '' || value === 0 || value === null || value === undefined ? '' : value}
+        value={value}
       />
     </Suspense>
   )

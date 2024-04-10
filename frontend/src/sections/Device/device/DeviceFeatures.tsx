@@ -1,10 +1,11 @@
-import { type ChangeEvent, type FC } from 'react'
+import { type FC } from 'react'
 import AddComputerFeatures from '../features/computer/AddComputerFeatures'
 import AddHardDriveFeatures from '../features/hardDrive/AddHardDriveFeatures'
+import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
 
 interface Props {
   formData: any
-  onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  onChange: OnHandleChange
 }
 
 const DeviceFeatures: FC<Props> = ({ onChange, formData }) => {

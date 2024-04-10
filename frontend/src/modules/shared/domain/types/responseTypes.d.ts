@@ -95,21 +95,21 @@ export interface Computer {
   deviceId: string
   processorId: string
   memoryRamCapacity: number
-  hardDriveCapacityId: number
-  hardDriveTypeId: number
-  operatingSystemId: number
-  operatingSystemArqId: number
+  hardDriveCapacityId: string
+  hardDriveTypeId: string
+  operatingSystemId: string
+  operatingSystemArqId: string
   macAddress: string
   ipAddress: string
   createdAt: Date
   updatedAt: Date
   CategoryId: Primitives<CategoryId>
   device_id: string
-  HardDriveCapacityId: number
-  HardDriveTypeId: number
+  HardDriveCapacityId: string
+  HardDriveTypeId: string
   ProcessorId: string
-  OperatingSystemVersionId: number
-  OperatingSystemArqId: number
+  OperatingSystemVersionId: string
+  OperatingSystemArqId: string
   processor: ProcessorApiresponse
   hardDriveCapacity: HardDriveCapacity
   hardDriveType: HardDriveType
@@ -202,14 +202,10 @@ export interface HardDrive {
   categoryId: Primitives<CategoryId>
   deviceId: string
   health: number
-  hardDriveCapacityId: number
-  hardDriveTypeId: number
+  hardDriveCapacityId: string
+  hardDriveTypeId: string
   createdAt: Date
   updatedAt: Date
-  CategoryId: Primitives<CategoryId>
-  device_id: string
-  HardDriveCapacityId: number
-  HardDriveTypeId: number
   hardDriveCapacity: HardDriveCapacity
   hardDriveType: HardDriveType
 }

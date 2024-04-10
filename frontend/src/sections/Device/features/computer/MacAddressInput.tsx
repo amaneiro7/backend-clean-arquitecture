@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState, type FC } from 'react'
 import FormInput from '../../../ui/text-field'
 import { MACAddress } from '../../../../modules/devices/fetures/computer/domain/MACAddress'
+import { type Primitives } from '../../../../modules/shared/domain/value-object/Primitives'
+import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
 
 interface Props {
-  value: string | null
-  onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  value: Primitives<MACAddress>
+  onChange: OnHandleChange
   isForm?: boolean
   isRequired?: boolean
 }
@@ -39,7 +41,10 @@ const MacAddressInput: FC<Props> = ({ value, onChange, isForm = false, isRequire
         label='Direccion MAC'
         placeholder='-- Ingrese la MAC del equipo --'
         isRequired={isRequired}
-        handle={onChange}
+        handle={(event) => {
+          const { name, value } = event.target
+          onChange(name, value)
+        }}
         value={value ?? ''}
         isError={isError}
         errorMessage={errorMessage}
