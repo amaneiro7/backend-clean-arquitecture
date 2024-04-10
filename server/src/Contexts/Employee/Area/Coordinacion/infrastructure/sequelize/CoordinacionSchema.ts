@@ -13,7 +13,7 @@ export class CoordinacionModel extends Model<CoordinacionPrimitives> implements 
 
   public static associate (models: Models): void {
     this.belongsTo(models.Gerencia, { as: 'gerencia', foreignKey: 'gerenciaId' }) // A Coordinacion belongs to Many Gerencias
-    this.hasMany(models.Employee, { as: 'employees', foreignKey: 'cargoId' }) // A Coordinacion has Many employees
+    this.hasMany(models.Employee, { as: 'employees', foreignKey: 'coordinacionId' }) // A Coordinacion has Many employees
   }
 }
 

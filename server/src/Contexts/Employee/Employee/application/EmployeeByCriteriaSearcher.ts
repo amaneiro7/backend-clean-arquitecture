@@ -20,7 +20,7 @@ export class EmployeeByCriteriaSearcher {
         new FilterValue(filter.value))
     })
     const order = Order.fromValues(
-      query.orderBy ?? 'categoryId',
+      query.orderBy,
       query.orderType
     )
     const criteria = new Criteria(new Filters(filters), order, query.limit, query.offset)

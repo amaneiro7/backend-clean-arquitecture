@@ -16,7 +16,6 @@ import { type EmployeeGerenciaId } from '../../domain/EmployeeGerenciaId'
 import { type EmployeeCoordinacionId } from '../../domain/EmployeeCoordinacionId'
 import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
 import { type EmployeeUserName } from '../../domain/EmployeeUsername'
-import { CargoModel } from '../../../Cargo/infrastructure/sequelize/CargoSchema'
 
 export class EmployeeModel extends Model<EmployeePrimitives> implements EmployeePrimitives {
   public id!: Primitives<EmployeeId>
@@ -35,7 +34,7 @@ export class EmployeeModel extends Model<EmployeePrimitives> implements Employee
   public coordinacionId!: Primitives<EmployeeCoordinacionId>
 
   public static associate (models: Models): void {
-    this.belongsTo(CargoModel, { as: 'cargo', foreignKey: 'cargoId' }) // An employee belongs to a cargo
+    this.belongsTo(models.Cargo, { as: 'cargo', foreignKey: 'cargoId' }) // An employee belongs to a cargo
     this.belongsTo(models.Location, { as: 'location', foreignKey: 'locationId' }) // An employee belongs to a location
     this.belongsTo(models.VicepresidenciaEjecutiva, { as: 'vicepresidenciaEjecutiva', foreignKey: 'vicepresidenciaEjecutivaId' }) // An employee belongs to a vicepresidencia
     this.belongsTo(models.Vicepresidencia, { as: 'vicepresidencia', foreignKey: 'vicepresidenciaId' }) // An employee belongs to a vicepresidencia

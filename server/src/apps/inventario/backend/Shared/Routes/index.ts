@@ -69,7 +69,7 @@ export const routerApi = ({ app, repository }: Props): Router => {
   router.use('/gerencias', createGerenciaRouter({ repository }))
   router.use('/vicepresidencias', createVicepresidenciaRouter({ repository }))
   router.use('/vicepresidenciasejecutivas', createVicepresidenciaEjecutivaRouter({ repository }))
-  router.use('/emloyee', createEmployeeRouter({ repository }))
+  router.use('/employees', createEmployeeRouter({ repository }))
 
   // router.use('/users', createUserRouter({ router, repository }))
   // router.use('/profiles', createProfileRouter({ router, repository }))
