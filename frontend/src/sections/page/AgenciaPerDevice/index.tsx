@@ -133,7 +133,7 @@ export default function AgenciaPage () {
         <Suspense>
           <LocationSelect
             value={inputData.locationId}
-            typeOfSiteId={'3'}
+            typeOfSiteId={'2'}
             statusId={inputData.statusId}
             onChange={handleChange}
             isForm={false}

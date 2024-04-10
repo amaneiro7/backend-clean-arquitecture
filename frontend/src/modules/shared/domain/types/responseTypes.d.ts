@@ -4,6 +4,7 @@ import { type CategoryId } from '../../../devices/category/domain/CategoryId'
 import { type CategoryName } from '../../../devices/category/domain/CategoryName'
 import { type DeviceActivo } from '../../../devices/devices/devices/domain/DeviceActivo'
 import { type DeviceId } from '../../../devices/devices/devices/domain/DeviceId'
+import { type DeviceObservation } from '../../../devices/devices/devices/domain/DeviceObservation'
 import { type DeviceSerial } from '../../../devices/devices/devices/domain/DeviceSerial'
 import { type StatusId } from '../../../devices/devices/status/domain/StatusId'
 import { type StatusName } from '../../../devices/devices/status/domain/StatusName'
@@ -22,7 +23,7 @@ export interface DevicesApiResponse {
   modelId: Primitives<ModelId>
   employeeId: string | null
   locationId: Primitives<LocationId>
-  observation: string
+  observation: Primitives<DeviceObservation>
   createdAt: Date
   updatedAt: Date
   model: ModelApiresponse
@@ -47,7 +48,7 @@ export interface DevicesMappedApiResponse {
   statusName: Primitives<StatusName>
   modelId: Primitives<ModelId>
   modelName: Primitives<ModelName>
-  observation: string
+  observation: Primitives<DeviceObservation>
   locationId: Primitives<LocationId>
   locationName: Primitives<>
   employeeId: string | null
@@ -89,6 +90,7 @@ export interface ModelMappedApiResponse {
 
 export interface Computer {
   id: string
+  computerName: string
   categoryId: Primitives<CategoryId>
   deviceId: string
   processorId: string

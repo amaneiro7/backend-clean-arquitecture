@@ -6,8 +6,8 @@ import { type CargoName } from '../../domain/CargoName'
 import { type Models } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
 
 export class CargoModel extends Model<CargoPrimitives> implements CargoPrimitives {
-  readonly id!: Primitives<CargoId>
-  readonly name!: Primitives<CargoName>
+  public id!: Primitives<CargoId>
+  public name!: Primitives<CargoName>
 
   public static associate (models: Models): void {
     this.hasMany(models.Employee, { as: 'employees', foreignKey: 'cargoId' })

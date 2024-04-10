@@ -15,7 +15,6 @@ import { type EmployeeVicepresidenciaId } from '../../domain/EmployeeVicepreside
 import { type EmployeeGerenciaId } from '../../domain/EmployeeGerenciaId'
 import { type EmployeeCoordinacionId } from '../../domain/EmployeeCoordinacionId'
 import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
-// import { CargoName } from '../../../Cargo/domain/CargoName'
 
 export class EmployeeModel extends Model<EmployeePrimitives> implements EmployeePrimitives {
   public id!: Primitives<EmployeeId>
@@ -87,19 +86,19 @@ export function initEmployeeModel (sequelize: Sequelize): void {
         allowNull: false
       },
       vicepresidenciaEjecutivaId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
       },
       vicepresidenciaId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: true
       },
       gerenciaId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: true
       },
       coordinacionId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: true
         // validate: {
         //   customValidator: (value: Primitives<EmployeeCoordinacionId>) => {

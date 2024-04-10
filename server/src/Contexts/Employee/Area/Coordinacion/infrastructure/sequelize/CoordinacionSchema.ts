@@ -21,12 +21,12 @@ export function initCoordinacionModel (sequelize: Sequelize): void {
   CoordinacionModel.init(
     {
       id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false,
         primaryKey: true
       },
       gerenciaId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
       },
       name: {

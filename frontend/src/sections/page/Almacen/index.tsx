@@ -70,16 +70,11 @@ export default function AlmacenPage () {
   const defaultHeaderTitle = ['Categoria', 'Serial', 'Activo', 'Status', 'Marca', 'Modelo', 'Ubicación', 'Observaciones']
   const isComputerFilter = Computer.isComputerCategory({ categoryId: inputData.categoryId })
   const isHardDriveFilter = HardDrive.isHardDriveCategory({ categoryId: inputData.categoryId })
-  let headerTitle: string[]
-  if (isComputerFilter) {
-    const headerTitleComputer = ['Procesador', 'Memoria Ram', 'Disco Duro', 'Tipo']
-    headerTitle = defaultHeaderTitle.concat(headerTitleComputer)
-  } else if (isHardDriveFilter) {
-    const headerTitleHardDrive = ['Capacidad', 'Tipo', 'Estado de salud']
-    headerTitle = defaultHeaderTitle.concat(headerTitleHardDrive)
-  } else {
-    headerTitle = defaultHeaderTitle
-  }
+  const headerTitle: string[] = isComputerFilter
+    ? defaultHeaderTitle.concat(['Procesador', 'Memoria Ram', 'Disco Duro', 'Tipo'])
+    : isHardDriveFilter
+      ? defaultHeaderTitle.concat(['Capacidad', 'Tipo', 'Estado de salud'])
+      : defaultHeaderTitle
 
   return (
     <main className='max-w-full h-full flex flex-col gap-5 p-5'>

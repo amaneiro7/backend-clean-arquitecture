@@ -22,12 +22,12 @@ export function initGerenciaModel (sequelize: Sequelize): void {
   GerenciaModel.init(
     {
       id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false,
         primaryKey: true
       },
       vicepresidenciaId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
       },
       name: {

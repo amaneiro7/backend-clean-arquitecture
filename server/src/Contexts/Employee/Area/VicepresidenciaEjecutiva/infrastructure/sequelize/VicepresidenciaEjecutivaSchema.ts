@@ -19,7 +19,7 @@ export function initVicepresidenciaEjecutivaModel (sequelize: Sequelize): void {
   VicepresidenciaEjecutivaModel.init(
     {
       id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false,
         primaryKey: true
       },

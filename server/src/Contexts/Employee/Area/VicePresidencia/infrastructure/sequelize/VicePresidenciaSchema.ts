@@ -21,12 +21,12 @@ export function initVicepresidenciaModel (sequelize: Sequelize): void {
   VicepresidenciaModel.init(
     {
       id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false,
         primaryKey: true
       },
       vicepresidenciaEjecutivaId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
       },
       name: {
