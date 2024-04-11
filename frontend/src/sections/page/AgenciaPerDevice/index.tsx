@@ -15,6 +15,7 @@ import TableBody from '../../components/TableComponent/TableBody'
 import TableHead from '../../components/TableComponent/TableHead'
 import TableCell from '../../components/TableComponent/TableCell'
 import TableHeader from '../../components/TableComponent/TableHeader'
+import TableCellEditDeleteIcon from '../../components/TableComponent/TableCellEditDeleteIcon'
 
 const Button = lazy(async () => await import('../../ui/button'))
 const BrandSelect = lazy(async () => await import('../../Device/brand/BrandSelect'))
@@ -64,7 +65,7 @@ export default function AgenciaPage () {
     })
   }
 
-  const defaultHeaderTitle = ['Usuario', 'Ubicación', 'Categoria', 'Serial', 'Activo', 'Status', 'Marca', 'Modelo', 'Observaciones']
+  const defaultHeaderTitle = ['Acciones', 'Usuario', 'Ubicación', 'Categoria', 'Serial', 'Activo', 'Status', 'Marca', 'Modelo', 'Observaciones']
   // const headerTitleComputer = ['Nombre', 'Procesador', 'Memoria Ram', 'Disco Duro', 'Tipo', 'Sistema Operativo', 'Arquitectura', 'Diracción MAC', 'Dirección IP']
   let headerTitle: string[]
   if (Computer.isComputerCategory({ categoryId: inputData.categoryId })) {
@@ -160,6 +161,7 @@ export default function AgenciaPage () {
           <TableBody>
               {(devices as unknown as DevicesMappedApiResponse[]).map((device) => (
                 <TableRow key={device?.id}>
+                  <TableCellEditDeleteIcon state={device} url={`/device/edit/${device.id}`} />
                   <TableCell value={device.employeeName}/>
                   <TableCell value={device.locationName}/>
                   <TableCell value={device.categoryName}/>

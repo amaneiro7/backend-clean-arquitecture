@@ -2,7 +2,7 @@ import { type ChangeEvent, type FC, lazy, Suspense } from 'react'
 import { useMemoryRamType } from './useMemoryRamType'
 import { useAppContext } from '../../../Context/AppContext'
 
-const Select = lazy(async () => await import('../../../ui/select'))
+const Select = lazy(async () => await import('../../../ui/Select'))
 
 interface Props {
   value: number | string

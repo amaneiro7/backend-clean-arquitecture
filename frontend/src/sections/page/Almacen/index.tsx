@@ -15,6 +15,7 @@ import TableRow from '../../components/TableComponent/TableRow'
 import TableHead from '../../components/TableComponent/TableHead'
 import TableCell from '../../components/TableComponent/TableCell'
 import PageTitle from '../../components/PageTitle'
+import TableCellEditDeleteIcon from '../../components/TableComponent/TableCellEditDeleteIcon'
 
 // const TableHeader = lazy(async () => await import('../../components/TableHeader'))
 // const DeviceTableCard = lazy(async () => await import('../../Device/device/DeviceTableCard'))
@@ -29,7 +30,7 @@ const StatusSelect = lazy(async () => await import('../../Device/status/StatusSe
 const LocationSelect = lazy(async () => await import('../../Device/location/LocationSelect'))
 
 export default function AlmacenPage () {
-  const { device: { devices }, addFilter, cleanFilters } = useAppContext()
+  const { device: { devices, loading }, addFilter, cleanFilters } = useAppContext()
   const navigate = useNavigate()
   const { inputData, updateInputData, clearInputs } = useInputsData()
 
@@ -67,7 +68,7 @@ export default function AlmacenPage () {
     })
   }
 
-  const defaultHeaderTitle = ['Categoria', 'Serial', 'Activo', 'Status', 'Marca', 'Modelo', 'Ubicación', 'Observaciones']
+  const defaultHeaderTitle = ['Acciones', 'Categoria', 'Serial', 'Activo', 'Status', 'Marca', 'Modelo', 'Ubicación', 'Observaciones']
   const isComputerFilter = Computer.isComputerCategory({ categoryId: inputData.categoryId })
   const isHardDriveFilter = HardDrive.isHardDriveCategory({ categoryId: inputData.categoryId })
   const headerTitle: string[] = isComputerFilter
@@ -147,11 +148,9 @@ export default function AlmacenPage () {
           />
         </Suspense>
       </header>
-      <Suspense>
-        {/* <TableStructure>
-          <TableHeader headerTitle={headerTitle}/>
-          <DeviceTableCard category={inputData.categoryId} device={devices as unknown as DevicesMappedApiResponse[]}/>
-        </TableStructure> */}
+      {loading && <p>...Loading</p>}
+      {(!loading && devices.length === 0) && <p>No hay resultados</p>}
+      {(!loading && devices.length > 0) && <Suspense fallback={<p>...Loading</p>}>
         <Table className=''>
           <TableHeader>
             <TableRow>
@@ -163,6 +162,7 @@ export default function AlmacenPage () {
           <TableBody>
               {(devices as unknown as DevicesMappedApiResponse[]).map((device) => (
                 <TableRow key={device.id}>
+                  <TableCellEditDeleteIcon state={device} url={`/device/edit/${device.id}`} />
                   <TableCell value={device.categoryName} />
                   <TableCell value={device.serial} />
                   <TableCell value={device.activo} />
@@ -193,7 +193,7 @@ export default function AlmacenPage () {
               }
           </TableBody>
         </Table>
-      </Suspense>
+      </Suspense>}
     </main>
   )
 }

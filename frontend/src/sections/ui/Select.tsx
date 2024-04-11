@@ -1,9 +1,7 @@
-import { Select as SelectMui } from '../../mui/Select'
-import { InputLabel as InputLabelMui } from '../../mui/InputLabel'
-import { MenuItem as MenuItemMui } from '../../mui/MenuItem'
-import { FormControl } from '../../mui/FormControl'
-import { type FC } from 'react'
-import { type OnChange } from '../../../modules/shared/domain/types/types'
+import { type SelectChangeEvent, Select as SelectMui } from '../mui/Select'
+import { InputLabel as InputLabelMui } from '../mui/InputLabel'
+import { MenuItem as MenuItemMui } from '../mui/MenuItem'
+import { FormControl } from '../mui/FormControl'
 
 interface Props {
   name: string
@@ -13,7 +11,7 @@ interface Props {
   options: Options[]
   isHidden?: boolean
   isDisabled?: boolean
-  onChange: OnChange
+  onChange: (event: SelectChangeEvent, child: React.ReactNode) => void
   placeholder: string
   isRequired?: boolean
 }
@@ -23,7 +21,7 @@ interface Options {
   name: string | number
 }
 
-const Select: FC<Props> = ({
+export default function Select ({
   name,
   value,
   defaultValue,
@@ -34,7 +32,7 @@ const Select: FC<Props> = ({
   onChange,
   placeholder,
   isRequired = false
-}) => {
+}: Props) {
   return (
       <FormControl size='small' className='w-full'>
           <InputLabelMui className='p-0' id='simple-select-label'>{label}</InputLabelMui>
@@ -62,5 +60,3 @@ const Select: FC<Props> = ({
       </FormControl>
   )
 }
-
-export default Select

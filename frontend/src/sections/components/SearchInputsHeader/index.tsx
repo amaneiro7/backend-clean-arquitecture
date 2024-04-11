@@ -7,7 +7,7 @@ interface Props {
   handleChange: ((event: React.ChangeEvent<HTMLInputElement> | SelectChangeEvent<string> | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, child: React.ReactNode) => void) | undefined
 }
 
-const Select = lazy(async () => await import('../../ui/select'))
+const Select = lazy(async () => await import('../../ui/Select'))
 const FormInput = lazy(async () => await import('../../ui/text-field'))
 
 const SearchInputsHeader = ({ state, handleChange }: Props) => {

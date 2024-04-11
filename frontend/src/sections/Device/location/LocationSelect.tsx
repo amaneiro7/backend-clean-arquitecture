@@ -6,7 +6,7 @@ import { type LocationId } from '../../../modules/location/locations/domain/loca
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
 import { type StatusId } from '../../../modules/devices/devices/status/domain/StatusId'
 
-const Select = lazy(async () => await import('../../ui/select'))
+const Select = lazy(async () => await import('../../ui/Select'))
 
 interface Props {
   value: Primitives<LocationId>
@@ -23,7 +23,7 @@ const LocationSelect: FC<Props> = ({ value, onChange, isRequired = false, typeOf
   const filterLocation = useMemo(() => {
     return locations.filter(location => {
       const typeOfSite = location.typeOfSiteId === typeOfSiteId || (typeOfSiteId === undefined || typeOfSiteId === '')
-      const status = (statusId !== '1' || location.typeOfSiteId === '1' || location.typeOfSiteId === '2')
+      const status = statusId === '1' ? (location.typeOfSiteId === '1' || location.typeOfSiteId === '2') : location.typeOfSiteId === '3'
       return typeOfSite && status
     })
   }, [locations, typeOfSiteId, statusId])

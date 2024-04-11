@@ -5,7 +5,7 @@ import { type OnHandleChange } from '../../../../modules/shared/domain/types/typ
 import { type OperatingSystemArqId } from '../../../../modules/devices/fetures/operatingSystem/operatingSystemArq/domain/OperatingSystemArqId'
 import { type Primitives } from '../../../../modules/shared/domain/value-object/Primitives'
 
-const Select = lazy(async () => await import('../../../ui/select'))
+const Select = lazy(async () => await import('../../../ui/Select'))
 
 interface Props {
   value: Primitives<OperatingSystemArqId>

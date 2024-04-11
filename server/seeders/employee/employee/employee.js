@@ -8,7 +8,7 @@ const cargos = require("../cargo/cargos");
 const employee = [
     {
         id: '8c9b3ea7-8e31-4c0c-8614-6ed2f026f379',
-        userName: 'BNC\amaneiro',
+        userName: "BNC\amaneiro",
         name: 'Andres',
         lastName: 'Maneiro',
         cedula: 18647881,

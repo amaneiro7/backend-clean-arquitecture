@@ -4,7 +4,7 @@ import { AddIcon } from '../../ui/icon/AddIcon.tsx'
 import { Link } from 'react-router-dom'
 import { EditIcon } from '../../ui/icon/EditIcon.tsx'
 
-const Select = lazy(async () => await import('../../ui/select/index.tsx'))
+const Select = lazy(async () => await import('../../ui/Select.tsx'))
 const FormInput = lazy(async () => await import('../../ui/text-field/index.tsx'))
 interface Props {
   inputsForm: InputFormTypeReturn[]

@@ -12,7 +12,7 @@ import { type ModelId } from '../../../modules/devices/model/domain/ModelId'
 import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
 
-const Select = lazy(async () => await import('../../ui/select'))
+const Select = lazy(async () => await import('../../ui/Select'))
 
 interface Props {
   value: Primitives<ModelId>

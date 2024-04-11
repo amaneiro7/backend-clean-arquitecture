@@ -4,6 +4,9 @@ import { useDeviceForm, FormStatus } from './useDeviceForm'
 import { useDeviceInitialState } from './DeviceFormInitialState'
 import { useGenericFormData } from '../../Hooks/useGenericFormData'
 import { FormContainer } from '../../components/formContainer'
+import ObservationInput from './ObservationInput'
+import LocationSelect from '../location/LocationSelect'
+import { EmployeeSelect } from '../employee/EmployeeSelect'
 
 const CategorySelect = lazy(async () => await import('../category/CategorySelect'))
 const BrandSelect = lazy(async () => await import('../brand/BrandSelect'))
@@ -122,12 +125,21 @@ export default function CreateDeviceForm () {
             isRequired={true}
           />
         </Suspense>
+
+        <EmployeeSelect
+          onChange={handleChange}
+          value={formData.employeeId}
+          isRequired={true}
+        />
+
         <Suspense>
           <DeviceFeatures
             formData={formData}
             onChange={handleChange}
           />
         </Suspense>
+        <LocationSelect onChange={handleChange} value={formData.locationId} isRequired={true} isForm={true} statusId={formData.statusId} />
+        <ObservationInput onChange={handleChange} value={formData.observation}/>
       </FormContainer>
 
   )

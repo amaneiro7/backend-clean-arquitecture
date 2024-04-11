@@ -5,7 +5,7 @@ import { type Primitives } from '../../../../modules/shared/domain/value-object/
 import { type HardDriveCapacityId } from '../../../../modules/devices/fetures/hardDrive/hardDriveCapacity/domain/HardDriveCapacityId'
 import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
 
-const Select = lazy(async () => await import('../../../ui/select'))
+const Select = lazy(async () => await import('../../../ui/Select'))
 
 interface Props {
   value: Primitives<HardDriveCapacityId>

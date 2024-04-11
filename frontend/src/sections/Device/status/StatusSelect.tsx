@@ -5,7 +5,7 @@ import { type Primitives } from '../../../modules/shared/domain/value-object/Pri
 import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
 
-const Select = lazy(async () => await import('../../ui/select'))
+const Select = lazy(async () => await import('../../ui/Select'))
 
 interface Props {
   value: Primitives<StatusId>

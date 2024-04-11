@@ -8,7 +8,7 @@ import { type ProcessorApiresponse } from '../../../../modules/shared/domain/typ
 import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
 import { Operator } from '../../../../modules/shared/domain/criteria/FilterOperators'
 
-const Select = lazy(async () => await import('../../../ui/select'))
+const Select = lazy(async () => await import('../../../ui/Select'))
 
 interface Props {
   value: string | null
