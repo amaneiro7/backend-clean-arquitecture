@@ -3,8 +3,10 @@ import { type EmployeeId } from '../../../modules/employee/employee/domain/Emplo
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 
 import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
-import { Autocomplete, TextField } from '@mui/material'
+import { Autocomplete, darken, lighten, styled, TextField, createFilterOptions } from '@mui/material'
 import { useAppContext } from '../../Context/AppContext'
+
+const filter = createFilterOptions()
 
 interface Props {
   value: Primitives<EmployeeId>
@@ -17,26 +19,87 @@ interface Options {
   name: string
 }
 
-export function EmployeeSelect ({ onChange, value, isRequired = true }: Props) {
-  const { category: { categories } } = useAppContext()
-  const defaultProps = {
-    options: categories,
-    getOptionLabel: (option: Options) => option.name
-  }
-  const flatProps = {
-    options: top100Films.map((option) => option.title)
-  }
-  const [value2, setValue] = useState<FilmOptionType | null>(null)
+const GroupHeader = styled('div')(({ theme }) => ({
+  position: 'sticky',
+  top: '-8px',
+  padding: '4px 10px',
+  color: theme.palette.primary.main,
+  backgroundColor:
+    theme.palette.mode === 'light'
+      ? lighten(theme.palette.primary.light, 0.85)
+      : darken(theme.palette.primary.main, 0.8)
+}))
 
+const GroupItems = styled('ul')({
+  padding: 0
+})
+
+export function EmployeeSelect ({ onChange, value: otheValue, isRequired = true }: Props) {
+  const { category: { categories } } = useAppContext()
+
+  const [value, setValue] = useState(null)
+
+  const options = categories.map((category) => {
+    const firsLetter = category.name[0].toUpperCase()
+    return {
+      firstLetter: /[0-9]/.test(firsLetter) ? '0-9' : firsLetter,
+      ...category
+    }
+  })
+
+  console.log(value)
   return (
         <Suspense>
             <Autocomplete
-                {...defaultProps}
                 id="disable-close-on-select"
+                value={value}
+                componentName='EmployeeSelect'
+                onChange={(_, newValue) => {
+                  if (typeof newValue === 'string') {
+                    setValue({
+                      name: newValue
+                    })
+                  } else if (newValue?.inputValue) {
+                    // Create a new value from the user input
+                    setValue({
+                      name: newValue.inputValue
+                    })
+                  } else {
+                    setValue(newValue)
+                  }
+                }}
+                filterOptions={(options, params) => {
+                  const filtered = filter(options, params)
+
+                  const { inputValue } = params
+                  // Suggest the creation of a new value
+                  const isExisting = options.some((option) => inputValue === option.name)
+                  if (inputValue !== '' && !isExisting) {
+                    filtered.push({
+                      inputValue,
+                      name: `Add "${inputValue}"`
+                    })
+                  }
+
+                  return filtered
+                }}
+                selectOnFocus
+                clearOnBlur
+                handleHomeEndKeys
+                options={options.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
+                // groupBy={(option) => option.firstLetter}
+                getOptionLabel={(option) => option.name}
+                sx={{ width: 300 }}
                 disablePortal
-                renderInput={(params) => (
-                <TextField name='employee' onChange={(e) => { console.log(e.target.name, e.target.value) }} {...params} label="Usuario" />
-                )}
+                freeSolo
+                // renderOption={(props, option) => <li {...props}>{option.name}</li>}
+                renderInput={(params) => <TextField name='employee' {...params} label="Usuario" />}
+                // renderGroup={(params) => (
+                //   <li key={params.key}>
+                //     <GroupHeader>{params.group}</GroupHeader>
+                //     <GroupItems>{params.children}</GroupItems>
+                //   </li>
+                // )}
             />
         </Suspense>
   )
