@@ -24,6 +24,7 @@ import { ApiRegionRepository } from '../../location/region/infraestructure/ApiRe
 import { ApiStateRepository } from '../../location/state/infraestructure/ApiStateRepository'
 import { ApiSiteRepository } from '../../location/site/infraestructure/ApiSiteRepository'
 import { ApiTypeOfSiteRepository } from '../../location/typeofsites/infraestructure/ApiTypeOfSiteRepository'
+import { ApiEmployeeRepository } from '../../employee/employee/infrastructure/ApiEmployeeRepository'
 
 export const apiRepository: Repository = {
   brand: new ApiBrandRepository(),
@@ -50,5 +51,6 @@ export const apiRepository: Repository = {
   region: new ApiRegionRepository(),
   state: new ApiStateRepository(),
   site: new ApiSiteRepository(),
-  typeOfSite: new ApiTypeOfSiteRepository()
+  typeOfSite: new ApiTypeOfSiteRepository(),
+  employee: new ApiEmployeeRepository()
 }

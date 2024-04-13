@@ -1,47 +1,149 @@
-import { DeviceId } from "../../../devices/devices/devices/domain/DeviceId";
-import { LocationId } from "../../../location/locations/domain/locationId";
-import { Primitives } from "../../../shared/domain/value-object/Primitives";
-import { UserName } from "../../../user/user/domain/UserName";
-import { EmployeeEmail } from "./EmployeeEmail";
-import { EmployeeId } from "./EmployeeId";
-import { EmployeeLastName } from "./LastName";
-import { EmployeeName } from "./Name";
-import { EmployeeUserName } from "./UserName";
+import { DeviceId } from '../../../devices/devices/devices/domain/DeviceId'
+import { LocationId } from '../../../location/locations/domain/locationId'
+import { type Primitives } from '../../../shared/domain/value-object/Primitives'
+import { type UserName } from '../../../user/user/domain/UserName'
+import { CoordinacionId } from '../../area/coordinacion/domain/CoordinacionId'
+import { GerenciaId } from '../../area/gerencia/domain/GerenciaId'
+import { VicepresidenciaId } from '../../area/vicepresidencia/domain/VicepresidenciaId'
+import { VicepresidenciaEjecutivaId } from '../../area/vicepresidenciaejecutiva/domain/VicepresidenciaEjecutivaId'
+import { CargoId } from '../../cargo/domain/CargoId'
+import { Cedula } from './Cedula'
+import { EmployeeEmail } from './EmployeeEmail'
+import { type EmployeeId } from './EmployeeId'
+import { Extension } from './Extension'
+import { EmployeeLastName } from './LastName'
+import { EmployeeName } from './Name'
+import { PhoneNumber } from './PhoneNumber'
+import { EmployeeUserName } from './UserName'
 
 export interface EmployeePrimitives {
-    id?: Primitives<EmployeeId>
-    name: Primitives<EmployeeName>
-    lastName: Primitives<EmployeeLastName>
-    userName: Primitives<EmployeeUserName>
-    cedula: Primitives<>
-    locationId: Primitives<LocationId>
-    email: Primitives<EmployeeEmail>
-    cargoId: Primitives<>
-    extension: Primitives<>
-    phoneNumber: Primitives<>
-    vicepresidenciaEjecutivaId: Primitives<>
-    vicepresidenciaId: Primitives<>
-    gerenciaId: Primitives<>
-    coordinacionId: Primitives<>
-    devices: Primitives<DeviceId>[]
+  id?: Primitives<EmployeeId>
+  name: Primitives<EmployeeName>
+  lastName: Primitives<EmployeeLastName>
+  userName: Primitives<EmployeeUserName>
+  cedula: Primitives<Cedula>
+  locationId: Primitives<LocationId>
+  email: Primitives<EmployeeEmail>
+  cargoId: Primitives<CargoId>
+  extension: Primitives<Extension>
+  phoneNumber: Primitives<PhoneNumber>
+  vicepresidenciaEjecutivaId: Primitives<VicepresidenciaEjecutivaId>
+  vicepresidenciaId: Primitives<VicepresidenciaId>
+  gerenciaId: Primitives<GerenciaId>
+  coordinacionId: Primitives<CoordinacionId>
+  devices: Array<Primitives<DeviceId>>
 
 }
 
 export class Employee {
-    constructor (
-        private readonly name: EmployeeName,
-        private readonly lastName: EmployeeName,
-        private readonly userName: UserName,
-        private readonly cedula,
-        private readonly locationId: LocationId,
-        private readonly email: EmployeeEmail,
-        private readonly cargoId: CargoId,
-        private readonly extension,
-        private readonly phoneNumber,
-        private readonly vicepresidenciaEjecutivaId,
-        private readonly vicepresidenciaId,
-        private readonly gerenciaId,
-        private readonly coordinacionId,
-        private readonly devices: DeviceId[]
+  constructor (
+    private readonly name: EmployeeName,
+    private readonly lastName: EmployeeName,
+    private readonly userName: UserName,
+    private readonly cedula: Cedula,
+    private readonly locationId: LocationId,
+    private readonly email: EmployeeEmail,
+    private readonly cargoId: CargoId,
+    private readonly extension: Extension,
+    private readonly phoneNumber: PhoneNumber,
+    private readonly vicepresidenciaEjecutivaId: VicepresidenciaEjecutivaId,
+    private readonly vicepresidenciaId: VicepresidenciaId,
+    private readonly gerenciaId: GerenciaId,
+    private readonly coordinacionId: CoordinacionId,
+    private readonly devices: DeviceId[]
+  ) {}
+
+  public static create (params: EmployeePrimitives): Employee {
+    return new Employee(
+      new EmployeeName(params.name),
+      new EmployeeLastName(params.lastName),
+      new EmployeeUserName(params.userName, params.name, params.lastName),
+      new Cedula(params.cedula),
+      new LocationId(params.locationId),
+      new EmployeeEmail(params.email),
+      new CargoId(params.cargoId),
+      new Extension(params.extension),
+      new PhoneNumber(params.phoneNumber),
+      new VicepresidenciaEjecutivaId(params.vicepresidenciaEjecutivaId),
+      new VicepresidenciaId(params.vicepresidenciaId),
+      new GerenciaId(params.gerenciaId),
+      new CoordinacionId(params.coordinacionId),
+      params.devices.map((deviceId) => new DeviceId(deviceId))
     )
+  }
+
+  nameValue (): Primitives<EmployeeName> {
+    return this.name.value
+  }
+
+  lastNameValue (): Primitives<EmployeeLastName> {
+    return this.lastName.value
+  }
+
+  userNameValue (): Primitives<EmployeeUserName> {
+    return this.userName.value
+  }
+
+  cedulaValue (): Primitives<Cedula> {
+    return this.cedula.value
+  }
+
+  locationValue (): Primitives<LocationId> {
+    return this.locationId.value
+  }
+
+  emailValue (): Primitives<EmployeeEmail> {
+    return this.email.value
+  }
+
+  cargoValue (): Primitives<CargoId> {
+    return this.cargoId.value
+  }
+
+  extensionValue (): Primitives<Extension> {
+    return this.extension.value
+  }
+
+  phoneNumberValue (): Primitives<PhoneNumber> {
+    return this.phoneNumber.value
+  }
+
+  vicepresidenciaEjecutivaValue (): Primitives<VicepresidenciaEjecutivaId> {
+    return this.vicepresidenciaEjecutivaId.value
+  }
+
+  vicepresidenciaValue (): Primitives<VicepresidenciaId> {
+    return this.vicepresidenciaId.value
+  }
+
+  gerenciaValue (): Primitives<GerenciaId> {
+    return this.gerenciaId.value
+  }
+
+  coordinacionValue (): Primitives<CoordinacionId> {
+    return this.coordinacionId.value
+  }
+
+  devicesValue (): Array<Primitives<DeviceId>> {
+    return this.devices.map((deviceId) => deviceId.value)
+  }
+
+  toPrimitives (): EmployeePrimitives {
+    return {
+      name: this.nameValue(),
+      lastName: this.lastNameValue(),
+      userName: this.userNameValue(),
+      cedula: this.cedulaValue(),
+      locationId: this.locationValue(),
+      email: this.emailValue(),
+      cargoId: this.cargoValue(),
+      extension: this.extensionValue(),
+      phoneNumber: this.phoneNumberValue(),
+      vicepresidenciaEjecutivaId: this.vicepresidenciaEjecutivaValue(),
+      vicepresidenciaId: this.vicepresidenciaValue(),
+      gerenciaId: this.gerenciaValue(),
+      coordinacionId: this.coordinacionValue(),
+      devices: this.devicesValue()
+    }
+  }
 }

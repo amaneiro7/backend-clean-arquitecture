@@ -23,6 +23,7 @@ import { type StateRepository } from '../../location/state/domain/stateRepositor
 import { type RegionRepository } from '../../location/region/domain/regionRepository'
 import { type SiteRepository } from '../../location/site/domain/siteRepository'
 import { type LocationRepository } from '../../location/locations/domain/locationRepository'
+import { type EmployeeRepository } from '../../employee/employee/domain/EmployeeRepository'
 
 export interface Repository {
   brand: BrandRepository
@@ -54,5 +55,7 @@ export interface Repository {
   site: SiteRepository
   location: LocationRepository
   typeOfSite: TypeOfSiteRepository
+  // employee
+  employee: EmployeeRepository
 
 }

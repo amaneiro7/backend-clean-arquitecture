@@ -8,7 +8,7 @@ export class DeviceCreator {
   constructor (private readonly repository: Repository) {}
 
   async create (params: DevicePrimitives): Promise<void> {
-    let device: Device | Computer | HardDrive | DeviceId
+    let device: Device | Computer | HardDrive
     if (Computer.isComputerCategory({ categoryId: params.categoryId })) {
       device = Computer.create(params as ComputerPrimitives)
     } else if (HardDrive.isHardDriveCategory({ categoryId: params.categoryId })) {
