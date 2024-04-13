@@ -2,15 +2,17 @@ import { RoleId } from '../../role/domain/RoleId'
 import { UserEmail } from './UserEmail'
 import { UserName } from './UserName'
 import { UserPassword } from './UserPassword'
-import { UserLastName } from './UserlastName'
+import { UserLastName } from './UserLastName'
+import { type Primitives } from '../../../shared/domain/value-object/Primitives'
+import { type UserId } from './UserId'
 
 export interface UserPrimitives {
-  id?: string
-  name: string
-  lastName: string
-  email: string
-  roleId: number
-  password: string
+  id?: Primitives<UserId>
+  name: Primitives<UserName>
+  lastName: Primitives<UserLastName>
+  email: Primitives<UserEmail>
+  roleId: Primitives<RoleId>
+  password: Primitives<UserPassword>
 }
 export class User {
   constructor (
@@ -31,23 +33,23 @@ export class User {
     )
   }
 
-  nameValue (): string {
+  nameValue (): Primitives<UserName> {
     return this.name.value
   }
 
-  lastNameValue (): string {
+  lastNameValue (): Primitives<UserLastName> {
     return this.lastName.value
   }
 
-  emailValue (): string {
+  emailValue (): Primitives<UserEmail> {
     return this.email.value
   }
 
-  roleIdValue (): number {
+  roleIdValue (): Primitives<RoleId> {
     return this.roleId.value
   }
 
-  passwordValue (): string {
+  passwordValue (): Primitives<UserPassword> {
     return this.password.value
   }
 

@@ -6,7 +6,7 @@ import { useGenericFormData } from '../../Hooks/useGenericFormData'
 import { FormContainer } from '../../components/formContainer'
 import ObservationInput from './ObservationInput'
 import LocationSelect from '../location/LocationSelect'
-import { EmployeeSelect } from '../employee/EmployeeSelect'
+import { EmployeeSelect } from '../employee/NewEmployeeSelect'
 
 const CategorySelect = lazy(async () => await import('../category/CategorySelect'))
 const BrandSelect = lazy(async () => await import('../brand/BrandSelect'))
