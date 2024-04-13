@@ -16,7 +16,7 @@ import { SessionStorageRepository } from '../../user/user/infrastructure/Session
 import { ApiVicepresidenciaEjecutivaRepository } from '../../employee/area/vicepresidenciaejecutiva/infraestructure/ApiVicepresidenciaEjecutivaRepository'
 import { ApiVicepresidenciaRepository } from '../../employee/area/vicepresidencia/infraestructure/ApiVicepresidenciaRepository'
 import { ApiGerenciaRepository } from '../../employee/area/gerencia/infraestructure/ApiGerenciaRepository'
-import { ApiCoordinacionRepository } from '../../employee/area/coordinacion/infraestructure/ApiGerenciaRepository'
+import { ApiCoordinacionRepository } from '../../employee/area/coordinacion/infraestructure/ApiCoordinacionRepository'
 import { ApiCargoRepository } from '../../employee/cargo/infraestructure/ApiCargoRepository'
 import { ApiCityRepository } from '../../location/city/infraestructure/ApiCityRepository'
 import { ApiLocationRepository } from '../../location/locations/infraestructure/ApiLocationRepository'
