@@ -23,7 +23,7 @@ const LocationSelect: FC<Props> = ({ value, onChange, isRequired = false, typeOf
   const filterLocation = useMemo(() => {
     return locations.filter(location => {
       const typeOfSite = location.typeOfSiteId === typeOfSiteId || (typeOfSiteId === undefined || typeOfSiteId === '')
-      const status = statusId === '1' ? (location.typeOfSiteId === '1' || location.typeOfSiteId === '2') : location.typeOfSiteId === '3'
+      const status = statusId === undefined ? true : statusId === '1' ? (location.typeOfSiteId === '1' || location.typeOfSiteId === '2') : location.typeOfSiteId === '3'
       return typeOfSite && status
     })
   }, [locations, typeOfSiteId, statusId])

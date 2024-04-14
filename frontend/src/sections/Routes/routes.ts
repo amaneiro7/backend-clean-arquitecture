@@ -63,6 +63,36 @@ export const dropdownNavs: DropDown[] = [
         desc: 'Usuarios asignados en agencia',
         path: '/empleados/agencia',
         icon: 'icon'
+      },
+      {
+        title: 'Directorio',
+        desc: 'Directorio de usuarios',
+        path: '/directorio',
+        icon: 'icon'
+      }
+    ]
+  }
+]
+
+export const dropdownAddsNavs: DropDown[] = [
+  {
+    label: 'Agregar Dispositivo',
+    navs: [
+      {
+        title: 'Agregar un nuevo dispositivo',
+        desc: 'Aqui se puede agregar un nuevo dispositivo',
+        path: '/device/add',
+        icon: 'icon'
+      }
+    ]
+  }, {
+    label: 'Agregar un nuevo Usuario',
+    navs: [
+      {
+        title: 'Agregar un nuevo usuario',
+        desc: 'Aqui se puede agregar un nuevo usuario',
+        path: '/employee/add',
+        icon: 'icon'
       }
     ]
   }
@@ -75,14 +105,10 @@ export const navigation: Navigation[] = [
     isDrapdown: false
   },
   {
-    name: 'Agregar Dispositivo',
-    path: '/device/add',
-    isDrapdown: false
-  },
-  {
-    name: 'Agregar un nuevo Usuario',
-    path: '/employee/add',
-    isDrapdown: false
+    name: 'Agregar',
+    path: '#',
+    isDrapdown: true,
+    navs: dropdownAddsNavs
   },
   {
     name: 'Listado de Dispositivos',
