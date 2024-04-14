@@ -1,10 +1,10 @@
 import { Suspense, useState } from 'react'
-import { type EmployeeId } from '../../../modules/employee/employee/domain/EmployeeId'
-import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
+import { type EmployeeId } from '../../../../modules/employee/employee/domain/EmployeeId'
+import { type Primitives } from '../../../../modules/shared/domain/value-object/Primitives'
 
-import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
+import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
 import { Autocomplete, darken, lighten, styled, TextField, createFilterOptions } from '@mui/material'
-import { useAppContext } from '../../Context/AppContext'
+import { useAppContext } from '../../../Context/AppContext'
 
 const filter = createFilterOptions()
 

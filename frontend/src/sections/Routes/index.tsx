@@ -9,6 +9,7 @@ const AlmacenPage = lazy(async () => await import('../page/Almacen/index.tsx'))
 const EquiposAgenciaPage = lazy(async () => await import('../page/AgenciaPerDevice/index.tsx'))
 const EquiposTorrePage = lazy(async () => await import('../page/AdministrativeSitePerDevice/index.tsx'))
 
+const CreateEmployeeForm = lazy(async () => await import('../Device/employee/CreateEmployeeForm.tsx'))
 const CreateDeviceForm = lazy(async () => await import('../Device/device/CreateDeviceForm.tsx'))
 const CreateBrandForm = lazy(async () => await import('../Device/brand/CreateBrandForm.tsx'))
 const CreateModelForm = lazy(async () => await import('../Device/model/CreateModelForm.tsx'))
@@ -22,6 +23,8 @@ export const privateRouter = [
   { path: '/equipos/agencia', element: <EquiposAgenciaPage /> },
   { path: '/equipos/torre', element: <EquiposTorrePage /> },
   { path: '/device/add', element: <CreateDeviceForm /> },
+  { path: '/employee/add', element: <CreateEmployeeForm /> },
+  { path: '/employee/edit/:id', element: <CreateEmployeeForm /> },
   { path: '/device/edit/:id', element: <CreateDeviceForm /> },
   { path: '/brand/add', element: <CreateBrandForm /> },
   { path: '/brand/edit/:id', element: <CreateBrandForm /> },

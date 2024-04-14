@@ -3,11 +3,11 @@ import { TextField } from '../../mui/TextField'
 interface Props {
   id: string
   name: string
-  type: string
+  type: React.HTMLInputTypeAttribute
   label: string
   placeholder: string
   handle: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
-  value: string
+  value: string | number
   defaultValue?: string
   isRequired?: boolean
   isError?: boolean

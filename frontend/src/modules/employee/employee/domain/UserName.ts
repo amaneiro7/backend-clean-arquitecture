@@ -5,8 +5,8 @@ export class EmployeeUserName {
 
   constructor (
     readonly value: string,
-    private readonly firstName: string,
-    private readonly lastName: string
+    readonly firstName: string,
+    readonly lastName: string
   ) {
     if (!EmployeeUserName.isValid(value, firstName, lastName)) {
       throw new Error(EmployeeUserName.invalidMessage(value, firstName, lastName))
@@ -16,7 +16,7 @@ export class EmployeeUserName {
   public static isValid (value: string, firstName: string, lastName: string): boolean {
     const firstLetter = firstName.charAt(0).toUpperCase()
     const isFirstLetterMatch = firstLetter === value.charAt(0).toUpperCase()
-    const isLastNameIncluded = value.includes(lastName)
+    const isLastNameIncluded = value.toLowerCase()?.includes(lastName.toLowerCase()) ?? false
     return EmployeeUserName.regex.test(value) && value.length >= EmployeeUserName.NAME_MIN_LENGTH && value.length <= EmployeeUserName.NAME_MAX_LENGTH && isFirstLetterMatch && isLastNameIncluded
   }
 
@@ -25,7 +25,7 @@ export class EmployeeUserName {
       return 'El userName debe contener solo letras'
     }
     if (!value.includes(lastName)) {
-      return 'el apellido debe coicincidir con el usuario'
+      return 'el apellido debe coincidir con el usuario'
     }
     const firstLetter = firstName.charAt(0).toUpperCase()
     if (firstLetter !== value.charAt(0).toUpperCase()) {

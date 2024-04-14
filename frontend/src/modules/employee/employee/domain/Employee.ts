@@ -1,4 +1,4 @@
-import { DeviceId } from '../../../devices/devices/devices/domain/DeviceId'
+import { type DeviceId } from '../../../devices/devices/devices/domain/DeviceId'
 import { LocationId } from '../../../location/locations/domain/locationId'
 import { type Primitives } from '../../../shared/domain/value-object/Primitives'
 import { type UserName } from '../../../user/user/domain/UserName'
@@ -31,8 +31,7 @@ export interface EmployeePrimitives {
   vicepresidenciaId: Primitives<VicepresidenciaId>
   gerenciaId: Primitives<GerenciaId>
   coordinacionId: Primitives<CoordinacionId>
-  devices: Array<Primitives<DeviceId>>
-
+  devices?: Array<Primitives<DeviceId>>
 }
 
 export class Employee {
@@ -49,11 +48,10 @@ export class Employee {
     private readonly vicepresidenciaEjecutivaId: VicepresidenciaEjecutivaId,
     private readonly vicepresidenciaId: VicepresidenciaId,
     private readonly gerenciaId: GerenciaId,
-    private readonly coordinacionId: CoordinacionId,
-    private readonly devices: DeviceId[]
+    private readonly coordinacionId: CoordinacionId
   ) {}
 
-  public static create (params: EmployeePrimitives): Employee {
+  public static create (params: Omit<EmployeePrimitives, 'id' | 'devices'>): Employee {
     return new Employee(
       new EmployeeName(params.name),
       new EmployeeLastName(params.lastName),
@@ -67,8 +65,7 @@ export class Employee {
       new VicepresidenciaEjecutivaId(params.vicepresidenciaEjecutivaId),
       new VicepresidenciaId(params.vicepresidenciaId),
       new GerenciaId(params.gerenciaId),
-      new CoordinacionId(params.coordinacionId),
-      params.devices.map((deviceId) => new DeviceId(deviceId))
+      new CoordinacionId(params.coordinacionId)
     )
   }
 
@@ -124,10 +121,6 @@ export class Employee {
     return this.coordinacionId.value
   }
 
-  devicesValue (): Array<Primitives<DeviceId>> {
-    return this.devices.map((deviceId) => deviceId.value)
-  }
-
   toPrimitives (): EmployeePrimitives {
     return {
       name: this.nameValue(),
@@ -142,8 +135,7 @@ export class Employee {
       vicepresidenciaEjecutivaId: this.vicepresidenciaEjecutivaValue(),
       vicepresidenciaId: this.vicepresidenciaValue(),
       gerenciaId: this.gerenciaValue(),
-      coordinacionId: this.coordinacionValue(),
-      devices: this.devicesValue()
+      coordinacionId: this.coordinacionValue()
     }
   }
 }

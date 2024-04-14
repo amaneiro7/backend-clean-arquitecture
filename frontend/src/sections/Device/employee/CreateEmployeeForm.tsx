@@ -5,6 +5,12 @@ import { FormStatus, useEmployeeForm } from './useEmployeeForm'
 import { type FormEvent, Suspense, useEffect } from 'react'
 import { FormContainer } from '../../components/formContainer'
 import LocationSelect from '../location/LocationSelect'
+import EmployeeNameInput from './components/NameInput'
+import EmployeeLastNameInput from './components/LastNameInput'
+import EmployeeUserNameInput from './components/UserNameInput'
+import CedulaInput from './components/Cedula'
+import EmployeeEmailInput from './components/EmployeeEmail'
+import ExtensionInput from './components/ExtensionInput'
 
 export default function CreateEmployeeForm () {
   const navigate = useNavigate()
@@ -50,9 +56,53 @@ export default function CreateEmployeeForm () {
       isDisabled={formStatus === FormStatus.Loading}
     >
     <Suspense>
+      <EmployeeNameInput
+        value={formData.name}
+        isForm={true}
+        onChange={handleChange}
+      />
+    </Suspense>
+    <Suspense>
+      <EmployeeLastNameInput
+        value={formData.lastName}
+        isForm={true}
+        onChange={handleChange}
+      />
+    </Suspense>
+    <Suspense>
+      <EmployeeUserNameInput
+        value={formData.userName}
+        name={formData.name}
+        lastName={formData.lastName}
+        isForm={true}
+        onChange={handleChange}
+      />
+    </Suspense>
+    <Suspense>
+      <CedulaInput
+        value={formData.cedula}
+        isForm={true}
+        onChange={handleChange}
+      />
+    </Suspense>
+    <Suspense>
       <LocationSelect
         value={formData.locationId}
         isRequired={true}
+        onChange={handleChange}
+      />
+    </Suspense>
+    <Suspense>
+      <EmployeeEmailInput
+        value={formData.email}
+        isForm={true}
+        onChange={handleChange}
+      />
+    </Suspense>
+    <Suspense>
+      <ExtensionInput
+        value={formData.extension}
+        isForm={true}
         onChange={handleChange}
       />
     </Suspense>

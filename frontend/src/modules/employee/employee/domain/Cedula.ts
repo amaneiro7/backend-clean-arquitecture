@@ -5,13 +5,19 @@ export class Cedula extends NumberValueObject {
   static readonly MIN = 1
   constructor (readonly value: number) {
     super(value)
+    if (!Cedula.isValid(value)) {
+      throw new Error(Cedula.invalidMessage(value))
+    }
   }
 
   public static isValid (value: number): boolean {
-    return (value % 2) === 0 && value >= Cedula.MIN && value <= Cedula.MAX
+    return value >= Cedula.MIN && value <= Cedula.MAX
   }
 
-  public static invalidMessage (value: number): string {
+  public static invalidMessage (value: number | string): string {
+    if (value === '') {
+      return 'La cédula no puede estar vacía'
+    }
     return `${value} no es una cédula válida`
   }
 }

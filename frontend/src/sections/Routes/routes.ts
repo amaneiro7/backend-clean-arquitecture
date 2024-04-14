@@ -11,6 +11,11 @@ export const routes = [
   },
   {
     id: 3,
+    path: '/employee/add',
+    name: 'Agregar un nuevo usuario'
+  },
+  {
+    id: 4,
     path: '/dashboard',
     name: 'Balance'
   }
@@ -75,15 +80,15 @@ export const navigation: Navigation[] = [
     isDrapdown: false
   },
   {
+    name: 'Agregar un nuevo Usuario',
+    path: '/employee/add',
+    isDrapdown: false
+  },
+  {
     name: 'Listado de Dispositivos',
     path: '#',
     isDrapdown: true,
     navs: dropdownNavs
-  },
-  {
-    name: 'Customers',
-    path: 'dashboad',
-    isDrapdown: false
   },
   {
     name: 'Balance',
