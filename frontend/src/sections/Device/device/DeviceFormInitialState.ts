@@ -18,6 +18,11 @@ import { type OperatingSystemId } from '../../../modules/devices/fetures/operati
 import { type MACAddress } from '../../../modules/devices/fetures/computer/domain/MACAddress'
 import { type IPAddress } from '../../../modules/devices/fetures/computer/domain/IPAddress'
 import { type HardDriveHealth } from '../../../modules/devices/fetures/hardDrive/hardDrive/domain/HardDriveHealth'
+import { type EmployeeId } from '../../../modules/employee/employee/domain/EmployeeId'
+import { type LocationId } from '../../../modules/location/locations/domain/locationId'
+import { type DeviceObservation } from '../../../modules/devices/devices/devices/domain/DeviceObservation'
+import { type DevicePrimitives } from '../../../modules/devices/devices/devices/domain/Device'
+import { type ComputerName } from '../../../modules/devices/fetures/computer/domain/ComputerName'
 
 interface defaultProps {
   serial: Primitives<DeviceSerial>
@@ -26,6 +31,10 @@ interface defaultProps {
   modelId: Primitives<ModelId>
   categoryId: Primitives<CategoryId>
   brandId: Primitives<BrandId>
+  employeeId: Primitives<EmployeeId>
+  locationId: Primitives<LocationId>
+  observation: Primitives<DeviceObservation>
+  computerName?: Primitives<ComputerName>
   processorId?: Primitives<ProcessorId>
   memoryRamCapacity?: Primitives<MemoryRamCapacity>
   hardDriveCapacityId?: Primitives<HardDriveCapacityId>
@@ -44,6 +53,10 @@ const defaultInitialState: defaultProps = {
   modelId: '',
   categoryId: '',
   brandId: '',
+  employeeId: '',
+  locationId: '',
+  observation: '',
+  computerName: '',
   processorId: '',
   memoryRamCapacity: 0,
   hardDriveCapacityId: '',
@@ -67,33 +80,34 @@ export const useDeviceInitialState = () => {
       return
     }
 
-    if (location.state?.device !== undefined) {
-      console.log('useDeviceInitialState', location.state)
-      const { device } = location.state
-      setPreloadedDeviceState(device)
+    if (location.state?.state !== undefined) {
+      const { state } = location.state
+      ProcessDeviceState(state)
+    } else if (id === undefined) {
+      navigate('/error')
     } else {
-      if (id === undefined) {
-        navigate('/error')
-        return
-      }
       getDevice.getById(id)
         .then(device => {
-          const { serial, activo, statusId, modelId, categoryId, brandId, computer, hardDrive } = device as DevicesMappedApiResponse
-          setPreloadedDeviceState({ serial, activo, statusId, modelId, categoryId, brandId })
-          if (computer !== null) {
-            const { processorId, memoryRamCapacity, hardDriveCapacityId, hardDriveTypeId, operatingSystemArqId, OperatingSystemVersionId, macAddress, ipAddress } = computer
-            setPreloadedDeviceState({ ...preloadedDeviceState, processorId, memoryRamCapacity, hardDriveCapacityId, hardDriveTypeId, operatingSystemArqId, OperatingSystemVersionId, macAddress, ipAddress })
-          }
-          if (hardDrive !== null) {
-            const { health, hardDriveCapacityId, hardDriveTypeId } = hardDrive
-            setPreloadedDeviceState({ ...preloadedDeviceState, health, hardDriveCapacityId, hardDriveTypeId })
-          }
+          ProcessDeviceState(device)
         })
         .catch(error => {
-          console.log(error)
+          console.error('useDeviceInitialState', error)
         })
     }
-  }, [id, location.state?.devices])
+  }, [id, location.state?.state])
+
+  function ProcessDeviceState (device: DevicePrimitives): void {
+    const { serial, activo, statusId, modelId, categoryId, brandId, employeeId, locationId, observation, computer, hardDrive } = device as DevicesMappedApiResponse
+    setPreloadedDeviceState({ serial, activo, statusId, modelId, categoryId, brandId, employeeId, locationId, observation })
+    if (computer !== null) {
+      const { computerName, processorId, memoryRamCapacity, hardDriveCapacityId, hardDriveTypeId, operatingSystemArqId, OperatingSystemVersionId, macAddress, ipAddress } = computer
+      setPreloadedDeviceState({ ...preloadedDeviceState, computerName, processorId, memoryRamCapacity, hardDriveCapacityId, hardDriveTypeId, operatingSystemArqId, OperatingSystemVersionId, macAddress, ipAddress })
+    }
+    if (hardDrive !== null) {
+      const { health, hardDriveCapacityId, hardDriveTypeId } = hardDrive
+      setPreloadedDeviceState({ ...preloadedDeviceState, health, hardDriveCapacityId, hardDriveTypeId })
+    }
+  }
 
   return {
     preloadedDeviceState

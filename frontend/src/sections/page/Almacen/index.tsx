@@ -23,14 +23,14 @@ import TableCellEditDeleteIcon from '../../components/TableComponent/TableCellEd
 const Button = lazy(async () => await import('../../ui/button'))
 const TabsComponent = lazy(async () => await import('../../ui/tabs'))
 const BrandSelect = lazy(async () => await import('../../Device/brand/BrandSelect'))
-const SerialInput = lazy(async () => await import('../../Device/device/SerialInput'))
-const ActivoInput = lazy(async () => await import('../../Device/device/ActivoInput'))
+const SerialInput = lazy(async () => await import('../../Device/device/components/SerialInput'))
+const ActivoInput = lazy(async () => await import('../../Device/device/components/ActivoInput'))
 const ModelSelect = lazy(async () => await import('../../Device/model/ModelSelect'))
 const StatusSelect = lazy(async () => await import('../../Device/status/StatusSelect'))
 const LocationSelect = lazy(async () => await import('../../Device/location/LocationSelect'))
 
 export default function AlmacenPage () {
-  const { device: { devices, loading }, addFilter, cleanFilters } = useAppContext()
+  const { device: { devices, loading, addFilter, cleanFilters } } = useAppContext()
   const navigate = useNavigate()
   const { inputData, updateInputData, clearInputs } = useInputsData()
 
@@ -189,8 +189,7 @@ export default function AlmacenPage () {
                       </>
                   }
                 </TableRow>
-              ))
-              }
+              ))}
           </TableBody>
         </Table>
       </Suspense>}

@@ -15,7 +15,8 @@ interface Props {
 }
 
 export function EmployeeSelect ({ value, onChange, isRequired = false }: Props) {
-  const { category: { categories } } = useAppContext()
+  const { employee: { employees } } = useAppContext()
+  const employeeOptions = employees.map((employee) => ({ name: employee.userName, id: employee.id }))
 
   return (
         <Suspense>
@@ -26,7 +27,7 @@ export function EmployeeSelect ({ value, onChange, isRequired = false }: Props) 
                    const { name, value } = event.target
                    onChange(name, value, Operator.CONTAINS)
                  }}
-                 options={categories}
+                 options={employeeOptions}
                  placeholder='-- Filtre por Empleado --'
                  isHidden={true}
                  isDisabled={false}

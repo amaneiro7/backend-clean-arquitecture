@@ -1,7 +1,7 @@
 import { type FC } from 'react'
-import AddComputerFeatures from '../features/computer/AddComputerFeatures'
-import AddHardDriveFeatures from '../features/hardDrive/AddHardDriveFeatures'
-import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
+import AddComputerFeatures from '../../features/computer/AddComputerFeatures'
+import AddHardDriveFeatures from '../../features/hardDrive/AddHardDriveFeatures'
+import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
 
 interface Props {
   formData: any

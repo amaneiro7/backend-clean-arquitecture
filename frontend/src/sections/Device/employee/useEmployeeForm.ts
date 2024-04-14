@@ -1,7 +1,7 @@
 import { useState } from 'react'
+import { type EmployeePrimitives } from '../../../modules/employee/employee/domain/Employee'
 import { useAppContext } from '../../Context/AppContext'
 import { toastMessage } from '../../utils/toaster'
-import { type DevicePrimitives } from '../../../modules/devices/devices/devices/domain/Device'
 
 export const enum FormStatus {
   Loading,
@@ -10,26 +10,25 @@ export const enum FormStatus {
   Initial
 }
 
-export function useDeviceForm (): {
+export function useEmployeeForm (): {
   formStatus: FormStatus
-  submitForm: (formData: DevicePrimitives) => Promise<void>
+  submitForm: (formData: EmployeePrimitives) => Promise<void>
   resetFormStatus: () => void
 } {
   const [formStatus, setFormStatus] = useState(FormStatus.Initial)
-  const { device: { createDevice } } = useAppContext()
+  const { employee: { createEmployee } } = useAppContext()
 
-  async function submitForm (formData: DevicePrimitives) {
+  async function submitForm (formData: EmployeePrimitives) {
     setFormStatus(FormStatus.Loading)
     toastMessage({ type: 'loading', message: 'Cargando...' })
 
     try {
-      await createDevice(formData)
-      toastMessage({ type: 'success', message: 'Dispositivo Creado' })
+      await createEmployee(formData)
+      toastMessage({ type: 'success', message: 'Empleado Creado exitosamente' })
       setFormStatus(FormStatus.Success)
     } catch (error: any) {
       toastMessage({ type: 'error', message: error.message })
-      console.error('useDeviceForm', error)
-
+      console.error('useEmployeeForm', error)
       setFormStatus(FormStatus.Error)
     }
   }

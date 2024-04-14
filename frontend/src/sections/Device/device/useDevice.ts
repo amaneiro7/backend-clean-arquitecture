@@ -5,6 +5,7 @@ import { DeviceCreator } from '../../../modules/devices/devices/devices/applicat
 import { DeviceGetter } from '../../../modules/devices/devices/devices/application/DeviceGetter'
 import { DeviceGetterByCriteria } from '../../../modules/devices/devices/devices/application/DeviceGetterByCriteria'
 import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
+import { useSearchByCriteriaQuery } from '../../Hooks/useQueryUpdate'
 
 export interface UseDevice {
   devices: DevicePrimitives[]
@@ -12,10 +13,13 @@ export interface UseDevice {
   error: string | null
   getDevice: DeviceGetter
   createDevice: (formData: DevicePrimitives) => Promise<void>
+  addFilter: (payload: SearchByCriteriaQuery) => void
+  cleanFilters: (payload?: SearchByCriteriaQuery) => void
 }
 
-export const useDevice = (repository: Repository, query: SearchByCriteriaQuery) => {
+export const useDevice = (repository: Repository) => {
   const deviceByCriteria = new DeviceGetterByCriteria(repository)
+  const { query, addFilter, cleanFilters } = useSearchByCriteriaQuery()
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [devices, setDevices] = useState<DevicePrimitives[]>([])
@@ -53,6 +57,8 @@ export const useDevice = (repository: Repository, query: SearchByCriteriaQuery) 
     loading,
     error,
     getDevice,
-    createDevice
+    createDevice,
+    addFilter,
+    cleanFilters
   }
 }

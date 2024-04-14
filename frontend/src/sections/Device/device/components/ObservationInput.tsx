@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
-import FormInput from '../../ui/text-field'
-import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
-import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
-import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
-import { DeviceObservation } from '../../../modules/devices/devices/devices/domain/DeviceObservation'
+import FormInput from '../../../ui/text-field'
+import { type Primitives } from '../../../../modules/shared/domain/value-object/Primitives'
+import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
+import { Operator } from '../../../../modules/shared/domain/criteria/FilterOperators'
+import { DeviceObservation } from '../../../../modules/devices/devices/devices/domain/DeviceObservation'
 
 interface Props {
   value: Primitives<DeviceObservation>

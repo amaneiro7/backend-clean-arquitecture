@@ -35,15 +35,15 @@ const GroupItems = styled('ul')({
 })
 
 export function EmployeeSelect ({ onChange, value: otheValue, isRequired = true }: Props) {
-  const { category: { categories } } = useAppContext()
+  const { employee: { employees } } = useAppContext()
 
   const [value, setValue] = useState(null)
 
-  const options = categories.map((category) => {
-    const firsLetter = category.name[0].toUpperCase()
+  const options = employees.map((employee) => {
+    const firsLetter = employee.userName[0].toUpperCase()
     return {
       firstLetter: /[0-9]/.test(firsLetter) ? '0-9' : firsLetter,
-      ...category
+      ...employee
     }
   })
 

@@ -4,41 +4,22 @@ import { useDeviceForm, FormStatus } from './useDeviceForm'
 import { useDeviceInitialState } from './DeviceFormInitialState'
 import { useGenericFormData } from '../../Hooks/useGenericFormData'
 import { FormContainer } from '../../components/formContainer'
-import ObservationInput from './ObservationInput'
+import ObservationInput from './components/ObservationInput'
 import LocationSelect from '../location/LocationSelect'
-import { EmployeeSelect } from '../employee/NewEmployeeSelect'
+import { EmployeeSelect } from '../employee/EmployeeSelect'
 
 const CategorySelect = lazy(async () => await import('../category/CategorySelect'))
 const BrandSelect = lazy(async () => await import('../brand/BrandSelect'))
-const SerialInput = lazy(async () => await import('../device/SerialInput'))
-const ActivoInput = lazy(async () => await import('../device/ActivoInput'))
+const SerialInput = lazy(async () => await import('./components/SerialInput'))
+const ActivoInput = lazy(async () => await import('./components/ActivoInput'))
 const StatusSelect = lazy(async () => await import('../status/StatusSelect'))
 const ModelSelect = lazy(async () => await import('../model/ModelSelect'))
-const DeviceFeatures = lazy(async () => await import('./DeviceFeatures'))
+const DeviceFeatures = lazy(async () => await import('./components/DeviceFeatures'))
 
-const initialState = {
-  serial: '',
-  activo: '',
-  statusId: '',
-  modelId: '',
-  categoryId: '',
-  brandId: '',
-  employeeId: '',
-  observation: '',
-  locationId: '',
-  memoryRamCapacity: 0,
-  hardDriveCapacityId: '',
-  hardDriveTypeId: '',
-  operatingSystemId: '',
-  operatingSystemArqId: '',
-  ipAddress: '',
-  macAddress: '',
-  health: 100
-}
 export default function CreateDeviceForm () {
   const navigate = useNavigate()
   const { preloadedDeviceState } = useDeviceInitialState()
-  const { formData, updateForm, resetForm } = useGenericFormData(initialState)
+  const { formData, updateForm, resetForm } = useGenericFormData(preloadedDeviceState)
   const { formStatus, submitForm, resetFormStatus } = useDeviceForm()
 
   useEffect(() => {

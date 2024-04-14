@@ -9,6 +9,7 @@ import OperatingSystemVersionSelect from '../operatingSystem/OperatingSystemVers
 import { Computer, type ComputerPrimitives } from '../../../../modules/devices/fetures/computer/domain/Computer'
 import IpAddressInput from './ipAddressInput'
 import MacAddressInput from './MacAddressInput'
+import ComputerNameInput from './ComputerNameInput'
 
 interface Props {
   onChange: OnHandleChange
@@ -22,6 +23,11 @@ const AddComputerFeatures: FC<Props> = ({ formData, onChange }) => {
     <>
       {isComputerLaptopAllinOneDevice
         ? <>
+          <ComputerNameInput
+            isForm={true}
+            onChange={onChange}
+            value={formData.computerName}
+          />
           <ProcessorSelect
             isForm={true}
             onChange={onChange}

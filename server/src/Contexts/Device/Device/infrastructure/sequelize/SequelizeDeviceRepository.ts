@@ -88,10 +88,10 @@ export class SequelizeDeviceRepository extends CriteriaToSequelizeConverter<Devi
   async save (payload: DevicePrimitives): Promise<void> {
     const t = await sequelize.transaction()
     try {
-      const { id, serial, activo, statusId, categoryId, brandId, modelId, locationId, observation } = payload
+      const { id, serial, activo, statusId, categoryId, brandId, modelId, locationId, observation, employeeId } = payload
       const device = await DeviceModel.findByPk(id) ?? null
       if (device === null) {
-        await DeviceModel.create({ id, serial, activo, statusId, categoryId, brandId, modelId, locationId, observation }, { transaction: t })
+        await DeviceModel.create({ id, serial, activo, statusId, categoryId, brandId, modelId, locationId, observation, employeeId }, { transaction: t })
       } else {
         device.set({ id, serial, activo, statusId, categoryId, brandId, modelId })
         await device.save({ transaction: t })

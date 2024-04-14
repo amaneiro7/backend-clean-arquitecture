@@ -19,13 +19,13 @@ import TableCellEditDeleteIcon from '../../components/TableComponent/TableCellEd
 const Button = lazy(async () => await import('../../ui/button'))
 const BrandSelect = lazy(async () => await import('../../Device/brand/BrandSelect'))
 const CategorySelect = lazy(async () => await import('../../Device/category/CategorySelect'))
-const SerialInput = lazy(async () => await import('../../Device/device/SerialInput'))
-const ActivoInput = lazy(async () => await import('../../Device/device/ActivoInput'))
+const SerialInput = lazy(async () => await import('../../Device/device/components/SerialInput'))
+const ActivoInput = lazy(async () => await import('../../Device/device/components/ActivoInput'))
 const ModelSelect = lazy(async () => await import('../../Device/model/ModelSelect'))
 const LocationSelect = lazy(async () => await import('../../Device/location/LocationSelect'))
 
 export default function AdministrativeSitePage () {
-  const { device: { devices }, addFilter, cleanFilters } = useAppContext()
+  const { device: { devices, loading, addFilter, cleanFilters } } = useAppContext()
   const navigate = useNavigate()
   const { inputData, updateInputData, clearInputs } = useInputsData()
 
@@ -139,7 +139,9 @@ export default function AdministrativeSitePage () {
           />
         </Suspense>
       </header>
-      <Suspense>
+      {loading && <p>...Loading</p>}
+      {(!loading && devices.length === 0) && <p>No hay resultados</p>}
+      {(!loading && devices.length > 0) && <Suspense fallback={<p>...Loading</p>}>
         <Table className=''>
           <TableHeader>
             <TableRow>
@@ -178,7 +180,7 @@ export default function AdministrativeSitePage () {
               ))}
           </TableBody>
         </Table>
-      </Suspense>
+      </Suspense>}
     </main>
   )
 }

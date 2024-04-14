@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom'
-import { DeleteIcon } from '../../ui/icon/DeleIcon'
-import { EditIcon } from '../../ui/icon/EditIcon'
-import { type DevicesMappedApiResponse } from '../../../modules/shared/domain/types/responseTypes'
-import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
-import { type CategoryId } from '../../../modules/devices/category/domain/CategoryId'
-import { Computer } from '../../../modules/devices/fetures/computer/domain/Computer'
+import { DeleteIcon } from '../../../ui/icon/DeleIcon'
+import { EditIcon } from '../../../ui/icon/EditIcon'
+import { type DevicesMappedApiResponse } from '../../../../modules/shared/domain/types/responseTypes'
+import { type Primitives } from '../../../../modules/shared/domain/value-object/Primitives'
+import { type CategoryId } from '../../../../modules/devices/category/domain/CategoryId'
+import { Computer } from '../../../../modules/devices/fetures/computer/domain/Computer'
 
 interface Props {
   item: DevicesMappedApiResponse

@@ -1,9 +1,9 @@
 import { type FC } from 'react'
-import { type DevicesMappedApiResponse } from '../../../modules/shared/domain/types/responseTypes'
+import { type DevicesMappedApiResponse } from '../../../../modules/shared/domain/types/responseTypes'
 // import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { DeviceTableCardList } from './DeviceCardList'
-import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
-import { type CategoryId } from '../../../modules/devices/category/domain/CategoryId'
+import { type Primitives } from '../../../../modules/shared/domain/value-object/Primitives'
+import { type CategoryId } from '../../../../modules/devices/category/domain/CategoryId'
 
 interface Props {
   device: DevicesMappedApiResponse[]

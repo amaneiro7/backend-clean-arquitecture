@@ -5,8 +5,7 @@ import { type UseCategory, useCategory } from '../Device/category/useCategory'
 import { useDevice, type UseDevice } from '../Device/device/useDevice'
 import { useStatus, type UseStatus } from '../Device/status/useStatus'
 import { useLocation, type UseLocation } from '../Device/location/useLocation'
-import { useSearchByCriteriaQuery } from '../Hooks/useQueryUpdate'
-import { type SearchByCriteriaQuery } from '../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
+import { useEmployee, type UseEmployee } from '../Device/employee/useEmployee'
 
 export interface ContextState {
   repository: Repository
@@ -15,23 +14,22 @@ export interface ContextState {
   device: UseDevice
   status: UseStatus
   location: UseLocation
-  addFilter: (payload: SearchByCriteriaQuery) => void
-  cleanFilters: (payload?: SearchByCriteriaQuery) => void
+  employee: UseEmployee
 }
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
 export const AppContext = createContext({} as ContextState)
 
 export const AppContextProvider = ({ children, repository }: PropsWithChildren<{ repository: Repository }>) => {
-  const { query, addFilter, cleanFilters } = useSearchByCriteriaQuery()
   const useAuth = useLogin(repository)
   const category = useCategory(repository)
-  const device = useDevice(repository, query)
+  const device = useDevice(repository)
   const status = useStatus(repository)
   const location = useLocation(repository)
+  const employee = useEmployee(repository)
 
   return (
-    <AppContext.Provider value={{ repository, useAuth, category, device, status, location, addFilter, cleanFilters }}>
+    <AppContext.Provider value={{ repository, useAuth, category, device, status, location, employee }}>
       {children}
     </AppContext.Provider>
   )
