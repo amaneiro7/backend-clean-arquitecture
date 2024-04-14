@@ -5,7 +5,7 @@ import { type CoordinacionRepository } from '../domain/CoordinacionRepository'
 
 export class ApiCoordinacionRepository implements CoordinacionRepository {
   async getAll (): Promise<CoordinacionPrimitives[]> {
-    return await fetch(`${API_URL}/Coordinacions`)
+    return await fetch(`${API_URL}/coordinaciones`)
       .then(async res => {
         if (!res.ok) {
           throw new Error(await res.text())

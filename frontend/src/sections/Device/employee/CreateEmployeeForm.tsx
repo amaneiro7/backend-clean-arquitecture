@@ -11,6 +11,12 @@ import EmployeeUserNameInput from './components/UserNameInput'
 import CedulaInput from './components/Cedula'
 import EmployeeEmailInput from './components/EmployeeEmail'
 import ExtensionInput from './components/ExtensionInput'
+import CargoSelect from '../cargo/CargoSelect'
+import VicepresidenciaSelect from '../area/vicepresidencia/VicepresidenciaSelect'
+import VicepresidenciaEjecutivaSelect from '../area/vicepresidenciaEjecutivaId/VicepresidenciaEjecutivaSelect'
+import GerenciaSelect from '../area/Gerencia/GerenciaSelect'
+import CoordinacionSelect from '../area/Coordinacion/CoordinacionSelect'
+import PhoneNumberInput from './components/PopneNumberInput'
 
 export default function CreateEmployeeForm () {
   const navigate = useNavigate()
@@ -103,6 +109,51 @@ export default function CreateEmployeeForm () {
       <ExtensionInput
         value={formData.extension}
         isForm={true}
+        onChange={handleChange}
+      />
+    </Suspense>
+    <Suspense>
+      <PhoneNumberInput
+        value={formData.phoneNumber}
+        isForm={true}
+        onChange={handleChange}
+      />
+    </Suspense>
+    <Suspense>
+      <CargoSelect
+        value={formData.cargoId}
+        onChange={handleChange}
+        isRequired={true}
+      />
+    </Suspense>
+    <Suspense>
+      <VicepresidenciaEjecutivaSelect
+        value={formData.vicepresidenciaEjecutivaId}
+        isRequired={true}
+        onChange={handleChange}
+      />
+    </Suspense>
+    <Suspense>
+      <VicepresidenciaSelect
+        value={formData.vicepresidenciaId}
+        vicepresidenciaEjecutivaId={formData.vicepresidenciaEjecutivaId}
+        isRequired={true}
+        onChange={handleChange}
+      />
+    </Suspense>
+    <Suspense>
+      <GerenciaSelect
+        value={formData.gerenciaId}
+        vicepresidenciaId={formData.vicepresidenciaId}
+        isRequired={true}
+        onChange={handleChange}
+      />
+    </Suspense>
+    <Suspense>
+      <CoordinacionSelect
+        value={formData.coordinacionId}
+        gerenciaId={formData.gerenciaId}
+        isRequired={true}
         onChange={handleChange}
       />
     </Suspense>

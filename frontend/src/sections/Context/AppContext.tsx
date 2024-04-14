@@ -6,6 +6,11 @@ import { useDevice, type UseDevice } from '../Device/device/useDevice'
 import { useStatus, type UseStatus } from '../Device/status/useStatus'
 import { useLocation, type UseLocation } from '../Device/location/useLocation'
 import { useEmployee, type UseEmployee } from '../Device/employee/useEmployee'
+import { type UseCargo, useCargo } from '../Device/cargo/useCargo'
+import { useCoordinacion, type UseCoordinacion } from '../Device/area/Coordinacion/useCoordinacion'
+import { useGerencia, type UseGerencia } from '../Device/area/Gerencia/useGerencia'
+import { useVicepresidencia, type UseVicepresidencia } from '../Device/area/vicepresidencia/useVicepresidencia'
+import { useVicepresidenciaEjecutiva, type UseVicepresidenciaEjecutiva } from '../Device/area/vicepresidenciaEjecutivaId/useVicepresidenciaEjecutiva'
 
 export interface ContextState {
   repository: Repository
@@ -15,6 +20,11 @@ export interface ContextState {
   status: UseStatus
   location: UseLocation
   employee: UseEmployee
+  cargo: UseCargo
+  coordinacion: UseCoordinacion
+  gerencia: UseGerencia
+  vicepresidencia: UseVicepresidencia
+  vicepresidenciaEjecutiva: UseVicepresidenciaEjecutiva
 }
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
@@ -27,9 +37,27 @@ export const AppContextProvider = ({ children, repository }: PropsWithChildren<{
   const status = useStatus(repository)
   const location = useLocation(repository)
   const employee = useEmployee(repository)
+  const cargo = useCargo(repository)
+  const coordinacion = useCoordinacion(repository)
+  const gerencia = useGerencia(repository)
+  const vicepresidencia = useVicepresidencia(repository)
+  const vicepresidenciaEjecutiva = useVicepresidenciaEjecutiva(repository)
 
   return (
-    <AppContext.Provider value={{ repository, useAuth, category, device, status, location, employee }}>
+    <AppContext.Provider value={{
+      repository,
+      useAuth,
+      category,
+      device,
+      status,
+      location,
+      employee,
+      cargo,
+      coordinacion,
+      gerencia,
+      vicepresidencia,
+      vicepresidenciaEjecutiva
+    }}>
       {children}
     </AppContext.Provider>
   )

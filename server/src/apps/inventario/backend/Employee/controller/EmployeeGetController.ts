@@ -25,14 +25,4 @@ export class EmployeeGetController {
       next(error)
     }
   }
-
-//   getById = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-//     try {
-//       const { id } = req.params
-//       const data = await new ProcessorsFinder(this.repository).searchById(new ProcessorId(id))
-//       res.status(httpStatus.OK).json(data)
-//     } catch (error) {
-//       next(error)
-//     }
-//   }
 }
