@@ -104,7 +104,7 @@ export interface EmployeesApiResponse {
   vicepresidencia: VicepresidenciaPrimitives
   gerencia: GerenciaPrimitives
   coordinacion: CoordinacionPrimitives
-  devices: DevicePrimitives[]
+  devices: DevicesApiResponse[]
 }
 
 export interface EmployeeMappedApiResponse {
@@ -131,6 +131,32 @@ export interface EmployeeMappedApiResponse {
   coordinacionId: Primitives<CoordinacionId>
   coordinacionName: Primitives<CoordinacionName>
   devices: DevicePrimitives[]
+}
+export interface EmployeeDevicesMappedApiResponse {
+  id: Primitives<EmployeeId>
+  userName: Primitives<EmployeeUserName>
+  name: Primitives<EmployeeName>
+  lastName: Primitives<EmployeeLastName>
+  cedula: Primitives<Cedula>
+  locationId: Primitives<LocationId>
+  locationName: string
+  email: Primitives<EmployeeEmail>
+  extension: Primitives<Extension>
+  phoneNumber: Primitives<PhoneNumber>
+  createdAt: Date
+  updatedAt: Date
+  cargoId: Primitives<CargoId>
+  cargoName: Primitives<CargoName>
+  vicepresidenciaEjecutivaId: Primitives<VicepresidenciaEjecutivaId>
+  vicepresidenciaEjecutivaName: Primitives<VicepresidenciaEjecutivaName>
+  vicepresidenciaId: Primitives<VicepresidenciaId>
+  vicepresidenciaName: Primitives<VicepresidenciaName>
+  gerenciaId: Primitives<GerenciaId>
+  gerenciaName: Primitives<GerenciaName>
+  coordinacionId: Primitives<CoordinacionId>
+  coordinacionName: Primitives<CoordinacionName>
+  computers: DevicesApiResponse[]
+  monitores: DevicesApiResponse[]
 }
 
 export interface DevicesMappedApiResponse {

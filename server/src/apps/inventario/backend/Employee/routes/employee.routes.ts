@@ -10,6 +10,7 @@ export const createEmployeeRouter = ({ repository }: Props): Router => {
   const getController = new EmployeeGetController(repository)
 
   router.get('/', getController.getByCriteria)
+  router.get('/devices', getController.getDevicesByCriteria)
 
   return router
 }

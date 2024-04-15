@@ -5,6 +5,7 @@ import { type Repository } from '../../../../../Contexts/Shared/domain/Repositor
 import { EmployeeByCriteriaSearcher } from '../../../../../Contexts/employee/Employee/application/EmployeeByCriteriaSearcher'
 import { SearchByCriteriaQuery } from '../../../../../Contexts/Shared/domain/SearchByCriteriaQuery'
 import { type FiltersPrimitives } from '../../../../../Contexts/Shared/domain/criteria/Filter'
+import { EmployeeDeviceByCriteriaSearcher } from '../../../../../Contexts/Employee/Employee/application/EmployeeDevicesCriteriaSearcher'
 
 export class EmployeeGetController {
   constructor (private readonly repository: Repository) {}
@@ -20,6 +21,23 @@ export class EmployeeGetController {
         offset ? Number(offset) : undefined
       )
       const data = await new EmployeeByCriteriaSearcher(this.repository).search(query)
+      res.status(httpStatus.OK).json(data)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  getDevicesByCriteria = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const { filters, orderBy, orderType, limit, offset } = req.query
+      const query = new SearchByCriteriaQuery(
+        filters ? filters as unknown as FiltersPrimitives[] : [],
+        orderBy ? orderBy as string : undefined,
+        orderType ? orderType as string : undefined,
+        limit ? Number(limit) : undefined,
+        offset ? Number(offset) : undefined
+      )
+      const data = await new EmployeeDeviceByCriteriaSearcher(this.repository).search(query)
       res.status(httpStatus.OK).json(data)
     } catch (error) {
       next(error)

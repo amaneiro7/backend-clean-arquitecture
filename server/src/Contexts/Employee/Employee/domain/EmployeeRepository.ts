@@ -10,6 +10,8 @@ export abstract class EmployeeRepository {
 
   abstract matching (criteria: Criteria): Promise<EmployeePrimitives[]>
 
+  abstract matchingByDevices (criteria: Criteria): Promise<EmployeePrimitives[]>
+
   abstract searchById (employeeId: Primitives<EmployeeId>): Promise<EmployeePrimitives | null>
 
   abstract remove (employeeId: Primitives<EmployeeId>): Promise<void>

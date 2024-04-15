@@ -9,6 +9,7 @@ const AlmacenPage = lazy(async () => await import('../page/Almacen/index.tsx'))
 const EquiposAgenciaPage = lazy(async () => await import('../page/AgenciaPerDevice/index.tsx'))
 const EquiposTorrePage = lazy(async () => await import('../page/AdministrativeSitePerDevice/index.tsx'))
 const EmployeeDirectorio = lazy(async () => await import('../page/Directorio/index.tsx'))
+const AdministrativeSitePerEmployee = lazy(async () => await import('../page/AdministrativeSitePerEmployee/index.tsx'))
 
 const CreateEmployeeForm = lazy(async () => await import('../Device/employee/CreateEmployeeForm.tsx'))
 const CreateDeviceForm = lazy(async () => await import('../Device/device/CreateDeviceForm.tsx'))
@@ -24,6 +25,7 @@ export const privateRouter = [
   { path: '/almacen', element: <AlmacenPage /> },
   { path: '/equipos/agencia', element: <EquiposAgenciaPage /> },
   { path: '/equipos/torre', element: <EquiposTorrePage /> },
+  { path: '/employees/torre', element: <AdministrativeSitePerEmployee /> },
   { path: '/device/add', element: <CreateDeviceForm /> },
   { path: '/employee/add', element: <CreateEmployeeForm /> },
   { path: '/employee/edit/:id', element: <CreateEmployeeForm /> },
