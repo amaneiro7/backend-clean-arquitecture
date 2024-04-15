@@ -4,7 +4,7 @@ import { type HardDriveCapacityValues } from './HardDriveCapacityName'
 
 export interface HardDriveCapacityPrimitives {
   id: Primitives<HardDriveCapacityId>
-  name: Primitives<HardDriveCapacityValues>
+  value: Primitives<HardDriveCapacityValues>
 }
 
 export class HardDriveCapacity {
@@ -24,7 +24,7 @@ export class HardDriveCapacity {
   toPrimitives (): HardDriveCapacityPrimitives {
     return {
       id: this.idValue(),
-      name: this.nameValue()
+      value: this.nameValue()
     }
   }
 }

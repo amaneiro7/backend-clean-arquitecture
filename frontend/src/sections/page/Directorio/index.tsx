@@ -25,6 +25,7 @@ import VicepresidenciaSelect from '../../Device/area/vicepresidencia/Vicepreside
 import VicepresidenciaEjecutivaSelect from '../../Device/area/vicepresidenciaEjecutivaId/VicepresidenciaEjecutivaSelect'
 import CargoSelect from '../../Device/cargo/CargoSelect'
 import GerenciaSelect from '../../Device/area/Gerencia/GerenciaSelect'
+import { type EmployeeMappedApiResponse } from '../../../modules/shared/domain/types/responseTypes'
 
 export default function EmployeeDirectorio () {
   const { employee: { employees, loading, addFilter, cleanFilters } } = useAppContext()
@@ -167,7 +168,7 @@ export default function EmployeeDirectorio () {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {(employees).map((employee) => (
+                    {(employees as unknown as EmployeeMappedApiResponse[]).map((employee) => (
                         <TableRow key={employee.id}>
                             <TableCellEditDeleteIcon state={employee} url={`/employee/edit/${employee.id}`} />
                             <TableCell value={employee.userName} />
@@ -177,12 +178,12 @@ export default function EmployeeDirectorio () {
                             <TableCell value={employee.email} />
                             <TableCell value={employee.extension} />
                             <TableCell value={employee.phoneNumber} />
-                            <TableCell value={employee.locationId} />
-                            <TableCell value={employee.cargoId} />
-                            <TableCell value={employee.vicepresidenciaEjecutivaId} />
-                            <TableCell value={employee.vicepresidenciaId} />
-                            <TableCell value={employee.gerenciaId} />
-                            <TableCell value={employee.coordinacionId} />
+                            <TableCell value={employee.locationName} />
+                            <TableCell value={employee.cargoName} />
+                            <TableCell value={employee.vicepresidenciaEjecutivaName} />
+                            <TableCell value={employee.vicepresidenciaName} />
+                            <TableCell value={employee.gerenciaName} />
+                            <TableCell value={employee.coordinacionName} />
                         </TableRow>
                     ))}
                 </TableBody>

@@ -10,7 +10,7 @@ export class StatusModel extends Model<StatusPrimitives> implements StatusPrimit
   readonly name!: Primitives<StatusName>
 
   public static associate (models: Models): void {
-    this.hasMany(models.Device, { as: 'devices' })
+    this.hasMany(models.Device, { as: 'devices', foreignKey: 'statusId' })
   }
 }
 

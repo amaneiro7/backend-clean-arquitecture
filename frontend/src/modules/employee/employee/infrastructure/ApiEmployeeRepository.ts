@@ -1,4 +1,5 @@
 import { type Criteria } from '../../../shared/domain/criteria/Criteria'
+import { type EmployeeMappedApiResponse, type EmployeesApiResponse } from '../../../shared/domain/types/responseTypes'
 import { makeRequest } from '../../../shared/infraestructure/fetching'
 import { type EmployeePrimitives, type Employee } from '../domain/Employee'
 import { type EmployeeId } from '../domain/EmployeeId'
@@ -27,29 +28,32 @@ export class ApiEmployeeRepository implements EmployeeRepository {
     const paramsOrder = criteriaPrimitives.orderBy ? `orderBy=${criteriaPrimitives.orderBy}&orderType=${criteriaPrimitives.orderType}` : undefined
     const paramsFilters = filters ? `${filters.join('&')}` : undefined
     const queryParams = [paramsFilters, paramsLimitAndOffset, paramsOrder].filter(Boolean).join('&')
-    return await makeRequest<EmployeePrimitives[]>({ method: 'GET', endpoint: `${this.endpoint}?${queryParams}` })
-    //   .then(res => res.map(data => ({
-    //     id: data.id,
-    //     serial: data.serial,
-    //     activo: data.activo ?? 'Sin Serial',
-    //     statusId: data.status.id,
-    //     statusName: data.status.name,
-    //     categoryId: data.category.id,
-    //     categoryName: data.category.name,
-    //     brandId: data.brand.id,
-    //     brandName: data.brand.name,
-    //     modelId: data.model.id,
-    //     modelName: data.model.name,
-    //     locationId: data.location.id,
-    //     locationName: data.location.name,
-    //     observation: data.observation,
-    //     employeeId: data.employee?.id ?? null,
-    //     employeeName: data.employee?.name ?? 'Vacante',
-    //     computer: data.computer,
-    //     hardDrive: data.hardDrive,
-    //     createdAt: data.createdAt,
-    //     updatedAt: data.updatedAt
-    //   }) satisfies DevicesMappedApiResponse))
+    return await makeRequest<EmployeesApiResponse[]>({ method: 'GET', endpoint: `${this.endpoint}?${queryParams}` })
+      .then(res => res.map(data => ({
+        id: data.id,
+        name: data.name,
+        lastName: data.lastName,
+        userName: data.userName,
+        email: data.email,
+        cedula: data.cedula,
+        locationId: data.location.id,
+        locationName: data.location.name,
+        extension: data.extension,
+        phoneNumber: data.phoneNumber,
+        vicepresidenciaEjecutivaId: data.vicepresidenciaEjecutiva.id,
+        vicepresidenciaEjecutivaName: data.vicepresidenciaEjecutiva.name,
+        vicepresidenciaId: data.vicepresidencia.id,
+        vicepresidenciaName: data.vicepresidencia.name,
+        gerenciaId: data.gerencia.id,
+        gerenciaName: data.gerencia.name,
+        coordinacionId: data.coordinacion.id,
+        coordinacionName: data.coordinacion.name,
+        devices: data.devices,
+        cargoId: data.cargo.id,
+        cargoName: data.cargo.name,
+        createdAt: data.createdAt,
+        updatedAt: data.updatedAt
+      }) satisfies EmployeeMappedApiResponse))
       .catch((error: any) => {
         console.error('Infra', error)
         throw new Error(error.message)
@@ -57,54 +61,60 @@ export class ApiEmployeeRepository implements EmployeeRepository {
   }
 
   async getAll (): Promise<EmployeePrimitives[]> {
-    return await makeRequest<EmployeePrimitives[]>({ method: 'GET', endpoint: this.endpoint })
-    //   .then(res => res.map(data => ({
-    //     id: data.id,
-    //     serial: data.serial,
-    //     activo: data.activo ?? 'Sin Serial',
-    //     statusId: data.status.id,
-    //     statusName: data.status.name,
-    //     categoryId: data.category.id,
-    //     categoryName: data.category.name,
-    //     brandId: data.brand.id,
-    //     brandName: data.brand.name,
-    //     modelId: data.model.id,
-    //     modelName: data.model.name,
-    //     locationId: data.location.id,
-    //     locationName: data.location.name,
-    //     observation: data.observation,
-    //     employeeId: data.employee?.id ?? null,
-    //     employeeName: data.employee?.name ?? 'Vacante',
-    //     computer: data.computer,
-    //     hardDrive: data.hardDrive,
-    //     createdAt: data.createdAt,
-    //     updatedAt: data.updatedAt
-    //   }) satisfies DevicesMappedApiResponse))
+    return await makeRequest<EmployeesApiResponse[]>({ method: 'GET', endpoint: this.endpoint })
+      .then(res => res.map(data => ({
+        id: data.id,
+        name: data.name,
+        lastName: data.lastName,
+        userName: data.userName,
+        email: data.email,
+        cedula: data.cedula,
+        locationId: data.location.id,
+        locationName: data.location.name,
+        extension: data.extension,
+        phoneNumber: data.phoneNumber,
+        vicepresidenciaEjecutivaId: data.vicepresidenciaEjecutiva.id,
+        vicepresidenciaEjecutivaName: data.vicepresidenciaEjecutiva.name,
+        vicepresidenciaId: data.vicepresidencia.id,
+        vicepresidenciaName: data.vicepresidencia.name,
+        gerenciaId: data.gerencia.id,
+        gerenciaName: data.gerencia.name,
+        coordinacionId: data.coordinacion.id,
+        coordinacionName: data.coordinacion.name,
+        devices: data.devices,
+        cargoId: data.cargo.id,
+        cargoName: data.cargo.name,
+        createdAt: data.createdAt,
+        updatedAt: data.updatedAt
+      }) satisfies EmployeeMappedApiResponse))
   }
 
   async getById ({ id }: { id: EmployeeId }): Promise<EmployeePrimitives> {
-    return await makeRequest<EmployeePrimitives>({ method: 'GET', endpoint: `${this.endpoint}/${id.value}` })
-    //   .then(data => ({
-    //     id: data.id,
-    //     serial: data.serial,
-    //     activo: data.activo ?? '',
-    //     statusId: data.status.id,
-    //     statusName: data.status.name,
-    //     categoryId: data.category.id,
-    //     categoryName: data.category.name,
-    //     brandId: data.brand.id,
-    //     brandName: data.brand.name,
-    //     modelId: data.model.id,
-    //     modelName: data.model.name,
-    //     locationId: data.location.id,
-    //     locationName: data.location.name,
-    //     observation: data.observation,
-    //     employeeId: data.employee?.id ?? null,
-    //     employeeName: data.employee?.name ?? '',
-    //     computer: data.computer,
-    //     hardDrive: data.hardDrive,
-    //     createdAt: data.createdAt,
-    //     updatedAt: data.updatedAt
-    //   } satisfies DevicesMappedApiResponse))
+    return await makeRequest<EmployeesApiResponse>({ method: 'GET', endpoint: `${this.endpoint}/${id.value}` })
+      .then(data => ({
+        id: data.id,
+        name: data.name,
+        lastName: data.lastName,
+        userName: data.userName,
+        email: data.email,
+        cedula: data.cedula,
+        locationId: data.location.id,
+        locationName: data.location.name,
+        extension: data.extension,
+        phoneNumber: data.phoneNumber,
+        vicepresidenciaEjecutivaId: data.vicepresidenciaEjecutiva.id,
+        vicepresidenciaEjecutivaName: data.vicepresidenciaEjecutiva.name,
+        vicepresidenciaId: data.vicepresidencia.id,
+        vicepresidenciaName: data.vicepresidencia.name,
+        gerenciaId: data.gerencia.id,
+        gerenciaName: data.gerencia.name,
+        coordinacionId: data.coordinacion.id,
+        coordinacionName: data.coordinacion.name,
+        devices: data.devices,
+        cargoId: data.cargo.id,
+        cargoName: data.cargo.name,
+        createdAt: data.createdAt,
+        updatedAt: data.updatedAt
+      }) satisfies EmployeeMappedApiResponse)
   }
 }

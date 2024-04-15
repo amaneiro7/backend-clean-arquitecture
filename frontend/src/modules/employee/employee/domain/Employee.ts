@@ -1,4 +1,4 @@
-import { type DeviceId } from '../../../devices/devices/devices/domain/DeviceId'
+import { type DevicePrimitives } from '../../../devices/devices/devices/domain/Device'
 import { LocationId } from '../../../location/locations/domain/locationId'
 import { type Primitives } from '../../../shared/domain/value-object/Primitives'
 import { type UserName } from '../../../user/user/domain/UserName'
@@ -31,7 +31,7 @@ export interface EmployeePrimitives {
   vicepresidenciaId: Primitives<VicepresidenciaId>
   gerenciaId: Primitives<GerenciaId>
   coordinacionId: Primitives<CoordinacionId>
-  devices?: Array<Primitives<DeviceId>>
+  devices?: DevicePrimitives[]
 }
 
 export class Employee {

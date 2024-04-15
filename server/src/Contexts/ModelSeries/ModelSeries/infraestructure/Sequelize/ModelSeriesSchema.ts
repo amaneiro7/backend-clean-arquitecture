@@ -14,9 +14,9 @@ export class ModelSeriesModel extends Model<ModelSeriesPrimitives> implements Mo
   readonly brandId!: Primitives<BrandId>
 
   public static associate (models: Models): void {
-    this.belongsTo(models.Category, { as: 'category' }) // A model series belongs to a category
-    this.belongsTo(models.Brand, { as: 'brand' }) // A model series belongs to a brand
-    this.hasMany(models.Device, { as: 'device' }) // A model series can have many devices
+    this.belongsTo(models.Category, { as: 'category', foreignKey: 'categoryId' }) // A model series belongs to a category
+    this.belongsTo(models.Brand, { as: 'brand', foreignKey: 'brandId' }) // A model series belongs to a brand
+    this.hasMany(models.Device, { as: 'device', foreignKey: 'modelId' }) // A model series can have many devices
     this.hasOne(models.ModelComputer, { as: 'modelComputer', foreignKey: 'modelSeriesId' }) // A model series has one computer model (if it is a computer)
     this.hasOne(models.ModelLaptop, { as: 'modelLaptop', foreignKey: 'modelSeriesId' }) // A model series has one laptop model (if it is a laptop)
     this.hasOne(models.ModelMonitor, { as: 'modelMonitor', foreignKey: 'modelSeriesId' }) // A model series has one monitor model (if it is a monitor)
