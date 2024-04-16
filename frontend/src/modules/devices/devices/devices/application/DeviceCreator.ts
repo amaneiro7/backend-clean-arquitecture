@@ -16,7 +16,7 @@ export class DeviceCreator {
     } else {
       device = Device.create(params)
     }
-    console.log('DevceCreator', device.toPrimitives())
+    console.log('DevceCreator', params)
     if (params.id === undefined) {
       await this.repository.device.save({ device })
     } else {
