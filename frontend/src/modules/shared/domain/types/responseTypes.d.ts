@@ -35,6 +35,7 @@ import { type CoordinacionPrimitives } from '../../../employee/area/coordinacion
 import { type CoordinacionId } from '../../../employee/area/coordinacion/domain/CoordinacionId'
 import { type CoordinacionName } from '../../../employee/area/coordinacion/domain/CoordinacionName'
 import { type GerenciaPrimitives } from '../../../employee/area/gerencia/domain/gerencia'
+import { type GerenciaId } from '../../../employee/area/gerencia/domain/GerenciaId'
 import { type GerenciaName } from '../../../employee/area/gerencia/domain/GerenciaName'
 import { type VicepresidenciaPrimitives } from '../../../employee/area/vicepresidencia/domain/Vicepresidencia'
 import { type VicepresidenciaId } from '../../../employee/area/vicepresidencia/domain/VicepresidenciaId'
@@ -134,29 +135,24 @@ export interface EmployeeMappedApiResponse {
 }
 export interface EmployeeDevicesMappedApiResponse {
   id: Primitives<EmployeeId>
-  userName: Primitives<EmployeeUserName>
   name: Primitives<EmployeeName>
   lastName: Primitives<EmployeeLastName>
-  cedula: Primitives<Cedula>
+  userName: Primitives<EmployeeUserName>
   locationId: Primitives<LocationId>
   locationName: string
-  email: Primitives<EmployeeEmail>
-  extension: Primitives<Extension>
-  phoneNumber: Primitives<PhoneNumber>
   createdAt: Date
   updatedAt: Date
-  cargoId: Primitives<CargoId>
-  cargoName: Primitives<CargoName>
-  vicepresidenciaEjecutivaId: Primitives<VicepresidenciaEjecutivaId>
-  vicepresidenciaEjecutivaName: Primitives<VicepresidenciaEjecutivaName>
-  vicepresidenciaId: Primitives<VicepresidenciaId>
-  vicepresidenciaName: Primitives<VicepresidenciaName>
-  gerenciaId: Primitives<GerenciaId>
-  gerenciaName: Primitives<GerenciaName>
-  coordinacionId: Primitives<CoordinacionId>
-  coordinacionName: Primitives<CoordinacionName>
   computers: DevicesApiResponse[]
   monitores: DevicesApiResponse[]
+  email: Primitives<EmployeeEmail>
+  cedula: Primitives<Cedula>
+  extension: Primitives<Extension>
+  phoneNumber: Primitives<PhoneNumber>
+  cargoId: Primitives<CargoId>
+  vicepresidenciaEjecutivaId: Primitives<VicepresidenciaEjecutivaId>
+  vicepresidenciaId: Primitives<VicepresidenciaId>
+  gerenciaId: Primitives<GerenciaId>
+  coordinacionId: Primitives<CoordinacionId>
 }
 
 export interface DevicesMappedApiResponse {

@@ -70,6 +70,7 @@ export class DeviceUpdater {
 
     for (const validation of validations) {
       if (validation.field !== undefined) {
+        console.log('deviceupdatr', deviceEntity)
         await validation.validator(this.repository, validation.field, deviceEntity)
         validation.updater(validation.field)
       }

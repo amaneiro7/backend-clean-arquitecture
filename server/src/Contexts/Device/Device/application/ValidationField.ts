@@ -29,6 +29,7 @@ export class ValidationField {
   }
 
   static async ensureActivoDoesNotExist (repository: Repository, activo: Primitives<DeviceActivo>, entity?: Device): Promise<void> {
+    console.log('ensureActivoDoesNotExist', activo, entity?.activoValue)
     if (activo === null || (entity !== undefined && activo === entity.activoValue)) {
       return
     }

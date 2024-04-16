@@ -2,7 +2,7 @@ import { type DevicePrimitives } from '../../domain/Device'
 import { type DeviceRepository } from '../../domain/DeviceRepository'
 import { DeviceModel } from './DeviceSchema'
 import { sequelize } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeConfig'
-import { DeviceComputer, DeviceComputerPrimitives } from '../../../../Features/Computer/domain/Computer'
+import { DeviceComputer } from '../../../../Features/Computer/domain/Computer'
 import { type Models } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
 import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
 import { type DeviceId } from '../../domain/DeviceId'
@@ -120,9 +120,13 @@ export class SequelizeDeviceRepository extends CriteriaToSequelizeConverter<Devi
   }
 
   private async creareDeviceComputerIfCategoryMatches (id: Primitives<DeviceId>, payload: DevicePrimitives, transaction: Transaction): Promise<void> {
-    console.log(payload)
-    // const {  } = payload as DeviceComputerPrimitives
-    await this.models.DeviceComputer.create({ deviceId: id, ...payload }, { transaction })
+    const computer = await this.models.DeviceComputer.findByPk(id) ?? null
+    if (computer === null) {
+      await this.models.DeviceComputer.create({ deviceId: id, ...payload }, { transaction })
+    } else {
+      computer.set({ deviceId: id, ...payload })
+      await computer.save({ transaction })
+    }
   }
 
   async remove (deviceId: string): Promise<void> {
