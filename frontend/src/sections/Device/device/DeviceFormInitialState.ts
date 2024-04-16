@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useAppContext } from '../../Context/AppContext'
+import { useDevice } from './useDevice'
 import { type DevicesMappedApiResponse } from '../../../modules/shared/domain/types/responseTypes'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { type DeviceSerial } from '../../../modules/devices/devices/devices/domain/DeviceSerial'
@@ -49,7 +50,6 @@ interface defaultProps {
 }
 
 const defaultInitialState: defaultProps = {
-  id: undefined,
   serial: '',
   activo: '',
   statusId: '',
@@ -74,7 +74,8 @@ export const useDeviceInitialState = () => {
   const { id } = useParams()
   const location = useLocation()
   const navigate = useNavigate()
-  const { device: { getDevice } } = useAppContext()
+  const { repository } = useAppContext()
+  const { getDevice } = useDevice(repository)
   const [preloadedDeviceState, setPreloadedDeviceState] = useState(defaultInitialState)
 
   useEffect(() => {
@@ -85,13 +86,13 @@ export const useDeviceInitialState = () => {
 
     if (location.state?.state !== undefined) {
       const { state } = location.state
-      ProcessDeviceState(state)
+      processDeviceState(state)
     } else if (id === undefined) {
       navigate('/error')
     } else {
       getDevice.getById(id)
         .then(device => {
-          ProcessDeviceState(device)
+          processDeviceState(device)
         })
         .catch(error => {
           console.error('useDeviceInitialState', error)
@@ -99,16 +100,16 @@ export const useDeviceInitialState = () => {
     }
   }, [id, location.state?.state])
 
-  function ProcessDeviceState (device: DevicePrimitives): void {
+  function processDeviceState (device: DevicePrimitives): void {
     const { serial, activo, statusId, modelId, categoryId, brandId, employeeId, locationId, observation, computer, hardDrive } = device as DevicesMappedApiResponse
-    setPreloadedDeviceState({ id, serial, activo, statusId, modelId, categoryId, brandId, employeeId, locationId, observation })
+    setPreloadedDeviceState((prev) => ({ ...prev, id, serial, activo, statusId, modelId, categoryId, brandId, employeeId, locationId, observation }))
     if (computer !== null) {
       const { computerName, processorId, memoryRamCapacity, hardDriveCapacityId, hardDriveTypeId, operatingSystemArqId, operatingSystemId, macAddress, ipAddress } = computer
-      setPreloadedDeviceState({ ...preloadedDeviceState, computerName, processorId, memoryRamCapacity, hardDriveCapacityId, hardDriveTypeId, operatingSystemArqId, operatingSystemId, macAddress, ipAddress })
+      setPreloadedDeviceState(prev => ({ ...prev, computerName, processorId, memoryRamCapacity, hardDriveCapacityId, hardDriveTypeId, operatingSystemArqId, operatingSystemId, macAddress, ipAddress }))
     }
     if (hardDrive !== null) {
       const { health, hardDriveCapacityId, hardDriveTypeId } = hardDrive
-      setPreloadedDeviceState({ ...preloadedDeviceState, health, hardDriveCapacityId, hardDriveTypeId })
+      setPreloadedDeviceState(prev => ({ ...prev, health, hardDriveCapacityId, hardDriveTypeId }))
     }
   }
 

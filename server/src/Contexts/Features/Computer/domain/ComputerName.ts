@@ -8,21 +8,22 @@ export class ComputerName extends AcceptedNullValueObject<string> {
   constructor (readonly value: string | null) {
     super(value)
 
-    this.ensureIsValidActivo(value)
+    this.ensureIsValid(value)
   }
 
   toPrimitives (): string | null {
     return this.value
   }
 
-  private ensureIsValidActivo (value: string | null): void {
+  private ensureIsValid (value: string | null): void {
     if (!this.isValid(value)) {
       throw new InvalidArgumentError(`<${value}> exceeded the maximum length`)
     }
   }
 
   private isValid (name: string | null): boolean {
-    if (name === null) return true
+    if (name === null || name === '') return true
+    console.log('ComputerName, isValid', name)
     return name.length >= this.NAME_MIN_LENGTH && name.length <= this.NAME_MAX_LENGTH
   }
 }

@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
 import { type DevicePrimitives } from '../../../modules/devices/devices/devices/domain/Device'
 import { type Repository } from '../../../modules/shared/domain/repository'
 import { DeviceCreator } from '../../../modules/devices/devices/devices/application/DeviceCreator'
@@ -19,7 +18,6 @@ export interface UseDevice {
 }
 
 export const useDevice = (repository: Repository) => {
-  const location = useLocation()
   const deviceByCriteria = new DeviceGetterByCriteria(repository)
   const { query, addFilter, cleanFilters } = useSearchByCriteriaQuery()
   const [loading, setLoading] = useState(true)
@@ -51,11 +49,7 @@ export const useDevice = (repository: Repository) => {
   const getDevice = new DeviceGetter(repository)
 
   useEffect(() => {
-    if (['/equipos/torre', '/equipos/agencia', '/almacen'].includes(location.pathname)) {
-      searchDevices()
-    } else {
-      setDevices([])
-    }
+    searchDevices()
     return () => {
       setDevices([])
     }

@@ -67,11 +67,11 @@ export const useEmployee = (repository: Repository) => {
   useEffect(() => {
     if (['/', '/login', '/equipos/torre', '/equipos/agencia', '/almacen'].includes(location.pathname)) {
       setEmployees([])
-    } else if (['/employees/torre', '/employees/agencia'].includes(location.pathname)) {
+    } else if (['/employees/agencia'].includes(location.pathname)) {
       searchEmployeesWithDevices()
-      console.log('searchEmployeesWithDevices')
+    } else if (['/employees/torre'].includes(location.pathname)) {
+      searchEmployeesWithDevices()
     } else {
-      console.log('searchEmployees', location.pathname)
       searchEmployees()
     }
 

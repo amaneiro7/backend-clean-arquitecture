@@ -16,6 +16,7 @@ import TableHead from '../../components/TableComponent/TableHead'
 import TableCell from '../../components/TableComponent/TableCell'
 import PageTitle from '../../components/PageTitle'
 import TableCellEditDeleteIcon from '../../components/TableComponent/TableCellEditDeleteIcon'
+import { useDevice } from '../../Device/device/useDevice'
 
 // const TableHeader = lazy(async () => await import('../../components/TableHeader'))
 // const DeviceTableCard = lazy(async () => await import('../../Device/device/DeviceTableCard'))
@@ -30,7 +31,8 @@ const StatusSelect = lazy(async () => await import('../../Device/status/StatusSe
 const LocationSelect = lazy(async () => await import('../../Device/location/LocationSelect'))
 
 export default function AlmacenPage () {
-  const { device: { devices, loading, addFilter, cleanFilters } } = useAppContext()
+  const { repository } = useAppContext()
+  const { devices, loading, addFilter, cleanFilters } = useDevice(repository)
   const navigate = useNavigate()
   const { inputData, updateInputData, clearInputs } = useInputsData()
 

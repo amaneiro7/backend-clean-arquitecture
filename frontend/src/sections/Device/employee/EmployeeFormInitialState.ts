@@ -15,6 +15,7 @@ import { type VicepresidenciaId } from '../../../modules/employee/area/vicepresi
 import { type GerenciaId } from '../../../modules/employee/area/gerencia/domain/GerenciaId'
 import { type CoordinacionId } from '../../../modules/employee/area/coordinacion/domain/CoordinacionId'
 import { useEffect, useState } from 'react'
+import { useEmployee } from './useEmployee'
 
 interface defaultProps {
   name: Primitives<EmployeeName>
@@ -52,7 +53,8 @@ export const useEmployeeInitialState = () => {
   const { id } = useParams()
   const location = useLocation()
   const navidate = useNavigate()
-  const { employee: { getEmployee } } = useAppContext()
+  const { repository } = useAppContext()
+  const { getEmployee } = useEmployee(repository)
   const [preloadedEmployeeState, setPreloadedEmployeeState] = useState(defaultInitialState)
 
   useEffect(() => {

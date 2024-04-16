@@ -9,12 +9,18 @@ export class ComputerName {
     readonly value: string,
     readonly statusId: Primitives<StatusId>
   ) {
-    if (!ComputerName.isValid(value)) {
-      throw new Error(ComputerName.invalidMessage(value))
+    if (value === null || value === undefined || value === '') {
+      this.value = null
+    } else {
+      this.value = value
+      if (!ComputerName.isValid(value)) {
+        throw new Error(ComputerName.invalidMessage(value))
+      }
     }
   }
 
-  public static isValid (value: string): boolean {
+  public static isValid (value: string | null): boolean {
+    if (value === null || value === '') return true
     return value.length >= ComputerName.NAME_MIN_LENGTH && value.length <= ComputerName.NAME_MAX_LENGTH
   }
 

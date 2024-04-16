@@ -26,9 +26,11 @@ import VicepresidenciaEjecutivaSelect from '../../Device/area/vicepresidenciaEje
 import CargoSelect from '../../Device/cargo/CargoSelect'
 import GerenciaSelect from '../../Device/area/Gerencia/GerenciaSelect'
 import { type EmployeeMappedApiResponse } from '../../../modules/shared/domain/types/responseTypes'
+import { useEmployee } from '../../Device/employee/useEmployee'
 
 export default function EmployeeDirectorio () {
-  const { employee: { employees, loading, addFilter, cleanFilters } } = useAppContext()
+  const { repository } = useAppContext()
+  const { employees, loading, addFilter, cleanFilters } = useEmployee(repository)
   const navigate = useNavigate()
   const { inputData, updateInputData, clearInputs } = useInputsData()
 

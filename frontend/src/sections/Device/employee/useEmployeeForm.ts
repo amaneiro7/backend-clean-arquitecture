@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { type EmployeePrimitives } from '../../../modules/employee/employee/domain/Employee'
 import { useAppContext } from '../../Context/AppContext'
 import { toastMessage } from '../../utils/toaster'
+import { useEmployee } from './useEmployee'
 
 export const enum FormStatus {
   Loading,
@@ -16,7 +17,8 @@ export function useEmployeeForm (): {
   resetFormStatus: () => void
 } {
   const [formStatus, setFormStatus] = useState(FormStatus.Initial)
-  const { employee: { createEmployee } } = useAppContext()
+  const { repository } = useAppContext()
+  const { createEmployee } = useEmployee(repository)
 
   async function submitForm (formData: EmployeePrimitives) {
     setFormStatus(FormStatus.Loading)

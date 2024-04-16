@@ -15,7 +15,6 @@ export default function ComputerNameInput ({ value, onChange, isForm = false }: 
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
   const isFirstInput = useRef(true)
-  console.log(value)
 
   useEffect(() => {
     if (!isForm) return

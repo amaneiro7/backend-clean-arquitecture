@@ -119,7 +119,13 @@ export default function CreateDeviceForm () {
             onChange={handleChange}
           />
         </Suspense>
-        <LocationSelect onChange={handleChange} value={formData.locationId} isRequired={true} isForm={true} statusId={formData.statusId} />
+        <LocationSelect
+          onChange={handleChange}
+          value={formData.locationId}
+          isRequired={true}
+          isForm={true}
+          statusId={formData.statusId}
+        />
         <ObservationInput onChange={handleChange} value={formData.observation}/>
       </FormContainer>
 

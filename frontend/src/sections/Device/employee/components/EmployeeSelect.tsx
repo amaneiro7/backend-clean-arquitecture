@@ -5,6 +5,7 @@ import { type Primitives } from '../../../../modules/shared/domain/value-object/
 import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
 import { Operator } from '../../../../modules/shared/domain/criteria/FilterOperators'
 import { type EmployeeId } from '../../../../modules/employee/employee/domain/EmployeeId'
+import { useEmployee } from '../useEmployee'
 
 const Select = lazy(async () => await import('../../../ui/Select'))
 
@@ -15,7 +16,8 @@ interface Props {
 }
 
 export function EmployeeSelect ({ value, onChange, isRequired = false }: Props) {
-  const { employee: { employees } } = useAppContext()
+  const { repository } = useAppContext()
+  const { employees } = useEmployee(repository)
   const employeeOptions = employees.map((employee) => ({ name: employee.userName, id: employee.id }))
 
   return (

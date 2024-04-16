@@ -16,10 +16,10 @@ export interface ContextState {
   repository: Repository
   useAuth: UseAuth
   category: UseCategory
-  device: UseDevice
+  // device: UseDevice
   status: UseStatus
   location: UseLocation
-  employee: UseEmployee
+  // employee: UseEmployee
   cargo: UseCargo
   coordinacion: UseCoordinacion
   gerencia: UseGerencia
@@ -33,10 +33,8 @@ export const AppContext = createContext({} as ContextState)
 export const AppContextProvider = ({ children, repository }: PropsWithChildren<{ repository: Repository }>) => {
   const useAuth = useLogin(repository)
   const category = useCategory(repository)
-  const device = useDevice(repository)
   const status = useStatus(repository)
   const location = useLocation(repository)
-  const employee = useEmployee(repository)
   const cargo = useCargo(repository)
   const coordinacion = useCoordinacion(repository)
   const gerencia = useGerencia(repository)
@@ -48,10 +46,8 @@ export const AppContextProvider = ({ children, repository }: PropsWithChildren<{
       repository,
       useAuth,
       category,
-      device,
       status,
       location,
-      employee,
       cargo,
       coordinacion,
       gerencia,

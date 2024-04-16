@@ -16,6 +16,7 @@ import TableHead from '../../components/TableComponent/TableHead'
 import TableCell from '../../components/TableComponent/TableCell'
 import TableHeader from '../../components/TableComponent/TableHeader'
 import TableCellEditDeleteIcon from '../../components/TableComponent/TableCellEditDeleteIcon'
+import { useDevice } from '../../Device/device/useDevice'
 
 const Button = lazy(async () => await import('../../ui/button'))
 const BrandSelect = lazy(async () => await import('../../Device/brand/BrandSelect'))
@@ -27,7 +28,8 @@ const StatusSelect = lazy(async () => await import('../../Device/status/StatusSe
 const LocationSelect = lazy(async () => await import('../../Device/location/LocationSelect'))
 
 export default function AgenciaPage () {
-  const { device: { devices, loading, addFilter, cleanFilters } } = useAppContext()
+  const { repository } = useAppContext()
+  const { devices, loading, addFilter, cleanFilters } = useDevice(repository)
   const navigate = useNavigate()
   const { inputData, updateInputData, clearInputs } = useInputsData()
 

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useAppContext } from '../../Context/AppContext'
 import { toastMessage } from '../../utils/toaster'
 import { type DevicePrimitives } from '../../../modules/devices/devices/devices/domain/Device'
+import { useDevice } from './useDevice'
 
 export const enum FormStatus {
   Loading,
@@ -16,7 +17,8 @@ export function useDeviceForm (): {
   resetFormStatus: () => void
 } {
   const [formStatus, setFormStatus] = useState(FormStatus.Initial)
-  const { device: { createDevice } } = useAppContext()
+  const { repository } = useAppContext()
+  const { createDevice } = useDevice(repository)
 
   async function submitForm (formData: DevicePrimitives) {
     setFormStatus(FormStatus.Loading)

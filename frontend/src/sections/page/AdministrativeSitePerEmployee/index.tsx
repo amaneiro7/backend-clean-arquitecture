@@ -14,6 +14,7 @@ import TableHead from '../../components/TableComponent/TableHead'
 import TableCell from '../../components/TableComponent/TableCell'
 import TableHeader from '../../components/TableComponent/TableHeader'
 import TableCellEditDeleteIcon from '../../components/TableComponent/TableCellEditDeleteIcon'
+import { useEmployee } from '../../Device/employee/useEmployee'
 
 const Button = lazy(async () => await import('../../ui/button'))
 const BrandSelect = lazy(async () => await import('../../Device/brand/BrandSelect'))
@@ -24,7 +25,8 @@ const ModelSelect = lazy(async () => await import('../../Device/model/ModelSelec
 const LocationSelect = lazy(async () => await import('../../Device/location/LocationSelect'))
 
 export default function AdministrativeSitePerEmployee () {
-  const { employee: { employees, loading, addFilter, cleanFilters } } = useAppContext()
+  const { repository } = useAppContext()
+  const { employees, loading, addFilter, cleanFilters } = useEmployee(repository)
   const navigate = useNavigate()
   const { inputData, updateInputData, clearInputs } = useInputsData()
 
@@ -169,7 +171,7 @@ export default function AdministrativeSitePerEmployee () {
                   <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => computer.category.name).join(' / ')}/>
                   <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => `${computer.computer.memoryRamCapacity} Mb`).join(' / ')}/>
                   <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => `${computer.computer.hardDriveCapacity.value} Gb`).join(' / ')}/>
-                  <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => computer.computer.hardDriveType).join(' / ')}/>
+                  <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => computer.computer.hardDriveType.name).join(' / ')}/>
                   <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => computer.serial).join(' / ')}/>
                   <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => computer.model.name).join(' / ')}/>
                   <TableCell value={employee?.monitores?.length < 1 ? 'N/A' : employee.monitores.map(monitor => `${monitor.brand.name} ${monitor.model.name}`).join(' / ')}/>
