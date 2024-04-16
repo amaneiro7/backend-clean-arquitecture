@@ -2,12 +2,13 @@ import { type DevicePrimitives } from '../../domain/Device'
 import { type DeviceRepository } from '../../domain/DeviceRepository'
 import { DeviceModel } from './DeviceSchema'
 import { sequelize } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeConfig'
-import { DeviceComputer } from '../../../../Features/Computer/domain/Computer'
+import { DeviceComputer, DeviceComputerPrimitives } from '../../../../Features/Computer/domain/Computer'
 import { type Models } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
 import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
 import { type DeviceId } from '../../domain/DeviceId'
 import { type Criteria } from '../../../../Shared/domain/criteria/Criteria'
 import { CriteriaToSequelizeConverter } from '../../../../Shared/infrastructure/criteria/CriteriaToSequelizeConverter'
+import { type Transaction } from 'sequelize'
 export class SequelizeDeviceRepository extends CriteriaToSequelizeConverter<DeviceModel> implements DeviceRepository {
   private readonly models = sequelize.models as unknown as Models
   async matching (criteria: Criteria): Promise<DevicePrimitives[]> {
@@ -72,43 +73,56 @@ export class SequelizeDeviceRepository extends CriteriaToSequelizeConverter<Devi
   }
 
   async searchByActivo (activo: string): Promise<DevicePrimitives | null> {
-    return await DeviceModel.findOne({
-      where: { activo }
-    }) ?? null
+    return await DeviceModel.findOne({ where: { activo } }) ?? null
   }
 
   async searchBySerial (serial: string): Promise<DevicePrimitives | null> {
-    return await DeviceModel.findOne({ where: { serial } })
+    return await DeviceModel.findOne({ where: { serial } }) ?? null
   }
 
-  async searchByComputerName (computerName: string): Promise<any | null> {
+  async searchByComputerName (computerName: string): Promise<any> {
     return await this.models.DeviceComputer.findOne({ where: { computerName } }) ?? null
   }
 
+  /**
+   * This function saves a device to the database, it updates the device if it already exists
+   * or creates a new one if it does not exist.
+   *
+   * It also checks if the device category is a computer category, if it is, it will
+   * create a new DeviceComputer entity, otherwise, it will not do anything.
+   *
+   * This function is wrapped in a transaction, if there is an error while updating/creating
+   * the device or creating the DeviceComputer entity, the transaction will be rolled back.
+   *
+   * @param payload - Device data to be saved
+   */
   async save (payload: DevicePrimitives): Promise<void> {
-    const t = await sequelize.transaction()
+    const t = await sequelize.transaction() // Start a new transaction
     try {
-      const { id, serial, activo, statusId, categoryId, brandId, modelId, locationId, observation, employeeId } = payload
-      const device = await DeviceModel.findByPk(id) ?? null
-      if (device === null) {
-        await DeviceModel.create({ id, serial, activo, statusId, categoryId, brandId, modelId, locationId, observation, employeeId }, { transaction: t })
-      } else {
-        device.set({ id, serial, activo, statusId, categoryId, brandId, modelId })
-        await device.save({ transaction: t })
+      const { id, serial, activo, statusId, categoryId, brandId, modelId, locationId, observation, employeeId } = payload // Destructure the payload
+      const device = await DeviceModel.findByPk(id) ?? null // Find the device by its id, if it does not exist, device will be null
+      if (device === null) { // If the device does not exist
+        await DeviceModel.create({ id, serial, activo, statusId, categoryId, brandId, modelId, locationId, observation, employeeId }, { transaction: t }) // Create a new device with the given payload
+      } else { // If the device already exists
+        device.set({ id, serial, activo, statusId, categoryId, brandId, modelId }) // Update the device with the given payload
+        await device.save({ transaction: t }) // Save the updated device
       }
 
-      if (DeviceComputer.isComputerCategory({ categoryId })) {
-        await this.creareDeviceComputerIfCategoryMatches(id, payload)
+      if (DeviceComputer.isComputerCategory({ categoryId })) { // If the device category is a computer category
+        await this.creareDeviceComputerIfCategoryMatches(id, payload, t) // Create a new DeviceComputer entity with the given payload
       }
 
-      await t.commit()
-    } catch (error) {
-      await t.rollback()
+      await t.commit() // Commit the transaction
+    } catch (error: any) { // If there is an error
+      await t.rollback() // Rollback the transaction
+      throw new Error(error)
     }
   }
 
-  private async creareDeviceComputerIfCategoryMatches (id: Primitives<DeviceId>, payload: DevicePrimitives): Promise<void> {
-    await this.models.DeviceComputer.create({ deviceId: id, ...payload })
+  private async creareDeviceComputerIfCategoryMatches (id: Primitives<DeviceId>, payload: DevicePrimitives, transaction: Transaction): Promise<void> {
+    console.log(payload)
+    // const {  } = payload as DeviceComputerPrimitives
+    await this.models.DeviceComputer.create({ deviceId: id, ...payload }, { transaction })
   }
 
   async remove (deviceId: string): Promise<void> {

@@ -24,8 +24,7 @@ export class EmployeeDeviceByCriteriaSearcher {
       query.orderType
     )
     const criteria = new Criteria(new Filters(filters), order, query.limit, query.offset)
-    const employees = await this.repository.employee.matching(criteria)
-    console.log(employees)
+    const employees = await this.repository.employee.matchingByDevices(criteria)
     return employees
   }
 }

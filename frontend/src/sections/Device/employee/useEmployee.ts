@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { EmployeeGetter } from '../../../modules/employee/employee/application/EmployeeGetter'
 import { EmployeeGetterByCriteria } from '../../../modules/employee/employee/application/EmployeeGetterByCriteria'
 import { type EmployeePrimitives } from '../../../modules/employee/employee/domain/Employee'
@@ -7,7 +8,6 @@ import { EmployeeCreator } from '../../../modules/employee/employee/application/
 import { type Repository } from '../../../modules/shared/domain/repository'
 import { useSearchByCriteriaQuery } from '../../Hooks/useQueryUpdate'
 import { EmployeeGetterDevicesByCriteria } from '../../../modules/employee/employee/application/EmployeeGetterDevicesByCriteria'
-import { useLocation } from 'react-router-dom'
 
 export interface UseEmployee {
   employees: EmployeePrimitives[]
@@ -57,7 +57,7 @@ export const useEmployee = (repository: Repository) => {
         setLoading(false)
       })
       .catch((error) => {
-        console.error('searchEmployees', error)
+        console.error('searchEmployeesWithDevices', error)
         setError('An unexpected error occurred while trying to search employees')
         setLoading(false)
       })
@@ -65,15 +65,14 @@ export const useEmployee = (repository: Repository) => {
   const getEmployee = new EmployeeGetter(repository)
 
   useEffect(() => {
-    console.log('location', location.pathname)
-    if (location.pathname === '/employees/torre' || location.pathname === '/employees/agencia') {
-      searchEmployeesWithDevices()
-      console.log('searchEmployeesWithDevices', employees)
-    } else if (location.pathname === '/') {
+    if (['/', '/login', '/equipos/torre', '/equipos/agencia', '/almacen'].includes(location.pathname)) {
       setEmployees([])
+    } else if (['/employees/torre', '/employees/agencia'].includes(location.pathname)) {
+      searchEmployeesWithDevices()
+      console.log('searchEmployeesWithDevices')
     } else {
+      console.log('searchEmployees', location.pathname)
       searchEmployees()
-      console.log('searchEmployees', employees)
     }
 
     return () => {

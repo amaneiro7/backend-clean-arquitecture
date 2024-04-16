@@ -66,7 +66,6 @@ export default function AgenciaPage () {
   }
 
   const defaultHeaderTitle = ['Acciones', 'Usuario', 'Ubicación', 'Categoria', 'Serial', 'Activo', 'Status', 'Marca', 'Modelo', 'Observaciones']
-  // const headerTitleComputer = ['Nombre', 'Procesador', 'Memoria Ram', 'Disco Duro', 'Tipo', 'Sistema Operativo', 'Arquitectura', 'Diracción MAC', 'Dirección IP']
   let headerTitle: string[]
   if (Computer.isComputerCategory({ categoryId: inputData.categoryId })) {
     const headerTitleComputer = ['Procesador', 'Memoria Ram', 'Disco Duro', 'Tipo']
@@ -164,7 +163,7 @@ export default function AgenciaPage () {
               {(devices as unknown as DevicesMappedApiResponse[]).map((device) => (
                 <TableRow key={device?.id}>
                   <TableCellEditDeleteIcon state={device} url={`/device/edit/${device.id}`} />
-                  <TableCell value={device.employeeName}/>
+                  <TableCell value={device.employeeUserName}/>
                   <TableCell value={device.locationName}/>
                   <TableCell value={device.categoryName}/>
                   <TableCell value={device.serial}/>
