@@ -19,11 +19,11 @@ export interface UseEmployee {
   cleanFilters: (payload?: SearchByCriteriaQuery) => void
 }
 
-export const useEmployee = (repository: Repository) => {
+export const useEmployee = (repository: Repository, defaultQuery?: SearchByCriteriaQuery) => {
   const employeeByCriteria = new EmployeeGetterByCriteria(repository)
   const employeeDeviceByCriteria = new EmployeeGetterDevicesByCriteria(repository)
   const location = useLocation()
-  const { query, addFilter, cleanFilters } = useSearchByCriteriaQuery()
+  const { query, addFilter, cleanFilters } = useSearchByCriteriaQuery(defaultQuery)
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<string | null>(null)
   const [employees, setEmployees] = useState<EmployeePrimitives[]>([])

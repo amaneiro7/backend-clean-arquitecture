@@ -35,6 +35,7 @@ export interface Computer {
   id: string
   categoryId: number
   deviceId: string
+  computerName: string
   processorId: string
   memoryRamCapacity: number
   hardDriveCapacityId: number

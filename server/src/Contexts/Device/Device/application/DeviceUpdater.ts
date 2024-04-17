@@ -3,9 +3,11 @@ import { DeviceComputer, type DeviceComputerPrimitives } from '../../../Features
 import { ValidationHardDriveField } from '../../../Features/HardDrive.ts/HardDrive/application/ValidationHardDrive'
 import { DeviceHardDrive, type DeviceHardDrivePrimitives } from '../../../Features/HardDrive.ts/HardDrive/domain/HardDrive'
 import { type Repository } from '../../../Shared/domain/Repository'
+import { InvalidArgumentError } from '../../../Shared/domain/value-object/InvalidArgumentError'
 import { Device } from '../domain/Device'
 import { DeviceDoesNotExistError } from '../domain/DeviceDoesNotExistError'
 import { DeviceId } from '../domain/DeviceId'
+import { type DevicesApiResponse } from '../infrastructure/sequelize/DeviceResponse'
 import { type DeviceParams } from './DeviceCreator'
 import { ValidationField } from './ValidationField'
 
@@ -35,9 +37,35 @@ export class DeviceUpdater {
     let deviceEntity
     const validations: ValidationConfig[] = []
     if (DeviceComputer.isComputerCategory({ categoryId })) {
-      deviceEntity = DeviceComputer.fromPrimitives((device) as DeviceComputerPrimitives)
-      const { processorId, operatingSystemArqId, operatingSystemId, hardDriveCapacityId, hardDriveTypeId, memoryRamCapacity, ipAddress, macAddress } = params as Partial<DeviceComputerPrimitives>
+      const { computer } = device as unknown as DevicesApiResponse
+      if (computer === null) {
+        throw new InvalidArgumentError('Computer does not exist')
+      }
+      deviceEntity = DeviceComputer.fromPrimitives({
+        id: device.id,
+        serial: device.serial,
+        activo: device.activo,
+        statusId: device.statusId,
+        categoryId: device.categoryId,
+        brandId: device.brandId,
+        modelId: device.modelId,
+        employeeId: device.employeeId,
+        locationId: device.locationId,
+        observation: device.observation,
+        computerName: computer.computerName,
+        processorId: computer.processorId,
+        memoryRamCapacity: computer.memoryRamCapacity,
+        hardDriveCapacityId: computer.hardDriveCapacityId,
+        hardDriveTypeId: computer.hardDriveTypeId,
+        operatingSystemId: computer.operatingSystemId,
+        operatingSystemArqId: computer.operatingSystemArqId,
+        macAddress: computer.macAddress,
+        ipAddress: computer.ipAddress
+
+      })
+      const { computerName, processorId, operatingSystemArqId, operatingSystemId, hardDriveCapacityId, hardDriveTypeId, memoryRamCapacity, ipAddress, macAddress } = params as Partial<DeviceComputerPrimitives>
       validations.push(
+        { field: computerName, validator: ValidationComputerField.ensureComputerNameDoesNotExist, updater: deviceEntity.updateComputerName },
         { field: processorId, validator: ValidationComputerField.ensureProcessorIdExist, updater: deviceEntity.updateProcessor },
         { field: operatingSystemId, validator: ValidationComputerField.ensureOperatingSystemExist, updater: deviceEntity.updateOperatingSystem },
         { field: operatingSystemArqId, validator: ValidationComputerField.ensureOperatingSystemArqExist, updater: deviceEntity.updateOperatingSystemArq },
@@ -48,7 +76,25 @@ export class DeviceUpdater {
         { field: macAddress, validator: ValidationComputerField.ensureMacAddressDoesNotExist, updater: deviceEntity.updateMACAddress }
       )
     } else if (DeviceHardDrive.isHardDriveCategory({ categoryId })) {
-      deviceEntity = DeviceHardDrive.fromPrimitives((device) as DeviceHardDrivePrimitives)
+      const { hardDrive } = device as unknown as DevicesApiResponse
+      if (hardDrive === null) {
+        throw new InvalidArgumentError('HardDrive does not exist')
+      }
+      deviceEntity = DeviceHardDrive.fromPrimitives({
+        id: device.id,
+        serial: device.serial,
+        activo: device.activo,
+        statusId: device.statusId,
+        categoryId: device.categoryId,
+        brandId: device.brandId,
+        modelId: device.modelId,
+        employeeId: device.employeeId,
+        locationId: device.locationId,
+        observation: device.observation,
+        hardDriveCapacityId: hardDrive.hardDriveCapacityId,
+        hardDriveTypeId: hardDrive.hardDriveTypeId,
+        health: hardDrive.health
+      })
       const { hardDriveCapacityId, hardDriveTypeId, health } = params as DeviceHardDrivePrimitives
       validations.push(
         { field: health, validator: ValidationHardDriveField.ensureHardDriveHealth, updater: deviceEntity.updateHealth },
@@ -70,7 +116,6 @@ export class DeviceUpdater {
 
     for (const validation of validations) {
       if (validation.field !== undefined) {
-        console.log('deviceupdatr', deviceEntity)
         await validation.validator(this.repository, validation.field, deviceEntity)
         validation.updater(validation.field)
       }
