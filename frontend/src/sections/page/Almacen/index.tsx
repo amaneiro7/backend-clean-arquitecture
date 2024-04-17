@@ -1,4 +1,4 @@
-import { Suspense, lazy, useCallback, useEffect } from 'react'
+import { Suspense, lazy, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAppContext } from '../../Context/AppContext'
 import { useInputsData } from './useInputData'
@@ -32,7 +32,13 @@ const LocationSelect = lazy(async () => await import('../../Device/location/Loca
 
 export default function AlmacenPage () {
   const { repository } = useAppContext()
-  const { devices, loading, addFilter, cleanFilters } = useDevice(repository)
+  const { devices, loading, addFilter, cleanFilters } = useDevice(repository, {
+    filters: [{
+      field: 'typeOfSite',
+      operator: Operator.EQUAL,
+      value: '3'
+    }]
+  })
   const navigate = useNavigate()
   const { inputData, updateInputData, clearInputs } = useInputsData()
 
@@ -53,15 +59,15 @@ export default function AlmacenPage () {
     debounceGetDevices({ filters })
   }
 
-  useEffect(() => {
-    cleanFilters({
-      filters: [{
-        field: 'typeOfSite',
-        operator: Operator.EQUAL,
-        value: '3'
-      }]
-    })
-  }, [])
+  // useEffect(() => {
+  //   cleanFilters({
+  //     filters: [{
+  //       field: 'typeOfSite',
+  //       operator: Operator.EQUAL,
+  //       value: '3'
+  //     }]
+  //   })
+  // }, [])
 
   const handleClear = () => {
     clearInputs()

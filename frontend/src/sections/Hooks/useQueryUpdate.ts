@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { type SearchByCriteriaQuery } from '../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
 
-export const useSearchByCriteriaQuery = () => {
-  const [query, setQuery] = useState<SearchByCriteriaQuery>({
+export const useSearchByCriteriaQuery = (defaultQuery?: SearchByCriteriaQuery) => {
+  const [query, setQuery] = useState<SearchByCriteriaQuery>(defaultQuery ?? {
     filters: []
   })
 

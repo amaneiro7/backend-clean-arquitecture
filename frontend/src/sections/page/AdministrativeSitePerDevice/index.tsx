@@ -1,4 +1,4 @@
-import { Suspense, lazy, useCallback, useEffect } from 'react'
+import { Suspense, lazy, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAppContext } from '../../Context/AppContext'
 import { useInputsData } from './useInputData'
@@ -27,7 +27,13 @@ const LocationSelect = lazy(async () => await import('../../Device/location/Loca
 
 export default function AdministrativeSitePage () {
   const { repository } = useAppContext()
-  const { devices, loading, addFilter, cleanFilters } = useDevice(repository)
+  const { devices, loading, addFilter, cleanFilters } = useDevice(repository, {
+    filters: [{
+      field: 'typeOfSite',
+      operator: Operator.EQUAL,
+      value: '1'
+    }]
+  })
   const navigate = useNavigate()
   const { inputData, updateInputData, clearInputs } = useInputsData()
 
@@ -48,18 +54,9 @@ export default function AdministrativeSitePage () {
     debounceGetDevices({ filters })
   }
 
-  useEffect(() => {
-    cleanFilters({
-      filters: [{
-        field: 'typeOfSite',
-        operator: Operator.EQUAL,
-        value: '1'
-      }]
-    })
-  }, [])
-
   const handleClear = () => {
     clearInputs()
+    // Modificarlo para que no sea un magic string
     cleanFilters({
       filters: [{
         field: 'typeOfSite',
@@ -126,8 +123,8 @@ export default function AdministrativeSitePage () {
         <Suspense>
           <LocationSelect
             value={inputData.locationId}
-            typeOfSiteId={'1'}
-            statusId={inputData.statusId}
+            typeOfSiteId={'1'} // Modificarlo para que no sea un magic string
+            statusId={'1'} // Modificarlo para que no sea un magic string
             onChange={handleChange}
             isForm={false}
           />

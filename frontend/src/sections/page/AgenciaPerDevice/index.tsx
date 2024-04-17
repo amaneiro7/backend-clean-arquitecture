@@ -1,4 +1,4 @@
-import { Suspense, lazy, useCallback, useEffect } from 'react'
+import { Suspense, lazy, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAppContext } from '../../Context/AppContext'
 import { useInputsData } from './useInputData'
@@ -29,7 +29,13 @@ const LocationSelect = lazy(async () => await import('../../Device/location/Loca
 
 export default function AgenciaPage () {
   const { repository } = useAppContext()
-  const { devices, loading, addFilter, cleanFilters } = useDevice(repository)
+  const { devices, loading, addFilter, cleanFilters } = useDevice(repository, {
+    filters: [{
+      field: 'typeOfSite',
+      operator: Operator.EQUAL,
+      value: '2'
+    }]
+  })
   const navigate = useNavigate()
   const { inputData, updateInputData, clearInputs } = useInputsData()
 
@@ -50,20 +56,14 @@ export default function AgenciaPage () {
     debounceGetDevices({ filters })
   }
 
-  useEffect(() => {
+  const handleClear = () => {
+    clearInputs()
     cleanFilters({
       filters: [{
         field: 'typeOfSite',
         operator: Operator.EQUAL,
         value: '2'
       }]
-    })
-  }, [])
-
-  const handleClear = () => {
-    clearInputs()
-    cleanFilters({
-      filters: []
     })
   }
 
@@ -136,7 +136,7 @@ export default function AgenciaPage () {
           <LocationSelect
             value={inputData.locationId}
             typeOfSiteId={'2'}
-            statusId={inputData.statusId}
+            statusId={'1'}
             onChange={handleChange}
             isForm={false}
           />

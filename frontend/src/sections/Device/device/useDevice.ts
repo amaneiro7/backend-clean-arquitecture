@@ -17,9 +17,9 @@ export interface UseDevice {
   cleanFilters: (payload?: SearchByCriteriaQuery) => void
 }
 
-export const useDevice = (repository: Repository) => {
+export const useDevice = (repository: Repository, defaultQuery?: SearchByCriteriaQuery) => {
   const deviceByCriteria = new DeviceGetterByCriteria(repository)
-  const { query, addFilter, cleanFilters } = useSearchByCriteriaQuery()
+  const { query, addFilter, cleanFilters } = useSearchByCriteriaQuery(defaultQuery)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [devices, setDevices] = useState<DevicePrimitives[]>([])
