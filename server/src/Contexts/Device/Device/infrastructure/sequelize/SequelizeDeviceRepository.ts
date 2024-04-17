@@ -104,8 +104,8 @@ export class SequelizeDeviceRepository extends CriteriaToSequelizeConverter<Devi
       if (device === null) { // If the device does not exist
         await DeviceModel.create({ id, serial, activo, statusId, categoryId, brandId, modelId, locationId, observation, employeeId }, { transaction: t }) // Create a new device with the given payload
       } else { // If the device already exists
-        device.set({ id, serial, activo, statusId, categoryId, brandId, modelId, locationId, observation, employeeId }) // Update the device with the given payload
-        await device.save({ transaction: t }) // Save the updated device
+        await DeviceModel.update({ id, serial, activo, statusId, categoryId, brandId, modelId, locationId, observation, employeeId }, { where: { id }, transaction: t }) // Update the device with the given payload
+        // await device.save({ transaction: t }) // Save the updated device
       }
 
       if (DeviceComputer.isComputerCategory({ categoryId })) { // If the device category is a computer category
@@ -124,9 +124,9 @@ export class SequelizeDeviceRepository extends CriteriaToSequelizeConverter<Devi
     if (computer === null) {
       await this.models.DeviceComputer.create({ deviceId: id, ...payload }, { transaction })
     } else {
-      console.log('SequelizeDeviceRepository', computer.toJSON())
-      computer.set({ deviceId: id, ...payload })
-      await computer.save()
+      await this.models.DeviceComputer.update({ deviceId: id, ...payload }, { where: { deviceId: id }, transaction })
+      // computer.set({ deviceId: id, ...payload })
+      // await computer.save({ transaction })
     }
   }
 

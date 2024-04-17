@@ -151,7 +151,9 @@ export class DeviceComputer extends Device {
   }
 
   updateMemoryRam (newMemoryRamCapacity: number): void {
+    console.log('Computer UpdateMemory', this.memoryRamCapacityValue)
     this.memoryRamCapacity = new MemoryRamCapacity(newMemoryRamCapacity)
+    console.log('Computer UpdateMemory After', this.memoryRamCapacityValue)
   }
 
   updateOperatingSystem (newOperatingSystem: number): void {

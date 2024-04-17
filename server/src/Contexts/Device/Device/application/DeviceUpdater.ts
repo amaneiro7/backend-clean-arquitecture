@@ -61,7 +61,6 @@ export class DeviceUpdater {
         operatingSystemArqId: computer.operatingSystemArqId,
         macAddress: computer.macAddress,
         ipAddress: computer.ipAddress
-
       })
       const { computerName, processorId, operatingSystemArqId, operatingSystemId, hardDriveCapacityId, hardDriveTypeId, memoryRamCapacity, ipAddress, macAddress } = params as Partial<DeviceComputerPrimitives>
       validations.push(

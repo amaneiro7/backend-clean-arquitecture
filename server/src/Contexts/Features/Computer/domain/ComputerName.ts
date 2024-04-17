@@ -23,7 +23,6 @@ export class ComputerName extends AcceptedNullValueObject<string> {
 
   private isValid (name: string | null): boolean {
     if (name === null || name === '') return true
-    console.log('ComputerName, isValid', name)
     return name.length >= this.NAME_MIN_LENGTH && name.length <= this.NAME_MAX_LENGTH
   }
 }

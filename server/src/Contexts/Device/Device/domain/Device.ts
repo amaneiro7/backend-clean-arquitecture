@@ -24,6 +24,7 @@ export interface DevicePrimitives {
 }
 
 export class Device {
+  [x: string]: any
   constructor (
     private readonly id: DeviceId,
     private serial: DeviceSerial,
