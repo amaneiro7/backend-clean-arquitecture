@@ -15,17 +15,17 @@ export class BrandUpdater {
     if (brand === null) {
       throw new BrandDoesNotExistError(newName)
     }
-    await this.ensureBrandDoesNotExist(newName)
 
     const brandEntity = Brand.fromPrimitives(brand)
-    brandEntity.updateName(newName)
+    await this.ensureBrandDoesNotExist(newName, brandEntity)
 
     await this.repository.brand.save(brandEntity.toPrimitive())
   }
 
-  private async ensureBrandDoesNotExist (name: string): Promise<void> {
+  private async ensureBrandDoesNotExist (name: string, entity: Brand): Promise<void> {
     if (await this.repository.brand.searchByName(new BrandName(name).value) !== null) {
       throw new BrandAlreadyExistError(name)
     }
+    entity.updateName(name)
   }
 }

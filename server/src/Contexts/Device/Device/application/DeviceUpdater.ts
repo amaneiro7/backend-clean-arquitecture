@@ -4,7 +4,10 @@ import { ValidationHardDriveField } from '../../../Features/HardDrive.ts/HardDri
 import { DeviceHardDrive, type DeviceHardDrivePrimitives } from '../../../Features/HardDrive.ts/HardDrive/domain/HardDrive'
 import { type Repository } from '../../../Shared/domain/Repository'
 import { InvalidArgumentError } from '../../../Shared/domain/value-object/InvalidArgumentError'
+import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
 import { Device } from '../domain/Device'
+import { DeviceActivo } from '../domain/DeviceActivo'
+import { DeviceAlreadyExistError } from '../domain/DeviceAlreadyExistError'
 import { DeviceDoesNotExistError } from '../domain/DeviceDoesNotExistError'
 import { DeviceId } from '../domain/DeviceId'
 import { type DevicesApiResponse } from '../infrastructure/sequelize/DeviceResponse'
@@ -102,24 +105,26 @@ export class DeviceUpdater {
       )
     } else {
       deviceEntity = Device.fromPrimitives(device)
-      validations.push(
-        { field: activo, validator: ValidationField.ensureActivoDoesNotExist, updater: deviceEntity.updateActivo },
-        { field: serial, validator: ValidationField.ensureSerialDoesNotExist, updater: deviceEntity.updateSerial },
-        { field: modelId, validator: ValidationField.ensureModelIdExist, updater: deviceEntity.updateModelId },
-        { field: statusId, validator: ValidationField.ensureStatusIdExist, updater: deviceEntity.updateStatus },
-        { field: employeeId, validator: ValidationField.ensureEmployeeIdExist, updater: deviceEntity.updateEmployee },
-        { field: locationId, validator: ValidationField.ensureLocationIdExist, updater: deviceEntity.updateLocation },
-        { field: observation, validator: ValidationField.ensureObservationIsValid, updater: deviceEntity.updateObservation }
-      )
     }
-
-    for (const validation of validations) {
-      if (validation.field !== undefined) {
-        await validation.validator(this.repository, validation.field, deviceEntity)
-        validation.updater(validation.field)
-      }
-    }
-
+    validations.push(
+      { field: activo, validator: ValidationField.ensureActivoDoesNotExist, updater: deviceEntity.updateActivo },
+      { field: serial, validator: ValidationField.ensureSerialDoesNotExist, updater: deviceEntity.updateSerial },
+      { field: modelId, validator: ValidationField.ensureModelIdExist, updater: deviceEntity.updateModelId },
+      { field: statusId, validator: ValidationField.ensureStatusIdExist, updater: deviceEntity.updateStatus },
+      { field: employeeId, validator: ValidationField.ensureEmployeeIdExist, updater: deviceEntity.updateEmployee },
+      { field: locationId, validator: ValidationField.ensureLocationIdExist, updater: deviceEntity.updateLocation },
+      { field: observation, validator: ValidationField.ensureObservationIsValid, updater: deviceEntity.updateObservation }
+    )
+    await this.updateActivoField(activo, deviceEntity)
+    console.log(deviceEntity.toPrimitives())
     await this.repository.device.save(deviceEntity.toPrimitives())
+  }
+
+  private async updateActivoField (value: Primitives<DeviceActivo>, entity: Device): Promise<void> {
+    const newActivo = new DeviceActivo(value)
+    if (await this.repository.device.searchByActivo(newActivo.value) !== null) {
+      throw new DeviceAlreadyExistError(newActivo.value)
+    }
+    entity.updateActivo(value)
   }
 }
