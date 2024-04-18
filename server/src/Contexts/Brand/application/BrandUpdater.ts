@@ -11,7 +11,7 @@ export class BrandUpdater {
   async run (params: { id: string, newName: string }): Promise<void> {
     const { id, newName } = params
 
-    const brand = await this.repository.brand.searchById(new BrandId(id).toString())
+    const brand = await this.repository.brand.searchById(new BrandId(id).value)
     if (brand === null) {
       throw new BrandDoesNotExistError(newName)
     }
@@ -19,13 +19,12 @@ export class BrandUpdater {
 
     const brandEntity = Brand.fromPrimitives(brand)
     brandEntity.updateName(newName)
-    console.log(brandEntity.nameValue)
 
     await this.repository.brand.save(brandEntity.toPrimitive())
   }
 
   private async ensureBrandDoesNotExist (name: string): Promise<void> {
-    if (await this.repository.brand.searchByName(new BrandName(name).toString()) !== null) {
+    if (await this.repository.brand.searchByName(new BrandName(name).value) !== null) {
       throw new BrandAlreadyExistError(name)
     }
   }

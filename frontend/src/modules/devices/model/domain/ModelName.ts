@@ -1,5 +1,5 @@
 export class ModelName {
-  static readonly NAME_MIN_LENGTH = 5
+  static readonly NAME_MIN_LENGTH = 2
   static readonly NAME_MAX_LENGTH = 100
 
   constructor (readonly value: string) {
