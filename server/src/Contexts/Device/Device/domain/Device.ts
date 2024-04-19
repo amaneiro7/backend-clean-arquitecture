@@ -1,14 +1,14 @@
 import { DeviceId } from './DeviceId'
 import { DeviceActivo } from './DeviceActivo'
 import { DeviceSerial } from './DeviceSerial'
-import { ModelSeriesId } from '../../../ModelSeries/ModelSeries/domain/ModelSeriesId'
 import { StatusId } from '../../Status/domain/StatusId'
 import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
 import { CategoryId } from '../../../Category/domain/CategoryId'
 import { BrandId } from '../../../Brand/domain/BrandId'
 import { DeviceEmployee } from './DeviceEmployee'
-import { LocationId } from '../../../Location/Location/domain/LocationId'
 import { DeviceObservation } from './DeviceObservation'
+import { DeviceLocation } from './DeviceLocation'
+import { DeviceModelSeries } from './DeviceModelSeries'
 
 export interface DevicePrimitives {
   id: Primitives<DeviceId>
@@ -17,14 +17,13 @@ export interface DevicePrimitives {
   statusId: Primitives<StatusId>
   categoryId: Primitives<CategoryId>
   brandId: Primitives<BrandId>
-  modelId: Primitives<ModelSeriesId>
+  modelId: Primitives<DeviceModelSeries>
   employeeId: Primitives<DeviceEmployee>
-  locationId: Primitives<LocationId>
+  locationId: Primitives<DeviceLocation>
   observation: Primitives<DeviceObservation>
 }
 
 export class Device {
-  [x: string]: any
   constructor (
     private readonly id: DeviceId,
     private serial: DeviceSerial,
@@ -32,14 +31,14 @@ export class Device {
     private statusId: StatusId,
     private categoryId: CategoryId,
     private brandId: BrandId,
-    private modelId: ModelSeriesId,
+    private modelId: DeviceModelSeries,
     private employeeId: DeviceEmployee,
-    private locationId: LocationId,
+    private locationId: DeviceLocation,
     private observation: DeviceObservation
   ) {}
 
   static create ({ serial, activo, statusId, categoryId, brandId, modelId, employeeId, locationId, observation }: Omit<DevicePrimitives, 'id'>): Device {
-    const id = DeviceId.random().toString()
+    const id = DeviceId.random().value
     return new Device(
       new DeviceId(id),
       new DeviceSerial(serial),
@@ -47,9 +46,9 @@ export class Device {
       new StatusId(statusId),
       new CategoryId(categoryId),
       new BrandId(brandId),
-      new ModelSeriesId(modelId),
+      new DeviceModelSeries(modelId),
       new DeviceEmployee(employeeId),
-      new LocationId(locationId),
+      new DeviceLocation(locationId),
       new DeviceObservation(observation)
     )
   }
@@ -66,8 +65,8 @@ export class Device {
     this.statusId = new StatusId(newStatusId)
   }
 
-  updateModelId (newModelSeriesId: Primitives<ModelSeriesId>): void {
-    this.modelId = new ModelSeriesId(newModelSeriesId)
+  updateModelId (newDeviceModelSeries: Primitives<DeviceModelSeries>): void {
+    this.modelId = new DeviceModelSeries(newDeviceModelSeries)
   }
 
   updateCategoryId (newCategoryId: Primitives<CategoryId>): void {
@@ -82,8 +81,8 @@ export class Device {
     this.employeeId = new DeviceEmployee(newEmployee)
   }
 
-  updateLocation (newLocation: Primitives<LocationId>): void {
-    this.locationId = new LocationId(newLocation)
+  updateLocation (newLocation: Primitives<DeviceLocation>): void {
+    this.locationId = new DeviceLocation(newLocation)
   }
 
   updateObservation (observation: Primitives<DeviceObservation>): void {
@@ -98,9 +97,9 @@ export class Device {
       new StatusId(primitives.statusId),
       new CategoryId(primitives.categoryId),
       new BrandId(primitives.brandId),
-      new ModelSeriesId(primitives.modelId),
+      new DeviceModelSeries(primitives.modelId),
       new DeviceEmployee(primitives.employeeId),
-      new LocationId(primitives.locationId),
+      new DeviceLocation(primitives.locationId),
       new DeviceObservation(primitives.observation)
     )
   }
@@ -144,7 +143,7 @@ export class Device {
     return this.brandId.value
   }
 
-  get modelSeriesValue (): Primitives<ModelSeriesId> {
+  get modelSeriesValue (): Primitives<DeviceModelSeries> {
     return this.modelId.value
   }
 
@@ -152,7 +151,7 @@ export class Device {
     return this.employeeId.value
   }
 
-  get locationValue (): Primitives<LocationId> {
+  get locationValue (): Primitives<DeviceLocation> {
     return this.locationId.value
   }
 

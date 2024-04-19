@@ -4,13 +4,18 @@ import { ValidationHardDriveField } from '../../../Features/HardDrive.ts/HardDri
 import { DeviceHardDrive, type DeviceHardDrivePrimitives } from '../../../Features/HardDrive.ts/HardDrive/domain/HardDrive'
 import { type Repository } from '../../../Shared/domain/Repository'
 import { InvalidArgumentError } from '../../../Shared/domain/value-object/InvalidArgumentError'
-import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
+import { StatusId } from '../../Status/domain/StatusId'
 import { Device } from '../domain/Device'
 import { DeviceActivo } from '../domain/DeviceActivo'
-import { DeviceAlreadyExistError } from '../domain/DeviceAlreadyExistError'
 import { DeviceDoesNotExistError } from '../domain/DeviceDoesNotExistError'
+import { DeviceEmployee } from '../domain/DeviceEmployee'
 import { DeviceId } from '../domain/DeviceId'
+import { DeviceLocation } from '../domain/DeviceLocation'
+import { DeviceModelSeries } from '../domain/DeviceModelSeries'
+import { DeviceObservation } from '../domain/DeviceObservation'
+import { DeviceSerial } from '../domain/DeviceSerial'
 import { type DevicesApiResponse } from '../infrastructure/sequelize/DeviceResponse'
+import { DeviceModel } from '../infrastructure/sequelize/DeviceSchema'
 import { type DeviceParams } from './DeviceCreator'
 import { ValidationField } from './ValidationField'
 
@@ -29,7 +34,7 @@ export class DeviceUpdater {
   constructor (private readonly repository: Repository) {}
 
   async run ({ id, params }: { id: string, params: PartialDeviceParams }): Promise<void> {
-    const { activo, modelId, serial, statusId, categoryId, employeeId, locationId, observation } = params
+    const { activo, modelId, serial, statusId, brandId, categoryId, employeeId, locationId, observation } = params
     const devideId = new DeviceId(id).value
 
     const device = await this.repository.device.searchById(devideId)
@@ -106,25 +111,14 @@ export class DeviceUpdater {
     } else {
       deviceEntity = Device.fromPrimitives(device)
     }
-    validations.push(
-      { field: activo, validator: ValidationField.ensureActivoDoesNotExist, updater: deviceEntity.updateActivo },
-      { field: serial, validator: ValidationField.ensureSerialDoesNotExist, updater: deviceEntity.updateSerial },
-      { field: modelId, validator: ValidationField.ensureModelIdExist, updater: deviceEntity.updateModelId },
-      { field: statusId, validator: ValidationField.ensureStatusIdExist, updater: deviceEntity.updateStatus },
-      { field: employeeId, validator: ValidationField.ensureEmployeeIdExist, updater: deviceEntity.updateEmployee },
-      { field: locationId, validator: ValidationField.ensureLocationIdExist, updater: deviceEntity.updateLocation },
-      { field: observation, validator: ValidationField.ensureObservationIsValid, updater: deviceEntity.updateObservation }
-    )
-    await this.updateActivoField(activo, deviceEntity)
-    console.log(deviceEntity.toPrimitives())
-    await this.repository.device.save(deviceEntity.toPrimitives())
-  }
+    await DeviceActivo.updateActivoField({ repository: this.repository.device, activo, entity: deviceEntity })
+    await DeviceSerial.updateSerialField({ repository: this.repository.device, serial, entity: deviceEntity })
+    await StatusId.updateStatusField({ repository: this.repository.status, status: statusId, entity: deviceEntity })
+    await DeviceLocation.updateLocationField({ repository: this.repository.location, location: locationId, entity: deviceEntity })
+    await DeviceObservation.updateObservationField({ observation, entity: deviceEntity })
+    await DeviceEmployee.updateEmployeeField({ repository: this.repository.employee, employee: employeeId, entity: deviceEntity })
+    await DeviceModelSeries.updateModelField({ repository: this.repository.modelSeries, modelSeries: modelId, category: categoryId, brand: brandId, entity: deviceEntity })
 
-  private async updateActivoField (value: Primitives<DeviceActivo>, entity: Device): Promise<void> {
-    const newActivo = new DeviceActivo(value)
-    if (await this.repository.device.searchByActivo(newActivo.value) !== null) {
-      throw new DeviceAlreadyExistError(newActivo.value)
-    }
-    entity.updateActivo(value)
+    await this.repository.device.save(deviceEntity.toPrimitives())
   }
 }

@@ -10,8 +10,8 @@ import { type StatusId } from '../../../Status/domain/StatusId'
 import { type BrandId } from '../../../../Brand/domain/BrandId'
 import { type ModelSeriesId } from '../../../../ModelSeries/ModelSeries/domain/ModelSeriesId'
 import { type DeviceEmployee } from '../../domain/DeviceEmployee'
-import { type LocationId } from '../../../../Location/Location/domain/LocationId'
 import { type DeviceObservation } from '../../domain/DeviceObservation'
+import { type DeviceLocation } from '../../domain/DeviceLocation'
 
 export class DeviceModel extends Model<DevicePrimitives> implements DevicePrimitives {
   readonly id!: Primitives<DeviceId>
@@ -22,7 +22,7 @@ export class DeviceModel extends Model<DevicePrimitives> implements DevicePrimit
   readonly brandId!: Primitives<BrandId>
   readonly modelId!: Primitives<ModelSeriesId>
   readonly employeeId!: Primitives<DeviceEmployee>
-  readonly locationId!: Primitives<LocationId>
+  readonly locationId!: Primitives<DeviceLocation>
   readonly observation!: Primitives<DeviceObservation>
 
   public static associate (models: Models): void {
