@@ -1,3 +1,50 @@
+const processorName = {
+  '915': '915',
+  '945': '945',
+  J1800: 'J1800',
+  'I3-2100': 'i3-2100',
+  'I3-2120': 'i3-2120',
+  'I3-2130': 'i3-2130',
+  'I3-2370M': 'i3-2370M',
+  'I3-3110M': 'i3-3110M',
+  'I3-3120M': 'i3-3120M',
+  'I3-3220': 'i3-3220',
+  'I3-4150': 'i3-4150',
+  'I3-4030U': 'i3-4030U',
+  'I3-M380': 'i3-M380',
+  'I5-2400': 'i5-2400',
+  'I5-2450M': 'i5-2450M',
+  'I5-3210M': 'i5-3210M',
+  'I5-3230M': 'i5-3230M',
+  'I5-3470': 'i5-3470',
+  'I5-4430S': 'i5-4430S',
+  'I5-6400': 'i5-6400',
+  'I5-4460': 'i5-4460',
+  'I5-4590': 'i5-4590',
+  'I5-8365U': 'i5-8365U',
+  'I5-M520': 'i5-M520',
+  'I7-7600U': 'i7-7600U',
+  'I7-8550U': 'i7-8550U',
+  'I7-8565U': 'i7-8565U',
+  'I7-8650U': 'i7-8650U ',
+  'I7-8665U': 'i7-8665U',
+  'I7-1165G7': 'i7-1165G7',
+  E4600: 'E4600',
+  E7500: 'E7500',
+  E7200: 'E7200',
+  E7400: 'E7400',
+  E8400: 'E8400',
+  G630: 'G630',
+  G620: 'G620',
+  P7450: 'P7450',
+  T5670: 'T5670',
+  T6670: 'T6670',
+  T1700: 'T1700',
+  E2180: 'E2180',
+  'E3-1230V2': 'E3-1230 V2',
+  'E5-2603V4': 'E5-2603 V4'
+}
+
 const processors = [
     {id: "37a5fc25-5261-4d35-b6a9-ec5d9b9bb6a9", product_collection: "Intel(R) Celeron(R)", number_model: "J1800", frequency: "2.41GHz", cores: 2, threads: false },
     {id: "b3a3224c-9b77-4653-944f-bc991e411917", product_collection: "Intel(R) Core(TM)", number_model: "i3-2100", frequency: "3.10GHz", cores: 2, threads: true },
@@ -45,4 +92,4 @@ const processors = [
     {id: "3fbc8e5c-27fa-4f82-a0d6-c80055545cf2", product_collection: "Intel(R) Xeon(R)", number_model: "E5-2603 V4", frequency: "1.70GHz", cores: 6, threads: false },
   ]
 
-  module.exports = processors
+  module.exports = {processors, processorName}

@@ -1,3 +1,36 @@
+const brandOnlyName = {
+    HP: 'Hewlett-Packard',
+    IBM: 'IBM',
+    ACER: 'Acer',
+    LENOVO: 'Lenovo',
+    SIRAGON: 'Siragon',
+    DELL: 'Dell',
+    HITACHI: 'Hitachi',
+    WESTERNDIGITAL: 'WesternDigital',
+    LG: 'LG',
+    APPLE: 'Apple',
+    SAMSUNG: 'Samsung',
+    MICROSOFT: 'Microsoft',
+    SONY: 'Sony',
+    TOSHIBA: 'Toshiba',
+    INTEL: 'Intel',
+    NVIDIA: 'Nvidia',
+    AMD: 'AMD',
+    CISCO: 'Cisco',
+    LOGITECH: 'Logitech',
+    PANASONIC: 'Panasonic',
+    EPSON: 'Epson',
+    'WINCOR-NIXDORF': 'Wincor-Nixdorf',
+    OLIVETTI: 'Olivetti',
+    SEAGATE: 'Seagate',
+    KINGSTON: 'Kingston',
+    AOC: 'AOC',
+    COMPAQ: 'Compaq',
+    DIEBOLD: 'Diebold',
+    GENIUS: 'Genius',
+    UNISYS: 'Unisys'
+  }
+
 const brandsData = [
     { id: "56a07947-0a09-488b-a597-64ef3e365c32", name: "Hewlett-Packard" },
     { id: "b2eb94d1-4860-4e2c-95e3-b67317df8448", name: "IBM" },
@@ -31,4 +64,4 @@ const brandsData = [
     { id: "9b2dffe4-9afc-474b-b1ae-5703566bef57", name: "Unisys" },
 ]
 
-module.exports = brandsData
+module.exports = {brandsData, brandOnlyName}

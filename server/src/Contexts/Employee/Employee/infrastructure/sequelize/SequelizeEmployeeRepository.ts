@@ -16,12 +16,22 @@ export class SequelizeEmployeeRepository extends CriteriaToSequelizeConverter<Em
   async matching (criteria: Criteria): Promise<EmployeePrimitives[]> {
     const options = this.convert(criteria)
     options.include = [
-      'cargo',
-      'location',
-      'vicepresidenciaEjecutiva',
-      'vicepresidencia',
-      'gerencia',
-      'coordinacion'
+      {
+        association: 'devices',
+        include: [
+          'category',
+          'brand',
+          'model',
+          {
+            association: 'computer',
+            include: ['processor', 'hardDriveCapacity', 'hardDriveType', 'operatingSystem', 'operatingSystemArq']
+          },
+          {
+            association: 'hardDrive',
+            include: ['hardDriveCapacity', 'hardDriveType']
+          }
+        ]
+      }
     ]
     return await EmployeeModel.findAll(options)
   }

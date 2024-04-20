@@ -1,3 +1,18 @@
+const hddCapacitiesName = {
+  '40': 40,
+  '80': 80,
+  '120': 120,
+  '160': 160,
+  '250': 250,
+  '320': 320,
+  '500': 500,
+  '680': 680,
+  '768': 768,
+  '1000': 1000,
+  '2000': 2000,
+  '4000': 4000
+}
+
 const hddCapacities = [
     { id: '1', name: 40 },
     { id: '2', name: 80 },
@@ -13,4 +28,4 @@ const hddCapacities = [
     { id: '12', name: 4000 },
   ]
 
-  module.exports = hddCapacities
+  module.exports = {hddCapacities, hddCapacitiesName}

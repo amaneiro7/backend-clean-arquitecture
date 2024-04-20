@@ -1,4 +1,4 @@
-const locations = require("../location/locations")
+const { siteMCBOlocation. l } = require("../location/locations")
 const { modelPrinter } = require("../modelsSeries/modelPrinter")
 
 const impresorasFinancieraAlmacen = [

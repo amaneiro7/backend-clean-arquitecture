@@ -1,13 +1,13 @@
 'use strict';
 
-const sites = require('./location/sites');
+const {parsedSite} = require('./location/sites');
 
 
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-   return queryInterface.bulkInsert('sites', sites.map(({id, cityId, address, name}) => ({
+   return queryInterface.bulkInsert('sites', parsedSite.map(({id, cityId, address, name}) => ({
     id,
     city_id: cityId,
     address,

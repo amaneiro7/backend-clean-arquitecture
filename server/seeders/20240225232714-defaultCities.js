@@ -1,7 +1,6 @@
 'use strict';
 
-const { randomUUID } = require('node:crypto');
-const cities = require('./location/cities');
+const { cities } = require('./location/cities');
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {

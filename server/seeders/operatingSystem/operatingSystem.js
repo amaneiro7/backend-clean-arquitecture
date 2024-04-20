@@ -1,3 +1,23 @@
+const osName = {
+    WINDOWS11: 'Windows 11',
+    WINDOWS10: 'Windows 10',
+    WINDOWS81: 'Windows 8.1',
+    WINDOWS8: 'Windows 8',
+    WINDOWS7: 'Windows 7',
+    WINDOWSXP: 'Windows XP',
+    WINDOWSSERVER2003: 'Windows Server 2003',
+    WINDOWSSERVER2008: 'Windows Server 2008',
+    WINDOWSSERVER2012: 'Windows Server 2012',
+    WINDOWSSERVER2016: 'Windows Server 2016',
+    WINDOWSSERVER2019: 'Windows Server 2019',
+    UBUNTU: 'Ubuntu',
+    DEBIAN: 'Debian',
+    CENTOS: 'CentOS',
+    OPENSUSE: 'OpenSUSE',
+    REDHATENTERPRISELINUX: 'Red Hat Enterprise Linux',
+    MACOSMONTERREY: 'macOS Monterrey'
+  }
+
 const operatingSystem = [      
     { id: '1', name: 'Windows 11' },
     { id: '2', name: 'Windows 10' },
@@ -18,4 +38,4 @@ const operatingSystem = [
     { id: '17', name: 'macOS Monterrey' },
 ]
 
-module.exports = operatingSystem
+module.exports = {operatingSystem, osName}

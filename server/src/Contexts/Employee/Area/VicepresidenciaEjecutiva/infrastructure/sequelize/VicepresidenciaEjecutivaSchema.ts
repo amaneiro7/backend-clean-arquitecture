@@ -11,7 +11,7 @@ export class VicepresidenciaEjecutivaModel extends Model<VicepresidenciaEjecutiv
 
   public static associate (models: Models): void {
     this.hasMany(models.Vicepresidencia, { as: 'vicepresidencia', foreignKey: 'vicepresidenciaEjecutivaId' }) // A VicepresidenciaEjecutiva has Many Vicepresidencias
-    this.hasMany(models.Employee, { as: 'employees', foreignKey: 'vicepresidenciaEjecutivaId' }) // A VicepresidenciaEjecutiva has Many employees
+    // this.hasMany(models.Employee, { as: 'employees', foreignKey: 'vicepresidenciaEjecutivaId' }) // A VicepresidenciaEjecutiva has Many employees
   }
 }
 

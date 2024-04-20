@@ -1,3 +1,14 @@
+const memoryRamTypeName = {
+    DDR2: 'DDR2',
+    DDR2L: 'DDR2L',
+    DDR3: 'DDR3',
+    DDR3L: 'DDR3L',
+    DDR4: 'DDR4',
+    DDR4L: 'DDR4L',
+    DDR5: 'DDR5',
+    DDR5L: 'DDR5L'
+}
+
 const memoryRamType = [
     { id: '1', name: 'DDR2' },
     { id: '2', name: 'DDR2L' },
@@ -9,4 +20,4 @@ const memoryRamType = [
     { id: '8', name: 'DDR5L' },
 ]
 
-module.exports = memoryRamType
+module.exports = {memoryRamType, memoryRamTypeName}

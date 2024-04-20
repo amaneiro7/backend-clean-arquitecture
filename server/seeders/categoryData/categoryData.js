@@ -1,3 +1,16 @@
+const categoryOnlyNames = {
+  COMPUTADORAS: 'Computadoras',
+  SERVIDORES: 'Servidores',
+  LAPTOPS: 'Laptops',
+  ALLINONE: 'All in One',
+  MONITORES: 'Monitores',
+  IMPRESORASFINANCIERAS: 'Impresoras Financieras',
+  IMPRESORASLASER: 'Impresoras Laser',
+  IMPRESORASTINTA: 'Impresoras Tinta',
+  DISCOSDUROS: 'Discos Duros',
+  TECLADOS: 'Teclados'
+}
+
 const categoryData = [
     { id: '1', name: 'Computadoras' },
     { id: '2', name: 'Servidores' },
@@ -11,4 +24,4 @@ const categoryData = [
     { id: '10', name: 'Teclados' },
   ]
 
-  module.exports = categoryData
+  module.exports = {categoryData, categoryOnlyNames}

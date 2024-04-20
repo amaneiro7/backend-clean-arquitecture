@@ -1,3 +1,26 @@
+const socketsName = {
+    LGA775: 'LGA 775',
+    SOCKETM: 'Socket M',
+    LGA771: 'LGA 771',
+    SOCKETP: 'Socket P',
+    SOCKET478: 'Socket 478',
+    LGA1150: 'LGA 1150',
+    LGA1151: 'LGA 1151',
+    LGA1155: 'LGA 1155',
+    LGA1156: 'LGA 1156',
+    LGA1366: 'LGA 1366',
+    FCBGA1170: 'FCBGA 1170',
+    FCBGA1528: 'FCBGA 1528',
+    FCPGA988: 'FCPGA 988',
+    FCBGA1023: 'FCBGA 1023',
+    FCBGA1449: 'FCBGA 1449',
+    PGA370: 'PGA 370',
+    FCBGA1440: 'FCBGA 1440',
+    FCBGA1168: 'FCBGA 1168',
+    FCBGA1356: 'FCBGA 1356',
+    FCLGA2011: 'FCLGA 2011'
+  }
+
 const processorSockets = [
     { id: 'fd6fa672-d52a-46a6-a289-b2c93eaf6333', name: 'LGA 775' },
     { id: '9e2d6167-f36b-49c1-8e14-2becbfd6d670', name: 'Socket M' },
@@ -21,4 +44,4 @@ const processorSockets = [
     { id: '7fb1d2dd-c93f-4ed3-97e4-f452f6cf1cff', name: 'FCLGA 2011' },
 ]
 
-module.exports = processorSockets
+module.exports = {processorSockets, socketsName}
