@@ -12,7 +12,6 @@ export class ApiDeviceRepository implements DeviceRepository {
   }
 
   async update ({ id, device }: { id: DeviceId, device: Device }): Promise<void> {
-    console.log('infra, estoy actualizando')
     await makeRequest({ method: 'PATCH', endpoint: `${this.endpoint}/${id.value}`, data: device.toPrimitives() })
   }
 

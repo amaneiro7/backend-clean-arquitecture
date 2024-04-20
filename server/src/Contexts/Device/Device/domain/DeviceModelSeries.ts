@@ -50,6 +50,7 @@ export class DeviceModelSeries extends ModelSeriesId {
     brand?: Primitives<BrandId>
   }): Promise<ModelSeriesPrimitives> {
     // Searches for a device with the given model in the database
+    console.log('DeviceModelSeries', modelSeries)
     const deviceWithModel: ModelSeriesPrimitives | null = await repository.searchById(new ModelSeriesId(modelSeries).toString())
     // If a device with the given model exists, it means that it already exists in the database,
     // so we need to throw a {@link DeviceAlreadyExistError} with the given model

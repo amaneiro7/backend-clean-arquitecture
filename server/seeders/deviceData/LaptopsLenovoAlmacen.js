@@ -155,7 +155,7 @@ const lenovoLaptops = [
         memoryRamCapacity: 6,
         hardDriveCapacityId: 7,
         hardDriveTypeId: 1,
-        operatingSystemVersionId: 5,
+        operatingSystemVersionId: '5',
         operatingSystemArqId: 2,
         macAddress: null,
         ipAddress: '10.0.13.66',        

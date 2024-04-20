@@ -166,9 +166,9 @@ export default function AdministrativeSitePage () {
                       <TableCell value={device?.computer?.computerName}/>
                       <TableCell value={device?.computer?.processor?.name}/>
                       <TableCell value={device?.computer?.memoryRamCapacity}/>
-                      <TableCell value={device?.computer?.hardDriveCapacity?.value}/>
+                      <TableCell value={device?.computer?.hardDriveCapacity?.name}/>
                       <TableCell value={device?.computer?.hardDriveType?.name}/>
-                      <TableCell value={device?.computer?.operatingSystem?.version}/>
+                      <TableCell value={device?.computer?.operatingSystem?.name}/>
                       <TableCell value={device?.computer?.operatingSystemArq?.name}/>
                       <TableCell value={device?.computer?.macAddress}/>
                       <TableCell value={device?.computer?.ipAddress}/>

@@ -10,8 +10,6 @@ import { DeviceModelSeries } from '../../../Device/Device/domain/DeviceModelSeri
 import { DeviceObservation } from '../../../Device/Device/domain/DeviceObservation'
 import { DeviceSerial } from '../../../Device/Device/domain/DeviceSerial'
 import { DeviceStatus } from '../../../Device/Device/domain/DeviceStatus'
-import { LocationId } from '../../../Location/Location/domain/LocationId'
-import { ModelSeriesId } from '../../../ModelSeries/ModelSeries/domain/ModelSeriesId'
 import { ComputerMemoryRamCapacity } from './ComputerMemoryRamCapacity'
 import { ComputerName } from './ComputerName'
 import { ComputerProcessor } from './ComputerProcessor'
@@ -21,6 +19,7 @@ import { ComputerHardDriveCapacity } from './ComputerHardDriveCapacity'
 import { ComputerHardDriveType } from './ComputerHardDriveType'
 import { ComputerOperatingSystem } from './ComputerOperatingSystem'
 import { ComputerOperatingSystemArq } from './ComputerOperatingSystemArq'
+import { DeviceLocation } from '../../../Device/Device/domain/DeviceLocation'
 
 export interface DeviceComputerPrimitives extends DevicePrimitives {
   computerName: Primitives<ComputerName>
@@ -42,9 +41,9 @@ export class DeviceComputer extends Device {
     statusId: DeviceStatus,
     categoryId: CategoryId,
     brandId: BrandId,
-    modelId: ModelSeriesId,
+    modelId: DeviceModelSeries,
     employeeId: DeviceEmployee,
-    locationId: LocationId,
+    locationId: DeviceLocation,
     observation: DeviceObservation,
     private computerName: ComputerName,
     private processorId: ComputerProcessor,
@@ -70,12 +69,12 @@ export class DeviceComputer extends Device {
       new DeviceId(id),
       new DeviceSerial(serial),
       new DeviceActivo(activo),
-      new DeviceModelSeries(statusId),
+      new DeviceStatus(statusId),
       new CategoryId(categoryId),
       new BrandId(brandId),
-      new ModelSeriesId(modelId),
+      new DeviceModelSeries(modelId),
       new DeviceEmployee(employeeId),
-      new LocationId(locationId),
+      new DeviceLocation(locationId),
       new DeviceObservation(observation),
       new ComputerName(computerName, statusId),
       new ComputerProcessor(processorId),
@@ -126,9 +125,9 @@ export class DeviceComputer extends Device {
       new DeviceStatus(primitives.statusId),
       new CategoryId(primitives.categoryId),
       new BrandId(primitives.brandId),
-      new ModelSeriesId(primitives.modelId),
+      new DeviceModelSeries(primitives.modelId),
       new DeviceEmployee(primitives.employeeId),
-      new LocationId(primitives.locationId),
+      new DeviceLocation(primitives.locationId),
       new DeviceObservation(primitives.observation),
       new ComputerName(primitives.computerName, primitives.statusId),
       new ComputerProcessor(primitives.processorId),

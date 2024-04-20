@@ -160,13 +160,13 @@ export default function AdministrativeSitePerEmployee () {
                   <TableCell value={employee?.userName}/>
                   <TableCell value={employee?.locationName}/>
                   <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => computer.computer.computerName).join(' / ')}/>
-                  <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => computer.computer.operatingSystem.version).join(' / ')}/>
+                  <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => computer.computer.operatingSystem.name).join(' / ')}/>
                   <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => computer.computer.operatingSystemArq.name).join(' / ')}/>
                   <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => computer.computer.ipAddress).join(' / ')}/>
                   <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => computer.brand.name).join(' / ')}/>
                   <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => computer.category.name).join(' / ')}/>
                   <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => `${computer.computer.memoryRamCapacity} Mb`).join(' / ')}/>
-                  <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => `${computer.computer.hardDriveCapacity.value} Gb`).join(' / ')}/>
+                  <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => `${computer.computer.hardDriveCapacity.name} Gb`).join(' / ')}/>
                   <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => computer.computer.hardDriveType.name).join(' / ')}/>
                   <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => computer.serial).join(' / ')}/>
                   <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => computer.model.name).join(' / ')}/>

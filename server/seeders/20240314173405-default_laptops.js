@@ -43,7 +43,7 @@ module.exports = {
             memory_ram_capacity: device.memoryRamCapacity,
             hard_drive_capacity_id: device.hardDriveCapacityId,
             hard_drive_type_id: device.hardDriveTypeId,
-            operating_system_version_id: device.operatingSystemId,
+            operating_system_version_id: device.operatingSystemVersionId,
             operating_system_arq_id: device.operatingSystemArqId,
             mac_address: device.macAddress,
             ip_address: device.ipAddress,

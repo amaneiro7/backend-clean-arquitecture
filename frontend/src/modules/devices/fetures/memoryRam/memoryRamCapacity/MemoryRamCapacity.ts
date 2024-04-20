@@ -1,5 +1,5 @@
 export class MemoryRamCapacity {
-  static readonly minStep = 512
+  static readonly minStep = 0.5
   static readonly min = 0
   static readonly max = 32 * this.minStep
 

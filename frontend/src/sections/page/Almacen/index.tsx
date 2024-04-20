@@ -182,7 +182,7 @@ export default function AlmacenPage () {
                   {
                     isHardDriveFilter &&
                       <>
-                        <TableCell value={device?.hardDrive?.hardDriveCapacity?.value} />
+                        <TableCell value={device?.hardDrive?.hardDriveCapacity?.name} />
                         <TableCell value={device?.hardDrive?.hardDriveType?.name} />
                         <TableCell value={device?.hardDrive?.health} />
                       </>
@@ -192,7 +192,7 @@ export default function AlmacenPage () {
                       <>
                         <TableCell value={device?.computer?.processor?.name} />
                         <TableCell value={device?.computer?.memoryRamCapacity} />
-                        <TableCell value={device?.computer?.hardDriveCapacity?.value} />
+                        <TableCell value={device?.computer?.hardDriveCapacity?.name} />
                         <TableCell value={device?.computer?.hardDriveType?.name} />
                       </>
                   }

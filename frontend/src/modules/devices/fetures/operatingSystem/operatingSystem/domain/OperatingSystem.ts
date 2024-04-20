@@ -4,7 +4,7 @@ import { type OperatingSystemName } from './OperatingSystemName'
 
 export interface OperatingSystemPrimitives {
   id: Primitives<OperatingSystemId>
-  version: Primitives<OperatingSystemName>
+  name: Primitives<OperatingSystemName>
 }
 
 export class OperatingSystem {
@@ -24,7 +24,7 @@ export class OperatingSystem {
   toPrimitives (): OperatingSystemPrimitives {
     return {
       id: this.idValue(),
-      version: this.nameValue()
+      name: this.nameValue()
     }
   }
 }

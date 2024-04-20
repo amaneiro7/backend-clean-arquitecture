@@ -54,11 +54,11 @@ export function initDeviceHardDriveModel (sequelize: Sequelize): void {
         allowNull: false
       },
       hardDriveCapacityId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false
       },
       hardDriveTypeId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false
       }
     },

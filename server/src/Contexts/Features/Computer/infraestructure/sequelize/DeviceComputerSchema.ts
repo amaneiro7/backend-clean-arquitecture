@@ -13,6 +13,7 @@ import { type MACAddress } from '../../domain/MACAddress'
 import { type IPAddress } from '../../domain/IPAddress'
 import { type CategoryId } from '../../../../Category/domain/CategoryId'
 import { type ComputerName } from '../../domain/ComputerName'
+import { CategoryValues } from '../../../../Category/domain/Category'
 
 interface DeviceComputerCreationAttributes extends Pick<DeviceComputerPrimitives, 'id' | 'categoryId' | 'computerName' | 'processorId' | 'memoryRamCapacity' | 'hardDriveCapacityId'
 | 'hardDriveTypeId' | 'operatingSystemId' | 'operatingSystemArqId' | 'macAddress' | 'ipAddress' > {
@@ -56,7 +57,7 @@ export function initDeviceComputerModel (sequelize: Sequelize): void {
         allowNull: false,
         validate: {
           isIn: {
-            args: [['1', '2', '3', '4']],
+            args: [[CategoryValues.COMPUTADORAS, CategoryValues.ALLINONE, CategoryValues.LAPTOPS, CategoryValues.SERVIDORES]],
             msg: 'No pertenece a esta categoria'
           }
         }
@@ -79,20 +80,20 @@ export function initDeviceComputerModel (sequelize: Sequelize): void {
         allowNull: false
       },
       hardDriveCapacityId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: true
       },
       hardDriveTypeId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: true
       },
       operatingSystemId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: true,
         field: 'operating_system_version_id'
       },
       operatingSystemArqId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: true
       },
       macAddress: {

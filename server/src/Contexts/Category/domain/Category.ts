@@ -7,6 +7,19 @@ export interface CategoryPrimitives {
   name: Primitives<CategoryName>
 }
 
+export const CategoryValues = {
+  COMPUTADORAS: '1',
+  SERVIDORES: '2',
+  LAPTOPS: '3',
+  ALLINONE: '4',
+  MONITORES: '5',
+  FINANCIERASPRINTER: '6',
+  LASERPRINTER: '7',
+  INKPRINTER: '8',
+  HARDDRIVE: '9',
+  KEYBOARD: '10'
+}
+
 export class Category {
   constructor (
     private readonly id: CategoryId,

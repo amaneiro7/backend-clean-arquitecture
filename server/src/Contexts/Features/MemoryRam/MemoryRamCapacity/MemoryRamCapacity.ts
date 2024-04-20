@@ -3,7 +3,7 @@ import { NumberValueObject } from '../../../Shared/domain/value-object/NumberVal
 
 // Define a class for representing memory ram capacity as a value object
 export class MemoryRamCapacity extends NumberValueObject {
-  private readonly minSizeMemoryRam = 512
+  private readonly minSizeMemoryRam = 0.5
   // Constructor for the MemoryRamCapacityValue class
   constructor (readonly value: number) {
     super(value) // Call the constructor of the parent class

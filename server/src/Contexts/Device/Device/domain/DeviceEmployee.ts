@@ -48,6 +48,7 @@ export class DeviceEmployee extends AcceptedNullValueObject<Primitives<EmployeeI
     // Verifica que el empleado exista en la base de datos, si no existe lanza un error {@link EmployeeDoesNotExistError} con el empleado pasado
     await DeviceEmployee.ensureEmployeeExit({ repository, employee })
     // Actualiza el campo empleado de la entidad {@link Device} con el nuevo empleado
+    console.log('DeviceEmploye', employee)
     entity.updateEmployee(employee)
   }
 
