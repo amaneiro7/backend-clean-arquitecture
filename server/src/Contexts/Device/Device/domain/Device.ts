@@ -1,20 +1,20 @@
+import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
 import { DeviceId } from './DeviceId'
 import { DeviceActivo } from './DeviceActivo'
 import { DeviceSerial } from './DeviceSerial'
-import { StatusId } from '../../Status/domain/StatusId'
-import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
 import { CategoryId } from '../../../Category/domain/CategoryId'
 import { BrandId } from '../../../Brand/domain/BrandId'
 import { DeviceEmployee } from './DeviceEmployee'
 import { DeviceObservation } from './DeviceObservation'
 import { DeviceLocation } from './DeviceLocation'
 import { DeviceModelSeries } from './DeviceModelSeries'
+import { DeviceStatus } from './DeviceStatus'
 
 export interface DevicePrimitives {
   id: Primitives<DeviceId>
   serial: Primitives<DeviceSerial>
   activo: Primitives<DeviceActivo>
-  statusId: Primitives<StatusId>
+  statusId: Primitives<DeviceStatus>
   categoryId: Primitives<CategoryId>
   brandId: Primitives<BrandId>
   modelId: Primitives<DeviceModelSeries>
@@ -28,7 +28,7 @@ export class Device {
     private readonly id: DeviceId,
     private serial: DeviceSerial,
     private activo: DeviceActivo,
-    private statusId: StatusId,
+    private statusId: DeviceStatus,
     private categoryId: CategoryId,
     private brandId: BrandId,
     private modelId: DeviceModelSeries,
@@ -43,7 +43,7 @@ export class Device {
       new DeviceId(id),
       new DeviceSerial(serial),
       new DeviceActivo(activo),
-      new StatusId(statusId),
+      new DeviceStatus(statusId),
       new CategoryId(categoryId),
       new BrandId(brandId),
       new DeviceModelSeries(modelId),
@@ -61,8 +61,8 @@ export class Device {
     this.activo = new DeviceActivo(newActivo)
   }
 
-  updateStatus (newStatusId: Primitives<StatusId>): void {
-    this.statusId = new StatusId(newStatusId)
+  updateStatus (newStatusId: Primitives<DeviceStatus>): void {
+    this.statusId = new DeviceStatus(newStatusId)
   }
 
   updateModelId (newDeviceModelSeries: Primitives<DeviceModelSeries>): void {
@@ -94,7 +94,7 @@ export class Device {
       new DeviceId(primitives.id),
       new DeviceSerial(primitives.serial),
       new DeviceActivo(primitives.activo),
-      new StatusId(primitives.statusId),
+      new DeviceStatus(primitives.statusId),
       new CategoryId(primitives.categoryId),
       new BrandId(primitives.brandId),
       new DeviceModelSeries(primitives.modelId),
@@ -131,7 +131,7 @@ export class Device {
     return this.activo.value
   }
 
-  get statusValue (): Primitives<StatusId> {
+  get statusValue (): Primitives<DeviceStatus> {
     return this.statusId.value
   }
 

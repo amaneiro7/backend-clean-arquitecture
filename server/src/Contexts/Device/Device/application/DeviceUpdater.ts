@@ -1,10 +1,17 @@
-import { ValidationComputerField } from '../../../Features/Computer/application/ValidationComputerField'
 import { DeviceComputer, type DeviceComputerPrimitives } from '../../../Features/Computer/domain/Computer'
+import { ComputerHardDriveCapacity } from '../../../Features/Computer/domain/ComputerHardDriveCapacity'
+import { ComputerHardDriveType } from '../../../Features/Computer/domain/ComputerHardDriveType'
+import { ComputerMemoryRamCapacity } from '../../../Features/Computer/domain/ComputerMemoryRamCapacity'
+import { ComputerName } from '../../../Features/Computer/domain/ComputerName'
+import { ComputerOperatingSystem } from '../../../Features/Computer/domain/ComputerOperatingSystem'
+import { ComputerOperatingSystemArq } from '../../../Features/Computer/domain/ComputerOperatingSystemArq'
+import { ComputerProcessor } from '../../../Features/Computer/domain/ComputerProcessor'
+import { IPAddress } from '../../../Features/Computer/domain/IPAddress'
+import { MACAddress } from '../../../Features/Computer/domain/MACAddress'
 import { ValidationHardDriveField } from '../../../Features/HardDrive.ts/HardDrive/application/ValidationHardDrive'
 import { DeviceHardDrive, type DeviceHardDrivePrimitives } from '../../../Features/HardDrive.ts/HardDrive/domain/HardDrive'
 import { type Repository } from '../../../Shared/domain/Repository'
 import { InvalidArgumentError } from '../../../Shared/domain/value-object/InvalidArgumentError'
-import { StatusId } from '../../Status/domain/StatusId'
 import { Device } from '../domain/Device'
 import { DeviceActivo } from '../domain/DeviceActivo'
 import { DeviceDoesNotExistError } from '../domain/DeviceDoesNotExistError'
@@ -14,10 +21,9 @@ import { DeviceLocation } from '../domain/DeviceLocation'
 import { DeviceModelSeries } from '../domain/DeviceModelSeries'
 import { DeviceObservation } from '../domain/DeviceObservation'
 import { DeviceSerial } from '../domain/DeviceSerial'
+import { DeviceStatus } from '../domain/DeviceStatus'
 import { type DevicesApiResponse } from '../infrastructure/sequelize/DeviceResponse'
-import { DeviceModel } from '../infrastructure/sequelize/DeviceSchema'
 import { type DeviceParams } from './DeviceCreator'
-import { ValidationField } from './ValidationField'
 
 export interface PartialDeviceParams extends DeviceParams {}
 
@@ -71,17 +77,15 @@ export class DeviceUpdater {
         ipAddress: computer.ipAddress
       })
       const { computerName, processorId, operatingSystemArqId, operatingSystemId, hardDriveCapacityId, hardDriveTypeId, memoryRamCapacity, ipAddress, macAddress } = params as Partial<DeviceComputerPrimitives>
-      validations.push(
-        { field: computerName, validator: ValidationComputerField.ensureComputerNameDoesNotExist, updater: deviceEntity.updateComputerName },
-        { field: processorId, validator: ValidationComputerField.ensureProcessorIdExist, updater: deviceEntity.updateProcessor },
-        { field: operatingSystemId, validator: ValidationComputerField.ensureOperatingSystemExist, updater: deviceEntity.updateOperatingSystem },
-        { field: operatingSystemArqId, validator: ValidationComputerField.ensureOperatingSystemArqExist, updater: deviceEntity.updateOperatingSystemArq },
-        { field: hardDriveCapacityId, validator: ValidationComputerField.ensureHardDriveCapacityExist, updater: deviceEntity.updateHardDriveCapacity },
-        { field: hardDriveTypeId, validator: ValidationComputerField.ensureHardDriveTypeExist, updater: deviceEntity.updateHardDriveType },
-        { field: memoryRamCapacity, validator: ValidationComputerField.ensureMemoryRamCapacityDoesNotExist, updater: deviceEntity.updateMemoryRam },
-        { field: ipAddress, validator: ValidationComputerField.ensureIpAddressDoesNotExist, updater: deviceEntity.updateIPAddress },
-        { field: macAddress, validator: ValidationComputerField.ensureMacAddressDoesNotExist, updater: deviceEntity.updateMACAddress }
-      )
+      await ComputerName.updateComputerNameField({ repository: this.repository.device, computerName, entity: deviceEntity })
+      await ComputerMemoryRamCapacity.updateMemoryRamField({ memoryRam: memoryRamCapacity, entity: deviceEntity })
+      await ComputerProcessor.updateProcessorField({ repository: this.repository.processor, processor: processorId, entity: deviceEntity })
+      await ComputerHardDriveCapacity.updateHardDriveCapacityField({ repository: this.repository.hardDriveCapacity, entity: deviceEntity, hardDriveCapacity: hardDriveCapacityId })
+      await ComputerHardDriveType.updateHardDriveTypeField({ repository: this.repository.hardDriveType, hardDriveType: hardDriveTypeId, entity: deviceEntity })
+      await ComputerOperatingSystem.updateOperatingSystemField({ repository: this.repository.operatingSystemVersion, operatingSystem: operatingSystemId, entity: deviceEntity })
+      await ComputerOperatingSystemArq.updateOperatingSystemArqField({ repository: this.repository.operatingSystemArq, operatingSystemArq: operatingSystemArqId, entity: deviceEntity })
+      await IPAddress.updateIPAddressField({ ipAddress, entity: deviceEntity })
+      await MACAddress.updateMACAddressField({ macAddress, entity: deviceEntity })
     } else if (DeviceHardDrive.isHardDriveCategory({ categoryId })) {
       const { hardDrive } = device as unknown as DevicesApiResponse
       if (hardDrive === null) {
@@ -113,7 +117,7 @@ export class DeviceUpdater {
     }
     await DeviceActivo.updateActivoField({ repository: this.repository.device, activo, entity: deviceEntity })
     await DeviceSerial.updateSerialField({ repository: this.repository.device, serial, entity: deviceEntity })
-    await StatusId.updateStatusField({ repository: this.repository.status, status: statusId, entity: deviceEntity })
+    await DeviceStatus.updateStatusField({ repository: this.repository.status, status: statusId, entity: deviceEntity })
     await DeviceLocation.updateLocationField({ repository: this.repository.location, location: locationId, entity: deviceEntity })
     await DeviceObservation.updateObservationField({ observation, entity: deviceEntity })
     await DeviceEmployee.updateEmployeeField({ repository: this.repository.employee, employee: employeeId, entity: deviceEntity })

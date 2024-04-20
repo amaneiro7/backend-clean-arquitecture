@@ -1,5 +1,7 @@
 import { AcceptedNullValueObject } from '../../../Shared/domain/value-object/AcceptedNullValueObjects'
 import { InvalidArgumentError } from '../../../Shared/domain/value-object/InvalidArgumentError'
+import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
+import { type DeviceComputer } from './Computer'
 
 // Define a class for MACAddress that extends the StringValueObject class
 export class MACAddress extends AcceptedNullValueObject<string> {
@@ -30,5 +32,18 @@ export class MACAddress extends AcceptedNullValueObject<string> {
   private isValid (name: string | null): boolean {
     if (name === null) return true
     return this.macAddressRegex.test(name)
+  }
+
+  static async updateMACAddressField ({ macAddress, entity }: { macAddress?: Primitives<MACAddress>, entity: DeviceComputer }): Promise<void> {
+    // Si no se ha pasado un nuevo valor de dirección MAC no realiza ninguna acción
+    if (macAddress === undefined) {
+      return
+    }
+    // Verifica que si el valor del campo dirección MAC actual y el nuevo valor dirección MAC son iguales no realiza un cambio
+    if (entity.macAddressValue === macAddress) {
+      return
+    }
+    // Actualiza el campo dirección MAC de la entidad {@link Device} con el nuevo dirección MAC
+    entity.updateMACAddress(macAddress)
   }
 }

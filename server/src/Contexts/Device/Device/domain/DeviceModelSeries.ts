@@ -31,14 +31,14 @@ export class DeviceModelSeries extends ModelSeriesId {
       return
     }
     // Verifica que el model no exista en la base de datos, si existe lanza un error {@link DeviceAlreadyExistError} con el model pasado
-    const { brandId, categoryId } = await DeviceModelSeries.ensureModelSeriesDoesExit({ repository, modelSeries, category, brand })
+    const { brandId, categoryId } = await DeviceModelSeries.ensureModelSeriesExit({ repository, modelSeries, category, brand })
     // Actualiza el campo model de la entidad {@link Device} con el nuevo model
     entity.updateCategoryId(categoryId)
     entity.updateBrandId(brandId)
     entity.updateModelId(modelSeries)
   }
 
-  static async ensureModelSeriesDoesExit ({
+  static async ensureModelSeriesExit ({
     repository,
     modelSeries,
     category,

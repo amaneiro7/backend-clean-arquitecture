@@ -1,31 +1,22 @@
 import { type Repository } from '../../../Shared/domain/Repository'
 import { DeviceComputer, type DeviceComputerPrimitives } from '../domain/Computer'
-import { ValidationComputerField } from './ValidationComputerField'
-
-type FieldValidator = (repository: Repository, field: any) => Promise<void>
-
-interface ValidationConfig {
-  field: any
-  validator: FieldValidator
-}
+import { ComputerHardDriveCapacity } from '../domain/ComputerHardDriveCapacity'
+import { ComputerHardDriveType } from '../domain/ComputerHardDriveType'
+import { ComputerName } from '../domain/ComputerName'
+import { ComputerOperatingSystem } from '../domain/ComputerOperatingSystem'
+import { ComputerOperatingSystemArq } from '../domain/ComputerOperatingSystemArq'
+import { ComputerProcessor } from '../domain/ComputerProcessor'
 
 export class ComputerValidation {
   constructor (private readonly repository: Repository) {}
 
   async run ({ serial, activo, statusId, categoryId, brandId, modelId, employeeId, observation, locationId, computerName, processorId, memoryRamCapacity, operatingSystemArqId, operatingSystemId, hardDriveCapacityId, hardDriveTypeId, ipAddress, macAddress }: Omit<DeviceComputerPrimitives, 'id'>): Promise<DeviceComputer> {
-    const validations: ValidationConfig[] = [
-      { field: processorId, validator: ValidationComputerField.ensureProcessorIdExist },
-      { field: operatingSystemId, validator: ValidationComputerField.ensureOperatingSystemExist },
-      { field: operatingSystemArqId, validator: ValidationComputerField.ensureOperatingSystemArqExist },
-      { field: hardDriveCapacityId, validator: ValidationComputerField.ensureHardDriveCapacityExist },
-      { field: hardDriveTypeId, validator: ValidationComputerField.ensureHardDriveTypeExist },
-      { field: computerName, validator: ValidationComputerField.ensureComputerNameDoesNotExist }
-    ]
-    for (const validation of validations) {
-      if (validation.field !== undefined) {
-        await validation.validator(this.repository, validation.field)
-      }
-    }
+    await ComputerName.ensuerComputerNameDoesNotExit({ repository: this.repository.device, computerName })
+    await ComputerProcessor.ensureProcessorExit({ repository: this.repository.processor, processor: processorId })
+    await ComputerHardDriveCapacity.ensureHardDriveCapacityExit({ repository: this.repository.hardDriveCapacity, hardDriveCapacity: hardDriveCapacityId })
+    await ComputerHardDriveType.ensureHardDriveTypeExit({ repository: this.repository.hardDriveType, hardDriveType: hardDriveTypeId })
+    await ComputerOperatingSystem.ensureOperatingSystemExit({ repository: this.repository.operatingSystemVersion, operatingSystem: operatingSystemId })
+    await ComputerOperatingSystemArq.ensureOperatingSystemArqExit({ repository: this.repository.operatingSystemArq, operatingSystemArq: operatingSystemArqId })
 
     return DeviceComputer.create({ serial, activo, statusId, categoryId, brandId, modelId, employeeId, observation, locationId, computerName, processorId, memoryRamCapacity, operatingSystemArqId, operatingSystemId, hardDriveCapacityId, hardDriveTypeId, ipAddress, macAddress })
   }

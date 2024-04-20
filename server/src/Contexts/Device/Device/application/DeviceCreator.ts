@@ -6,7 +6,12 @@ import { ModelSeriesFinder } from '../../../ModelSeries/ModelSeries/application/
 import { ModelSeriesId } from '../../../ModelSeries/ModelSeries/domain/ModelSeriesId'
 import { type Repository } from '../../../Shared/domain/Repository'
 import { Device, type DevicePrimitives } from '../domain/Device'
-import { ValidationField } from './ValidationField'
+import { DeviceActivo } from '../domain/DeviceActivo'
+import { DeviceEmployee } from '../domain/DeviceEmployee'
+import { DeviceLocation } from '../domain/DeviceLocation'
+import { DeviceModelSeries } from '../domain/DeviceModelSeries'
+import { DeviceSerial } from '../domain/DeviceSerial'
+import { DeviceStatus } from '../domain/DeviceStatus'
 
 export interface DeviceParams extends Omit<DevicePrimitives, 'id'> {}
 
@@ -27,11 +32,12 @@ export class DeviceCreator {
     } else {
       device = Device.create({ serial, activo, statusId, categoryId, brandId, modelId, employeeId, locationId, observation })
     }
-    await ValidationField.ensureActivoDoesNotExist(this.repository, activo)
-    await ValidationField.ensureSerialDoesNotExist(this.repository, serial)
-    await ValidationField.ensureStatusIdExist(this.repository, statusId)
-    await ValidationField.ensureEmployeeIdExist(this.repository, employeeId)
-    await ValidationField.ensureLocationIdExist(this.repository, locationId, device)
+    await DeviceSerial.ensureSerialDoesNotExit({ repository: this.repository.device, serial })
+    await DeviceActivo.ensureActivoDoesNotExit({ repository: this.repository.device, activo })
+    await DeviceStatus.ensuerStatusExit({ repository: this.repository.status, status: statusId })
+    await DeviceModelSeries.ensureModelSeriesExit({ repository: this.repository.modelSeries, modelSeries: modelId, brand: brandId, category: categoryId })
+    await DeviceEmployee.ensureEmployeeExit({ repository: this.repository.employee, employee: employeeId })
+    await DeviceLocation.ensureLocationExit({ repository: this.repository.location, location: locationId, status: statusId })
 
     await this.repository.device.save(device.toPrimitives())
   }

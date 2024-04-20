@@ -60,7 +60,7 @@ export class DeviceEmployee extends AcceptedNullValueObject<Primitives<EmployeeI
     const deviceWithEmployee: EmployeePrimitives | null = await repository.searchById(new EmployeeId(employee).toString())
     // If a device with the given empleado exists, it means that it already exists in the database,
     // so we need to throw a {@link DeviceAlreadyExistError} with the given empleado
-    if (deviceWithEmployee !== null) {
+    if (deviceWithEmployee === null) {
       throw new EmployeeDoesNotExistError(employee)
     }
   }

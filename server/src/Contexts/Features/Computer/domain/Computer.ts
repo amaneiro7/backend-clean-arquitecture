@@ -1,34 +1,35 @@
-import { BrandId } from '../../../Brand/domain/BrandId'
-import { CategoryDefaultData, type CategoryValues } from '../../../Category/domain/CategoryDefaultData'
-import { CategoryId } from '../../../Category/domain/CategoryId'
 import { Device, type DevicePrimitives } from '../../../Device/Device/domain/Device'
+import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
+import { CategoryDefaultData, type CategoryValues } from '../../../Category/domain/CategoryDefaultData'
+import { BrandId } from '../../../Brand/domain/BrandId'
+import { CategoryId } from '../../../Category/domain/CategoryId'
 import { DeviceActivo } from '../../../Device/Device/domain/DeviceActivo'
 import { DeviceEmployee } from '../../../Device/Device/domain/DeviceEmployee'
 import { DeviceId } from '../../../Device/Device/domain/DeviceId'
+import { DeviceModelSeries } from '../../../Device/Device/domain/DeviceModelSeries'
 import { DeviceObservation } from '../../../Device/Device/domain/DeviceObservation'
 import { DeviceSerial } from '../../../Device/Device/domain/DeviceSerial'
-import { StatusId } from '../../../Device/Status/domain/StatusId'
+import { DeviceStatus } from '../../../Device/Device/domain/DeviceStatus'
 import { LocationId } from '../../../Location/Location/domain/LocationId'
 import { ModelSeriesId } from '../../../ModelSeries/ModelSeries/domain/ModelSeriesId'
-import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
-import { HardDriveCapacityId } from '../../HardDrive.ts/HardDriveCapacity/domain/HardDriveCapacityId'
-import { HardDriveTypeId } from '../../HardDrive.ts/HardDriveType/domain/HardDriveTypeId'
-import { MemoryRamCapacity } from '../../MemoryRam/MemoryRamCapacity/MemoryRamCapacity'
-import { OperatingSystemId } from '../../OperatingSystem/OperatingSystem/domain/OperatingSystemId'
-import { OperatingSystemArqId } from '../../OperatingSystem/OperatingSystemArq/domain/OperatingSystemArqID'
-import { ProcessorId } from '../../Processor/Processor/domain/ProcessorId'
+import { ComputerMemoryRamCapacity } from './ComputerMemoryRamCapacity'
 import { ComputerName } from './ComputerName'
+import { ComputerProcessor } from './ComputerProcessor'
 import { IPAddress } from './IPAddress'
 import { MACAddress } from './MACAddress'
+import { ComputerHardDriveCapacity } from './ComputerHardDriveCapacity'
+import { ComputerHardDriveType } from './ComputerHardDriveType'
+import { ComputerOperatingSystem } from './ComputerOperatingSystem'
+import { ComputerOperatingSystemArq } from './ComputerOperatingSystemArq'
 
 export interface DeviceComputerPrimitives extends DevicePrimitives {
   computerName: Primitives<ComputerName>
-  processorId: Primitives<ProcessorId> | null
-  memoryRamCapacity: Primitives<MemoryRamCapacity>
-  hardDriveCapacityId: Primitives<HardDriveCapacityId> | null
-  hardDriveTypeId: Primitives<HardDriveTypeId> | null
-  operatingSystemId: Primitives<OperatingSystemId> | null
-  operatingSystemArqId: Primitives<OperatingSystemArqId> | null
+  processorId: Primitives<ComputerProcessor>
+  memoryRamCapacity: Primitives<ComputerMemoryRamCapacity>
+  hardDriveCapacityId: Primitives<ComputerHardDriveCapacity>
+  hardDriveTypeId: Primitives<ComputerHardDriveType>
+  operatingSystemId: Primitives<ComputerOperatingSystem>
+  operatingSystemArqId: Primitives<ComputerOperatingSystemArq>
   macAddress: Primitives<MACAddress>
   ipAddress: Primitives<IPAddress>
 }
@@ -38,7 +39,7 @@ export class DeviceComputer extends Device {
     id: DeviceId,
     serial: DeviceSerial,
     activo: DeviceActivo,
-    statusId: StatusId,
+    statusId: DeviceStatus,
     categoryId: CategoryId,
     brandId: BrandId,
     modelId: ModelSeriesId,
@@ -46,12 +47,12 @@ export class DeviceComputer extends Device {
     locationId: LocationId,
     observation: DeviceObservation,
     private computerName: ComputerName,
-    private processorId: ProcessorId | null,
-    private memoryRamCapacity: MemoryRamCapacity,
-    private hardDriveCapacityId: HardDriveCapacityId | null,
-    private hardDriveTypeId: HardDriveTypeId | null,
-    private operatingSystemId: OperatingSystemId | null,
-    private operatingSystemArqId: OperatingSystemArqId | null,
+    private processorId: ComputerProcessor,
+    private memoryRamCapacity: ComputerMemoryRamCapacity,
+    private hardDriveCapacityId: ComputerHardDriveCapacity,
+    private hardDriveTypeId: ComputerHardDriveType,
+    private operatingSystemId: ComputerOperatingSystem,
+    private operatingSystemArqId: ComputerOperatingSystemArq,
     private macAddress: MACAddress,
     private ipAddress: IPAddress
 
@@ -69,22 +70,22 @@ export class DeviceComputer extends Device {
       new DeviceId(id),
       new DeviceSerial(serial),
       new DeviceActivo(activo),
-      new StatusId(statusId),
+      new DeviceModelSeries(statusId),
       new CategoryId(categoryId),
       new BrandId(brandId),
       new ModelSeriesId(modelId),
       new DeviceEmployee(employeeId),
       new LocationId(locationId),
       new DeviceObservation(observation),
-      new ComputerName(computerName),
-      processorId != null ? new ProcessorId(processorId) : null,
-      new MemoryRamCapacity(memoryRamCapacity),
-      hardDriveCapacityId != null ? new HardDriveCapacityId(hardDriveCapacityId) : null,
-      hardDriveTypeId != null ? new HardDriveTypeId(hardDriveTypeId) : null,
-      operatingSystemId != null ? new OperatingSystemId(operatingSystemId) : null,
-      operatingSystemArqId != null ? new OperatingSystemArqId(operatingSystemArqId) : null,
+      new ComputerName(computerName, statusId),
+      new ComputerProcessor(processorId),
+      new ComputerMemoryRamCapacity(memoryRamCapacity),
+      new ComputerHardDriveCapacity(hardDriveCapacityId),
+      new ComputerHardDriveType(hardDriveTypeId, hardDriveCapacityId),
+      new ComputerOperatingSystem(operatingSystemId, hardDriveCapacityId, statusId),
+      new ComputerOperatingSystemArq(operatingSystemArqId, operatingSystemId),
       new MACAddress(macAddress),
-      new IPAddress(ipAddress)
+      new IPAddress(ipAddress, statusId)
     )
   }
 
@@ -106,12 +107,12 @@ export class DeviceComputer extends Device {
       locationId: this.locationValue,
       observation: this.observationValue,
       computerName: this.computerNameValue,
-      processorId: this.processorId != null ? this.processorValue : null,
+      processorId: this.processorValue,
       memoryRamCapacity: this.memoryRamCapacityValue,
-      hardDriveCapacityId: this.hardDriveCapacityId != null ? this.hardDriveCapacityValue : null,
-      hardDriveTypeId: this.hardDriveTypeId != null ? this.hardDriveTypeValue : null,
-      operatingSystemId: this.operatingSystemId != null ? this.operatingSystemValue : null,
-      operatingSystemArqId: this.operatingSystemArqId != null ? this.operatingSystemArqValue : null,
+      hardDriveCapacityId: this.hardDriveCapacityValue,
+      hardDriveTypeId: this.hardDriveTypeValue,
+      operatingSystemId: this.operatingSystemValue,
+      operatingSystemArqId: this.operatingSystemArqValue,
       macAddress: this.macAddressValue,
       ipAddress: this.ipAddressValue
     }
@@ -122,61 +123,58 @@ export class DeviceComputer extends Device {
       new DeviceId(primitives.id),
       new DeviceSerial(primitives.serial),
       new DeviceActivo(primitives.activo),
-      new StatusId(primitives.statusId),
+      new DeviceStatus(primitives.statusId),
       new CategoryId(primitives.categoryId),
       new BrandId(primitives.brandId),
       new ModelSeriesId(primitives.modelId),
       new DeviceEmployee(primitives.employeeId),
       new LocationId(primitives.locationId),
       new DeviceObservation(primitives.observation),
-      new ComputerName(primitives.computerName),
-      primitives.processorId != null ? new ProcessorId(primitives.processorId) : null,
-      new MemoryRamCapacity(primitives.memoryRamCapacity),
-      primitives.hardDriveCapacityId != null ? new HardDriveCapacityId(primitives.hardDriveCapacityId) : null,
-      primitives.hardDriveTypeId != null ? new HardDriveTypeId(primitives.hardDriveTypeId) : null,
-      primitives.operatingSystemId != null ? new OperatingSystemId(primitives.operatingSystemId) : null,
-      primitives.operatingSystemArqId != null ? new OperatingSystemArqId(primitives.operatingSystemArqId) : null,
+      new ComputerName(primitives.computerName, primitives.statusId),
+      new ComputerProcessor(primitives.processorId),
+      new ComputerMemoryRamCapacity(primitives.memoryRamCapacity),
+      new ComputerHardDriveCapacity(primitives.hardDriveCapacityId),
+      new ComputerHardDriveType(primitives.hardDriveTypeId, primitives.hardDriveCapacityId),
+      new ComputerOperatingSystem(primitives.operatingSystemId, primitives.hardDriveCapacityId, primitives.statusId),
+      new ComputerOperatingSystemArq(primitives.operatingSystemArqId, primitives.operatingSystemId),
       new MACAddress(primitives.macAddress),
-      new IPAddress(primitives.ipAddress
-      )
+      new IPAddress(primitives.ipAddress, primitives.statusId)
     )
   }
 
-  updateComputerName (newComputerName: Primitives<ComputerName>): void {
-    this.computerName = new ComputerName(newComputerName)
+  updateComputerName (newComputerName: Primitives<ComputerName>, statusId: Primitives<DeviceStatus>): void {
+    this.computerName = new ComputerName(newComputerName, statusId)
   }
 
-  updateProcessor (newProcessorId: string | null): void {
-    this.processorId = newProcessorId != null ? new ProcessorId(newProcessorId) : null
+  updateProcessor (newProcessorId: Primitives<ComputerProcessor>): void {
+    this.processorId = new ComputerProcessor(newProcessorId)
   }
 
-  updateMemoryRam (newMemoryRamCapacity: number): void {
-    console.log('Computer UpdateMemory', this.memoryRamCapacityValue)
-    this.memoryRamCapacity = new MemoryRamCapacity(newMemoryRamCapacity)
-    console.log('Computer UpdateMemory After', this.memoryRamCapacityValue)
+  updateMemoryRam (newMemoryRamCapacity: Primitives<ComputerMemoryRamCapacity>): void {
+    this.memoryRamCapacity = new ComputerMemoryRamCapacity(newMemoryRamCapacity)
   }
 
-  updateOperatingSystem (newOperatingSystem: number): void {
-    this.operatingSystemId = newOperatingSystem != null ? new OperatingSystemId(newOperatingSystem) : null
+  updateOperatingSystem (newOperatingSystem: Primitives<ComputerOperatingSystem>, hardDriveCapacity: Primitives<ComputerHardDriveCapacity>, status: Primitives<DeviceStatus>): void {
+    this.operatingSystemId = new ComputerOperatingSystem(newOperatingSystem, hardDriveCapacity, status)
   }
 
-  updateOperatingSystemArq (newOperatingSystemArq: number): void {
-    this.operatingSystemArqId = newOperatingSystemArq != null ? new OperatingSystemArqId(newOperatingSystemArq) : null
+  updateOperatingSystemArq (newOperatingSystemArq: Primitives<ComputerOperatingSystemArq>, opertaingSystem: Primitives<ComputerOperatingSystem>): void {
+    this.operatingSystemArqId = new ComputerOperatingSystemArq(newOperatingSystemArq, opertaingSystem)
   }
 
-  updateHardDriveCapacity (newHDDCapacity: number): void {
-    this.hardDriveCapacityId = newHDDCapacity != null ? new HardDriveCapacityId(newHDDCapacity) : null
+  updateHardDriveCapacity (newHDDCapacity: Primitives<ComputerHardDriveCapacity>): void {
+    this.hardDriveCapacityId = new ComputerHardDriveCapacity(newHDDCapacity)
   }
 
-  updateHardDriveType (newHDDType: number): void {
-    this.hardDriveTypeId = newHDDType != null ? new HardDriveTypeId(newHDDType) : null
+  updateHardDriveType (newHDDType: Primitives<ComputerHardDriveType>, hardDriveCapacity: Primitives<ComputerHardDriveCapacity>): void {
+    this.hardDriveTypeId = new ComputerHardDriveType(newHDDType, hardDriveCapacity)
   }
 
-  updateIPAddress (newIPAddress: string | null): void {
-    this.ipAddress = new IPAddress(newIPAddress)
+  updateIPAddress (newIPAddress: Primitives<IPAddress>, status: Primitives<DeviceStatus>): void {
+    this.ipAddress = new IPAddress(newIPAddress, status)
   }
 
-  updateMACAddress (newMACAddress: string | null): void {
+  updateMACAddress (newMACAddress: Primitives<MACAddress>): void {
     this.macAddress = new MACAddress(newMACAddress)
   }
 
@@ -184,35 +182,35 @@ export class DeviceComputer extends Device {
     return this.computerName.value
   }
 
-  get memoryRamCapacityValue (): number {
+  get memoryRamCapacityValue (): Primitives<ComputerMemoryRamCapacity> {
     return this.memoryRamCapacity.value
   }
 
-  get processorValue (): string | null {
-    return this.processorId?.value ?? null
+  get processorValue (): Primitives<ComputerProcessor> {
+    return this.processorId.value
   }
 
-  get hardDriveCapacityValue (): number | null {
-    return this.hardDriveCapacityId?.value ?? null
+  get hardDriveCapacityValue (): Primitives<ComputerHardDriveCapacity> {
+    return this.hardDriveCapacityId.value
   }
 
-  get hardDriveTypeValue (): number | null {
-    return this.hardDriveTypeId?.value ?? null
+  get hardDriveTypeValue (): Primitives<ComputerHardDriveType> {
+    return this.hardDriveTypeId.value
   }
 
-  get operatingSystemValue (): number | null {
-    return this.operatingSystemId?.value ?? null
+  get operatingSystemValue (): Primitives<ComputerOperatingSystem> {
+    return this.operatingSystemId.value
   }
 
-  get operatingSystemArqValue (): number | null {
-    return this.operatingSystemArqId?.value ?? null
+  get operatingSystemArqValue (): Primitives<ComputerOperatingSystemArq> {
+    return this.operatingSystemArqId.value ?? null
   }
 
-  get macAddressValue (): string | null {
+  get macAddressValue (): Primitives<MACAddress> {
     return this.macAddress.value
   }
 
-  get ipAddressValue (): string | null {
+  get ipAddressValue (): Primitives<IPAddress> {
     return this.ipAddress.value
   }
 }

@@ -40,12 +40,12 @@ export class DeviceActivo extends AcceptedNullValueObject<string> {
       return
     }
     // Verifica que el activo no exista en la base de datos, si existe lanza un error {@link DeviceAlreadyExistError} con el activo pasado
-    await DeviceActivo.ensuerActivoDoesNotExit({ repository, activo })
+    await DeviceActivo.ensureActivoDoesNotExit({ repository, activo })
     // Actualiza el campo activo de la entidad {@link Device} con el nuevo activo
     entity.updateActivo(activo)
   }
 
-  static async ensuerActivoDoesNotExit ({ repository, activo }: { repository: DeviceRepository, activo: Primitives<DeviceActivo> }): Promise<void> {
+  static async ensureActivoDoesNotExit ({ repository, activo }: { repository: DeviceRepository, activo: Primitives<DeviceActivo> }): Promise<void> {
     // If the activo is null, it does not exist, so we don't need to do any verification
     if (activo === null) {
       return

@@ -6,21 +6,21 @@ import { type CategoryId } from '../../../../Category/domain/CategoryId'
 import { type DeviceId } from '../../domain/DeviceId'
 import { type DeviceSerial } from '../../domain/DeviceSerial'
 import { type DeviceActivo } from '../../domain/DeviceActivo'
-import { type StatusId } from '../../../Status/domain/StatusId'
 import { type BrandId } from '../../../../Brand/domain/BrandId'
-import { type ModelSeriesId } from '../../../../ModelSeries/ModelSeries/domain/ModelSeriesId'
 import { type DeviceEmployee } from '../../domain/DeviceEmployee'
 import { type DeviceObservation } from '../../domain/DeviceObservation'
 import { type DeviceLocation } from '../../domain/DeviceLocation'
+import { type DeviceModelSeries } from '../../domain/DeviceModelSeries'
+import { type DeviceStatus } from '../../domain/DeviceStatus'
 
 export class DeviceModel extends Model<DevicePrimitives> implements DevicePrimitives {
   readonly id!: Primitives<DeviceId>
   readonly serial!: Primitives<DeviceSerial>
   readonly activo!: Primitives<DeviceActivo>
-  readonly statusId!: Primitives<StatusId>
+  readonly statusId!: Primitives<DeviceStatus>
   readonly categoryId!: Primitives<CategoryId>
   readonly brandId!: Primitives<BrandId>
-  readonly modelId!: Primitives<ModelSeriesId>
+  readonly modelId!: Primitives<DeviceModelSeries>
   readonly employeeId!: Primitives<DeviceEmployee>
   readonly locationId!: Primitives<DeviceLocation>
   readonly observation!: Primitives<DeviceObservation>

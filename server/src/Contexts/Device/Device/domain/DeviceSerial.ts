@@ -40,12 +40,12 @@ export class DeviceSerial extends AcceptedNullValueObject<string> {
       return
     }
     // Verifica que el serial no exista en la base de datos, si existe lanza un error {@link DeviceAlreadyExistError} con el serial pasado
-    await DeviceSerial.ensuerSerialDoesNotExit({ repository, serial })
+    await DeviceSerial.ensureSerialDoesNotExit({ repository, serial })
     // Actualiza el campo serial de la entidad {@link Device} con el nuevo serial
     entity.updateSerial(serial)
   }
 
-  static async ensuerSerialDoesNotExit ({ repository, serial }: { repository: DeviceRepository, serial: Primitives<DeviceSerial> }): Promise<void> {
+  static async ensureSerialDoesNotExit ({ repository, serial }: { repository: DeviceRepository, serial: Primitives<DeviceSerial> }): Promise<void> {
     // If the serial is null, it does not exist, so we don't need to do any verification
     if (serial === null) {
       return
