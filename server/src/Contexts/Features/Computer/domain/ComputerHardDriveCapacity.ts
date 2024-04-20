@@ -1,8 +1,6 @@
 import { AcceptedNullValueObject } from '../../../Shared/domain/value-object/AcceptedNullValueObjects'
 import { InvalidArgumentError } from '../../../Shared/domain/value-object/InvalidArgumentError'
 import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
-import { type HardDriveCapacityPrimitives } from '../../HardDrive.ts/HardDriveCapacity/domain/HardDriveCapacity'
-import { HardDriveCapacityDoesNotExistError } from '../../HardDrive.ts/HardDriveCapacity/domain/HardDriveCapacityDoesNotExist'
 import { HardDriveCapacityId } from '../../HardDrive.ts/HardDriveCapacity/domain/HardDriveCapacityId'
 import { type HardDriveCapacityRepository } from '../../HardDrive.ts/HardDriveCapacity/domain/HardDriveCapacityRepository'
 import { type DeviceComputer } from './Computer'
@@ -46,22 +44,8 @@ export class ComputerHardDriveCapacity extends AcceptedNullValueObject<Primitive
       return
     }
     // Verifica que el valor de la capacidad del Disco Duro exista en la base de datos, si no existe lanza un error {@link EmployeeDoesNotExistError} con el valor de la capacidad del Disco Duro pasado
-    await ComputerHardDriveCapacity.ensureHardDriveCapacityExit({ repository, hardDriveCapacity })
+    await HardDriveCapacityId.ensureHardDriveCapacityExit({ repository, hardDriveCapacity })
     // Actualiza el campo valor de la capacidad del Disco Duro de la entidad {@link Device} con el nuevo valor de la capacidad del Disco Duro
     entity.updateHardDriveCapacity(hardDriveCapacity)
-  }
-
-  static async ensureHardDriveCapacityExit ({ repository, hardDriveCapacity }: { repository: HardDriveCapacityRepository, hardDriveCapacity: Primitives<ComputerHardDriveCapacity> }): Promise<void> {
-    // If the valor de la capacidad del Disco Duro is null, it does not exist, so we don't need to do any verification
-    if (hardDriveCapacity === null) {
-      return
-    }
-    // Searches for a device with the given valor de la capacidad del Disco Duro in the database
-    const deviceWithHardDriveCapacity: HardDriveCapacityPrimitives | null = await repository.searchById(hardDriveCapacity)
-    // If a device with the given valor de la capacidad del Disco Duro exists, it means that it already exists in the database,
-    // so we need to throw a {@link DeviceAlreadyExistError} with the given valor de la capacidad del Disco Duro
-    if (deviceWithHardDriveCapacity === null) {
-      throw new HardDriveCapacityDoesNotExistError(hardDriveCapacity)
-    }
   }
 }

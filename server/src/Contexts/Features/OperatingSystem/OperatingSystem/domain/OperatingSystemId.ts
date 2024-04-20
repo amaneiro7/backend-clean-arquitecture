@@ -1,3 +1,3 @@
-import { NumberValueObject } from '../../../../Shared/domain/value-object/NumberValueObject'
+import { StringValueObject } from '../../../../Shared/domain/value-object/StringValueObject'
 
-export class OperatingSystemId extends NumberValueObject {}
+export class OperatingSystemId extends StringValueObject {}

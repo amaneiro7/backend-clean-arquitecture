@@ -1,8 +1,6 @@
 import { AcceptedNullValueObject } from '../../../Shared/domain/value-object/AcceptedNullValueObjects'
 import { InvalidArgumentError } from '../../../Shared/domain/value-object/InvalidArgumentError'
 import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
-import { type HardDriveTypePrimitives } from '../../HardDrive.ts/HardDriveType/domain/HardDriveType'
-import { HardDriveTypeDoesNotExistError } from '../../HardDrive.ts/HardDriveType/domain/HardDriveTypeDoesNotExist'
 import { HardDriveTypeId } from '../../HardDrive.ts/HardDriveType/domain/HardDriveTypeId'
 import { type HardDriveTypeRepository } from '../../HardDrive.ts/HardDriveType/domain/HardDriveTypeRepository'
 
@@ -59,23 +57,9 @@ export class ComputerHardDriveType extends AcceptedNullValueObject<Primitives<Ha
       return
     }
     // Verifica que el valor de la capacidad del Disco Duro exista en la base de datos, si no existe lanza un error {@link EmployeeDoesNotExistError} con el valor de la capacidad del Disco Duro pasado
-    await ComputerHardDriveType.ensureHardDriveTypeExit({ repository, hardDriveType })
+    await HardDriveTypeId.ensureHardDriveTypeExit({ repository, hardDriveType })
     // Actualiza el campo valor de la capacidad del Disco Duro de la entidad {@link Device} con el nuevo valor de la capacidad del Disco Duro
     const hardDriveCapacity = entity.hardDriveCapacityValue
     entity.updateHardDriveType(hardDriveType, hardDriveCapacity)
-  }
-
-  static async ensureHardDriveTypeExit ({ repository, hardDriveType }: { repository: HardDriveTypeRepository, hardDriveType: Primitives<ComputerHardDriveType> }): Promise<void> {
-    // If the valor de la capacidad del Disco Duro is null, it does not exist, so we don't need to do any verification
-    if (hardDriveType === null) {
-      return
-    }
-    // Searches for a device with the given valor de la capacidad del Disco Duro in the database
-    const deviceWithHardDriveType: HardDriveTypePrimitives | null = await repository.searchById(hardDriveType)
-    // If a device with the given valor de la capacidad del Disco Duro exists, it means that it already exists in the database,
-    // so we need to throw a {@link DeviceAlreadyExistError} with the given valor de la capacidad del Disco Duro
-    if (deviceWithHardDriveType === null) {
-      throw new HardDriveTypeDoesNotExistError(hardDriveType)
-    }
   }
 }

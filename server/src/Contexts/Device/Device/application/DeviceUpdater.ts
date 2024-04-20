@@ -8,10 +8,13 @@ import { ComputerOperatingSystemArq } from '../../../Features/Computer/domain/Co
 import { ComputerProcessor } from '../../../Features/Computer/domain/ComputerProcessor'
 import { IPAddress } from '../../../Features/Computer/domain/IPAddress'
 import { MACAddress } from '../../../Features/Computer/domain/MACAddress'
-import { ValidationHardDriveField } from '../../../Features/HardDrive.ts/HardDrive/application/ValidationHardDrive'
 import { DeviceHardDrive, type DeviceHardDrivePrimitives } from '../../../Features/HardDrive.ts/HardDrive/domain/HardDrive'
+import { HardDriveHealth } from '../../../Features/HardDrive.ts/HardDrive/domain/HardDriveHealth'
+import { HDDCapacity } from '../../../Features/HardDrive.ts/HardDrive/domain/HDDCapacity'
+import { HDDType } from '../../../Features/HardDrive.ts/HardDrive/domain/HDDType'
 import { type Repository } from '../../../Shared/domain/Repository'
 import { InvalidArgumentError } from '../../../Shared/domain/value-object/InvalidArgumentError'
+import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
 import { Device } from '../domain/Device'
 import { DeviceActivo } from '../domain/DeviceActivo'
 import { DeviceDoesNotExistError } from '../domain/DeviceDoesNotExistError'
@@ -27,30 +30,42 @@ import { type DeviceParams } from './DeviceCreator'
 
 export interface PartialDeviceParams extends DeviceParams {}
 
-type FieldValidator = (repository: Repository, field: any, entity: any) => Promise<void>
-type FieldUpdater = (field: any) => void
-
-interface ValidationConfig {
-  field: any
-  validator: FieldValidator
-  updater: FieldUpdater
-}
-
 export class DeviceUpdater {
-  constructor (private readonly repository: Repository) {}
+  /**
+   * Repositorio de la base de datos
+   */
+  private readonly repository: Repository
 
-  async run ({ id, params }: { id: string, params: PartialDeviceParams }): Promise<void> {
-    const { activo, modelId, serial, statusId, brandId, categoryId, employeeId, locationId, observation } = params
-    const devideId = new DeviceId(id).value
+  /**
+   * Inicializa el servicio
+   * @param repository Repositorio de la base de datos
+   */
+  constructor (repository: Repository) {
+    this.repository = repository
+  }
 
-    const device = await this.repository.device.searchById(devideId)
+  /**
+   * Actualiza el device con los parametros recibidos
+   * @param id Id del device
+   * @param params Parametros a actualizar
+   */
+  async run ({ id, params }: { id: Primitives<DeviceId>, params: PartialDeviceParams }): Promise<void> {
+    // Extraemos el id del device a actualizar
+    const { categoryId } = params
+    const deviceId = new DeviceId(id).value
 
+    // Buscamos el device en la base de datos
+    const device = await this.repository.device.searchById(deviceId)
+
+    // Si el device no existe, lanzamos una excepcion
     if (device === null) {
       throw new DeviceDoesNotExistError(id)
     }
+
+    // Creamos una instancia de la entidad Device a partir de los datos obtenidos
     let deviceEntity
-    const validations: ValidationConfig[] = []
     if (DeviceComputer.isComputerCategory({ categoryId })) {
+      // Si el device es de tipo computadora, obtenemos los datos de la tabla computer
       const { computer } = device as unknown as DevicesApiResponse
       if (computer === null) {
         throw new InvalidArgumentError('Computer does not exist')
@@ -76,7 +91,15 @@ export class DeviceUpdater {
         macAddress: computer.macAddress,
         ipAddress: computer.ipAddress
       })
-      const { computerName, processorId, operatingSystemArqId, operatingSystemId, hardDriveCapacityId, hardDriveTypeId, memoryRamCapacity, ipAddress, macAddress } = params as Partial<DeviceComputerPrimitives>
+      // Actualizamos los campos principales del device
+      await this.updateMainDevice({ params, deviceEntity })
+
+      // Extraemos los parametros de la clase Computer
+      const {
+        computerName, processorId, operatingSystemArqId, operatingSystemId, hardDriveCapacityId, hardDriveTypeId, memoryRamCapacity, ipAddress, macAddress
+      } = params as Partial<DeviceComputerPrimitives>
+
+      // Actualizamos los campos de la clase Computer
       await ComputerName.updateComputerNameField({ repository: this.repository.device, computerName, entity: deviceEntity })
       await ComputerMemoryRamCapacity.updateMemoryRamField({ memoryRam: memoryRamCapacity, entity: deviceEntity })
       await ComputerProcessor.updateProcessorField({ repository: this.repository.processor, processor: processorId, entity: deviceEntity })
@@ -87,6 +110,7 @@ export class DeviceUpdater {
       await IPAddress.updateIPAddressField({ ipAddress, entity: deviceEntity })
       await MACAddress.updateMACAddressField({ macAddress, entity: deviceEntity })
     } else if (DeviceHardDrive.isHardDriveCategory({ categoryId })) {
+      // Si el device es de tipo hard drive, obtenemos los datos de la tabla hard_drive
       const { hardDrive } = device as unknown as DevicesApiResponse
       if (hardDrive === null) {
         throw new InvalidArgumentError('HardDrive does not exist')
@@ -106,15 +130,38 @@ export class DeviceUpdater {
         hardDriveTypeId: hardDrive.hardDriveTypeId,
         health: hardDrive.health
       })
-      const { hardDriveCapacityId, hardDriveTypeId, health } = params as DeviceHardDrivePrimitives
-      validations.push(
-        { field: health, validator: ValidationHardDriveField.ensureHardDriveHealth, updater: deviceEntity.updateHealth },
-        { field: hardDriveCapacityId, validator: ValidationHardDriveField.ensureHardDriveCapacityExist, updater: deviceEntity.updateHardDriveCapacity },
-        { field: hardDriveTypeId, validator: ValidationHardDriveField.ensureHardDriveTypeExist, updater: deviceEntity.updateHardDriveType }
-      )
+
+      // Extraemos los parametros de la clase HardDrive
+      const {
+        hardDriveCapacityId, hardDriveTypeId, health
+      } = params as DeviceHardDrivePrimitives
+
+      // Actualizamos los campos principales del device
+      await this.updateMainDevice({ params, deviceEntity })
+
+      // Actualizamos los campos de la clase HardDrive
+      await HDDCapacity.updateHardDriveCapacityField({ repository: this.repository.hardDriveCapacity, entity: deviceEntity, hardDriveCapacity: hardDriveCapacityId })
+      await HDDType.updateHardDriveTypeField({ repository: this.repository.hardDriveType, hardDriveType: hardDriveTypeId, entity: deviceEntity })
+      await HardDriveHealth.updateHealthField({ health, entity: deviceEntity })
     } else {
+      // Si el device no es de tipo computadora o hard drive, lo creamos como una instancia de la clase Device
       deviceEntity = Device.fromPrimitives(device)
+
+      // Actualizamos los campos principales del device
+      await this.updateMainDevice({ params, deviceEntity })
     }
+
+    // Guardamos los cambios en la base de datos
+    await this.repository.device.save(deviceEntity.toPrimitives())
+  }
+
+  /**
+   * Actualiza los campos principales del device
+   * @param params Parametros a actualizar
+   * @param deviceEntity Entidad del device
+   */
+  private async updateMainDevice ({ params, deviceEntity }: { params: PartialDeviceParams, deviceEntity: Device }): Promise<void> {
+    const { serial, activo, statusId, categoryId, brandId, modelId, employeeId, locationId, observation } = params
     await DeviceActivo.updateActivoField({ repository: this.repository.device, activo, entity: deviceEntity })
     await DeviceSerial.updateSerialField({ repository: this.repository.device, serial, entity: deviceEntity })
     await DeviceStatus.updateStatusField({ repository: this.repository.status, status: statusId, entity: deviceEntity })
@@ -122,7 +169,5 @@ export class DeviceUpdater {
     await DeviceObservation.updateObservationField({ observation, entity: deviceEntity })
     await DeviceEmployee.updateEmployeeField({ repository: this.repository.employee, employee: employeeId, entity: deviceEntity })
     await DeviceModelSeries.updateModelField({ repository: this.repository.modelSeries, modelSeries: modelId, category: categoryId, brand: brandId, entity: deviceEntity })
-
-    await this.repository.device.save(deviceEntity.toPrimitives())
   }
 }

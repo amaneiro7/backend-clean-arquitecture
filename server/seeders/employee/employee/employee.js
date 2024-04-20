@@ -8,7 +8,7 @@ const cargos = require("../cargo/cargos");
 const employee = [
     {
         id: '8c9b3ea7-8e31-4c0c-8614-6ed2f026f379',
-        userName: "BNC\amaneiro",
+        userName: "AMANEIRO",
         name: 'Andres',
         lastName: 'Maneiro',
         cedula: 18647881,
@@ -23,7 +23,5 @@ const employee = [
         coordinacionId: coordinacion.filter(coordinacion => coordinacion.name === 'Coordinacion')[0].id
     }
 ]
-
-console.log(employee)
 
 module.exports = employee

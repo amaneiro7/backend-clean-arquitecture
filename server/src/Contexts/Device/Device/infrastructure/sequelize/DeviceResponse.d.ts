@@ -1,102 +1,71 @@
 import { type BrandId } from '../../../../Brand/domain/BrandId'
 import { type CategoryId } from '../../../../Category/domain/CategoryId'
-import { type LocationId } from '../../../../Location/Location/domain/LocationId'
+import { type ComputerHardDriveCapacity } from '../../../../Features/Computer/domain/ComputerHardDriveCapacity'
+import { type ComputerHardDriveType } from '../../../../Features/Computer/domain/ComputerHardDriveType'
+import { type ComputerMemoryRamCapacity } from '../../../../Features/Computer/domain/ComputerMemoryRamCapacity'
+import { type ComputerName } from '../../../../Features/Computer/domain/ComputerName'
+import { type ComputerOperatingSystem } from '../../../../Features/Computer/domain/ComputerOperatingSystem'
+import { type ComputerOperatingSystemArq } from '../../../../Features/Computer/domain/ComputerOperatingSystemArq'
+import { type ComputerProcessor } from '../../../../Features/Computer/domain/ComputerProcessor'
+import { type IPAddress } from '../../../../Features/Computer/domain/IPAddress'
+import { type MACAddress } from '../../../../Features/Computer/domain/MACAddress'
+import { type HardDriveCapacityPrimitives } from '../../../../Features/HardDrive.ts/HardDriveCapacity/domain/HardDriveCapacity'
+import { type HardDriveTypePrimitives } from '../../../../Features/HardDrive.ts/HardDriveType/domain/HardDriveType'
+import { type OperatingSystemPrimitives } from '../../../../Features/OperatingSystem/OperatingSystem/domain/OperatingSystem'
+import { type OperatingSystemArqPrimitives } from '../../../../Features/OperatingSystem/OperatingSystemArq/domain/OperatingSystemArq'
+import { type ProcessorPrimitives } from '../../../../Features/Processor/Processor/domain/Processor'
 import { type ModelSeriesId } from '../../../../ModelSeries/ModelSeries/domain/ModelSeriesId'
 import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
-import { type StatusId } from '../../../Status/domain/StatusId'
+import { type StatusPrimitives } from '../../../Status/domain/Status'
+
 import { type DeviceActivo } from '../../domain/DeviceActivo'
 import { type DeviceEmployee } from '../../domain/DeviceEmployee'
 import { type DeviceId } from '../../domain/DeviceId'
+import { type DeviceLocation } from '../../domain/DeviceLocation'
+
 import { type DeviceObservation } from '../../domain/DeviceObservation'
 import { type DeviceSerial } from '../../domain/DeviceSerial'
+import { type DeviceStatus } from '../../domain/DeviceStatus'
 
 export interface DevicesApiResponse {
   id: Primitives<DeviceId>
   serial: Primitives<DeviceSerial>
   activo: Primitives<DeviceActivo>
-  statusId: Primitives<StatusId>
+  statusId: Primitives<DeviceStatus>
   categoryId: Primitives<CategoryId>
   brandId: Primitives<BrandId>
   modelId: Primitives<ModelSeriesId>
   employeeId: Primitives<DeviceEmployee>
-  locationId: Primitives<LocationId>
+  locationId: Primitives<DeviceLocation>
   observation: Primitives<DeviceObservation>
   createdAt: Date
   updatedAt: Date
-  ModelId: string
-  StatusId: number
   model: ModelApiresponse
-  status: Status
+  status: StatusPrimitives
   computer: Computer | null
   hardDrive: HardDrive | null
 }
 
 export interface Computer {
-  id: string
-  categoryId: number
-  deviceId: string
-  computerName: string
-  processorId: string
-  memoryRamCapacity: number
-  hardDriveCapacityId: number
-  hardDriveTypeId: number
-  operatingSystemId: number
-  operatingSystemArqId: number
-  macAddress: string
-  ipAddress: string
+  id: Primitives<DeviceId>
+  categoryId: Primitives<CategoryId>
+  deviceId: Primitives<DeviceId>
+  computerName: Primitives<ComputerName>
+  processorId: Primitives<ComputerProcessor>
+  memoryRamCapacity: Primitives<ComputerMemoryRamCapacity>
+  hardDriveCapacityId: Primitives<ComputerHardDriveCapacity>
+  hardDriveTypeId: Primitives<ComputerHardDriveType>
+  operatingSystemId: Primitives<ComputerOperatingSystem>
+  operatingSystemArqId: Primitives<ComputerOperatingSystemArq>
+  macAddress: Primitives<MACAddress>
+  ipAddress: Primitives<IPAddress>
   createdAt: Date
   updatedAt: Date
-  CategoryId: number
-  device_id: string
-  HardDriveCapacityId: number
-  HardDriveTypeId: number
-  ProcessorId: string
-  OperatingSystemVersionId: number
-  OperatingSystemArqId: number
-  processor: Brand
-  hardDriveCapacity: HardDriveCapacity
-  hardDriveType: Status
-  operatingSystem: OperatingSystem
-  operatingSystemArq: Status
-}
-
-export interface HardDriveCapacity {
-  id: number
-  value: number
-}
-
-export interface Status {
-  id: number
-  name: string
-}
-
-export interface OperatingSystem {
-  id: number
-  version: string
-}
-
-export interface Brand {
-  id: string
-  name: string
-  createdAt: Date
-  updatedAt: Date
-}
-
-export interface HardDrive {
-  id: string
-  categoryId: number
-  deviceId: string
-  health: number
-  hardDriveCapacityId: number
-  hardDriveTypeId: number
-  createdAt: Date
-  updatedAt: Date
-  CategoryId: number
-  device_id: string
-  HardDriveCapacityId: number
-  HardDriveTypeId: number
-  hardDriveCapacity: HardDriveCapacity
-  hardDriveType: Status
+  processor: ProcessorPrimitives
+  hardDriveCapacity: HardDriveCapacityPrimitives
+  hardDriveType: HardDriveTypePrimitives
+  operatingSystem: OperatingSystemPrimitives
+  operatingSystemArq: OperatingSystemArqPrimitives
 }
 
 export interface ModelApiresponse {

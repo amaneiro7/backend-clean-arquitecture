@@ -5,8 +5,8 @@ import { type DeviceId } from '../../../../../Device/Device/domain/DeviceId'
 import { type DeviceHardDrivePrimitives } from '../../domain/HardDrive'
 import { type CategoryId } from '../../../../../Category/domain/CategoryId'
 import { type HardDriveHealth } from '../../domain/HardDriveHealth'
-import { type HardDriveCapacityId } from '../../../HardDriveCapacity/domain/HardDriveCapacityId'
-import { type HardDriveTypeId } from '../../../HardDriveType/domain/HardDriveTypeId'
+import { type HDDCapacity } from '../../domain/HDDCapacity'
+import { type HDDType } from '../../domain/HDDType'
 
 interface DeviceHardDriveCreationAttributes extends Pick<DeviceHardDrivePrimitives, 'id' | 'categoryId' | 'health' | 'hardDriveCapacityId' | 'hardDriveTypeId'> {
   deviceId: Primitives<DeviceId>
@@ -16,8 +16,8 @@ export class DeviceHardDriveModel extends Model<DeviceHardDriveCreationAttribute
   readonly id!: Primitives<DeviceId>
   readonly categoryId!: Primitives<CategoryId>
   readonly health!: Primitives<HardDriveHealth>
-  readonly hardDriveCapacityId!: Primitives<HardDriveCapacityId>
-  readonly hardDriveTypeId!: Primitives<HardDriveTypeId>
+  readonly hardDriveCapacityId!: Primitives<HDDCapacity>
+  readonly hardDriveTypeId!: Primitives<HDDType>
 
   public static associate (models: Models): void {
     this.belongsTo(models.Device, { as: 'device', foreignKey: 'deviceId' }) // A computer belongs to a device

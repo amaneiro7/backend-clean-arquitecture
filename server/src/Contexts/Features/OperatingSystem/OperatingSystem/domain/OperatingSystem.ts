@@ -1,36 +1,37 @@
+import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
 import { OperatingSystemId } from './OperatingSystemId'
 import { OperatingSystemVersion } from './OperatingSystemVersion'
 
 export interface OperatingSystemPrimitives {
-  id: number
-  version: string
+  id: Primitives<OperatingSystemId>
+  name: Primitives<OperatingSystemVersion>
 }
 
 export class OperatingSystem {
   constructor (
     private readonly id: OperatingSystemId,
-    private readonly version: OperatingSystemVersion
+    private readonly name: OperatingSystemVersion
   ) {}
 
   static fromPrimitives (primitives: OperatingSystemPrimitives): OperatingSystem {
     return new OperatingSystem(
       new OperatingSystemId(primitives.id),
-      new OperatingSystemVersion(primitives.version)
+      new OperatingSystemVersion(primitives.name)
     )
   }
 
-  toPrimitive (): any {
+  toPrimitive (): OperatingSystemPrimitives {
     return {
       id: this.id.value,
-      version: this.version.value
+      name: this.name.value
     }
   }
 
-  get idValue (): number {
+  get idValue (): Primitives<OperatingSystemId> {
     return this.id.value
   }
 
-  get versionValue (): string {
-    return this.version.value
+  get versionValue (): Primitives<OperatingSystemVersion> {
+    return this.name.value
   }
 }

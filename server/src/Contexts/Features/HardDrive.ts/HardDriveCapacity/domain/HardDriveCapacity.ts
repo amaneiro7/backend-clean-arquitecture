@@ -1,36 +1,37 @@
+import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
 import { HardDriveCapacityId } from './HardDriveCapacityId'
 import { HardDriveCapacityValue } from './HardDriveCapacityValue'
 
 export interface HardDriveCapacityPrimitives {
-  id: number
-  value: number
+  id: Primitives<HardDriveCapacityId>
+  name: Primitives<HardDriveCapacityValue>
 }
 
 export class HardDriveCapacity {
   constructor (
     private readonly id: HardDriveCapacityId,
-    private readonly value: HardDriveCapacityValue
+    private readonly name: HardDriveCapacityValue
   ) {}
 
   static fromPrimitives (primitives: HardDriveCapacityPrimitives): HardDriveCapacity {
     return new HardDriveCapacity(
       new HardDriveCapacityId(primitives.id),
-      new HardDriveCapacityValue(primitives.value)
+      new HardDriveCapacityValue(primitives.name)
     )
   }
 
   toPrimitive (): any {
     return {
       id: this.id.value,
-      value: this.value.value
+      name: this.name.value
     }
   }
 
-  get idValue (): number {
+  get idValue (): Primitives<HardDriveCapacityId> {
     return this.id.value
   }
 
-  get valueValue (): number {
-    return this.value.value
+  get valueValue (): Primitives<HardDriveCapacityValue> {
+    return this.name.value
   }
 }

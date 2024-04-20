@@ -1,7 +1,5 @@
 import { CategoryId } from '../../../../Category/domain/CategoryId'
 import { HardDriveHealth } from './HardDriveHealth'
-import { HardDriveCapacityId } from '../../HardDriveCapacity/domain/HardDriveCapacityId'
-import { HardDriveTypeId } from '../../HardDriveType/domain/HardDriveTypeId'
 import { DeviceId } from '../../../../Device/Device/domain/DeviceId'
 import { CategoryDefaultData, type CategoryValues } from '../../../../Category/domain/CategoryDefaultData'
 import { Device, type DevicePrimitives } from '../../../../Device/Device/domain/Device'
@@ -14,11 +12,13 @@ import { DeviceSerial } from '../../../../Device/Device/domain/DeviceSerial'
 import { DeviceEmployee } from '../../../../Device/Device/domain/DeviceEmployee'
 import { LocationId } from '../../../../Location/Location/domain/LocationId'
 import { DeviceObservation } from '../../../../Device/Device/domain/DeviceObservation'
+import { HDDCapacity } from './HDDCapacity'
+import { HDDType } from './HDDType'
 
 export interface DeviceHardDrivePrimitives extends DevicePrimitives {
   health: Primitives<HardDriveHealth>
-  hardDriveCapacityId: Primitives<HardDriveCapacityId>
-  hardDriveTypeId: Primitives<HardDriveTypeId>
+  hardDriveCapacityId: Primitives<HDDCapacity>
+  hardDriveTypeId: Primitives<HDDType>
 }
 
 export class DeviceHardDrive extends Device {
@@ -34,8 +34,8 @@ export class DeviceHardDrive extends Device {
     locationId: LocationId,
     observation: DeviceObservation,
     private health: HardDriveHealth,
-    private hardDriveCapacityId: HardDriveCapacityId,
-    private hardDriveTypeId: HardDriveTypeId
+    private hardDriveCapacityId: HDDCapacity,
+    private hardDriveTypeId: HDDType
   ) {
     super(id, serial, activo, statusId, categoryId, brandId, modelId, employeeId, locationId, observation)
   }
@@ -67,8 +67,8 @@ export class DeviceHardDrive extends Device {
       new LocationId(locationId),
       new DeviceObservation(observation),
       new HardDriveHealth(health),
-      new HardDriveCapacityId(hardDriveCapacityId),
-      new HardDriveTypeId(hardDriveTypeId)
+      new HDDCapacity(hardDriveCapacityId),
+      new HDDType(hardDriveTypeId)
     )
   }
 
@@ -81,12 +81,12 @@ export class DeviceHardDrive extends Device {
     this.health = new HardDriveHealth(newHealth)
   }
 
-  updateHardDriveCapacity (newHardDriveCapacityId: Primitives<HardDriveCapacityId>): void {
-    this.hardDriveCapacityId = new HardDriveCapacityId(newHardDriveCapacityId)
+  updateHardDriveCapacity (newHardDriveCapacityId: Primitives<HDDCapacity>): void {
+    this.hardDriveCapacityId = new HDDCapacity(newHardDriveCapacityId)
   }
 
-  updateHardDriveType (newHardDriveType: Primitives<HardDriveTypeId>): void {
-    this.hardDriveTypeId = new HardDriveTypeId(newHardDriveType)
+  updateHardDriveType (newHardDriveType: Primitives<HDDType>): void {
+    this.hardDriveTypeId = new HDDType(newHardDriveType)
   }
 
   static fromPrimitives (primitives: DeviceHardDrivePrimitives): DeviceHardDrive {
@@ -102,8 +102,8 @@ export class DeviceHardDrive extends Device {
       new LocationId(primitives.locationId),
       new DeviceObservation(primitives.observation),
       new HardDriveHealth(primitives.health),
-      new HardDriveCapacityId(primitives.hardDriveCapacityId),
-      new HardDriveTypeId(primitives.hardDriveTypeId)
+      new HDDCapacity(primitives.hardDriveCapacityId),
+      new HDDType(primitives.hardDriveTypeId)
     )
   }
 
@@ -129,11 +129,11 @@ export class DeviceHardDrive extends Device {
     return this.health.value
   }
 
-  get hardDriveCapacityValue (): Primitives<HardDriveCapacityId> {
+  get hardDriveCapacityValue (): Primitives<HDDCapacity> {
     return this.hardDriveCapacityId.value
   }
 
-  get hardDriveTypeValue (): Primitives<HardDriveTypeId> {
+  get hardDriveTypeValue (): Primitives<HDDType> {
     return this.hardDriveTypeId.value
   }
 }
