@@ -28,68 +28,10 @@ export class ApiEmployeeRepository implements EmployeeRepository {
     const paramsOrder = criteriaPrimitives.orderBy ? `orderBy=${criteriaPrimitives.orderBy}&orderType=${criteriaPrimitives.orderType}` : undefined
     const paramsFilters = filters ? `${filters.join('&')}` : undefined
     const queryParams = [paramsFilters, paramsLimitAndOffset, paramsOrder].filter(Boolean).join('&')
-    return await makeRequest<EmployeesApiResponse[]>({ method: 'GET', endpoint: `${this.endpoint}?${queryParams}` })
-      .then(res => res.map(data => ({
-        id: data.id,
-        name: data.name,
-        lastName: data.lastName,
-        userName: data.userName,
-        email: data.email,
-        cedula: data.cedula,
-        locationId: data.location.id,
-        locationName: data.location.name,
-        extension: data.extension,
-        phoneNumber: data.phoneNumber,
-        vicepresidenciaEjecutivaId: data.vicepresidenciaEjecutiva.id,
-        vicepresidenciaEjecutivaName: data.vicepresidenciaEjecutiva.name,
-        vicepresidenciaId: data.vicepresidencia.id,
-        vicepresidenciaName: data.vicepresidencia.name,
-        gerenciaId: data.gerencia.id,
-        gerenciaName: data.gerencia.name,
-        coordinacionId: data.coordinacion.id,
-        coordinacionName: data.coordinacion.name,
-        devices: data.devices,
-        cargoId: data.cargo.id,
-        cargoName: data.cargo.name,
-        createdAt: data.createdAt,
-        updatedAt: data.updatedAt
-      }) satisfies EmployeeMappedApiResponse))
-      .catch((error: any) => {
-        console.error('Infra', error)
-        throw new Error(error.message)
-      })
-  }
-
-  async getDevicesByCriteria (criteria: Criteria): Promise<EmployeePrimitives[]> {
-    const criteriaPrimitives = criteria.toPrimitives()
-
-    const filters = criteriaPrimitives.filters.length > 0 && criteriaPrimitives.filters.map(
-      (filter, index) => {
-        const { field, operator, value } = filter.toPrimitives()
-        return `filters[${index}][field]=${field}&filters[${index}][operator]=${operator}&filters[${index}][value]=${value}`
-      }
-    )
-    const paramsLimitAndOffset = criteriaPrimitives.limit ? `limit=${criteriaPrimitives.limit}&offset=${criteriaPrimitives.offset}` : undefined
-    const paramsOrder = criteriaPrimitives.orderBy ? `orderBy=${criteriaPrimitives.orderBy}&orderType=${criteriaPrimitives.orderType}` : undefined
-    const paramsFilters = filters ? `${filters.join('&')}` : undefined
-    const queryParams = [paramsFilters, paramsLimitAndOffset, paramsOrder].filter(Boolean).join('&')
     return await makeRequest<EmployeesApiResponse[]>({ method: 'GET', endpoint: `${this.endpoint}/devices?${queryParams}` })
       .then(res => res.map(data => ({
         id: data.id,
-        name: data.name,
-        lastName: data.lastName,
         userName: data.userName,
-        locationId: data.location.id,
-        locationName: data.location.name,
-        email: data.email,
-        cedula: data.cedula,
-        extension: data.extension,
-        phoneNumber: data.phoneNumber,
-        vicepresidenciaEjecutivaId: data.vicepresidenciaEjecutivaId,
-        vicepresidenciaId: data.vicepresidenciaId,
-        gerenciaId: data.gerenciaId,
-        coordinacionId: data.coordinacionId,
-        cargoId: data.cargoId,
         computers: data.devices.filter(device => ['Computadoras', 'Servidores', 'Laptops', 'All in One'].includes(device.category.name)),
         monitores: data.devices.filter(device => device.category.name === 'Monitores'),
         createdAt: data.createdAt,
@@ -105,26 +47,8 @@ export class ApiEmployeeRepository implements EmployeeRepository {
     return await makeRequest<EmployeesApiResponse[]>({ method: 'GET', endpoint: this.endpoint })
       .then(res => res.map(data => ({
         id: data.id,
-        name: data.name,
-        lastName: data.lastName,
         userName: data.userName,
-        email: data.email,
-        cedula: data.cedula,
-        locationId: data.location.id,
-        locationName: data.location.name,
-        extension: data.extension,
-        phoneNumber: data.phoneNumber,
-        vicepresidenciaEjecutivaId: data.vicepresidenciaEjecutiva.id,
-        vicepresidenciaEjecutivaName: data.vicepresidenciaEjecutiva.name,
-        vicepresidenciaId: data.vicepresidencia.id,
-        vicepresidenciaName: data.vicepresidencia.name,
-        gerenciaId: data.gerencia.id,
-        gerenciaName: data.gerencia.name,
-        coordinacionId: data.coordinacion.id,
-        coordinacionName: data.coordinacion.name,
         devices: data.devices,
-        cargoId: data.cargo.id,
-        cargoName: data.cargo.name,
         createdAt: data.createdAt,
         updatedAt: data.updatedAt
       }) satisfies EmployeeMappedApiResponse))
@@ -134,26 +58,8 @@ export class ApiEmployeeRepository implements EmployeeRepository {
     return await makeRequest<EmployeesApiResponse>({ method: 'GET', endpoint: `${this.endpoint}/${id.value}` })
       .then(data => ({
         id: data.id,
-        name: data.name,
-        lastName: data.lastName,
         userName: data.userName,
-        email: data.email,
-        cedula: data.cedula,
-        locationId: data.location.id,
-        locationName: data.location.name,
-        extension: data.extension,
-        phoneNumber: data.phoneNumber,
-        vicepresidenciaEjecutivaId: data.vicepresidenciaEjecutiva.id,
-        vicepresidenciaEjecutivaName: data.vicepresidenciaEjecutiva.name,
-        vicepresidenciaId: data.vicepresidencia.id,
-        vicepresidenciaName: data.vicepresidencia.name,
-        gerenciaId: data.gerencia.id,
-        gerenciaName: data.gerencia.name,
-        coordinacionId: data.coordinacion.id,
-        coordinacionName: data.coordinacion.name,
         devices: data.devices,
-        cargoId: data.cargo.id,
-        cargoName: data.cargo.name,
         createdAt: data.createdAt,
         updatedAt: data.updatedAt
       }) satisfies EmployeeMappedApiResponse)

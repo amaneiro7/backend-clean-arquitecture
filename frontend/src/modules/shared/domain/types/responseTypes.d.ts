@@ -31,29 +31,8 @@ import { type ProcessorId } from '../../../devices/fetures/processor/domain/Proc
 import { type ProcessorName } from '../../../devices/fetures/processor/domain/ProcessorName'
 import { type ModelId } from '../../../devices/model/domain/ModelId'
 import { type ModelName } from '../../../devices/model/domain/ModelName'
-import { type CoordinacionPrimitives } from '../../../employee/area/coordinacion/domain/Coordinacion'
-import { type CoordinacionId } from '../../../employee/area/coordinacion/domain/CoordinacionId'
-import { type CoordinacionName } from '../../../employee/area/coordinacion/domain/CoordinacionName'
-import { type GerenciaPrimitives } from '../../../employee/area/gerencia/domain/gerencia'
-import { type GerenciaId } from '../../../employee/area/gerencia/domain/GerenciaId'
-import { type GerenciaName } from '../../../employee/area/gerencia/domain/GerenciaName'
-import { type VicepresidenciaPrimitives } from '../../../employee/area/vicepresidencia/domain/Vicepresidencia'
-import { type VicepresidenciaId } from '../../../employee/area/vicepresidencia/domain/VicepresidenciaId'
-import { type VicepresidenciaName } from '../../../employee/area/vicepresidencia/domain/VicepresidenciaName'
-import { type VicepresidenciaEjecutivaPrimitives } from '../../../employee/area/vicepresidenciaejecutiva/domain/VicepresidenciaEjecutiva'
-import { type VicepresidenciaEjecutivaId } from '../../../employee/area/vicepresidenciaejecutiva/domain/VicepresidenciaEjecutivaId'
-import { type VicepresidenciaEjecutivaName } from '../../../employee/area/vicepresidenciaejecutiva/domain/VicepresidenciaEjecutivaName'
-import { type CargoPrimitives } from '../../../employee/cargo/domain/cargo'
-import { type CargoId } from '../../../employee/cargo/domain/CargoId'
-import { type CargoName } from '../../../employee/cargo/domain/CargoName'
-import { type Cedula } from '../../../employee/employee/domain/Cedula'
 import { type EmployeePrimitives } from '../../../employee/employee/domain/Employee'
-import { type EmployeeEmail } from '../../../employee/employee/domain/EmployeeEmail'
 import { type EmployeeId } from '../../../employee/employee/domain/EmployeeId'
-import { type Extension } from '../../../employee/employee/domain/Extension'
-import { type EmployeeLastName } from '../../../employee/employee/domain/LastName'
-import { type EmployeeName } from '../../../employee/employee/domain/Name'
-import { type PhoneNumber } from '../../../employee/employee/domain/PhoneNumber'
 import { type EmployeeUserName } from '../../../employee/employee/domain/UserName'
 import { type LocationPrimitives } from '../../../location/locations/domain/location'
 import { type LocationId } from '../../../location/locations/domain/locationId'
@@ -85,74 +64,25 @@ export interface DevicesApiResponse {
 export interface EmployeesApiResponse {
   id: Primitives<EmployeeId>
   userName: Primitives<EmployeeUserName>
-  name: Primitives<EmployeeName>
-  lastName: Primitives<EmployeeLastName>
-  cedula: Primitives<Cedula>
-  locationId: Primitives<LocationId>
-  email: Primitives<EmployeeEmail>
-  extension: Primitives<Extension>
-  cargoId: Primitives<CargoId>
-  phoneNumber: Primitives<PhoneNumber>
-  vicepresidenciaEjecutivaId: Primitives<VicepresidenciaEjecutivaId>
-  vicepresidenciaId: Primitives<VicepresidenciaId>
-  gerenciaId: Primitives<GerenciaId>
-  coordinacionId: Primitives<CoordinacionId>
+  devices: DevicesApiResponse[]
   createdAt: Date
   updatedAt: Date
-  cargo: CargoPrimitives
-  location: LocationPrimitives
-  vicepresidenciaEjecutiva: VicepresidenciaEjecutivaPrimitives
-  vicepresidencia: VicepresidenciaPrimitives
-  gerencia: GerenciaPrimitives
-  coordinacion: CoordinacionPrimitives
-  devices: DevicesApiResponse[]
 }
 
 export interface EmployeeMappedApiResponse {
   id: Primitives<EmployeeId>
   userName: Primitives<EmployeeUserName>
-  name: Primitives<EmployeeName>
-  lastName: Primitives<EmployeeLastName>
-  cedula: Primitives<Cedula>
-  locationId: Primitives<LocationId>
-  locationName: string
-  email: Primitives<EmployeeEmail>
-  extension: Primitives<Extension>
-  phoneNumber: Primitives<PhoneNumber>
   createdAt: Date
   updatedAt: Date
-  cargoId: Primitives<CargoId>
-  cargoName: Primitives<CargoName>
-  vicepresidenciaEjecutivaId: Primitives<VicepresidenciaEjecutivaId>
-  vicepresidenciaEjecutivaName: Primitives<VicepresidenciaEjecutivaName>
-  vicepresidenciaId: Primitives<VicepresidenciaId>
-  vicepresidenciaName: Primitives<VicepresidenciaName>
-  gerenciaId: Primitives<GerenciaId>
-  gerenciaName: Primitives<GerenciaName>
-  coordinacionId: Primitives<CoordinacionId>
-  coordinacionName: Primitives<CoordinacionName>
   devices: DevicePrimitives[]
 }
 export interface EmployeeDevicesMappedApiResponse {
   id: Primitives<EmployeeId>
-  name: Primitives<EmployeeName>
-  lastName: Primitives<EmployeeLastName>
   userName: Primitives<EmployeeUserName>
-  locationId: Primitives<LocationId>
-  locationName: string
   createdAt: Date
   updatedAt: Date
   computers: DevicesApiResponse[]
   monitores: DevicesApiResponse[]
-  email: Primitives<EmployeeEmail>
-  cedula: Primitives<Cedula>
-  extension: Primitives<Extension>
-  phoneNumber: Primitives<PhoneNumber>
-  cargoId: Primitives<CargoId>
-  vicepresidenciaEjecutivaId: Primitives<VicepresidenciaEjecutivaId>
-  vicepresidenciaId: Primitives<VicepresidenciaId>
-  gerenciaId: Primitives<GerenciaId>
-  coordinacionId: Primitives<CoordinacionId>
 }
 
 export interface DevicesMappedApiResponse {

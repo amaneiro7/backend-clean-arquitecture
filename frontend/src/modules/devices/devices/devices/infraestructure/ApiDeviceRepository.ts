@@ -32,7 +32,7 @@ export class ApiDeviceRepository implements DeviceRepository {
       .then(res => res.map(data => ({
         id: data.id,
         serial: data.serial,
-        activo: data.activo ?? 'Sin Serial',
+        activo: data.activo ?? 'Sin Activo',
         statusId: data.status.id,
         statusName: data.status.name,
         categoryId: data.category.id,
@@ -62,7 +62,7 @@ export class ApiDeviceRepository implements DeviceRepository {
       .then(res => res.map(data => ({
         id: data.id,
         serial: data.serial,
-        activo: data.activo ?? 'Sin Serial',
+        activo: data.activo ?? 'Sin Activo',
         statusId: data.status.id,
         statusName: data.status.name,
         categoryId: data.category.id,

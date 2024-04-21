@@ -81,26 +81,6 @@ const HP6200 = [
         ipAddress: null
     },    
     {
-        serial: 'MXL1390RRH',
-        activo: 'AR003000420',
-        statusId: 2,
-        categoryId: 1,
-        brandId: "56a07947-0a09-488b-a597-64ef3e365c32",
-        modelId: "ce51d092-332e-42ac-8b27-df7da5d3463a",
-        employeeId: null,
-        locationId: locations.filter(location => location.name === almacenName.TORREBNC5DEJULIOALMACENPISO1)[0].id,
-        observation: '',
-        computerName: null,
-        processorId: "b3a3224c-9b77-4653-944f-bc991e411917",
-        memoryRamCapacity: 4,
-        hardDriveCapacityId: 7,
-        hardDriveTypeId: 1,
-        operatingSystemId: null,
-        operatingSystemArqId: null,
-        macAddress: null,
-        ipAddress: null
-    },    
-    {
         serial: 'MXL1390T3T',
         activo: 'AR003000375',
         statusId: 2,

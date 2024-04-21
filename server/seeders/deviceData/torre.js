@@ -4649,7 +4649,7 @@ const torre = [
         operatingSystemId: operatingSystem.filter(os => os.name === osName.WINDOWS7)[0].id,
         operatingSystemArqId: operatingSystemArq.filter(os => os.name === osArqName["32BITS"])[0].id,
         macAddress: null,
-        ipAddress: '10.0.11[160]'
+        ipAddress: '10.0.11.160'
     },
     {
         serial: 'MXJ00609N2',
