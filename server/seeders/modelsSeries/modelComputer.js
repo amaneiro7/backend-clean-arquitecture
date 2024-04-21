@@ -1,20 +1,25 @@
+
 const {brandsData, brandOnlyName } = require("../BrandData/brands")
 const {categoryData, categoryOnlyNames} = require("../categoryData/categoryData")
 const {memoryRamType, memoryRamTypeName} = require("../memoryRam/memoryRamType")
 const {processorSockets, socketsName} = require("../processor/processorSocket")
 
 const modelName = {
-  M70E: 'M70e',
-  M71E: 'M71e',
-  M72E: 'M72e',
-  M73Z: 'M73z',
-  C260: 'C260',
+  TS430: 'ThinkServer TS430',
+  EDGE: 'ThinkPad Edge',
+  M70E: 'ThinkCentre M70e',
+  M71E: 'ThinkCentre M71e',
+  M72E: 'ThinkCentre M72e',
+  M73Z: 'ThinkCentre M73z',
+  C260: 'Lenovo C260',
   M700: 'M700',
   M710S: 'M710S',
   M720S: 'M720S',
   M810Z: 'M810Z',
-  M91P: 'M91p',
-  M81: 'M81',
+  M91P: 'ThinkCentre M91p',
+  M81: 'ThinkCentre M81',
+  M82: 'ThinkCentre M82',
+  M83: 'ThinkCentre M83',
   AD4: 'AD4',
   HPCOMPAQELITE8300SFF: 'HP Compaq Elite 8300 SFF',
   HPCOMPAQELITE8000SFF: 'HP Compaq Elite 8000 SFF',
@@ -39,24 +44,25 @@ const modelName = {
   LATITUDE5400: 'Latitude 5400',
   MACBOOKPRORETINA: 'MacBook Pro Retina',
   HPPAVILIONDV4NOTEBOOKPC: 'HP Pavilion dv4 Notebook PC',
+  M720Q: 'ThinkCentre M720q',
   'HPPAVILIONG4-1388LA': 'HP Pavilion G4-1388la',
-  E49: 'E49',
-  G480: 'G480',
-  'G50-70': 'G50-70',
-  L412: 'L412',
+  E49: 'Lenovo E49',
+  G480: 'Lenovo G480',
+  G5070: 'G50-70',
+  L412: 'ThinkPad L412',
   SL400: 'SL400',
   SL410: 'SL410',
   T61: 'T61',
-  'V330-14IKB': 'V330-14IKB',
+  'V330-14IKB': 'Lenovo V330-14IKB',
   X230: 'X230',
-  X1CARBON7TH: 'X1 Carbon 7th',
-  X1CARBON5TH: 'X1 Carbon 5th'
+  X1CARBON7TH: 'ThinkPad X1 Carbon 7th',
+  X1CARBON5TH: 'ThinkPad X1 Carbon 5th'
 }
 
 const modelComputer = [    
     { 
       id: "21969859-daa0-4916-a554-edff77e8f9ac", 
-      name: "M70e", 
+      name: "ThinkCentre M70e", 
       categoryId: categoryData.filter(category => category.name === categoryOnlyNames.COMPUTADORAS)[0].id,       
       brandId: brandsData.filter(brand => brand.name === brandOnlyName.LENOVO)[0].id,       
       processorSocketId: processorSockets.filter(processor => processor.name === 'LGA 775')[0].id,
@@ -70,7 +76,7 @@ const modelComputer = [
     },
     { 
       id: "83c38f9b-a0ac-4350-9204-886ea8e4e967", 
-      name: "M71e", 
+      name: "ThinkCentre M71e", 
       categoryId: categoryData.filter(category => category.name === categoryOnlyNames.COMPUTADORAS)[0].id, 
       brandId: brandsData.filter(brand => brand.name === brandOnlyName.LENOVO)[0].id,
       processorSocketId: processorSockets.filter(processor => processor.name === 'LGA 1155')[0].id, 
@@ -84,7 +90,7 @@ const modelComputer = [
     },
     { 
       id: "9b43fe74-aa96-477e-8a25-cf3506742ccd", 
-      name: "M72e", 
+      name: "ThinkCentre M72e", 
       categoryId: categoryData.filter(category => category.name === categoryOnlyNames.COMPUTADORAS)[0].id, 
       brandId: brandsData.filter(brand => brand.name === brandOnlyName.LENOVO)[0].id,
       processorSocketId: processorSockets.filter(processor => processor.name === 'LGA 1155')[0].id, 
@@ -98,7 +104,7 @@ const modelComputer = [
     },
     { 
       id: "5da772a9-0e01-4689-9afb-717ccf68cf3f", 
-      name: "M73z", 
+      name: "ThinkCentre M73z", 
       categoryId: categoryData.filter(category => category.name === categoryOnlyNames.ALLINONE)[0].id,
       brandId: brandsData.filter(brand => brand.name === brandOnlyName.LENOVO)[0].id,
       processorSocketId: processorSockets.filter(processorSocket => processorSocket.name === 'LGA 1150')[0].id, 
@@ -112,7 +118,7 @@ const modelComputer = [
     },
     { 
       id: "4096012f-bed6-4975-a17c-6496c5573785", 
-      name: "C260", 
+      name: "Lenovo C260", 
       categoryId: categoryData.filter(category => category.name === categoryOnlyNames.ALLINONE)[0].id,
       brandId: brandsData.filter(brand => brand.name === brandOnlyName.LENOVO)[0].id,
       processorSocketId: processorSockets.filter(processorSocket => processorSocket.name === 'FCBGA 1170')[0].id, 
@@ -182,7 +188,7 @@ const modelComputer = [
     },
     { 
       id: "ba260f98-0042-4be7-9d9d-1c6dca5010c3", 
-      name: "M91p", 
+      name: "ThinkCentre M91p", 
       categoryId: categoryData.filter(category => category.name === categoryOnlyNames.COMPUTADORAS)[0].id, 
       brandId: brandsData.filter(brand => brand.name === brandOnlyName.LENOVO)[0].id,
       processorSocketId: processorSockets.filter(processor => processor.name === 'LGA 1155')[0].id, 
@@ -196,12 +202,40 @@ const modelComputer = [
     },
     { 
       id: "ec9e560a-318d-42a7-85cb-ad6fc08e57d9", 
-      name: "M81", 
+      name: "ThinkCentre M81", 
       categoryId: categoryData.filter(category => category.name === categoryOnlyNames.COMPUTADORAS)[0].id, 
       brandId: brandsData.filter(brand => brand.name === brandOnlyName.LENOVO)[0].id,
       processorSocketId: processorSockets.filter(processor => processor.name === 'LGA 1155')[0].id, 
       memoryRamTypeId: memoryRamType.filter(memory => memory.name === memoryRamTypeName.DDR3)[0].id, 
       memoryRamSlotQuantity: 4, 
+      hasBluetooth: false, 
+      hasWifiAdapter: false, 
+      hasDVI: false, 
+      hasHDMI: false, 
+      hasVGA: true
+    },
+    { 
+      id: "d18633fe-f223-4ca7-a3b6-5696e6e81f6a", 
+      name: "ThinkCentre M82", 
+      categoryId: categoryData.filter(category => category.name === categoryOnlyNames.COMPUTADORAS)[0].id, 
+      brandId: brandsData.filter(brand => brand.name === brandOnlyName.LENOVO)[0].id,
+      processorSocketId: processorSockets.filter(processor => processor.name === 'FCLGA 1155')[0].id, 
+      memoryRamTypeId: memoryRamType.filter(memory => memory.name === memoryRamTypeName.DDR3)[0].id, 
+      memoryRamSlotQuantity: 4, 
+      hasBluetooth: false, 
+      hasWifiAdapter: false, 
+      hasDVI: false, 
+      hasHDMI: false, 
+      hasVGA: true
+    },
+    { 
+      id: '82a6b980-e0cb-4ef0-93da-380bd298eab1', 
+      name: "ThinkCentre M83", 
+      categoryId: categoryData.filter(category => category.name === categoryOnlyNames.COMPUTADORAS)[0].id, 
+      brandId: brandsData.filter(brand => brand.name === brandOnlyName.LENOVO)[0].id,
+      processorSocketId: processorSockets.filter(processor => processor.name === 'FCLGA 1150')[0].id, 
+      memoryRamTypeId: memoryRamType.filter(memory => memory.name === memoryRamTypeName.DDR4)[0].id, 
+      memoryRamSlotQuantity: 2, 
       hasBluetooth: false, 
       hasWifiAdapter: false, 
       hasDVI: false, 
@@ -573,7 +607,7 @@ const modelComputer = [
     },
     {
       id: '763223a6-bf6e-48bc-a5c7-4773cf7bdc2c',
-      name: 'E49',
+      name: 'Lenovo E49',
       categoryId: categoryData.filter(category => category.name === categoryOnlyNames.LAPTOPS)[0].id,
       brandId: brandsData.filter(brand => brand.name === brandOnlyName.LENOVO)[0].id,
       processorSocketId: processorSockets.filter(processorSocket => processorSocket.name === 'FCPGA 988')[0].id,
@@ -589,7 +623,7 @@ const modelComputer = [
     },
     {
       id: '6f20dc8d-da9d-4a71-860b-a2049314c0df',
-      name: 'G480',
+      name: 'Lenovo G480',
       categoryId: categoryData.filter(category => category.name === categoryOnlyNames.LAPTOPS)[0].id,
       brandId: brandsData.filter(brand => brand.name === brandOnlyName.LENOVO)[0].id,
       processorSocketId: processorSockets.filter(processorSocket => processorSocket.name === 'FCPGA 988')[0].id,
@@ -621,7 +655,7 @@ const modelComputer = [
     },
     {
       id: '67e1f755-1611-4f84-9478-08fd9bc35af3',
-      name: 'L412',
+      name: 'ThinkPad L412',
       categoryId: categoryData.filter(category => category.name === categoryOnlyNames.LAPTOPS)[0].id,
       brandId: brandsData.filter(brand => brand.name === brandOnlyName.LENOVO)[0].id,
       processorSocketId: processorSockets.filter(processorSocket => processorSocket.name === 'FCPGA 988')[0].id,
@@ -682,7 +716,7 @@ const modelComputer = [
     },
     {
       id: '5f3103cb-bcba-4aeb-978c-50a2ad12c38b',
-      name: 'V330-14IKB',
+      name: 'Lenovo V330-14IKB',
       categoryId: categoryData.filter(category => category.name === categoryOnlyNames.LAPTOPS)[0].id,
       brandId: brandsData.filter(brand => brand.name === brandOnlyName.LENOVO)[0].id,
       processorSocketId: processorSockets.filter(processorSocket => processorSocket.name === 'FCBGA 1356')[0].id,
@@ -712,7 +746,7 @@ const modelComputer = [
     },
     {
       id: 'd983ef90-3a17-4dce-a0d1-6ba7c19d729e',
-      name: 'X1 Carbon 7th',
+      name: 'ThinkPad X1 Carbon 7th',
       categoryId: categoryData.filter(category => category.name === categoryOnlyNames.LAPTOPS)[0].id,
       brandId: brandsData.filter(brand => brand.name === brandOnlyName.LENOVO)[0].id,
       processorSocketId: processorSockets.filter(processorSocket => processorSocket.name === 'Socket P')[0].id, 
@@ -727,7 +761,7 @@ const modelComputer = [
     },
     {
       id: 'cbd39f5a-d5da-4f52-8a31-6a61c34cc088',
-      name: 'X1 Carbon 5th',
+      name: 'ThinkPad X1 Carbon 5th',
       categoryId: categoryData.filter(category => category.name === categoryOnlyNames.LAPTOPS)[0].id,
       brandId: brandsData.filter(brand => brand.name === brandOnlyName.LENOVO)[0].id,
       processorSocketId: processorSockets.filter(processorSocket => processorSocket.name === 'FCPGA 988')[0].id,
@@ -739,6 +773,49 @@ const modelComputer = [
       hasHDMI: true, 
       hasVGA: false,
       batteryModel: '45N1025' 
+    },
+    {
+      id: '7fc1714f-868d-472d-ac3f-17602dee36f0',
+      name: 'ThinkPad Edge',
+      categoryId: categoryData.filter(category => category.name === categoryOnlyNames.LAPTOPS)[0].id,
+      brandId: brandsData.filter(brand => brand.name === brandOnlyName.LENOVO)[0].id,
+      processorSocketId: processorSockets.filter(processorSocket => processorSocket.name === 'FCPGA 988')[0].id,
+      memoryRamTypeId: memoryRamType.filter(memory => memory.name === memoryRamTypeName.DDR3L)[0].id,
+      memoryRamSlotQuantity: 2, 
+      hasBluetooth: true, 
+      hasWifiAdapter: true, 
+      hasDVI: false, 
+      hasHDMI: false, 
+      hasVGA: true,
+      batteryModel: '42T4950' 
+    },
+    {
+      id: 'acdd72ac-df03-48d8-a04a-e66a75f0a574',
+      name: 'ThinkCentre M720q',
+      categoryId: categoryData.filter(category => category.name === categoryOnlyNames.COMPUTADORAS)[0].id,
+      brandId: brandsData.filter(brand => brand.name === brandOnlyName.LENOVO)[0].id,
+      processorSocketId: processorSockets.filter(processorSocket => processorSocket.name === 'FCLGA 1151')[0].id,
+      memoryRamTypeId: memoryRamType.filter(memory => memory.name === memoryRamTypeName.DDR4L)[0].id,
+      memoryRamSlotQuantity: 1, 
+      hasBluetooth: false, 
+      hasWifiAdapter: false, 
+      hasDVI: false, 
+      hasHDMI: true, 
+      hasVGA: false,
+    },
+    {
+      id: '9598164f-1192-4c00-afa1-b1fb62d075f3',
+      name: 'ThinkServer TS430',
+      categoryId: categoryData.filter(category => category.name === categoryOnlyNames.SERVIDORES)[0].id,
+      brandId: brandsData.filter(brand => brand.name === brandOnlyName.LENOVO)[0].id,
+      processorSocketId: processorSockets.filter(processorSocket => processorSocket.name === 'FCLGA 1155')[0].id,
+      memoryRamTypeId: memoryRamType.filter(memory => memory.name === memoryRamTypeName.DDR3)[0].id,
+      memoryRamSlotQuantity: 4, 
+      hasBluetooth: false, 
+      hasWifiAdapter: false, 
+      hasDVI: false, 
+      hasHDMI: false, 
+      hasVGA: true,
     },
   ]
   module.exports = {modelComputer, modelName}

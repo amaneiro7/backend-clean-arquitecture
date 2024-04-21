@@ -1,6 +1,6 @@
 'use strict';
 
-const operatingSystem = require('./operatingSystem/operatingSystem');
+const {operatingSystem} = require('./operatingSystem/operatingSystem');
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {

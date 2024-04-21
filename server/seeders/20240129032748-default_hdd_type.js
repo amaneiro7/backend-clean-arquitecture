@@ -1,6 +1,6 @@
 'use strict';
 
-const hddTypes = require('./DiscoDuro/hddType');
+const {hddTypes} = require('./DiscoDuro/hddType');
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {

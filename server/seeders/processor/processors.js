@@ -23,6 +23,7 @@ const processorName = {
   'I5-4590': 'i5-4590',
   'I5-8365U': 'i5-8365U',
   'I5-M520': 'i5-M520',
+  'I5-8400T': 'i5-8400T',
   'I7-7600U': 'i7-7600U',
   'I7-8550U': 'i7-8550U',
   'I7-8565U': 'i7-8565U',
@@ -90,6 +91,7 @@ const processors = [
     {id: "3ad56003-fb41-469a-b5e7-efa8df50a337", product_collection: "Intel(R) Pentium(R) D", number_model: "945", frequency: "3.40GHz", cores: 2, threads: false },
     {id: "e7bcb9c9-e843-42f2-98a0-7010e8ce7473", product_collection: "Intel(R) Xeon(R)", number_model: "E3-1230 V2", frequency: "3.30GHz", cores: 4, threads: true },
     {id: "3fbc8e5c-27fa-4f82-a0d6-c80055545cf2", product_collection: "Intel(R) Xeon(R)", number_model: "E5-2603 V4", frequency: "1.70GHz", cores: 6, threads: false },
+    {id: "8ee4e438-f193-4e30-9411-512bf1dbcfbd", product_collection: "Intel(R) Core(TM)", number_model: "i5-8400T", frequency: "1.70GHz", cores: 6, threads: true },
   ]
 
   module.exports = {processors, processorName}

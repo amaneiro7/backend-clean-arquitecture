@@ -837,7 +837,7 @@ const employees = [
     },
     {
         id: '246b897a-c30e-4416-bf86-b8d3562b101e',
-        userName: "PRINCON",
+        userName: "princon",
     },
     {
         id: 'deaf292b-43f6-4030-ba87-c7cd66dfabef',
@@ -1092,10 +1092,6 @@ const employees = [
         userName: "ajusto",
     },
     {
-        id: '87b71489-2175-4e43-ad90-286327aa39bf',
-        userName: "alabarca",
-    },
-    {
         id: '5309d550-4317-42f9-83df-ed8717786471',
         userName: "alabarca",
     },
@@ -1280,10 +1276,6 @@ const employees = [
         userName: "dcastellano",
     },
     {
-        id: '585905bf-05f8-47ea-bfd4-0394847c7a9a',
-        userName: "dchacin",
-    },
-    {
         id: 'bfd2090c-6ab9-4520-910b-e7b6b1baaa40',
         userName: "dchacin",
     },
@@ -1338,10 +1330,6 @@ const employees = [
     {
         id: 'bce33cd1-e596-4b46-8d28-21ff58ac731c',
         userName: "eguillen",
-    },
-    {
-        id: 'cbf5b230-ca6c-40e6-8796-86dbd7afd866',
-        userName: "eibarra",
     },
     {
         id: '48832e21-7de4-435c-8670-b0d87ea24847',
@@ -1452,10 +1440,6 @@ const employees = [
         userName: "garaque",
     },
     {
-        id: 'cbdcf610-2728-4a65-9ec6-ff30449a77c0',
-        userName: "gbaena",
-    },
-    {
         id: 'a7c4a267-53c3-49af-93f8-23537a553f52',
         userName: "gbaena",
     },
@@ -1482,10 +1466,6 @@ const employees = [
     {
         id: '23bf1420-3e42-4041-bdbf-bc4491288b34',
         userName: "gpalencia",
-    },
-    {
-        id: '50deb612-5ef0-48d9-91ec-e7c72ff38fe0',
-        userName: "gumendez",
     },
     {
         id: 'bf8b8fa2-d3a0-46e0-850c-607892e0f21d',
@@ -1600,10 +1580,6 @@ const employees = [
         userName: "jfernandez",
     },
     {
-        id: '91ce2eb5-18bb-4d68-8fec-3d6d44d58dc0',
-        userName: "Jfrenellin",
-    },
-    {
         id: 'ff5697f3-28c0-4177-bb00-ada5a826b1a2',
         userName: "Jfrenellin",
     },
@@ -1690,10 +1666,6 @@ const employees = [
     {
         id: 'cde0a384-ebdc-4095-a527-4fb9fc60add6',
         userName: "juvillalobos",
-    },
-    {
-        id: '2cfc462f-d14c-49c2-a14f-29e6f1e2f3a7',
-        userName: "juzcategui",
     },
     {
         id: 'c387c35b-6e18-4b22-9cc6-c9537ac7b449',

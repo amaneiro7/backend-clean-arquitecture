@@ -1,20 +1,20 @@
 'use strict';
 
-const categoryData = require('./categoryData/categoryData');
-const models = require('./modelsSeries/modelComputer'); 
+const {categoryData, categoryOnlyNames} = require('./categoryData/categoryData');
+const { modelComputer: models } = require('./modelsSeries/modelComputer'); 
   
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {    
     const modelComputer = models.filter(model => {
-      const computer = categoryData.filter(category => category.name === 'Computadoras')[0].id.includes(model.categoryId)
-      const servidores = categoryData.filter(category => category.name === 'Servidores')[0].id.includes(model.categoryId)
-      const allInOne = categoryData.filter(category => category.name === 'All in One')[0].id.includes(model.categoryId)
+      const computer = categoryData.filter(category => category.name === categoryOnlyNames.COMPUTADORAS)[0].id.includes(model.categoryId)
+      const servidores = categoryData.filter(category => category.name === categoryOnlyNames.SERVIDORES)[0].id.includes(model.categoryId)
+      const allInOne = categoryData.filter(category => category.name === categoryOnlyNames.ALLINONE)[0].id.includes(model.categoryId)
       return {
         computer, servidores, allInOne
       }
     })
-    const modelLaptop = models.filter(model => categoryData.filter(category => category.name === 'Laptops')[0].id.includes(model.categoryId))
+    const modelLaptop = models.filter(model => categoryData.filter(category => category.name === categoryOnlyNames.LAPTOPS)[0].id.includes(model.categoryId))
       return Promise.all([
         queryInterface.bulkInsert('models', models.map(({id, name, categoryId, brandId}) => ({
           id,

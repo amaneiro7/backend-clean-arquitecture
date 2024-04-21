@@ -1,4 +1,4 @@
-const { siteMCBOlocation. l } = require("../location/locations")
+const {almacenes: locations, almacenName} = require("../location/locations")
 const { modelPrinter } = require("../modelsSeries/modelPrinter")
 
 const impresorasFinancieraAlmacen = [
@@ -10,7 +10,7 @@ const impresorasFinancieraAlmacen = [
         modelId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915xe')[0].id,
         brandId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915xe')[0].brandId,
         employeeId: null,
-        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
+        locationId: locations.filter(location => location.name === almacenName.TORREBNC5DEJULIOALMACENPISO1)[0].id,
     },
     {
         serial: '5004101147',
@@ -20,7 +20,7 @@ const impresorasFinancieraAlmacen = [
         modelId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915+')[0].id,
         brandId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915+')[0].brandId,
         employeeId: null,
-        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
+        locationId: locations.filter(location => location.name === almacenName.TORREBNC5DEJULIOALMACENPISO1)[0].id,
     },
     {
         serial: '5605276715',
@@ -30,7 +30,7 @@ const impresorasFinancieraAlmacen = [
         modelId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915xe')[0].id,
         brandId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915xe')[0].brandId,
         employeeId: null,
-        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
+        locationId: locations.filter(location => location.name === almacenName.TORREBNC5DEJULIOALMACENPISO1)[0].id,
     },
     {
         serial: '5605273341',
@@ -40,7 +40,7 @@ const impresorasFinancieraAlmacen = [
         modelId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915xe')[0].id,
         brandId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915xe')[0].brandId,
         employeeId: null,
-        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
+        locationId: locations.filter(location => location.name === almacenName.TORREBNC5DEJULIOALMACENPISO1)[0].id,
     },
     {
         serial: '5605276525',
@@ -50,7 +50,7 @@ const impresorasFinancieraAlmacen = [
         modelId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915xe')[0].id,
         brandId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915xe')[0].brandId,
         employeeId: null,
-        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
+        locationId: locations.filter(location => location.name === almacenName.TORREBNC5DEJULIOALMACENPISO1)[0].id,
     },
     {
         serial: '5605274300',
@@ -60,7 +60,7 @@ const impresorasFinancieraAlmacen = [
         modelId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915xe')[0].id,
         brandId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915xe')[0].brandId,
         employeeId: null,
-        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
+        locationId: locations.filter(location => location.name === almacenName.TORREBNC5DEJULIOALMACENPISO1)[0].id,
     },
     {
         serial: '5605272930',
@@ -70,7 +70,7 @@ const impresorasFinancieraAlmacen = [
         modelId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915xe')[0].id,
         brandId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915xe')[0].brandId,
         employeeId: null,
-        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
+        locationId: locations.filter(location => location.name === almacenName.TORREBNC5DEJULIOALMACENPISO1)[0].id,
     },
     {
         serial: '5605276524',
@@ -80,7 +80,7 @@ const impresorasFinancieraAlmacen = [
         modelId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915xe')[0].id,
         brandId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915xe')[0].brandId,
         employeeId: null,
-        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
+        locationId: locations.filter(location => location.name === almacenName.TORREBNC5DEJULIOALMACENPISO1)[0].id,
     },
     {
         serial: '5605103835',
@@ -90,7 +90,7 @@ const impresorasFinancieraAlmacen = [
         modelId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915xe')[0].id,
         brandId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915xe')[0].brandId,
         employeeId: null,
-        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
+        locationId: locations.filter(location => location.name === almacenName.TORREBNC5DEJULIOALMACENPISO1)[0].id,
     },
     {
         serial: '5605269773',
@@ -100,7 +100,7 @@ const impresorasFinancieraAlmacen = [
         modelId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915+')[0].id,
         brandId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915+')[0].brandId,
         employeeId: null,
-        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
+        locationId: locations.filter(location => location.name === almacenName.TORREBNC5DEJULIOALMACENPISO1)[0].id,
     },
     {
         serial: '5004033662',
@@ -110,7 +110,7 @@ const impresorasFinancieraAlmacen = [
         modelId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915+')[0].id,
         brandId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915+')[0].brandId,
         employeeId: null,
-        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
+        locationId: locations.filter(location => location.name === almacenName.TORREBNC5DEJULIOALMACENPISO1)[0].id,
     },
     {
         serial: '5004101542',
@@ -120,7 +120,7 @@ const impresorasFinancieraAlmacen = [
         modelId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915+')[0].id,
         brandId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915+')[0].brandId,
         employeeId: null,
-        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
+        locationId: locations.filter(location => location.name === almacenName.TORREBNC5DEJULIOALMACENPISO1)[0].id,
     },
     {
         serial: '5001069750',
@@ -130,7 +130,7 @@ const impresorasFinancieraAlmacen = [
         modelId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915+')[0].id,
         brandId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915+')[0].brandId,
         employeeId: null,
-        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
+        locationId: locations.filter(location => location.name === almacenName.TORREBNC5DEJULIOALMACENPISO1)[0].id,
     },
     {
         serial: '5004101121',
@@ -140,7 +140,7 @@ const impresorasFinancieraAlmacen = [
         modelId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915+')[0].id,
         brandId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915+')[0].brandId,
         employeeId: null,
-        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
+        locationId: locations.filter(location => location.name === almacenName.TORREBNC5DEJULIOALMACENPISO1)[0].id,
     },
     {
         serial: '5605274461',
@@ -150,7 +150,7 @@ const impresorasFinancieraAlmacen = [
         modelId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915xe')[0].id,
         brandId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915xe')[0].brandId,
         employeeId: null,
-        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
+        locationId: locations.filter(location => location.name === almacenName.TORREBNC5DEJULIOALMACENPISO1)[0].id,
     },
     {
         serial: '5004095077',
@@ -160,7 +160,7 @@ const impresorasFinancieraAlmacen = [
         modelId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915xe')[0].id,
         brandId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915xe')[0].brandId,
         employeeId: null,
-        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
+        locationId: locations.filter(location => location.name === almacenName.TORREBNC5DEJULIOALMACENPISO1)[0].id,
     },
     {
         serial: '5605273600',
@@ -170,7 +170,7 @@ const impresorasFinancieraAlmacen = [
         modelId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915xe')[0].id,
         brandId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915xe')[0].brandId,
         employeeId: null,
-        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
+        locationId: locations.filter(location => location.name === almacenName.TORREBNC5DEJULIOALMACENPISO1)[0].id,
     },
     {
         serial: '5605209372',
@@ -180,7 +180,7 @@ const impresorasFinancieraAlmacen = [
         modelId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915+')[0].id,
         brandId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915+')[0].brandId,
         employeeId: null,
-        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
+        locationId: locations.filter(location => location.name === almacenName.TORREBNC5DEJULIOALMACENPISO1)[0].id,
     },
     {
         serial: '5605008127',
@@ -190,7 +190,7 @@ const impresorasFinancieraAlmacen = [
         modelId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915xe')[0].id,
         brandId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915xe')[0].brandId,
         employeeId: null,
-        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
+        locationId: locations.filter(location => location.name === almacenName.TORREBNC5DEJULIOALMACENPISO1)[0].id,
     },
     {
         serial: '5605270124',
@@ -200,7 +200,7 @@ const impresorasFinancieraAlmacen = [
         modelId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915xe')[0].id,
         brandId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915xe')[0].brandId,
         employeeId: null,
-        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
+        locationId: locations.filter(location => location.name === almacenName.TORREBNC5DEJULIOALMACENPISO1)[0].id,
     },
     {
         serial: '5605272933',
@@ -210,7 +210,7 @@ const impresorasFinancieraAlmacen = [
         modelId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915xe')[0].id,
         brandId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915xe')[0].brandId,
         employeeId: null,
-        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
+        locationId: locations.filter(location => location.name === almacenName.TORREBNC5DEJULIOALMACENPISO1)[0].id,
     },
     {
         serial: '5605270116',
@@ -220,8 +220,9 @@ const impresorasFinancieraAlmacen = [
         modelId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915xe')[0].id,
         brandId: modelPrinter.filter(printer => printer.name === 'HighPrint 4915xe')[0].brandId,
         employeeId: null,
-        locationId: locations.filter(location => location.name === 'Torre BNC Almacen Piso 1')[0].id,
+        locationId: locations.filter(location => location.name === almacenName.TORREBNC5DEJULIOALMACENPISO1)[0].id,
     },
     
 ]
+
 module.exports = { impresorasFinancieraAlmacen }

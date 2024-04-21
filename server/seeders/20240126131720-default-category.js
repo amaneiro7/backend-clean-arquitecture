@@ -1,6 +1,6 @@
 'use strict';
 
-const categoryData = require('./categoryData/categoryData');
+const {categoryData} = require('./categoryData/categoryData');
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {

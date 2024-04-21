@@ -1,5 +1,5 @@
 
-const brandsData = require("../BrandData/brands")
+const {brandsData} = require("../BrandData/brands")
 const { inputTypes } = require("./inputType")
 
 const keyboardModel = [

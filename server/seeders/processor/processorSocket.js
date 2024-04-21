@@ -18,7 +18,10 @@ const socketsName = {
     FCBGA1440: 'FCBGA 1440',
     FCBGA1168: 'FCBGA 1168',
     FCBGA1356: 'FCBGA 1356',
-    FCLGA2011: 'FCLGA 2011'
+    FCLGA2011: 'FCLGA 2011',
+    FCLGA1151: 'FCLGA 1151',
+    FCLGA1150: 'FCLGA 1150',
+    FCLGA1155: 'FCLGA 1155',
   }
 
 const processorSockets = [
@@ -42,6 +45,9 @@ const processorSockets = [
     { id: 'ef7ce09d-de24-498a-8ebd-c1914b29e43c', name: 'FCBGA 1168' },
     { id: 'f9f2ed85-b869-4da1-807b-80f57b8a104d', name: 'FCBGA 1356' },
     { id: '7fb1d2dd-c93f-4ed3-97e4-f452f6cf1cff', name: 'FCLGA 2011' },
+    { id: '5b2dcb34-71f9-44a8-8aa3-c2bb4a73a1b1', name: 'FCLGA 1151' },
+    { id: 'a10b5fb9-ac79-4748-b5de-b02a02324680', name: 'FCLGA 1150' },
+    { id: '7fea7fc0-5c2e-4797-99f8-48c6afdf49fc', name: 'FCLGA 1155' },
 ]
 
 module.exports = {processorSockets, socketsName}

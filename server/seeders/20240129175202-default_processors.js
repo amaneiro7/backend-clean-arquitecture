@@ -1,6 +1,6 @@
 'use strict';
 
-const processors = require("./processor/processors");
+const {processors} = require("./processor/processors");
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {

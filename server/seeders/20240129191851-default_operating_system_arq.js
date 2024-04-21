@@ -1,6 +1,6 @@
 'use strict';
 
-const operatingSystemArq = require('./operatingSystem/operatingSystemArq');
+const {operatingSystemArq} = require('./operatingSystem/operatingSystemArq');
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {

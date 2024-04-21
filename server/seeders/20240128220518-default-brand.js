@@ -1,6 +1,6 @@
 'use strict';
 
-const brandsData = require('./BrandData/brands');
+const {brandsData} = require('./BrandData/brands');
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {

@@ -1,6 +1,6 @@
 'use strict';
 
-const hddCapacities = require('./DiscoDuro/hddCapacities');
+const {hddCapacities} = require('./DiscoDuro/hddCapacities');
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {

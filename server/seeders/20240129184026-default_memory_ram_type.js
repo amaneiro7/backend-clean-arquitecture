@@ -1,6 +1,6 @@
 'use strict';
 
-const memoryRamType = require('./memoryRam/memoryRamType');
+const {memoryRamType} = require('./memoryRam/memoryRamType');
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {

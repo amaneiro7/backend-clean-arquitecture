@@ -1,6 +1,6 @@
 'use strict';
 
-const typeOfSite = require('./location/typeOfSite');
+const {typeOfSite} = require('./location/typeOfSite');
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {

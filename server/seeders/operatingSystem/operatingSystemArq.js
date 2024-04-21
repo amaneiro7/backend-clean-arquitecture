@@ -5,4 +5,4 @@ const operatingSystemArq = [
     {  id: '2', name: '64 bits'}        
 ]
 
-module.exports = operatingSystemArq
+module.exports = {operatingSystemArq, osArqName}

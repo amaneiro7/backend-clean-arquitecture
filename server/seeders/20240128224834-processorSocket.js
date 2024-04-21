@@ -1,6 +1,6 @@
 'use strict';
 
-const processorSockets = require('./processor/processorSocket');
+const {processorSockets} = require('./processor/processorSocket');
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
