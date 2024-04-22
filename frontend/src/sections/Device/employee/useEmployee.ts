@@ -7,7 +7,6 @@ import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestruct
 import { EmployeeCreator } from '../../../modules/employee/employee/application/EmployeeCreator'
 import { type Repository } from '../../../modules/shared/domain/repository'
 import { useSearchByCriteriaQuery } from '../../Hooks/useQueryUpdate'
-import { EmployeeGetterDevicesByCriteria } from '../../../modules/employee/employee/application/EmployeeGetterDevicesByCriteria'
 
 export interface UseEmployee {
   employees: EmployeePrimitives[]
@@ -21,7 +20,6 @@ export interface UseEmployee {
 
 export const useEmployee = (repository: Repository, defaultQuery?: SearchByCriteriaQuery) => {
   const employeeByCriteria = new EmployeeGetterByCriteria(repository)
-  const employeeDeviceByCriteria = new EmployeeGetterDevicesByCriteria(repository)
   const location = useLocation()
   const { query, addFilter, cleanFilters } = useSearchByCriteriaQuery(defaultQuery)
   const [loading, setLoading] = useState<boolean>(true)
@@ -48,37 +46,15 @@ export const useEmployee = (repository: Repository, defaultQuery?: SearchByCrite
         setLoading(false)
       })
   }
-  function searchEmployeesWithDevices () {
-    setLoading(true)
-    employeeDeviceByCriteria
-      .get(query)
-      .then((employees) => {
-        setEmployees(employees)
-        setLoading(false)
-      })
-      .catch((error) => {
-        console.error('searchEmployeesWithDevices', error)
-        setError('An unexpected error occurred while trying to search employees')
-        setLoading(false)
-      })
-  }
+
   const getEmployee = new EmployeeGetter(repository)
 
   useEffect(() => {
-    if (['/', '/login', '/equipos/torre', '/equipos/agencia', '/almacen'].includes(location.pathname)) {
-      setEmployees([])
-    } else if (['/employees/agencia'].includes(location.pathname)) {
-      searchEmployeesWithDevices()
-    } else if (['/employees/torre'].includes(location.pathname)) {
-      searchEmployeesWithDevices()
-    } else {
-      searchEmployees()
-    }
-
+    searchEmployees()
     return () => {
       setEmployees([])
     }
-  }, [location, query])
+  }, [location.pathname, query])
 
   return {
     employees,

@@ -6,7 +6,7 @@ function TableRow<T extends typeof TableHead | typeof TableCell> ({
 }: {
   children: React.ReactElement<T> | Array<React.ReactElement<T>>
 }) {
-  return <tr className=' [&>td]:odd:bg-slate-100 [&>td]:even:bg-slate-200 text-xs'>{children}</tr>
+  return <tr className='[&>td]:odd:bg-slate-100 [&>td]:even:bg-slate-200 text-xs'>{children}</tr>
 }
 
 export default TableRow

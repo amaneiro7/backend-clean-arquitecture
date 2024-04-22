@@ -17,6 +17,7 @@ import TableCell from '../../components/TableComponent/TableCell'
 import PageTitle from '../../components/PageTitle'
 import TableCellEditDeleteIcon from '../../components/TableComponent/TableCellEditDeleteIcon'
 import { useDevice } from '../../Device/device/useDevice'
+import Main from '../../components/Main'
 
 // const TableHeader = lazy(async () => await import('../../components/TableHeader'))
 // const DeviceTableCard = lazy(async () => await import('../../Device/device/DeviceTableCard'))
@@ -59,16 +60,6 @@ export default function AlmacenPage () {
     debounceGetDevices({ filters })
   }
 
-  // useEffect(() => {
-  //   cleanFilters({
-  //     filters: [{
-  //       field: 'typeOfSite',
-  //       operator: Operator.EQUAL,
-  //       value: '3'
-  //     }]
-  //   })
-  // }, [])
-
   const handleClear = () => {
     clearInputs()
     cleanFilters({
@@ -86,7 +77,7 @@ export default function AlmacenPage () {
       : defaultHeaderTitle
 
   return (
-    <main className='max-w-full h-full flex flex-col gap-5 p-5'>
+    <Main>
       <PageTitle title='Inventario de Equipos en el almacén' />
       <Suspense>
         <Button
@@ -201,6 +192,6 @@ export default function AlmacenPage () {
           </TableBody>
         </Table>
       </Suspense>}
-    </main>
+    </Main>
   )
 }

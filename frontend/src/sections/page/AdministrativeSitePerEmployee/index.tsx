@@ -8,13 +8,14 @@ import debounce from 'just-debounce-it'
 import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
 import PageTitle from '../../components/PageTitle'
 import Table from '../../components/TableComponent/Table'
-import { TableRow } from '@mui/material'
 import TableBody from '../../components/TableComponent/TableBody'
 import TableHead from '../../components/TableComponent/TableHead'
 import TableCell from '../../components/TableComponent/TableCell'
 import TableHeader from '../../components/TableComponent/TableHeader'
 import TableCellEditDeleteIcon from '../../components/TableComponent/TableCellEditDeleteIcon'
 import { useEmployee } from '../../Device/employee/useEmployee'
+import TableRow from '../../components/TableComponent/TableRow'
+import Main from '../../components/Main'
 
 const Button = lazy(async () => await import('../../ui/button'))
 const BrandSelect = lazy(async () => await import('../../Device/brand/BrandSelect'))
@@ -65,7 +66,7 @@ export default function AdministrativeSitePerEmployee () {
   }
 
   return (
-    <main className='max-w-full h-full flex flex-col gap-5 p-5'>
+    <Main>
       <PageTitle title='Equipos de Torre' />
       <Suspense>
         <Button
@@ -158,14 +159,14 @@ export default function AdministrativeSitePerEmployee () {
                 <TableRow key={employee?.id}>
                   <TableCellEditDeleteIcon state={employee} url={`/employee/edit/${employee.id}`} />
                   <TableCell value={employee?.userName}/>
-                  <TableCell value={employee?.locationName}/>
+                  <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => computer.location.name).join(' / ')}/>
                   <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => computer.computer.computerName).join(' / ')}/>
                   <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => computer.computer.operatingSystem.name).join(' / ')}/>
                   <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => computer.computer.operatingSystemArq.name).join(' / ')}/>
                   <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => computer.computer.ipAddress).join(' / ')}/>
                   <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => computer.brand.name).join(' / ')}/>
                   <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => computer.category.name).join(' / ')}/>
-                  <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => `${computer.computer.memoryRamCapacity} Mb`).join(' / ')}/>
+                  <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => `${computer.computer.memoryRamCapacity} Gb`).join(' / ')}/>
                   <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => `${computer.computer.hardDriveCapacity.name} Gb`).join(' / ')}/>
                   <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => computer.computer.hardDriveType.name).join(' / ')}/>
                   <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => computer.serial).join(' / ')}/>
@@ -177,6 +178,6 @@ export default function AdministrativeSitePerEmployee () {
           </TableBody>
         </Table>
       </Suspense>}
-    </main>
+      </Main>
   )
 }

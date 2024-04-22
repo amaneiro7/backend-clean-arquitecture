@@ -2,11 +2,12 @@ import Banner from '../../components/Banner/Banner'
 import FeaturesCard from '../../components/FeaturesSection/FeaturesCard'
 import FeaturesContainer from '../../components/FeaturesSection/FeaturesContainer'
 import Section from '../../components/FeaturesSection/Section'
+import Main from '../../components/Main'
 import { dropdownNavs } from '../../Routes/routes'
 
 export default function Home () {
   return (
-    <main className='max-w-full h-full flex flex-col gap-5 flex-1'>
+    <Main className='flex-none'>
 
       <Banner />
 
@@ -33,6 +34,6 @@ export default function Home () {
 
         </div>
       </Section>
-    </main>
+    </Main>
   )
 }

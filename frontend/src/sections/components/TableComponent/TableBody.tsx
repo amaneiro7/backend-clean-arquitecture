@@ -4,7 +4,7 @@ import type TableRow from './TableRow'
 
 function TableBody ({ children }: { children: Array<React.ReactElement<typeof TableRow<typeof TableCell>>> }) {
   return (
-    <tbody>
+    <tbody className=''>
       {children}
     </tbody>
   )

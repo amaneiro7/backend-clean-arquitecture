@@ -5,7 +5,6 @@ import { EmployeeModel } from './EmployeeSchema'
 import { type Models } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
 import { type Criteria } from '../../../../Shared/domain/criteria/Criteria'
 import { sequelize } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeConfig'
-import { type EmployeesApiResponse } from './EmployeeResponse'
 
 export class SequelizeEmployeeRepository extends CriteriaToSequelizeConverter<EmployeeModel> implements EmployeeRepository {
   private readonly models = sequelize.models as unknown as Models
@@ -15,73 +14,64 @@ export class SequelizeEmployeeRepository extends CriteriaToSequelizeConverter<Em
 
   async matching (criteria: Criteria): Promise<EmployeePrimitives[]> {
     const options = this.convert(criteria)
-    options.include = [
-      {
-        association: 'devices',
-        include: [
-          'category',
-          'brand',
-          'model',
-          {
-            association: 'computer',
-            include: ['processor', 'hardDriveCapacity', 'hardDriveType', 'operatingSystem', 'operatingSystemArq']
-          },
-          {
-            association: 'hardDrive',
-            include: ['hardDriveCapacity', 'hardDriveType']
-          }
-        ]
-      }
-    ]
-    return await EmployeeModel.findAll(options)
-  }
-
-  async matchingByDevices (criteria: Criteria): Promise<EmployeePrimitives[]> {
-    const options = this.convert(criteria)
-    options.include = [
-      {
-        association: 'devices',
-        include: [
-          'category',
-          'brand',
-          'model',
-          {
-            association: 'computer',
-            include: ['processor', 'hardDriveCapacity', 'hardDriveType', 'operatingSystem', 'operatingSystemArq']
-          },
-          {
-            association: 'hardDrive',
-            include: ['hardDriveCapacity', 'hardDriveType']
-          }
-        ]
-      }
-    ]
+    options.include = []
     if (criteria.searchValueInArray('typeOfSite')) {
       options.include.push({
-        association: 'location',
+        association: 'devices',
         include: [
-          'typeOfSite',
-          { association: 'site', include: [{ association: 'city', include: [{ association: 'state', include: ['region'] }] }] }
-        ],
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
-        where: { typeOfSiteId: options.where.typeOfSite }
+          'category',
+          'brand',
+          'model',
+          {
+            association: 'computer',
+            include: ['processor', 'hardDriveCapacity', 'hardDriveType', 'operatingSystem', 'operatingSystemArq']
+          },
+          {
+            association: 'hardDrive',
+            include: ['hardDriveCapacity', 'hardDriveType']
+          },
+          {
+            association: 'location',
+            include: [
+              'typeOfSite',
+              { association: 'site', include: [{ association: 'city', include: [{ association: 'state', include: ['region'] }] }] }
+            ],
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
+            where: { typeOfSiteId: options.where.typeOfSite }
+          }
+        ]
       })
-
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
       delete options.where.typeOfSite
     } else {
       options.include.push({
-        association: 'location',
+        association: 'devices',
         include: [
-          'typeOfSite',
-          { association: 'site', include: [{ association: 'city', include: [{ association: 'state', include: ['region'] }] }] }
+          'category',
+          'brand',
+          'model',
+          {
+            association: 'computer',
+            include: ['processor', 'hardDriveCapacity', 'hardDriveType', 'operatingSystem', 'operatingSystemArq']
+          },
+          {
+            association: 'hardDrive',
+            include: ['hardDriveCapacity', 'hardDriveType']
+          },
+          {
+            association: 'location',
+            include: [
+              'typeOfSite',
+              { association: 'site', include: [{ association: 'city', include: [{ association: 'state', include: ['region'] }] }] }
+            ]
+          }
         ]
       })
     }
-    const employeesWithDecices = await EmployeeModel.findAll(options)
-    return (employeesWithDecices as unknown as EmployeesApiResponse[]).filter((employee) => employee.devices.length > 0)
+    console.log('Infra Employee', options)
+    return await EmployeeModel.findAll(options)
   }
 
   async searchById (employeeId: string): Promise<EmployeePrimitives | null> {

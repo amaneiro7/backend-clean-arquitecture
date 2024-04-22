@@ -5,8 +5,16 @@ export default function Table ({
   className,
   children
 }: {
-  className: string
+  className?: string
   children: Array<React.ReactElement<typeof TableHeader | typeof TableBody>>
 }) {
-  return <table className={`min-w-full border-collapse table-fixed ${className}`}>{children}</table>
+  return (
+    <section className='w-full overflow-x-auto overflow-y-auto'>
+      <table
+        className={`w-full border-collapse table-fixed ${className} sticky z-50`}
+      >
+        {children}
+      </table>
+    </section>
+  )
 }

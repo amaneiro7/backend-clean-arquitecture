@@ -1,7 +1,7 @@
 import { Suspense, lazy } from 'react'
-import { Copyright } from '../../ui/copyright'
 import { ToasterComponent } from '../../utils/toaster'
 import Loading from '../Loading'
+import { Footer } from '../Footer'
 
 const Header = lazy(async () => await import('../header'))
 
@@ -14,7 +14,7 @@ export const Layout = ({ children }: Props) => {
       <ToasterComponent />
       <Header />
       { children }
-      <Copyright />
+      <Footer />
     </Suspense>
   )
 }

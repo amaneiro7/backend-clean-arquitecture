@@ -16,6 +16,7 @@ import TableCell from '../../components/TableComponent/TableCell'
 import TableHeader from '../../components/TableComponent/TableHeader'
 import TableCellEditDeleteIcon from '../../components/TableComponent/TableCellEditDeleteIcon'
 import { useDevice } from '../../Device/device/useDevice'
+import Main from '../../components/Main'
 
 const Button = lazy(async () => await import('../../ui/button'))
 const BrandSelect = lazy(async () => await import('../../Device/brand/BrandSelect'))
@@ -74,7 +75,7 @@ export default function AdministrativeSitePage () {
     : defaultHeaderTitle
 
   return (
-    <main className='max-w-full h-full flex flex-col gap-5 p-5'>
+    <Main>
       <PageTitle title='Equipos de Torre' />
       <Suspense>
         <Button
@@ -180,6 +181,6 @@ export default function AdministrativeSitePage () {
           </TableBody>
         </Table>
       </Suspense>}
-    </main>
+    </Main>
   )
 }

@@ -1,9 +1,11 @@
+import { Tooltip } from '../Tooltip'
+
 function TableCell ({ value }: { value: string | number }) {
   return (
     <td
-      className="align-middle whitespace-nowrap border-b-2 border-b-gray-300 p-3 pb-2"
+      className="max-w-[156px] text-xs text-ellipsis border-b-2 border-b-gray-300 p-3 pb-2"
     >
-        {value}
+      <Tooltip text={value}/>
     </td>)
 }
 

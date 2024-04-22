@@ -2,9 +2,7 @@ import { useEffect, type PropsWithChildren } from 'react'
 import { useAppContext } from '../Context/AppContext'
 import { useNavigate } from 'react-router-dom'
 
-type ProtectedRouteProps = PropsWithChildren
-
-export default function ProtectedRoute ({ children }: ProtectedRouteProps) {
+export default function ProtectedRoute ({ children }: PropsWithChildren) {
   const { useAuth: { user } } = useAppContext()
   const navigate = useNavigate()
 

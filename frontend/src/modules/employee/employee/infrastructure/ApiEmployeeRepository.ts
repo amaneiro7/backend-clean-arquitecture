@@ -28,7 +28,7 @@ export class ApiEmployeeRepository implements EmployeeRepository {
     const paramsOrder = criteriaPrimitives.orderBy ? `orderBy=${criteriaPrimitives.orderBy}&orderType=${criteriaPrimitives.orderType}` : undefined
     const paramsFilters = filters ? `${filters.join('&')}` : undefined
     const queryParams = [paramsFilters, paramsLimitAndOffset, paramsOrder].filter(Boolean).join('&')
-    return await makeRequest<EmployeesApiResponse[]>({ method: 'GET', endpoint: `${this.endpoint}/devices?${queryParams}` })
+    return await makeRequest<EmployeesApiResponse[]>({ method: 'GET', endpoint: `${this.endpoint}?${queryParams}` })
       .then(res => res.map(data => ({
         id: data.id,
         userName: data.userName,
