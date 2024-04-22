@@ -1,21 +1,43 @@
-import { type FC, lazy, Suspense } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { useAppContext } from '../../../Context/AppContext'
 import { useOperatingSystemVersions } from './useOperatingSystemVersion'
 import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
 import { type Primitives } from '../../../../modules/shared/domain/value-object/Primitives'
-import { type OperatingSystemId } from '../../../../modules/devices/fetures/operatingSystem/operatingSystem/domain/OperatingSystemId'
+import { ComputerOs } from '../../../../modules/devices/fetures/computer/domain/ComputerOS'
+import { StatusId } from '../../../../modules/devices/devices/status/domain/StatusId'
+import { type ComputerHDDCapacity } from '../../../../modules/devices/fetures/computer/domain/ComputerHHDCapacity'
 
 const Select = lazy(async () => await import('../../../ui/Select'))
 
 interface Props {
-  value: Primitives<OperatingSystemId>
+  value: Primitives<ComputerOs>
+  status?: Primitives<StatusId>
+  hardDriveCapacity?: Primitives<ComputerHDDCapacity>
   onChange: OnHandleChange
-  isRequired?: boolean
+  isForm?: boolean
 }
 
-const OperatingSystemVersionSelect: FC<Props> = ({ value, onChange, isRequired }) => {
+export default function OperatingSystemVersionSelect ({ value, hardDriveCapacity, status, onChange, isForm }: Props) {
   const { repository } = useAppContext()
   const { operatingSystem } = useOperatingSystemVersions(repository)
+  const [errorMessage, setErrorMessage] = useState('')
+  const [isError, setIsError] = useState(false)
+  const [isDisbaled, setIsDisbled] = useState(false)
+
+  useEffect(() => {
+    if (!isForm) return
+
+    const isValid = ComputerOs.isValid(value, status, hardDriveCapacity)
+    setIsDisbled(StatusId.StatusOptions.INUSE !== status || hardDriveCapacity === '')
+
+    setIsError(!isValid)
+    setErrorMessage(isValid ? '' : ComputerOs.invalidMessage())
+
+    return () => {
+      setErrorMessage('')
+      setIsError(false)
+    }
+  }, [value, status, hardDriveCapacity])
   return (
     <Suspense>
       <Select
@@ -23,17 +45,18 @@ const OperatingSystemVersionSelect: FC<Props> = ({ value, onChange, isRequired }
         name='operatingSystemId'
         onChange={(event) => {
           const { name, value } = event.target
-          onChange(name, value)
+          const newValue = isDisbaled ? '' : value
+          onChange(name, newValue)
         }}
         options={operatingSystem}
         placeholder='-- Filtre por Sistema Operativo --'
-        isRequired={isRequired}
+        isRequired={isForm}
         isHidden={false}
-        isDisabled={false}
+        isDisabled={isDisbaled}
         value={value}
+        isError={isError}
+        errorMessage={errorMessage}
       />
     </Suspense>
   )
 }
-
-export default OperatingSystemVersionSelect

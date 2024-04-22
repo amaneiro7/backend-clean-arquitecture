@@ -40,9 +40,6 @@ export function EmployeeSelect ({ value, onChange, status, isForm = false }: Pro
     }
   }, [value, status])
 
-  console.log('isDisbaled=', isDisbaled)
-  console.log('status=', status)
-
   return (
         <Suspense>
             <Select

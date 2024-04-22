@@ -1,4 +1,3 @@
-import { type FC } from 'react'
 import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
 import ProcessorSelect from '../processor/ProcessorSelect'
 import MemoryRamCapacityInput from '../memoryRam/MemoryRamCapacityInput'
@@ -16,16 +15,17 @@ interface Props {
   formData: ComputerPrimitives
 }
 
-const AddComputerFeatures: FC<Props> = ({ formData, onChange }) => {
+export default function AddComputerFeatures ({ formData, onChange }: Props) {
   const isComputerLaptopAllinOneDevice = Computer.isComputerCategory({ categoryId: formData.categoryId })
 
   return (
     <>
-      {isComputerLaptopAllinOneDevice
-        ? <>
+      {isComputerLaptopAllinOneDevice &&
+        <>
           <ComputerNameInput
             isForm={true}
             onChange={onChange}
+            status={formData.statusId}
             value={formData.computerName}
           />
           <ProcessorSelect
@@ -42,41 +42,46 @@ const AddComputerFeatures: FC<Props> = ({ formData, onChange }) => {
             <HardDriveCapacitySelect
               onChange={onChange}
               value={formData.hardDriveCapacityId}
-              isRequired={false}
+              isForm
+              status={formData.statusId}
             />
             <HardDriveTypeSelect
               onChange={onChange}
               value={formData.hardDriveTypeId}
-              isRequired={false}
+              isForm
+              hardDriveCapacity={formData.hardDriveCapacityId}
             />
           </div>
           <div className='flex gap-4'>
             <OperatingSystemArqSelect
               onChange={onChange}
               value={formData.operatingSystemArqId}
-              isRequired={false}
+              isForm
+              operatingSystem={formData.operatingSystemId}
             />
             <OperatingSystemVersionSelect
               onChange={onChange}
               value={formData.operatingSystemId}
-              isRequired={false}
-              />
+              isForm
+              status={formData.statusId}
+              hardDriveCapacity={formData.hardDriveCapacityId}
+            />
           </div>
           <div className='flex gap-4'>
           <IpAddressInput
               onChange={onChange}
               value={formData.ipAddress}
-              isRequired={false}
+              status={formData.statusId}
+              isForm={true}
           />
           <MacAddressInput
               onChange={onChange}
               value={formData.macAddress}
-              isRequired={false}
+              isRequired={true}
           />
           </div>
         </>
-        : null}
+      }
     </>
   )
 }
-export default AddComputerFeatures

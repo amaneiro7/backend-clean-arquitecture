@@ -10,26 +10,26 @@ import { DeviceObservation } from '../../../devices/devices/domain/DeviceObserva
 import { DeviceSerial } from '../../../devices/devices/domain/DeviceSerial'
 import { StatusId } from '../../../devices/status/domain/StatusId'
 import { ModelId } from '../../../model/domain/ModelId'
-import { HardDriveCapacityId } from '../../hardDrive/hardDriveCapacity/domain/HardDriveCapacityId'
-import { HardDriveTypeId } from '../../hardDrive/hardDriveType/domain/HardDriveTypeId'
-import { MemoryRamCapacity } from '../../memoryRam/memoryRamCapacity/MemoryRamCapacity'
-import { OperatingSystemId } from '../../operatingSystem/operatingSystem/domain/OperatingSystemId'
-import { OperatingSystemArqId } from '../../operatingSystem/operatingSystemArq/domain/OperatingSystemArqId'
-import { ProcessorId } from '../../processor/domain/ProcessorId'
+import { MemoryRamCapacity } from '../../memoryRam/memoryRamCapacity/domain/MemoryRamCapacity'
+import { ComputerHDDType } from './ComputerHDDtype'
+import { ComputerHDDCapacity } from './ComputerHHDCapacity'
 import { ComputerName } from './ComputerName'
+import { ComputerOs } from './ComputerOS'
+import { ComputerOsArq } from './ComputerOSArq'
+import { ComputerProcessor } from './ComputerProcessor'
 import { IPAddress } from './IPAddress'
 import { MACAddress } from './MACAddress'
 
 export interface ComputerPrimitives extends DevicePrimitives {
   computerName: Primitives<ComputerName>
-  processorId: Primitives<ProcessorId> | null
+  processorId: Primitives<ComputerProcessor>
   memoryRamCapacity: Primitives<MemoryRamCapacity>
-  hardDriveCapacityId: Primitives<HardDriveCapacityId> | null
-  hardDriveTypeId: Primitives<HardDriveTypeId> | null
-  operatingSystemId: Primitives<OperatingSystemId> | null
-  operatingSystemArqId: Primitives<OperatingSystemArqId> | null
+  hardDriveCapacityId: Primitives<ComputerHDDCapacity>
+  hardDriveTypeId: Primitives<ComputerHDDType>
+  operatingSystemId: Primitives<ComputerOs>
+  operatingSystemArqId: Primitives<ComputerOsArq>
   macAddress: Primitives<MACAddress> | null
-  ipAddress: Primitives<IPAddress> | null
+  ipAddress: Primitives<IPAddress>
 }
 
 export class Computer extends Device {
@@ -44,12 +44,12 @@ export class Computer extends Device {
     locationId: LocationId,
     observation: DeviceObservation,
     private readonly computerName: ComputerName,
-    private readonly processorId: ProcessorId | null,
+    private readonly processorId: ComputerProcessor,
     private readonly memoryRamCapacity: MemoryRamCapacity,
-    private readonly hardDriveCapacityId: HardDriveCapacityId | null,
-    private readonly hardDriveTypeId: HardDriveTypeId | null,
-    private readonly operatingSystemId: OperatingSystemId | null,
-    private readonly operatingSystemArqId: OperatingSystemArqId | null,
+    private readonly hardDriveCapacityId: ComputerHDDCapacity,
+    private readonly hardDriveTypeId: ComputerHDDType,
+    private readonly operatingSystemId: ComputerOs,
+    private readonly operatingSystemArqId: ComputerOsArq,
     private readonly macAddress: MACAddress | null,
     private readonly ipAddress: IPAddress | null
   ) {
@@ -62,14 +62,6 @@ export class Computer extends Device {
   }
 
   public static create (params: ComputerPrimitives) {
-    if (params.hardDriveCapacityId == null) {
-      params.hardDriveCapacityId = null
-      params.operatingSystemId = null
-    }
-    if (params.operatingSystemId == null) {
-      params.operatingSystemArqId = null
-    }
-
     return new Computer(
       new DeviceSerial(params.serial),
       new DeviceActivo(params.activo),
@@ -81,14 +73,14 @@ export class Computer extends Device {
       new LocationId(params.locationId),
       new DeviceObservation(params.observation),
       new ComputerName(params.computerName, params.statusId),
-      params.processorId != null ? new ProcessorId(params.processorId) : null,
-      new MemoryRamCapacity(params.memoryRamCapacity),
-      params.hardDriveCapacityId != null ? new HardDriveCapacityId(params.hardDriveCapacityId) : null,
-      params.hardDriveTypeId != null ? new HardDriveTypeId(params.hardDriveTypeId) : null,
-      params.operatingSystemId != null ? new OperatingSystemId(params.operatingSystemId) : null,
-      params.operatingSystemArqId != null ? new OperatingSystemArqId(params.operatingSystemArqId) : null,
+      new ComputerProcessor(params.processorId, params.statusId),
+      new MemoryRamCapacity(params.memoryRamCapacity, params.statusId),
+      new ComputerHDDCapacity(params.hardDriveCapacityId, params.statusId),
+      new ComputerHDDType(params.hardDriveTypeId, params.hardDriveCapacityId),
+      new ComputerOs(params.operatingSystemId, params.statusId, params.hardDriveCapacityId),
+      new ComputerOsArq(params.operatingSystemArqId, params.operatingSystemId),
       new MACAddress(params.macAddress),
-      new IPAddress(params.ipAddress)
+      new IPAddress(params.ipAddress, params.statusId)
     )
   }
 

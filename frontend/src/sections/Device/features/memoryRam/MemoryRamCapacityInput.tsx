@@ -1,16 +1,18 @@
 import { useEffect, useRef, useState, type FC } from 'react'
-import { MemoryRamCapacity } from '../../../../modules/devices/fetures/memoryRam/memoryRamCapacity/MemoryRamCapacity'
+import { MemoryRamCapacity } from '../../../../modules/devices/fetures/memoryRam/memoryRamCapacity/domain/MemoryRamCapacity'
 import NumberInput from '../../../ui/number-field'
 import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
+import { type Primitives } from '../../../../modules/shared/domain/value-object/Primitives'
+import { type StatusId } from '../../../../modules/devices/devices/status/domain/StatusId'
 
 interface Props {
-  value: number
+  value: Primitives<MemoryRamCapacity>
+  status?: Primitives<StatusId>
   onChange: OnHandleChange
   isForm?: boolean
-  isRequired?: boolean
 }
 
-const MemoryRamCapacityInput: FC<Props> = ({ value, onChange, isForm = true, isRequired }) => {
+const MemoryRamCapacityInput: FC<Props> = ({ value, onChange, isForm = true, status }) => {
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
   const isFirstInput = useRef(true)
@@ -22,10 +24,10 @@ const MemoryRamCapacityInput: FC<Props> = ({ value, onChange, isForm = true, isR
       return
     }
 
-    const isValid = MemoryRamCapacity.isValid(value)
+    const isValid = MemoryRamCapacity.isValid(value, status)
 
     setIsError(!isValid)
-    setErrorMessage(isValid ? '' : MemoryRamCapacity.invalidMessage(value))
+    setErrorMessage(isValid ? '' : MemoryRamCapacity.invalidMessage())
 
     return () => {
       setErrorMessage('')
@@ -41,7 +43,7 @@ const MemoryRamCapacityInput: FC<Props> = ({ value, onChange, isForm = true, isR
         onChange(name, value)
       }}
       placeholder='--- Ingrese la Capcacidad de Memoria ---'
-      isRequired={isRequired}
+      isRequired={isForm}
       value={value}
       max={MemoryRamCapacity.max}
       min={MemoryRamCapacity.min}

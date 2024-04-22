@@ -1,38 +1,56 @@
-import { useEffect, useRef, useState, type FC } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import FormInput from '../../../ui/text-field'
 import { IPAddress } from '../../../../modules/devices/fetures/computer/domain/IPAddress'
 import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
 import { type Primitives } from '../../../../modules/shared/domain/value-object/Primitives'
+import { StatusId } from '../../../../modules/devices/devices/status/domain/StatusId'
 
 interface Props {
   value: Primitives<IPAddress>
+  status?: Primitives<StatusId>
   onChange: OnHandleChange
   isForm?: boolean
-  isRequired?: boolean
 }
 
-const IpAddressInput: FC<Props> = ({ value, onChange, isForm = false, isRequired }) => {
+export default function IpAddressInput ({ value, status, onChange, isForm = false }: Props) {
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
   const isFirstInput = useRef(true)
+  const [isDisabled, setIsDisabled] = useState(true)
   useEffect(() => {
-    if (!isForm || value === '') return
+    if (!isForm) return
+    handleDisabled()
 
     if (isFirstInput.current) {
       isFirstInput.current = value === ''
       return
     }
 
-    const isValid = IPAddress.isValid(value)
+    const isValid = IPAddress.isValid(value, status)
 
     setIsError(!isValid)
-    setErrorMessage(isValid ? '' : IPAddress.invalidMessage(value))
+    setErrorMessage(isValid ? '' : IPAddress.invalidMessage())
 
     return () => {
       setErrorMessage('')
       setIsError(false)
     }
-  }, [value])
+  }, [value, status])
+  const handleDisabled = () => {
+    const name = 'ipAddress'
+    const value = ''
+    if (status === '') {
+      onChange(name, value)
+      setIsDisabled(true)
+      return
+    }
+    if (status !== StatusId.StatusOptions.INUSE) {
+      onChange(name, value)
+      setIsDisabled(true)
+      return
+    }
+    setIsDisabled(false)
+  }
   return (
     <FormInput
         id='ipAddress'
@@ -40,10 +58,12 @@ const IpAddressInput: FC<Props> = ({ value, onChange, isForm = false, isRequired
         type="text"
         label='Direccion IP'
         placeholder='-- Ingrese la IP del equipo --'
-        isRequired={isRequired}
+        isRequired={isForm && !isDisabled}
+        isDisabled={isDisabled}
         handle={(event) => {
           const { name, value } = event.target
-          onChange(name, value)
+          const newValue = isDisabled ? '' : value
+          onChange(name, newValue)
         }}
         value={value ?? ''}
         isError={isError}
@@ -51,5 +71,3 @@ const IpAddressInput: FC<Props> = ({ value, onChange, isForm = false, isRequired
     />
   )
 }
-
-export default IpAddressInput

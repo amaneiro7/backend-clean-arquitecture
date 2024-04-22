@@ -33,7 +33,9 @@ export default function Header () {
       if (target != null && !target.closest('.nav-menu')) setDrapdownState({ isActive: false, index: null })
     }
     document.addEventListener('click', handleClick)
-    return () => { document.removeEventListener('click', handleClick) }
+    return () => {
+      document.removeEventListener('click', handleClick)
+    }
   }, [])
   return (
     <>
@@ -52,14 +54,10 @@ export default function Header () {
             handle={logout}
             type='button'
           />
-            {/* <NavLink className={({ isActive }) => isActive ? 'text-primary border-b border-primary' : undefined} to='/device/add'>Agregar <br /></NavLink>
-            <NavLink className={({ isActive }) => isActive ? 'text-primary border-b border-primary' : undefined} to='/dashboard'>Dashboard <br /></NavLink>
-            {user !== undefined ? <NavLink className={({ isActive }) => isActive ? 'text-primary border-b border-primary' : undefined} to='/login'>Iniciar Sesión <br /></NavLink> : null} */}
         </Nav>
       </HeaderNav>
-      {state
-        ? (<div className='z-10 fixed top-0 w-screen h-screen bg-black/20 backdrop-blur-sm md:hidden' onClick={handleState}></div>)
-        : ''
+      {state &&
+        (<div className='z-10 fixed top-0 w-screen h-screen bg-black/20 backdrop-blur-sm md:hidden' onClick={handleState}></div>)
       }
       </>
   )

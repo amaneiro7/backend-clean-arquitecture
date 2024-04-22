@@ -10,14 +10,16 @@ interface Props {
   value: string | number
   defaultValue?: string
   isRequired?: boolean
+  isDisabled?: boolean
   isError?: boolean
   errorMessage?: string
 }
-export default function FormInput ({ id, name, value, type, placeholder, handle, defaultValue, label, isRequired = false, isError = false, errorMessage }: Props) {
+export default function FormInput ({ id, name, value, type, placeholder, handle, defaultValue, label, isRequired = false, isDisabled = false, isError = false, errorMessage }: Props) {
   return (
         <TextField
             id={id}
             required={isRequired}
+            disabled={isDisabled}
             fullWidth
             size='small'
             name={name}

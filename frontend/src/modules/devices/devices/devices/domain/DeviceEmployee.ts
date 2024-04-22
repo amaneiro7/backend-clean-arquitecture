@@ -26,8 +26,6 @@ export class DeviceEmployee extends AcceptedNullValueObject<Primitives<EmployeeI
   }
 
   public static isValid (value: Primitives<DeviceEmployee>, status: Primitives<StatusId>): boolean {
-    console.log(value, status)
-
     if (value === null || value === '') return true
     if (status !== StatusId.StatusOptions.INUSE) {
       DeviceEmployee.errors = 'Si no está en uso no se le puede asignar a un usuario'

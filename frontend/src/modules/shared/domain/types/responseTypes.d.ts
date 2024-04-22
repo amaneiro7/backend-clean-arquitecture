@@ -22,7 +22,7 @@ import { type HardDriveCapacityPrimitives } from '../../../devices/fetures/hardD
 import { type HardDriveCapacityId } from '../../../devices/fetures/hardDrive/hardDriveCapacity/domain/HardDriveCapacityId'
 import { type HardDriveTypePrimitives } from '../../../devices/fetures/hardDrive/hardDriveType/domain/HardDriveType'
 import { type HardDriveTypeId } from '../../../devices/fetures/hardDrive/hardDriveType/domain/HardDriveTypeId'
-import { type MemoryRamCapacity } from '../../../devices/fetures/memoryRam/memoryRamCapacity/MemoryRamCapacity'
+import { type MemoryRamCapacity } from '../../../devices/fetures/memoryRam/memoryRamCapacity/domain/MemoryRamCapacity'
 import { type OperatingSystemPrimitives } from '../../../devices/fetures/operatingSystem/operatingSystem/domain/OperatingSystem'
 import { type OperatingSystemId } from '../../../devices/fetures/operatingSystem/operatingSystem/domain/OperatingSystemId'
 import { type OperatingSystemArqPrimitives } from '../../../devices/fetures/operatingSystem/operatingSystemArq/domain/OperatingSystemArq'

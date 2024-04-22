@@ -1,21 +1,42 @@
-import { type FC, Suspense, lazy } from 'react'
+import { Suspense, lazy, useEffect, useState } from 'react'
 import { useAppContext } from '../../../Context/AppContext'
 import { useHardDriveCapacity } from './useHardDriveCapacity'
 import { type Primitives } from '../../../../modules/shared/domain/value-object/Primitives'
-import { type HardDriveCapacityId } from '../../../../modules/devices/fetures/hardDrive/hardDriveCapacity/domain/HardDriveCapacityId'
+
 import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
+import { ComputerHDDCapacity } from '../../../../modules/devices/fetures/computer/domain/ComputerHHDCapacity'
+import { StatusId } from '../../../../modules/devices/devices/status/domain/StatusId'
 
 const Select = lazy(async () => await import('../../../ui/Select'))
 
 interface Props {
-  value: Primitives<HardDriveCapacityId>
+  value: Primitives<ComputerHDDCapacity>
+  status: Primitives<StatusId>
   onChange: OnHandleChange
-  isRequired?: boolean
+  isForm?: boolean
 }
 
-const HardDriveCapacitySelect: FC<Props> = ({ value, onChange, isRequired }) => {
+export default function HardDriveCapacitySelect ({ value, status, onChange, isForm = false }: Props) {
   const { repository } = useAppContext()
   const { hardDriveCapacity } = useHardDriveCapacity(repository)
+  const [errorMessage, setErrorMessage] = useState('')
+  const [isError, setIsError] = useState(false)
+  const [isDisbaled, setIsDisbled] = useState(false)
+
+  useEffect(() => {
+    if (!isForm) return
+
+    const isValid = ComputerHDDCapacity.isValid(value, status)
+    setIsDisbled(StatusId.StatusOptions.INUSE !== status)
+
+    setIsError(!isValid)
+    setErrorMessage(isValid ? '' : ComputerHDDCapacity.invalidMessage())
+
+    return () => {
+      setErrorMessage('')
+      setIsError(false)
+    }
+  }, [value, status])
 
   return (
         <Suspense>
@@ -24,17 +45,18 @@ const HardDriveCapacitySelect: FC<Props> = ({ value, onChange, isRequired }) => 
                  name='hardDriveCapacityId'
                  onChange={(event) => {
                    const { name, value } = event.target
-                   onChange(name, value)
+                   const newValue = isDisbaled ? '' : value
+                   onChange(name, newValue)
                  }}
                  options={hardDriveCapacity}
                  placeholder='-- Filtre por Tamaño de Disco --'
-                 isHidden={false}
-                 isRequired={isRequired}
-                 isDisabled={false}
+                 isHidden={true}
+                 isDisabled={isDisbaled}
+                 isRequired={isForm}
                  value={value}
+                 isError={isError}
+                 errorMessage={errorMessage}
             />
         </Suspense>
   )
 }
-
-export default HardDriveCapacitySelect

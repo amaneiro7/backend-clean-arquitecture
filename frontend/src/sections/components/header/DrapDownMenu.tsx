@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom'
 import { type Navigation } from '../../Routes/routes'
 
-export const DrapdownNavMenu: React.FC<{ route: Navigation }> = ({ route }) => {
+export function DrapdownNavMenu ({ route }: { route: Navigation }) {
   return (
     <div className="z-50 mt-6 inset-x-0 top-20 w-full md:absolute md:border-y md:shadow-md md:mt-0 bg-white">
       <ul className='bg-white max-w-screen-xl mx-auto grid items-center gap-6 md:p-8 md:grid-cols-2 lg:grid-cols-3'>
@@ -28,7 +28,7 @@ export const DrapdownNavMenu: React.FC<{ route: Navigation }> = ({ route }) => {
   )
 }
 
-const DrapdownLabel: React.FC<{ label: string }> = ({ label }) => {
+function DrapdownLabel ({ label }: { label: string }) {
   return (
     <p className="text-indigo-600 text-sm">
         {label}
@@ -36,7 +36,7 @@ const DrapdownLabel: React.FC<{ label: string }> = ({ label }) => {
   )
 }
 
-const DrapDownIcon: React.FC<{ icon: string }> = ({ icon }) => {
+function DrapDownIcon ({ icon }: { icon: string }) {
   return (
     <div className='w-12 h-12 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center duration-150 group-hover:bg-indigo-600 group-hover:text-white md:w-14 md:h-14'>
         {icon}
@@ -44,7 +44,7 @@ const DrapDownIcon: React.FC<{ icon: string }> = ({ icon }) => {
   )
 }
 
-const NavItemTitle: React.FC<{ title: string }> = ({ title }) => {
+function NavItemTitle ({ title }: { title: string }) {
   return (
     <span className="text-gray-800 duration-200 group-hover:text-indigo-600 text-sm font-medium md:text-base">
         {title}
@@ -52,7 +52,7 @@ const NavItemTitle: React.FC<{ title: string }> = ({ title }) => {
   )
 }
 
-const NavItemDesc: React.FC<{ desc: string }> = ({ desc }) => {
+function NavItemDesc ({ desc }: { desc: string }) {
   return (
     <p className='text-sm text-gray-600 group-hover:text-gray-800 mt-1'>
         {desc}

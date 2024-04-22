@@ -6,7 +6,7 @@ interface Props {
   index: number
   handleDrapdownState: (index: number) => void
 }
-export const DrapDownButton: React.FC<Props> = ({ index, handleDrapdownState, drapdownState, route }) => {
+export function DrapDownButton ({ index, handleDrapdownState, drapdownState, route }: Props) {
   return (
     <button
         className="w-full flex items-center justify-between gap-1 text-gray-700 hover:text-indigo-600"

@@ -1,4 +1,3 @@
-import { type FC } from 'react'
 import AddComputerFeatures from '../../features/computer/AddComputerFeatures'
 import AddHardDriveFeatures from '../../features/hardDrive/AddHardDriveFeatures'
 import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
@@ -8,7 +7,7 @@ interface Props {
   onChange: OnHandleChange
 }
 
-const DeviceFeatures: FC<Props> = ({ onChange, formData }) => {
+export default function DeviceFeatures ({ onChange, formData }: Props) {
   return (
     <>
         <AddComputerFeatures formData={formData} onChange={onChange} />
@@ -16,5 +15,3 @@ const DeviceFeatures: FC<Props> = ({ onChange, formData }) => {
     </>
   )
 }
-
-export default DeviceFeatures

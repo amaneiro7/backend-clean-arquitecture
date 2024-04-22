@@ -1,21 +1,43 @@
-import { type FC, Suspense, lazy } from 'react'
+import { Suspense, lazy, useEffect, useState } from 'react'
 import { useAppContext } from '../../../Context/AppContext'
 import { useHardDriveType } from './useHardDriveType'
 import { type Primitives } from '../../../../modules/shared/domain/value-object/Primitives'
-import { type HardDriveTypeId } from '../../../../modules/devices/fetures/hardDrive/hardDriveType/domain/HardDriveTypeId'
 import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
+import { ComputerHDDType } from '../../../../modules/devices/fetures/computer/domain/ComputerHDDtype'
+import { type ComputerHDDCapacity } from '../../../../modules/devices/fetures/computer/domain/ComputerHHDCapacity'
 
 const Select = lazy(async () => await import('../../../ui/Select'))
 
 interface Props {
-  value: Primitives<HardDriveTypeId>
+  value: Primitives<ComputerHDDType>
+  hardDriveCapacity?: Primitives<ComputerHDDCapacity>
   onChange: OnHandleChange
-  isRequired?: boolean
+  isForm?: boolean
 }
 
-const HardDriveTypeSelect: FC<Props> = ({ value, onChange, isRequired }) => {
+export default function HardDriveTypeSelect ({ value, hardDriveCapacity, onChange, isForm }: Props) {
   const { repository } = useAppContext()
   const { hardDriveType } = useHardDriveType(repository)
+
+  const [errorMessage, setErrorMessage] = useState('')
+  const [isError, setIsError] = useState(false)
+  const [isDisbaled, setIsDisbled] = useState(false)
+
+  useEffect(() => {
+    if (!isForm) return
+
+    const isValid = ComputerHDDType.isValid(value, hardDriveCapacity)
+    setIsDisbled(hardDriveCapacity === '')
+
+    setIsError(!isValid)
+    setErrorMessage(isValid ? '' : ComputerHDDType.invalidMessage())
+
+    return () => {
+      setErrorMessage('')
+      setIsError(false)
+    }
+  }, [value, hardDriveCapacity])
+
   return (
         <Suspense>
             <Select
@@ -23,17 +45,18 @@ const HardDriveTypeSelect: FC<Props> = ({ value, onChange, isRequired }) => {
                 name='hardDriveTypeId'
                 onChange={(event) => {
                   const { name, value } = event.target
-                  onChange(name, value)
+                  const newValue = isDisbaled ? '' : value
+                  onChange(name, newValue)
                 }}
                 options={hardDriveType}
                 placeholder='-- Filtre por Tipo de Disco --'
                 isHidden={false}
-                isDisabled={false}
-                isRequired={isRequired}
+                isDisabled={isDisbaled}
+                isRequired={isForm}
                 value={value}
+                isError={isError}
+                errorMessage={errorMessage}
             />
         </Suspense>
   )
 }
-
-export default HardDriveTypeSelect

@@ -11,7 +11,7 @@ export default function Table ({
   return (
     <section className='w-full overflow-x-auto overflow-y-auto'>
       <table
-        className={`w-full border-collapse table-fixed ${className} sticky z-50`}
+        className={`relative w-full border-collapse table-fixed ${className}`}
       >
         {children}
       </table>
