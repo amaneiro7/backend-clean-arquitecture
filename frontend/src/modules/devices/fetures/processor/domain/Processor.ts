@@ -1,8 +1,15 @@
+import { type Primitives } from '../../../../shared/domain/value-object/Primitives'
+import { type ProcessorId } from './ProcessorId'
 import { ProcessorName } from './ProcessorName'
 
 export interface ProcessorPrimitives {
-  id?: string
-  name: string
+  id?: Primitives<ProcessorId>
+  name: Primitives<ProcessorName>
+  productCollection?: string
+  numberModel?: string
+  cores?: number
+  threads?: boolean
+  frequency?: string
 }
 
 export class Processor {
@@ -16,7 +23,7 @@ export class Processor {
     )
   }
 
-  nameValue (): string {
+  nameValue (): Primitives<ProcessorName> {
     return this.name.value
   }
 

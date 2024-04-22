@@ -21,13 +21,14 @@ export default function HardDriveTypeSelect ({ value, hardDriveCapacity, onChang
 
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
-  const [isDisbaled, setIsDisbled] = useState(false)
+  const [isDisabled, setIsDisabled] = useState(false)
 
   useEffect(() => {
     if (!isForm) return
+    handleDisabled()
 
     const isValid = ComputerHDDType.isValid(value, hardDriveCapacity)
-    setIsDisbled(hardDriveCapacity === '')
+    // setIsDisabled(hardDriveCapacity === '')
 
     setIsError(!isValid)
     setErrorMessage(isValid ? '' : ComputerHDDType.invalidMessage())
@@ -38,6 +39,17 @@ export default function HardDriveTypeSelect ({ value, hardDriveCapacity, onChang
     }
   }, [value, hardDriveCapacity])
 
+  const handleDisabled = () => {
+    const name = 'hardDriveTypeId'
+    const value = ''
+    if (hardDriveCapacity === '') {
+      onChange(name, value)
+      setIsDisabled(true)
+      return
+    }
+    setIsDisabled(false)
+  }
+
   return (
         <Suspense>
             <Select
@@ -45,13 +57,13 @@ export default function HardDriveTypeSelect ({ value, hardDriveCapacity, onChang
                 name='hardDriveTypeId'
                 onChange={(event) => {
                   const { name, value } = event.target
-                  const newValue = isDisbaled ? '' : value
+                  const newValue = isDisabled ? '' : value
                   onChange(name, newValue)
                 }}
                 options={hardDriveType}
                 placeholder='-- Filtre por Tipo de Disco --'
                 isHidden={false}
-                isDisabled={isDisbaled}
+                isDisabled={isDisabled}
                 isRequired={isForm}
                 value={value}
                 isError={isError}

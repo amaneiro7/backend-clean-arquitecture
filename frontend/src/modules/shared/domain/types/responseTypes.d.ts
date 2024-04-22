@@ -27,8 +27,8 @@ import { type OperatingSystemPrimitives } from '../../../devices/fetures/operati
 import { type OperatingSystemId } from '../../../devices/fetures/operatingSystem/operatingSystem/domain/OperatingSystemId'
 import { type OperatingSystemArqPrimitives } from '../../../devices/fetures/operatingSystem/operatingSystemArq/domain/OperatingSystemArq'
 import { type OperatingSystemArqId } from '../../../devices/fetures/operatingSystem/operatingSystemArq/domain/OperatingSystemArqId'
+import { type ProcessorPrimitives } from '../../../devices/fetures/processor/domain/Processor'
 import { type ProcessorId } from '../../../devices/fetures/processor/domain/ProcessorId'
-import { type ProcessorName } from '../../../devices/fetures/processor/domain/ProcessorName'
 import { type ModelId } from '../../../devices/model/domain/ModelId'
 import { type ModelName } from '../../../devices/model/domain/ModelName'
 import { type EmployeePrimitives } from '../../../employee/employee/domain/Employee'
@@ -164,9 +164,7 @@ export interface Brand {
   createdAt: Date
   updatedAt: Date
 }
-export interface ProcessorApiresponse {
-  id: Primitives<ProcessorId>
-  name: Primitives<ProcessorName>
+export interface ProcessorApiresponse extends ProcessorPrimitives {
   createdAt: Date
   updatedAt: Date
 }

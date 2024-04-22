@@ -20,13 +20,12 @@ export default function OperatingSystemArqSelect ({ value, operatingSystem, onCh
   const { operatingSystemArq } = useOperatingSystemArq(repository)
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
-  const [isDisbaled, setIsDisbled] = useState(false)
+  const [isDisabled, setIsDisabled] = useState(false)
 
   useEffect(() => {
     if (!isForm) return
-
+    handleDisabled()
     const isValid = ComputerOsArq.isValid(value, operatingSystem)
-    setIsDisbled(operatingSystem === '')
 
     setIsError(!isValid)
     setErrorMessage(isValid ? '' : ComputerOsArq.invalidMessage())
@@ -36,6 +35,18 @@ export default function OperatingSystemArqSelect ({ value, operatingSystem, onCh
       setIsError(false)
     }
   }, [value, operatingSystem])
+
+  const handleDisabled = () => {
+    const name = 'operatingSystemArqId'
+    const value = ''
+    if (operatingSystem === '') {
+      onChange(name, value)
+      setIsDisabled(true)
+      return
+    }
+    setIsDisabled(false)
+  }
+
   return (
     <Suspense>
       <Select
@@ -43,14 +54,14 @@ export default function OperatingSystemArqSelect ({ value, operatingSystem, onCh
         name='operatingSystemArqId'
         onChange={(event) => {
           const { name, value } = event.target
-          const newValue = isDisbaled ? '' : value
+          const newValue = isDisabled ? '' : value
           onChange(name, newValue)
         }}
         options={operatingSystemArq}
         placeholder='-- Filtre Arquitectura del Sistema Operativo --'
         isRequired={isForm}
         isHidden={false}
-        isDisabled={isDisbaled}
+        isDisabled={isDisabled}
         value={value}
         isError={isError}
         errorMessage={errorMessage}

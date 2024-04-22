@@ -22,13 +22,13 @@ export default function OperatingSystemVersionSelect ({ value, hardDriveCapacity
   const { operatingSystem } = useOperatingSystemVersions(repository)
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
-  const [isDisbaled, setIsDisbled] = useState(false)
+  const [isDisabled, setIsDisabled] = useState(false)
 
   useEffect(() => {
     if (!isForm) return
+    handleDisabled()
 
     const isValid = ComputerOs.isValid(value, status, hardDriveCapacity)
-    setIsDisbled(StatusId.StatusOptions.INUSE !== status || hardDriveCapacity === '')
 
     setIsError(!isValid)
     setErrorMessage(isValid ? '' : ComputerOs.invalidMessage())
@@ -38,6 +38,18 @@ export default function OperatingSystemVersionSelect ({ value, hardDriveCapacity
       setIsError(false)
     }
   }, [value, status, hardDriveCapacity])
+
+  const handleDisabled = () => {
+    const name = 'operatingSystemId'
+    const value = ''
+    if (StatusId.StatusOptions.INUSE !== status || hardDriveCapacity === '') {
+      onChange(name, value)
+      setIsDisabled(true)
+      return
+    }
+    setIsDisabled(false)
+  }
+
   return (
     <Suspense>
       <Select
@@ -45,14 +57,14 @@ export default function OperatingSystemVersionSelect ({ value, hardDriveCapacity
         name='operatingSystemId'
         onChange={(event) => {
           const { name, value } = event.target
-          const newValue = isDisbaled ? '' : value
+          const newValue = isDisabled ? '' : value
           onChange(name, newValue)
         }}
         options={operatingSystem}
         placeholder='-- Filtre por Sistema Operativo --'
         isRequired={isForm}
         isHidden={false}
-        isDisabled={isDisbaled}
+        isDisabled={isDisabled}
         value={value}
         isError={isError}
         errorMessage={errorMessage}

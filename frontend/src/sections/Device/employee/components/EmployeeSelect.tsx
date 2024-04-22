@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect, useState } from 'react'
+import { Suspense, lazy, useEffect, useMemo, useState } from 'react'
 import { useAppContext } from '../../../Context/AppContext'
 import { type Primitives } from '../../../../modules/shared/domain/value-object/Primitives'
 
@@ -20,7 +20,8 @@ interface Props {
 export function EmployeeSelect ({ value, onChange, status, isForm = false }: Props) {
   const { repository } = useAppContext()
   const { employees } = useEmployee(repository)
-  const employeeOptions = employees.map((employee) => ({ name: employee.userName, id: employee.id }))
+  const employeeOptions = useMemo(() => employees.map(employee => ({ id: employee.id, name: employee.userName })), [employees])
+
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
   const [isDisbaled, setIsDisbled] = useState(false)

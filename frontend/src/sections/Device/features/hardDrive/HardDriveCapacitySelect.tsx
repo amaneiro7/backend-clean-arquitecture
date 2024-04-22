@@ -5,7 +5,7 @@ import { type Primitives } from '../../../../modules/shared/domain/value-object/
 
 import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
 import { ComputerHDDCapacity } from '../../../../modules/devices/fetures/computer/domain/ComputerHHDCapacity'
-import { StatusId } from '../../../../modules/devices/devices/status/domain/StatusId'
+import { type StatusId } from '../../../../modules/devices/devices/status/domain/StatusId'
 
 const Select = lazy(async () => await import('../../../ui/Select'))
 
@@ -21,13 +21,11 @@ export default function HardDriveCapacitySelect ({ value, status, onChange, isFo
   const { hardDriveCapacity } = useHardDriveCapacity(repository)
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
-  const [isDisbaled, setIsDisbled] = useState(false)
 
   useEffect(() => {
     if (!isForm) return
 
     const isValid = ComputerHDDCapacity.isValid(value, status)
-    setIsDisbled(StatusId.StatusOptions.INUSE !== status)
 
     setIsError(!isValid)
     setErrorMessage(isValid ? '' : ComputerHDDCapacity.invalidMessage())
@@ -45,13 +43,12 @@ export default function HardDriveCapacitySelect ({ value, status, onChange, isFo
                  name='hardDriveCapacityId'
                  onChange={(event) => {
                    const { name, value } = event.target
-                   const newValue = isDisbaled ? '' : value
-                   onChange(name, newValue)
+                   onChange(name, value)
                  }}
                  options={hardDriveCapacity}
                  placeholder='-- Filtre por Tamaño de Disco --'
                  isHidden={true}
-                 isDisabled={isDisbaled}
+                 isDisabled={false}
                  isRequired={isForm}
                  value={value}
                  isError={isError}

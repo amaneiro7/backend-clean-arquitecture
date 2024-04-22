@@ -172,7 +172,7 @@ export default function AdministrativeSitePerEmployee () {
                   <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => computer.serial).join(' / ')}/>
                   <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => computer.model.name).join(' / ')}/>
                   <TableCell value={employee?.monitores?.length < 1 ? 'N/A' : employee.monitores.map(monitor => `${monitor.brand.name} ${monitor.model.name}`).join(' / ')}/>
-                  <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => computer.computer.processor.name).join(' / ')}/>
+                  <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => computer.computer.processor.numberModel).join(' / ')}/>
                 </TableRow>
               ))}
           </TableBody>

@@ -165,7 +165,7 @@ export default function AdministrativeSitePage () {
                   {isComputerFilter &&
                     <>
                       <TableCell value={device?.computer?.computerName}/>
-                      <TableCell value={device?.computer?.processor?.name}/>
+                      <TableCell value={device?.computer?.processor?.numberModel}/>
                       <TableCell value={device?.computer?.memoryRamCapacity}/>
                       <TableCell value={device?.computer?.hardDriveCapacity?.name}/>
                       <TableCell value={device?.computer?.hardDriveType?.name}/>

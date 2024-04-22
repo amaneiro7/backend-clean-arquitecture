@@ -1,10 +1,9 @@
-import { type FC, Suspense, lazy } from 'react'
+import { useMemo, Suspense, lazy } from 'react'
 import { Link } from 'react-router-dom'
 import { useAppContext } from '../../../Context/AppContext'
 import { useProcessor } from './useProcessor'
 import { AddIcon } from '../../../ui/icon/AddIcon'
 import { EditIcon } from '../../../ui/icon/EditIcon'
-import { type ProcessorApiresponse } from '../../../../modules/shared/domain/types/responseTypes'
 import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
 import { Operator } from '../../../../modules/shared/domain/criteria/FilterOperators'
 
@@ -17,9 +16,14 @@ interface Props {
   isRequired?: boolean
 }
 
-const ProcessorSelect: FC<Props> = ({ value = '', onChange, isForm = true, isRequired }) => {
+export default function ProcessorSelect ({ value = '', onChange, isForm = true, isRequired }: Props) {
   const { repository } = useAppContext()
   const { processors } = useProcessor(repository)
+  const processorOptions = useMemo(() => processors.map((processor) => ({
+    id: processor.id,
+    name: processor.numberModel
+  })), [processors])
+
   return (
         <Suspense>
           <div className='w-full flex relative'>
@@ -36,7 +40,7 @@ const ProcessorSelect: FC<Props> = ({ value = '', onChange, isForm = true, isReq
                    const { name, value } = event.target
                    onChange(name, value, Operator.EQUAL)
                  }}
-                 options={processors as ProcessorApiresponse[]}
+                 options={processorOptions}
                  placeholder='-- Filtre por Procesador --'
                  isRequired={isRequired}
                  isHidden={false}
@@ -56,5 +60,3 @@ const ProcessorSelect: FC<Props> = ({ value = '', onChange, isForm = true, isReq
         </Suspense>
   )
 }
-
-export default ProcessorSelect
