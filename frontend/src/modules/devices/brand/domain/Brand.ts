@@ -1,8 +1,10 @@
+import { type Primitives } from '../../../shared/domain/value-object/Primitives'
+import { type BrandId } from './BrandId'
 import { BrandName } from './BrandName'
 
 export interface BrandPrimitives {
-  id?: string
-  name: string
+  id?: Primitives<BrandId>
+  name: Primitives<BrandName>
 }
 export class Brand {
   constructor (
@@ -13,7 +15,7 @@ export class Brand {
     return new Brand(new BrandName(name))
   }
 
-  nameValue (): string {
+  nameValue (): Primitives<BrandName> {
     return this.name.value
   }
 

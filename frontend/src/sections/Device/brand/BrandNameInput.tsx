@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState, type FC } from 'react'
 import FormInput from '../../ui/text-field'
 import { BrandName } from '../../../modules/devices/brand/domain/BrandName'
+import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
+import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 
 interface Props {
-  value: string
-  onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  value: Primitives<BrandName>
+  onChange: OnHandleChange
 }
 
 const BrandNameInput: FC<Props> = ({ value, onChange }) => {
@@ -34,7 +36,10 @@ const BrandNameInput: FC<Props> = ({ value, onChange }) => {
       type="text"
       label='Name'
       placeholder='-- Ingrese el Nombre de la Marca'
-      handle={onChange}
+      handle={(event) => {
+        const { name, value } = event.target
+        onChange(name, value)
+      }}
       value={value}
       isError={isError}
       errorMessage={errorMessage}

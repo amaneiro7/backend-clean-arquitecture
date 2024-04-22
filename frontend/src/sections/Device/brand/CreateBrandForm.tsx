@@ -3,7 +3,6 @@ import { useGenericFormData } from '../../Hooks/useGenericFormData'
 import { FormContainer } from '../../components/formContainer'
 import { FormStatus, useBrandForm } from './useBrandForm'
 import BrandNameInput from './BrandNameInput'
-import { toast } from 'sonner'
 import { useBrandInitialState } from './BrandFormInitialState'
 
 const initialState = {
@@ -11,7 +10,7 @@ const initialState = {
 }
 
 export default function CreateBrandForm () {
-  const { id: brandId, preloadedBrandState } = useBrandInitialState()
+  const { preloadedBrandState } = useBrandInitialState()
   const { formData, updateForm, resetForm } = useGenericFormData(initialState)
   const { formStatus, submitForm, resetFormStatus } = useBrandForm()
 
@@ -27,6 +26,7 @@ export default function CreateBrandForm () {
     if (formStatus === FormStatus.Success) {
       resetFormStatus()
       resetForm()
+      handleClose()
     }
     if (formStatus === FormStatus.Error) {
       resetFormStatus()
@@ -35,21 +35,20 @@ export default function CreateBrandForm () {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault()
-    const { name } = formData
-    await submitForm({ id: brandId, name })
+    await submitForm(formData)
   }
 
   const handleClose = () => {
     window.history.back()
   }
 
-  const handleChange = (ev: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    updateForm({ [ev.target.name]: ev.target.value })
+  const handleChange = (name: string, value: string) => {
+    updateForm({ [name]: value })
   }
 
   return (
     <FormContainer
-        title='Agrega un nuevo Dispositivo'
+        title='Agrega una nueva Marca'
         handleSubmit={handleSubmit}
         handleClose={handleClose}
         isDisabled={formStatus === FormStatus.Loading}

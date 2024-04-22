@@ -1,12 +1,14 @@
+import { type Primitives } from '../../../shared/domain/value-object/Primitives'
 import { BrandId } from '../../brand/domain/BrandId'
 import { CategoryId } from '../../category/domain/CategoryId'
+import { type ModelId } from './ModelId'
 import { ModelName } from './ModelName'
 
 export interface ModelPrimitives {
-  id?: string
-  name: string
-  categoryId: number
-  brandId: string
+  id?: Primitives<ModelId>
+  name: Primitives<ModelName>
+  categoryId: Primitives<CategoryId>
+  brandId: Primitives<BrandId>
 }
 export class Model {
   constructor (
@@ -23,15 +25,15 @@ export class Model {
     )
   }
 
-  nameValue (): string {
+  nameValue (): Primitives<ModelName> {
     return this.name.value
   }
 
-  categoryValue (): number {
+  categoryValue (): Primitives<CategoryId> {
     return this.categoryId.value
   }
 
-  brandValue (): string {
+  brandValue (): Primitives<BrandId> {
     return this.brandId.value
   }
 

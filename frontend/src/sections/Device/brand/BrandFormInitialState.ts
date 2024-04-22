@@ -4,8 +4,14 @@ import { useAppContext } from '../../Context/AppContext'
 import { type BrandApiResponse } from '../../../modules/shared/domain/types/responseTypes'
 
 import { useBrand } from './useBrand'
+import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
+import { type BrandName } from '../../../modules/devices/brand/domain/BrandName'
 
-const defaultInitialState = {
+interface defaultProps {
+  name: Primitives<BrandName>
+}
+
+const defaultInitialState: defaultProps = {
   name: ''
 }
 export const useBrandInitialState = () => {
@@ -22,9 +28,8 @@ export const useBrandInitialState = () => {
       return
     }
 
-    if (location.state?.brand !== undefined) {
-      const { brand } = location.state
-
+    if (location.state?.state !== undefined) {
+      const { state: brand } = location.state
       setPreloadedBrandState(brand)
     } else {
       if (id === undefined) {
@@ -37,13 +42,12 @@ export const useBrandInitialState = () => {
           setPreloadedBrandState({ name })
         })
         .catch(error => {
-          console.log(error)
+          console.log('useBrandInitialState', error)
         })
     }
   }, [id, location.state?.brand])
 
   return {
-    preloadedBrandState,
-    id
+    preloadedBrandState
   }
 }

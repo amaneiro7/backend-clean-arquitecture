@@ -12,7 +12,7 @@ export const useModel = (repository: Repository) => {
   const [error, setError] = useState(null)
   const [models, setModels] = useState<ModelPrimitives[]>([])
 
-  async function createModel ({ name, categoryId, brandId }: { name: string, categoryId: number, brandId: string }) {
+  async function createModel ({ name, categoryId, brandId }: ModelPrimitives) {
     const modelCreator = new ModelCreator(repository)
     const id = Uuid.random().value
     await modelCreator.create({ id, name, categoryId, brandId })

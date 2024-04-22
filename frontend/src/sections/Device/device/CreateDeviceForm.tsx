@@ -1,5 +1,4 @@
 import { type FormEvent, useEffect, lazy, Suspense } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { useDeviceForm, FormStatus } from './useDeviceForm'
 import { useDeviceInitialState } from './DeviceFormInitialState'
 import { useGenericFormData } from '../../Hooks/useGenericFormData'
@@ -17,7 +16,6 @@ const ModelSelect = lazy(async () => await import('../model/ModelSelect'))
 const DeviceFeatures = lazy(async () => await import('./components/DeviceFeatures'))
 
 export default function CreateDeviceForm () {
-  const navigate = useNavigate()
   const { preloadedDeviceState } = useDeviceInitialState()
   const { formData, updateForm, resetForm } = useGenericFormData(preloadedDeviceState)
   const { formStatus, submitForm, resetFormStatus } = useDeviceForm()
@@ -45,7 +43,7 @@ export default function CreateDeviceForm () {
   }
 
   const handleClose = () => {
-    navigate('/')
+    window.history.back()
   }
 
   const handleChange = (name: string, value: string) => {

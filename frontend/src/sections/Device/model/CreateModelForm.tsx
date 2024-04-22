@@ -5,18 +5,12 @@ import { FormStatus, useModelForm } from './useModelForm'
 import BrandSelect from '../brand/BrandSelect'
 import CategorySelect from '../category/CategorySelect'
 import ModelNameInput from './ModelNameInput'
-import { useModelInitialState } from './BrandFormInitialState'
-
-const initialState = {
-  name: '',
-  categoryId: 0,
-  brandId: ''
-}
+import { useModelInitialState } from './ModelFormInitialState'
 
 export default function CreateModelForm () {
-  const { formData, updateForm, resetForm } = useGenericFormData(initialState)
-  const { formStatus, submitForm, resetFormStatus } = useModelForm()
   const { preloadedModelState } = useModelInitialState()
+  const { formData, updateForm, resetForm } = useGenericFormData(preloadedModelState)
+  const { formStatus, submitForm, resetFormStatus } = useModelForm()
 
   useEffect(() => {
     updateForm(preloadedModelState)
@@ -39,16 +33,15 @@ export default function CreateModelForm () {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault()
-    const { name, categoryId, brandId } = formData
-    await submitForm({ name, categoryId, brandId })
+    await submitForm(formData)
   }
 
   const handleClose = () => {
     window.history.back()
   }
 
-  const handleChange = (ev: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    updateForm({ [ev.target.name]: ev.target.value })
+  const handleChange = (name: string, value: string) => {
+    updateForm({ [name]: value })
   }
 
   return (
@@ -58,12 +51,15 @@ export default function CreateModelForm () {
         handleClose={handleClose}
         isDisabled={formStatus === FormStatus.Loading}
     >
-        <CategorySelect
+      <CategorySelect
         value={formData.categoryId}
         onChange={handleChange}
+        isRequired={true}
       />
       <BrandSelect
         value={formData.brandId}
+        categoryId={formData.categoryId}
+        isRequired={true}
         onChange={handleChange}
       />
       <ModelNameInput

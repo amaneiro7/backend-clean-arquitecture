@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { useAppContext } from '../../Context/AppContext'
 import { useModel } from './useMode'
-import { toast } from 'sonner'
 import { toastMessage } from '../../utils/toaster'
+import { type ModelPrimitives } from '../../../modules/devices/model/domain/Model'
 
 export const enum FormStatus {
   Loading,
@@ -13,14 +13,14 @@ export const enum FormStatus {
 
 export function useModelForm (): {
   formStatus: FormStatus
-  submitForm: (formData: { name: string, categoryId: number, brandId: string }) => Promise<void>
+  submitForm: (formData: ModelPrimitives) => Promise<void>
   resetFormStatus: () => void
 } {
   const [formStatus, setFormStatus] = useState(FormStatus.Initial)
   const { repository } = useAppContext()
   const { createModel } = useModel(repository)
 
-  async function submitForm ({ name, categoryId, brandId }: { name: string, categoryId: number, brandId: string }) {
+  async function submitForm ({ name, categoryId, brandId }: ModelPrimitives) {
     setFormStatus(FormStatus.Loading)
     toastMessage({ type: 'loading', message: '...Cargando' })
 

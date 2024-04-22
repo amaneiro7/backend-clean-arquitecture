@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState, type FC } from 'react'
 import FormInput from '../../ui/text-field'
 import { ModelName } from '../../../modules/devices/model/domain/ModelName'
+import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
+import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
 
 interface Props {
-  value: string
-  onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  value: Primitives<ModelName>
+  onChange: OnHandleChange
 }
 
 const ModelNameInput: FC<Props> = ({ value, onChange }) => {
@@ -34,7 +36,10 @@ const ModelNameInput: FC<Props> = ({ value, onChange }) => {
       type="text"
       label='Name'
       placeholder='-- Ingrese el Nombre del Modelo'
-      handle={onChange}
+      handle={(event) => {
+        const { name, value } = event.target
+        onChange(name, value)
+      }}
       value={value}
       isError={isError}
       errorMessage={errorMessage}

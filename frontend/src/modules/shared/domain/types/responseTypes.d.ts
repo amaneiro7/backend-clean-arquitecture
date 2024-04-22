@@ -122,7 +122,6 @@ export interface ModelApiresponse {
   brandId: Primitives<BrandId>
   createdAt: Date
   updatedAt: Date
-  CategoryId: Primitives<CategoryId>
   category: CategoryPrimitives
   brand: BrandPrimitives
 }
