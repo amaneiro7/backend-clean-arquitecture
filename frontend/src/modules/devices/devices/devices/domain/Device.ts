@@ -43,7 +43,7 @@ export class Device {
       new CategoryId(params.categoryId),
       new BrandId(params.brandId),
       new ModelId(params.modelId),
-      new DeviceEmployee(params.employeeId),
+      new DeviceEmployee(params.employeeId, params.statusId),
       new LocationId(params.locationId),
       new DeviceObservation(params.observation)
     )

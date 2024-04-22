@@ -1,6 +1,7 @@
 import { type SelectChangeEvent, Select as SelectMui } from '../mui/Select'
 import { InputLabel as InputLabelMui } from '../mui/InputLabel'
 import { MenuItem as MenuItemMui } from '../mui/MenuItem'
+import { FormHelperText } from '../mui/FormHelperText'
 import { FormControl } from '../mui/FormControl'
 
 interface Props {
@@ -14,6 +15,8 @@ interface Props {
   onChange: (event: SelectChangeEvent, child: React.ReactNode) => void
   placeholder: string
   isRequired?: boolean
+  isError?: boolean
+  errorMessage?: string
 }
 
 interface Options {
@@ -31,7 +34,9 @@ export default function Select ({
   isDisabled = true,
   onChange,
   placeholder,
-  isRequired = false
+  isRequired = false,
+  isError,
+  errorMessage
 }: Props) {
   return (
       <FormControl size='small' className='w-full'>
@@ -46,6 +51,8 @@ export default function Select ({
                   defaultValue={defaultValue}
                   required={isRequired}
                   disabled={isDisabled}
+                  error={isError}
+
               >
                   <MenuItemMui value='' hidden={isHidden} disabled={isDisabled}><em>{placeholder}</em></MenuItemMui>
                   {options?.map(elem =>
@@ -57,6 +64,7 @@ export default function Select ({
                       </MenuItemMui>
                   )}
               </SelectMui>
+              <FormHelperText error={isError}>{errorMessage}</FormHelperText>
       </FormControl>
   )
 }

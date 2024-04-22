@@ -5,10 +5,20 @@ export class UserPassword {
   static readonly hasNumber = /\d/
   static readonly hasSpecialCharacter = /[!@#$%^&*]/
 
+  private static errors: string = ''
+
   constructor (readonly value: string) {
     if (!UserPassword.isValid(value)) {
-      throw new Error(UserPassword.invalidMessage(value))
+      throw new Error(UserPassword.invalidMessage())
     }
+  }
+
+  private static updateErrors (value: string): void {
+    UserPassword.errors = value
+  }
+
+  static get errorsValue (): string {
+    return UserPassword.errors
   }
 
   public static isValid (value: string): boolean {
@@ -42,15 +52,15 @@ export class UserPassword {
 
     // If there are any validation , throw an InvalidArgumentError with the joined error messages
     if (errors.length > 0) {
-      const errorMessage = errors.join(' ')
-      UserPassword.invalidMessage(errorMessage)
+      UserPassword.updateErrors(errors.join(' '))
+      UserPassword.invalidMessage()
       return false
     } else {
       return true
     }
   }
 
-  public static invalidMessage (errors: string): string {
-    return errors
+  public static invalidMessage (): string {
+    return UserPassword.errorsValue
   }
 }

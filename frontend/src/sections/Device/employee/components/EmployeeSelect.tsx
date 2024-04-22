@@ -1,24 +1,47 @@
-import { Suspense, lazy } from 'react'
+import { Suspense, lazy, useEffect, useState } from 'react'
 import { useAppContext } from '../../../Context/AppContext'
 import { type Primitives } from '../../../../modules/shared/domain/value-object/Primitives'
 
 import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
 import { Operator } from '../../../../modules/shared/domain/criteria/FilterOperators'
-import { type EmployeeId } from '../../../../modules/employee/employee/domain/EmployeeId'
 import { useEmployee } from '../useEmployee'
+import { StatusId } from '../../../../modules/devices/devices/status/domain/StatusId'
+import { DeviceEmployee } from '../../../../modules/devices/devices/devices/domain/DeviceEmployee'
 
 const Select = lazy(async () => await import('../../../ui/Select'))
 
 interface Props {
-  value: Primitives<EmployeeId>
+  value: Primitives<DeviceEmployee>
+  status: Primitives<StatusId>
   onChange: OnHandleChange
-  isRequired?: boolean
+  isForm?: boolean
 }
 
-export function EmployeeSelect ({ value, onChange, isRequired = false }: Props) {
+export function EmployeeSelect ({ value, onChange, status, isForm = false }: Props) {
   const { repository } = useAppContext()
   const { employees } = useEmployee(repository)
   const employeeOptions = employees.map((employee) => ({ name: employee.userName, id: employee.id }))
+  const [errorMessage, setErrorMessage] = useState('')
+  const [isError, setIsError] = useState(false)
+  const [isDisbaled, setIsDisbled] = useState(false)
+
+  useEffect(() => {
+    if (!isForm) return
+
+    const isValid = DeviceEmployee.isValid(value, status)
+    setIsDisbled(StatusId.StatusOptions.INUSE !== status)
+
+    setIsError(!isValid)
+    setErrorMessage(isValid ? '' : DeviceEmployee.invalidMessage())
+
+    return () => {
+      setErrorMessage('')
+      setIsError(false)
+    }
+  }, [value, status])
+
+  console.log('isDisbaled=', isDisbaled)
+  console.log('status=', status)
 
   return (
         <Suspense>
@@ -27,14 +50,17 @@ export function EmployeeSelect ({ value, onChange, isRequired = false }: Props) 
                  name='employeeId'
                  onChange={(event) => {
                    const { name, value } = event.target
-                   onChange(name, value, Operator.CONTAINS)
+                   const newValue = isDisbaled ? '' : value
+                   onChange(name, newValue, Operator.CONTAINS)
                  }}
                  options={employeeOptions}
                  placeholder='-- Filtre por Empleado --'
                  isHidden={true}
-                 isDisabled={false}
-                 isRequired={isRequired}
+                 isDisabled={isDisbaled}
+                 isRequired={false}
                  value={value}
+                 isError={isError}
+                 errorMessage={errorMessage}
             />
         </Suspense>
   )

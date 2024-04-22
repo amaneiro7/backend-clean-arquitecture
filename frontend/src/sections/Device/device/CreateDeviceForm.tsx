@@ -110,7 +110,8 @@ export default function CreateDeviceForm () {
         <EmployeeSelect
           onChange={handleChange}
           value={formData.employeeId}
-          isRequired={true}
+          isForm={true}
+          status={formData.statusId}
         />
 
         <Suspense>
