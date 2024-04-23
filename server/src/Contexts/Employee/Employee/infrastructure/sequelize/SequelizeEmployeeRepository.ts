@@ -70,7 +70,6 @@ export class SequelizeEmployeeRepository extends CriteriaToSequelizeConverter<Em
         ]
       })
     }
-    console.log('Infra Employee', options)
     return await EmployeeModel.findAll(options)
   }
 

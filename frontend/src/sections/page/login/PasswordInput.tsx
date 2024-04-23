@@ -21,7 +21,7 @@ const PasswordInput: FC<Props> = ({ value, onChange, isRequired = true }) => {
     const isValid = UserPassword.isValid(value)
 
     setIsError(!isValid)
-    setErrorMessage(isValid ? '' : UserPassword.invalidMessage(value))
+    setErrorMessage(isValid ? '' : UserPassword.invalidMessage())
 
     return () => {
       setErrorMessage('')

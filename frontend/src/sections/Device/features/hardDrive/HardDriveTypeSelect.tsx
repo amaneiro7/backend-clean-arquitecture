@@ -28,7 +28,6 @@ export default function HardDriveTypeSelect ({ value, hardDriveCapacity, onChang
     handleDisabled()
 
     const isValid = ComputerHDDType.isValid(value, hardDriveCapacity)
-    // setIsDisabled(hardDriveCapacity === '')
 
     setIsError(!isValid)
     setErrorMessage(isValid ? '' : ComputerHDDType.invalidMessage())

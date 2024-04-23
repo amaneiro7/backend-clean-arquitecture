@@ -1,10 +1,11 @@
-import { type FC, Suspense, lazy, useMemo } from 'react'
+import { Suspense, lazy, useMemo } from 'react'
 import { useAppContext } from '../../Context/AppContext'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
 import { type LocationId } from '../../../modules/location/locations/domain/locationId'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
 import { type StatusId } from '../../../modules/devices/devices/status/domain/StatusId'
+import { useLocation } from './useLocation'
 
 const Select = lazy(async () => await import('../../ui/Select'))
 
@@ -17,8 +18,9 @@ interface Props {
   isForm?: boolean
 }
 
-const LocationSelect: FC<Props> = ({ value, onChange, isRequired = false, typeOfSiteId, statusId }) => {
-  const { location: { locations } } = useAppContext()
+export default function LocationSelect ({ value, onChange, isRequired = false, typeOfSiteId, statusId }: Props) {
+  const { repository } = useAppContext()
+  const { locations } = useLocation(repository)
 
   const filterLocation = useMemo(() => {
     return locations.filter(location => {
@@ -47,5 +49,3 @@ const LocationSelect: FC<Props> = ({ value, onChange, isRequired = false, typeOf
         </Suspense>
   )
 }
-
-export default LocationSelect

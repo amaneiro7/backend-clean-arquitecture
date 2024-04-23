@@ -4,6 +4,7 @@ import { type Primitives } from '../../../../modules/shared/domain/value-object/
 import { useAppContext } from '../../../Context/AppContext'
 import { type CoordinacionId } from '../../../../modules/employee/area/coordinacion/domain/CoordinacionId'
 import { type GerenciaId } from '../../../../modules/employee/area/gerencia/domain/GerenciaId'
+import { useCoordinacion } from './useCoordinacion'
 
 const Select = lazy(async () => await import('../../../ui/Select'))
 
@@ -16,7 +17,8 @@ interface Props {
 }
 
 export default function CoordinacionSelect ({ value, onChange, isRequired, gerenciaId }: Props) {
-  const { coordinacion: { coordinacion } } = useAppContext()
+  const { repository } = useAppContext()
+  const { coordinacion } = useCoordinacion(repository)
 
   const coordinacionFiltered = coordinacion.filter((coordinacion) => coordinacion.gerenciaId === gerenciaId)
 

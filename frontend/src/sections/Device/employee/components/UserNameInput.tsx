@@ -4,18 +4,14 @@ import { type Primitives } from '../../../../modules/shared/domain/value-object/
 import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
 import { Operator } from '../../../../modules/shared/domain/criteria/FilterOperators'
 import { EmployeeUserName } from '../../../../modules/employee/employee/domain/UserName'
-import { type EmployeeName } from '../../../../modules/employee/employee/domain/Name'
-import { type EmployeeLastName } from '../../../../modules/employee/employee/domain/LastName'
 
 interface Props {
   value: Primitives<EmployeeUserName>
-  name: Primitives<EmployeeName>
-  lastName: Primitives<EmployeeLastName>
   onChange: OnHandleChange
   isForm?: boolean
 }
 
-export default function EmployeeUserNameInput ({ value, name, lastName, onChange, isForm = false }: Props) {
+export default function EmployeeUserNameInput ({ value, onChange, isForm = false }: Props) {
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
   const isFirstInput = useRef(true)
@@ -28,10 +24,10 @@ export default function EmployeeUserNameInput ({ value, name, lastName, onChange
       return
     }
 
-    const isValid = EmployeeUserName.isValid(value, name, lastName)
+    const isValid = EmployeeUserName.isValid(value)
 
     setIsError(!isValid)
-    setErrorMessage(isValid ? '' : EmployeeUserName.invalidMessage(value, name, lastName))
+    setErrorMessage(isValid ? '' : EmployeeUserName.invalidMessage(value))
 
     return () => {
       setErrorMessage('')

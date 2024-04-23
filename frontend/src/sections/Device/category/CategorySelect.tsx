@@ -4,6 +4,7 @@ import { type Primitives } from '../../../modules/shared/domain/value-object/Pri
 import { type CategoryId } from '../../../modules/devices/category/domain/CategoryId'
 import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
+import { useCategory } from './useCategory'
 
 const Select = lazy(async () => await import('../../ui/Select'))
 
@@ -14,7 +15,8 @@ interface Props {
 }
 
 const CategorySelect: FC<Props> = ({ value, onChange, isRequired = false }) => {
-  const { category: { categories } } = useAppContext()
+  const { repository } = useAppContext()
+  const { categories } = useCategory(repository)
 
   return (
         <Suspense>

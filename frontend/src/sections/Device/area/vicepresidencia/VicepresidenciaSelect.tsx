@@ -4,6 +4,7 @@ import { type Primitives } from '../../../../modules/shared/domain/value-object/
 import { useAppContext } from '../../../Context/AppContext'
 import { type VicepresidenciaId } from '../../../../modules/employee/area/vicepresidencia/domain/VicepresidenciaId'
 import { type VicepresidenciaEjecutivaId } from '../../../../modules/employee/area/vicepresidenciaejecutiva/domain/VicepresidenciaEjecutivaId'
+import { useVicepresidencia } from './useVicepresidencia'
 
 const Select = lazy(async () => await import('../../../ui/Select'))
 
@@ -16,7 +17,8 @@ interface Props {
 }
 
 export default function VicepresidenciaSelect ({ value, onChange, isRequired, vicepresidenciaEjecutivaId }: Props) {
-  const { vicepresidencia: { vicepresidencia } } = useAppContext()
+  const { repository } = useAppContext()
+  const { vicepresidencia } = useVicepresidencia(repository)
 
   const vicepresidenciaFiltered = vicepresidencia.filter((vicepresidencia) => vicepresidencia.vicepresidenciaEjecutivaId === vicepresidenciaEjecutivaId)
 

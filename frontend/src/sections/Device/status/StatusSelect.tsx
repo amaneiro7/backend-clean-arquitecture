@@ -1,9 +1,10 @@
-import { type FC, Suspense, lazy } from 'react'
+import { Suspense, lazy } from 'react'
 import { useAppContext } from '../../Context/AppContext'
 import { type StatusId } from '../../../modules/devices/devices/status/domain/StatusId'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
+import { useStatus } from './useStatus'
 
 const Select = lazy(async () => await import('../../ui/Select'))
 
@@ -13,8 +14,9 @@ interface Props {
   isRequired?: boolean
 }
 
-const StatusSelect: FC<Props> = ({ value, onChange, isRequired = false }) => {
-  const { status: { status } } = useAppContext()
+export default function StatusSelect ({ value, onChange, isRequired = false }: Props) {
+  const { repository } = useAppContext()
+  const { status } = useStatus(repository)
   return (
         <Suspense>
             <Select
@@ -35,5 +37,3 @@ const StatusSelect: FC<Props> = ({ value, onChange, isRequired = false }) => {
         </Suspense>
   )
 }
-
-export default StatusSelect

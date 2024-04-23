@@ -1,8 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference types="vite-plugin-svgr/client" />
-// import { ReactComponent as AddSVG } from './add.svg'
-// import { ReactComponent as EditSVG } from './edit.svg'
-// import { ReactComponent as DeleteSVG } from './delete.svg'
 import AddSVG from './add.svg?react'
 import EditSVG from './edit.svg?react'
 import DeleteSVG from './delete.svg?react'

@@ -3,6 +3,7 @@ import { type OnHandleChange } from '../../../../modules/shared/domain/types/typ
 import { type Primitives } from '../../../../modules/shared/domain/value-object/Primitives'
 import { useAppContext } from '../../../Context/AppContext'
 import { type VicepresidenciaEjecutivaId } from '../../../../modules/employee/area/vicepresidenciaejecutiva/domain/VicepresidenciaEjecutivaId'
+import { useVicepresidenciaEjecutiva } from './useVicepresidenciaEjecutiva'
 
 const Select = lazy(async () => await import('../../../ui/Select'))
 
@@ -14,7 +15,8 @@ interface Props {
 }
 
 export default function VicepresidenciaEjecutivaSelect ({ value, onChange, isRequired }: Props) {
-  const { vicepresidenciaEjecutiva: { vicepresidenciaEjecutiva } } = useAppContext()
+  const { repository } = useAppContext()
+  const { vicepresidenciaEjecutiva } = useVicepresidenciaEjecutiva(repository)
 
   return (
     <Suspense>

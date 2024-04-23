@@ -1,4 +1,3 @@
-import { type FC } from 'react'
 import HardDriveCapacitySelect from '../hardDrive/HardDriveCapacitySelect'
 import HardDriveTypeSelect from '../hardDrive/HardDriveTypeSelect'
 import HealthInput from './HealthInput'
@@ -9,7 +8,7 @@ interface Props {
   formData: HardDrivePrimitives
 }
 
-const AddHardDriveFeatures: FC<Props> = ({ formData, onChange }) => {
+export default function AddHardDriveFeatures ({ formData, onChange }: Props) {
   const isHardDriveDevice = HardDrive.isHardDriveCategory({ categoryId: formData.categoryId })
 
   return (
@@ -25,12 +24,14 @@ const AddHardDriveFeatures: FC<Props> = ({ formData, onChange }) => {
             <HardDriveCapacitySelect
               onChange={onChange}
               value={formData.hardDriveCapacityId}
-              isRequired={true}
+              isForm
+              status={formData.statusId}
             />
             <HardDriveTypeSelect
               onChange={onChange}
               value={formData.hardDriveTypeId}
-              isRequired={true}
+              isForm
+              hardDriveCapacity={formData.hardDriveCapacityId}
             />
           </div>
         </>
@@ -38,4 +39,3 @@ const AddHardDriveFeatures: FC<Props> = ({ formData, onChange }) => {
     </>
   )
 }
-export default AddHardDriveFeatures

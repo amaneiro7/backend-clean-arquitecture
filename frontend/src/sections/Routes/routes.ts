@@ -63,12 +63,6 @@ export const dropdownNavs: DropDown[] = [
         desc: 'Usuarios asignados en agencia',
         path: '/employees/agencia',
         icon: 'icon'
-      },
-      {
-        title: 'Directorio',
-        desc: 'Directorio de usuarios',
-        path: '/directorio',
-        icon: 'icon'
       }
     ]
   }

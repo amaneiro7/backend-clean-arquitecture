@@ -11,7 +11,7 @@ const Select = lazy(async () => await import('../../../ui/Select'))
 
 interface Props {
   value: Primitives<ComputerHDDCapacity>
-  status: Primitives<StatusId>
+  status?: Primitives<StatusId>
   onChange: OnHandleChange
   isForm?: boolean
 }
