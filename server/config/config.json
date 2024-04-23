@@ -18,10 +18,14 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "username": "postgress",
+    "password": "$0p0rT3*.*",
+    "database": "inventoryApp_prod",
+    "host": "localhost",
+    "dialect": "postgres",
+    "migrationStorage": "sequelize",
+    "migrationStorageTableName": "sequelize_migrations",
+    "seederStorage": "sequelize",
+    "seederStorageTableName": "sequelize_data"    
   }
 }

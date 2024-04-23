@@ -5,7 +5,7 @@ import dotenv from 'dotenv'
 const env = process.env.NODE_ENV ?? 'development'
 
 const envs: Record<string, string> = {
-  production: '.env',
+  production: '.env.prod',
   development: '.env.dev',
   e2e: '.env.e2e'
 }
