@@ -11,7 +11,7 @@ interface Props {
   isRequired?: boolean
 }
 
-const MacAddressInput: FC<Props> = ({ value, onChange, isForm = false, isRequired }) => {
+const MacAddressInput: FC<Props> = ({ value, onChange, isForm = false, isRequired = false }) => {
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
   const isFirstInput = useRef(true)

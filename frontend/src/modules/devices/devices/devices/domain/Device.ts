@@ -74,6 +74,7 @@ export class Device {
   }
 
   employeeValue (): Primitives<DeviceEmployee> {
+    console.log(this.employeeId.value)
     return this.employeeId.value
   }
 

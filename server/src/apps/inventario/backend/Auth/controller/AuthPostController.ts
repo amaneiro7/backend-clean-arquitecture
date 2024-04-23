@@ -14,7 +14,7 @@ export class AuthPostController {
       const infoUser = SendUserWithoutPassowrd(user, refreshToken)
       res
         .status(httpStatus.OK)
-        .cookie('accessToken', accessToken, { httpOnly: true, sameSite: 'lax', secure: true })
+        .cookie('accessToken', accessToken, { httpOnly: true })
         .json(infoUser)
       // res.status(httpStatus.OK).json(infoUser)
     } catch (error) {

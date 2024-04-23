@@ -11,6 +11,13 @@ export class DeviceEmployee extends AcceptedNullValueObject<Primitives<EmployeeI
     private readonly status: Primitives<StatusId>
   ) {
     super(value)
+    if (value === null || value === '') {
+      this.value = null
+    } else {
+      this.value = value
+    }
+
+    console.log(value)
 
     if (!DeviceEmployee.isValid(this.value, this.status)) {
       throw new Error(DeviceEmployee.invalidMessage())

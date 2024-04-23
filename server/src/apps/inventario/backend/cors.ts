@@ -3,7 +3,9 @@ import { type CorsOptions } from 'cors'
 const whitelist = [
   'http://localhost:3000',
   'http://localhost:9000',
-  'http://localhost:5173'
+  'http://localhost:5173',
+  'http://localhost:8070',
+  'http://srvsoporte:*'
 ]
 export const options: CorsOptions = {
   origin: (origin, callback) => {

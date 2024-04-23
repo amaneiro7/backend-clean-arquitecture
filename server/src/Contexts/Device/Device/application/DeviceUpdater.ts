@@ -152,6 +152,8 @@ export class DeviceUpdater {
     }
 
     // Guardamos los cambios en la base de datos
+    const data = deviceEntity.toPrimitives()
+    console.log(data)
     await this.repository.device.save(deviceEntity.toPrimitives())
   }
 

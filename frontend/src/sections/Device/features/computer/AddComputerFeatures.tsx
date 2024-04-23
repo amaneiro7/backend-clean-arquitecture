@@ -77,7 +77,7 @@ export default function AddComputerFeatures ({ formData, onChange }: Props) {
           <MacAddressInput
               onChange={onChange}
               value={formData.macAddress}
-              isRequired={true}
+              isRequired={false}
           />
           </div>
         </>
