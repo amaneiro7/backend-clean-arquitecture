@@ -18,7 +18,7 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "postgress",
+    "username": "postgres",
     "password": "$0p0rT3*.*",
     "database": "inventoryApp_prod",
     "host": "localhost",
