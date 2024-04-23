@@ -7,7 +7,7 @@
   "scripts": {
     "build": "tsc --build",
     "clean": "tsc --build --clean",
-    "start": "cross-env NODE_ENV=production nodemon server.ts",
+    "start": "cross-env NODE_ENV=production nodemon ./dist/src/apps/inventario/backend/start.js",
     "dev": "cross-env NODE_ENV=development nodemon ./src/apps/inventario/backend/start.ts",
     "model:generate": "sequelize-cli model:generate --name",
     "model:all": "sequelize-cli db:migrate",
