@@ -7,13 +7,14 @@
   "scripts": {
     "build": "tsc --build",
     "clean": "tsc --build --clean",
-    "start": "nodemon server.ts",
+    "start": "cross-env NODE_ENV=production nodemon server.ts",
     "dev": "cross-env NODE_ENV=development nodemon ./src/apps/inventario/backend/start.ts",
     "model:generate": "sequelize-cli model:generate --name",
     "model:all": "sequelize-cli db:migrate",
     "model:undo": "sequelize-cli db:migrate:undo",
     "model:undo:all": "sequelize-cli db:migrate:undo:all",
     "seed:all": "sequelize-cli db:seed:all",
+    "seed:prod:all": "cross-env NODE_ENV=production sequelize-cli db:seed:all",
     "seed:undo": "sequelize-cli db:seed:undo",
     "seed:undo:all": "sequelize-cli db:seed:undo:all",
     "seed:generate": "sequelize-cli seed:generate --name"
