@@ -8,7 +8,7 @@ import { Button } from '../../mui/Button'
 import { CircularProgress } from '../../mui/CircularProgress '
 import { DialogTitle } from '../../mui/DialogTitle'
 import { TextField } from '../../mui/TextField'
-import { useAppContext } from '../../Context/AppContext'
+// import { useAppContext } from '../../Context/AppContext'
 import { createFilterOptions } from '@mui/material'
 
 // interface Props {
@@ -94,7 +94,7 @@ export default function ComboBox () {
     <>
         <Autocomplete
             value={value}
-            onChange={(event, newValue) => {
+            onChange={(_, newValue) => {
               if (typeof newValue === 'string') {
                 setTimeout(() => {
                   setOpen(true)
