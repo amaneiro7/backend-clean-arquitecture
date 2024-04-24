@@ -23,5 +23,8 @@ module.exports = {
         'react/prop-types': 'off',        
         '@typescript-eslint/method-signature-style': 'off',
         '@typescript-eslint/no-non-null-assertion': 'off'
+    },
+    "include": {
+        "files": ["**/*.*"],
     }
 }
