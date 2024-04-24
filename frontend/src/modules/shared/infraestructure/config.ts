@@ -1,1 +1,1 @@
-export const API_URL = 'http://localhost:5000/api/v1/'
+export const API_URL = import.meta.env.PROD ? 'http://srvsoporte:5000/api/v1/' : 'http://localhost:5000/api/v1/'
