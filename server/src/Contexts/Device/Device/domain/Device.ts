@@ -37,19 +37,19 @@ export class Device {
     private observation: DeviceObservation
   ) {}
 
-  static create ({ serial, activo, statusId, categoryId, brandId, modelId, employeeId, locationId, observation }: Omit<DevicePrimitives, 'id'>): Device {
+  static create (params: Omit<DevicePrimitives, 'id'>): Device {
     const id = DeviceId.random().value
     return new Device(
       new DeviceId(id),
-      new DeviceSerial(serial),
-      new DeviceActivo(activo),
-      new DeviceStatus(statusId),
-      new CategoryId(categoryId),
-      new BrandId(brandId),
-      new DeviceModelSeries(modelId),
-      new DeviceEmployee(employeeId),
-      new DeviceLocation(locationId),
-      new DeviceObservation(observation)
+      new DeviceSerial(params.serial),
+      new DeviceActivo(params.activo),
+      new DeviceStatus(params.statusId),
+      new CategoryId(params.categoryId),
+      new BrandId(params.brandId),
+      new DeviceModelSeries(params.modelId),
+      new DeviceEmployee(params.employeeId, params.statusId),
+      new DeviceLocation(params.locationId),
+      new DeviceObservation(params.observation)
     )
   }
 
@@ -77,8 +77,8 @@ export class Device {
     this.brandId = new BrandId(newBrandId)
   }
 
-  updateEmployee (newEmployee: Primitives<DeviceEmployee>): void {
-    this.employeeId = new DeviceEmployee(newEmployee)
+  updateEmployee (newEmployee: Primitives<DeviceEmployee>, status: Primitives<DeviceStatus>): void {
+    this.employeeId = new DeviceEmployee(newEmployee, status)
   }
 
   updateLocation (newLocation: Primitives<DeviceLocation>): void {
@@ -98,7 +98,7 @@ export class Device {
       new CategoryId(primitives.categoryId),
       new BrandId(primitives.brandId),
       new DeviceModelSeries(primitives.modelId),
-      new DeviceEmployee(primitives.employeeId),
+      new DeviceEmployee(primitives.employeeId, primitives.statusId),
       new DeviceLocation(primitives.locationId),
       new DeviceObservation(primitives.observation)
     )

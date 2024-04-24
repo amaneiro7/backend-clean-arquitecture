@@ -48,7 +48,7 @@ export class ComputerProcessor extends AcceptedNullValueObject<Primitives<Proces
     // Verifica que el valor del procesador exista en la base de datos, si no existe lanza un error {@link EmployeeDoesNotExistError} con el valor del procesador pasado
     await ComputerProcessor.ensureProcessorExit({ repository, processor })
     // Actualiza el campo valor del procesador de la entidad {@link Device} con el nuevo valor del procesador
-    entity.updateEmployee(processor)
+    entity.updateProcessor(processor)
   }
 
   static async ensureProcessorExit ({ repository, processor }: { repository: ProcessorRepository, processor: Primitives<ComputerProcessor> }): Promise<void> {

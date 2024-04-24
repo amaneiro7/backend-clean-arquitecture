@@ -59,32 +59,28 @@ export class DeviceComputer extends Device {
     super(id, serial, activo, statusId, categoryId, brandId, modelId, employeeId, locationId, observation)
   }
 
-  static create ({
-    serial, activo, statusId, categoryId, brandId, modelId, employeeId, locationId, computerName, observation,
-    processorId, memoryRamCapacity, hardDriveCapacityId, hardDriveTypeId,
-    operatingSystemId, operatingSystemArqId, macAddress, ipAddress
-  }: Omit<DeviceComputerPrimitives, 'id'>): DeviceComputer {
+  static create (params: Omit<DeviceComputerPrimitives, 'id'>): DeviceComputer {
     const id = DeviceId.random().value
     return new DeviceComputer(
       new DeviceId(id),
-      new DeviceSerial(serial),
-      new DeviceActivo(activo),
-      new DeviceStatus(statusId),
-      new CategoryId(categoryId),
-      new BrandId(brandId),
-      new DeviceModelSeries(modelId),
-      new DeviceEmployee(employeeId),
-      new DeviceLocation(locationId),
-      new DeviceObservation(observation),
-      new ComputerName(computerName, statusId),
-      new ComputerProcessor(processorId),
-      new ComputerMemoryRamCapacity(memoryRamCapacity),
-      new ComputerHardDriveCapacity(hardDriveCapacityId),
-      new ComputerHardDriveType(hardDriveTypeId, hardDriveCapacityId),
-      new ComputerOperatingSystem(operatingSystemId, hardDriveCapacityId, statusId),
-      new ComputerOperatingSystemArq(operatingSystemArqId, operatingSystemId),
-      new MACAddress(macAddress),
-      new IPAddress(ipAddress, statusId)
+      new DeviceSerial(params.serial),
+      new DeviceActivo(params.activo),
+      new DeviceStatus(params.statusId),
+      new CategoryId(params.categoryId),
+      new BrandId(params.brandId),
+      new DeviceModelSeries(params.modelId),
+      new DeviceEmployee(params.employeeId, params.statusId),
+      new DeviceLocation(params.locationId),
+      new DeviceObservation(params.observation),
+      new ComputerName(params.computerName, params.statusId),
+      new ComputerProcessor(params.processorId),
+      new ComputerMemoryRamCapacity(params.memoryRamCapacity),
+      new ComputerHardDriveCapacity(params.hardDriveCapacityId),
+      new ComputerHardDriveType(params.hardDriveTypeId, params.hardDriveCapacityId),
+      new ComputerOperatingSystem(params.operatingSystemId, params.hardDriveCapacityId, params.statusId),
+      new ComputerOperatingSystemArq(params.operatingSystemArqId, params.operatingSystemId),
+      new MACAddress(params.macAddress),
+      new IPAddress(params.ipAddress, params.statusId)
     )
   }
 
@@ -126,7 +122,7 @@ export class DeviceComputer extends Device {
       new CategoryId(primitives.categoryId),
       new BrandId(primitives.brandId),
       new DeviceModelSeries(primitives.modelId),
-      new DeviceEmployee(primitives.employeeId),
+      new DeviceEmployee(primitives.employeeId, primitives.statusId),
       new DeviceLocation(primitives.locationId),
       new DeviceObservation(primitives.observation),
       new ComputerName(primitives.computerName, primitives.statusId),

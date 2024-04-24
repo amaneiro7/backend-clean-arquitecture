@@ -40,35 +40,22 @@ export class DeviceHardDrive extends Device {
     super(id, serial, activo, statusId, categoryId, brandId, modelId, employeeId, locationId, observation)
   }
 
-  static create ({
-    serial,
-    activo,
-    statusId,
-    categoryId,
-    brandId,
-    modelId,
-    employeeId,
-    locationId,
-    observation,
-    health,
-    hardDriveCapacityId,
-    hardDriveTypeId
-  }: Omit<DeviceHardDrivePrimitives, 'id'>): DeviceHardDrive {
+  static create (params: Omit<DeviceHardDrivePrimitives, 'id'>): DeviceHardDrive {
     const id = DeviceId.random().value
     return new DeviceHardDrive(
       new DeviceId(id),
-      new DeviceSerial(serial),
-      new DeviceActivo(activo),
-      new StatusId(statusId),
-      new CategoryId(categoryId),
-      new BrandId(brandId),
-      new ModelSeriesId(modelId),
-      new DeviceEmployee(employeeId),
-      new LocationId(locationId),
-      new DeviceObservation(observation),
-      new HardDriveHealth(health),
-      new HDDCapacity(hardDriveCapacityId),
-      new HDDType(hardDriveTypeId)
+      new DeviceSerial(params.serial),
+      new DeviceActivo(params.activo),
+      new StatusId(params.statusId),
+      new CategoryId(params.categoryId),
+      new BrandId(params.brandId),
+      new ModelSeriesId(params.modelId),
+      new DeviceEmployee(params.employeeId, params.statusId),
+      new LocationId(params.locationId),
+      new DeviceObservation(params.observation),
+      new HardDriveHealth(params.health),
+      new HDDCapacity(params.hardDriveCapacityId),
+      new HDDType(params.hardDriveTypeId)
     )
   }
 
@@ -98,7 +85,7 @@ export class DeviceHardDrive extends Device {
       new CategoryId(primitives.categoryId),
       new BrandId(primitives.brandId),
       new ModelSeriesId(primitives.modelId),
-      new DeviceEmployee(primitives.employeeId),
+      new DeviceEmployee(primitives.employeeId, primitives.statusId),
       new LocationId(primitives.locationId),
       new DeviceObservation(primitives.observation),
       new HardDriveHealth(primitives.health),

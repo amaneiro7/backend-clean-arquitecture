@@ -3,7 +3,7 @@ import { config } from '../../../../../../config/env.file'
 import { setupModels } from './SequelizeSetupModels'
 import { InitSequelizeAssociation } from './SequelizeAssociations'
 
-const { postgres: { dbUrl } } = config
+const { postgres: { dbUrl }, isProd } = config
 export const sequelize = new Sequelize(dbUrl, {
   dialect: 'postgres',
   logging: false,
@@ -25,7 +25,7 @@ export function initializeDatabase (): void {
     console.error('Unable to connect to the database:', error)
   })
 
-  sequelize.sync({ alter: true }).then(() => {
+  !isProd && sequelize.sync({ alter: true }).then(() => {
     console.log('Database and tables synced')
   }).catch((error) => {
     console.error('Error syncing database:', error)

@@ -6,13 +6,15 @@ import { type EmployeeRepository } from '../../../employee/Employee/domain/Emplo
 import { EmployeeDoesNotExistError } from '../../../Employee/Employee/domain/EmployeeDoesNotExistError'
 import { type EmployeePrimitives } from '../../../employee/Employee/domain/Employee'
 import { type Device } from './Device'
+import { DeviceStatus } from './DeviceStatus'
 
 export class DeviceEmployee extends AcceptedNullValueObject<Primitives<EmployeeId>> {
   constructor (
-    readonly value: Primitives<EmployeeId> | null
+    readonly value: Primitives<EmployeeId> | null,
+    private readonly status: Primitives<DeviceStatus>
   ) {
     super(value)
-    // this.nullIsCargoisHigherThanCoordinador(cargoId)
+    this.ensureIfStatusIsNotInUseEmployeeMustBeNull({ employee: this.value, status: this.status })
     this.ensureIsValidEmployeeId(value)
   }
 
@@ -36,6 +38,12 @@ export class DeviceEmployee extends AcceptedNullValueObject<Primitives<EmployeeI
     return false
   }
 
+  ensureIfStatusIsNotInUseEmployeeMustBeNull ({ employee, status }: { employee: Primitives<EmployeeId> | null, status: Primitives<DeviceStatus> }): void {
+    if (status !== DeviceStatus.StatusOptions.INUSE && employee !== null) {
+      throw new InvalidArgumentError('The device cannot have an employee if it is not in use')
+    }
+  }
+
   static async updateEmployeeField ({ repository, employee, entity }: { repository: EmployeeRepository, employee?: Primitives<DeviceEmployee>, entity: Device }): Promise<void> {
     // Si no se ha pasado un nuevo empleado no realiza ninguna acción
     if (employee === undefined) {
@@ -48,8 +56,8 @@ export class DeviceEmployee extends AcceptedNullValueObject<Primitives<EmployeeI
     // Verifica que el empleado exista en la base de datos, si no existe lanza un error {@link EmployeeDoesNotExistError} con el empleado pasado
     await DeviceEmployee.ensureEmployeeExit({ repository, employee })
     // Actualiza el campo empleado de la entidad {@link Device} con el nuevo empleado
-    console.log('DeviceEmploye', employee)
-    entity.updateEmployee(employee)
+    const status = entity.statusValue
+    entity.updateEmployee(employee, status)
   }
 
   static async ensureEmployeeExit ({ repository, employee }: { repository: EmployeeRepository, employee: Primitives<DeviceEmployee> }): Promise<void> {
