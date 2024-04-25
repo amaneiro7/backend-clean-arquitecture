@@ -7,7 +7,7 @@ export const useGenericFormData = <T>(
     updateForm: (value: Partial<T>) => void
     resetForm: () => void
   } => {
-  const [formData, setFormData] = useState(initialState)
+  const [formData, setFormData] = useState(initialState)  
 
   const updateForm = (value: Partial<typeof initialState>) => {
     setFormData(oldState => {

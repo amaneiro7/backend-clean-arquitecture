@@ -7,7 +7,7 @@ import ObservationInput from './components/ObservationInput'
 import LocationSelect from '../location/LocationSelect'
 import { EmployeeSelect } from '../employee/components/EmployeeSelect'
 import ComboBox from '../../components/combo_box/combo_box'
-import EmployeeComboBox from '../../components/combo_box/EmployeeComboBox'
+import EmployeeComboBox from '../employee/components/EmployeeComboBox'
 
 const CategorySelect = lazy(async () => await import('../category/CategorySelect'))
 const BrandSelect = lazy(async () => await import('../brand/BrandSelect'))
@@ -107,12 +107,12 @@ export default function CreateDeviceForm () {
           />
         </Suspense>
 
-        <EmployeeSelect
+        {/* <EmployeeSelect
           onChange={handleChange}
           value={formData.employeeId}
           isForm={true}
           status={formData.statusId}
-        />
+        /> */}
         <EmployeeComboBox
           onChange={handleChange}
           isForm={true}

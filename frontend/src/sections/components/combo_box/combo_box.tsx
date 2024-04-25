@@ -1,7 +1,10 @@
-import { PropsWithChildren, useState } from 'react'
-import { Autocomplete, AutocompleteProps, createFilterOptions } from '../../mui/Autocomplete'
+import React, { PropsWithChildren, useState } from 'react'
+import { Autocomplete, AutocompleteProps } from '../../mui/Autocomplete'
 import { TextField } from '../../mui/TextField'
 import { CircularProgress } from '../../mui/CircularProgress '
+import { createFilterOptions } from '@mui/material'
+import parse from 'autosuggest-highlight/parse';
+import match from 'autosuggest-highlight/match';
 
 
 interface Props {
@@ -20,13 +23,13 @@ interface Props {
 }
 
 interface Options {
+  inputValue?: string
   id: string
   name: string
 
 }
 
 const filter = createFilterOptions()
-
 export default function ComboBox ({ 
   id,
   name,
@@ -40,31 +43,8 @@ export default function ComboBox ({
   errorMessage,
   children
 }: PropsWithChildren<Props>) {
-  const [open, setOpen] = useState(false)   
+  // const [open, setOpen] = useState(false)
   const [value, setValue] = useState(null)
-  const [dialogValue, setDialogValue] = useState({
-    title: '',
-    year: ''
-  })
-
-
-  const handleClose = () => {
-    setDialogValue({
-      title: '',
-      year: ''
-    })
-    toggleDialogOpen(false)
-  }
-
-
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    setValue({
-      title: dialogValue.title,
-      year: parseInt(dialogValue.year, 10)
-    })
-    handleClose()
-  }
 
   return (
     <>         
@@ -75,23 +55,43 @@ export default function ComboBox ({
           setValue(value)
           onChange(event, newValue, reason, details)          
         }}
+        filterOptions={(options, params) => {
+          const filtered = filter(options, params)
+          if (params.inputValue !== '') {
+            filtered.push({
+              inputValue: params.inputValue,
+              name: `Add "${params.inputValue}"`,
+            })
+          }
+          return filtered
+        }}
         fullWidth
         disabled={isDisabled}
         size='small'
-        open={open}
-        onOpen={() => { setOpen(true) }}
-        onClose={() => { setOpen(false) }}
+        // open={open}
+        // onOpen={() => { setOpen(true) }}
+        // onClose={() => { setOpen(false) }}
         isOptionEqualToValue={(option, value) => option.name === value.name}
-        getOptionLabel={(option) => option.name}
+        getOptionLabel={(option) => {
+          if (typeof option === 'string') {
+            return option
+          }
+          if (option.inputValue) {
+            return option.inputValue
+          }
+          return option.name
+        }}
         options={options}
         loading={loading}
         selectOnFocus
+        autoHighlight
         clearOnBlur
         handleHomeEndKeys
         renderInput={(params) => (
           <TextField
             {...params}
             label={label}
+            name={name}
             required={isRequired}
             InputProps={{
               ...params.InputProps,
@@ -107,8 +107,37 @@ export default function ComboBox ({
             helperText={errorMessage}
           />
         )}
+        renderOption={(props, option, { inputValue }) => {
+          const matches = match(option.name, inputValue, { insideWords: true });
+          const parts: ParseType[] = parse(option.name, matches)
+          return <RenderOption parts={parts} props={props} />;
+        }}
       />
       {children}
     </>
+  )
+}
+
+interface ParseType {
+  text: string
+  highlight: boolean
+}
+
+function RenderOption ({parts, props}: {parts: ParseType[], props: React.HTMLAttributes<HTMLLIElement>}) {
+  return(    
+    <li {...props}>
+      <div>
+        {parts.map((part, index) => (
+          <span
+            key={`${part.text}-${index}`}
+            style={{
+              fontWeight: part.highlight ? 700 : 400,
+            }}
+          >
+            {part.text}
+          </span>
+        ))}
+      </div>
+    </li>    
   )
 }

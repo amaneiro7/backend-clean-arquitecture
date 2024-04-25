@@ -20,6 +20,7 @@ import Main from '../../components/Main'
 
 const Button = lazy(async () => await import('../../ui/button'))
 const BrandSelect = lazy(async () => await import('../../Device/brand/BrandSelect'))
+const EmployeeComboBox = lazy(async () => await import('../../Device/employee/components/EmployeeComboBox'))
 const CategorySelect = lazy(async () => await import('../../Device/category/CategorySelect'))
 const SerialInput = lazy(async () => await import('../../Device/device/components/SerialInput'))
 const ActivoInput = lazy(async () => await import('../../Device/device/components/ActivoInput'))
@@ -86,6 +87,12 @@ export default function AdministrativeSitePage () {
         />
       </Suspense>
       <header className="grid grid-cols-[repeat(auto-fit,_250px)] gap-5 place-content-center">
+        <Suspense>
+          <EmployeeComboBox    
+            value={inputData.employeeId}            
+            onChange={handleChange}
+          />
+        </Suspense>
         <Suspense>
           <CategorySelect
             value={inputData.categoryId}

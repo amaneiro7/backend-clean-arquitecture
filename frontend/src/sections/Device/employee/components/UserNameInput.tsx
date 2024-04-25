@@ -40,7 +40,7 @@ export default function EmployeeUserNameInput ({ value, onChange, isForm = false
       isRequired={isForm}
       name="userName"
       type="text"
-      label='Usuario'
+      label='Nombre de Usuario'
       placeholder='-- Ingrese el usuario'
       handle={(event) => {
         const { name, value } = event.target
