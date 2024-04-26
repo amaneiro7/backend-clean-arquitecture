@@ -24,9 +24,6 @@ interface Props {
 export default function BrandComboBox ({ value, onChange, categoryId, type = 'search' }: Props) {
     const { repository } = useAppContext()
     const { brands, loading } = useBrand(repository)  
-    const [errorMessage, setErrorMessage] = useState('')
-    const [isError, setIsError] = useState(false)
-    const [isDisbaled, setIsDisbled] = useState(false)
     const [open, toggleOpen] = useState(false)
     const [dialogValue, setDialogValue] = useState<BrandPrimitives>({name: ''});
 
@@ -40,24 +37,6 @@ export default function BrandComboBox ({ value, onChange, categoryId, type = 'se
             model.categoryId === categoryId)
         )
       }, [brands, categoryId])
-
-    useEffect(() => {
-        if (type !== 'form') return;
-
-        if (value === undefined) return
-        
-    
-        const isValid = DeviceEmployee.isValid(value, status)
-        setIsDisbled(StatusId.StatusOptions.INUSE !== status)
-    
-        setIsError(!isValid)
-        setErrorMessage(isValid ? '' : DeviceEmployee.invalidMessage())
-    
-        return () => {
-          setErrorMessage('')
-          setIsError(false)
-        }
-      }, [value, status])
   
     return (
         <Suspense>
@@ -85,11 +64,10 @@ export default function BrandComboBox ({ value, onChange, categoryId, type = 'se
                     }
                 }}
                 options={filterdBrand as BrandApiResponse[]}
-                isDisabled={isDisbaled}
-                isRequired={false}
-                isError={isError}
+                isDisabled={false}
+                isRequired={false}                
                 loading={loading}
-                errorMessage={errorMessage}
+                
             >
             {type === 'form' && (
                 <Suspense>

@@ -5,15 +5,19 @@ import { useGenericFormData } from '../../Hooks/useGenericFormData'
 import { FormContainer } from '../../components/formContainer'
 import { InputSkeletonLoading } from '../../components/Loading/inputSkeletonLoading'
 
-const CategorySelect = lazy(async () => await import('../../components/Select/CategorySelect'))
-const BrandSelect = lazy(async () => await import('../../components/Select/BrandSelect'))
+// const CategorySelect = lazy(async () => await import('../../components/Select/CategorySelect'))
+// const BrandSelect = lazy(async () => await import('../../components/Select/BrandSelect'))
 const SerialInput = lazy(async () => await import('./components/SerialInput'))
 const ActivoInput = lazy(async () => await import('./components/ActivoInput'))
 const StatusSelect = lazy(async () => await import('../status/StatusSelect'))
-const ModelSelect = lazy(async () => await import('../../components/Select/ModelSelect'))
+// const ModelSelect = lazy(async () => await import('../../components/Select/ModelSelect'))
 const ObservationInput = lazy(async () => await import('./components/ObservationInput'))
-const LocationSelect = lazy(async () => await import('../../components/Select/LocationSelect'))
+// const LocationSelect = lazy(async () => await import('../../components/Select/LocationSelect'))
 const EmployeeComboBox = lazy(async () => await import('../../components/combo_box/EmployeeComboBox'))
+const BrandComboBox = lazy(async () => await import('../../components/combo_box/BrandComboBox'))
+const CategoryComboBox = lazy(async () => await import('../../components/combo_box/CategoryComboBox'))
+const LocationComboBox = lazy(async () => await import('../../components/combo_box/LocationComboBox'))
+const ModelComboBox = lazy(async () => await import('../../components/combo_box/ModelComboBox'))
 const DeviceFeatures = lazy(async () => await import('./components/DeviceFeatures'))
 
 export default function CreateDeviceForm () {
@@ -59,18 +63,18 @@ export default function CreateDeviceForm () {
           isDisabled={formStatus === FormStatus.Loading}
       >
         <Suspense fallback={<InputSkeletonLoading />}>
-          <CategorySelect
+          <CategoryComboBox
             value={formData.categoryId}
             onChange={handleChange}
-            isRequired={true}
+            type='form'
           />
         </Suspense>
         <Suspense fallback={<InputSkeletonLoading />}>
-          <BrandSelect
+          <BrandComboBox
             value={formData.brandId}
             onChange={handleChange}
             categoryId={formData.categoryId}
-            isRequired={true}
+            type='form'
           />
         </Suspense>
         <div className='flex gap-4'>
@@ -97,12 +101,12 @@ export default function CreateDeviceForm () {
             />
           </Suspense>
         <Suspense fallback={<InputSkeletonLoading />}>
-          <ModelSelect
+          <ModelComboBox
             value={formData.modelId}
             onChange={handleChange}
             categoryId={formData.categoryId}
             brandId={formData.brandId}
-            isRequired={true}
+            type='form'
           />
         </Suspense>
         <Suspense fallback={<InputSkeletonLoading />}>
@@ -120,12 +124,11 @@ export default function CreateDeviceForm () {
             onChange={handleChange}
           />
         </Suspense>
-        <LocationSelect
+        <LocationComboBox
           onChange={handleChange}
           value={formData.locationId}
-          isRequired={true}
-          isForm={true}
           statusId={formData.statusId}
+          type='form'
         />
         <ObservationInput onChange={handleChange} value={formData.observation}/>
       </FormContainer>

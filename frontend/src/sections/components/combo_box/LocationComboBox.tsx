@@ -37,9 +37,9 @@ export default function LocationComboBox ({ value, statusId, typeOfSiteId, onCha
     return (
         <Suspense>
             <ComboBox
-                id='brandId'
-                label="Marca"
-                name='brandId'
+                id='locationId'
+                label="Ubicación"
+                name='locationId'
                 type={type}
                 onChange={(_, newValue) => {
                     // if (typeof newValue === 'string') {
