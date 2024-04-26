@@ -3,10 +3,10 @@ import { useDeviceForm, FormStatus } from './useDeviceForm'
 import { useDeviceInitialState } from './DeviceFormInitialState'
 import { useGenericFormData } from '../../Hooks/useGenericFormData'
 import { FormContainer } from '../../components/formContainer'
-import { InputLoading } from '../../components/Loading/inputLoading'
+import { InputSkeletonLoading } from '../../components/Loading/inputSkeletonLoading'
 
 const CategorySelect = lazy(async () => await import('../category/CategorySelect'))
-const BrandSelect = lazy(async () => await import('../brand/BrandSelect'))
+const BrandSelect = lazy(async () => await import('../../components/Select/BrandSelect'))
 const SerialInput = lazy(async () => await import('./components/SerialInput'))
 const ActivoInput = lazy(async () => await import('./components/ActivoInput'))
 const StatusSelect = lazy(async () => await import('../status/StatusSelect'))
@@ -58,14 +58,14 @@ export default function CreateDeviceForm () {
           handleClose={handleClose}
           isDisabled={formStatus === FormStatus.Loading}
       >
-        <Suspense fallback={<InputLoading />}>
+        <Suspense fallback={<InputSkeletonLoading />}>
           <CategorySelect
             value={formData.categoryId}
             onChange={handleChange}
             isRequired={true}
           />
         </Suspense>
-        <Suspense fallback={<InputLoading />}>
+        <Suspense fallback={<InputSkeletonLoading />}>
           <BrandSelect
             value={formData.brandId}
             onChange={handleChange}
@@ -74,14 +74,14 @@ export default function CreateDeviceForm () {
           />
         </Suspense>
         <div className='flex gap-4'>
-          <Suspense fallback={<InputLoading />}>
+          <Suspense fallback={<InputSkeletonLoading />}>
             <SerialInput
                 value={formData.serial}
                 onChange={handleChange}
                 isForm={true}
             />
           </Suspense>
-          <Suspense fallback={<InputLoading />}>
+          <Suspense fallback={<InputSkeletonLoading />}>
             <ActivoInput
                 value={formData.activo}
                 onChange={handleChange}
@@ -89,14 +89,14 @@ export default function CreateDeviceForm () {
               />
           </Suspense>
         </div>
-        <Suspense fallback={<InputLoading />}>
+        <Suspense fallback={<InputSkeletonLoading />}>
           <StatusSelect
               value={formData.statusId}
               onChange={handleChange}
               isRequired={true}
             />
           </Suspense>
-        <Suspense fallback={<InputLoading />}>
+        <Suspense fallback={<InputSkeletonLoading />}>
           <ModelSelect
             value={formData.modelId}
             onChange={handleChange}
@@ -105,7 +105,7 @@ export default function CreateDeviceForm () {
             isRequired={true}
           />
         </Suspense>
-        <Suspense fallback={<InputLoading />}>
+        <Suspense fallback={<InputSkeletonLoading />}>
           <EmployeeComboBox
             onChange={handleChange}
             type='form'
@@ -114,7 +114,7 @@ export default function CreateDeviceForm () {
           />
         </Suspense>
 
-        <Suspense fallback={<InputLoading />}>
+        <Suspense fallback={<InputSkeletonLoading />}>
           <DeviceFeatures
             formData={formData}
             onChange={handleChange}

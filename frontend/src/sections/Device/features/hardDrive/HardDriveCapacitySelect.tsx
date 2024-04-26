@@ -7,7 +7,7 @@ import { type OnHandleChange } from '../../../../modules/shared/domain/types/typ
 import { ComputerHDDCapacity } from '../../../../modules/devices/fetures/computer/domain/ComputerHHDCapacity'
 import { type StatusId } from '../../../../modules/devices/devices/status/domain/StatusId'
 
-const Select = lazy(async () => await import('../../../ui/Select'))
+const Select = lazy(async () => await import('../../../components/Select/Select'))
 
 interface Props {
   value: Primitives<ComputerHDDCapacity>

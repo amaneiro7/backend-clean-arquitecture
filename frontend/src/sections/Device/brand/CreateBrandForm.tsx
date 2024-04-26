@@ -2,7 +2,7 @@ import { type FormEvent, useEffect } from 'react'
 import { useGenericFormData } from '../../Hooks/useGenericFormData'
 import { FormContainer } from '../../components/formContainer'
 import { FormStatus, useBrandForm } from './useBrandForm'
-import BrandNameInput from './BrandNameInput'
+import BrandNameInput from '../../components/text-inputs/BrandNameInput'
 import { useBrandInitialState } from './BrandFormInitialState'
 
 const initialState = {

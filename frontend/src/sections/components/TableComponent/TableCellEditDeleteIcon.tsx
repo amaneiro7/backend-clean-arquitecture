@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { EditIcon } from '../../ui/icon/EditIcon'
-import { DeleteIcon } from '../../ui/icon/DeleIcon'
+// import { DeleteIcon } from '../../ui/icon/DeleIcon'
 
 export default function TableCellEditDeleteIcon ({ state, url }: { state: any, url: string }) {
   return (
@@ -11,9 +11,9 @@ export default function TableCellEditDeleteIcon ({ state, url }: { state: any, u
       >
         <EditIcon />
       </Link>
-      <a href='#'>
+      {/* <a href='#'>
         <DeleteIcon />
-      </a>
+      </a> */}
     </td>
   )
 }

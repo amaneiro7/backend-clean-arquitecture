@@ -66,8 +66,7 @@ export default function EmployeeComboBox ({ value, onChange, status, type = 'sea
                 setDialogValue({
                   userName: newValue.inputValue
                 });
-              } else {              
-                console.log('newValue', newValue) 
+              } else {
                 onChange('employeeId', newValue ? newValue.id : '', Operator.EQUAL)
               }
             }}

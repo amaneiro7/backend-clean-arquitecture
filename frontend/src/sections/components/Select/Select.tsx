@@ -1,8 +1,8 @@
-import { type SelectChangeEvent, Select as SelectMui } from '../mui/Select'
-import { InputLabel as InputLabelMui } from '../mui/InputLabel'
-import { MenuItem as MenuItemMui } from '../mui/MenuItem'
-import { FormHelperText } from '../mui/FormHelperText'
-import { FormControl } from '../mui/FormControl'
+import { type SelectChangeEvent, Select as SelectMui } from '../../mui/Select'
+import { InputLabel as InputLabelMui } from '../../mui/InputLabel'
+import { MenuItem as MenuItemMui } from '../../mui/MenuItem'
+import { FormHelperText } from '../../mui/FormHelperText'
+import { FormControl } from '../../mui/FormControl'
 
 interface Props {
   name: string

@@ -7,7 +7,7 @@ import { ComputerOs } from '../../../../modules/devices/fetures/computer/domain/
 import { StatusId } from '../../../../modules/devices/devices/status/domain/StatusId'
 import { type ComputerHDDCapacity } from '../../../../modules/devices/fetures/computer/domain/ComputerHHDCapacity'
 
-const Select = lazy(async () => await import('../../../ui/Select'))
+const Select = lazy(async () => await import('../../../components/Select/Select'))
 
 interface Props {
   value: Primitives<ComputerOs>

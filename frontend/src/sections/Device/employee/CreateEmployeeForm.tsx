@@ -4,7 +4,7 @@ import { useGenericFormData } from '../../Hooks/useGenericFormData'
 import { FormStatus, useEmployeeForm } from './useEmployeeForm'
 import { type FormEvent, Suspense, useEffect } from 'react'
 import { FormContainer } from '../../components/formContainer'
-import EmployeeUserNameInput from './components/UserNameInput'
+import EmployeeUserNameInput from '../../components/text-inputs/UserNameInput'
 
 export default function CreateEmployeeForm () {
   const navigate = useNavigate()

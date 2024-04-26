@@ -5,7 +5,7 @@ import { useAppContext } from '../../../Context/AppContext'
 import { type VicepresidenciaEjecutivaId } from '../../../../modules/employee/area/vicepresidenciaejecutiva/domain/VicepresidenciaEjecutivaId'
 import { useVicepresidenciaEjecutiva } from './useVicepresidenciaEjecutiva'
 
-const Select = lazy(async () => await import('../../../ui/Select'))
+const Select = lazy(async () => await import('../../../components/Select/Select'))
 
 interface Props {
   value: Primitives<VicepresidenciaEjecutivaId>

@@ -8,7 +8,7 @@ import { useEmployee } from '../useEmployee'
 import { StatusId } from '../../../../modules/devices/devices/status/domain/StatusId'
 import { DeviceEmployee } from '../../../../modules/devices/devices/devices/domain/DeviceEmployee'
 
-const Select = lazy(async () => await import('../../../ui/Select'))
+const Select = lazy(async () => await import('../../../components/Select/Select'))
 
 interface Props {
   value: Primitives<DeviceEmployee>

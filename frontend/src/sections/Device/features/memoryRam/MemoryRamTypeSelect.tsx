@@ -5,7 +5,7 @@ import { type Primitives } from '../../../../modules/shared/domain/value-object/
 import { type MemoryRamTypeId } from '../../../../modules/devices/fetures/memoryRam/memoryRamType/domain/MemoryRamTypeId'
 import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
 
-const Select = lazy(async () => await import('../../../ui/Select'))
+const Select = lazy(async () => await import('../../../components/Select/Select'))
 
 interface Props {
   value: Primitives<MemoryRamTypeId>

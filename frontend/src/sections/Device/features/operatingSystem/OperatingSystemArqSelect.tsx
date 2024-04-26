@@ -6,7 +6,7 @@ import { type Primitives } from '../../../../modules/shared/domain/value-object/
 import { ComputerOsArq } from '../../../../modules/devices/fetures/computer/domain/ComputerOSArq'
 import { type ComputerOs } from '../../../../modules/devices/fetures/computer/domain/ComputerOS'
 
-const Select = lazy(async () => await import('../../../ui/Select'))
+const Select = lazy(async () => await import('../../../components/Select/Select'))
 
 interface Props {
   value: Primitives<ComputerOsArq>

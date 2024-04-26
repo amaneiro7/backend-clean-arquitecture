@@ -6,7 +6,7 @@ import { type CoordinacionId } from '../../../../modules/employee/area/coordinac
 import { type GerenciaId } from '../../../../modules/employee/area/gerencia/domain/GerenciaId'
 import { useCoordinacion } from './useCoordinacion'
 
-const Select = lazy(async () => await import('../../../ui/Select'))
+const Select = lazy(async () => await import('../../../components/Select/Select'))
 
 interface Props {
   value: Primitives<CoordinacionId>

@@ -1,15 +1,18 @@
-import { useEffect, useRef, useState, type FC } from 'react'
-import FormInput from '../../ui/text-field'
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import { BrandName } from '../../../modules/devices/brand/domain/BrandName'
 import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
+import { InputSkeletonLoading } from '../Loading/inputSkeletonLoading'
 
 interface Props {
   value: Primitives<BrandName>
   onChange: OnHandleChange
+  type?: 'form' | 'search' | 'dialog'
 }
 
-const BrandNameInput: FC<Props> = ({ value, onChange }) => {
+const FormInput = lazy(async () => import('../../ui/text-field'))
+
+export default function BrandNameInput ({ value, onChange }: Props) {
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
   const isFirstInput = useRef(true)
@@ -30,21 +33,21 @@ const BrandNameInput: FC<Props> = ({ value, onChange }) => {
     }
   }, [value])
   return (
-  <FormInput
-      id='name'
-      name="name"
-      type="text"
-      label='Name'
-      placeholder='-- Ingrese el Nombre de la Marca'
-      handle={(event) => {
-        const { name, value } = event.target
-        onChange(name, value)
-      }}
-      value={value}
-      isError={isError}
-      errorMessage={errorMessage}
-  />
+    <Suspense fallback={<InputSkeletonLoading/>}>
+      <FormInput
+          id='name'
+          name="name"
+          type="text"
+          label='Name'
+          placeholder='-- Ingrese el Nombre de la Marca --'
+          handle={(event) => {
+            const { name, value } = event.target
+            onChange(name, value)
+          }}
+          value={value}
+          isError={isError}
+          errorMessage={errorMessage}
+      />
+    </Suspense>
   )
 }
-
-export default BrandNameInput

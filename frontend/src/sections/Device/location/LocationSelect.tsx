@@ -7,7 +7,7 @@ import { Operator } from '../../../modules/shared/domain/criteria/FilterOperator
 import { type StatusId } from '../../../modules/devices/devices/status/domain/StatusId'
 import { useLocation } from './useLocation'
 
-const Select = lazy(async () => await import('../../ui/Select'))
+const Select = lazy(async () => await import('../../components/Select/Select'))
 
 interface Props {
   value: Primitives<LocationId>

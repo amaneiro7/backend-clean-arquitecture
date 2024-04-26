@@ -1,19 +1,19 @@
 import { useEffect } from "react";
 import DialogAdd from "./dialog";
 import { useGenericFormData } from "../../Hooks/useGenericFormData";
-import { FormStatus, useEmployeeForm } from "../../Device/employee/useEmployeeForm";
-import EmployeeUserNameInput from "../text-inputs/UserNameInput";
-import { EmployeePrimitives } from "../../../modules/employee/employee/domain/Employee";
+import { BrandPrimitives } from "../../../modules/devices/brand/domain/Brand";
+import { FormStatus, useBrandForm } from "../../Device/brand/useBrandForm";
+import BrandNameInput from "../text-inputs/BrandNameInput";
 
 interface Props {
-    dialogValue: EmployeePrimitives
+    dialogValue: BrandPrimitives
     open: boolean,
     toggleOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function EmployeeDialog ({ dialogValue, open, toggleOpen }: Props) {    
+export default function BrandDialog ({ dialogValue, open, toggleOpen }: Props) {    
     const { formData, resetForm, updateForm } = useGenericFormData(dialogValue)
-    const { formStatus, resetFormStatus, submitForm } = useEmployeeForm()    
+    const { formStatus, resetFormStatus, submitForm } = useBrandForm()    
   
     useEffect(() => {
       updateForm(dialogValue)
@@ -43,15 +43,15 @@ export default function EmployeeDialog ({ dialogValue, open, toggleOpen }: Props
 
     return (
         <DialogAdd 
-            title="Agregar un nuevo Usuario"
-            contextText="¿No existe el usuario en la lista? Por favor, añada uno nuevo."
+            title="Agregar una nueva marca"
+            contextText="¿No existe la marca en la lista? Por favor, añada uno nuevo."
             open={open}
             toggleOpen={toggleOpen}            
             handleSubmit={handleSubmit}
             resetForm={resetForm}            
         >
-            <EmployeeUserNameInput
-                value={formData.userName}
+            <BrandNameInput
+                value={formData.name}
                 type="dialog"
                 onChange={handleChange}
             />

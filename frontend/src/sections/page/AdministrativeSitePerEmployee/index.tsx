@@ -18,7 +18,7 @@ import TableRow from '../../components/TableComponent/TableRow'
 import Main from '../../components/Main'
 
 const Button = lazy(async () => await import('../../ui/button'))
-const BrandSelect = lazy(async () => await import('../../Device/brand/BrandSelect'))
+const BrandSelect = lazy(async () => await import('../../components/Select/BrandSelect'))
 const CategorySelect = lazy(async () => await import('../../Device/category/CategorySelect'))
 const SerialInput = lazy(async () => await import('../../Device/device/components/SerialInput'))
 const ActivoInput = lazy(async () => await import('../../Device/device/components/ActivoInput'))

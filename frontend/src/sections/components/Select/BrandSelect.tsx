@@ -3,7 +3,7 @@ import { useAppContext } from '../../Context/AppContext'
 import { Link } from 'react-router-dom'
 import { AddIcon } from '../../ui/icon/AddIcon'
 import { EditIcon } from '../../ui/icon/EditIcon'
-import { useBrand } from './useBrand'
+import { useBrand } from '../../Device/brand/useBrand'
 import { type BrandApiResponse } from '../../../modules/shared/domain/types/responseTypes'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { type BrandId } from '../../../modules/devices/brand/domain/BrandId'
@@ -11,7 +11,7 @@ import { type CategoryId } from '../../../modules/devices/category/domain/Catego
 import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
 
-const Select = lazy(async () => await import('../../ui/Select'))
+const Select = lazy(async () => await import('./Select'))
 
 interface Props {
   value: Primitives<BrandId>

@@ -6,7 +6,7 @@ import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
 import { useStatus } from './useStatus'
 
-const Select = lazy(async () => await import('../../ui/Select'))
+const Select = lazy(async () => await import('../../components/Select/Select'))
 
 interface Props {
   value: Primitives<StatusId>

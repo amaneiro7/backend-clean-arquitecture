@@ -18,10 +18,12 @@ import TableCell from '../../components/TableComponent/TableCell'
 import TableHeader from '../../components/TableComponent/TableHeader'
 import TableRow from '../../components/TableComponent/TableRow'
 import TableCellEditDeleteIcon from '../../components/TableComponent/TableCellEditDeleteIcon'
-import { InputLoading } from '../../components/Loading/inputLoading'
+import { InputSkeletonLoading } from '../../components/Loading/inputSkeletonLoading'
+import { SpinnerSKCircle } from '../../components/Loading/spinner-sk-circle'
+import { StatusId } from '../../../modules/devices/devices/status/domain/StatusId'
 
 const Button = lazy(async () => await import('../../ui/button'))
-const BrandSelect = lazy(async () => await import('../../Device/brand/BrandSelect'))
+const BrandComboBox = lazy(async () => await import('../../components/combo_box/BrandComboBox'))
 const EmployeeComboBox = lazy(async () => await import('../../components/combo_box/EmployeeComboBox'))
 const CategorySelect = lazy(async () => await import('../../Device/category/CategorySelect'))
 const SerialInput = lazy(async () => await import('../../Device/device/components/SerialInput'))
@@ -80,49 +82,39 @@ export default function AdministrativeSitePage () {
   return (
     <Main>
       <PageTitle title='Equipos de Torre' />
-      <Suspense fallback={<InputLoading />}>
-        <Button
-          type='button'
-          text='Agregar un nuevo item'
-          actionType='ACTION'
-          handle={() => { navigate('/device/add') }}
-        />
-      </Suspense>
-      <header className="grid grid-cols-[repeat(auto-fit,_250px)] gap-5 place-content-center">
-        <InputLoading/>
-        <Suspense fallback={<InputLoading />}>
+      <header className="grid grid-cols-[repeat(auto-fit,_250px)] gap-5 place-content-center">        
+        <Suspense fallback={<InputSkeletonLoading />}>
           <EmployeeComboBox    
             value={inputData.employeeId}            
             onChange={handleChange}
           />
         </Suspense>
-        <Suspense fallback={<InputLoading />}>
+        <Suspense fallback={<InputSkeletonLoading />}>
           <CategorySelect
             value={inputData.categoryId}
             onChange={handleChange}
           />
         </Suspense>
-        <Suspense fallback={<InputLoading />}>
-          <BrandSelect
+        <Suspense fallback={<InputSkeletonLoading />}>
+          <BrandComboBox
             value={inputData.brandId}
             categoryId={inputData.categoryId}
             onChange={handleChange}
-            isForm={false}
           />
         </Suspense>
-        <Suspense fallback={<InputLoading />}>
+        <Suspense fallback={<InputSkeletonLoading />}>
           <SerialInput
             value={inputData.serial}
             onChange={handleChange}
           />
         </Suspense>
-        <Suspense fallback={<InputLoading />}>
+        <Suspense fallback={<InputSkeletonLoading />}>
           <ActivoInput
             value={inputData.activo}
             onChange={handleChange}
           />
         </Suspense>
-        <Suspense fallback={<InputLoading />}>
+        <Suspense fallback={<InputSkeletonLoading />}>
           <ModelSelect
             value={inputData.modelId}
             brandId={inputData.brandId}
@@ -131,16 +123,16 @@ export default function AdministrativeSitePage () {
             isForm={false}
           />
         </Suspense>
-        <Suspense fallback={<InputLoading />}>
+        <Suspense fallback={<InputSkeletonLoading />}>
           <LocationSelect
             value={inputData.locationId}
             typeOfSiteId={'1'} // Modificarlo para que no sea un magic string
-            statusId={'1'} // Modificarlo para que no sea un magic string
+            statusId={StatusId.StatusOptions.INUSE} // Modificarlo para que no sea un magic string
             onChange={handleChange}
             isForm={false}
           />
         </Suspense>
-        <Suspense fallback={<InputLoading />}>
+        <Suspense fallback={<InputSkeletonLoading />}>
           <Button
             actionType='CANCEL'
             type='button'
@@ -148,8 +140,16 @@ export default function AdministrativeSitePage () {
             handle={handleClear}
           />
         </Suspense>
+        <Suspense fallback={<InputSkeletonLoading />}>
+          <Button
+            type='button'
+            text='Agregar un nuevo item'
+            actionType='ACTION'
+            handle={() => { navigate('/device/add') }}
+          />
+        </Suspense>
       </header>
-      {loading && <p>...Loading</p>}
+      {loading && <SpinnerSKCircle/>}
       {(!loading && devices.length === 0) && <p>No hay resultados</p>}
       {(!loading && devices.length > 0) && <Suspense fallback={<p>...Loading</p>}>
         <Table className=''>

@@ -5,7 +5,7 @@ import { type Primitives } from '../../../modules/shared/domain/value-object/Pri
 import { useAppContext } from '../../Context/AppContext'
 import { useCargo } from './useCargo'
 
-const Select = lazy(async () => await import('../../ui/Select'))
+const Select = lazy(async () => await import('../../components/Select/Select'))
 
 interface Props {
   value: Primitives<CargoId>
