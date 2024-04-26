@@ -52,7 +52,7 @@ export default function CreateEmployeeForm () {
       <Suspense>
         <EmployeeUserNameInput
           value={formData.userName}
-          isForm={true}
+          type='form'
           onChange={handleChange}
         />
       </Suspense>

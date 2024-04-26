@@ -10,7 +10,7 @@ import { LocationId } from "../../../modules/location/locations/domain/locationI
 import { useLocation } from "../../Device/location/useLocation";
 
 interface Props {
-    value: Primitives<LocationId>    
+    value?: Primitives<LocationId>    
     typeOfSiteId?: Primitives<LocationId>
     statusId?: Primitives<StatusId>
     onChange: OnHandleChange
@@ -20,7 +20,7 @@ interface Props {
   const ComboBox = lazy(async() => import("./combo_box"));
 //   const BrandDialog = lazy(async () => import("../Dialog/BrandDialog"));
 
-export default function LocationComboBox ({ value, statusId, typeOfSiteId, onChange, type = 'search' }: Props) {
+export default function LocationComboBox ({ statusId, typeOfSiteId, onChange, type = 'search' }: Props) {
     const { repository } = useAppContext()
     const { locations, loading } = useLocation(repository)          
     // const [open, toggleOpen] = useState(false)
@@ -29,7 +29,7 @@ export default function LocationComboBox ({ value, statusId, typeOfSiteId, onCha
     const filterLocation = useMemo(() => {
         return locations.filter(location => {
           const typeOfSite = location.typeOfSiteId === typeOfSiteId || (typeOfSiteId === undefined || typeOfSiteId === '')
-          const status = statusId === undefined ? true : statusId === '1' ? (location.typeOfSiteId === '1' || location.typeOfSiteId === '2') : location.typeOfSiteId === '3'
+          const status = statusId === undefined ? true : statusId === StatusId.StatusOptions.INUSE ? (location.typeOfSiteId === '1' || location.typeOfSiteId === '2') : location.typeOfSiteId === '3'
           return typeOfSite && status
         })
       }, [locations, typeOfSiteId, statusId])

@@ -1,7 +1,6 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
-import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
 import { EmployeeUserName } from '../../../modules/employee/employee/domain/UserName'
 import { InputSkeletonLoading } from '../Loading/inputSkeletonLoading'
 import { UserName } from '../../../modules/user/user/domain/UserName'

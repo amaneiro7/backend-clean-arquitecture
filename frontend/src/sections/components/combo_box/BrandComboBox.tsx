@@ -1,6 +1,4 @@
-import { lazy, Suspense, useEffect, useMemo, useState } from "react";
-import { DeviceEmployee } from "../../../modules/devices/devices/devices/domain/DeviceEmployee";
-import { StatusId } from "../../../modules/devices/devices/status/domain/StatusId";
+import { lazy, Suspense, useMemo, useState } from "react";
 import { OnHandleChange } from "../../../modules/shared/domain/types/types";
 import { Primitives } from "../../../modules/shared/domain/value-object/Primitives";
 import { useAppContext } from "../../Context/AppContext";
@@ -12,7 +10,7 @@ import { BrandPrimitives } from "../../../modules/devices/brand/domain/Brand";
 import { BrandApiResponse } from "../../../modules/shared/domain/types/responseTypes";
 
 interface Props {
-    value: Primitives<BrandId>
+    value?: Primitives<BrandId>
     categoryId?: Primitives<CategoryId>
     onChange: OnHandleChange
     type?: 'form' | 'search'
@@ -21,7 +19,7 @@ interface Props {
   const ComboBox = lazy(async() => import("./combo_box"));
   const BrandDialog = lazy(async () => import("../Dialog/BrandDialog"));
 
-export default function BrandComboBox ({ value, onChange, categoryId, type = 'search' }: Props) {
+export default function BrandComboBox ({ onChange, categoryId, type = 'search' }: Props) {
     const { repository } = useAppContext()
     const { brands, loading } = useBrand(repository)  
     const [open, toggleOpen] = useState(false)
