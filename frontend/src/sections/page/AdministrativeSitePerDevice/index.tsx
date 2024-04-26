@@ -1,22 +1,24 @@
 import { Suspense, lazy, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
+import debounce from 'just-debounce-it'
 import { useAppContext } from '../../Context/AppContext'
 import { useInputsData } from './useInputData'
-import { type DevicesMappedApiResponse } from '../../../modules/shared/domain/types/responseTypes'
+import { useDevice } from '../../Device/device/useDevice'
 import { Computer } from '../../../modules/devices/fetures/computer/domain/Computer'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
-import debounce from 'just-debounce-it'
+import { type DevicesMappedApiResponse } from '../../../modules/shared/domain/types/responseTypes'
 import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
+
+import Main from '../../components/Main'
 import PageTitle from '../../components/PageTitle'
 import Table from '../../components/TableComponent/Table'
-import { TableRow } from '@mui/material'
 import TableBody from '../../components/TableComponent/TableBody'
 import TableHead from '../../components/TableComponent/TableHead'
 import TableCell from '../../components/TableComponent/TableCell'
 import TableHeader from '../../components/TableComponent/TableHeader'
+import TableRow from '../../components/TableComponent/TableRow'
 import TableCellEditDeleteIcon from '../../components/TableComponent/TableCellEditDeleteIcon'
-import { useDevice } from '../../Device/device/useDevice'
-import Main from '../../components/Main'
+import { InputLoading } from '../../components/Loading/inputLoading'
 
 const Button = lazy(async () => await import('../../ui/button'))
 const BrandSelect = lazy(async () => await import('../../Device/brand/BrandSelect'))
@@ -78,7 +80,7 @@ export default function AdministrativeSitePage () {
   return (
     <Main>
       <PageTitle title='Equipos de Torre' />
-      <Suspense>
+      <Suspense fallback={<InputLoading />}>
         <Button
           type='button'
           text='Agregar un nuevo item'
@@ -87,19 +89,20 @@ export default function AdministrativeSitePage () {
         />
       </Suspense>
       <header className="grid grid-cols-[repeat(auto-fit,_250px)] gap-5 place-content-center">
-        <Suspense>
+        <InputLoading/>
+        <Suspense fallback={<InputLoading />}>
           <EmployeeComboBox    
             value={inputData.employeeId}            
             onChange={handleChange}
           />
         </Suspense>
-        <Suspense>
+        <Suspense fallback={<InputLoading />}>
           <CategorySelect
             value={inputData.categoryId}
             onChange={handleChange}
           />
         </Suspense>
-        <Suspense>
+        <Suspense fallback={<InputLoading />}>
           <BrandSelect
             value={inputData.brandId}
             categoryId={inputData.categoryId}
@@ -107,19 +110,19 @@ export default function AdministrativeSitePage () {
             isForm={false}
           />
         </Suspense>
-        <Suspense>
+        <Suspense fallback={<InputLoading />}>
           <SerialInput
             value={inputData.serial}
             onChange={handleChange}
           />
         </Suspense>
-        <Suspense>
+        <Suspense fallback={<InputLoading />}>
           <ActivoInput
             value={inputData.activo}
             onChange={handleChange}
           />
         </Suspense>
-        <Suspense>
+        <Suspense fallback={<InputLoading />}>
           <ModelSelect
             value={inputData.modelId}
             brandId={inputData.brandId}
@@ -128,7 +131,7 @@ export default function AdministrativeSitePage () {
             isForm={false}
           />
         </Suspense>
-        <Suspense>
+        <Suspense fallback={<InputLoading />}>
           <LocationSelect
             value={inputData.locationId}
             typeOfSiteId={'1'} // Modificarlo para que no sea un magic string
@@ -137,7 +140,7 @@ export default function AdministrativeSitePage () {
             isForm={false}
           />
         </Suspense>
-        <Suspense>
+        <Suspense fallback={<InputLoading />}>
           <Button
             actionType='CANCEL'
             type='button'

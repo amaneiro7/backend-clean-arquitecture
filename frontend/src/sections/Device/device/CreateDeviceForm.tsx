@@ -3,11 +3,7 @@ import { useDeviceForm, FormStatus } from './useDeviceForm'
 import { useDeviceInitialState } from './DeviceFormInitialState'
 import { useGenericFormData } from '../../Hooks/useGenericFormData'
 import { FormContainer } from '../../components/formContainer'
-import ObservationInput from './components/ObservationInput'
-import LocationSelect from '../location/LocationSelect'
-import { EmployeeSelect } from '../employee/components/EmployeeSelect'
-import ComboBox from '../../components/combo_box/combo_box'
-import EmployeeComboBox from '../../components/combo_box/EmployeeComboBox'
+import { InputLoading } from '../../components/Loading/inputLoading'
 
 const CategorySelect = lazy(async () => await import('../category/CategorySelect'))
 const BrandSelect = lazy(async () => await import('../brand/BrandSelect'))
@@ -15,6 +11,9 @@ const SerialInput = lazy(async () => await import('./components/SerialInput'))
 const ActivoInput = lazy(async () => await import('./components/ActivoInput'))
 const StatusSelect = lazy(async () => await import('../status/StatusSelect'))
 const ModelSelect = lazy(async () => await import('../model/ModelSelect'))
+const ObservationInput = lazy(async () => await import('./components/ObservationInput'))
+const LocationSelect = lazy(async () => await import('../location/LocationSelect'))
+const EmployeeComboBox = lazy(async () => await import('../../components/combo_box/EmployeeComboBox'))
 const DeviceFeatures = lazy(async () => await import('./components/DeviceFeatures'))
 
 export default function CreateDeviceForm () {
@@ -59,14 +58,14 @@ export default function CreateDeviceForm () {
           handleClose={handleClose}
           isDisabled={formStatus === FormStatus.Loading}
       >
-        <Suspense>
+        <Suspense fallback={<InputLoading />}>
           <CategorySelect
             value={formData.categoryId}
             onChange={handleChange}
             isRequired={true}
           />
         </Suspense>
-        <Suspense>
+        <Suspense fallback={<InputLoading />}>
           <BrandSelect
             value={formData.brandId}
             onChange={handleChange}
@@ -75,14 +74,14 @@ export default function CreateDeviceForm () {
           />
         </Suspense>
         <div className='flex gap-4'>
-          <Suspense>
+          <Suspense fallback={<InputLoading />}>
             <SerialInput
                 value={formData.serial}
                 onChange={handleChange}
                 isForm={true}
             />
           </Suspense>
-          <Suspense>
+          <Suspense fallback={<InputLoading />}>
             <ActivoInput
                 value={formData.activo}
                 onChange={handleChange}
@@ -90,14 +89,14 @@ export default function CreateDeviceForm () {
               />
           </Suspense>
         </div>
-        <Suspense>
+        <Suspense fallback={<InputLoading />}>
           <StatusSelect
               value={formData.statusId}
               onChange={handleChange}
               isRequired={true}
             />
           </Suspense>
-        <Suspense>
+        <Suspense fallback={<InputLoading />}>
           <ModelSelect
             value={formData.modelId}
             onChange={handleChange}
@@ -106,21 +105,16 @@ export default function CreateDeviceForm () {
             isRequired={true}
           />
         </Suspense>
+        <Suspense fallback={<InputLoading />}>
+          <EmployeeComboBox
+            onChange={handleChange}
+            type='form'
+            status={formData.statusId}
+            value={formData.employeeId}
+          />
+        </Suspense>
 
-        {/* <EmployeeSelect
-          onChange={handleChange}
-          value={formData.employeeId}
-          isForm={true}
-          status={formData.statusId}
-        /> */}
-        <EmployeeComboBox
-          onChange={handleChange}
-          type='form'
-          status={formData.statusId}
-          value={formData.employeeId}
-         />
-
-        <Suspense>
+        <Suspense fallback={<InputLoading />}>
           <DeviceFeatures
             formData={formData}
             onChange={handleChange}
