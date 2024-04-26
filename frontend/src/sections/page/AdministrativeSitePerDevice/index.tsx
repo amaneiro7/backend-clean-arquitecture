@@ -20,7 +20,7 @@ import Main from '../../components/Main'
 
 const Button = lazy(async () => await import('../../ui/button'))
 const BrandSelect = lazy(async () => await import('../../Device/brand/BrandSelect'))
-const EmployeeComboBox = lazy(async () => await import('../../Device/employee/components/EmployeeComboBox'))
+const EmployeeComboBox = lazy(async () => await import('../../components/combo_box/EmployeeComboBox'))
 const CategorySelect = lazy(async () => await import('../../Device/category/CategorySelect'))
 const SerialInput = lazy(async () => await import('../../Device/device/components/SerialInput'))
 const ActivoInput = lazy(async () => await import('../../Device/device/components/ActivoInput'))

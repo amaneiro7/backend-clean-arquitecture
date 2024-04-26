@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-import DialogAdd from "../../../components/Dialog/dialog";
-import { useGenericFormData } from "../../../Hooks/useGenericFormData";
-import { FormStatus, useEmployeeForm } from "../useEmployeeForm";
-import EmployeeUserNameInput from "./UserNameInput";
-import { EmployeePrimitives } from "../../../../modules/employee/employee/domain/Employee";
+import DialogAdd from "./dialog";
+import { useGenericFormData } from "../../Hooks/useGenericFormData";
+import { FormStatus, useEmployeeForm } from "../../Device/employee/useEmployeeForm";
+import EmployeeUserNameInput from "../../Device/employee/components/UserNameInput";
+import { EmployeePrimitives } from "../../../modules/employee/employee/domain/Employee";
 
 interface Props {
     dialogValue: EmployeePrimitives
@@ -52,7 +52,7 @@ export default function EmployeeDialog ({ dialogValue, open, toggleOpen }: Props
         >
             <EmployeeUserNameInput
                 value={formData.userName}
-                isForm
+                type="dialog"
                 onChange={handleChange}
             />
         </DialogAdd>
