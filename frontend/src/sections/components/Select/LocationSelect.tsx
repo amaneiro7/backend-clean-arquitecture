@@ -5,9 +5,9 @@ import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
 import { type LocationId } from '../../../modules/location/locations/domain/locationId'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
 import { type StatusId } from '../../../modules/devices/devices/status/domain/StatusId'
-import { useLocation } from './useLocation'
+import { useLocation } from '../../Device/location/useLocation'
 
-const Select = lazy(async () => await import('../../components/Select/Select'))
+const Select = lazy(async () => await import('./Select'))
 
 interface Props {
   value: Primitives<LocationId>

@@ -3,7 +3,7 @@ import { useAppContext } from '../../Context/AppContext'
 import { Link } from 'react-router-dom'
 import { AddIcon } from '../../ui/icon/AddIcon'
 import { EditIcon } from '../../ui/icon/EditIcon'
-import { useModel } from './useMode'
+import { useModel } from '../../Device/model/useMode'
 import { type ModelApiresponse } from '../../../modules/shared/domain/types/responseTypes'
 import { type CategoryId } from '../../../modules/devices/category/domain/CategoryId'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
@@ -12,7 +12,7 @@ import { type ModelId } from '../../../modules/devices/model/domain/ModelId'
 import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
 
-const Select = lazy(async () => await import('../../components/Select/Select'))
+const Select = lazy(async () => await import('./Select'))
 
 interface Props {
   value: Primitives<ModelId>

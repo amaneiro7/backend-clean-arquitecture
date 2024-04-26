@@ -16,14 +16,18 @@ import TableCellEditDeleteIcon from '../../components/TableComponent/TableCellEd
 import { useEmployee } from '../../Device/employee/useEmployee'
 import TableRow from '../../components/TableComponent/TableRow'
 import Main from '../../components/Main'
+import { InputSkeletonLoading } from '../../components/Loading/inputSkeletonLoading'
+import { StatusId } from '../../../modules/devices/devices/status/domain/StatusId'
+import { SpinnerSKCircle } from '../../components/Loading/spinner-sk-circle'
 
 const Button = lazy(async () => await import('../../ui/button'))
-const BrandSelect = lazy(async () => await import('../../components/Select/BrandSelect'))
-const CategorySelect = lazy(async () => await import('../../Device/category/CategorySelect'))
 const SerialInput = lazy(async () => await import('../../Device/device/components/SerialInput'))
 const ActivoInput = lazy(async () => await import('../../Device/device/components/ActivoInput'))
-const ModelSelect = lazy(async () => await import('../../Device/model/ModelSelect'))
-const LocationSelect = lazy(async () => await import('../../Device/location/LocationSelect'))
+const BrandComboBox = lazy(async () => await import('../../components/combo_box/BrandComboBox'))
+const EmployeeComboBox = lazy(async () => await import('../../components/combo_box/EmployeeComboBox'))
+const CategoryComboBox = lazy(async () => await import('../../components/combo_box/CategoryComboBox'))
+const LocationComboBox = lazy(async () => await import('../../components/combo_box/LocationComboBox'))
+const ModelComboBox = lazy(async () => await import('../../components/combo_box/ModelComboBox'))
 
 export default function AdministrativeSitePerEmployee () {
   const { repository } = useAppContext()
@@ -77,48 +81,53 @@ export default function AdministrativeSitePerEmployee () {
         />
       </Suspense>
       <header className="grid grid-cols-[repeat(auto-fit,_250px)] gap-5 place-content-center">
-        <Suspense>
-          <CategorySelect
+      <Suspense fallback={<InputSkeletonLoading />}>
+          <EmployeeComboBox    
+            value={inputData.id}            
+            onChange={handleChange}
+          />
+        </Suspense>
+        <Suspense fallback={<InputSkeletonLoading />}>
+          <CategoryComboBox
             value={inputData.categoryId}
             onChange={handleChange}
           />
         </Suspense>
-        <Suspense>
-          <BrandSelect
+        <Suspense fallback={<InputSkeletonLoading />}>
+          <BrandComboBox
             value={inputData.brandId}
             categoryId={inputData.categoryId}
             onChange={handleChange}
-            isForm={false}
           />
         </Suspense>
-        <Suspense>
+        <Suspense fallback={<InputSkeletonLoading />}>
           <SerialInput
             value={inputData.serial}
             onChange={handleChange}
           />
         </Suspense>
-        <Suspense>
+        <Suspense fallback={<InputSkeletonLoading />}>
           <ActivoInput
             value={inputData.activo}
             onChange={handleChange}
           />
         </Suspense>
-        <Suspense>
-          <ModelSelect
+        <Suspense fallback={<InputSkeletonLoading />}>
+          <ModelComboBox
             value={inputData.modelId}
             brandId={inputData.brandId}
             categoryId={inputData.categoryId}
             onChange={handleChange}
-            isForm={false}
+            type='search'
           />
         </Suspense>
-        <Suspense>
-          <LocationSelect
+        <Suspense fallback={<InputSkeletonLoading />}>
+          <LocationComboBox
             value={inputData.locationId}
-            typeOfSiteId={'1'}
-            statusId={inputData.statusId}
+            typeOfSiteId={'1'} // Modificarlo para que no sea un magic string
+            statusId={StatusId.StatusOptions.INUSE} // Modificarlo para que no sea un magic string
             onChange={handleChange}
-            isForm={false}
+            type='search'
           />
         </Suspense>
         <Suspense>
@@ -130,7 +139,7 @@ export default function AdministrativeSitePerEmployee () {
           />
         </Suspense>
       </header>
-      {loading && <p>...Loading</p>}
+      {loading && <SpinnerSKCircle/>}
       {(!loading && employees.length === 0) && <p>No hay resultados</p>}
       {(!loading && employees.length > 0) && <Suspense fallback={<p>...Loading</p>}>
         <Table className=''>

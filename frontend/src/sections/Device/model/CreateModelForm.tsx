@@ -3,8 +3,8 @@ import { useGenericFormData } from '../../Hooks/useGenericFormData'
 import { FormContainer } from '../../components/formContainer'
 import { FormStatus, useModelForm } from './useModelForm'
 import BrandSelect from '../../components/Select/BrandSelect'
-import CategorySelect from '../category/CategorySelect'
-import ModelNameInput from './ModelNameInput'
+import CategorySelect from '../../components/Select/CategorySelect'
+import ModelNameInput from '../../components/text-inputs/ModelNameInput'
 import { useModelInitialState } from './ModelFormInitialState'
 
 export default function CreateModelForm () {

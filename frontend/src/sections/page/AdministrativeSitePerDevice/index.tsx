@@ -23,13 +23,14 @@ import { SpinnerSKCircle } from '../../components/Loading/spinner-sk-circle'
 import { StatusId } from '../../../modules/devices/devices/status/domain/StatusId'
 
 const Button = lazy(async () => await import('../../ui/button'))
-const BrandComboBox = lazy(async () => await import('../../components/combo_box/BrandComboBox'))
 const EmployeeComboBox = lazy(async () => await import('../../components/combo_box/EmployeeComboBox'))
-const CategorySelect = lazy(async () => await import('../../Device/category/CategorySelect'))
+const BrandComboBox = lazy(async () => await import('../../components/combo_box/BrandComboBox'))
+const CategoryComboBox = lazy(async () => await import('../../components/combo_box/CategoryComboBox'))
+const LocationComboBox = lazy(async () => await import('../../components/combo_box/LocationComboBox'))
+const ModelComboBox = lazy(async () => await import('../../components/combo_box/ModelComboBox'))
 const SerialInput = lazy(async () => await import('../../Device/device/components/SerialInput'))
 const ActivoInput = lazy(async () => await import('../../Device/device/components/ActivoInput'))
-const ModelSelect = lazy(async () => await import('../../Device/model/ModelSelect'))
-const LocationSelect = lazy(async () => await import('../../Device/location/LocationSelect'))
+
 
 export default function AdministrativeSitePage () {
   const { repository } = useAppContext()
@@ -90,7 +91,7 @@ export default function AdministrativeSitePage () {
           />
         </Suspense>
         <Suspense fallback={<InputSkeletonLoading />}>
-          <CategorySelect
+          <CategoryComboBox
             value={inputData.categoryId}
             onChange={handleChange}
           />
@@ -115,21 +116,21 @@ export default function AdministrativeSitePage () {
           />
         </Suspense>
         <Suspense fallback={<InputSkeletonLoading />}>
-          <ModelSelect
+          <ModelComboBox
             value={inputData.modelId}
             brandId={inputData.brandId}
             categoryId={inputData.categoryId}
             onChange={handleChange}
-            isForm={false}
+            type='search'
           />
         </Suspense>
         <Suspense fallback={<InputSkeletonLoading />}>
-          <LocationSelect
+          <LocationComboBox
             value={inputData.locationId}
             typeOfSiteId={'1'} // Modificarlo para que no sea un magic string
             statusId={StatusId.StatusOptions.INUSE} // Modificarlo para que no sea un magic string
             onChange={handleChange}
-            isForm={false}
+            type='search'
           />
         </Suspense>
         <Suspense fallback={<InputSkeletonLoading />}>

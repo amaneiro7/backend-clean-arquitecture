@@ -12,7 +12,7 @@ interface Props {
 
 const FormInput = lazy(async () => import('../../ui/text-field'))
 
-export default function BrandNameInput ({ value, onChange }: Props) {
+export default function BrandNameInput ({ value, onChange, type = 'form' }: Props) {
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
   const isFirstInput = useRef(true)
@@ -39,6 +39,7 @@ export default function BrandNameInput ({ value, onChange }: Props) {
           name="name"
           type="text"
           label='Name'
+          isRequired={type === 'form'}
           placeholder='-- Ingrese el Nombre de la Marca --'
           handle={(event) => {
             const { name, value } = event.target

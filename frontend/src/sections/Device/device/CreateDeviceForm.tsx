@@ -5,14 +5,14 @@ import { useGenericFormData } from '../../Hooks/useGenericFormData'
 import { FormContainer } from '../../components/formContainer'
 import { InputSkeletonLoading } from '../../components/Loading/inputSkeletonLoading'
 
-const CategorySelect = lazy(async () => await import('../category/CategorySelect'))
+const CategorySelect = lazy(async () => await import('../../components/Select/CategorySelect'))
 const BrandSelect = lazy(async () => await import('../../components/Select/BrandSelect'))
 const SerialInput = lazy(async () => await import('./components/SerialInput'))
 const ActivoInput = lazy(async () => await import('./components/ActivoInput'))
 const StatusSelect = lazy(async () => await import('../status/StatusSelect'))
-const ModelSelect = lazy(async () => await import('../model/ModelSelect'))
+const ModelSelect = lazy(async () => await import('../../components/Select/ModelSelect'))
 const ObservationInput = lazy(async () => await import('./components/ObservationInput'))
-const LocationSelect = lazy(async () => await import('../location/LocationSelect'))
+const LocationSelect = lazy(async () => await import('../../components/Select/LocationSelect'))
 const EmployeeComboBox = lazy(async () => await import('../../components/combo_box/EmployeeComboBox'))
 const DeviceFeatures = lazy(async () => await import('./components/DeviceFeatures'))
 

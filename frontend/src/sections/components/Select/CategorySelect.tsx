@@ -4,9 +4,9 @@ import { type Primitives } from '../../../modules/shared/domain/value-object/Pri
 import { type CategoryId } from '../../../modules/devices/category/domain/CategoryId'
 import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
-import { useCategory } from './useCategory'
+import { useCategory } from '../../Device/category/useCategory'
 
-const Select = lazy(async () => await import('../../components/Select/Select'))
+const Select = lazy(async () => await import('./Select'))
 
 interface Props {
   value: Primitives<CategoryId>

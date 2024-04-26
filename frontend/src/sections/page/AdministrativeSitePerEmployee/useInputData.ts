@@ -7,8 +7,10 @@ import { type DeviceActivo } from '../../../modules/devices/devices/devices/doma
 import { type DeviceSerial } from '../../../modules/devices/devices/devices/domain/DeviceSerial'
 import { type ModelId } from '../../../modules/devices/model/domain/ModelId'
 import { type LocationId } from '../../../modules/location/locations/domain/locationId'
+import { EmployeeId } from '../../../modules/employee/employee/domain/EmployeeId'
 
 export interface InputData {
+  id: Primitives<EmployeeId>
   categoryId: Primitives<CategoryId>
   brandId: Primitives<BrandId>
   statusId: Primitives<StatusId>
@@ -49,7 +51,8 @@ export const useInputsData = (): {
     setSearchParams('')
   }
 
-  const inputData = {
+  const inputData = {    
+    id: searchParams.get('id') ?? '',
     categoryId: searchParams.get('categoryId') ?? '',
     brandId: searchParams.get('brandId') ?? '',
     statusId: searchParams.get('statusId') ?? '',

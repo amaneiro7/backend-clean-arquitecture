@@ -18,18 +18,19 @@ import PageTitle from '../../components/PageTitle'
 import TableCellEditDeleteIcon from '../../components/TableComponent/TableCellEditDeleteIcon'
 import { useDevice } from '../../Device/device/useDevice'
 import Main from '../../components/Main'
+import { InputSkeletonLoading } from '../../components/Loading/inputSkeletonLoading'
+import { StatusId } from '../../../modules/devices/devices/status/domain/StatusId'
+import { SpinnerSKCircle } from '../../components/Loading/spinner-sk-circle'
 
-// const TableHeader = lazy(async () => await import('../../components/TableHeader'))
-// const DeviceTableCard = lazy(async () => await import('../../Device/device/DeviceTableCard'))
-// const TableStructure = lazy(async () => await import('../../components/Table'))
+
 const Button = lazy(async () => await import('../../ui/button'))
-const TabsComponent = lazy(async () => await import('../../ui/tabs'))
-const BrandSelect = lazy(async () => await import('../../components/Select/BrandSelect'))
-const SerialInput = lazy(async () => await import('../../Device/device/components/SerialInput'))
-const ActivoInput = lazy(async () => await import('../../Device/device/components/ActivoInput'))
-const ModelSelect = lazy(async () => await import('../../Device/model/ModelSelect'))
 const StatusSelect = lazy(async () => await import('../../Device/status/StatusSelect'))
-const LocationSelect = lazy(async () => await import('../../Device/location/LocationSelect'))
+const ActivoInput = lazy(async () => await import('../../Device/device/components/ActivoInput'))
+const SerialInput = lazy(async () => await import('../../Device/device/components/SerialInput'))
+const BrandComboBox = lazy(async () => await import('../../components/combo_box/BrandComboBox'))
+const CategoryComboBox = lazy(async () => await import('../../components/combo_box/CategoryComboBox'))
+const LocationComboBox = lazy(async () => await import('../../components/combo_box/LocationComboBox'))
+const ModelComboBox = lazy(async () => await import('../../components/combo_box/ModelComboBox'))
 
 export default function AlmacenPage () {
   const { repository } = useAppContext()
@@ -79,27 +80,18 @@ export default function AlmacenPage () {
   return (
     <Main>
       <PageTitle title='Inventario de Equipos en el almacén' />
-      <Suspense>
-        <Button
-          type='button'
-          text='Agregar un nuevo item'
-          actionType='ACTION'
-          handle={() => { navigate('/device/add') }}
-        />
-      </Suspense>
-        <Suspense>
-          <TabsComponent
+      <header className="grid grid-cols-[repeat(auto-fit,_250px)] gap-5 place-content-center">
+      <Suspense fallback={<InputSkeletonLoading />}>
+          <CategoryComboBox
             value={inputData.categoryId}
             onChange={handleChange}
           />
         </Suspense>
-      <header className="grid grid-cols-[repeat(auto-fit,_250px)] gap-5 place-content-center">
-        <Suspense>
-          <BrandSelect
+        <Suspense fallback={<InputSkeletonLoading />}>
+          <BrandComboBox
             value={inputData.brandId}
             categoryId={inputData.categoryId}
             onChange={handleChange}
-            isForm={false}
           />
         </Suspense>
         <Suspense>
@@ -120,22 +112,22 @@ export default function AlmacenPage () {
             onChange={handleChange}
           />
         </Suspense>
-        <Suspense>
-          <ModelSelect
+        <Suspense fallback={<InputSkeletonLoading />}>
+          <ModelComboBox
             value={inputData.modelId}
             brandId={inputData.brandId}
             categoryId={inputData.categoryId}
             onChange={handleChange}
-            isForm={false}
+            type='search'
           />
         </Suspense>
-        <Suspense>
-          <LocationSelect
+        <Suspense fallback={<InputSkeletonLoading />}>
+          <LocationComboBox
             value={inputData.locationId}
-            typeOfSiteId={'3'}
-            statusId={inputData.statusId}
+            typeOfSiteId={'1'} // Modificarlo para que no sea un magic string
+            statusId={StatusId.StatusOptions.INUSE} // Modificarlo para que no sea un magic string
             onChange={handleChange}
-            isForm={false}
+            type='search'
           />
         </Suspense>
         <Suspense>
@@ -146,8 +138,16 @@ export default function AlmacenPage () {
             handle={handleClear}
           />
         </Suspense>
+        <Suspense>
+        <Button
+          type='button'
+          text='Agregar un nuevo item'
+          actionType='ACTION'
+          handle={() => { navigate('/device/add') }}
+        />
+      </Suspense>
       </header>
-      {loading && <p>...Loading</p>}
+      {loading && <SpinnerSKCircle/>}
       {(!loading && devices.length === 0) && <p>No hay resultados</p>}
       {(!loading && devices.length > 0) && <Suspense fallback={<p>...Loading</p>}>
         <Table className=''>
