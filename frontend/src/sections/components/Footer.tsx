@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-export function Footer () {
+export default function Footer () {
   return (
         <footer className='w-full bg-slate-700 flex justify-center p-2'>
           <p className='text-center text-xs text-white'>

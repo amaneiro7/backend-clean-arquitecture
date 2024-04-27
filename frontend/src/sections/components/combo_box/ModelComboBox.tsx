@@ -22,7 +22,7 @@ interface Props {
   const ComboBox = lazy(async() => import("./combo_box"));
   const ModelDialog = lazy(async () => import("../Dialog/ModelDialog"));
 
-export default function ModelComboBox ({ onChange, categoryId, brandId, type = 'search' }: Props) {
+export default function ModelComboBox ({ value, onChange, categoryId, brandId, type = 'search' }: Props) {
     const { repository } = useAppContext()
     const { models, loading } = useModel(repository)  
     const [open, toggleOpen] = useState(false)
@@ -30,7 +30,11 @@ export default function ModelComboBox ({ onChange, categoryId, brandId, type = '
         name: '',
         categoryId: '',
         brandId: ''
-    });
+    })
+
+    const initialValue = useMemo(() => {
+        return models.find(model => model.id === value)
+    }, [models, value])
 
     const filterdModel = useMemo(() => {
         return (models as unknown as ModelApiresponse[]).filter(model => {
@@ -44,6 +48,7 @@ export default function ModelComboBox ({ onChange, categoryId, brandId, type = '
         <Suspense fallback={<InputSkeletonLoading/>}>
             <ComboBox
                 id='modelId'
+                initialValue={initialValue}
                 label="Modelo"
                 name='modelId'
                 type={type}

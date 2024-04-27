@@ -1,3 +1,3 @@
 export default function PageTitle ({ title }: { title: string }) {
-  return <h3 className="font-semibold text-3xl text-primary b-3 sm:text-4xl">{title}</h3>
+  return <h1 className="text-xl font-bold leading-tight tracking-tight text-secondary-950 md:text-2xl dark:text-white">{title}</h1>
 }

@@ -33,6 +33,7 @@ export const useLogin = (repository: Repository) => {
   }
 
   useEffect(() => {
+    if (location.pathname === '/login') return
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     checkCookieAndUser()
   }, [location])

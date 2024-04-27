@@ -1,39 +1,50 @@
-import Banner from '../../components/Banner/Banner'
-import FeaturesCard from '../../components/FeaturesSection/FeaturesCard'
-import FeaturesContainer from '../../components/FeaturesSection/FeaturesContainer'
-import Section from '../../components/FeaturesSection/Section'
-import Main from '../../components/Main'
+import { Suspense, lazy } from 'react'
 import { dropdownNavs } from '../../Routes/routes'
+import { InputSkeletonLoading } from '../../components/Loading/inputSkeletonLoading'
 
-export default function Home () {
+const Banner = lazy(async () => await import('../../components/Banner'))
+const FeaturesCard = lazy(async () => await import('../../components/FeaturesSection/FeaturesCard'))
+const FeaturesContainer = lazy(async () => await import('../../components/FeaturesSection/FeaturesContainer'))
+const Section = lazy(async () => await import('../../components/FeaturesSection/Section'))
+const Main = lazy(async () => await import('../../components/Main'))
+
+export default function Home() {
   return (
-    <Main className='flex-none'>
+    <Suspense>
+      <Main className='flex-none'>
 
-      <Banner />
+        <Suspense fallback={<InputSkeletonLoading />}>
+          <Banner />
+        </Suspense>
+        <Suspense>
+          <Section>
+            <div className='grid gap-y-8 gap-x-12 sm:grid-cols-2 lg:grid-cols-3'>
+              {dropdownNavs.map((feature, index) => (
+                <div className='border-2 border-secondary rounded-lg px-8 py-4' key={`feature-${index}`}>
+                  <h3 className='w-fit font-semibold text-lg text-secondary py-2'>{feature.label}</h3>
+                  <Suspense>
+                    <FeaturesContainer>
+                      {
+                        feature.navs.map((nav, index) => (
+                          <Suspense key={`nav-${index}`} >
+                            <FeaturesCard
+                              title={nav.title}
+                              desc={nav.desc}
+                              icon={nav.icon}
+                              path={nav.path}
+                            />
+                          </Suspense>
+                        ))
+                      }
+                    </FeaturesContainer>
 
-      <Section>
-        <div className='grid gap-y-8 gap-x-12 sm:grid-cols-2 lg:grid-cols-3'>
-          {dropdownNavs.map((feature, index) => (
-            <div className='border-2 border-secondary rounded-lg px-8 py-4' key={`feature-${index}`}>
-              <h3 className='w-fit font-semibold text-lg text-secondary py-2'>{feature.label}</h3>
-              <FeaturesContainer>
-              {
-                feature.navs.map((nav, index) => (
-                  <FeaturesCard
-                  key={`nav-${index}`}
-                  title={nav.title}
-                  desc={nav.desc}
-                  icon={nav.icon}
-                  path={nav.path}
-                  />
-                ))
-              }
-              </FeaturesContainer>
+                  </Suspense>
+                </div>
+              ))}
             </div>
-          ))}
-
-        </div>
-      </Section>
-    </Main>
+          </Section>
+        </Suspense>
+      </Main>
+    </Suspense>
   )
 }

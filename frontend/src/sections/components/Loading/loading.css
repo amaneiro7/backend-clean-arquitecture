@@ -1,5 +1,5 @@
-.Loading--container {
-    background: rgba(32,34,41,.8);
+.loading--container {
+    background: rgba(32,34,41,.2);
     position: fixed;
     top: -10px;
     left: -10px;

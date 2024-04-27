@@ -8,6 +8,7 @@ import { CategoryId } from "../../../modules/devices/category/domain/CategoryId"
 import { useBrand } from "../../Device/brand/useBrand";
 import { BrandPrimitives } from "../../../modules/devices/brand/domain/Brand";
 import { BrandApiResponse } from "../../../modules/shared/domain/types/responseTypes";
+import { InputSkeletonLoading } from "../Loading/inputSkeletonLoading";
 
 interface Props {
     value?: Primitives<BrandId>
@@ -19,11 +20,16 @@ interface Props {
   const ComboBox = lazy(async() => import("./combo_box"));
   const BrandDialog = lazy(async () => import("../Dialog/BrandDialog"));
 
-export default function BrandComboBox ({ onChange, categoryId, type = 'search' }: Props) {
+export default function BrandComboBox ({ value, onChange, categoryId, type = 'search' }: Props) {
     const { repository } = useAppContext()
     const { brands, loading } = useBrand(repository)  
     const [open, toggleOpen] = useState(false)
     const [dialogValue, setDialogValue] = useState<BrandPrimitives>({name: ''});
+
+    const initialValue = useMemo(() => {
+        return brands.find(brand => brand.id === value)
+    }, [brands, value])
+
 
     const filterdBrand = useMemo(() => {
         if (categoryId === undefined || categoryId === '') {
@@ -37,9 +43,10 @@ export default function BrandComboBox ({ onChange, categoryId, type = 'search' }
       }, [brands, categoryId])
   
     return (
-        <Suspense>
+        <Suspense fallback={<InputSkeletonLoading />}>
             <ComboBox
                 id='brandId'
+                initialValue={initialValue}
                 label="Marca"
                 name='brandId'
                 type={type}
@@ -63,7 +70,7 @@ export default function BrandComboBox ({ onChange, categoryId, type = 'search' }
                 }}
                 options={filterdBrand as BrandApiResponse[]}
                 isDisabled={false}
-                isRequired={false}                
+                isRequired={type === 'form'}                
                 loading={loading}
                 
             >

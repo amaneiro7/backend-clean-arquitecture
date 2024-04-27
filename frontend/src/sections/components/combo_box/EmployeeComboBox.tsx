@@ -21,6 +21,10 @@ export default function EmployeeComboBox ({ value, onChange, status, type = 'sea
     const { repository } = useAppContext()
     const { employees, loading } = useEmployee(repository)
     const employeeOptions = useMemo(() => employees.map(employee => ({ id: employee.id, name: employee.userName })), [employees])
+    
+    const initialValue = useMemo(() => {
+      return employeeOptions.find(employee => employee.id === value)
+  }, [employeeOptions, value])
   
     const [errorMessage, setErrorMessage] = useState('')
     const [isError, setIsError] = useState(false)
@@ -49,6 +53,7 @@ export default function EmployeeComboBox ({ value, onChange, status, type = 'sea
     return (
         <ComboBox
             id='employeeId'
+            initialValue={initialValue}
             label="Usuarios"
             name='employeeId'
             type={type}

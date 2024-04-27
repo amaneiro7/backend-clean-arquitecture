@@ -20,11 +20,15 @@ interface Props {
   const ComboBox = lazy(async() => import("./combo_box"));
 //   const BrandDialog = lazy(async () => import("../Dialog/BrandDialog"));
 
-export default function LocationComboBox ({ statusId, typeOfSiteId, onChange, type = 'search' }: Props) {
+export default function LocationComboBox ({ value, statusId, typeOfSiteId, onChange, type = 'search' }: Props) {
     const { repository } = useAppContext()
     const { locations, loading } = useLocation(repository)          
     // const [open, toggleOpen] = useState(false)
     // const [dialogValue, setDialogValue] = useState<BrandPrimitives>({name: ''});
+
+    const initialValue = useMemo(() => {
+        return locations.find(location => location.id === value)
+    }, [locations, value])
 
     const filterLocation = useMemo(() => {
         return locations.filter(location => {
@@ -38,6 +42,7 @@ export default function LocationComboBox ({ statusId, typeOfSiteId, onChange, ty
         <Suspense>
             <ComboBox
                 id='locationId'
+                initialValue={initialValue}
                 label="Ubicación"
                 name='locationId'
                 type={type}

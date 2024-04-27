@@ -10,8 +10,8 @@ import match from 'autosuggest-highlight/match'
 
 interface Props {
   id: string
+  initialValue?: any | null
   name: string
-  value?: string
   label: string
   loading?: boolean
   options: Options[]
@@ -35,6 +35,7 @@ const filter = createFilterOptions()
 export default function ComboBox ({ 
   id,
   name,
+  initialValue = null,  
   label,
   options,
   isDisabled = true,
@@ -47,15 +48,15 @@ export default function ComboBox ({
   type = 'search'
 }: PropsWithChildren<Props>) {
   const [open, setOpen] = useState(false)
-  const [value, setValue] = useState(null)
-
+  
   return (
     <>         
       <Autocomplete
         id={`combo-box-${id}`}
-        value={value}
+        value={initialValue}
+        defaultValue={'Combobox'}
         onChange={(event, newValue, reason, details) => {
-          setValue(newValue)
+          // setValue(newValue)
           onChange(event, newValue, reason, details)          
         }}
         filterOptions={(options, params) => {
@@ -91,6 +92,8 @@ export default function ComboBox ({
         
         clearText='Limpiar'
         loadingText='Cargando...'
+        openText='Abrir'
+        closeText='Cerrar'
         selectOnFocus
         clearOnEscape
         clearOnBlur

@@ -1,19 +1,19 @@
 import { Suspense, lazy } from 'react'
 import { ToasterComponent } from '../../utils/toaster'
 import Loading from '../Loading'
-import { Footer } from '../Footer'
 
 const Header = lazy(async () => await import('../header'))
+const Footer = lazy(async () => await import('../Footer'))
 
 interface Props {
   children: React.ReactNode
 }
-export const Layout = ({ children }: Props) => {
+export default function Layout ({ children }: Props) {
   return (
     <Suspense fallback={<Loading />}>
       <ToasterComponent />
       <Header />
-      { children }
+        { children }
       <Footer />
     </Suspense>
   )
