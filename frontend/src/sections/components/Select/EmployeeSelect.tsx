@@ -1,14 +1,14 @@
 import { Suspense, lazy, useEffect, useMemo, useState } from 'react'
-import { useAppContext } from '../../../Context/AppContext'
-import { type Primitives } from '../../../../modules/shared/domain/value-object/Primitives'
+import { useAppContext } from '../../Context/AppContext'
+import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 
-import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
-import { Operator } from '../../../../modules/shared/domain/criteria/FilterOperators'
-import { useEmployee } from '../useEmployee'
-import { StatusId } from '../../../../modules/devices/devices/status/domain/StatusId'
-import { DeviceEmployee } from '../../../../modules/devices/devices/devices/domain/DeviceEmployee'
+import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
+import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
+import { useEmployee } from '../../Device/employee/useEmployee'
+import { StatusId } from '../../../modules/devices/devices/status/domain/StatusId'
+import { DeviceEmployee } from '../../../modules/devices/devices/devices/domain/DeviceEmployee'
 
-const Select = lazy(async () => await import('../../../components/Select/Select'))
+const Select = lazy(async () => await import('./Select'))
 
 interface Props {
   value: Primitives<DeviceEmployee>

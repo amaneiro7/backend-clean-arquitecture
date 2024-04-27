@@ -15,7 +15,7 @@ interface Props {
   formData: ComputerPrimitives
 }
 
-export default function AddComputerFeatures ({ formData, onChange }: Props) {
+export default function AddComputerFeatures({ formData, onChange }: Props) {
   const isComputerLaptopAllinOneDevice = Computer.isComputerCategory({ categoryId: formData.categoryId })
 
   return (
@@ -53,12 +53,6 @@ export default function AddComputerFeatures ({ formData, onChange }: Props) {
             />
           </div>
           <div className='flex gap-4'>
-            <OperatingSystemArqSelect
-              onChange={onChange}
-              value={formData.operatingSystemArqId}
-              isForm
-              operatingSystem={formData.operatingSystemId}
-            />
             <OperatingSystemVersionSelect
               onChange={onChange}
               value={formData.operatingSystemId}
@@ -66,19 +60,25 @@ export default function AddComputerFeatures ({ formData, onChange }: Props) {
               status={formData.statusId}
               hardDriveCapacity={formData.hardDriveCapacityId}
             />
+            <OperatingSystemArqSelect
+              onChange={onChange}
+              value={formData.operatingSystemArqId}
+              isForm
+              operatingSystem={formData.operatingSystemId}
+            />
           </div>
           <div className='flex gap-4'>
-          <IpAddressInput
+            <IpAddressInput
               onChange={onChange}
               value={formData.ipAddress}
               status={formData.statusId}
               isForm={true}
-          />
-          <MacAddressInput
+            />
+            <MacAddressInput
               onChange={onChange}
               value={formData.macAddress}
               isRequired={false}
-          />
+            />
           </div>
         </>
       }

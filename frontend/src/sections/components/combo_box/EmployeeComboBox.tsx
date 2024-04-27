@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { DeviceEmployee } from "../../../modules/devices/devices/devices/domain/DeviceEmployee";
 import { StatusId } from "../../../modules/devices/devices/status/domain/StatusId";
 import { OnHandleChange } from "../../../modules/shared/domain/types/types";
@@ -11,78 +11,94 @@ import EmployeeDialog from "../Dialog/EmployeeDialog";
 import { EmployeePrimitives } from "../../../modules/employee/employee/domain/Employee";
 
 interface Props {
-    value: Primitives<DeviceEmployee>
-    status?: Primitives<StatusId>
-    onChange: OnHandleChange
-    type?: 'form' | 'search'
-  }
+  value: Primitives<DeviceEmployee>
+  status?: Primitives<StatusId>
+  onChange: OnHandleChange
+  type?: 'form' | 'search'
+}
 
-export default function EmployeeComboBox ({ value, onChange, status, type = 'search' }: Props) {
-    const { repository } = useAppContext()
-    const { employees, loading } = useEmployee(repository)
-    const employeeOptions = useMemo(() => employees.map(employee => ({ id: employee.id, name: employee.userName })), [employees])
-    
-    const initialValue = useMemo(() => {
-      return employeeOptions.find(employee => employee.id === value)
+export default function EmployeeComboBox({ value, onChange, status, type = 'search' }: Props) {
+  const { repository } = useAppContext()
+  const { employees, loading } = useEmployee(repository)
+  const employeeOptions = useMemo(() => employees.map(employee => ({ id: employee.id, name: employee.userName })), [employees])
+
+  const initialValue = useMemo(() => {
+    return employeeOptions.find(employee => employee.id === value)
   }, [employeeOptions, value])
-  
-    const [errorMessage, setErrorMessage] = useState('')
-    const [isError, setIsError] = useState(false)
-    const [isDisbaled, setIsDisbled] = useState(false)
-    const [open, toggleOpen] = useState(false)
-    const [dialogValue, setDialogValue] = useState<EmployeePrimitives>({userName: ''});
 
-    useEffect(() => {
-        if (type !== 'form') return;
+  const [errorMessage, setErrorMessage] = useState('')
+  const [isError, setIsError] = useState(false)
+  const [isDisabled, setIsDisabled] = useState(false)
+  const [open, toggleOpen] = useState(false)
+  const [dialogValue, setDialogValue] = useState<EmployeePrimitives>({ userName: '' });
 
-        if (value === undefined) return
-        
+  useEffect(() => {
+    if (type !== 'form') return;
+
+    if (value === undefined) {
+      console.log(value)
+      return
+    }
+
+
+    const isValid = DeviceEmployee.isValid(value, status)
+    setIsDisabled(StatusId.StatusOptions.INUSE !== status)
     
-        const isValid = DeviceEmployee.isValid(value, status)
-        setIsDisbled(StatusId.StatusOptions.INUSE !== status)
+    setIsError(!isValid)
+    setErrorMessage(isValid ? '' : DeviceEmployee.invalidMessage())
     
-        setIsError(!isValid)
-        setErrorMessage(isValid ? '' : DeviceEmployee.invalidMessage())
-    
-        return () => {
-          setErrorMessage('')
-          setIsError(false)
-        }
-      }, [value, status])
+    return () => {
+      setErrorMessage('')
+      setIsError(false)
+    }
+  }, [value, status])
   
-    return (
-        <ComboBox
-            id='employeeId'
-            initialValue={initialValue}
-            label="Usuarios"
-            name='employeeId'
-            type={type}
-            onChange={(_, newValue) => {
-              if (typeof newValue === 'string') {
-                // timeout to avoid instant validation of the dialog's form.
-                setTimeout(() => {
-                  toggleOpen(true);
-                  setDialogValue({
-                    userName: newValue
-                  });
-                });
-              } else if (newValue && newValue.inputValue) {
-                toggleOpen(true);
-                setDialogValue({
-                  userName: newValue.inputValue
-                });
-              } else {
-                onChange('employeeId', newValue ? newValue.id : '', Operator.EQUAL)
-              }
-            }}
-            options={employeeOptions}
-            isDisabled={isDisbaled}
-            isRequired={false}
-            isError={isError}
-            loading={loading}
-            errorMessage={errorMessage}
-        >
-          {type === 'form' && <EmployeeDialog  dialogValue={dialogValue} open={open} toggleOpen={toggleOpen}/>}
-        </ComboBox>
-    )
+  useEffect(() => {
+    if (isDisabled) {
+      onChange('employeeId', '')
+    }
+  }, [isDisabled])
+
+  return (
+    <Suspense>
+      <ComboBox
+        id='employeeId'
+        initialValue={initialValue}
+        label="Usuarios"
+        name='employeeId'
+        type={type}
+        onChange={(_, newValue) => {
+          if (typeof newValue === 'string') {
+            // timeout to avoid instant validation of the dialog's form.
+            setTimeout(() => {
+              toggleOpen(true);
+              setDialogValue({
+                userName: newValue
+              });
+            });
+          } else if (newValue && newValue.inputValue) {
+            toggleOpen(true);
+            setDialogValue({
+              userName: newValue.inputValue
+            });
+          } else {
+            const hasNewValue = newValue ? newValue.id : ''
+            const isInputDisabled = isDisabled ? '' : hasNewValue
+            onChange('employeeId', isInputDisabled, Operator.EQUAL)
+          }
+        }}
+        options={employeeOptions}
+        isDisabled={isDisabled}
+        isRequired={false}
+        isError={isError}
+        loading={loading}
+        errorMessage={errorMessage}
+      >
+        {type === 'form' &&
+          <Suspense>
+            <EmployeeDialog dialogValue={dialogValue} open={open} toggleOpen={toggleOpen} />
+          </Suspense>}
+      </ComboBox>
+    </Suspense>
+  )
 }
