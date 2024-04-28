@@ -1,15 +1,13 @@
+import { lazy, Suspense } from 'react'
 import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
-import MemoryRamCapacityInput from '../memoryRam/MemoryRamCapacityInput'
-import HardDriveCapacitySelect from '../hardDrive/HardDriveCapacitySelect'
-import HardDriveTypeSelect from '../hardDrive/HardDriveTypeSelect'
-import OperatingSystemArqSelect from '../operatingSystem/OperatingSystemArqSelect'
-import OperatingSystemVersionSelect from '../operatingSystem/OperatingSystemVersionSelect'
 import { Computer, type ComputerPrimitives } from '../../../../modules/devices/fetures/computer/domain/Computer'
+import { InputSkeletonLoading } from '../../../components/Loading/inputSkeletonLoading'
+import MemoryRamCapacityInput from '../memoryRam/MemoryRamCapacityInput'
+
+
 import IpAddressInput from './ipAddressInput'
 import MacAddressInput from './MacAddressInput'
 import ComputerNameInput from './ComputerNameInput'
-import { lazy, Suspense } from 'react'
-import { InputSkeletonLoading } from '../../../components/Loading/inputSkeletonLoading'
 
 interface Props {
   onChange: OnHandleChange
@@ -17,6 +15,10 @@ interface Props {
 }
 
 const ProcessorComboBox = lazy(async () => import('../../../components/combo_box/ProcessorComboBox'))
+const HardDriveCapacityComboBox = lazy(async () => import('../../../components/combo_box/HardDriveCapacityComboBox').then(m => ({ default: m.HardDriveCapacityComboBox })))
+const OperatingSystemComboBox = lazy(async () => import('../../../components/combo_box/OperatingSystemComboBox').then(m => ({ default: m.OperatingSystemComboBox })))
+const OperatingSystemArqComboBox = lazy(async () => import('../../../components/combo_box/OperatingSystemArqComboBox').then(m => ({ default: m.OperatingSystemArqComboBox })))
+const HardDriveTypeComboBox = lazy(async () => import('../../../components/combo_box/HardDriveTypeComboBox'))
 
 export default function AddComputerFeatures({ formData, onChange }: Props) {
   const isComputerLaptopAllinOneDevice = Computer.isComputerCategory({ categoryId: formData.categoryId })
@@ -35,7 +37,7 @@ export default function AddComputerFeatures({ formData, onChange }: Props) {
             <ProcessorComboBox
               type='form'
               onChange={onChange}
-              value={formData.processorId}                            
+              value={formData.processorId}
             />
           </Suspense>
           <MemoryRamCapacityInput
@@ -43,33 +45,41 @@ export default function AddComputerFeatures({ formData, onChange }: Props) {
             value={formData.memoryRamCapacity}
           />
           <div className='flex gap-4'>
-            <HardDriveCapacitySelect
-              onChange={onChange}
-              value={formData.hardDriveCapacityId}
-              isForm
-              status={formData.statusId}
-            />
-            <HardDriveTypeSelect
-              onChange={onChange}
-              value={formData.hardDriveTypeId}
-              isForm
-              hardDriveCapacity={formData.hardDriveCapacityId}
-            />
+            <Suspense fallback={<InputSkeletonLoading />}>
+              <HardDriveCapacityComboBox
+                onChange={onChange}
+                value={formData.hardDriveCapacityId}
+                status={formData.statusId}
+                type='form'
+              />
+            </Suspense>
+            <Suspense fallback={<InputSkeletonLoading />}>
+              <HardDriveTypeComboBox
+                onChange={onChange}
+                value={formData.hardDriveTypeId}
+                hardDriveCapacity={formData.hardDriveCapacityId}
+                type='form'
+              />
+            </Suspense>
           </div>
           <div className='flex gap-4'>
-            <OperatingSystemVersionSelect
-              onChange={onChange}
-              value={formData.operatingSystemId}
-              isForm
-              status={formData.statusId}
-              hardDriveCapacity={formData.hardDriveCapacityId}
-            />
-            <OperatingSystemArqSelect
-              onChange={onChange}
-              value={formData.operatingSystemArqId}
-              isForm
-              operatingSystem={formData.operatingSystemId}
-            />
+            <Suspense fallback={<InputSkeletonLoading />}>
+              <OperatingSystemComboBox
+                onChange={onChange}
+                value={formData.operatingSystemId}
+                status={formData.statusId}
+                hardDriveCapacity={formData.hardDriveCapacityId}
+                type='form'
+              />
+            </Suspense>
+            <Suspense fallback={<InputSkeletonLoading />}>
+              <OperatingSystemArqComboBox
+                onChange={onChange}
+                value={formData.operatingSystemArqId}
+                operatingSystem={formData.operatingSystemId}
+                type='form'
+              />
+            </Suspense>
           </div>
           <div className='flex gap-4'>
             <IpAddressInput

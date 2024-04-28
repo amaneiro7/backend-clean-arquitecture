@@ -47,6 +47,7 @@ interface defaultProps {
   macAddress?: Primitives<MACAddress>
   ipAddress?: Primitives<IPAddress>
   health?: Primitives<HardDriveHealth>
+  updatedAt?: string
 }
 
 const defaultInitialState: defaultProps = {
@@ -68,7 +69,8 @@ const defaultInitialState: defaultProps = {
   operatingSystemId: '',
   macAddress: '',
   ipAddress: '',
-  health: 100
+  health: 100,
+  updatedAt: undefined
 }
 export const useDeviceInitialState = () => {
   const { id } = useParams()
@@ -101,15 +103,15 @@ export const useDeviceInitialState = () => {
   }, [id, location.state?.state])
 
   function processDeviceState (device: DevicePrimitives): void {
-    const { serial, activo, statusId, modelId, categoryId, brandId, employeeId, locationId, observation, computer, hardDrive } = device as DevicesMappedApiResponse
-    setPreloadedDeviceState((prev) => ({ ...prev, id, serial, activo, statusId, modelId, categoryId, brandId, employeeId, locationId, observation }))
+    const { serial, activo, statusId, modelId, categoryId, brandId, employeeId, locationId, observation, computer, hardDrive, updatedAt } = device as DevicesMappedApiResponse
+    setPreloadedDeviceState((prev) => ({ ...prev, id, serial, activo, statusId, modelId, categoryId, brandId, employeeId, locationId, observation, updatedAt }))
     if (computer !== null) {
-      const { computerName, processorId, memoryRamCapacity, hardDriveCapacityId, hardDriveTypeId, operatingSystemArqId, operatingSystemId, macAddress, ipAddress } = computer
-      setPreloadedDeviceState(prev => ({ ...prev, computerName, processorId, memoryRamCapacity, hardDriveCapacityId, hardDriveTypeId, operatingSystemArqId, operatingSystemId, macAddress, ipAddress }))
+      const { computerName, processorId, memoryRamCapacity, hardDriveCapacityId, hardDriveTypeId, operatingSystemArqId, operatingSystemId, macAddress, ipAddress, updatedAt } = computer
+      setPreloadedDeviceState(prev => ({ ...prev, computerName, processorId, memoryRamCapacity, hardDriveCapacityId, hardDriveTypeId, operatingSystemArqId, operatingSystemId, macAddress, ipAddress, updatedAt }))
     }
     if (hardDrive !== null) {
-      const { health, hardDriveCapacityId, hardDriveTypeId } = hardDrive
-      setPreloadedDeviceState(prev => ({ ...prev, health, hardDriveCapacityId, hardDriveTypeId }))
+      const { health, hardDriveCapacityId, hardDriveTypeId, updatedAt } = hardDrive
+      setPreloadedDeviceState(prev => ({ ...prev, health, hardDriveCapacityId, hardDriveTypeId, updatedAt }))
     }
   }
 

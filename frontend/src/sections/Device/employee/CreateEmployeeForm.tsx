@@ -4,15 +4,20 @@ import { useEmployeeInitialState } from './EmployeeFormInitialState'
 import { useGenericFormData } from '../../Hooks/useGenericFormData'
 import { FormStatus, useEmployeeForm } from './useEmployeeForm'
 import { InputSkeletonLoading } from '../../components/Loading/inputSkeletonLoading'
+import { useEmployee } from './useEmployee'
+import { useAppContext } from '../../Context/AppContext'
+import Main from '../../components/Main'
 
 const FormContainer = lazy(async () => await import('../../components/formContainer'))
 const EmployeeUserNameInput = lazy(async () => await import('../../components/text-inputs/UserNameInput'))
 
 export default function CreateEmployeeForm() {
   const navigate = useNavigate()
+  const {repository} = useAppContext()
+  const { createEmployee } = useEmployee(repository)
   const { preloadedEmployeeState } = useEmployeeInitialState()
   const { formData, resetForm, updateForm } = useGenericFormData(preloadedEmployeeState)
-  const { formStatus, resetFormStatus, submitForm } = useEmployeeForm()
+  const { formStatus, resetFormStatus, submitForm } = useEmployeeForm({createEmployee})
 
   useEffect(() => {
     updateForm(preloadedEmployeeState)
@@ -46,21 +51,22 @@ export default function CreateEmployeeForm() {
 
   return (
     <Suspense>
-
-      <FormContainer
-        title='Agrega un nuevo Empleado'
-        handleSubmit={handleSubmit}
-        handleClose={handleClose}
-        isDisabled={formStatus === FormStatus.Loading}
-      >
-        <Suspense fallback={<InputSkeletonLoading />}>
-          <EmployeeUserNameInput
-            value={formData.userName}
-            type='form'
-            onChange={handleChange}
-          />
-        </Suspense>
-      </FormContainer>
+      <Main>
+        <FormContainer
+          title='Agrega un nuevo Empleado'
+          handleSubmit={handleSubmit}
+          handleClose={handleClose}
+          isDisabled={formStatus === FormStatus.Loading}
+        >
+          <Suspense fallback={<InputSkeletonLoading />}>
+            <EmployeeUserNameInput
+              value={formData.userName}
+              type='form'
+              onChange={handleChange}
+            />
+          </Suspense>
+        </FormContainer>
+      </Main>
     </Suspense>
   )
 }

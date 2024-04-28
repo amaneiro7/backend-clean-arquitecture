@@ -8,7 +8,7 @@ export class ApiHardDriveCapacityRepository implements HardDriveCapacityReposito
       .then(async response => await (response.json() as Promise<HardDriveCapacityPrimitives[]>))
       .then((data) => data.map(item => ({
         id: item.id,
-        name: item.name
+        name: `${item.name} Gb`
       })))
   }
 }

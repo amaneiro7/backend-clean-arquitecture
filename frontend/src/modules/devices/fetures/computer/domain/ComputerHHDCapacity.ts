@@ -10,7 +10,7 @@ export class ComputerHDDCapacity extends AcceptedNullValueObject<Primitives<Hard
     private readonly status: Primitives<StatusId>
   ) {
     super(value)
-    if (value === null || value === undefined || value === '') {
+    if (!value) {
       this.value = null
     } else {
       this.value = value
@@ -30,7 +30,7 @@ export class ComputerHDDCapacity extends AcceptedNullValueObject<Primitives<Hard
   }
 
   public static isValid (value: Primitives<ComputerHDDCapacity>, status: Primitives<StatusId>): boolean {
-    if (status === StatusId.StatusOptions.INUSE && value === null) {
+    if (status === StatusId.StatusOptions.INUSE && !value) {
       ComputerHDDCapacity.updateError('Si el equipo está en uso, no se puede dejar en blanco la capacidad del Disco Duro')
       return false
     }

@@ -17,8 +17,6 @@ export class DeviceEmployee extends AcceptedNullValueObject<Primitives<EmployeeI
       this.value = value
     }
 
-    console.log(value)
-
     if (!DeviceEmployee.isValid(this.value, this.status)) {
       throw new Error(DeviceEmployee.invalidMessage())
     }

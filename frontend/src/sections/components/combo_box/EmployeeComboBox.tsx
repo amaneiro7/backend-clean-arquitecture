@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useMemo, useState } from "react";
+import { Suspense, useLayoutEffect, useMemo, useState } from "react";
 import { DeviceEmployee } from "../../../modules/devices/devices/devices/domain/DeviceEmployee";
 import { StatusId } from "../../../modules/devices/devices/status/domain/StatusId";
 import { OnHandleChange } from "../../../modules/shared/domain/types/types";
@@ -34,11 +34,10 @@ export default function EmployeeComboBox({ value, onChange, status, type = 'sear
   const [open, toggleOpen] = useState(false)
   const [dialogValue, setDialogValue] = useState<EmployeePrimitives>({ userName: '' });
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (type !== 'form') return;
 
-    if (value === undefined) {
-      console.log(value)
+    if (value === undefined) {      
       return
     }
 
@@ -55,7 +54,7 @@ export default function EmployeeComboBox({ value, onChange, status, type = 'sear
     }
   }, [value, status])
   
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (isDisabled) {
       onChange('employeeId', '')
     }

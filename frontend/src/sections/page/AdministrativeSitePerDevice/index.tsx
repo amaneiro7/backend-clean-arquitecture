@@ -50,7 +50,7 @@ export default function AdministrativeSitePage () {
     }, 300)
     , [addFilter]
   )
-
+  
   const handleChange = (name: string, value: string, operator?: Operator) => {
     const filters = [{
       field: name,

@@ -10,7 +10,7 @@ export class ComputerHDDType extends AcceptedNullValueObject<Primitives<HardDriv
     private readonly hardDriveCapacity: Primitives<HardDriveCapacityId>
   ) {
     super(value)
-    if (value === null || value === undefined || value === '') {
+    if (!value) {
       this.value = null
     } else {
       this.value = value
@@ -30,7 +30,7 @@ export class ComputerHDDType extends AcceptedNullValueObject<Primitives<HardDriv
   }
 
   public static isValid (value: Primitives<ComputerHDDType>, hardDriveCapacity: Primitives<HardDriveCapacityId>): boolean {
-    if (hardDriveCapacity === null && value !== null) {
+    if (!hardDriveCapacity && value) {
       ComputerHDDType.updateError('Si no tiene Disco duro, no se puede especificar un tipo')
       return false
     }

@@ -21,6 +21,7 @@ interface Props {
   isDisabled?: boolean
   onChange: AutocompleteProps<any, false, false, false>["onChange"]
   isRequired?: boolean
+  placeholder?: string
   isError?: boolean
   errorMessage?: string
   type?: 'form' | 'search'
@@ -43,6 +44,7 @@ export default function ComboBox({
   isDisabled = true,
   freeSolo= false,
   loading,
+  placeholder,
   onChange,
   isRequired = false,
   isError,
@@ -58,8 +60,7 @@ export default function ComboBox({
         id={`combo-box-${id}`}
         value={initialValue}
         freeSolo={freeSolo}
-        onChange={(event, newValue, reason, details) => {
-          // setValue(newValue)
+        onChange={(event, newValue, reason, details) => {          
           onChange(event, newValue, reason, details)
         }}
         filterOptions={(options, params) => {
@@ -75,6 +76,7 @@ export default function ComboBox({
           return filtered
         }}
         fullWidth
+        placeholder={placeholder}
         disabled={isDisabled}
         size='small'
         open={open}

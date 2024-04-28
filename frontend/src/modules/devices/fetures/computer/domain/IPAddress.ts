@@ -30,15 +30,15 @@ export class IPAddress {
 
   public static isValid (value: Primitives<IPAddress>, status: Primitives<StatusId>): boolean {
     if (status === '') return true
-    if (StatusId.StatusOptions.INUSE === status && (value === null || value === '')) {
+    if (StatusId.StatusOptions.INUSE === status && !value) {
       IPAddress.updateError('Si el equipo esta en uso la dirección IP es requerida')
       return false
     }
-    if (StatusId.StatusOptions.INUSE !== status && (value !== null || value !== '')) {
+    if (StatusId.StatusOptions.INUSE !== status && value) {
       IPAddress.updateError('Si el equipo no está en uso, no puede tener dirección IP')
       return false
     }
-    if (value === null || value === '') {
+    if (!value) {
       IPAddress.updateError('')
       return true
     }

@@ -49,8 +49,8 @@ export interface DevicesApiResponse {
   employeeId: Primitives<DeviceEmployee>
   locationId: Primitives<LocationId>
   observation: Primitives<DeviceObservation>
-  createdAt: Date
-  updatedAt: Date
+  createdAt: string
+  updatedAt: string
   category: CategoryPrimitives
   brand: BrandPrimitives
   model: ModelApiresponse
@@ -65,22 +65,22 @@ export interface EmployeesApiResponse {
   id: Primitives<EmployeeId>
   userName: Primitives<EmployeeUserName>
   devices: DevicesApiResponse[]
-  createdAt: Date
-  updatedAt: Date
+  createdAt: string
+  updatedAt: string
 }
 
 export interface EmployeeMappedApiResponse {
   id: Primitives<EmployeeId>
   userName: Primitives<EmployeeUserName>
-  createdAt: Date
-  updatedAt: Date
+  createdAt: string
+  updatedAt: string
   devices?: DevicePrimitives[]
 }
 export interface EmployeeDevicesMappedApiResponse {
   id: Primitives<EmployeeId>
   userName: Primitives<EmployeeUserName>
-  createdAt: Date
-  updatedAt: Date
+  createdAt: string
+  updatedAt: string
   computers: DevicesApiResponse[]
   monitores: DevicesApiResponse[]
 }
@@ -104,14 +104,14 @@ export interface DevicesMappedApiResponse {
   employeeUserName: Primitives<EmployeeUserName>
   computer: Computer | null
   hardDrive: HardDrive | null
-  createdAt: Date
-  updatedAt: Date
+  createdAt: string
+  updatedAt: string
 }
 export interface BrandApiResponse {
   id: Primitives<BrandId>
   name: Primitives<BrandName>
-  createdAt: Date
-  updatedAt: Date
+  createdAt: string
+  updatedAt: string
   model: ModelApiresponse[]
 }
 
@@ -120,8 +120,8 @@ export interface ModelApiresponse {
   name: Primitives<ModelName>
   categoryId: Primitives<CategoryId>
   brandId: Primitives<BrandId>
-  createdAt: Date
-  updatedAt: Date
+  createdAt: string
+  updatedAt: string
   category: CategoryPrimitives
   brand: BrandPrimitives
 }
@@ -132,8 +132,8 @@ export interface ModelMappedApiResponse {
   categoryName: Primitives<CategoryName>
   brandId: Primitives<BrandId>
   brandName: Primitives<BrandName>
-  createdAt: Date
-  updatedAt: Date
+  createdAt: string
+  updatedAt: string
 }
 
 export interface Computer {
@@ -149,8 +149,8 @@ export interface Computer {
   operatingSystemArqId: Primitives<OperatingSystemArqId>
   macAddress: Primitives<MACAddress>
   ipAddress: Primitives<IPAddress>
-  createdAt: Date
-  updatedAt: Date
+  createdAt: string
+  updatedAt: string
   processor: ProcessorApiresponse
   hardDriveCapacity: HardDriveCapacityPrimitives
   hardDriveType: HardDriveTypePrimitives
@@ -161,12 +161,12 @@ export interface Computer {
 export interface Brand {
   id: Primitives<BrandId>
   name: Primitives<BrandName>
-  createdAt: Date
-  updatedAt: Date
+  createdAt: string
+  updatedAt: string
 }
 export interface ProcessorApiresponse extends ProcessorPrimitives {
-  createdAt: Date
-  updatedAt: Date
+  createdAt: string
+  updatedAt: string
 }
 
 export interface HardDrive {
@@ -176,8 +176,8 @@ export interface HardDrive {
   health: Primitives<HardDriveHealth>
   hardDriveCapacityId: Primitives<HardDriveCapacityId>
   hardDriveTypeId: Primitives<HardDriveTypeId>
-  createdAt: Date
-  updatedAt: Date
+  createdAt: string
+  updatedAt: string
   hardDriveCapacity: HardDriveCapacityPrimitives
   hardDriveType: HardDriveTypePrimitives
 }

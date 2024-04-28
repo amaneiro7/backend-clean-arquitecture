@@ -31,7 +31,7 @@ export class ComputerProcessor extends AcceptedNullValueObject<Primitives<Proces
   }
 
   public static isValid (value: Primitives<ComputerProcessor>, status: Primitives<StatusId>): boolean {
-    if ((status === StatusId.StatusOptions.INUSE || status === StatusId.StatusOptions.INALMACEN) && value === null) {
+    if ((status === StatusId.StatusOptions.INUSE || status === StatusId.StatusOptions.INALMACEN) && !value) {
       ComputerProcessor.updateError('Si esta en uso o en almacém, el procesador es requerido')
       return false
     }

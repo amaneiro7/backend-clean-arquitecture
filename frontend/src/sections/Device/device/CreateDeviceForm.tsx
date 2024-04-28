@@ -7,8 +7,8 @@ import { InputSkeletonLoading } from '../../components/Loading/inputSkeletonLoad
 const FormContainer = lazy(async () => await import('../../components/formContainer'))
 const SerialInput = lazy(async () => await import('./components/SerialInput'))
 const ActivoInput = lazy(async () => await import('./components/ActivoInput'))
-const StatusSelect = lazy(async () => await import('../../components/Select/StatusSelect'))
 const ObservationInput = lazy(async () => await import('./components/ObservationInput'))
+const StatusComboBox = lazy(async () => await import('../../components/combo_box/StatusComboBox'))
 const EmployeeComboBox = lazy(async () => await import('../../components/combo_box/EmployeeComboBox'))
 const BrandComboBox = lazy(async () => await import('../../components/combo_box/BrandComboBox'))
 const CategoryComboBox = lazy(async () => await import('../../components/combo_box/CategoryComboBox'))
@@ -39,7 +39,6 @@ export default function CreateDeviceForm() {
   }, [formStatus])
 
   const handleSubmit = async (event: FormEvent) => {
-    console.log('¿Me ejecute?')
     event.preventDefault()
     event.stopPropagation()
     await submitForm(formData)
@@ -60,6 +59,7 @@ export default function CreateDeviceForm() {
         handleSubmit={handleSubmit}
         handleClose={handleClose}
         isDisabled={formStatus === FormStatus.Loading}
+        lastUpdated={formData.updatedAt}
       >
         <Suspense fallback={<InputSkeletonLoading />}>
           <CategoryComboBox
@@ -93,10 +93,10 @@ export default function CreateDeviceForm() {
           </Suspense>
         </div>
         <Suspense fallback={<InputSkeletonLoading />}>
-          <StatusSelect
+          <StatusComboBox
             value={formData.statusId}
             onChange={handleChange}
-            isRequired={true}
+            type='form'
           />
         </Suspense>
         <Suspense fallback={<InputSkeletonLoading />}>

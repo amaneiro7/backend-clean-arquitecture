@@ -30,7 +30,7 @@ export class ComputerOsArq extends AcceptedNullValueObject<Primitives<OperatingS
   }
 
   public static isValid (value: Primitives<ComputerOsArq>, operatingSystem: Primitives<OperatingSystemId>): boolean {
-    if (operatingSystem === null && value !== null) {
+    if (!operatingSystem && value) {
       ComputerOsArq.updateError('Si el equipo no posee Sistema Operativo, no se le puede definir una arquitectura')
       return false
     }

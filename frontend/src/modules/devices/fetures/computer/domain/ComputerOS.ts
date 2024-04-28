@@ -32,11 +32,11 @@ export class ComputerOs extends AcceptedNullValueObject<Primitives<OperatingSyst
   }
 
   public static isValid (value: Primitives<ComputerOs>, status: Primitives<StatusId>, hardDriveCapacity: Primitives<HardDriveCapacityId>): boolean {
-    if (status === StatusId.StatusOptions.INUSE && value === null) {
+    if (status === StatusId.StatusOptions.INUSE && !value) {
       ComputerOs.updateError('Si el equipo está en uso, el sistema operativo es requerido')
       return false
     }
-    if (hardDriveCapacity === null && value !== null) {
+    if (!hardDriveCapacity && value) {
       ComputerOs.updateError('El disco duro no tiene capacidad definida, por lo que no se puede asignar un Sistema Operativo')
       return false
     }

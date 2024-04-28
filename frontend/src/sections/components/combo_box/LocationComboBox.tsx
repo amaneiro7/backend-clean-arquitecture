@@ -8,6 +8,7 @@ import { Operator } from "../../../modules/shared/domain/criteria/FilterOperator
 
 import { LocationId } from "../../../modules/location/locations/domain/locationId";
 import { useLocation } from "../../Device/location/useLocation";
+import { InputSkeletonLoading } from "../Loading/inputSkeletonLoading";
 
 interface Props {
     value?: Primitives<LocationId>    
@@ -39,7 +40,7 @@ export default function LocationComboBox ({ value, statusId, typeOfSiteId, onCha
       }, [locations, typeOfSiteId, statusId])
   
     return (
-        <Suspense>
+        <Suspense fallback={<InputSkeletonLoading />}>
             <ComboBox
                 id='locationId'
                 initialValue={initialValue}
@@ -48,7 +49,7 @@ export default function LocationComboBox ({ value, statusId, typeOfSiteId, onCha
                 type={type}
                 onChange={(_, newValue) => {
                     // if (typeof newValue === 'string') {
-                    //     // timeout to avoid instant validation of the dialog's form.
+                    //     timeout to avoid instant validation of the dialog's form.
                     //     setTimeout(() => {
                     //         toggleOpen(true)
                     //         setDialogValue({
