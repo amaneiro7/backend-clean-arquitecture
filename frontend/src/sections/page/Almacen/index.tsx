@@ -24,7 +24,7 @@ import { SpinnerSKCircle } from '../../components/Loading/spinner-sk-circle'
 
 
 const Button = lazy(async () => await import('../../ui/button'))
-const StatusSelect = lazy(async () => await import('../../Device/status/StatusSelect'))
+const StatusSelect = lazy(async () => await import('../../components/Select/StatusSelect'))
 const ActivoInput = lazy(async () => await import('../../Device/device/components/ActivoInput'))
 const SerialInput = lazy(async () => await import('../../Device/device/components/SerialInput'))
 const BrandComboBox = lazy(async () => await import('../../components/combo_box/BrandComboBox'))

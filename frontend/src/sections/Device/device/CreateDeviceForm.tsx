@@ -7,7 +7,7 @@ import { InputSkeletonLoading } from '../../components/Loading/inputSkeletonLoad
 const FormContainer = lazy(async () => await import('../../components/formContainer'))
 const SerialInput = lazy(async () => await import('./components/SerialInput'))
 const ActivoInput = lazy(async () => await import('./components/ActivoInput'))
-const StatusSelect = lazy(async () => await import('../status/StatusSelect'))
+const StatusSelect = lazy(async () => await import('../../components/Select/StatusSelect'))
 const ObservationInput = lazy(async () => await import('./components/ObservationInput'))
 const EmployeeComboBox = lazy(async () => await import('../../components/combo_box/EmployeeComboBox'))
 const BrandComboBox = lazy(async () => await import('../../components/combo_box/BrandComboBox'))
@@ -39,7 +39,9 @@ export default function CreateDeviceForm() {
   }, [formStatus])
 
   const handleSubmit = async (event: FormEvent) => {
+    console.log('¿Me ejecute?')
     event.preventDefault()
+    event.stopPropagation()
     await submitForm(formData)
   }
 

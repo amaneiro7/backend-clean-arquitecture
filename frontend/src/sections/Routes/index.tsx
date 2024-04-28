@@ -16,7 +16,7 @@ const CreateModelForm = lazy(async () => await import('../Device/model/CreateMod
 const CreateProcessorForm = lazy(async () => await import('../Device/features/processor/CreateProcessorForm.tsx'))
 const Login = lazy(async () => await import('../page/login/index.tsx'))
 const NotFound = lazy(async () => await import('../page/404/index.tsx'))
-const Layout = lazy(async () => await import('../components/layout/index.tsx'))
+const Layout = lazy(async () => await import('../components/Layout.tsx'))
 
 export const privateRouter = [
   { path: '/', element: <Home /> },

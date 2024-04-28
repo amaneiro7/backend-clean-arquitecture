@@ -3,9 +3,9 @@ import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
 import { type CargoId } from '../../../modules/employee/cargo/domain/CargoId'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { useAppContext } from '../../Context/AppContext'
-import { useCargo } from './useCargo'
+import { useCargo } from '../../Device/cargo/useCargo'
 
-const Select = lazy(async () => await import('../../components/Select/Select'))
+const Select = lazy(async () => await import('./Select'))
 
 interface Props {
   value: Primitives<CargoId>

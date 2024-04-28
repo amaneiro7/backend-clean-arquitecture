@@ -1,12 +1,12 @@
 import { lazy, Suspense } from 'react'
-import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
-import { type Primitives } from '../../../../modules/shared/domain/value-object/Primitives'
-import { useAppContext } from '../../../Context/AppContext'
-import { type GerenciaId } from '../../../../modules/employee/area/gerencia/domain/GerenciaId'
-import { type VicepresidenciaId } from '../../../../modules/employee/area/vicepresidencia/domain/VicepresidenciaId'
-import { useGerencia } from './useGerencia'
+import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
+import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
+import { useAppContext } from '../../Context/AppContext'
+import { type GerenciaId } from '../../../modules/employee/area/gerencia/domain/GerenciaId'
+import { type VicepresidenciaId } from '../../../modules/employee/area/vicepresidencia/domain/VicepresidenciaId'
+import { useGerencia } from '../../Device/area/Gerencia/useGerencia'
 
-const Select = lazy(async () => await import('../../../components/Select/Select'))
+const Select = lazy(async () => await import('./Select'))
 
 interface Props {
   value: Primitives<GerenciaId>

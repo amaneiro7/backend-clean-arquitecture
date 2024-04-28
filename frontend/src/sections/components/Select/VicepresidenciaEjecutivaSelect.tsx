@@ -1,11 +1,11 @@
 import { lazy, Suspense } from 'react'
-import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
-import { type Primitives } from '../../../../modules/shared/domain/value-object/Primitives'
-import { useAppContext } from '../../../Context/AppContext'
-import { type VicepresidenciaEjecutivaId } from '../../../../modules/employee/area/vicepresidenciaejecutiva/domain/VicepresidenciaEjecutivaId'
-import { useVicepresidenciaEjecutiva } from './useVicepresidenciaEjecutiva'
+import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
+import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
+import { useAppContext } from '../../Context/AppContext'
+import { type VicepresidenciaEjecutivaId } from '../../../modules/employee/area/vicepresidenciaejecutiva/domain/VicepresidenciaEjecutivaId'
+import { useVicepresidenciaEjecutiva } from '../../Device/area/vicepresidenciaEjecutivaId/useVicepresidenciaEjecutiva'
 
-const Select = lazy(async () => await import('../../../components/Select/Select'))
+const Select = lazy(async () => await import('./Select'))
 
 interface Props {
   value: Primitives<VicepresidenciaEjecutivaId>

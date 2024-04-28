@@ -1,29 +1,16 @@
 import { API_URL } from '../../../../shared/infraestructure/config'
 import { errorApiMessage } from '../../../../shared/infraestructure/errorMessage'
+import { makeRequest } from '../../../../shared/infraestructure/fetching'
 import { type ProcessorPrimitives, type Processor } from '../domain/Processor'
 import { type ProcessorId } from '../domain/ProcessorId'
 import { type ProcessorName } from '../domain/ProcessorName'
 import { type ProcessorRepository } from '../domain/ProcessorRepository'
 
 export class ApiProcessorRepository implements ProcessorRepository {
+  private readonly endpoint: string = 'processors'
   async save ({ processor }: { processor: Processor }): Promise<void> {
-    try {
-      const processorPrimitives = processor.toPrimitives()
-      const res = await fetch(`${API_URL}/processors`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          name: processorPrimitives.name
-        })
-      })
-      if (!res.ok) {
-        throw new Error(await res.text())
-      }
-    } catch (error) {
-      throw new Error(errorApiMessage)
-    }
+    await makeRequest({ method: 'POST', endpoint: this.endpoint, data: processor.toPrimitives() })
+    
   }
 
   async update ({ id, processor }: { id: ProcessorId, processor: Processor }): Promise<void> {

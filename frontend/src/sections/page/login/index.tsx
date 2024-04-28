@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom'
 import { useAppContext } from '../../Context/AppContext'
 import { FormStatus, useLoginForm } from './useLoginForm'
@@ -26,6 +26,7 @@ export default function Login () {
   const navigate = useNavigate()
   const location = useLocation()
   const { useAuth: { user } } = useAppContext()
+  const [remember, setRemember] = useState<boolean>(false)
 
   const from = location.state?.from?.pathname ?? '/'
 
@@ -81,6 +82,11 @@ export default function Login () {
                           </Suspense>
                             <div className="flex items-center justify-between">
                                 <Checkbox
+                                    handle={(event) => {                                      
+                                      setRemember(event.target.checked)
+                                    }}
+                                    name='remember'
+                                    value={remember}
                                     label='remember'
                                     text='Recuerdáme'
                                 />

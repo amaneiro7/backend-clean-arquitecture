@@ -1,5 +1,4 @@
 import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
-import ProcessorSelect from '../processor/ProcessorSelect'
 import MemoryRamCapacityInput from '../memoryRam/MemoryRamCapacityInput'
 import HardDriveCapacitySelect from '../hardDrive/HardDriveCapacitySelect'
 import HardDriveTypeSelect from '../hardDrive/HardDriveTypeSelect'
@@ -9,11 +8,15 @@ import { Computer, type ComputerPrimitives } from '../../../../modules/devices/f
 import IpAddressInput from './ipAddressInput'
 import MacAddressInput from './MacAddressInput'
 import ComputerNameInput from './ComputerNameInput'
+import { lazy, Suspense } from 'react'
+import { InputSkeletonLoading } from '../../../components/Loading/inputSkeletonLoading'
 
 interface Props {
   onChange: OnHandleChange
   formData: ComputerPrimitives
 }
+
+const ProcessorComboBox = lazy(async () => import('../../../components/combo_box/ProcessorComboBox'))
 
 export default function AddComputerFeatures({ formData, onChange }: Props) {
   const isComputerLaptopAllinOneDevice = Computer.isComputerCategory({ categoryId: formData.categoryId })
@@ -28,12 +31,13 @@ export default function AddComputerFeatures({ formData, onChange }: Props) {
             status={formData.statusId}
             value={formData.computerName}
           />
-          <ProcessorSelect
-            isForm={true}
-            onChange={onChange}
-            value={formData.processorId}
-            isRequired={false}
-          />
+          <Suspense fallback={<InputSkeletonLoading />}>
+            <ProcessorComboBox
+              type='form'
+              onChange={onChange}
+              value={formData.processorId}                            
+            />
+          </Suspense>
           <MemoryRamCapacityInput
             onChange={onChange}
             value={formData.memoryRamCapacity}

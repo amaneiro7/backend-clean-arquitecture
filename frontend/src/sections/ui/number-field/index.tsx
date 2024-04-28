@@ -34,7 +34,7 @@ const NumberInput: FC<NumberInputProps> = ({
   //     onChange(newValue)
   //   }
   return (
-    <div className="relative w-full mb-4">
+    <div className="relative h-10 w-full">
       <label
         className={`absolute text-center -top-2 left-2 z-10 px-2 bg-white transition-all duration-200 text-sm
         ${
@@ -46,7 +46,7 @@ const NumberInput: FC<NumberInputProps> = ({
       <input
         name={name}
         type="number"
-        value={value}
+        value={value}        
         onChange={onChange}
         required={isRequired}
         min={min}
@@ -55,7 +55,7 @@ const NumberInput: FC<NumberInputProps> = ({
         placeholder={placeholder}
         onFocus={() => { setIsFocused(true) }}
         onBlur={() => { setIsFocused(false) }}
-        className={`w-full h-auto px-4 py-4 mt-1 text-base border ${
+        className={`w-full h-full px-4 py-2 text-base border ${
           (error ?? false) ? 'border-red-500' : 'border-black/25'
         } rounded-md hover:border-black/60 focus:border-secondary-500 focus:outline-none focus:ring-2 focus:ring-secondary-500`}
       />

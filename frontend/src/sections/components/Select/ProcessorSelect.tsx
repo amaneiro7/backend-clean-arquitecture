@@ -1,13 +1,13 @@
 import { useMemo, Suspense, lazy } from 'react'
 import { Link } from 'react-router-dom'
-import { useAppContext } from '../../../Context/AppContext'
-import { useProcessor } from './useProcessor'
-import { AddIcon } from '../../../ui/icon/AddIcon'
-import { EditIcon } from '../../../ui/icon/EditIcon'
-import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
-import { Operator } from '../../../../modules/shared/domain/criteria/FilterOperators'
+import { useAppContext } from '../../Context/AppContext'
+import { useProcessor } from '../../Device/features/processor/useProcessor'
+import { AddIcon } from '../../ui/icon/AddIcon'
+import { EditIcon } from '../../ui/icon/EditIcon'
+import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
+import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
 
-const Select = lazy(async () => await import('../../../components/Select/Select'))
+const Select = lazy(async () => await import('./Select'))
 
 interface Props {
   value: string | null

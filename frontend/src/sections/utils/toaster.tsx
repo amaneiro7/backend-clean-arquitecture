@@ -3,10 +3,10 @@ import { Toaster, toast } from 'sonner'
 export const ToasterComponent = () => {
   return (
     <Toaster
-        closeButton
-        expand={false}
-        position='bottom-right'
-        richColors
+      closeButton
+      expand={false}
+      position='bottom-right'
+      richColors
     />
   )
 }

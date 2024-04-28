@@ -1,6 +1,5 @@
-import { type FormEvent, useEffect } from 'react'
+import { type FormEvent, lazy, Suspense, useEffect } from 'react'
 import { useGenericFormData } from '../../Hooks/useGenericFormData'
-import { FormContainer } from '../../components/formContainer'
 import { FormStatus, useBrandForm } from './useBrandForm'
 import BrandNameInput from '../../components/text-inputs/BrandNameInput'
 import { useBrandInitialState } from './BrandFormInitialState'
@@ -8,6 +7,8 @@ import { useBrandInitialState } from './BrandFormInitialState'
 const initialState = {
   name: ''
 }
+
+const FormContainer = lazy(async () => import('../../components/formContainer'))
 
 export default function CreateBrandForm () {
   const { preloadedBrandState } = useBrandInitialState()
@@ -47,16 +48,18 @@ export default function CreateBrandForm () {
   }
 
   return (
-    <FormContainer
-        title='Agrega una nueva Marca'
-        handleSubmit={handleSubmit}
-        handleClose={handleClose}
-        isDisabled={formStatus === FormStatus.Loading}
-    >
-      <BrandNameInput
-          value={formData.name}
-          onChange={handleChange}
-      />
-    </FormContainer>
+    <Suspense>
+      <FormContainer
+          title='Agrega una nueva Marca'
+          handleSubmit={handleSubmit}
+          handleClose={handleClose}
+          isDisabled={formStatus === FormStatus.Loading}
+      >
+        <BrandNameInput
+            value={formData.name}
+            onChange={handleChange}
+        />
+      </FormContainer>
+    </Suspense>
   )
 }

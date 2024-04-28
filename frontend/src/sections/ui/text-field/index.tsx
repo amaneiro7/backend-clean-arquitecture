@@ -20,7 +20,7 @@ export default function FormInput ({ id, name, value, type, placeholder, handle,
             id={id}
             required={isRequired}
             disabled={isDisabled}
-            fullWidth
+            fullWidth            
             size='small'
             name={name}
             value={value}

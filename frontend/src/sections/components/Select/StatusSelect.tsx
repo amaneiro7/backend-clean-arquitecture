@@ -4,9 +4,9 @@ import { type StatusId } from '../../../modules/devices/devices/status/domain/St
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
-import { useStatus } from './useStatus'
+import { useStatus } from '../../Device/status/useStatus'
 
-const Select = lazy(async () => await import('../../components/Select/Select'))
+const Select = lazy(async () => await import('./Select'))
 
 interface Props {
   value: Primitives<StatusId>

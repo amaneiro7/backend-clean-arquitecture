@@ -3,7 +3,6 @@ import { type Repository } from '../../../../modules/shared/domain/repository'
 import { AllProcessorGetter } from '../../../../modules/devices/fetures/processor/application/AllProcessorGetter'
 import { type ProcessorPrimitives } from '../../../../modules/devices/fetures/processor/domain/Processor'
 import { ProcessorCreator } from '../../../../modules/devices/fetures/processor/application/ProcessorCreator'
-import { Uuid } from '../../../../modules/shared/domain/value-object/Uuid'
 import { ProcessorGetter } from '../../../../modules/devices/fetures/processor/application/BrandGetter'
 
 export const useProcessor = (repository: Repository) => {
@@ -12,12 +11,12 @@ export const useProcessor = (repository: Repository) => {
   const [error, setError] = useState(null)
   const [data, setData] = useState<ProcessorPrimitives[]>([])
 
-  async function createProcessor ({ name }: { name: string }) {
-    const id = Uuid.random().value
-    await new ProcessorCreator(repository).create({ id, name })
+  async function createProcessor (payload: ProcessorPrimitives) {    
+    await new ProcessorCreator(repository).create(payload)
+    await getProcessors()
   }
 
-  function fetchData () {
+  async function getProcessors () {
     setLoading(true)
     dataGetter
       .get()
@@ -34,7 +33,7 @@ export const useProcessor = (repository: Repository) => {
   const getProcessor = new ProcessorGetter(repository)
 
   useEffect(() => {
-    fetchData()
+    getProcessors()
 
     return () => {
       setData([])

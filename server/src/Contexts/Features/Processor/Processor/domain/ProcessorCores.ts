@@ -16,7 +16,7 @@ export class ProcessorCores extends NumberValueObject {
 
   private ensureIsValidName (value: number): void {
     if (!this.isValid(value)) {
-      throw new InvalidArgumentError(`<${value}> is not a valid name`)
+      throw new InvalidArgumentError(`<${value}> is not valid value for cores `)
     }
   }
 

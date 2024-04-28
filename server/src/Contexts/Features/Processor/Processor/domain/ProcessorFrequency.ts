@@ -1,18 +1,36 @@
 import { InvalidArgumentError } from '../../../../Shared/domain/value-object/InvalidArgumentError'
-import { NumberValueObject } from '../../../../Shared/domain/value-object/NumberValueObject'
+import { Primitives } from '../../../../Shared/domain/value-object/Primitives'
 
-export class ProcessorFrequency extends NumberValueObject {
+export class ProcessorFrequency  {  
   private readonly MIN = 1
   private readonly MAX = 6
 
-  constructor (readonly value: number) {
-    super(value)
-    this.ensureIsValidName(value)
+
+  constructor (readonly value: number | string) {    
+    const parsedValue = this.convertToNumber(value)    
+    this.value = parsedValue
+    this.ensureIsValidName(this.value)
   }
 
-  toPrimitives (): string {
+  private convertToNumber(value: string | number): number {
+    if (typeof value === 'number') {
+      return value;
+    } else if (typeof value === 'string') {
+      const numericString = value.replace(/\D/g, ''); // Eliminar caracteres no numéricos
+      return parseInt(numericString, 10);
+    } else {
+      throw new Error('Invalid value type. Must be string or number.');
+    }
+  }
+
+  toPrimitives (): Primitives<ProcessorFrequency> {
+    if (typeof this.value !== "number") {
+      throw new InvalidArgumentError('Invalid processor frequency type')
+    } 
     const frequencyInGHz = this.value.toFixed(2)
     return `${frequencyInGHz} GHz`
+
+
   }
 
   private ensureIsValidName (value: number): void {

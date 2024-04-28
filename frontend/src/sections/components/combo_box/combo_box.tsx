@@ -1,17 +1,19 @@
-import React, { PropsWithChildren, useState } from 'react'
-import { Autocomplete, AutocompleteProps } from '../../mui/Autocomplete'
-import { TextField } from '../../mui/TextField'
-import { CircularProgress } from '../../mui/CircularProgress '
+import React, { lazy, PropsWithChildren, Suspense, useState } from 'react'
 import { createFilterOptions } from '@mui/material'
-import { CloseIcon } from '../../mui/CloseIcon';
 import parse from 'autosuggest-highlight/parse'
 import match from 'autosuggest-highlight/match'
+import { Autocomplete, AutocompleteProps } from '../../mui/Autocomplete'
 
+// const Autocomplete = lazy(async () => await import("../../mui/Autocomplete").then(m => ({ default: m.Autocomplete })))
+const TextField = lazy(async () => await import("../../mui/TextField").then(m => ({ default: m.TextField })))
+const CircularProgress = lazy(async () => await import('../../mui/CircularProgress').then(m => ({ default: m.CircularProgress })))
+const CloseIcon = lazy(async () => await import('../../mui/CloseIcon').then(m => ({ default: m.CloseIcon })))
 
 interface Props {
   id: string
   initialValue?: any | null
   name: string
+  freeSolo?: boolean
   label: string
   loading?: boolean
   options: Options[]
@@ -32,13 +34,14 @@ interface Options {
 }
 
 const filter = createFilterOptions()
-export default function ComboBox ({ 
+export default function ComboBox({
   id,
   name,
-  initialValue = null,  
+  initialValue = null,
   label,
   options,
   isDisabled = true,
+  freeSolo= false,
   loading,
   onChange,
   isRequired = false,
@@ -48,20 +51,20 @@ export default function ComboBox ({
   type = 'search'
 }: PropsWithChildren<Props>) {
   const [open, setOpen] = useState(false)
-  
+
   return (
-    <>         
+    <Suspense>
       <Autocomplete
         id={`combo-box-${id}`}
         value={initialValue}
-        defaultValue={'Combobox'}
+        freeSolo={freeSolo}
         onChange={(event, newValue, reason, details) => {
           // setValue(newValue)
-          onChange(event, newValue, reason, details)          
+          onChange(event, newValue, reason, details)
         }}
         filterOptions={(options, params) => {
           const filtered = filter(options, params)
-          const { inputValue } = params
+          const { inputValue } = params          
           const isExisting = options.some((option) => inputValue === option.name)
           if (inputValue !== '' && !isExisting && type !== 'search') {
             filtered.push({
@@ -74,7 +77,7 @@ export default function ComboBox ({
         fullWidth
         disabled={isDisabled}
         size='small'
-        open={open}        
+        open={open}
         onOpen={() => { setOpen(true) }}
         onClose={() => { setOpen(false) }}
         isOptionEqualToValue={(option, value) => option.name === value.name}
@@ -89,7 +92,7 @@ export default function ComboBox ({
         }}
         options={options}
         loading={loading}
-        
+
         clearText='Limpiar'
         loadingText='Cargando...'
         openText='Abrir'
@@ -98,26 +101,28 @@ export default function ComboBox ({
         clearOnEscape
         clearOnBlur
         handleHomeEndKeys
-        clearIcon={<CloseIcon fontSize='small' />}
+        clearIcon={<Suspense><CloseIcon fontSize='small' /></Suspense>}
         renderInput={(params) => (
-          <TextField
-            {...params}
-            label={label}
-            name={name}
-            required={isRequired}
-            InputProps={{
-              ...params.InputProps,
-              endAdornment: (
-                <>
-                  {loading && <CircularProgress color="inherit" size={20} />}
-                  {params.InputProps.endAdornment}
-                </>
-              ),
-            }}
-            color={isError ? 'warning' : 'primary'}
-            error={isError}
-            helperText={errorMessage}
-          />
+          <Suspense>
+            <TextField
+              {...params}
+              label={label}
+              name={name}
+              required={isRequired}
+              InputProps={{
+                ...params.InputProps,
+                endAdornment: (
+                  <>
+                    {loading && <Suspense><CircularProgress color="inherit" size={20} /></Suspense>}
+                    {params.InputProps.endAdornment}
+                  </>
+                ),
+              }}
+              color={isError ? 'warning' : 'primary'}
+              error={isError}
+              helperText={errorMessage}
+            />
+          </Suspense>
         )}
         renderOption={(props, option, { inputValue }) => {
           const matches = match(option.name, inputValue, { insideWords: true });
@@ -126,7 +131,7 @@ export default function ComboBox ({
         }}
       />
       {children}
-    </>
+    </Suspense>
   )
 }
 
@@ -135,8 +140,8 @@ interface ParseType {
   highlight: boolean
 }
 
-function RenderOption ({parts, props}: {parts: ParseType[], props: React.HTMLAttributes<HTMLLIElement>}) {
-  return(    
+function RenderOption({ parts, props }: { parts: ParseType[], props: React.HTMLAttributes<HTMLLIElement> }) {
+  return (
     <li {...props}>
       <div>
         {parts.map((part, index) => (
@@ -150,6 +155,6 @@ function RenderOption ({parts, props}: {parts: ParseType[], props: React.HTMLAtt
           </span>
         ))}
       </div>
-    </li>    
+    </li>
   )
 }
