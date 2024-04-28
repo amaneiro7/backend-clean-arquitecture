@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
 import { EmployeeGetter } from '../../../modules/employee/employee/application/EmployeeGetter'
 import { EmployeeGetterByCriteria } from '../../../modules/employee/employee/application/EmployeeGetterByCriteria'
 import { type EmployeePrimitives } from '../../../modules/employee/employee/domain/Employee'
@@ -7,6 +6,7 @@ import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestruct
 import { EmployeeCreator } from '../../../modules/employee/employee/application/EmployeeCreator'
 import { type Repository } from '../../../modules/shared/domain/repository'
 import { useSearchByCriteriaQuery } from '../../Hooks/useQueryUpdate'
+import { AllEmployeeGetter } from '../../../modules/employee/employee/application/AllEmployeeGetter'
 
 export interface UseEmployee {
   employees: EmployeePrimitives[]
@@ -20,22 +20,25 @@ export interface UseEmployee {
 
 export const useEmployee = (repository: Repository, defaultQuery?: SearchByCriteriaQuery) => {
   const employeeByCriteria = new EmployeeGetterByCriteria(repository)
-  const location = useLocation()
+  const allEmployeeGetter = new AllEmployeeGetter(repository)  
   const { query, addFilter, cleanFilters } = useSearchByCriteriaQuery(defaultQuery)
   const [loading, setLoading] = useState<boolean>(true)
+  const [loadingWithDevice, setLoadingWithDevice] = useState<boolean>(true)
   const [error, setError] = useState<string | null>(null)
   const [employees, setEmployees] = useState<EmployeePrimitives[]>([])
+  const [employeeWithDevives, setEmployeeWithDevives] = useState<EmployeePrimitives[]>([])
 
   async function createEmployee (formData: EmployeePrimitives) {
     const employeeCreator = new EmployeeCreator(repository)
     await employeeCreator.create(formData)
-    searchEmployees()
+    await searchEmployees()
+    await searchEmployeesByCriteria()
   }
 
-  function searchEmployees () {
+  async function searchEmployees () {    
     setLoading(true)
-    employeeByCriteria
-      .get(query)
+    allEmployeeGetter
+    .get()
       .then((employees) => {
         setEmployees(employees)
         setLoading(false)
@@ -46,6 +49,20 @@ export const useEmployee = (repository: Repository, defaultQuery?: SearchByCrite
         setLoading(false)
       })
   }
+  async function searchEmployeesByCriteria () {
+    setLoading(true)
+    employeeByCriteria
+      .get(query)
+      .then((employees) => {
+        setEmployeeWithDevives(employees)
+        setLoadingWithDevice(false)
+      })
+      .catch((error) => {
+        console.error('searchEmployees', error)
+        setError('An unexpected error occurred while trying to search employees')
+        setLoadingWithDevice(false)
+      })
+  }
 
   const getEmployee = new EmployeeGetter(repository)
 
@@ -54,10 +71,19 @@ export const useEmployee = (repository: Repository, defaultQuery?: SearchByCrite
     return () => {
       setEmployees([])
     }
-  }, [location.pathname, query])
+  }, [])
+
+  useEffect(() => {
+    searchEmployeesByCriteria()
+    return () => {
+      setEmployeeWithDevives([])
+    }
+  }, [query])
 
   return {
     employees,
+    employeeWithDevives,
+    loadingWithDevice,
     loading,
     error,
     getEmployee,

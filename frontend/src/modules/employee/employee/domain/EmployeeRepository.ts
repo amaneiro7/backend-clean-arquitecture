@@ -8,8 +8,10 @@ export abstract class EmployeeRepository {
   abstract getByCriteria (criteria: Criteria): Promise<EmployeePrimitives[]>
 
   abstract getById ({ id }: { id: EmployeeId }): Promise<EmployeePrimitives>
-
+  
   abstract save ({ employee }: { employee: Employee }): Promise<void>
-
+  
   abstract update ({ id, employee }: { id: EmployeeId, employee: Employee }): Promise<void>
+  
+  abstract remove ({ id }: { id: EmployeeId }): Promise<void>
 }

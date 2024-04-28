@@ -32,6 +32,7 @@ export default function ProcessorDialog({ dialogValue, open, toggleOpen }: Props
         if (formStatus === FormStatus.Success) {
             resetFormStatus()
             resetForm()
+            toggleOpen(false)
         }
         if (formStatus === FormStatus.Error) {
             resetFormStatus()
@@ -41,9 +42,7 @@ export default function ProcessorDialog({ dialogValue, open, toggleOpen }: Props
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault()
         event.stopPropagation()
-        await submitForm(formData).then(() => {
-            toggleOpen(false)
-        })
+        await submitForm(formData)
     }
 
     const handleChange = (name: string, value: string) => {

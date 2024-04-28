@@ -77,6 +77,10 @@ export class SequelizeEmployeeRepository extends CriteriaToSequelizeConverter<Em
     return await EmployeeModel.findByPk(employeeId) ?? null
   }
 
+  async searchByUserName(userName: string): Promise<EmployeePrimitives | null> {
+    return await EmployeeModel.findOne({ where: { userName } })
+  }
+
   async save (payload: EmployeePrimitives): Promise<void> {
     const { id } = payload
     const employee = await EmployeeModel.findByPk(id) ?? null

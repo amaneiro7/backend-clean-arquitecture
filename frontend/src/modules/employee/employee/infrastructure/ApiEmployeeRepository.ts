@@ -44,11 +44,10 @@ export class ApiEmployeeRepository implements EmployeeRepository {
   }
 
   async getAll (): Promise<EmployeePrimitives[]> {
-    return await makeRequest<EmployeesApiResponse[]>({ method: 'GET', endpoint: this.endpoint })
+    return await makeRequest<EmployeesApiResponse[]>({ method: 'GET', endpoint: `${this.endpoint}/all` })
       .then(res => res.map(data => ({
         id: data.id,
         userName: data.userName,
-        devices: data.devices,
         createdAt: data.createdAt,
         updatedAt: data.updatedAt
       }) satisfies EmployeeMappedApiResponse))
@@ -63,5 +62,9 @@ export class ApiEmployeeRepository implements EmployeeRepository {
         createdAt: data.createdAt,
         updatedAt: data.updatedAt
       }) satisfies EmployeeMappedApiResponse)
+  }
+
+  async remove({ id }: { id: EmployeeId }): Promise<void> {
+      return await makeRequest({ method: 'DELETE', endpoint: `${this.endpoint}/${id.value}`})
   }
 }

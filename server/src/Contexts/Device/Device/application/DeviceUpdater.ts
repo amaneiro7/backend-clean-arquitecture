@@ -30,28 +30,17 @@ import { type DeviceParams } from './DeviceCreator'
 
 export interface PartialDeviceParams extends DeviceParams {}
 
-export class DeviceUpdater {
-  /**
-   * Repositorio de la base de datos
-   */
-  private readonly repository: Repository
+export class DeviceUpdater {   
 
-  /**
-   * Inicializa el servicio
-   * @param repository Repositorio de la base de datos
-   */
-  constructor (repository: Repository) {
-    this.repository = repository
-  }
-
+  constructor (private readonly repository: Repository) {}
   /**
    * Actualiza el device con los parametros recibidos
    * @param id Id del device
    * @param params Parametros a actualizar
    */
   async run ({ id, params }: { id: Primitives<DeviceId>, params: PartialDeviceParams }): Promise<void> {
-    // Extraemos el id del device a actualizar
     const { categoryId } = params
+    // Extraemos el id del device a actualizar
     const deviceId = new DeviceId(id).value
 
     // Buscamos el device en la base de datos
@@ -151,9 +140,7 @@ export class DeviceUpdater {
       await this.updateMainDevice({ params, deviceEntity })
     }
 
-    // Guardamos los cambios en la base de datos
-    const data = deviceEntity.toPrimitives()
-    console.log(data)
+    // Guardamos los cambios en la base de datos    
     await this.repository.device.save(deviceEntity.toPrimitives())
   }
 

@@ -74,7 +74,7 @@ export interface EmployeeMappedApiResponse {
   userName: Primitives<EmployeeUserName>
   createdAt: Date
   updatedAt: Date
-  devices: DevicePrimitives[]
+  devices?: DevicePrimitives[]
 }
 export interface EmployeeDevicesMappedApiResponse {
   id: Primitives<EmployeeId>

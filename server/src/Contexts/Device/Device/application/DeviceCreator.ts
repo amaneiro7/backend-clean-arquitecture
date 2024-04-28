@@ -18,8 +18,6 @@ export class DeviceCreator {
 
   async run ({ serial, activo, statusId, categoryId, brandId, modelId, employeeId, locationId, observation, ...otherParams }: DeviceParams): Promise<void> {
     let device
-    // const modelSeriesId = new ModelSeriesId(modelId)
-    // const { brandId, categoryId } = await new ModelSeriesFinder(this.repository).searchById(modelSeriesId)
 
     if (DeviceComputer.isComputerCategory({ categoryId })) {
       const { computerName, processorId, memoryRamCapacity, operatingSystemArqId, operatingSystemId, hardDriveCapacityId, hardDriveTypeId, ipAddress, macAddress } = otherParams as DeviceComputerPrimitives

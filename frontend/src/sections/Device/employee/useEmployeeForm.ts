@@ -11,14 +11,18 @@ export const enum FormStatus {
   Initial
 }
 
-export function useEmployeeForm (): {
+interface Props {
+  createEmployee: (formData: EmployeePrimitives) => Promise<void>
+}
+
+export function useEmployeeForm ({createEmployee}: Props): {
   formStatus: FormStatus
   submitForm: (formData: EmployeePrimitives) => Promise<void>
   resetFormStatus: () => void
 } {
   const [formStatus, setFormStatus] = useState(FormStatus.Initial)
-  const { repository } = useAppContext()
-  const { createEmployee } = useEmployee(repository)
+  // const { repository } = useAppContext()
+  // const { createEmployee } = useEmployee(repository)
 
   async function submitForm (formData: EmployeePrimitives) {
     setFormStatus(FormStatus.Loading)

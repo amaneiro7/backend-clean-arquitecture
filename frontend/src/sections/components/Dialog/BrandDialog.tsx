@@ -26,6 +26,7 @@ export default function BrandDialog ({ dialogValue, open, toggleOpen }: Props) {
       if (formStatus === FormStatus.Success) {
         resetFormStatus()
         resetForm()
+        toggleOpen(false)
       }
       if (formStatus === FormStatus.Error) {
         resetFormStatus()
@@ -33,8 +34,10 @@ export default function BrandDialog ({ dialogValue, open, toggleOpen }: Props) {
     }, [formStatus])
   
     const handleSubmit = async (event: React.FormEvent) => {
-      event.preventDefault()      
+      event.preventDefault()
+      event.stopPropagation()
       await submitForm(formData)
+        
     }
   
     const handleChange = (name: string, value: string) => {

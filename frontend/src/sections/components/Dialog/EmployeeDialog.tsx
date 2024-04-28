@@ -9,11 +9,12 @@ interface Props {
     dialogValue: EmployeePrimitives
     open: boolean,
     toggleOpen: React.Dispatch<React.SetStateAction<boolean>>
+    createEmployee: (formData: EmployeePrimitives) => Promise<void>
 }
 
-export default function EmployeeDialog ({ dialogValue, open, toggleOpen }: Props) {    
+export default function EmployeeDialog ({ createEmployee, dialogValue, open, toggleOpen }: Props) {    
     const { formData, resetForm, updateForm } = useGenericFormData(dialogValue)
-    const { formStatus, resetFormStatus, submitForm } = useEmployeeForm()    
+    const { formStatus, resetFormStatus, submitForm } = useEmployeeForm({createEmployee})    
   
     useEffect(() => {
       updateForm(dialogValue)
@@ -26,6 +27,7 @@ export default function EmployeeDialog ({ dialogValue, open, toggleOpen }: Props
       if (formStatus === FormStatus.Success) {
         resetFormStatus()
         resetForm()
+        toggleOpen(false)
       }
       if (formStatus === FormStatus.Error) {
         resetFormStatus()
@@ -34,6 +36,7 @@ export default function EmployeeDialog ({ dialogValue, open, toggleOpen }: Props
   
     const handleSubmit = async (event: React.FormEvent) => {
       event.preventDefault()      
+      event.stopPropagation()
       await submitForm(formData)
     }
   

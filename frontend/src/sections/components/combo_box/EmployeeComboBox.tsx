@@ -19,12 +19,14 @@ interface Props {
 
 export default function EmployeeComboBox({ value, onChange, status, type = 'search' }: Props) {
   const { repository } = useAppContext()
-  const { employees, loading } = useEmployee(repository)
-  const employeeOptions = useMemo(() => employees.map(employee => ({ id: employee.id, name: employee.userName })), [employees])
+  const { employees, loading, createEmployee } = useEmployee(repository)  
+  const employeeOptions = useMemo(() => (
+    employees.map(employee => ({ id: employee.id, name: employee.userName }))
+  ), [employees, loading])
 
-  const initialValue = useMemo(() => {
-    return employeeOptions.find(employee => employee.id === value)
-  }, [employeeOptions, value])
+  const initialValue = useMemo(() => (
+    employeeOptions.find(employee => employee.id === value)
+  ), [employeeOptions, value])
 
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
@@ -96,7 +98,7 @@ export default function EmployeeComboBox({ value, onChange, status, type = 'sear
       >
         {type === 'form' &&
           <Suspense>
-            <EmployeeDialog dialogValue={dialogValue} open={open} toggleOpen={toggleOpen} />
+            <EmployeeDialog createEmployee={createEmployee} dialogValue={dialogValue} open={open} toggleOpen={toggleOpen} />
           </Suspense>}
       </ComboBox>
     </Suspense>
