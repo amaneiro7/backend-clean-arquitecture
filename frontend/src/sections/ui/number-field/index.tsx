@@ -1,9 +1,9 @@
-import { useState, type FC, type ChangeEvent } from 'react'
+import { useState } from 'react'
 
-interface NumberInputProps {
+interface Props {
   value: number
   name: string
-  onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
   min?: number
   max?: number
   step?: number
@@ -14,54 +14,54 @@ interface NumberInputProps {
   isRequired?: boolean
 }
 
-const NumberInput: FC<NumberInputProps> = ({
-  value,
-  name,
-  onChange,
-  min,
-  max,
-  step,
-  error,
-  errorMessage,
-  placeholder,
-  label,
-  isRequired = false
-}) => {
+export function NumberInput({ value, name, onChange, min, max, step, error, errorMessage, placeholder, label, isRequired = false}: Props) {
   const [isFocused, setIsFocused] = useState(false)
-
-  //   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-  //     const newValue = parseFloat(e.target.value)
-  //     onChange(newValue)
-  //   }
   return (
-    <div className="relative h-10 w-full">
+    <div className="relative inline-flex flex-col align-top w-full">
       <label
-        className={`absolute text-center -top-2 left-2 z-10 px-2 bg-white transition-all duration-200 text-sm
-        ${
-          isFocused ? 'text-secondary-500' : 'text-black/25'
-        }`}
+        style={{
+          transformOrigin: 'top left',
+          transform: 'translate(14px, -9px) scale(0.75)',
+          transition: 'color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms'
+        }}
+        className={`absolute bg-white px-1 font-body font-normal text-base tracking-tighter p-0 whitespace-nowrap overflow-hidden text-ellipsis max-w-[calc(133%-32px)] top-0 left-0 select-none pointer-events-auto ${error ? 'text-red-600' : isFocused ? 'text-focus' : 'text-black/60'}`
+        }
       >
-        {label}
+        {`${label} ${isRequired ? '*' : ''}`}
       </label>
-      <input
-        name={name}
-        type="number"
-        value={value}        
-        onChange={onChange}
-        required={isRequired}
-        min={min}
-        max={max}
-        step={step}
-        placeholder={placeholder}
-        onFocus={() => { setIsFocused(true) }}
-        onBlur={() => { setIsFocused(false) }}
-        className={`w-full h-full px-4 py-2 text-base border ${
-          (error ?? false) ? 'border-red-500' : 'border-black/25'
-        } rounded-md hover:border-black/60 focus:border-secondary-500 focus:outline-none focus:ring-2 focus:ring-secondary-500`}
-      />
-      {(error ?? false) && <p className="text-red-500">{errorMessage}</p>}
-    </div>
+      <div className={`w-full p-1 pr-2 border rounded-md outline-none ${isFocused && 'ring-1'} ${error ? `border-error hover:border-error ${isFocused && 'ring-error'} ` : `${isFocused ? 'ring-focus border-focus' : 'border-black/25 hover:border-black'}`}`}>
+        <input
+          className='py-1 pr-1 pl-2 w-0 min-w-full flex-1 text-ellipsis focus-visible:outline-none'
+          name={name}
+          type="number"
+          value={value}
+          onChange={onChange}
+          required={isRequired}
+          min={min}
+          max={max}
+          step={step}
+          placeholder={placeholder}
+          onFocus={() => { setIsFocused(true) }}
+          onBlur={() => { setIsFocused(false) }}
+        />
+        <fieldset aria-hidden className={`text-left absolute inset-0 -top-1 m-0 p-0 pointer-events-none overflow-hidden min-w-0
+         `}>
+          <legend
+            style={{
+              transition: 'max-width 100ms cubic-bezier(0.0, 0, 0.2, 1) 50ms'
+            }}
+            className="w-auto overflow-hidden p-0 h-3 text-xs invisible max-w-full whitespace-nowrap float-[unset]"
+          >
+            <span
+              className='visible px-1 inline-block opacity-0'
+            >
+              {`${label} ${isRequired ? '*' : ''}`}
+            </span>
+          </legend>
+        </fieldset>
+
+      </div>
+      {error && <p className="text-xs m-1 mx-4 font-normal font-sans text-left tracking-[0.033rem] text-error">{errorMessage}</p>}
+    </div >
   )
 }
-
-export default NumberInput

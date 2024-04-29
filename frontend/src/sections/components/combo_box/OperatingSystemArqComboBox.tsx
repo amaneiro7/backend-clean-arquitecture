@@ -39,7 +39,7 @@ export function OperatingSystemArqComboBox ({ value, operatingSystem, onChange, 
     
         const isValid = ComputerOsArq.isValid(value, operatingSystem)
         setIsDisabled(operatingSystem === '')
-        setIsRequired(type === 'form' && !isDisabled)
+        setIsRequired(type === 'form' && !operatingSystem)
         
     
         setIsError(!isValid)

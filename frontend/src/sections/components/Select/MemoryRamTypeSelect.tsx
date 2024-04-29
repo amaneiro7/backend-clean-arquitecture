@@ -1,11 +1,11 @@
 import { lazy, Suspense } from 'react'
-import { useMemoryRamType } from './useMemoryRamType'
-import { useAppContext } from '../../../Context/AppContext'
-import { type Primitives } from '../../../../modules/shared/domain/value-object/Primitives'
-import { type MemoryRamTypeId } from '../../../../modules/devices/fetures/memoryRam/memoryRamType/domain/MemoryRamTypeId'
-import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
+import { useMemoryRamType } from '../../Device/features/memoryRam/useMemoryRamType'
+import { useAppContext } from '../../Context/AppContext'
+import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
+import { type MemoryRamTypeId } from '../../../modules/devices/fetures/memoryRam/memoryRamType/domain/MemoryRamTypeId'
+import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
 
-const Select = lazy(async () => await import('../../../components/Select/Select'))
+const Select = lazy(async () => await import('./Select'))
 
 interface Props {
   value: Primitives<MemoryRamTypeId>

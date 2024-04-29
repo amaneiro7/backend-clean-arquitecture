@@ -63,7 +63,10 @@ export default {
           900: 'hsl(3, 64%, 31%)',
           950: 'hsl(3, 77%, 15%)',
           DEFAULT: 'hsl(3, 74%, 48%)'
-        },      
+        },
+        error: '#d32f2f',
+        success: '#2e7d32',
+        focus: '#1976d2'
       }
     },
     fontFamily: {

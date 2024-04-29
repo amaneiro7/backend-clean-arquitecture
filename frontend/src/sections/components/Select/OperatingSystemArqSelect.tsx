@@ -1,12 +1,12 @@
 import { lazy, Suspense, useEffect, useState } from 'react'
-import { useAppContext } from '../../../Context/AppContext'
-import { useOperatingSystemArq } from './useOperatingSystemArq'
-import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
-import { type Primitives } from '../../../../modules/shared/domain/value-object/Primitives'
-import { ComputerOsArq } from '../../../../modules/devices/fetures/computer/domain/ComputerOSArq'
-import { type ComputerOs } from '../../../../modules/devices/fetures/computer/domain/ComputerOS'
+import { useAppContext } from '../../Context/AppContext'
+import { useOperatingSystemArq } from '../../Device/features/operatingSystem/useOperatingSystemArq'
+import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
+import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
+import { ComputerOsArq } from '../../../modules/devices/fetures/computer/domain/ComputerOSArq'
+import { type ComputerOs } from '../../../modules/devices/fetures/computer/domain/ComputerOS'
 
-const Select = lazy(async () => await import('../../../components/Select/Select'))
+const Select = lazy(async () => await import('./Select'))
 
 interface Props {
   value: Primitives<ComputerOsArq>

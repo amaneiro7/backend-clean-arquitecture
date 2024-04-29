@@ -2,22 +2,20 @@ import { lazy, Suspense } from 'react'
 import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
 import { Computer, type ComputerPrimitives } from '../../../../modules/devices/fetures/computer/domain/Computer'
 import { InputSkeletonLoading } from '../../../components/Loading/inputSkeletonLoading'
-import MemoryRamCapacityInput from '../memoryRam/MemoryRamCapacityInput'
-
-
-import IpAddressInput from './ipAddressInput'
-import MacAddressInput from './MacAddressInput'
-import ComputerNameInput from './ComputerNameInput'
+import MacAddressInput from '../../../components/text-inputs/MacAddressInput'
 
 interface Props {
   onChange: OnHandleChange
   formData: ComputerPrimitives
 }
 
+const MemoryRamCapacityInput = lazy(async () => import('../../../components/number-inputs/MemoryRamCapacityInput').then(m => ({ default: m.MemoryRamCapacityInput })))
 const ProcessorComboBox = lazy(async () => import('../../../components/combo_box/ProcessorComboBox'))
 const HardDriveCapacityComboBox = lazy(async () => import('../../../components/combo_box/HardDriveCapacityComboBox').then(m => ({ default: m.HardDriveCapacityComboBox })))
 const OperatingSystemComboBox = lazy(async () => import('../../../components/combo_box/OperatingSystemComboBox').then(m => ({ default: m.OperatingSystemComboBox })))
 const OperatingSystemArqComboBox = lazy(async () => import('../../../components/combo_box/OperatingSystemArqComboBox').then(m => ({ default: m.OperatingSystemArqComboBox })))
+const IpAddressInput = lazy(async () => import('../../../components/text-inputs/IpAddressInput').then(m => ({ default: m.IpAddressInput })))
+const ComputerNameInput = lazy(async () => import('../../../components/text-inputs/ComputerNameInput').then(m => ({ default: m.ComputerNameInput })))
 const HardDriveTypeComboBox = lazy(async () => import('../../../components/combo_box/HardDriveTypeComboBox'))
 
 export default function AddComputerFeatures({ formData, onChange }: Props) {
@@ -27,12 +25,14 @@ export default function AddComputerFeatures({ formData, onChange }: Props) {
     <>
       {isComputerLaptopAllinOneDevice &&
         <>
-          <ComputerNameInput
-            isForm={true}
-            onChange={onChange}
-            status={formData.statusId}
-            value={formData.computerName}
-          />
+          <Suspense fallback={<InputSkeletonLoading />}>
+            <ComputerNameInput
+              type='form'
+              onChange={onChange}
+              status={formData.statusId}
+              value={formData.computerName}
+            />
+          </Suspense>
           <Suspense fallback={<InputSkeletonLoading />}>
             <ProcessorComboBox
               type='form'
@@ -40,10 +40,14 @@ export default function AddComputerFeatures({ formData, onChange }: Props) {
               value={formData.processorId}
             />
           </Suspense>
-          <MemoryRamCapacityInput
-            onChange={onChange}
-            value={formData.memoryRamCapacity}
-          />
+          <Suspense fallback={<InputSkeletonLoading />}>
+            <MemoryRamCapacityInput
+              onChange={onChange}
+              value={formData.memoryRamCapacity}
+              status={formData.statusId}
+              type='form'
+            />
+          </Suspense>
           <div className='flex gap-4'>
             <Suspense fallback={<InputSkeletonLoading />}>
               <HardDriveCapacityComboBox
@@ -82,17 +86,21 @@ export default function AddComputerFeatures({ formData, onChange }: Props) {
             </Suspense>
           </div>
           <div className='flex gap-4'>
-            <IpAddressInput
-              onChange={onChange}
-              value={formData.ipAddress}
-              status={formData.statusId}
-              isForm={true}
-            />
-            <MacAddressInput
-              onChange={onChange}
-              value={formData.macAddress}
-              isRequired={false}
-            />
+            <Suspense fallback={<InputSkeletonLoading />}>
+              <IpAddressInput
+                onChange={onChange}
+                value={formData.ipAddress}
+                status={formData.statusId}
+                type='form'
+              />
+            </Suspense>
+            <Suspense fallback={<InputSkeletonLoading />}>
+              <MacAddressInput
+                onChange={onChange}
+                value={formData.macAddress}
+                isRequired={false}
+              />
+            </Suspense>
           </div>
         </>
       }

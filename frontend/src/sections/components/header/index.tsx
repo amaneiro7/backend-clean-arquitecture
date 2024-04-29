@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import Logo from '../../ui/Logo'
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
 import { useAppContext } from '../../Context/AppContext'
 import { HeaderNav } from './Header'
 import { HamburguerMenu } from './HamburguerMenu'
@@ -15,6 +15,7 @@ export interface DrapdownState {
 }
 
 export default function Header () {
+  const location = useLocation()
   const [state, setState] = useState(false)
   const [drapdownState, setDrapdownState] = useState<DrapdownState>({ isActive: false, index: null })
   const { useAuth: { logout } } = useAppContext()
@@ -37,6 +38,9 @@ export default function Header () {
       document.removeEventListener('click', handleClick)
     }
   }, [])
+  useLayoutEffect(() => {
+    setDrapdownState({ isActive: false, index: null })
+  }, [location.pathname])
   return (
     <>
       <HeaderNav state={state}>

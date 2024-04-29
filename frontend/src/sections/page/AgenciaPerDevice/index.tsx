@@ -23,8 +23,8 @@ import { StatusId } from '../../../modules/devices/devices/status/domain/StatusI
 import { SpinnerSKCircle } from '../../components/Loading/spinner-sk-circle'
 
 const Button = lazy(async () => await import('../../ui/button'))
-const SerialInput = lazy(async () => await import('../../Device/device/components/SerialInput'))
-const ActivoInput = lazy(async () => await import('../../Device/device/components/ActivoInput'))
+const SerialInput = lazy(async () => await import('../../components/text-inputs/SerialInput'))
+const ActivoInput = lazy(async () => await import('../../components/text-inputs/ActivoInput'))
 const BrandComboBox = lazy(async () => await import('../../components/combo_box/BrandComboBox'))
 const EmployeeComboBox = lazy(async () => await import('../../components/combo_box/EmployeeComboBox'))
 const CategoryComboBox = lazy(async () => await import('../../components/combo_box/CategoryComboBox'))

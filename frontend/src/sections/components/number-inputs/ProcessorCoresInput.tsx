@@ -10,7 +10,7 @@ interface Props {
     type?: 'form' | 'search'
 }
 
-const NumberInput = lazy(async () => await import('../../ui/number-field'))
+const NumberInput = lazy(async () => await import('../../ui/number-field').then(m => ({ default: m.NumberInput })))
 
 export default function ProcessorCoresInput({ value, onChange, type = 'form' }: Props) {
     const [errorMessage, setErrorMessage] = useState('')
@@ -48,6 +48,7 @@ export default function ProcessorCoresInput({ value, onChange, type = 'form' }: 
                 isRequired={type === 'form'}
                 max={ProcessorCores.MAX}
                 min={ProcessorCores.MIN}
+                step={value === 1 ? 1 : ProcessorCores.STEPS}
                 error={isError}
                 errorMessage={errorMessage}
             />

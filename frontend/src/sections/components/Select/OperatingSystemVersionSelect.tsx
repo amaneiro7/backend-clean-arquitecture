@@ -1,13 +1,13 @@
 import { lazy, Suspense, useEffect, useState } from 'react'
-import { useAppContext } from '../../../Context/AppContext'
-import { useOperatingSystemVersions } from './useOperatingSystemVersion'
-import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
-import { type Primitives } from '../../../../modules/shared/domain/value-object/Primitives'
-import { ComputerOs } from '../../../../modules/devices/fetures/computer/domain/ComputerOS'
-import { StatusId } from '../../../../modules/devices/devices/status/domain/StatusId'
-import { type ComputerHDDCapacity } from '../../../../modules/devices/fetures/computer/domain/ComputerHHDCapacity'
+import { useAppContext } from '../../Context/AppContext'
+import { useOperatingSystemVersions } from '../../Device/features/operatingSystem/useOperatingSystemVersion'
+import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
+import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
+import { ComputerOs } from '../../../modules/devices/fetures/computer/domain/ComputerOS'
+import { StatusId } from '../../../modules/devices/devices/status/domain/StatusId'
+import { type ComputerHDDCapacity } from '../../../modules/devices/fetures/computer/domain/ComputerHHDCapacity'
 
-const Select = lazy(async () => await import('../../../components/Select/Select'))
+const Select = lazy(async () => await import('./Select'))
 
 interface Props {
   value: Primitives<ComputerOs>

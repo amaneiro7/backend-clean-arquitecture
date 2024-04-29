@@ -1,13 +1,13 @@
 import { Suspense, lazy, useEffect, useState } from 'react'
-import { useAppContext } from '../../../Context/AppContext'
-import { useHardDriveCapacity } from './useHardDriveCapacity'
-import { type Primitives } from '../../../../modules/shared/domain/value-object/Primitives'
+import { useAppContext } from '../../Context/AppContext'
+import { useHardDriveCapacity } from '../../Device/features/hardDrive/useHardDriveCapacity'
+import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 
-import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
-import { ComputerHDDCapacity } from '../../../../modules/devices/fetures/computer/domain/ComputerHHDCapacity'
-import { type StatusId } from '../../../../modules/devices/devices/status/domain/StatusId'
+import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
+import { ComputerHDDCapacity } from '../../../modules/devices/fetures/computer/domain/ComputerHHDCapacity'
+import { type StatusId } from '../../../modules/devices/devices/status/domain/StatusId'
 
-const Select = lazy(async () => await import('../../../components/Select/Select'))
+const Select = lazy(async () => await import('./Select'))
 
 interface Props {
   value: Primitives<ComputerHDDCapacity>

@@ -3,6 +3,7 @@ import { NumberValueObject } from "../../../../shared/domain/value-object/Number
 export class ProcessorCores extends NumberValueObject {
     static readonly MIN = 1
     static readonly MAX = 32
+    static readonly STEPS = 2
   
     constructor (readonly value: number) {
         super(value)

@@ -28,8 +28,8 @@ const BrandComboBox = lazy(async () => await import('../../components/combo_box/
 const CategoryComboBox = lazy(async () => await import('../../components/combo_box/CategoryComboBox'))
 const LocationComboBox = lazy(async () => await import('../../components/combo_box/LocationComboBox'))
 const ModelComboBox = lazy(async () => await import('../../components/combo_box/ModelComboBox'))
-const SerialInput = lazy(async () => await import('../../Device/device/components/SerialInput'))
-const ActivoInput = lazy(async () => await import('../../Device/device/components/ActivoInput'))
+const SerialInput = lazy(async () => await import('../../components/text-inputs/SerialInput'))
+const ActivoInput = lazy(async () => await import('../../components/text-inputs/ActivoInput'))
 
 
 export default function AdministrativeSitePage () {

@@ -26,11 +26,13 @@ export class MemoryRamCapacity {
   }
 
   public static isValid (value: Primitives<MemoryRamCapacity>, status: Primitives<StatusId>): boolean {
-    if (StatusId.StatusOptions.INUSE === status && value === 0) {
+    const numberValue = Number(value)
+    
+    if (StatusId.StatusOptions.INUSE === status && numberValue === 0) {
       MemoryRamCapacity.updateError('La capacidad de la memoria Ram no puede ser 0 si el equipo está en uso')
       return false
     }
-    if ((value % this.minStep) === 0) {
+    if ((numberValue % this.minStep) === 0) {
       return true
     } else {
       MemoryRamCapacity.updateError('Capacidad de Memoria Ram no válida')
