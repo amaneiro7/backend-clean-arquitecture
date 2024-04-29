@@ -12,12 +12,13 @@ import { EmployeePrimitives } from "../../../modules/employee/employee/domain/Em
 
 interface Props {
   value: Primitives<DeviceEmployee>
+  name: string
   status?: Primitives<StatusId>
   onChange: OnHandleChange
   type?: 'form' | 'search'
 }
 
-export default function EmployeeComboBox({ value, onChange, status, type = 'search' }: Props) {
+export default function EmployeeComboBox({ value, name, onChange, status, type = 'search' }: Props) {
   const { repository } = useAppContext()
   const { employees, loading, createEmployee } = useEmployee(repository)  
   const employeeOptions = useMemo(() => (
@@ -56,17 +57,17 @@ export default function EmployeeComboBox({ value, onChange, status, type = 'sear
   
   useLayoutEffect(() => {
     if (isDisabled) {
-      onChange('employeeId', '')
+      onChange(name, '')
     }
   }, [isDisabled])
 
   return (
     <Suspense>
       <ComboBox
-        id='employeeId'
+        id={name}
         initialValue={initialValue}
         label="Usuarios"
-        name='employeeId'
+        name={name}
         type={type}
         onChange={(_, newValue) => {
           if (typeof newValue === 'string') {
@@ -85,7 +86,7 @@ export default function EmployeeComboBox({ value, onChange, status, type = 'sear
           } else {
             const hasNewValue = newValue ? newValue.id : ''
             const isInputDisabled = isDisabled ? '' : hasNewValue
-            onChange('employeeId', isInputDisabled, Operator.EQUAL)
+            onChange(name, isInputDisabled, Operator.EQUAL)
           }
         }}
         options={employeeOptions}

@@ -1,4 +1,4 @@
-import { type FormEvent, useEffect, lazy, Suspense } from 'react'
+import { type FormEvent, useEffect, lazy, Suspense, useLayoutEffect } from 'react'
 import { useDeviceForm, FormStatus } from './useDeviceForm'
 import { useDeviceInitialState } from './DeviceFormInitialState'
 import { useGenericFormData } from '../../Hooks/useGenericFormData'
@@ -18,19 +18,20 @@ const ModelComboBox = lazy(async () => await import('../../components/combo_box/
 const DeviceFeatures = lazy(async () => await import('./components/DeviceFeatures'))
 
 export default function CreateDeviceForm() {
-  const { preloadedDeviceState } = useDeviceInitialState()
+  const { preloadedDeviceState, setResetState } = useDeviceInitialState()
   const { formData, updateForm, resetForm } = useGenericFormData(preloadedDeviceState)
   const { formStatus, submitForm, resetFormStatus } = useDeviceForm()
 
   useEffect(() => {
     updateForm(preloadedDeviceState)
-    return () => {
+    return () => {      
       resetForm()
     }
   }, [preloadedDeviceState])
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (formStatus === FormStatus.Success) {
+      setResetState(formData)
       resetFormStatus()
       resetForm()
     }
@@ -128,6 +129,7 @@ export default function CreateDeviceForm() {
             <Suspense fallback={<InputSkeletonLoading />}>
               <EmployeeComboBox
                 onChange={handleChange}
+                name={Object.keys(formData.employeeId)[0]}
                 type='form'
                 status={formData.statusId}
                 value={formData.employeeId}

@@ -72,13 +72,26 @@ const defaultInitialState: defaultProps = {
   health: 100,
   updatedAt: undefined
 }
-export const useDeviceInitialState = () => {
+export const useDeviceInitialState = (): {
+  preloadedDeviceState: defaultProps
+  setResetState: (currentState?: defaultProps) => void
+} => {
   const { id } = useParams()
   const location = useLocation()
   const navigate = useNavigate()
   const { repository } = useAppContext()
   const { getDevice } = useDevice(repository)
   const [preloadedDeviceState, setPreloadedDeviceState] = useState(defaultInitialState)
+
+  const setResetState = (currentState?: defaultProps) => {    
+    if (location.pathname.includes('add')) {
+      setPreloadedDeviceState(defaultInitialState)      
+    } else if(currentState === undefined) {
+      setPreloadedDeviceState(defaultInitialState)
+    } else {
+      setPreloadedDeviceState(currentState)
+    }
+  }
 
   useEffect(() => {
     if (location.pathname.includes('add')) {
@@ -116,6 +129,7 @@ export const useDeviceInitialState = () => {
   }
 
   return {
-    preloadedDeviceState
+    preloadedDeviceState,
+    setResetState
   }
 }

@@ -84,6 +84,7 @@ export default function AdministrativeSitePerEmployee () {
       <header className="grid grid-cols-[repeat(auto-fit,_250px)] gap-5 place-content-center">
       <Suspense fallback={<InputSkeletonLoading />}>
           <EmployeeComboBox    
+            name='id'
             value={inputData.id}            
             onChange={handleChange}
           />

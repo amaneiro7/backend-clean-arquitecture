@@ -89,6 +89,7 @@ export default function AgenciaPage () {
       <header className="grid grid-cols-[repeat(auto-fit,_250px)] gap-5 place-content-center">
       <Suspense fallback={<InputSkeletonLoading />}>
         <EmployeeComboBox    
+            name='employeeId'
             value={inputData.employeeId}            
             onChange={handleChange}
           />

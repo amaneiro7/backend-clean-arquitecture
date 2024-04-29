@@ -73,8 +73,7 @@ export default function AdministrativeSitePage () {
     })
   }
 
-  const defaultHeaderTitle = ['Acciones', 'Usuario', 'Ubicación', 'Categoria', 'Serial', 'Activo', 'Marca', 'Modelo', 'Observaciones']
-
+  const defaultHeaderTitle = ['Acciones', 'Usuario', 'Ubicación', 'Categoria', 'Serial', 'Activo', 'Marca', 'Modelo', 'Observaciones']  
   const isComputerFilter = Computer.isComputerCategory({ categoryId: inputData.categoryId })
   const headerTitle: string[] = isComputerFilter
     ? defaultHeaderTitle.concat(['Nombre de Equipo', 'Procesador', 'Memoria Ram', 'Disco Duro', 'Tipo', 'Sistema Operativo', 'Arquitectura', 'Diracción MAC', 'Dirección IP'])
@@ -86,6 +85,7 @@ export default function AdministrativeSitePage () {
       <header className="grid grid-cols-[repeat(auto-fit,_250px)] gap-5 place-content-center">        
         <Suspense fallback={<InputSkeletonLoading />}>
           <EmployeeComboBox    
+            name='employeeId'
             value={inputData.employeeId}            
             onChange={handleChange}
           />
