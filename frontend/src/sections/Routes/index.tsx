@@ -38,8 +38,7 @@ export const privateRouter = [
 ]
 
 export default function AppRoutes () {
-  const { useAuth: { user } } = useAppContext()
-  console.log(user)
+  const { useAuth: { user } } = useAppContext()  
   return (
     <Routes>
       {
