@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState, type FC } from 'react'
-import FormInput from '../../components/text-inputs/FormInput'
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import { UserPassword } from '../../../modules/user/user/domain/UserPassword'
+import { InputSkeletonLoading } from '../../components/Loading/inputSkeletonLoading'
 
 interface Props {
   value: string
@@ -8,7 +8,9 @@ interface Props {
   isRequired?: boolean
 }
 
-const PasswordInput: FC<Props> = ({ value, onChange, isRequired = true }) => {
+const FormInput = lazy(async () => import('../../components/text-inputs/FormInput').then(m => ({ default: m.FormInput })))
+
+export function PasswordInput({ value, onChange, isRequired = true }: Props) {
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
   const isFirstInput = useRef(true)
@@ -29,19 +31,20 @@ const PasswordInput: FC<Props> = ({ value, onChange, isRequired = true }) => {
     }
   }, [value])
   return (
-  <FormInput
-      id='password'
-      name="password"
-      type="password"
-      label='Contraseña'
-      placeholder='-- Ingrese la Contraseña --'
-      handle={onChange}
-      value={value}
-      isRequired={isRequired}
-      isError={isError}
-      errorMessage={errorMessage}
-  />
+    <Suspense fallback={<InputSkeletonLoading />}>
+      <FormInput
+        id='password'
+        name="password"
+        type="password"
+        label='Contraseña'
+        placeholder='-- Ingrese la Contraseña --'
+        handle={onChange}
+        value={value}
+        isRequired={isRequired}
+        isError={isError}
+        errorMessage={errorMessage}
+      />
+
+    </Suspense>
   )
 }
-
-export default PasswordInput

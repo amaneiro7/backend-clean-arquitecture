@@ -1,5 +1,5 @@
 import { Component, type ErrorInfo, type ReactNode } from 'react'
-// import ErrorPage from '../sections/page/500'
+import ErrorPage from '../sections/page/500'
 
 interface Props {
   children: ReactNode
@@ -30,9 +30,8 @@ export default class ErrorBoundary extends Component<Props, State> {
   render () {
     if (this.state.hasError) {
       // You can render any custom fallback UI
-      return (
-        <h1>Error</h1>
-        // <ErrorPage />
+      return (        
+        <ErrorPage />
       )
     }
 

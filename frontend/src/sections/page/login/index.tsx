@@ -1,19 +1,14 @@
-import { lazy, Suspense, useEffect, useState } from 'react'
-import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom'
+import { lazy, Suspense, useEffect, useLayoutEffect, useState } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useAppContext } from '../../Context/AppContext'
 import { FormStatus, useLoginForm } from './useLoginForm'
 import { useGenericFormData } from '../../Hooks/useGenericFormData'
 import { ToasterComponent } from '../../utils/toaster'
 import { InputSkeletonLoading } from '../../components/Loading/inputSkeletonLoading'
 
-const initialState = {
-  email: '',
-  password: ''
-}
-
 const Logo = lazy(async () => await import ('../../ui/Logo'))
-const EmailInput = lazy(async () => await import ('./EmailInput'))
-const PasswordInput = lazy(async () => await import ('./PasswordInput'))
+const EmailInput = lazy(async () => await import ('./EmailInput').then(m => ({ default: m.EmailInput })))
+const PasswordInput = lazy(async () => await import ('./PasswordInput').then(m => ({ default: m.PasswordInput })))
 const PageTitle = lazy(async () => await import ('../../components/PageTitle'))
 const Button = lazy(async () => await import('../../ui/button'))
 const Copyright = lazy(async () => await import ('../../ui/copyright').then(m => ({ default: m.Copyright })))
@@ -21,19 +16,23 @@ const Checkbox = lazy(async () => await import ('../../ui/checkbox').then(m => (
 
 
 export default function Login () {
-  const { formData, updateForm, resetForm } = useGenericFormData(initialState)
+  const { formData, updateForm, resetForm } = useGenericFormData({
+    email: '',
+    password: ''
+  })
   const { formStatus, resetFormStatus, submitForm } = useLoginForm()
   const navigate = useNavigate()
   const location = useLocation()
   const { useAuth: { user } } = useAppContext()
   const [remember, setRemember] = useState<boolean>(false)
 
+  console.log(location)
+  console.log(user)
   const from = location.state?.from?.pathname ?? '/'
 
   const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault()
-    const { email, password } = formData
-    await submitForm({ email, password })
+    event.preventDefault()    
+    await submitForm(formData)
   }
 
   const handleChange = (ev: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -51,9 +50,22 @@ export default function Login () {
     }
   }, [formStatus])
 
-  if (user !== null) {
-    return <Navigate to={from} />
-  }
+  useLayoutEffect(() => {
+    if (user !== null) {
+      const previousPage = document.referrer
+      const domain = window.location.origin
+      const sameDomain = previousPage.includes(domain)    
+      if (sameDomain) {
+        window.history.back()
+      } else {
+        navigate('/')
+      }
+    }
+  }, [navigate, user])
+
+  // if (user !== null) {
+  //   return <Navigate to={from} />
+  // }
 
   return (
         <section className="bg-gray-50 dark:bg-gray-900">

@@ -9,7 +9,7 @@ export const enum FormStatus {
   Initial
 }
 
-export function useLoginForm (): {
+export function useLoginForm(): {
   formStatus: FormStatus
   submitForm: (formData: { email: string, password: string }) => Promise<void>
   resetFormStatus: () => void
@@ -17,7 +17,7 @@ export function useLoginForm (): {
   const [formStatus, setFormStatus] = useState(FormStatus.Initial)
   const { useAuth } = useAppContext()
 
-  async function submitForm ({ email, password }: { email: string, password: string }) {
+  async function submitForm({ email, password }: { email: string, password: string }) {
     setFormStatus(FormStatus.Loading)
     toastMessage({ type: 'loading', message: 'Cargando...' })
 
@@ -31,7 +31,7 @@ export function useLoginForm (): {
     }
   }
 
-  function resetFormStatus () {
+  function resetFormStatus() {
     setFormStatus(FormStatus.Initial)
   }
 

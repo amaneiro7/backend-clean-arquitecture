@@ -1,6 +1,4 @@
 import { Suspense, lazy } from 'react'
-import PageTitle from '../PageTitle'
-import { LastUpdated } from '../LastUpdated'
 
 interface Props {
   handleSubmit: (event: React.FormEvent) => Promise<void>
@@ -11,6 +9,8 @@ interface Props {
 }
 
 const Button = lazy(async () => await import('../../ui/button'))
+const LastUpdated = lazy(async () => import('../LastUpdated').then(m => ({ default: m.LastUpdated })))
+const PageTitle = lazy(async () => import('../PageTitle'))
 
 export default function FormContainer({ title, children, isDisabled, handleSubmit, handleClose, lastUpdated }: React.PropsWithChildren<Props>) {
   return (
@@ -22,7 +22,11 @@ export default function FormContainer({ title, children, isDisabled, handleSubmi
           className='min-w-[800px] m-10 py-8 flex justify-center border border-secondary rounded-md'
         >
           <fieldset className='w-9/12 py-10 pb-20 grid gap-5 relative'>
-            <legend >{<PageTitle title={title} />}</legend>
+            <legend >
+              <Suspense>
+                <PageTitle title={title} />
+              </Suspense>
+            </legend>
             <div className='flex gap-5 justify-around'>
               <Suspense>
                 <Button
@@ -41,7 +45,10 @@ export default function FormContainer({ title, children, isDisabled, handleSubmi
               </Suspense>
             </div>
             {children}
-            {lastUpdated !== undefined && <LastUpdated updatedAt={lastUpdated} />}
+            {lastUpdated !== undefined &&
+              <Suspense>
+                <LastUpdated updatedAt={lastUpdated} />
+              </Suspense>}
           </fieldset>
         </form>
       </section>

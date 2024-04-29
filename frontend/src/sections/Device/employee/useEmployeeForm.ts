@@ -19,8 +19,6 @@ export function useEmployeeForm ({createEmployee}: Props): {
   resetFormStatus: () => void
 } {
   const [formStatus, setFormStatus] = useState(FormStatus.Initial)
-  // const { repository } = useAppContext()
-  // const { createEmployee } = useEmployee(repository)
 
   async function submitForm (formData: EmployeePrimitives) {
     setFormStatus(FormStatus.Loading)

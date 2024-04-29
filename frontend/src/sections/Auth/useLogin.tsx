@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useLayoutEffect, useState } from 'react'
 import { type Repository } from '../../modules/shared/domain/repository'
 import { type UserPrimitives } from '../../modules/user/user/domain/User'
 import Cookie from 'js-cookie'
@@ -32,7 +32,7 @@ export const useLogin = (repository: Repository) => {
       })
   }
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (location.pathname === '/login') return
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     checkCookieAndUser()
