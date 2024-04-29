@@ -1,10 +1,10 @@
 import { lazy, Suspense, useEffect, useLayoutEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { useAppContext } from '../../Context/AppContext'
 import { FormStatus, useLoginForm } from './useLoginForm'
 import { useGenericFormData } from '../../Hooks/useGenericFormData'
 import { ToasterComponent } from '../../utils/toaster'
 import { InputSkeletonLoading } from '../../components/Loading/inputSkeletonLoading'
+import { UserPrimitives } from '../../../modules/user/user/domain/User'
 
 const Logo = lazy(async () => await import ('../../ui/Logo'))
 const EmailInput = lazy(async () => await import ('./EmailInput').then(m => ({ default: m.EmailInput })))
@@ -15,19 +15,16 @@ const Copyright = lazy(async () => await import ('../../ui/copyright').then(m =>
 const Checkbox = lazy(async () => await import ('../../ui/checkbox').then(m => ({ default: m.Checkbox })))
 
 
-export default function Login () {
+export default function Login ({user}: {user: UserPrimitives | null}) {
   const { formData, updateForm, resetForm } = useGenericFormData({
     email: '',
     password: ''
   })
   const { formStatus, resetFormStatus, submitForm } = useLoginForm()
   const navigate = useNavigate()
-  const location = useLocation()
-  const { useAuth: { user } } = useAppContext()
+  const location = useLocation()  
   const [remember, setRemember] = useState<boolean>(false)
-
-  console.log(location)
-  console.log(user)
+  
   const from = location.state?.from?.pathname ?? '/'
 
   const handleSubmit = async (event: React.FormEvent) => {

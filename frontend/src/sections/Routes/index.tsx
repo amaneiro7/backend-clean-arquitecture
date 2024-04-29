@@ -2,6 +2,7 @@ import { Suspense, lazy } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import ProtectedRoute from './ProtectedRoute.tsx'
 import Loading from '../components/Loading/index.tsx'
+import { useAppContext } from '../Context/AppContext.tsx'
 
 const Home = lazy(async () => await import('../page/home/index.tsx'))
 const AlmacenPage = lazy(async () => await import('../page/Almacen/index.tsx'))
@@ -37,13 +38,15 @@ export const privateRouter = [
 ]
 
 export default function AppRoutes () {
+  const { useAuth: { user } } = useAppContext()
+  console.log(user)
   return (
     <Routes>
       {
         privateRouter.map(route => (
           <Route key={route.path} path={route.path} element={
               <Suspense fallback={<Loading />}>
-                <ProtectedRoute>
+                <ProtectedRoute user={user} >
                   <Layout>
                     {route.element}
                   </Layout>
@@ -52,7 +55,7 @@ export default function AppRoutes () {
           } />
         ))
       }
-      <Route path='/login' element={<Login />} />
+      <Route path='/login' element={<Login user={user} />} />
       <Route path='*' element={<NotFound />} />
     </Routes>
   )

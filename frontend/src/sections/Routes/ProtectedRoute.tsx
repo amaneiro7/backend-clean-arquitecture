@@ -1,9 +1,11 @@
 import { useLayoutEffect, type PropsWithChildren } from 'react'
-import { useAppContext } from '../Context/AppContext'
 import { useNavigate } from 'react-router-dom'
+import { UserPrimitives } from '../../modules/user/user/domain/User'
 
-export default function ProtectedRoute ({ children }: PropsWithChildren) {
-  const { useAuth: { user } } = useAppContext()
+interface Props {
+  user: UserPrimitives | null
+}
+export default function ProtectedRoute ({ children, user }: PropsWithChildren<Props>) {  
   const navigate = useNavigate()
 
   useLayoutEffect(() => {
