@@ -39,13 +39,13 @@ export class IPAddress extends AcceptedNullValueObject<string> {
 
   // Private method to check if the provided value is a valid IP address using the defined regular expression
   private isValid (name: string | null): boolean {
-    if (name === null) return false
+    if (name === null) return true
     return this.IPADRRESS_VALIDATION.test(name)
   }
 
   static async updateIPAddressField ({ ipAddress, entity }: { ipAddress?: Primitives<IPAddress>, entity: DeviceComputer }): Promise<void> {
     // Si no se ha pasado un nuevo valor de dirección IP no realiza ninguna acción
-    if (ipAddress === undefined) {
+    if (ipAddress === undefined || ipAddress === null) {
       return
     }
     // Verifica que si el valor del campo dirección IP actual y el nuevo valor dirección IP son iguales no realiza un cambio

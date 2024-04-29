@@ -23,6 +23,7 @@ export function ComputerNameInput({ value, status, onChange, type = 'form' }: Pr
 
   useLayoutEffect(() => {
     if (type !== 'form') return    
+    setIsDisabled(status !== StatusId.StatusOptions.INUSE)
 
     if (isFirstInput.current || value === '') {
       isFirstInput.current = value === ''
@@ -30,7 +31,6 @@ export function ComputerNameInput({ value, status, onChange, type = 'form' }: Pr
     }
 
     const isValid = ComputerName.isValid(value, status)
-    setIsDisabled(status !== StatusId.StatusOptions.INUSE)
 
     setIsError(!isValid)
     setErrorMessage(isValid ? '' : ComputerName.invalidMessage())

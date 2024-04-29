@@ -21,6 +21,7 @@ export function IpAddressInput({ value, status, onChange, type = 'form' }: Props
   const [isDisabled, setIsDisabled] = useState(false)
   useLayoutEffect(() => {
     if (type !== 'form') return
+    setIsDisabled(status !== StatusId.StatusOptions.INUSE)
 
 
     if (isFirstInput.current) {
@@ -29,7 +30,6 @@ export function IpAddressInput({ value, status, onChange, type = 'form' }: Props
     }
 
     const isValid = IPAddress.isValid(value, status)
-    setIsDisabled(status !== StatusId.StatusOptions.INUSE)
 
     setIsError(!isValid)
     setErrorMessage(isValid ? '' : IPAddress.invalidMessage())
