@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
-import FormInput from '../../../components/text-inputs/FormInput'
+import { useEffect, useRef, useState, lazy } from 'react'
 import { type Primitives } from '../../../../modules/shared/domain/value-object/Primitives'
 import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
 import { Operator } from '../../../../modules/shared/domain/criteria/FilterOperators'
@@ -10,6 +9,8 @@ interface Props {
   onChange: OnHandleChange
   isForm?: boolean
 }
+
+const FormInput = lazy(async () => import('../../../components/text-inputs/FormInput').then(m => ({ default: m.FormInput })))
 
 export default function ExtensionInput ({ value, onChange, isForm = false }: Props) {
   const [errorMessage, setErrorMessage] = useState('')

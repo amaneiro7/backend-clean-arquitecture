@@ -1,17 +1,20 @@
-import { type FormEvent, useEffect } from 'react'
+import { type FormEvent, lazy, Suspense, useEffect } from 'react'
 import { useGenericFormData } from '../../../Hooks/useGenericFormData'
 import { FormStatus, useProcessorForm } from './useProcessorForm'
-import { FormContainer } from '../../../components/formContainer'
-import ProcessorNameInput from './ProcessorNameInput'
 import { useProcessorInitialState } from './ProcessorFormInitialState'
+import { InputSkeletonLoading } from '../../../components/Loading/inputSkeletonLoading'
+import Main from '../../../components/Main'
 
-const initialState = {
-  name: ''
-}
+const FormContainer = lazy(async () => import('../../../components/formContainer'))
+const ProcessorCollectionComboBox = lazy(async () => import('../../../components/combo_box/ProductCollectionComboBox'))
+const ProcessorNumberModelInput = lazy(async () => import('../../../components/text-inputs/ProcessorNumberModelInput'))
+const ProcessorCoresInput = lazy(async () => import('../../../components/number-inputs/ProcessorCoresInput'))
+const ProcessorFrequencyInput = lazy(async () => import('../../../components/number-inputs/ProcessorFrequency'))
+const ProcessorThreadsCheckbox = lazy(async () => import('../../../components/checkbox/ProcessorThreadsCheckbox'))
 
-export default function CreateProcessorForm () {
-  const { id: processorId, preloadedProcessorState } = useProcessorInitialState()
-  const { formData, updateForm, resetForm } = useGenericFormData(initialState)
+export default function CreateProcessorForm() {
+  const { preloadedProcessorState } = useProcessorInitialState()
+  const { formData, updateForm, resetForm } = useGenericFormData(preloadedProcessorState)
   const { formStatus, submitForm, resetFormStatus } = useProcessorForm()
 
   useEffect(() => {
@@ -34,30 +37,69 @@ export default function CreateProcessorForm () {
   }, [formStatus])
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault()
-    const { name } = formData
-    await submitForm({ id: processorId, name })
+    event.stopPropagation()
+    await submitForm(formData)
   }
 
   const handleClose = () => {
     window.history.back()
   }
 
-  const handleChange = (ev: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    updateForm({ [ev.target.name]: ev.target.value })
+  const handleChange = (name: string, value: string) => {
+    updateForm({ [name]: value })
   }
 
   return (
-    <FormContainer
-        title='Agrega un nuevo Dispositivo'
-        handleSubmit={handleSubmit}
-        handleClose={handleClose}
-        isDisabled={formStatus === FormStatus.Loading}
-    >
-      <ProcessorNameInput
-          value={formData.name}
-          onChange={handleChange}
-          isRequired={true}
-      />
-    </FormContainer>
+    <Main>
+      <Suspense>
+        <FormContainer
+          title='Agrega un nuevo Dispositivo'
+          handleSubmit={handleSubmit}
+          handleClose={handleClose}
+          isDisabled={formStatus === FormStatus.Loading}
+        >
+          <Suspense fallback={<InputSkeletonLoading />}>
+            <ProcessorCollectionComboBox
+              onChange={handleChange}
+              value={formData.productCollection}
+              type="form"
+            />
+          </Suspense>
+          <Suspense fallback={<InputSkeletonLoading />}>
+            <ProcessorNumberModelInput
+              onChange={handleChange}
+              value={formData.numberModel}
+              type="form"
+            />
+          </Suspense>
+
+          <div className="flex gap-4">
+            <Suspense fallback={<InputSkeletonLoading />}>
+              <ProcessorCoresInput
+                onChange={handleChange}
+                value={formData.cores}
+                type="form"
+              />
+            </Suspense>
+
+
+            <Suspense fallback={<InputSkeletonLoading />}>
+              <ProcessorFrequencyInput
+                onChange={handleChange}
+                value={formData.frequency}
+                type="form"
+              />
+            </Suspense>
+
+            <Suspense>
+              <ProcessorThreadsCheckbox
+                onChange={handleChange}
+                value={formData.threads}
+              />
+            </Suspense>
+          </div>
+        </FormContainer>
+      </Suspense>
+    </Main>
   )
 }

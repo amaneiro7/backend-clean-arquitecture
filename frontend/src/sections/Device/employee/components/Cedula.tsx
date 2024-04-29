@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
-import FormInput from '../../../components/text-inputs/FormInput'
+import { lazy, useEffect, useRef, useState } from 'react'
 import { type Primitives } from '../../../../modules/shared/domain/value-object/Primitives'
 import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
 import { Operator } from '../../../../modules/shared/domain/criteria/FilterOperators'
@@ -10,8 +9,9 @@ interface Props {
   onChange: OnHandleChange
   isForm?: boolean
 }
+const FormInput = lazy(async () => import('../../../components/text-inputs/FormInput').then(m => ({ default: m.FormInput })))
 
-export default function CedulaInput ({ value, onChange, isForm = false }: Props) {
+export default function CedulaInput({ value, onChange, isForm = false }: Props) {
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
   const isFirstInput = useRef(true)
@@ -35,7 +35,7 @@ export default function CedulaInput ({ value, onChange, isForm = false }: Props)
     }
   }, [value])
   return (
-  <FormInput
+    <FormInput
       id='cedula'
       isRequired={isForm}
       name="cedula"
@@ -49,6 +49,6 @@ export default function CedulaInput ({ value, onChange, isForm = false }: Props)
       value={value}
       isError={isError}
       errorMessage={errorMessage}
-  />
+    />
   )
 }

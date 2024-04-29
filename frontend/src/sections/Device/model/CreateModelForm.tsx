@@ -1,13 +1,14 @@
-import { type FormEvent, useEffect } from 'react'
+import { type FormEvent, lazy, Suspense, useEffect } from 'react'
 import { useGenericFormData } from '../../Hooks/useGenericFormData'
-import { FormContainer } from '../../components/formContainer'
+
 import { FormStatus, useModelForm } from './useModelForm'
 import BrandSelect from '../../components/Select/BrandSelect'
 import CategorySelect from '../../components/Select/CategorySelect'
 import ModelNameInput from '../../components/text-inputs/ModelNameInput'
 import { useModelInitialState } from './ModelFormInitialState'
 
-export default function CreateModelForm () {
+const FormContainer = lazy(async () => import('../../components/formContainer'))
+export default function CreateModelForm() {
   const { preloadedModelState } = useModelInitialState()
   const { formData, updateForm, resetForm } = useGenericFormData(preloadedModelState)
   const { formStatus, submitForm, resetFormStatus } = useModelForm()
@@ -45,27 +46,29 @@ export default function CreateModelForm () {
   }
 
   return (
-    <FormContainer
+    <Suspense>
+      <FormContainer
         title='Agrega un nuevo Modelo'
         handleSubmit={handleSubmit}
         handleClose={handleClose}
         isDisabled={formStatus === FormStatus.Loading}
-    >
-      <CategorySelect
-        value={formData.categoryId}
-        onChange={handleChange}
-        isRequired={true}
-      />
-      <BrandSelect
-        value={formData.brandId}
-        categoryId={formData.categoryId}
-        isRequired={true}
-        onChange={handleChange}
-      />
-      <ModelNameInput
+      >
+        <CategorySelect
+          value={formData.categoryId}
+          onChange={handleChange}
+          isRequired={true}
+        />
+        <BrandSelect
+          value={formData.brandId}
+          categoryId={formData.categoryId}
+          isRequired={true}
+          onChange={handleChange}
+        />
+        <ModelNameInput
           value={formData.name}
           onChange={handleChange}
-      />
-    </FormContainer>
+        />
+      </FormContainer>
+    </Suspense>
   )
 }

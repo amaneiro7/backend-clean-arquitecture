@@ -2,10 +2,15 @@ import { useEffect, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useAppContext } from '../../../Context/AppContext'
 import { useProcessor } from './useProcessor'
-import { type ProcessorApiresponse } from '../../../../modules/shared/domain/types/responseTypes'
+import { ProcessorPrimitives } from '../../../../modules/devices/fetures/processor/domain/Processor'
 
-const defaultInitialState = {
-  name: ''
+const defaultInitialState: ProcessorPrimitives = {
+  name: '',
+  cores: 1,
+  frequency: 1,
+  threads: false,
+  numberModel: "",
+  productCollection: "",
 }
 export const useProcessorInitialState = () => {
   const { id } = useParams()
@@ -31,9 +36,8 @@ export const useProcessorInitialState = () => {
         return
       }
       getProcessor.getById({ id })
-        .then(processor => {
-          const { name } = processor as ProcessorApiresponse
-          setPreloadedProcessorState({ name })
+        .then(processor => {          
+          setPreloadedProcessorState(processor)
         })
         .catch(error => {
           console.log(error)
