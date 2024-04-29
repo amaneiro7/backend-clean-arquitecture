@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type FC } from 'react'
-import FormInput from '../../ui/text-field'
+import FormInput from '../../components/text-inputs/FormInput'
 import { UserEmail } from '../../../modules/user/user/domain/UserEmail'
 
 interface Props {

@@ -11,7 +11,7 @@ interface Props {
   isForm?: boolean  
 }
 
-const FormInput = lazy(async () => import('../../ui/text-field'))
+const FormInput = lazy(async () => import('./FormInput').then(m => ({default: m.FormInput})))
 
 export default function ActivoInput({ value, onChange, isForm = false }: Props) {
   const [errorMessage, setErrorMessage] = useState('')

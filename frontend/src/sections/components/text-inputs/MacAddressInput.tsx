@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState, type FC } from 'react'
-import FormInput from '../../ui/text-field'
+import { lazy, Suspense, useEffect, useRef, useState, type FC } from 'react'
 import { MACAddress } from '../../../modules/devices/fetures/computer/domain/MACAddress'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
+import { InputSkeletonLoading } from '../Loading/inputSkeletonLoading'
 
 interface Props {
   value: Primitives<MACAddress>
@@ -10,6 +10,8 @@ interface Props {
   isForm?: boolean
   isRequired?: boolean
 }
+
+const FormInput = lazy(async () => import('./FormInput').then(m => ({ default: m.FormInput })))
 
 const MacAddressInput: FC<Props> = ({ value, onChange, isForm = false, isRequired = false }) => {
   const [errorMessage, setErrorMessage] = useState('')
@@ -34,7 +36,8 @@ const MacAddressInput: FC<Props> = ({ value, onChange, isForm = false, isRequire
     }
   }, [value])
   return (
-    <FormInput
+    <Suspense fallback={<InputSkeletonLoading />}>
+      <FormInput
         id='macAddress'
         name="macAddress"
         type="text"
@@ -48,7 +51,9 @@ const MacAddressInput: FC<Props> = ({ value, onChange, isForm = false, isRequire
         value={value ?? ''}
         isError={isError}
         errorMessage={errorMessage}
-    />
+      />
+
+    </Suspense>
   )
 }
 

@@ -12,7 +12,7 @@ interface Props {
   type?: 'form' | 'search' | 'dialog'
 }
 
-const FormInput = lazy(async () => import('../../ui/text-field'))
+const FormInput = lazy(async () => import('./FormInput').then(m => ({default: m.FormInput})))
 
 export function IpAddressInput({ value, status, onChange, type = 'form' }: Props) {
   const [errorMessage, setErrorMessage] = useState('')

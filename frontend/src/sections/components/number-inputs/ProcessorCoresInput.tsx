@@ -10,7 +10,7 @@ interface Props {
     type?: 'form' | 'search'
 }
 
-const NumberInput = lazy(async () => await import('../../ui/number-field').then(m => ({ default: m.NumberInput })))
+const NumberInput = lazy(async () => await import('./NumberInput').then(m => ({ default: m.NumberInput })))
 
 export default function ProcessorCoresInput({ value, onChange, type = 'form' }: Props) {
     const [errorMessage, setErrorMessage] = useState('')

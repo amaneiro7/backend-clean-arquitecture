@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import FormInput from '../../../ui/text-field'
+import FormInput from '../../../components/text-inputs/FormInput'
 import { type Primitives } from '../../../../modules/shared/domain/value-object/Primitives'
 import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
 import { Operator } from '../../../../modules/shared/domain/criteria/FilterOperators'

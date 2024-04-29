@@ -11,7 +11,7 @@ interface Props {
   isRequired?: boolean
 }
 
-const NumberInput = lazy(async () => await import('../../ui/number-field').then(m => ({ default: m.NumberInput })))
+const NumberInput = lazy(async () => await import('./NumberInput').then(m => ({ default: m.NumberInput })))
 
 export function HealthInput({ value, onChange, isForm = false, isRequired }: Props) {
   const [errorMessage, setErrorMessage] = useState('')

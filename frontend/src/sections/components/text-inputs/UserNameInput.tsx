@@ -11,7 +11,7 @@ interface Props {
   type?: 'form' | 'dialog' | 'search'
 }
 
-const FormInput = lazy(async () => import('../../ui/text-field'))
+const FormInput = lazy(async () => import('./FormInput').then(m => ({default: m.FormInput})))
 
 export default function EmployeeUserNameInput ({ value, onChange, type = 'search'}: Props) { 
   const [errorMessage, setErrorMessage] = useState('')

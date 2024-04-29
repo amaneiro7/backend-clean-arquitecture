@@ -1,4 +1,4 @@
-import React, { lazy, PropsWithChildren, Suspense, useState } from 'react'
+import { lazy, PropsWithChildren, Suspense, useState } from 'react'
 import { createFilterOptions } from '@mui/material'
 import parse from 'autosuggest-highlight/parse'
 import match from 'autosuggest-highlight/match'
@@ -42,7 +42,7 @@ export default function ComboBox({
   label,
   options,
   isDisabled = true,
-  freeSolo= false,
+  freeSolo = false,
   loading,
   placeholder,
   onChange,
@@ -60,12 +60,12 @@ export default function ComboBox({
         id={`combo-box-${id}`}
         value={initialValue}
         freeSolo={freeSolo}
-        onChange={(event, newValue, reason, details) => {          
+        onChange={(event, newValue, reason, details) => {
           onChange(event, newValue, reason, details)
         }}
         filterOptions={(options, params) => {
           const filtered = filter(options, params)
-          const { inputValue } = params          
+          const { inputValue } = params
           const isExisting = options.some((option) => inputValue === option.name)
           if (inputValue !== '' && !isExisting && type !== 'search') {
             filtered.push({
@@ -105,58 +105,47 @@ export default function ComboBox({
         handleHomeEndKeys
         clearIcon={<Suspense><CloseIcon fontSize='small' /></Suspense>}
         renderInput={(params) => (
-          <Suspense>
-            <TextField
-              {...params}
-              label={label}
-              name={name}
-              required={isRequired}
-              InputProps={{
-                ...params.InputProps,
-                endAdornment: (
-                  <>
-                    {loading && <Suspense><CircularProgress color="inherit" size={20} /></Suspense>}
-                    {params.InputProps.endAdornment}
-                  </>
-                ),
-              }}
-              color={isError ? 'warning' : 'primary'}
-              error={isError}
-              helperText={errorMessage}
-            />
-          </Suspense>
+          <TextField
+            {...params}
+            label={label}
+            name={name}
+            required={isRequired}
+            InputProps={{
+              ...params.InputProps,
+              endAdornment: (
+                <>
+                  {loading && <Suspense><CircularProgress color="inherit" size={20} /></Suspense>}
+                  {params.InputProps.endAdornment}
+                </>
+              ),
+            }}
+            color={isError ? 'warning' : 'primary'}
+            error={isError}
+            helperText={errorMessage}
+          />
         )}
         renderOption={(props, option, { inputValue }) => {
           const matches = match(option.name, inputValue, { insideWords: true });
-          const parts: ParseType[] = parse(option.name, matches)
-          return <RenderOption parts={parts} props={props} />;
+          const parts = parse(option.name, matches)
+          return (
+            <li {...props}>
+              <div>
+                {parts.map((part, index) => (
+                  <span
+                    key={index}
+                    style={{
+                      fontWeight: part.highlight ? 700 : 400,
+                    }}
+                  >
+                    {part.text}
+                  </span>
+                ))}
+              </div>
+            </li>
+          )
         }}
       />
       {children}
     </Suspense>
-  )
-}
-
-interface ParseType {
-  text: string
-  highlight: boolean
-}
-
-function RenderOption({ parts, props }: { parts: ParseType[], props: React.HTMLAttributes<HTMLLIElement> }) {
-  return (
-    <li {...props}>
-      <div>
-        {parts.map((part, index) => (
-          <span
-            key={`${part.text}-${index}`}
-            style={{
-              fontWeight: part.highlight ? 700 : 400,
-            }}
-          >
-            {part.text}
-          </span>
-        ))}
-      </div>
-    </li>
   )
 }

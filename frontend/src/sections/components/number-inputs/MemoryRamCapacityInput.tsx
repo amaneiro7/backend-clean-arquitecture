@@ -12,7 +12,7 @@ interface Props {
   type?: 'form' | 'search'
 }
 
-const NumberInput = lazy(async () => import('../../ui/number-field').then(m => ({ default: m.NumberInput })))
+const NumberInput = lazy(async () => import('./NumberInput').then(m => ({ default: m.NumberInput })))
 
 export function MemoryRamCapacityInput({ value, onChange, type = 'form', status }: Props) {
   const [errorMessage, setErrorMessage] = useState('')

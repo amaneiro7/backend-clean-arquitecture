@@ -1,15 +1,17 @@
-import { useEffect, useRef, useState, type FC } from 'react'
-import FormInput from '../../ui/text-field'
+import { lazy, Suspense, useEffect, useRef, useState, type FC } from 'react'
 import { DeviceSerial } from '../../../modules/devices/devices/devices/domain/DeviceSerial'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
+import { InputSkeletonLoading } from '../Loading/inputSkeletonLoading'
 
 interface Props {
   value: Primitives<DeviceSerial>
   onChange: OnHandleChange
   isForm?: boolean
 }
+
+const FormInput = lazy(async () => import('./FormInput').then(m => ({default: m.FormInput})))
 
 const SerialInput: FC<Props> = ({ value, onChange, isForm = false }) => {
   const [errorMessage, setErrorMessage] = useState('')
@@ -34,21 +36,24 @@ const SerialInput: FC<Props> = ({ value, onChange, isForm = false }) => {
     }
   }, [value])
   return (
-  <FormInput
-      id='serial'
-      isRequired={isForm}
-      name="serial"
-      type="text"
-      label='Serial'
-      placeholder='-- Ingrese el Serial del equipo'
-      handle={(event) => {
-        const { name, value } = event.target
-        onChange(name, value, Operator.CONTAINS)
-      }}
-      value={value}
-      isError={isError}
-      errorMessage={errorMessage}
-  />
+    <Suspense fallback={<InputSkeletonLoading />}>
+      <FormInput
+          id='serial'
+          isRequired={isForm}
+          name="serial"
+          type="text"
+          label='Serial'
+          placeholder='-- Ingrese el Serial del equipo'
+          handle={(event) => {
+            const { name, value } = event.target
+            onChange(name, value, Operator.CONTAINS)
+          }}
+          value={value}
+          isError={isError}
+          errorMessage={errorMessage}
+      />
+
+    </Suspense>
   )
 }
 
