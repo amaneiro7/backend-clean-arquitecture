@@ -89,7 +89,8 @@ export const useDeviceInitialState = (): {
     } else if(currentState === undefined) {
       setPreloadedDeviceState(defaultInitialState)
     } else {
-      setPreloadedDeviceState(currentState)
+      const updatedAt = new Date().toISOString()
+      setPreloadedDeviceState(prev => ({...prev, ...currentState, updatedAt}))
     }
   }
 
