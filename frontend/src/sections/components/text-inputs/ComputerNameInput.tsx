@@ -19,7 +19,7 @@ export function ComputerNameInput({ value, status, onChange, type = 'form' }: Pr
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
   const isFirstInput = useRef(true)
-  const [isDisabled, setIsDisabled] = useState(true)
+  const [isDisabled, setIsDisabled] = useState(false)
 
   useLayoutEffect(() => {
     if (type !== 'form') return    

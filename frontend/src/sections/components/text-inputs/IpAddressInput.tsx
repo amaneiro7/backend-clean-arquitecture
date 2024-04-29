@@ -18,7 +18,7 @@ export function IpAddressInput({ value, status, onChange, type = 'form' }: Props
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
   const isFirstInput = useRef(true)
-  const [isDisabled, setIsDisabled] = useState(true)
+  const [isDisabled, setIsDisabled] = useState(false)
   useLayoutEffect(() => {
     if (type !== 'form') return
 
