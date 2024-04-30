@@ -8,6 +8,7 @@ export const DownloadTable = forwardRef(function (_, ref) {
             filename={`Reporte Inventario ${new Date().toLocaleString()}`}
             sheet='reporte'
             currentTableRef={ref}
+            
         >
             <Button
                 type='button' 
