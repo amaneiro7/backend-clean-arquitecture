@@ -2,7 +2,7 @@ import { type FormEvent, useEffect, lazy, Suspense, useLayoutEffect } from 'reac
 import { useDeviceForm, FormStatus } from './useDeviceForm'
 import { useDeviceInitialState } from './DeviceFormInitialState'
 import { useGenericFormData } from '../../Hooks/useGenericFormData'
-import { InputSkeletonLoading } from '../../components/Loading/inputSkeletonLoading'
+import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoading'
 import Main from '../../components/Main'
 
 const FormContainer = lazy(async () => await import('../../components/formContainer'))

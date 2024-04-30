@@ -3,7 +3,7 @@ import { MemoryRamCapacity } from '../../../modules/devices/fetures/memoryRam/me
 import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { type StatusId } from '../../../modules/devices/devices/status/domain/StatusId'
-import { InputSkeletonLoading } from '../Loading/inputSkeletonLoading'
+import { InputSkeletonLoading } from '../skeleton/inputSkeletonLoading'
 
 interface Props {
   value: Primitives<MemoryRamCapacity>

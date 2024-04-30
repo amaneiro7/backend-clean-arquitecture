@@ -3,7 +3,7 @@ import { OnHandleChange } from "../../../modules/shared/domain/types/types";
 import { Primitives } from "../../../modules/shared/domain/value-object/Primitives";
 import { useAppContext } from "../../Context/AppContext";
 import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators";
-import { InputSkeletonLoading } from "../Loading/inputSkeletonLoading";
+import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading";
 import { ProcessorId } from "../../../modules/devices/fetures/processor/domain/ProcessorId";
 import { useProcessor } from "../../Device/features/processor/useProcessor";
 import { ProcessorPrimitives } from "../../../modules/devices/fetures/processor/domain/Processor";

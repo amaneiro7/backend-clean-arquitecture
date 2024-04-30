@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { FormStatus, useLoginForm } from './useLoginForm'
 import { useGenericFormData } from '../../Hooks/useGenericFormData'
 import { ToasterComponent } from '../../utils/toaster'
-import { InputSkeletonLoading } from '../../components/Loading/inputSkeletonLoading'
+import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoading'
 import { UserPrimitives } from '../../../modules/user/user/domain/User'
 
 const Logo = lazy(async () => await import ('../../ui/Logo'))

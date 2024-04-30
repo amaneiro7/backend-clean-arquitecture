@@ -4,7 +4,7 @@ import { Primitives } from "../../../modules/shared/domain/value-object/Primitiv
 import { useAppContext } from "../../Context/AppContext"
 import { useProcessor } from "../../Device/features/processor/useProcessor"
 import { ProcessorProductCollection } from "../../../modules/devices/fetures/processor/domain/ProcessorCollection"
-import { InputSkeletonLoading } from "../Loading/inputSkeletonLoading"
+import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
 
 
 interface Props {

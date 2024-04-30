@@ -3,7 +3,7 @@ import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
 import { type DeviceObservation } from '../../../modules/devices/devices/devices/domain/DeviceObservation'
 import { lazy, Suspense } from 'react'
-import { InputSkeletonLoading } from '../Loading/inputSkeletonLoading'
+import { InputSkeletonLoading } from '../skeleton/inputSkeletonLoading'
 
 interface Props {
   value: Primitives<DeviceObservation>

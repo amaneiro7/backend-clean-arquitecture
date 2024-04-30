@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, lazy, Suspense } from 'react'
 import { ProcessorCores } from '../../../modules/devices/fetures/processor/domain/ProcessorCores'
 import { OnHandleChange } from '../../../modules/shared/domain/types/types'
 import { Primitives } from '../../../modules/shared/domain/value-object/Primitives'
-import { InputSkeletonLoading } from '../Loading/inputSkeletonLoading'
+import { InputSkeletonLoading } from '../skeleton/inputSkeletonLoading'
 
 interface Props {
     value: Primitives<ProcessorCores>

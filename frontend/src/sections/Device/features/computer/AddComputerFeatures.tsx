@@ -1,7 +1,7 @@
 import { lazy, Suspense } from 'react'
 import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
 import { Computer, type ComputerPrimitives } from '../../../../modules/devices/fetures/computer/domain/Computer'
-import { InputSkeletonLoading } from '../../../components/Loading/inputSkeletonLoading'
+import { InputSkeletonLoading } from '../../../components/skeleton/inputSkeletonLoading'
 import MacAddressInput from '../../../components/text-inputs/MacAddressInput'
 
 interface Props {

@@ -1,7 +1,7 @@
 import { HardDrive, type HardDrivePrimitives } from '../../../../modules/devices/fetures/hardDrive/hardDrive/domain/HardDrive'
 import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
 import { lazy, Suspense } from 'react'
-import { InputSkeletonLoading } from '../../../components/Loading/inputSkeletonLoading'
+import { InputSkeletonLoading } from '../../../components/skeleton/inputSkeletonLoading'
 interface Props {
   onChange: OnHandleChange
   formData: HardDrivePrimitives

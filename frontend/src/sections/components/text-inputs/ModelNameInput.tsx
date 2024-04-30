@@ -2,7 +2,7 @@ import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import { ModelName } from '../../../modules/devices/model/domain/ModelName'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
-import { InputSkeletonLoading } from '../Loading/inputSkeletonLoading'
+import { InputSkeletonLoading } from '../skeleton/inputSkeletonLoading'
 
 interface Props {
   value: Primitives<ModelName>

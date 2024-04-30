@@ -4,7 +4,7 @@ import { Primitives } from "../../../modules/shared/domain/value-object/Primitiv
 import { useAppContext } from "../../Context/AppContext";
 import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators";
 import { CategoryId } from "../../../modules/devices/category/domain/CategoryId";
-import { InputSkeletonLoading } from "../Loading/inputSkeletonLoading";
+import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading";
 import { useHardDriveType } from "../../Device/features/hardDrive/useHardDriveType";
 import { ComputerHDDType } from "../../../modules/devices/fetures/computer/domain/ComputerHDDtype";
 import { ComputerHDDCapacity } from "../../../modules/devices/fetures/computer/domain/ComputerHHDCapacity";

@@ -5,7 +5,7 @@ import { useAppContext } from "../../Context/AppContext";
 import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators";
 import { CategoryId } from "../../../modules/devices/category/domain/CategoryId";
 import { useCategory } from "../../Device/category/useCategory";
-import { InputSkeletonLoading } from "../Loading/inputSkeletonLoading";
+import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading";
 
 interface Props {
     value: Primitives<CategoryId>    

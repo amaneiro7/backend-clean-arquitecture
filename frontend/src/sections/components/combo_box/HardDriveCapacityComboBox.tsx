@@ -6,7 +6,7 @@ import { Operator } from "../../../modules/shared/domain/criteria/FilterOperator
 import { StatusId } from "../../../modules/devices/devices/status/domain/StatusId";
 import { useHardDriveCapacity } from "../../Device/features/hardDrive/useHardDriveCapacity";
 import { ComputerHDDCapacity } from "../../../modules/devices/fetures/computer/domain/ComputerHHDCapacity";
-import { InputSkeletonLoading } from "../Loading/inputSkeletonLoading";
+import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading";
 
 interface Props {
     value: Primitives<ComputerHDDCapacity>    

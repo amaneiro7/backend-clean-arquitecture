@@ -8,7 +8,7 @@ import { Operator } from "../../../modules/shared/domain/criteria/FilterOperator
 
 import { LocationId } from "../../../modules/location/locations/domain/locationId";
 import { useLocation } from "../../Device/location/useLocation";
-import { InputSkeletonLoading } from "../Loading/inputSkeletonLoading";
+import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading";
 
 interface Props {
     value?: Primitives<LocationId>    

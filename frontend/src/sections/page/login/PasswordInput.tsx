@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import { UserPassword } from '../../../modules/user/user/domain/UserPassword'
-import { InputSkeletonLoading } from '../../components/Loading/inputSkeletonLoading'
+import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoading'
 
 interface Props {
   value: string

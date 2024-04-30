@@ -5,7 +5,7 @@ import { useAppContext } from "../../Context/AppContext";
 import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators";
 import { StatusId } from "../../../modules/devices/devices/status/domain/StatusId";
 import { ComputerHDDCapacity } from "../../../modules/devices/fetures/computer/domain/ComputerHHDCapacity";
-import { InputSkeletonLoading } from "../Loading/inputSkeletonLoading";
+import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading";
 import { ComputerOs } from "../../../modules/devices/fetures/computer/domain/ComputerOS";
 import { useOperatingSystemVersions } from "../../Device/features/operatingSystem/useOperatingSystemVersion";
 

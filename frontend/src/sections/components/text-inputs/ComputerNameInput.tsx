@@ -4,7 +4,7 @@ import { ComputerName } from '../../../modules/devices/fetures/computer/domain/C
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { StatusId } from '../../../modules/devices/devices/status/domain/StatusId'
-import { InputSkeletonLoading } from '../Loading/inputSkeletonLoading'
+import { InputSkeletonLoading } from '../skeleton/inputSkeletonLoading'
 
 interface Props {
   value: Primitives<ComputerName>

@@ -11,7 +11,7 @@ export const DownloadTable = forwardRef(function (_, ref) {
         >
             <Button
                 type='button' 
-                actionType='ACTION'
+                actionType='SAVE'
                 text='Export Excel'
             />
         </DownloadTableExcel>

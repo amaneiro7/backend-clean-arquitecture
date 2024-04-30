@@ -3,7 +3,7 @@ import { OnHandleChange } from "../../../modules/shared/domain/types/types"
 import { Primitives } from "../../../modules/shared/domain/value-object/Primitives"
 import { useAppContext } from "../../Context/AppContext"
 import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
-import { InputSkeletonLoading } from "../Loading/inputSkeletonLoading"
+import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
 import { ComputerOs } from "../../../modules/devices/fetures/computer/domain/ComputerOS"
 
 import { useOperatingSystemArq } from "../../Device/features/operatingSystem/useOperatingSystemArq"
@@ -39,7 +39,7 @@ export function OperatingSystemArqComboBox ({ value, operatingSystem, onChange, 
     
         const isValid = ComputerOsArq.isValid(value, operatingSystem)
         setIsDisabled(operatingSystem === '')
-        setIsRequired(type === 'form' && !operatingSystem)
+        setIsRequired(type === 'form' && !!operatingSystem)
         
     
         setIsError(!isValid)

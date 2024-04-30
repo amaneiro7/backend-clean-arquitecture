@@ -1,6 +1,6 @@
 import { Suspense, lazy } from 'react'
 import { dropdownNavs } from '../../Routes/routes'
-import { InputSkeletonLoading } from '../../components/Loading/inputSkeletonLoading'
+import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoading'
 
 const Banner = lazy(async () => await import('../../components/Banner'))
 const FeaturesCard = lazy(async () => await import('../../components/FeaturesSection/FeaturesCard'))

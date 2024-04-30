@@ -3,7 +3,7 @@ import { DeviceSerial } from '../../../modules/devices/devices/devices/domain/De
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
-import { InputSkeletonLoading } from '../Loading/inputSkeletonLoading'
+import { InputSkeletonLoading } from '../skeleton/inputSkeletonLoading'
 
 interface Props {
   value: Primitives<DeviceSerial>
@@ -45,7 +45,8 @@ const SerialInput: FC<Props> = ({ value, onChange, isForm = false }) => {
           label='Serial'
           placeholder='-- Ingrese el Serial del equipo'
           handle={(event) => {
-            const { name, value } = event.target
+            let { name, value } = event.target
+            value = value.trim().toUpperCase()
             onChange(name, value, Operator.CONTAINS)
           }}
           value={value}

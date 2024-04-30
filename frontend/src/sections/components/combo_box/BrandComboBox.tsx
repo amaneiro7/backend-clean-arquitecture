@@ -8,7 +8,7 @@ import { CategoryId } from "../../../modules/devices/category/domain/CategoryId"
 import { useBrand } from "../../Device/brand/useBrand";
 import { BrandPrimitives } from "../../../modules/devices/brand/domain/Brand";
 import { BrandApiResponse } from "../../../modules/shared/domain/types/responseTypes";
-import { InputSkeletonLoading } from "../Loading/inputSkeletonLoading";
+import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading";
 
 interface Props {
     value?: Primitives<BrandId>

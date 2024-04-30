@@ -1,7 +1,7 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import { ProcessorName } from '../../../modules/devices/fetures/processor/domain/ProcessorName'
 import { OnHandleChange } from '../../../modules/shared/domain/types/types'
-import { InputSkeletonLoading } from '../Loading/inputSkeletonLoading'
+import { InputSkeletonLoading } from '../skeleton/inputSkeletonLoading'
 
 interface Props {
   value: string
