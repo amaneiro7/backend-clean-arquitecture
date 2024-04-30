@@ -29,14 +29,18 @@ export class ApiEmployeeRepository implements EmployeeRepository {
     const paramsFilters = filters ? `${filters.join('&')}` : undefined
     const queryParams = [paramsFilters, paramsLimitAndOffset, paramsOrder].filter(Boolean).join('&')
     return await makeRequest<EmployeesApiResponse[]>({ method: 'GET', endpoint: `${this.endpoint}?${queryParams}` })
-      .then(res => res.map(data => ({
-        id: data.id,
-        userName: data.userName,
-        computers: data.devices.filter(device => ['Computadoras', 'Servidores', 'Laptops', 'All in One'].includes(device.category.name)),
-        monitores: data.devices.filter(device => device.category.name === 'Monitores'),
-        createdAt: data.createdAt,
-        updatedAt: data.updatedAt
-      }) satisfies EmployeeDevicesMappedApiResponse))
+    .then(res => res.map(data => ({
+      id: data.id,
+      userName: data.userName,
+      computers: data.devices.filter(device => ['Computadoras', 'Servidores', 'Laptops', 'All in One'].includes(device.category.name)),
+      monitores: data.devices.filter(device => device.category.name === 'Monitores'),
+      createdAt: data.createdAt,
+      updatedAt: data.updatedAt
+    }) satisfies EmployeeDevicesMappedApiResponse))
+    .then( res => {
+      console.log(res)
+      return res
+    })
       .catch((error: any) => {
         console.error('Infra', error)
         throw new Error(error.message)

@@ -58,7 +58,7 @@ export default function CreateDeviceForm() {
     <Main>
       <Suspense>
         <FormContainer
-          title='Agrega un nuevo Dispositivo'
+          title='Dispositivo'
           handleSubmit={handleSubmit}
           handleClose={handleClose}
           isDisabled={formStatus === FormStatus.Loading}

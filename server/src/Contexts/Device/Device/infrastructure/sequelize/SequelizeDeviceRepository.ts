@@ -9,7 +9,7 @@ import { type DeviceId } from '../../domain/DeviceId'
 import { type Criteria } from '../../../../Shared/domain/criteria/Criteria'
 import { CriteriaToSequelizeConverter } from '../../../../Shared/infrastructure/criteria/CriteriaToSequelizeConverter'
 import { type Transaction } from 'sequelize'
-export class SequelizeDeviceRepository extends CriteriaToSequelizeConverter<DeviceModel> implements DeviceRepository {
+export class SequelizeDeviceRepository extends CriteriaToSequelizeConverter implements DeviceRepository {
   private readonly models = sequelize.models as unknown as Models
   async matching (criteria: Criteria): Promise<DevicePrimitives[]> {
     const options = this.convert(criteria)

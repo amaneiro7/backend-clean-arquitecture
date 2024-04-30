@@ -1,4 +1,5 @@
-import { Suspense, lazy } from 'react'
+import { Suspense, lazy, useMemo } from 'react'
+import { useLocation } from 'react-router-dom'
 
 interface Props {
   handleSubmit: (event: React.FormEvent) => Promise<void>
@@ -13,6 +14,8 @@ const LastUpdated = lazy(async () => import('../LastUpdated').then(m => ({ defau
 const PageTitle = lazy(async () => import('../PageTitle'))
 
 export default function FormContainer({ title, children, isDisabled, handleSubmit, handleClose, lastUpdated }: React.PropsWithChildren<Props>) {
+  const location = useLocation()
+  const isEdit = useMemo(() => location.pathname.includes('edit'), [location])
   return (
     <>
       <section className="w-full min-w-full grid place-content-center">
@@ -24,7 +27,7 @@ export default function FormContainer({ title, children, isDisabled, handleSubmi
           <fieldset className='w-9/12 py-10 pb-20 grid gap-5 relative'>
             <legend >
               <Suspense>
-                <PageTitle title={title} />
+                <PageTitle title={!isEdit ? 'Agregar un nuevo ' + title : 'Editar un ' + title} />
               </Suspense>
             </legend>
             <div className='flex gap-5 justify-around'>

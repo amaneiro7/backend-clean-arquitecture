@@ -48,7 +48,7 @@ export default function CreateModelForm() {
   return (
     <Suspense>
       <FormContainer
-        title='Agrega un nuevo Modelo'
+        title='Modelo'
         handleSubmit={handleSubmit}
         handleClose={handleClose}
         isDisabled={formStatus === FormStatus.Loading}

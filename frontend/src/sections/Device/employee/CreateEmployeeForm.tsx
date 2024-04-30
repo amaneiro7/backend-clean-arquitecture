@@ -12,7 +12,7 @@ const FormContainer = lazy(async () => await import('../../components/formContai
 const EmployeeUserNameInput = lazy(async () => await import('../../components/text-inputs/UserNameInput'))
 
 export default function CreateEmployeeForm() {
-  const navigate = useNavigate()
+  const navigate = useNavigate()  
   const {repository} = useAppContext()
   const { createEmployee } = useEmployee(repository)
   const { preloadedEmployeeState } = useEmployeeInitialState()
@@ -53,7 +53,7 @@ export default function CreateEmployeeForm() {
     <Suspense>
       <Main>
         <FormContainer
-          title='Agrega un nuevo Empleado'
+          title='Empleado'
           handleSubmit={handleSubmit}
           handleClose={handleClose}
           isDisabled={formStatus === FormStatus.Loading}

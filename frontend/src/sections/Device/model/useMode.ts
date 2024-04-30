@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { type Repository } from '../../../modules/shared/domain/repository'
-import { Uuid } from '../../../modules/shared/domain/value-object/Uuid'
 import { AllModelGetter } from '../../../modules/devices/model/application/AllModelGetter'
 import { type ModelPrimitives } from '../../../modules/devices/model/domain/Model'
 import { ModelCreator } from '../../../modules/devices/model/application/ModelCreator'
@@ -13,9 +12,8 @@ export const useModel = (repository: Repository) => {
   const [models, setModels] = useState<ModelPrimitives[]>([])
 
   async function createModel ({ name, categoryId, brandId }: ModelPrimitives) {
-    const modelCreator = new ModelCreator(repository)
-    const id = Uuid.random().value
-    await modelCreator.create({ id, name, categoryId, brandId })
+    const modelCreator = new ModelCreator(repository)    
+    await modelCreator.create({ name, categoryId, brandId })
     getModels()
   }
 

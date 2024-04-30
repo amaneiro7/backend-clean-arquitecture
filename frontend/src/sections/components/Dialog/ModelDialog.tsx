@@ -49,7 +49,7 @@ export default function ModelDialog ({ dialogValue, open, toggleOpen }: Props) {
 
     return (
         <DialogAdd 
-            title="Agregar una nuevo modeo"
+            title="Agregar un nuevo modelo"
             contextText="¿No existe el modelo en la lista? Por favor, añada uno nuevo."
             open={open}
             toggleOpen={toggleOpen}            

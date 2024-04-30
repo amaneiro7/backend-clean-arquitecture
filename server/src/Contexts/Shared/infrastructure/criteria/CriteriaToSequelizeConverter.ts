@@ -2,11 +2,11 @@ import { type FindOptions, Op } from 'sequelize'
 import { type Criteria } from '../../domain/criteria/Criteria'
 import { type Filter } from '../../domain/criteria/Filter'
 
-type Mappings = Record<string, string>
+export type Mappings = Record<string, string>
 
-export class CriteriaToSequelizeConverter<T> {
-  convert (criteria: Criteria, mappings: Mappings = {}): FindOptions<T> {
-    const query: FindOptions<T> = {}
+export class CriteriaToSequelizeConverter {
+  convert (criteria: Criteria, mappings: Mappings = {}): FindOptions {
+    const query: FindOptions = {}
 
     if (criteria.hasFilters()) {
       query.where = criteria.filters.value.reduce((acc, filter) => {

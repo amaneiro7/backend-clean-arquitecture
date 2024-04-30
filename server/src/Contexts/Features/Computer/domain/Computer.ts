@@ -74,7 +74,7 @@ export class DeviceComputer extends Device {
       new DeviceObservation(params.observation),
       new ComputerName(params.computerName, params.statusId),
       new ComputerProcessor(params.processorId),
-      new ComputerMemoryRamCapacity(params.memoryRamCapacity),
+      new ComputerMemoryRamCapacity(params.memoryRamCapacity, params.statusId),
       new ComputerHardDriveCapacity(params.hardDriveCapacityId),
       new ComputerHardDriveType(params.hardDriveTypeId, params.hardDriveCapacityId),
       new ComputerOperatingSystem(params.operatingSystemId, params.hardDriveCapacityId, params.statusId),
@@ -127,7 +127,7 @@ export class DeviceComputer extends Device {
       new DeviceObservation(primitives.observation),
       new ComputerName(primitives.computerName, primitives.statusId),
       new ComputerProcessor(primitives.processorId),
-      new ComputerMemoryRamCapacity(primitives.memoryRamCapacity),
+      new ComputerMemoryRamCapacity(primitives.memoryRamCapacity, primitives.statusId),
       new ComputerHardDriveCapacity(primitives.hardDriveCapacityId),
       new ComputerHardDriveType(primitives.hardDriveTypeId, primitives.hardDriveCapacityId),
       new ComputerOperatingSystem(primitives.operatingSystemId, primitives.hardDriveCapacityId, primitives.statusId),
@@ -145,8 +145,8 @@ export class DeviceComputer extends Device {
     this.processorId = new ComputerProcessor(newProcessorId)
   }
 
-  updateMemoryRam (newMemoryRamCapacity: Primitives<ComputerMemoryRamCapacity>): void {
-    this.memoryRamCapacity = new ComputerMemoryRamCapacity(newMemoryRamCapacity)
+  updateMemoryRam (newMemoryRamCapacity: Primitives<ComputerMemoryRamCapacity>, status: Primitives<DeviceStatus>): void {
+    this.memoryRamCapacity = new ComputerMemoryRamCapacity(newMemoryRamCapacity, status)
   }
 
   updateOperatingSystem (newOperatingSystem: Primitives<ComputerOperatingSystem>, hardDriveCapacity: Primitives<ComputerHardDriveCapacity>, status: Primitives<DeviceStatus>): void {
