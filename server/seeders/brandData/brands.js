@@ -28,7 +28,8 @@ const brandOnlyName = {
     COMPAQ: 'Compaq',
     DIEBOLD: 'Diebold',
     GENIUS: 'Genius',
-    UNISYS: 'Unisys'
+    UNISYS: 'Unisys',
+    BIOSTAR: 'Biostar Group'
   }
 
 const brandsData = [
@@ -62,6 +63,7 @@ const brandsData = [
     { id: "a0ac3c3f-2309-4ecf-961a-4dad9548b4bb", name: "Diebold" },
     { id: "cf7fa379-b3d7-4605-8324-026ab9835e3b", name: "Genius" },
     { id: "9b2dffe4-9afc-474b-b1ae-5703566bef57", name: "Unisys" },
+    { id: "045c4765-ca7b-4051-81dc-64621fc82c61", name: "Biostar Group" },
 ]
 
 module.exports = {brandsData, brandOnlyName}
