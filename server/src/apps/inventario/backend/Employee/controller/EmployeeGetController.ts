@@ -6,6 +6,7 @@ import { EmployeeByCriteriaSearcher } from '../../../../../Contexts/employee/Emp
 import { SearchByCriteriaQuery } from '../../../../../Contexts/Shared/domain/SearchByCriteriaQuery'
 import { EmployeeFinder } from '../../../../../Contexts/employee/Employee/application/EmployeeFInder'
 import { SearchAllEmployees } from '../../../../../Contexts/Device/Device/application/DeviceFinderAll'
+import { EmployeesApiResponse } from '../../../../../Contexts/employee/Employee/infrastructure/sequelize/EmployeeResponse'
 
 export class EmployeeGetController {
   constructor (private readonly repository: Repository) {}
@@ -21,7 +22,15 @@ export class EmployeeGetController {
         offset ? Number(offset) : undefined
       )
       const data = await new EmployeeByCriteriaSearcher(this.repository).search(query)
-      res.status(httpStatus.OK).json(data)
+      const dataMapped = (data as unknown as EmployeesApiResponse[]).map((data) => ({
+        id: data.id,
+        userName: data.userName,
+        computers: data.devices.filter(device => ['Computadoras', 'Servidores', 'Laptops', 'All in One'].includes(device.category.name)),
+        monitores: data.devices.filter(device => device.category.name === 'Monitores'),
+        createdAt: data.createdAt,
+        updatedAt: data.updatedAt
+      }))
+      res.status(httpStatus.OK).json(dataMapped)
     } catch (error) {
       next(error)
     }

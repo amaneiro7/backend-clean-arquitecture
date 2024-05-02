@@ -36,6 +36,12 @@ export const dropdownNavs: DropDown[] = [
         desc: 'Equipos asignados en agencia',
         path: '/equipos/agencia',
         icon: 'icon'
+      },
+      {
+        title: 'Filtro por Dispositvos',
+        desc: 'Filtro por dispositivos',
+        path: '/devicefilter',
+        icon: 'icon'
       }
     ]
   }, {
@@ -111,8 +117,8 @@ export const navigation: Navigation[] = [
     navs: dropdownNavs
   },
   {
-    name: 'Balance',
-    path: 'dashboad',
+    name: 'Listado de Sitios',
+    path: '/sitios',
     isDrapdown: false
   }
 ]

@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import debounce from 'just-debounce-it'
 
 import { useAppContext } from '../../Context/AppContext'
+import { useEmployeeByCriteria } from '../../Device/employee/useEmployeeByCriteria'
 import { useInputsData } from './useInputData'
-import { useEmployee } from '../../Device/employee/useEmployee'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
 import { StatusId } from '../../../modules/devices/devices/status/domain/StatusId'
 
@@ -13,6 +13,7 @@ import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestruct
 
 import { SpinnerSKCircle } from '../../components/Loading/spinner-sk-circle'
 import { InputSkeletonLoading } from'../../components/skeleton/inputSkeletonLoading'
+import { TypeOfSiteId } from '../../../modules/location/typeofsites/domain/typeOfSiteId'
 
 const HeaderInput = lazy(async () => import('../../components/HeaderInput').then(m => ({ default: m.HeaderInput })))
 const DownloadTable = lazy(async () => import('../../components/button/DownloadTableExcel').then(m => ({ default: m.DownloadTable })))
@@ -37,11 +38,11 @@ const ModelComboBox = lazy(async () => await import('../../components/combo_box/
 export default function AdministrativeSitePerEmployee() {
   const { repository } = useAppContext()
   const tableRef = useRef(null)
-  const { employeeWithDevives, loadingWithDevice: loading, addFilter, cleanFilters } = useEmployee(repository, {
+  const { employeeWithDevives, loading, addFilter, cleanFilters } = useEmployeeByCriteria(repository, {
     filters: [{
       field: 'typeOfSite',
       operator: Operator.EQUAL,
-      value: '1'
+      value: TypeOfSiteId.SitesOptions.ADMINISTRATIVE
     }]
   })
   const navigate = useNavigate()
@@ -70,7 +71,7 @@ export default function AdministrativeSitePerEmployee() {
       filters: [{
         field: 'typeOfSite',
         operator: Operator.EQUAL,
-        value: '1'
+        value: TypeOfSiteId.SitesOptions.ADMINISTRATIVE
       }]
     })
   }
@@ -127,7 +128,7 @@ export default function AdministrativeSitePerEmployee() {
             <Suspense fallback={<InputSkeletonLoading />}>
               <LocationComboBox
                 value={inputData.locationId}
-                typeOfSiteId={'1'} // Modificarlo para que no sea un magic string
+                typeOfSiteId={TypeOfSiteId.SitesOptions.ADMINISTRATIVE}
                 statusId={StatusId.StatusOptions.INUSE}
                 onChange={handleChange}
                 type='search'

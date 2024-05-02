@@ -1,5 +1,5 @@
 import { CriteriaToSequelizeConverter } from '../../../../Shared/infrastructure/criteria/CriteriaToSequelizeConverter'
-import { type EmployeePrimitives } from '../../domain/Employee'
+import { Employee, type EmployeePrimitives } from '../../domain/Employee'
 import { type EmployeeRepository } from '../../domain/EmployeeRepository'
 import { EmployeeModel } from './EmployeeSchema'
 import { type Models } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
@@ -16,70 +16,25 @@ export class SequelizeEmployeeRepository extends CriteriaToSequelizeConverter im
 
   async matching (criteria: Criteria): Promise<EmployeePrimitives[]> {
     const options = this.convert(criteria)
-    const locationJoin = new DeviceAssociation().convertFilterLocation(criteria, options)    
-    console.log('matching',locationJoin)
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment  
-
-    // if (criteria.searchValueInArray('typeOfSite')) {
-    //   options.include.push({
-    //     association: 'devices',
-    //     include: [
-    //       'category',
-    //       'brand',
-    //       'model',
-    //       {
-    //         association: 'computer',
-    //         include: ['processor', 'hardDriveCapacity', 'hardDriveType', 'operatingSystem', 'operatingSystemArq']
-    //       },
-    //       {
-    //         association: 'hardDrive',
-    //         include: ['hardDriveCapacity', 'hardDriveType']
-    //       },
-    //       {
-    //         association: 'location',
-    //         include: [
-    //           'typeOfSite',
-    //           { association: 'site', include: [{ association: 'city', include: [{ association: 'state', include: ['region'] }] }] }
-    //         ],
-    //         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    //         // @ts-expect-error
-    //         where: { typeOfSiteId: options.where.typeOfSite }
-    //       }
-    //     ]
-    //   })
-    //   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    //   // @ts-expect-error
-    //   delete options.where.typeOfSite
-    // } else {
-    //   options.include.push({
-    //     association: 'devices',
-    //     include: [
-    //       'category',
-    //       'brand',
-    //       'model',
-    //       {
-    //         association: 'computer',
-    //         include: ['processor', 'hardDriveCapacity', 'hardDriveType', 'operatingSystem', 'operatingSystemArq']
-    //       },
-    //       {
-    //         association: 'hardDrive',
-    //         include: ['hardDriveCapacity', 'hardDriveType']
-    //       },
-    //       {
-    //         association: 'location',
-    //         include: [
-    //           'typeOfSite',
-    //           { association: 'site', include: [{ association: 'city', include: [{ association: 'state', include: ['region'] }] }] }
-    //         ]
-    //       }
-    //     ]
-    //   })
-    // }
-    return await EmployeeModel.findAll(locationJoin)
+    const locationJoin = new DeviceAssociation().convertFilterLocation(criteria, options)
+    return await EmployeeModel.findAll(locationJoin)    
   }
 
   async searchById (employeeId: string): Promise<EmployeePrimitives | null> {
-    return await EmployeeModel.findByPk(employeeId) ?? null
+    return await EmployeeModel.findByPk(employeeId, {
+      include: [
+        {
+          association: 'devices',
+          include: [
+            'category',
+            'brand',
+            'model',
+            'location',
+            'computer'
+          ]
+        }
+      ]
+    }) ?? null
   }
 
   async searchByUserName(userName: string): Promise<EmployeePrimitives | null> {

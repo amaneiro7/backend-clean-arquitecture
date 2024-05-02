@@ -7,6 +7,7 @@ export class DeviceAssociation {
         options.include = []
         options.include.push({
             association: 'devices',
+            where: {},
             include: [
                 'category',
                 'brand',
@@ -21,8 +22,9 @@ export class DeviceAssociation {
                 },
                 {
                     association: 'location',
+                    where: {},
                     include: [
-                        'typeOfSite' as Includeable,
+                        'typeOfSite',
                         {
                             association: 'site',
                             include: [
@@ -31,7 +33,7 @@ export class DeviceAssociation {
                                     include: [
                                         {
                                             association: 'state',
-                                            include: ['region' as Includeable]
+                                            include: ['region']
                                         }
                                     ]
                                 }
@@ -41,25 +43,36 @@ export class DeviceAssociation {
                 }
             ]
         })
-        if (criteria.searchValueInArray('locationId')) {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-expect-error            
-            options.include.where = { locationId: options.where.locationId }
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-expect-error
-            delete options.where.locationId
-        }
+        const firstLevelJoin = ['locationId', 'categoryId', 'brandId', 'modelId', 'serial', 'activo']
+        firstLevelJoin.forEach(ele => {
+            if (criteria.searchValueInArray(ele)) {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-expect-error            
+                options.include[0].where = { ...options.include[0].where, [ele]: options.where[ele] }                
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-expect-error
+                delete options.where[ele]
+            }
+        })
+        const ComputerJoin = ['processorId', 'hardDriveCapacityId', 'hardDriveTypeId', 'operatingSystemId', 'operatingSystemArqId']
+        ComputerJoin.forEach(ele => {
+            if (criteria.searchValueInArray(ele)) {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-expect-error            
+                options.include[0].include[3].where = { ...options.include[0].include[3].where, [ele]: options.where[ele] }                
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-expect-error
+                delete options.where[ele]
+            }
+        })
         if (criteria.searchValueInArray('typeOfSite')) {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-expect-error
-            options.include[0].include.where = { typeOfSiteId: options.where.typeOfSite }
+            options.include[0].include[5].where = { ...options.include[0].include[5].where, typeOfSiteId: options.where.typeOfSite }
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-expect-error
             delete options.where.typeOfSite
-        }
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
-        console.log('options', options.include[0].include)
+        }        
         return options
     }
 }

@@ -4,13 +4,18 @@ import { type Primitives } from '../../../modules/shared/domain/value-object/Pri
 import { type EmployeeUserName } from '../../../modules/employee/employee/domain/UserName'
 import { useEffect, useState } from 'react'
 import { useEmployee } from './useEmployee'
+import { DevicesApiResponse } from '../../../modules/shared/domain/types/responseTypes'
 
 interface defaultProps {
   userName: Primitives<EmployeeUserName>
+  devices?: DevicesApiResponse[]
+  updatedAt?: string
 }
 
 const defaultInitialState: defaultProps = {
-  userName: ''
+  userName: '',
+  devices: [],
+  updatedAt: undefined
 }
 
 export const useEmployeeInitialState = () => {
@@ -27,15 +32,17 @@ export const useEmployeeInitialState = () => {
       return
     }
 
-    if (location.state?.state !== undefined) {
+    if (location.state?.state2 !== undefined) {
       const { state } = location.state
+      console.log('employee state',state)
       setPreloadedEmployeeState(state)
     } else if (id === undefined) {
       navidate('/error')
     } else {
       getEmployee.getById(id)
         .then(employee => {
-          setPreloadedEmployeeState(employee)
+          console.log('employee fetching',employee)
+          setPreloadedEmployeeState(employee as defaultProps)
         })
         .catch(error => {
           console.error('useEmployeeInitialState', error)

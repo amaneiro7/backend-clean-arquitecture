@@ -14,6 +14,7 @@ import { StatusId } from '../../../modules/devices/devices/status/domain/StatusI
 
 import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoading'
 import { SpinnerSKCircle } from '../../components/Loading/spinner-sk-circle'
+import { TypeOfSiteId } from '../../../modules/location/typeofsites/domain/typeOfSiteId'
 
 const HeaderInput = lazy(async () => import('../../components/HeaderInput').then(m => ({ default: m.HeaderInput })))
 const DownloadTable = lazy(async () => import('../../components/button/DownloadTableExcel').then(m => ({ default: m.DownloadTable })))
@@ -43,7 +44,7 @@ export default function AdministrativeSitePage() {
     filters: [{
       field: 'typeOfSite',
       operator: Operator.EQUAL,
-      value: '1'
+      value: TypeOfSiteId.SitesOptions.ADMINISTRATIVE
     }]
   })
   const navigate = useNavigate()
@@ -73,7 +74,7 @@ export default function AdministrativeSitePage() {
       filters: [{
         field: 'typeOfSite',
         operator: Operator.EQUAL,
-        value: '1'
+        value: TypeOfSiteId.SitesOptions.ADMINISTRATIVE
       }]
     })
   }
@@ -136,7 +137,7 @@ export default function AdministrativeSitePage() {
             <Suspense fallback={<InputSkeletonLoading />}>
               <LocationComboBox
                 value={inputData.locationId}
-                typeOfSiteId={'1'} // Modificarlo para que no sea un magic string
+                typeOfSiteId={TypeOfSiteId.SitesOptions.ADMINISTRATIVE} // Modificarlo para que no sea un magic string
                 statusId={StatusId.StatusOptions.INUSE} // Modificarlo para que no sea un magic string
                 onChange={handleChange}
                 type='search'

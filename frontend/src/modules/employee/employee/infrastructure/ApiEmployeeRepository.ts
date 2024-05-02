@@ -1,5 +1,5 @@
 import { type Criteria } from '../../../shared/domain/criteria/Criteria'
-import { type EmployeeDevicesMappedApiResponse, type EmployeeMappedApiResponse, type EmployeesApiResponse } from '../../../shared/domain/types/responseTypes'
+import { type EmployeeMappedApiResponse, type EmployeesApiResponse } from '../../../shared/domain/types/responseTypes'
 import { makeRequest } from '../../../shared/infraestructure/fetching'
 import { type EmployeePrimitives, type Employee } from '../domain/Employee'
 import { type EmployeeId } from '../domain/EmployeeId'
@@ -29,18 +29,14 @@ export class ApiEmployeeRepository implements EmployeeRepository {
     const paramsFilters = filters ? `${filters.join('&')}` : undefined
     const queryParams = [paramsFilters, paramsLimitAndOffset, paramsOrder].filter(Boolean).join('&')
     return await makeRequest<EmployeesApiResponse[]>({ method: 'GET', endpoint: `${this.endpoint}?${queryParams}` })
-    .then(res => res.map(data => ({
-      id: data.id,
-      userName: data.userName,
-      computers: data.devices.filter(device => ['Computadoras', 'Servidores', 'Laptops', 'All in One'].includes(device.category.name)),
-      monitores: data.devices.filter(device => device.category.name === 'Monitores'),
-      createdAt: data.createdAt,
-      updatedAt: data.updatedAt
-    }) satisfies EmployeeDevicesMappedApiResponse))
-    .then( res => {
-      console.log(res)
-      return res
-    })
+    // .then(res => res.map(data => ({
+    //   id: data.id,
+    //   userName: data.userName,
+    //   computers: data.devices.filter(device => ['Computadoras', 'Servidores', 'Laptops', 'All in One'].includes(device.category.name)),
+    //   monitores: data.devices.filter(device => device.category.name === 'Monitores'),
+    //   createdAt: data.createdAt,
+    //   updatedAt: data.updatedAt
+    // }) satisfies EmployeeDevicesMappedApiResponse))
       .catch((error: any) => {
         console.error('Infra', error)
         throw new Error(error.message)

@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import { EmployeeGetter } from '../../../modules/employee/employee/application/EmployeeGetter'
+import { EmployeeGetterByCriteria } from '../../../modules/employee/employee/application/EmployeeGetterByCriteria'
 import { type EmployeePrimitives } from '../../../modules/employee/employee/domain/Employee'
 import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
-import { EmployeeCreator } from '../../../modules/employee/employee/application/EmployeeCreator'
 import { type Repository } from '../../../modules/shared/domain/repository'
-import { AllEmployeeGetter } from '../../../modules/employee/employee/application/AllEmployeeGetter'
+import { useSearchByCriteriaQuery } from '../../Hooks/useQueryUpdate'
 
 export interface UseEmployee {
   employees: EmployeePrimitives[]
@@ -16,25 +16,19 @@ export interface UseEmployee {
   cleanFilters: (payload?: SearchByCriteriaQuery) => void
 }
 
-export const useEmployee = (repository: Repository) => {  
-  const allEmployeeGetter = new AllEmployeeGetter(repository)  
+export const useEmployeeByCriteria = (repository: Repository, defaultQuery?: SearchByCriteriaQuery) => {
+  const employeeByCriteria = new EmployeeGetterByCriteria(repository)  
+  const { query, addFilter, cleanFilters } = useSearchByCriteriaQuery(defaultQuery)
   const [loading, setLoading] = useState<boolean>(true)  
-  const [error, setError] = useState<string | null>(null)
-  const [employees, setEmployees] = useState<EmployeePrimitives[]>([])
-  
+  const [error, setError] = useState<string | null>(null)  
+  const [employeeWithDevives, setEmployeeWithDevives] = useState<EmployeePrimitives[]>([])  
 
-  async function createEmployee (formData: EmployeePrimitives) {
-    const employeeCreator = new EmployeeCreator(repository)
-    await employeeCreator.create(formData)
-    await searchEmployees()
-  }
-
-  async function searchEmployees () {    
+  function searchEmployeesByCriteria () {
     setLoading(true)
-    allEmployeeGetter
-    .get()
+    employeeByCriteria
+      .get(query)
       .then((employees) => {
-        setEmployees(employees)
+        setEmployeeWithDevives(employees)
         setLoading(false)
       })
       .catch((error) => {
@@ -44,19 +38,18 @@ export const useEmployee = (repository: Repository) => {
       })
   }
 
-  const getEmployee = new EmployeeGetter(repository)
-
   useEffect(() => {
-    searchEmployees()
+    searchEmployeesByCriteria()
     return () => {
-      setEmployees([])
+      setEmployeeWithDevives([])
     }
-  }, [])
+  }, [query])
+
   return {
-    employees,    
+    employeeWithDevives,
     loading,
     error,
-    getEmployee,
-    createEmployee,
+    addFilter,
+    cleanFilters
   }
 }

@@ -5,6 +5,8 @@ import Loading from '../components/Loading/index.tsx'
 import { useAppContext } from '../Context/AppContext.tsx'
 
 const Home = lazy(async () => await import('../page/home/index.tsx'))
+const ListadoSitios = lazy(async () => await import('../page/ListadoSitios'))
+const FilterByDevice = lazy(async () => await import('../page/FiltroPorDevice'))
 const AlmacenPage = lazy(async () => await import('../page/Almacen/index.tsx'))
 const EquiposAgenciaPage = lazy(async () => await import('../page/AgenciaPerDevice/index.tsx'))
 const EquiposTorrePage = lazy(async () => await import('../page/AdministrativeSitePerDevice/index.tsx'))
@@ -21,6 +23,7 @@ const Layout = lazy(async () => await import('../components/Layout.tsx'))
 
 export const privateRouter = [
   { path: '/', element: <Home /> },
+  { path: '/sitios', element: <ListadoSitios /> },
   { path: '/almacen', element: <AlmacenPage /> },
   { path: '/equipos/agencia', element: <EquiposAgenciaPage /> },
   { path: '/equipos/torre', element: <EquiposTorrePage /> },
@@ -34,7 +37,8 @@ export const privateRouter = [
   { path: '/model/add', element: <CreateModelForm /> },
   { path: '/model/edit/:id', element: <CreateModelForm /> },
   { path: '/processor/add', element: <CreateProcessorForm /> },
-  { path: '/processor/edit/:id', element: <CreateProcessorForm /> }
+  { path: '/processor/edit/:id', element: <CreateProcessorForm /> },
+  { path: '/devicefilter', element: <FilterByDevice /> }
 ]
 
 export default function AppRoutes () {

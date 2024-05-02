@@ -15,6 +15,7 @@ import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestruct
 
 import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoading'
 import { SpinnerSKCircle } from '../../components/Loading/spinner-sk-circle'
+import { TypeOfSiteId } from '../../../modules/location/typeofsites/domain/typeOfSiteId'
 
 
 const HeaderInput = lazy(async () => import('../../components/HeaderInput').then(m => ({ default: m.HeaderInput })))
@@ -44,11 +45,13 @@ export default function AgenciaPage() {
     filters: [{
       field: 'typeOfSite',
       operator: Operator.EQUAL,
-      value: '2'
+      value: TypeOfSiteId.SitesOptions.AGENCY
     }]
   })
   const navigate = useNavigate()
   const { inputData, updateInputData, clearInputs } = useInputsData()
+
+  console.log(devices)
 
   const debounceGetDevices = useCallback(
     debounce((query: SearchByCriteriaQuery) => {
@@ -73,7 +76,7 @@ export default function AgenciaPage() {
       filters: [{
         field: 'typeOfSite',
         operator: Operator.EQUAL,
-        value: '2'
+        value: TypeOfSiteId.SitesOptions.AGENCY
       }]
     })
   }
@@ -142,7 +145,7 @@ export default function AgenciaPage() {
             <Suspense fallback={<InputSkeletonLoading />}>
               <LocationComboBox
                 value={inputData.locationId}
-                typeOfSiteId={'1'} // Modificarlo para que no sea un magic string
+                typeOfSiteId={TypeOfSiteId.SitesOptions.AGENCY} // Modificarlo para que no sea un magic string
                 statusId={StatusId.StatusOptions.INUSE} // Modificarlo para que no sea un magic string
                 onChange={handleChange}
                 type='search'

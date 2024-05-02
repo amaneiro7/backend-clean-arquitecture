@@ -85,8 +85,7 @@ export default function EmployeeComboBox({ value, name, onChange, status, type =
             });
           } else {
             const hasNewValue = newValue ? newValue.id : ''
-            const isInputDisabled = isDisabled ? '' : hasNewValue
-            onChange(name, isInputDisabled, Operator.EQUAL)
+            onChange(name, hasNewValue, Operator.EQUAL)
           }
         }}
         options={employeeOptions}

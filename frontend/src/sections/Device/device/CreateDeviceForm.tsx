@@ -129,7 +129,7 @@ export default function CreateDeviceForm() {
             <Suspense fallback={<InputSkeletonLoading />}>
               <EmployeeComboBox
                 onChange={handleChange}
-                name={Object.keys(formData.employeeId)[0]}
+                name='employeeId'
                 type='form'
                 status={formData.statusId}
                 value={formData.employeeId}

@@ -6,7 +6,6 @@ import { useAppContext } from '../../Context/AppContext'
 import { useInputsData } from './useInputData'
 import { Computer } from '../../../modules/devices/fetures/computer/domain/Computer'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
-import { StatusId } from '../../../modules/devices/devices/status/domain/StatusId'
 import { HardDrive } from '../../../modules/devices/fetures/hardDrive/hardDrive/domain/HardDrive'
 import { useDevice } from '../../Device/device/useDevice'
 
@@ -15,6 +14,7 @@ import { type DevicesMappedApiResponse } from '../../../modules/shared/domain/ty
 
 import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoading'
 import { SpinnerSKCircle } from '../../components/Loading/spinner-sk-circle'
+import { TypeOfSiteId } from '../../../modules/location/typeofsites/domain/typeOfSiteId'
 
 const HeaderInput = lazy(async () => import('../../components/HeaderInput').then(m => ({ default: m.HeaderInput })))
 const DownloadTable = lazy(async () => import('../../components/button/DownloadTableExcel').then(m => ({ default: m.DownloadTable })))
@@ -43,7 +43,7 @@ export default function AlmacenPage() {
     filters: [{
       field: 'typeOfSite',
       operator: Operator.EQUAL,
-      value: '3'
+      value: TypeOfSiteId.SitesOptions.ALMACEN
     }]
   })
   const navigate = useNavigate()
@@ -69,7 +69,11 @@ export default function AlmacenPage() {
   const handleClear = () => {
     clearInputs()
     cleanFilters({
-      filters: []
+      filters: [{
+        field: 'typeOfSite',
+        operator: Operator.EQUAL,
+        value: TypeOfSiteId.SitesOptions.ALMACEN
+      }]
     })
   }
 
@@ -133,8 +137,8 @@ export default function AlmacenPage() {
             <Suspense fallback={<InputSkeletonLoading />}>
               <LocationComboBox
                 value={inputData.locationId}
-                typeOfSiteId={'1'} // Modificarlo para que no sea un magic string
-                statusId={StatusId.StatusOptions.INUSE}
+                typeOfSiteId={TypeOfSiteId.SitesOptions.ALMACEN} // Modificarlo para que no sea un magic string
+                // statusId={StatusId.StatusOptions.INUSE}
                 onChange={handleChange}
                 type='search'
               />
