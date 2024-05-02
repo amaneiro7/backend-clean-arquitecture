@@ -34,7 +34,7 @@ export default function LocationComboBox ({ value, statusId, typeOfSiteId, onCha
     const filterLocation = useMemo(() => {
         return locations.filter(location => {
           const typeOfSite = location.typeOfSiteId === typeOfSiteId || (typeOfSiteId === undefined || typeOfSiteId === '')
-          const status = statusId === undefined ? true : statusId === StatusId.StatusOptions.INUSE ? (location.typeOfSiteId === '1' || location.typeOfSiteId === '2') : location.typeOfSiteId === '3'
+          const status = !statusId ? true : statusId === StatusId.StatusOptions.INUSE ? (location.typeOfSiteId === '1' || location.typeOfSiteId === '2') : location.typeOfSiteId === '3'
           return typeOfSite && status
         })
       }, [locations, typeOfSiteId, statusId])

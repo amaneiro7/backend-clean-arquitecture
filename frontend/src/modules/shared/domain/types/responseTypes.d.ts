@@ -34,8 +34,13 @@ import { type ModelName } from '../../../devices/model/domain/ModelName'
 import { type EmployeePrimitives } from '../../../employee/employee/domain/Employee'
 import { type EmployeeId } from '../../../employee/employee/domain/EmployeeId'
 import { type EmployeeUserName } from '../../../employee/employee/domain/UserName'
+import { CityPrimitives } from '../../../location/city/domain/city'
 import { type LocationPrimitives } from '../../../location/locations/domain/location'
 import { type LocationId } from '../../../location/locations/domain/locationId'
+import { RegionPrimitives } from '../../../location/region/domain/region'
+import { SitePrimitives } from '../../../location/site/domain/site'
+import { StatePrimitives } from '../../../location/state/domain/state'
+import { TypeOfSitePrimitives } from '../../../location/typeofsites/domain/typeOfSite'
 import { type Primitives } from '../value-object/Primitives'
 
 export interface DevicesApiResponse {
@@ -167,6 +172,23 @@ export interface Brand {
 export interface ProcessorApiresponse extends ProcessorPrimitives {
   createdAt: string
   updatedAt: string
+}
+
+export interface LocationApiResponse extends LocationPrimitives {
+  typeOfSite: TypeOfSitePrimitives
+  site: SiteApiResponse
+}
+
+export interface SiteApiResponse extends SitePrimitives {
+  city: CityApiResponse
+}
+
+export interface CityApiResponse  extends CityPrimitives {
+  state: StateApiResponse
+}
+
+export interface StateApiResponse extends StatePrimitives {
+  region: RegionPrimitives
 }
 
 export interface HardDrive {

@@ -46,12 +46,13 @@ export function FilterManager() {
             ))}
 
             <AddFilterButton onAdd={() => setFilters([...filters, { field: 'id', operator: '=', value: '' }])} />
-            {/* <FilterButton
+            <FilterButton
                 onFilter={async () => {
                     const courses = await searchCourses({ filters })
                     onFilter(courses)
                 }}
-            /> */}
+            />
         </form>
     )
 }
+te

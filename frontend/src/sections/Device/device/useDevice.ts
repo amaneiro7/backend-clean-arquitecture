@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { type DevicePrimitives } from '../../../modules/devices/devices/devices/domain/Device'
 import { type Repository } from '../../../modules/shared/domain/repository'
 import { DeviceCreator } from '../../../modules/devices/devices/devices/application/DeviceCreator'
@@ -18,6 +18,7 @@ export interface UseDevice {
 }
 
 export const useDevice = (repository: Repository, defaultQuery?: SearchByCriteriaQuery) => {
+  const isFirstRender = useRef(true)
   const deviceByCriteria = new DeviceGetterByCriteria(repository)
   const { query, addFilter, cleanFilters } = useSearchByCriteriaQuery(defaultQuery)
   const [loading, setLoading] = useState(true)
@@ -49,11 +50,15 @@ export const useDevice = (repository: Repository, defaultQuery?: SearchByCriteri
   const getDevice = new DeviceGetter(repository)
 
   useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false
+      return
+    }
     searchDevices()
     return () => {
       setDevices([])
     }
-  }, [location.pathname, query])
+  }, [query])
 
   return {
     devices,
@@ -62,6 +67,7 @@ export const useDevice = (repository: Repository, defaultQuery?: SearchByCriteri
     getDevice,
     createDevice,
     addFilter,
-    cleanFilters
+    cleanFilters,
+    searchDevices
   }
 }
