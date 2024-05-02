@@ -43,7 +43,7 @@ export default function AgenciaPage() {
   const tableRef = useRef(null)
   const { devices, loading, addFilter, cleanFilters } = useDevice(repository, {
     filters: [{
-      field: 'typeOfSite',
+      field: 'typeOfSiteId',
       operator: Operator.EQUAL,
       value: TypeOfSiteId.SitesOptions.AGENCY
     }]
@@ -74,7 +74,7 @@ export default function AgenciaPage() {
     clearInputs()
     cleanFilters({
       filters: [{
-        field: 'typeOfSite',
+        field: 'typeOfSiteId',
         operator: Operator.EQUAL,
         value: TypeOfSiteId.SitesOptions.AGENCY
       }]

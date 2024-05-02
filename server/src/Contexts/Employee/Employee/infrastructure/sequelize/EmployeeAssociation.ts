@@ -1,8 +1,8 @@
-import { FindOptions, Includeable } from "sequelize";
+import { FindOptions } from "sequelize";
 import { Criteria } from "../../../../Shared/domain/criteria/Criteria";
 
 
-export class DeviceAssociation {
+export class EmployeeAssociation {
     convertFilterLocation(criteria: Criteria, options: FindOptions): FindOptions {
         options.include = []
         options.include.push({

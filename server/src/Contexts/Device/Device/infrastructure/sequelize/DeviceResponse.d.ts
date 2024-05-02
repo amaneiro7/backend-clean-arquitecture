@@ -14,6 +14,7 @@ import { type HardDriveTypePrimitives } from '../../../../Features/HardDrive.ts/
 import { type OperatingSystemPrimitives } from '../../../../Features/OperatingSystem/OperatingSystem/domain/OperatingSystem'
 import { type OperatingSystemArqPrimitives } from '../../../../Features/OperatingSystem/OperatingSystemArq/domain/OperatingSystemArq'
 import { type ProcessorPrimitives } from '../../../../Features/Processor/Processor/domain/Processor'
+import { LocationPrimitives } from '../../../../Location/Location/domain/Location'
 import { type ModelSeriesId } from '../../../../ModelSeries/ModelSeries/domain/ModelSeriesId'
 import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
 import { type StatusPrimitives } from '../../../Status/domain/Status'
@@ -38,6 +39,7 @@ export interface DevicesApiResponse {
   employeeId: Primitives<DeviceEmployee>
   locationId: Primitives<DeviceLocation>
   observation: Primitives<DeviceObservation>
+  location: LocationPrimitives
   createdAt: Date
   updatedAt: Date
   model: ModelApiresponse

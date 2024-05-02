@@ -5,7 +5,7 @@ import { EmployeeModel } from './EmployeeSchema'
 import { type Models } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
 import { type Criteria } from '../../../../Shared/domain/criteria/Criteria'
 import { sequelize } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeConfig'
-import { DeviceAssociation } from './DeviceAssociation'
+import { EmployeeAssociation } from './EmployeeAssociation'
 
 
 export class SequelizeEmployeeRepository extends CriteriaToSequelizeConverter implements EmployeeRepository {
@@ -16,7 +16,7 @@ export class SequelizeEmployeeRepository extends CriteriaToSequelizeConverter im
 
   async matching (criteria: Criteria): Promise<EmployeePrimitives[]> {
     const options = this.convert(criteria)
-    const locationJoin = new DeviceAssociation().convertFilterLocation(criteria, options)
+    const locationJoin = new EmployeeAssociation().convertFilterLocation(criteria, options)
     return await EmployeeModel.findAll(locationJoin)    
   }
 

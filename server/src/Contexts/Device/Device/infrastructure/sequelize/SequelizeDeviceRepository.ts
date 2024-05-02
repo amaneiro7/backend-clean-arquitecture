@@ -1,3 +1,4 @@
+import { type Transaction } from 'sequelize'
 import { type DevicePrimitives } from '../../domain/Device'
 import { type DeviceRepository } from '../../domain/DeviceRepository'
 import { DeviceModel } from './DeviceSchema'
@@ -8,52 +9,20 @@ import { type Primitives } from '../../../../Shared/domain/value-object/Primitiv
 import { type DeviceId } from '../../domain/DeviceId'
 import { type Criteria } from '../../../../Shared/domain/criteria/Criteria'
 import { CriteriaToSequelizeConverter } from '../../../../Shared/infrastructure/criteria/CriteriaToSequelizeConverter'
-import { type Transaction } from 'sequelize'
+import { DeviceAssociation } from './DeviceAssociation'
+import { DevicesApiResponse } from './DeviceResponse'
 export class SequelizeDeviceRepository extends CriteriaToSequelizeConverter implements DeviceRepository {
   private readonly models = sequelize.models as unknown as Models
   async matching (criteria: Criteria): Promise<DevicePrimitives[]> {
     const options = this.convert(criteria)
-    options.include = [
-      'model',
-      'category',
-      'brand',
-      'status',
-      'employee',
-      {
-        association: 'computer',
-        include: ['processor', 'hardDriveCapacity', 'hardDriveType', 'operatingSystem', 'operatingSystemArq']
-      },
-      {
-        association: 'hardDrive',
-        include: ['hardDriveCapacity', 'hardDriveType']
+    const deviceOptions = new DeviceAssociation().convertFilterLocation(criteria, options)
+    return await DeviceModel.findAll(deviceOptions).then(device => {
+      if (criteria.searchValueInArray('cityId')) {
+        return (device as unknown as DevicesApiResponse[]).filter(device => device.location !== null)
       }
-    ]
-
-    if (criteria.searchValueInArray('typeOfSite')) {
-      options.include.push({
-        association: 'location',
-        include: [
-          'typeOfSite',
-          { association: 'site', include: [{ association: 'city', include: [{ association: 'state', include: ['region'] }] }] }
-        ],
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
-        where: { typeOfSiteId: options.where.typeOfSite }
-      })
-
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
-      delete options.where.typeOfSite
-    } else {
-      options.include.push({
-        association: 'location',
-        include: [
-          'typeOfSite',
-          { association: 'site', include: [{ association: 'city', include: [{ association: 'state', include: ['region'] }] }] }
-        ]
-      })
-    }
-    return await DeviceModel.findAll(options)
+      return device
+      
+  })
   }
 
   async searchById (id: string): Promise<DevicePrimitives | null> {

@@ -42,7 +42,7 @@ export default function AdministrativeSitePage() {
   const { repository } = useAppContext()
   const { devices, loading, addFilter, cleanFilters } = useDevice(repository, {
     filters: [{
-      field: 'typeOfSite',
+      field: 'typeOfSiteId',
       operator: Operator.EQUAL,
       value: TypeOfSiteId.SitesOptions.ADMINISTRATIVE
     }]
@@ -72,7 +72,7 @@ export default function AdministrativeSitePage() {
     // Modificarlo para que no sea un magic string
     cleanFilters({
       filters: [{
-        field: 'typeOfSite',
+        field: 'typeOfSiteId',
         operator: Operator.EQUAL,
         value: TypeOfSiteId.SitesOptions.ADMINISTRATIVE
       }]

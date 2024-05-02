@@ -40,7 +40,7 @@ export default function AdministrativeSitePerEmployee() {
   const tableRef = useRef(null)
   const { employeeWithDevives, loading, addFilter, cleanFilters } = useEmployeeByCriteria(repository, {
     filters: [{
-      field: 'typeOfSite',
+      field: 'typeOfSiteId',
       operator: Operator.EQUAL,
       value: TypeOfSiteId.SitesOptions.ADMINISTRATIVE
     }]
@@ -69,7 +69,7 @@ export default function AdministrativeSitePerEmployee() {
     clearInputs()
     cleanFilters({
       filters: [{
-        field: 'typeOfSite',
+        field: 'typeOfSiteId',
         operator: Operator.EQUAL,
         value: TypeOfSiteId.SitesOptions.ADMINISTRATIVE
       }]

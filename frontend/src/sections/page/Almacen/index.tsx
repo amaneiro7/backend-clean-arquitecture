@@ -41,7 +41,7 @@ export default function AlmacenPage() {
   const tableRef = useRef(null)
   const { devices, loading, addFilter, cleanFilters } = useDevice(repository, {
     filters: [{
-      field: 'typeOfSite',
+      field: 'typeOfSiteId',
       operator: Operator.EQUAL,
       value: TypeOfSiteId.SitesOptions.ALMACEN
     }]
@@ -70,7 +70,7 @@ export default function AlmacenPage() {
     clearInputs()
     cleanFilters({
       filters: [{
-        field: 'typeOfSite',
+        field: 'typeOfSiteId',
         operator: Operator.EQUAL,
         value: TypeOfSiteId.SitesOptions.ALMACEN
       }]
