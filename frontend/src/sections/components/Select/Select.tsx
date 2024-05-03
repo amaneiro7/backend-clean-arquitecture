@@ -1,4 +1,4 @@
-import { type SelectChangeEvent, Select as SelectMui } from '../../mui/Select'
+import { SelectChangeEvent, Select as SelectMui } from '../../mui/Select'
 import { InputLabel as InputLabelMui } from '../../mui/InputLabel'
 import { MenuItem as MenuItemMui } from '../../mui/MenuItem'
 import { FormHelperText } from '../../mui/FormHelperText'
@@ -6,14 +6,14 @@ import { FormControl } from '../../mui/FormControl'
 
 interface Props {
   name: string
-  value: string | number
+  value?: string | number
   defaultValue?: string | number
   label: string
   options: Options[]
   isHidden?: boolean
   isDisabled?: boolean
-  onChange: (event: SelectChangeEvent, child: React.ReactNode) => void
-  placeholder: string
+  onChange: (event: SelectChangeEvent<string | number>, child: React.ReactNode) => void
+  placeholder?: string
   isRequired?: boolean
   isError?: boolean
   errorMessage?: string

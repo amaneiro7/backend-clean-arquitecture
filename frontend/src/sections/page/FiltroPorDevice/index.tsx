@@ -7,11 +7,12 @@ import { FilterManager } from "../../components/Filter/FilterManager";
 
 export default function FilterByDevice() {
     const {repository} = useAppContext()
-    const { devices } = useDevice(repository)
+    const { devices, addFilter } = useDevice(repository)
+    console.log(devices)
     return(
         <Main>
             <PageTitle title="Filtrar por Dispositivo"/>
-            <FilterManager  />
+            <FilterManager handleFilter={addFilter} />
         </Main>
     )
 }

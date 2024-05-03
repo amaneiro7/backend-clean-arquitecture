@@ -1,8 +1,8 @@
 import { useState } from 'react'
-// import { Course, searchCourses } from '../../../services/courses'
 import { AddFilterButton } from './AddFilterButton'
 import { Filter } from './Filter'
 import { FilterButton } from './FilterButton'
+import { SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
 
 export interface FilterState {
     field: string
@@ -10,8 +10,8 @@ export interface FilterState {
     value: string
 }
 
-export function FilterManager() {
-    const [filters, setFilters] = useState<FilterState[]>([])
+export function FilterManager({handleFilter}: {handleFilter:  (payload: SearchByCriteriaQuery) => void}) {
+    const [filters, setFilters] = useState<FilterState[]>([])    
 
     return (
         <form
@@ -21,20 +21,20 @@ export function FilterManager() {
             action="#"
             onSubmit={e => e.preventDefault()}
         >
-            {filters.map((filter, index) => (
+            {filters.map((_, index) => (
                 <Filter
                     key={index}
                     onFieldSelected={event => {
                         filters[index] = {
                             ...filters[index],
-                            field: event.target.options[event.target.options.selectedIndex].value
+                            field: `${event.target.value}`
                         }
                         setFilters(filters)
                     }}
                     onOperatorSelected={event => {
                         filters[index] = {
                             ...filters[index],
-                            operator: event.target.options[event.target.options.selectedIndex].value
+                            operator: `${event.target.value}`
                         }
                         setFilters(filters)
                     }}
@@ -45,14 +45,10 @@ export function FilterManager() {
                 />
             ))}
 
-            <AddFilterButton onAdd={() => setFilters([...filters, { field: 'id', operator: '=', value: '' }])} />
+            <AddFilterButton onAdd={() => setFilters([...filters, { field: '', operator: '', value: '' }])} />
             <FilterButton
-                onFilter={async () => {
-                    const courses = await searchCourses({ filters })
-                    onFilter(courses)
-                }}
+                onFilter={() => handleFilter({filters})}
             />
         </form>
     )
 }
-te

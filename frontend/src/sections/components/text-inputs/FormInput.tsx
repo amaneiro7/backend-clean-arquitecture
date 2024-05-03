@@ -7,7 +7,7 @@ interface Props {
   label: string
   placeholder: string
   handle: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
-  value: string | number
+  value?: string | number
   defaultValue?: string
   isRequired?: boolean
   isDisabled?: boolean
