@@ -4,8 +4,7 @@ import { Criteria } from "../../../../Shared/domain/criteria/Criteria";
 
 export class EmployeeAssociation {
     convertFilterLocation(criteria: Criteria, options: FindOptions): FindOptions {
-        options.include = []
-        options.include.push({
+        options.include = [{
             association: 'devices',
             where: {},
             include: [
@@ -42,7 +41,7 @@ export class EmployeeAssociation {
                     ]
                 }
             ]
-        })
+        }]
         const firstLevelJoin = ['locationId', 'categoryId', 'brandId', 'modelId', 'serial', 'activo']
         firstLevelJoin.forEach(ele => {
             if (criteria.searchValueInArray(ele)) {
@@ -65,13 +64,13 @@ export class EmployeeAssociation {
                 delete options.where[ele]
             }
         })
-        if (criteria.searchValueInArray('typeOfSite')) {
+        if (criteria.searchValueInArray('typeOfSiteId')) {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-expect-error
-            options.include[0].include[5].where = { ...options.include[0].include[5].where, typeOfSiteId: options.where.typeOfSite }
+            options.include[0].include[5].where = { ...options.include[0].include[5].where, typeOfSiteId: options.where.typeOfSiteId }
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-expect-error
-            delete options.where.typeOfSite
+            delete options.where.typeOfSiteId
         }        
         return options
     }
