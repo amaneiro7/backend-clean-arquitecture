@@ -5,7 +5,7 @@ import Button from '../../ui/button'
 export const DownloadTable = forwardRef(function (_, ref) {
     return (
         <DownloadTableExcel
-            filename={`Reporte Inventario ${new Date().toLocaleString()}`}
+            filename={`ReporteInventario${new Date().toLocaleString()}`}
             sheet='reporte'
             currentTableRef={ref}
             

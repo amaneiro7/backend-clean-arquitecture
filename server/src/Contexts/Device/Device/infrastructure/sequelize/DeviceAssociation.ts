@@ -1,8 +1,6 @@
 import { FindOptions } from "sequelize";
 import { Criteria } from "../../../../Shared/domain/criteria/Criteria";
 
-
-
 export class DeviceAssociation {
     convertFilterLocation(criteria: Criteria, options: FindOptions): FindOptions {
         options.include = [
@@ -14,11 +12,11 @@ export class DeviceAssociation {
             {
                 association: 'computer',
                 include: [
-                    'processor',
-                    'hardDriveCapacity',
-                    'hardDriveType',
-                    'operatingSystem',
-                    'operatingSystemArq'
+                    { association: 'processor'},
+                    { association: 'hardDriveCapacity'},
+                    { association: 'hardDriveType'},
+                    { association: 'operatingSystem'},
+                    { association: 'operatingSystemArq'},
                 ]
             },
             {
@@ -80,9 +78,14 @@ export class DeviceAssociation {
             // @ts-expect-error
             delete options.where.cityId
         }
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
-        console.log(options.include[5].where)
+        if (criteria.searchValueInArray('processor')) {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
+            options.include[5].include[0].where = { ...options.include[5].include[0].where, name: options.where.processor }
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
+            delete options.where.processor
+        }
         return options
     }
 }

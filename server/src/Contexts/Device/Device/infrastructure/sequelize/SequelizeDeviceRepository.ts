@@ -13,19 +13,26 @@ import { DeviceAssociation } from './DeviceAssociation'
 import { DevicesApiResponse } from './DeviceResponse'
 export class SequelizeDeviceRepository extends CriteriaToSequelizeConverter implements DeviceRepository {
   private readonly models = sequelize.models as unknown as Models
-  async matching (criteria: Criteria): Promise<DevicePrimitives[]> {
+  async matching(criteria: Criteria): Promise<DevicePrimitives[]> {
     const options = this.convert(criteria)
     const deviceOptions = new DeviceAssociation().convertFilterLocation(criteria, options)
     return await DeviceModel.findAll(deviceOptions).then(device => {
       if (criteria.searchValueInArray('cityId')) {
         return (device as unknown as DevicesApiResponse[]).filter(device => device.location !== null)
       }
+      ['processor', 'hardDriveCapacity', 'hardDriveType', 'operatingSystem', 'operatingSystemArq'].forEach(ele => {
+        if (criteria.searchValueInArray(ele)) {
+          console.log(ele)
+          return (device as unknown as DevicesApiResponse[]).filter(device => device.computer !== null)
+        }
+      })
+
       return device
-      
-  })
+
+    })
   }
 
-  async searchById (id: string): Promise<DevicePrimitives | null> {
+  async searchById(id: string): Promise<DevicePrimitives | null> {
     return await DeviceModel.findByPk(id, {
       include: [
         {
@@ -41,15 +48,15 @@ export class SequelizeDeviceRepository extends CriteriaToSequelizeConverter impl
     }) ?? null
   }
 
-  async searchByActivo (activo: string): Promise<DevicePrimitives | null> {
+  async searchByActivo(activo: string): Promise<DevicePrimitives | null> {
     return await DeviceModel.findOne({ where: { activo } }) ?? null
   }
 
-  async searchBySerial (serial: string): Promise<DevicePrimitives | null> {
+  async searchBySerial(serial: string): Promise<DevicePrimitives | null> {
     return await DeviceModel.findOne({ where: { serial } }) ?? null
   }
 
-  async searchByComputerName (computerName: string): Promise<any> {
+  async searchByComputerName(computerName: string): Promise<any> {
     return await this.models.DeviceComputer.findOne({ where: { computerName } }) ?? null
   }
 
@@ -65,7 +72,7 @@ export class SequelizeDeviceRepository extends CriteriaToSequelizeConverter impl
    *
    * @param payload - Device data to be saved
    */
-  async save (payload: DevicePrimitives): Promise<void> {
+  async save(payload: DevicePrimitives): Promise<void> {
     const t = await sequelize.transaction() // Start a new transaction
     try {
       const { id, serial, activo, statusId, categoryId, brandId, modelId, locationId, observation, employeeId } = payload // Destructure the payload
@@ -89,7 +96,7 @@ export class SequelizeDeviceRepository extends CriteriaToSequelizeConverter impl
     }
   }
 
-  private async creareDeviceComputerIfCategoryMatches (id: Primitives<DeviceId>, payload: DevicePrimitives, transaction: Transaction): Promise<void> {
+  private async creareDeviceComputerIfCategoryMatches(id: Primitives<DeviceId>, payload: DevicePrimitives, transaction: Transaction): Promise<void> {
     const computer = await this.models.DeviceComputer.findByPk(id) ?? null
     if (computer === null) {
       await this.models.DeviceComputer.create({ deviceId: id, ...payload }, { transaction })
@@ -100,7 +107,7 @@ export class SequelizeDeviceRepository extends CriteriaToSequelizeConverter impl
     }
   }
 
-  async remove (deviceId: string): Promise<void> {
+  async remove(deviceId: string): Promise<void> {
     await DeviceModel.destroy({ where: { id: deviceId } })
   }
 }
