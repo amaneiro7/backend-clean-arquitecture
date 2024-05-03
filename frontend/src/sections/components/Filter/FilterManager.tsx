@@ -1,8 +1,7 @@
 import { useState } from 'react'
-import { AddFilterButton } from './AddFilterButton'
 import { Filter } from './Filter'
-import { FilterButton } from './FilterButton'
 import { SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
+import Button from '../../ui/button'
 
 export interface FilterState {
     field: string
@@ -10,17 +9,26 @@ export interface FilterState {
     value: string
 }
 
-export function FilterManager({handleFilter}: {handleFilter:  (payload: SearchByCriteriaQuery) => void}) {
-    const [filters, setFilters] = useState<FilterState[]>([])    
+interface Props {
+    handleFilter: (payload: SearchByCriteriaQuery) => Promise<void>
+}
+
+export function FilterManager({ handleFilter, children }: React.PropsWithChildren<Props>) {
+    const [filters, setFilters] = useState<FilterState[]>([])
 
     return (
         <form
             id="courses-filters"
             name="filter-courses"
-            className="text-left"
+            className="flex flex-col gap-4 text-left"
             action="#"
             onSubmit={e => e.preventDefault()}
         >
+            <div className='flex gap-6'>
+                <Button actionType="CLOSE" type='button' text='Añadir Filtro' handle={() => setFilters([...filters, { field: '', operator: '', value: '' }])} />
+                <Button actionType="ACTION" type="button" text="Buscar" handle={async () => { await handleFilter({ filters }) }} />
+                {children}
+            </div>
             {filters.map((_, index) => (
                 <Filter
                     key={index}
@@ -44,11 +52,6 @@ export function FilterManager({handleFilter}: {handleFilter:  (payload: SearchBy
                     }}
                 />
             ))}
-
-            <AddFilterButton onAdd={() => setFilters([...filters, { field: '', operator: '', value: '' }])} />
-            <FilterButton
-                onFilter={() => handleFilter({filters})}
-            />
         </form>
     )
 }

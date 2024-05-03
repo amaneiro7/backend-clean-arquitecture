@@ -16,7 +16,7 @@ export function FilterOperator({ onChange }: Props) {
       <Select
         label='Operador'
         name='operator'
-        defaultValue={Operator.CONTAINS}
+        defaultValue=''
         placeholder='Selecciona el operador'
         onChange={onChange}
         options={operatorArray}

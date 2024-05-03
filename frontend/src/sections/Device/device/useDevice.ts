@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { type DevicePrimitives } from '../../../modules/devices/devices/devices/domain/Device'
 import { type Repository } from '../../../modules/shared/domain/repository'
 import { DeviceCreator } from '../../../modules/devices/devices/devices/application/DeviceCreator'
@@ -17,8 +17,7 @@ export interface UseDevice {
   cleanFilters: (payload?: SearchByCriteriaQuery) => void
 }
 
-export const useDevice = (repository: Repository, defaultQuery?: SearchByCriteriaQuery) => {
-  const isFirstRender = useRef(true)
+export const useDevice = (repository: Repository, defaultQuery?: SearchByCriteriaQuery) => {  
   const deviceByCriteria = new DeviceGetterByCriteria(repository)
   const { query, addFilter, cleanFilters } = useSearchByCriteriaQuery(defaultQuery)
   const [loading, setLoading] = useState(true)
@@ -28,13 +27,13 @@ export const useDevice = (repository: Repository, defaultQuery?: SearchByCriteri
   async function createDevice (formData: DevicePrimitives) {
     const deviceCreator = new DeviceCreator(repository)
     await deviceCreator.create(formData)
-    searchDevices()
+    searchDevices(query)
   }
 
-  function searchDevices () {
+  function searchDevices (filter: SearchByCriteriaQuery) {
     setLoading(true)
     deviceByCriteria
-      .get(query)
+      .get(filter)
       .then((devices) => {
         setDevices(devices)
         setLoading(false)
@@ -50,11 +49,7 @@ export const useDevice = (repository: Repository, defaultQuery?: SearchByCriteri
   const getDevice = new DeviceGetter(repository)
 
   useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false
-      return
-    }
-    searchDevices()
+    searchDevices(query)
     return () => {
       setDevices([])
     }

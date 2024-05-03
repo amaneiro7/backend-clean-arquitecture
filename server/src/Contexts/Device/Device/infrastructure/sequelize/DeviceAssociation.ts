@@ -82,7 +82,7 @@ export class DeviceAssociation {
         }
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-expect-error
-        console.log(options.include[7].include[1])
+        console.log(options.include[5].where)
         return options
     }
 }

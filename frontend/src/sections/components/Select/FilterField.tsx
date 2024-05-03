@@ -17,6 +17,7 @@ export function FilterField({ onChange, options }: Props) {
         label='Campo'
         name='field'
         placeholder='Seleccion el campo'
+        defaultValue=''
         onChange={onChange}
         options={options}
         isHidden={true}
