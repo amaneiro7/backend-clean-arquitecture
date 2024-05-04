@@ -31,13 +31,13 @@ export default function HardDriveTypeComboBox ({ value, hardDriveCapacity, onCha
 
     useEffect(() => {
         if (type !== 'form') return;
+        setIsDisabled(!hardDriveCapacity)
 
         if (value === undefined) {      
           return
         }
     
         const isValid = ComputerHDDType.isValid(value, hardDriveCapacity)
-        setIsDisabled(hardDriveCapacity === '')
     
         setIsError(!isValid)
         setErrorMessage(isValid ? '' : ComputerHDDType.invalidMessage())

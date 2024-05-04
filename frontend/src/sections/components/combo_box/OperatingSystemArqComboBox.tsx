@@ -32,13 +32,13 @@ export function OperatingSystemArqComboBox ({ value, operatingSystem, onChange, 
 
     useLayoutEffect(() => {
         if (type !== 'form') return
+        setIsDisabled(!operatingSystem)
 
         if (value === undefined) {      
           return
         }
     
         const isValid = ComputerOsArq.isValid(value, operatingSystem)
-        setIsDisabled(operatingSystem === '')
         setIsRequired(type === 'form' && !!operatingSystem)
         
     

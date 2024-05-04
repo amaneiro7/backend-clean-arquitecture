@@ -3,6 +3,8 @@
 import AddSVG from './add.svg?react'
 import EditSVG from './edit.svg?react'
 import DeleteSVG from './delete.svg?react'
+import RightArrowSVG from './rightArrow.svg?react'
+import { PropsWithChildren } from 'react'
 
 interface Props {
   type: keyof typeof iconTypes
@@ -11,22 +13,25 @@ interface Props {
 
 const iconTypes = {
   add: () => (
-      <AddSVG className='w-6 h-6 transition-all fill-primary' />
+    <AddSVG className='w-6 h-6 transition-all fill-primary' />
   ),
   edit: () => (
-      <EditSVG className='w-6 h-6 transition-all fill-secondary' />
+    <EditSVG className='w-6 h-6 transition-all fill-secondary' />
   ),
   delete: () => (
-      <DeleteSVG className='w-6 h-6 transition-all fill-quaternary' />
+    <DeleteSVG className='w-6 h-6 transition-all fill-quaternary' />
+  ),
+  right: () => (
+    <RightArrowSVG className='w-full aspect-square transition-all fill-terciary' />
   )
 } as const
-export const Icon = ({ type, isDisabled }: Props) => {
+export const Icon = ({ type, isDisabled = false, children }: PropsWithChildren<Props>) => {
   return (
-          <button
-              className={'w-12 h-12 flex justify-center items-center disabled:cursor-not-allowed disabled:opacity-50 hover:[&>svg]:opacity-70'}
-              disabled={isDisabled}
-          >
-              {iconTypes[type]()}
-          </button>
+    <i
+      className={`relative w-12 h-12 p-2 flex justify-center items-center  ${isDisabled ? 'cursor-not-allowed opacity-50' : 'hover:[&>svg]:opacity-70'}`}
+    >
+      {iconTypes[type]()}
+      {children}
+    </i>
   )
 }

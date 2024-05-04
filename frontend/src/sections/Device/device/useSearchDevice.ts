@@ -13,6 +13,7 @@ export const useSearchDevice = (repository: Repository) => {
   const [devices, setDevices] = useState<DevicesMappedApiResponse[]>([])
 
   async function searchDevices (filter: SearchByCriteriaQuery) {
+    console.log('searchDevices',filter)
     setLoading(true)
     deviceByCriteria
       .get(filter)

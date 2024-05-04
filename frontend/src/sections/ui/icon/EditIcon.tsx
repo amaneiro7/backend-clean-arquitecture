@@ -1,13 +1,9 @@
 import { Icon } from '.'
 
-interface Props {
-  isDisbaled?: boolean
-}
-export function EditIcon ({ isDisbaled = false }: Props) {
+export function EditIcon () {
   return (
     <Icon
       type='edit'
-      isDisabled={isDisbaled}
     />
   )
 }

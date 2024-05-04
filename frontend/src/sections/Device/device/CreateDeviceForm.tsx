@@ -4,6 +4,7 @@ import { useDeviceInitialState } from './DeviceFormInitialState'
 import { useGenericFormData } from '../../Hooks/useGenericFormData'
 import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoading'
 import Main from '../../components/Main'
+import DeviceSearchComboBox from '../../components/combo_box/DeviceSearchComboBox'
 
 const FormContainer = lazy(async () => await import('../../components/formContainer'))
 const SerialInput = lazy(async () => await import('../../components/text-inputs/SerialInput'))
@@ -64,6 +65,7 @@ export default function CreateDeviceForm() {
           isDisabled={formStatus === FormStatus.Loading}
           lastUpdated={formData.updatedAt}
         >
+          <DeviceSearchComboBox />
           <div className='flex gap-4'>
             <Suspense fallback={<InputSkeletonLoading />}>
               <CategoryComboBox

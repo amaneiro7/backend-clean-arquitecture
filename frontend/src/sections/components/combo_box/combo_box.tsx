@@ -99,9 +99,10 @@ export default function ComboBox({
         loadingText='Cargando...'
         openText='Abrir'
         closeText='Cerrar'
+        noOptionsText='No existe'
         selectOnFocus
         clearOnEscape
-        clearOnBlur
+        clearOnBlur        
         handleHomeEndKeys
         clearIcon={<Suspense><CloseIcon fontSize='small' /></Suspense>}
         renderInput={(params) => (

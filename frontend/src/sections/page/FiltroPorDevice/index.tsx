@@ -18,7 +18,7 @@ import { DownloadTable } from "../../components/button/DownloadTableExcel";
 export default function FilterByDevice() {
     const tableRef = useRef(null)
     const { repository } = useAppContext()
-    const { devices, loading, searchDevices } = useSearchDevice(repository)
+    const { devices, loading, searchDevices } = useSearchDevice(repository)    
     return (
         <Main>
             <PageTitle title="Filtrar por Dispositivo" />

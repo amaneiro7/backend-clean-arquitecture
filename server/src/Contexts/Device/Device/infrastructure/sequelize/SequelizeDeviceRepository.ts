@@ -16,20 +16,20 @@ export class SequelizeDeviceRepository extends CriteriaToSequelizeConverter impl
   async matching(criteria: Criteria): Promise<DevicePrimitives[]> {
     const options = this.convert(criteria)
     const deviceOptions = new DeviceAssociation().convertFilterLocation(criteria, options)
-    return await DeviceModel.findAll(deviceOptions).then(device => {
-      if (criteria.searchValueInArray('cityId')) {
-        return (device as unknown as DevicesApiResponse[]).filter(device => device.location !== null)
+    const data = await DeviceModel.findAll(deviceOptions)
+    let filtered: DevicesApiResponse[] | undefined
+    if (criteria.searchValueInArray('cityId')) {
+      filtered = (data as unknown as DevicesApiResponse[]).filter(res => res.location !== null)
+    }
+    ['processor', 'hardDriveCapacity', 'hardDriveType', 'operatingSystem', 'operatingSystemArq'].forEach(ele => {
+      if (criteria.searchValueInArray(ele)) {        
+        filtered = (data as unknown as DevicesApiResponse[]).filter(res => {          
+          return res.computer !== null
+        })
       }
-      ['processor', 'hardDriveCapacity', 'hardDriveType', 'operatingSystem', 'operatingSystemArq'].forEach(ele => {
-        if (criteria.searchValueInArray(ele)) {
-          console.log(ele)
-          return (device as unknown as DevicesApiResponse[]).filter(device => device.computer !== null)
-        }
-      })
-
-      return device
-
     })
+
+    return filtered ?? data
   }
 
   async searchById(id: string): Promise<DevicePrimitives | null> {
