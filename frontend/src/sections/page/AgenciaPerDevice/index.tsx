@@ -29,7 +29,7 @@ const TableBody = lazy(async () => import('../../components/TableComponent/Table
 const TableHead = lazy(async () => import('../../components/TableComponent/TableHead'))
 const TableCell = lazy(async () => import('../../components/TableComponent/TableCell'))
 const TableCellEditDeleteIcon = lazy(async () => import('../../components/TableComponent/TableCellEditDeleteIcon'))
-const Button = lazy(async () => await import('../../ui/button'))
+const Button = lazy(async () => await import('../../components/button'))
 const SerialInput = lazy(async () => await import('../../components/text-inputs/SerialInput'))
 const ActivoInput = lazy(async () => await import('../../components/text-inputs/ActivoInput'))
 const BrandComboBox = lazy(async () => await import('../../components/combo_box/BrandComboBox'))

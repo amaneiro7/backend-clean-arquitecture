@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { Checkbox } from "../../ui/checkbox";
+import { Checkbox } from ".";
 import { OnHandleChange } from "../../../modules/shared/domain/types/types";
 import { ProcessorHasThreads } from "../../../modules/devices/fetures/processor/domain/ProcessorHasThreads";
 import { Primitives } from "../../../modules/shared/domain/value-object/Primitives";

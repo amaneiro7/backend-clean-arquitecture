@@ -11,7 +11,7 @@ import { TypeOfSiteComboBox } from "../../components/combo_box/TypeOfSiteComboBo
 import { useLocationByCriteria } from "../../Hooks/locations/useLocationByCriteria"
 import { SearchByCriteriaQuery } from "../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery"
 import debounce from "just-debounce-it"
-import Button from "../../ui/button"
+import Button from "../../components/button"
 import { InputSkeletonLoading } from "../../components/skeleton/inputSkeletonLoading"
 import { useNavigate } from "react-router-dom"
 import { SpinnerSKCircle } from "../../components/Loading/spinner-sk-circle"

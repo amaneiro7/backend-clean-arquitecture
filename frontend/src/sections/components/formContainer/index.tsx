@@ -9,7 +9,7 @@ interface Props {
   lastUpdated?: string
 }
 
-const Button = lazy(async () => await import('../../ui/button'))
+const Button = lazy(async () => await import('../button'))
 const LastUpdated = lazy(async () => import('../LastUpdated').then(m => ({ default: m.LastUpdated })))
 const PageTitle = lazy(async () => import('../PageTitle'))
 

@@ -9,7 +9,7 @@ import { useAppContext } from '../../Context/AppContext'
 import { useSearchDevice } from '../../Device/device/useSearchDevice'
 import { SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
-import { RightIcon } from '../../ui/icon/RightIcon'
+import { RightIcon } from '../icon/RightIcon'
 
 // const Autocomplete = lazy(async () => await import("../../mui/Autocomplete").then(m => ({ default: m.Autocomplete })))
 const TextField = lazy(async () => await import("../../mui/TextField").then(m => ({ default: m.TextField })))

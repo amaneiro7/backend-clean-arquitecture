@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Filter } from './Filter'
 import { SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
-import Button from '../../ui/button'
+import Button from '../button'
 
 export interface FilterState {
     field: string

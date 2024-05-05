@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { Link, useLocation } from 'react-router-dom'
-import Logo from '../../ui/Logo'
+import Logo from '../Logo'
 import { useEffect, useLayoutEffect, useState } from 'react'
 import { useAppContext } from '../../Context/AppContext'
 import { HeaderNav } from './Header'
 import { HamburguerMenu } from './HamburguerMenu'
-import Button from '../../ui/button'
+import Button from '../button'
 import { Nav } from './Nav'
 import { Menu } from './Menu'
 

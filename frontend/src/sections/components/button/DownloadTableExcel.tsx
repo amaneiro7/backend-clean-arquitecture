@@ -1,6 +1,6 @@
 import { utils, writeFileXLSX  }  from 'xlsx'
 import { forwardRef } from 'react'
-import Button from '../../ui/button'
+import Button from '.'
 
 export const DownloadTable = forwardRef(function (_, ref) {
     return (
