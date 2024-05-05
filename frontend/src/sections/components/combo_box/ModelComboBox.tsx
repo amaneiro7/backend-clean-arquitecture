@@ -6,7 +6,7 @@ import { Operator } from "../../../modules/shared/domain/criteria/FilterOperator
 import { BrandId } from "../../../modules/devices/brand/domain/BrandId";
 import { CategoryId } from "../../../modules/devices/category/domain/CategoryId";
 import { ModelApiresponse } from "../../../modules/shared/domain/types/responseTypes";
-import { useModel } from "../../Device/model/useMode";
+import { useModel } from "../../Hooks/model/useMode";
 import { ModelId } from "../../../modules/devices/model/domain/ModelId";
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading";
 import { ModelPrimitives } from "../../../modules/devices/model/domain/Model";

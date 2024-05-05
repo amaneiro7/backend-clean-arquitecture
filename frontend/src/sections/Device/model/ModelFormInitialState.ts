@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useAppContext } from '../../Context/AppContext'
-import { useModel } from './useMode'
+import { useModel } from '../../Hooks/model/useMode'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { type ModelId } from '../../../modules/devices/model/domain/ModelId'
 import { type ModelName } from '../../../modules/devices/model/domain/ModelName'

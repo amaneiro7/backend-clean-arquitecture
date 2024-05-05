@@ -1,7 +1,7 @@
 import { lazy, Suspense, useEffect } from "react";
 import { useGenericFormData } from "../../Hooks/useGenericFormData";
 import { ModelPrimitives } from "../../../modules/devices/model/domain/Model";
-import { useModelForm, FormStatus } from "../../Device/model/useModelForm";
+import { useModelForm, FormStatus } from "../../Hooks/model/useModelForm";
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading";
 
 interface Props {

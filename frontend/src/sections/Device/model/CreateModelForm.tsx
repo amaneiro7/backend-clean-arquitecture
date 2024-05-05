@@ -1,7 +1,7 @@
 import { type FormEvent, lazy, Suspense, useEffect } from 'react'
 import { useGenericFormData } from '../../Hooks/useGenericFormData'
 
-import { FormStatus, useModelForm } from './useModelForm'
+import { FormStatus, useModelForm } from '../../Hooks/model/useModelForm'
 import BrandSelect from '../../components/Select/BrandSelect'
 import CategorySelect from '../../components/Select/CategorySelect'
 import ModelNameInput from '../../components/text-inputs/ModelNameInput'

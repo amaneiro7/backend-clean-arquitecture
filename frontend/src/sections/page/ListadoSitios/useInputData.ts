@@ -3,6 +3,7 @@ import { type Primitives } from '../../../modules/shared/domain/value-object/Pri
 import { TypeOfSiteId } from '../../../modules/location/typeofsites/domain/typeOfSiteId'
 
 export interface InputData {
+  name: string
   stateId: string
   cityId: string
   typeOfSiteId: Primitives<TypeOfSiteId>  
@@ -40,6 +41,7 @@ export const useInputsData = (): {
   }
 
   const inputData = {
+    name: searchParams.get('name') ?? '',
     stateId: searchParams.get('stateId') ?? '',
     cityId: searchParams.get('cityId') ?? '',
     typeOfSiteId: searchParams.get('typeOfSiteId') ?? '',

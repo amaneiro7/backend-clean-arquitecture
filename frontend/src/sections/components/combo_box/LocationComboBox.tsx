@@ -7,7 +7,7 @@ import { useAppContext } from "../../Context/AppContext";
 import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators";
 
 import { LocationId } from "../../../modules/location/locations/domain/locationId";
-import { useLocation } from "../../Device/location/useLocation";
+import { useLocation } from "../../Hooks/locations/useLocation";
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading";
 
 interface Props {
