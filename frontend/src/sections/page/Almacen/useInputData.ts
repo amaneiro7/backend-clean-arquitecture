@@ -41,7 +41,7 @@ export const useInputsData = (): {
       setSearchParams(prev => {
         prev.set(name, value)
         return prev
-      })
+      }, { replace: true })
     }
   }
 

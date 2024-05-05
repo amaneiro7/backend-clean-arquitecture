@@ -8,7 +8,6 @@ import { type DeviceSerial } from '../../../modules/devices/devices/devices/doma
 import { type ModelId } from '../../../modules/devices/model/domain/ModelId'
 import { type LocationId } from '../../../modules/location/locations/domain/locationId'
 import { DeviceEmployee } from '../../../modules/devices/devices/devices/domain/DeviceEmployee'
-import { SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
 
 export interface InputData {
   employeeId: Primitives<DeviceEmployee>
@@ -25,8 +24,6 @@ type UpdateInputData = (params: inputDataType) => void
 interface inputDataType {
   field: string
   value: string
-  operator?: string
-  query?: SearchByCriteriaQuery
 }
 
 export const useInputsData = (): {
@@ -36,29 +33,17 @@ export const useInputsData = (): {
 } => {
   const [searchParams, setSearchParams] = useSearchParams()  
 
-  const updateInputData = ({ field, value, query }: inputDataType) => {
+  const updateInputData = ({ field, value }: inputDataType) => {
     if (value === '') {
       setSearchParams(prev => {
         prev.delete(field)
         return prev
       })
     } else {
-
-      query.filters.length > 0 && query.filters.forEach(
-        ({field, operator, value}, index) => {
-          setSearchParams(prev => {
-            prev.set(`filters[${index}][field]`, field)
-            prev.set(`filters[${index}][operator]`, operator)
-            prev.set(`filters[${index}][value]`, value)
-            return prev
-          })
-        }
-      )
-      
       setSearchParams(prev => {
         prev.set(field, value)
         return prev
-      })
+      }, { replace: true })
     }
   }
 
