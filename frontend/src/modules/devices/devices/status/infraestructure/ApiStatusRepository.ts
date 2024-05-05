@@ -1,19 +1,10 @@
-import { API_URL } from '../../../../shared/infraestructure/config'
-import { errorApiMessage } from '../../../../shared/infraestructure/errorMessage'
+import { makeRequest } from '../../../../shared/infraestructure/fetching'
 import { type StatusPrimitives } from '../domain/Status'
 import { type StatusRepository } from '../domain/StatusRepository'
 
 export class ApiStatusRepository implements StatusRepository {
+  private readonly endpoint: string = 'status'
   async getAll (): Promise<StatusPrimitives[]> {
-    return await fetch(`${API_URL}/status`)
-      .then(async res => {
-        if (!res.ok) {
-          throw new Error(await res.text())
-        }
-        return await (res.json() as Promise<StatusPrimitives[]>)
-      })
-      .catch(() => {
-        throw new Error(errorApiMessage)
-      })
+    return await makeRequest({ method: 'GET', endpoint: this.endpoint})
   }
 }

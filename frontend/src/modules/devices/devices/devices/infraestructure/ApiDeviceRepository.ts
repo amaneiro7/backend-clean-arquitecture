@@ -27,7 +27,7 @@ export class ApiDeviceRepository implements DeviceRepository {
     const paramsLimitAndOffset = criteriaPrimitives.limit ? `limit=${criteriaPrimitives.limit}&offset=${criteriaPrimitives.offset}` : undefined
     const paramsOrder = criteriaPrimitives.orderBy ? `orderBy=${criteriaPrimitives.orderBy}&orderType=${criteriaPrimitives.orderType}` : undefined
     const paramsFilters = filters ? `${filters.join('&')}` : undefined
-    const queryParams = [paramsFilters, paramsLimitAndOffset, paramsOrder].filter(Boolean).join('&')
+    const queryParams = [paramsFilters, paramsLimitAndOffset, paramsOrder].join('&')
     return await makeRequest<DevicesApiResponse[]>({ method: 'GET', endpoint: `${this.endpoint}?${queryParams}` })
       .then(res => res.map(data => ({
         id: data.id,

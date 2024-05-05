@@ -9,7 +9,8 @@ export const createLocationRouter = ({ repository }: Props): Router => {
   const router = Router()
   const getController = new LocationGetController(repository)
 
-  router.get('/', getController.getAll)
+  router.get('/all', getController.getAll)
+  router.get('/', getController.getByCriteria)
 
   return router
 }

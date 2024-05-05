@@ -1,5 +1,5 @@
 export interface StatePrimitives {
-  id: number
+  id: string
   name: string
-  regionId: number
+  regionId: string
 }

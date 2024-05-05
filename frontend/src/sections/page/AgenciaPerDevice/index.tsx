@@ -39,9 +39,10 @@ const LocationComboBox = lazy(async () => await import('../../components/combo_b
 const ModelComboBox = lazy(async () => await import('../../components/combo_box/ModelComboBox'))
 
 export default function AgenciaPage() {
-  const { repository } = useAppContext()
   const tableRef = useRef(null)
-  const { devices, loading, addFilter, cleanFilters } = useDevice(repository, {
+  const { inputData, updateInputData, clearInputs } = useInputsData()  
+  const { repository } = useAppContext()
+  const { devices, loading, query, addFilter, cleanFilters } = useDevice(repository, {
     filters: [{
       field: 'typeOfSiteId',
       operator: Operator.EQUAL,
@@ -49,9 +50,6 @@ export default function AgenciaPage() {
     }]
   })
   const navigate = useNavigate()
-  const { inputData, updateInputData, clearInputs } = useInputsData()
-
-  console.log(devices)
 
   const debounceGetDevices = useCallback(
     debounce((query: SearchByCriteriaQuery) => {
@@ -66,8 +64,8 @@ export default function AgenciaPage() {
       operator: operator ?? Operator.EQUAL,
       value
     }]
-    updateInputData({ name, value })
     debounceGetDevices({ filters })
+    updateInputData({ query, field: name, value, operator })
   }
 
   const handleClear = () => {

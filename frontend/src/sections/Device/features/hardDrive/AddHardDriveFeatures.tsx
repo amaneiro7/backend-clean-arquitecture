@@ -7,8 +7,8 @@ interface Props {
   formData: HardDrivePrimitives
 }
 
-const HardDriveCapacitySelect = lazy(async () => await import('../../../components/Select/HardDriveCapacitySelect'))
-const HardDriveTypeSelect = lazy(async () => await import('../../../components/Select/HardDriveTypeSelect'))
+const HardDriveCapacityComboBox = lazy(async () => import('../../../components/combo_box/HardDriveCapacityComboBox').then(m => ({ default: m.HardDriveCapacityComboBox })))
+const HardDriveTypeComboBox = lazy(async () => import('../../../components/combo_box/HardDriveTypeComboBox'))
 const HealthInput = lazy(async () => await import('../../../components/number-inputs/HealthInput').then(m => ({ default: m.HealthInput })))
 
 export default function AddHardDriveFeatures({ formData, onChange }: Props) {
@@ -27,18 +27,18 @@ export default function AddHardDriveFeatures({ formData, onChange }: Props) {
           </Suspense>
           <div className='flex gap-4'>
             <Suspense fallback={<InputSkeletonLoading />}>
-              <HardDriveCapacitySelect
+              <HardDriveCapacityComboBox
                 onChange={onChange}
                 value={formData.hardDriveCapacityId}
-                isForm
+                type='form'
                 status={formData.statusId}
               />
             </Suspense>
             <Suspense fallback={<InputSkeletonLoading />}>
-              <HardDriveTypeSelect
+              <HardDriveTypeComboBox
                 onChange={onChange}
                 value={formData.hardDriveTypeId}
-                isForm
+                type='form'
                 hardDriveCapacity={formData.hardDriveCapacityId}
               />
             </Suspense>

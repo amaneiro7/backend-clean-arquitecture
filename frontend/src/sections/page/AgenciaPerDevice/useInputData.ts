@@ -8,6 +8,7 @@ import { type DeviceSerial } from '../../../modules/devices/devices/devices/doma
 import { type ModelId } from '../../../modules/devices/model/domain/ModelId'
 import { type LocationId } from '../../../modules/location/locations/domain/locationId'
 import { DeviceEmployee } from '../../../modules/devices/devices/devices/domain/DeviceEmployee'
+import { SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
 
 export interface InputData {
   employeeId: Primitives<DeviceEmployee>
@@ -20,10 +21,12 @@ export interface InputData {
   locationId: Primitives<LocationId>
 }
 
-type UpdateInputData = ({ name, value }: inputDataType) => void
+type UpdateInputData = (params: inputDataType) => void
 interface inputDataType {
-  name: string
+  field: string
   value: string
+  operator?: string
+  query?: SearchByCriteriaQuery
 }
 
 export const useInputsData = (): {
@@ -31,17 +34,29 @@ export const useInputsData = (): {
   updateInputData: UpdateInputData
   clearInputs: () => void
 } => {
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams()  
 
-  const updateInputData = ({ name, value }: inputDataType) => {
+  const updateInputData = ({ field, value, query }: inputDataType) => {
     if (value === '') {
       setSearchParams(prev => {
-        prev.delete(name)
+        prev.delete(field)
         return prev
       })
     } else {
+
+      query.filters.length > 0 && query.filters.forEach(
+        ({field, operator, value}, index) => {
+          setSearchParams(prev => {
+            prev.set(`filters[${index}][field]`, field)
+            prev.set(`filters[${index}][operator]`, operator)
+            prev.set(`filters[${index}][value]`, value)
+            return prev
+          })
+        }
+      )
+      
       setSearchParams(prev => {
-        prev.set(name, value)
+        prev.set(field, value)
         return prev
       })
     }

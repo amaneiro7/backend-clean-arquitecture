@@ -1,42 +1,46 @@
 import { lazy, Suspense, useMemo } from "react";
 import { OnHandleChange } from "../../../modules/shared/domain/types/types";
-import { Primitives } from "../../../modules/shared/domain/value-object/Primitives";
 import { useAppContext } from "../../Context/AppContext";
 import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators";
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading";
-import { StatusId } from "../../../modules/devices/devices/status/domain/StatusId";
-import { useStatus } from "../../Hooks/status/useStatus";
+import { useCity } from "../../Hooks/locations/useCity";
 
 interface Props {
-    value: Primitives<StatusId>    
+    value?: string
+    state?: string
     onChange: OnHandleChange
     type?: 'form' | 'search'
-  }
+}
 
-  const ComboBox = lazy(async() => import("./combo_box"));  
+const ComboBox = lazy(async () => import("./combo_box"));
 
-export default function StatusComboBox ({ value, onChange, type = 'search' }: Props) {
+export function CityComboBox({ value, state, onChange, type = 'search' }: Props) {
     const { repository } = useAppContext()
-    const { status, loading } = useStatus(repository)
+    const { cities, loading } = useCity(repository)
 
     const initialValue = useMemo(() => {
-        return status.find(status => status.id === value)
-    }, [status, value])
+        return cities.find(city => city.id === value)
+    }, [cities, value])
+
+    const filtered = useMemo(() => {
+        if (!state) return cities
+        return cities.filter(city => city.stateId === state)
+    }, [cities, state])
 
     return (
         <Suspense fallback={<InputSkeletonLoading />}>
             <ComboBox
-                id='statusId'
+                id='cityId'
                 initialValue={initialValue}
-                label="Estado"
-                name='statusId'
+                label="Ciudad"
+                name='cityId'
                 type={type}
                 onChange={(_, newValue) => {
-                    onChange('statusId', newValue ? newValue.id : '', Operator.EQUAL)
+                    onChange('cityId', newValue ? newValue.id : '', Operator.EQUAL)
                 }}
-                options={status}
-                isRequired={type === 'form'}
+                options={filtered}
                 isDisabled={false}
+                isRequired={type === 'form'}
                 loading={loading}
             >
             </ComboBox>

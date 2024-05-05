@@ -1,5 +1,5 @@
 export interface CityPrimitives {
-  id: number
+  id: string
   name: string
-  vicepresidenciaId: number
+  stateId: string
 }

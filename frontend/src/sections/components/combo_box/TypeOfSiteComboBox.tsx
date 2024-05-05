@@ -1,42 +1,40 @@
 import { lazy, Suspense, useMemo } from "react";
 import { OnHandleChange } from "../../../modules/shared/domain/types/types";
-import { Primitives } from "../../../modules/shared/domain/value-object/Primitives";
 import { useAppContext } from "../../Context/AppContext";
 import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators";
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading";
-import { StatusId } from "../../../modules/devices/devices/status/domain/StatusId";
-import { useStatus } from "../../Hooks/status/useStatus";
+import { useTypeOfSite } from "../../Hooks/locations/useTypeOfSite";
 
 interface Props {
-    value: Primitives<StatusId>    
+    value?: string
     onChange: OnHandleChange
     type?: 'form' | 'search'
-  }
+}
 
-  const ComboBox = lazy(async() => import("./combo_box"));  
+const ComboBox = lazy(async () => import("./combo_box"));
 
-export default function StatusComboBox ({ value, onChange, type = 'search' }: Props) {
+export function TypeOfSiteComboBox({ value, onChange, type = 'search' }: Props) {
     const { repository } = useAppContext()
-    const { status, loading } = useStatus(repository)
+    const { typeOfSite, loading } = useTypeOfSite(repository)
 
     const initialValue = useMemo(() => {
-        return status.find(status => status.id === value)
-    }, [status, value])
+        return typeOfSite.find(type => type.id === value)
+    }, [typeOfSite, value])
 
     return (
         <Suspense fallback={<InputSkeletonLoading />}>
             <ComboBox
-                id='statusId'
+                id='typeOfSiteId'
                 initialValue={initialValue}
-                label="Estado"
-                name='statusId'
+                label="Tipo de Sitio"
+                name='typeOfSiteId'
                 type={type}
                 onChange={(_, newValue) => {
-                    onChange('statusId', newValue ? newValue.id : '', Operator.EQUAL)
+                    onChange('typeOfSiteId', newValue ? newValue.id : '', Operator.EQUAL)
                 }}
-                options={status}
-                isRequired={type === 'form'}
+                options={typeOfSite}
                 isDisabled={false}
+                isRequired={type === 'form'}
                 loading={loading}
             >
             </ComboBox>

@@ -9,14 +9,14 @@ interface Props {
   formData: ComputerPrimitives
 }
 
-const MemoryRamCapacityInput = lazy(async () => import('../../../components/number-inputs/MemoryRamCapacityInput').then(m => ({ default: m.MemoryRamCapacityInput })))
+const ComputerNameInput = lazy(async () => import('../../../components/text-inputs/ComputerNameInput').then(m => ({ default: m.ComputerNameInput })))
 const ProcessorComboBox = lazy(async () => import('../../../components/combo_box/ProcessorComboBox'))
-const HardDriveCapacityComboBox = lazy(async () => import('../../../components/combo_box/HardDriveCapacityComboBox').then(m => ({ default: m.HardDriveCapacityComboBox })))
+const MemoryRamCapacityInput = lazy(async () => import('../../../components/number-inputs/MemoryRamCapacityInput').then(m => ({ default: m.MemoryRamCapacityInput })))
 const OperatingSystemComboBox = lazy(async () => import('../../../components/combo_box/OperatingSystemComboBox').then(m => ({ default: m.OperatingSystemComboBox })))
 const OperatingSystemArqComboBox = lazy(async () => import('../../../components/combo_box/OperatingSystemArqComboBox').then(m => ({ default: m.OperatingSystemArqComboBox })))
-const IpAddressInput = lazy(async () => import('../../../components/text-inputs/IpAddressInput').then(m => ({ default: m.IpAddressInput })))
-const ComputerNameInput = lazy(async () => import('../../../components/text-inputs/ComputerNameInput').then(m => ({ default: m.ComputerNameInput })))
+const HardDriveCapacityComboBox = lazy(async () => import('../../../components/combo_box/HardDriveCapacityComboBox').then(m => ({ default: m.HardDriveCapacityComboBox })))
 const HardDriveTypeComboBox = lazy(async () => import('../../../components/combo_box/HardDriveTypeComboBox'))
+const IpAddressInput = lazy(async () => import('../../../components/text-inputs/IpAddressInput').then(m => ({ default: m.IpAddressInput })))
 
 export default function AddComputerFeatures({ formData, onChange }: Props) {
   const isComputerLaptopAllinOneDevice = Computer.isComputerCategory({ categoryId: formData.categoryId })

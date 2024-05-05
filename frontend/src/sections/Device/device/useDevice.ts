@@ -13,6 +13,7 @@ export interface UseDevice {
   error: string | null
   getDevice: DeviceGetter
   createDevice: (formData: DevicePrimitives) => Promise<void>
+  query: SearchByCriteriaQuery
   addFilter: (payload: SearchByCriteriaQuery) => void
   cleanFilters: (payload?: SearchByCriteriaQuery) => void
 }
@@ -60,6 +61,7 @@ export const useDevice = (repository: Repository, defaultQuery?: SearchByCriteri
     loading,
     error,
     getDevice,
+    query,
     createDevice,
     addFilter,
     cleanFilters,

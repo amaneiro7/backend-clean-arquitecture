@@ -32,7 +32,7 @@ export default function BrandComboBox ({ value, onChange, categoryId, type = 'se
 
 
     const filterdBrand = useMemo(() => {
-        if (categoryId === undefined || categoryId === '') {
+        if (!categoryId) {
           return brands
         }
     
