@@ -4,7 +4,7 @@ import PageTitle from "../../components/PageTitle";
 import { FilterManager } from "../../components/Filter/FilterManager";
 import { useSearchDevice } from "../../Device/device/useSearchDevice";
 import { SpinnerSKCircle } from "../../components/Loading/spinner-sk-circle";
-import { Suspense, useRef } from "react";
+import { lazy, Suspense, useRef } from "react";
 import TableHeader from "../../components/TableComponent/TableHeader";
 import TableHead from "../../components/TableComponent/TableHead";
 import { DevicesMappedApiResponse } from "../../../modules/shared/domain/types/responseTypes";
@@ -13,7 +13,8 @@ import TableRow from "../../components/TableComponent/TableRow";
 import TableCellEditDeleteIcon from "../../components/TableComponent/TableCellEditDeleteIcon";
 import TableBody from "../../components/TableComponent/TableBody";
 import TableCell from "../../components/TableComponent/TableCell";
-import { DownloadTable } from "../../components/button/DownloadTableExcel";
+
+const Button = lazy(async () => import("../../components/button"))
 
 export default function FilterByDevice() {
     const tableRef = useRef(null)
@@ -23,7 +24,14 @@ export default function FilterByDevice() {
         <Main>
             <PageTitle title="Filtrar por Dispositivo" />
             <FilterManager handleFilter={searchDevices}>
-                <DownloadTable ref={tableRef} />
+            <Suspense>
+              <Button
+                type='button'
+                actionType='SAVE'
+                text='Export Excel'
+                handle={() => { import('../../components/button/DownloadTableExcel').then(m => m.exportToExcel(tableRef)) }}
+              />
+            </Suspense>
             </FilterManager>
             {loading && <SpinnerSKCircle />}
             {(!loading && devices.length === 0) && <p>No hay resultados</p>}
