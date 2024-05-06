@@ -14,6 +14,7 @@ module.exports = {
         computer, servidores, allInOne
       }
     })
+    const modelLaptop = models.filter(model => categoryData.filter(category => category.name === categoryOnlyNames.LAPTOPS)[0].id.includes(model.categoryId))
     try {
       return await queryInterface.sequelize.transaction(async (t) => {
         await queryInterface.bulkInsert('models', models.map(({ id, name, categoryId, brandId }) => ({
