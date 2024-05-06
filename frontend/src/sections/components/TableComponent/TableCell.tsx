@@ -6,7 +6,7 @@ function TableCell({ value }: { value: string | number }) {
         aria-label={`${value}`}
         title={`${value}`}
       >
-        {value}
+        {value ?? ''}
       </p>
     </td>)
 }
