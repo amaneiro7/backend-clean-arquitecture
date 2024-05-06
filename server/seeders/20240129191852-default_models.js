@@ -25,11 +25,10 @@ module.exports = {
           created_at: new Date(),
           updated_at: new Date()
         })), { transaction: t })
-        await queryInterface.bulkInsert('model_computers', modelComputer.map(({ id, categoryId, processorSocketId, memoryRamTypeId, memoryRamSlotQuantity, hasBluetooth, hasDVI, hasHDMI, hasVGA, hasWifiAdapter }) => ({
+        await queryInterface.bulkInsert('model_computers', modelComputer.map(({ id, categoryId, memoryRamTypeId, memoryRamSlotQuantity, hasBluetooth, hasDVI, hasHDMI, hasVGA, hasWifiAdapter }) => ({
           id,
           model_series_id: id,
           category_id: categoryId,
-          processor_socket_id: processorSocketId,
           memory_ram_type_id: memoryRamTypeId,
           memory_ram_slot_quantity: memoryRamSlotQuantity,
           has_bluetooth: hasBluetooth,
@@ -40,11 +39,10 @@ module.exports = {
           created_at: new Date(),
           updated_at: new Date()
         })), { transaction: t })
-        await queryInterface.bulkInsert('model_laptops', modelLaptop.map(({ id, categoryId, processorSocketId, memoryRamTypeId, memoryRamSlotQuantity, hasBluetooth, hasDVI, hasHDMI, hasVGA, hasWifiAdapter, batteryModel }) => ({
+        await queryInterface.bulkInsert('model_laptops', modelLaptop.map(({ id, categoryId, memoryRamTypeId, memoryRamSlotQuantity, hasBluetooth, hasDVI, hasHDMI, hasVGA, hasWifiAdapter, batteryModel }) => ({
           id,
           model_series_id: id,
           category_id: categoryId,
-          processor_socket_id: processorSocketId,
           memory_ram_type_id: memoryRamTypeId,
           memory_ram_slot_quantity: memoryRamSlotQuantity,
           has_bluetooth: hasBluetooth,
