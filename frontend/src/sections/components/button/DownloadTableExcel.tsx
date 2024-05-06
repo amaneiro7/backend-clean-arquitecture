@@ -3,20 +3,24 @@ import { forwardRef } from 'react'
 import Button from '.'
 
 export const DownloadTable = forwardRef(function (_, ref) {
+    console.log('DownloadTable', ref)
+    const handleExport = () => {
+        exportToExcel(ref)
+    }
     return (
         <Button
             type='button'
             actionType='SAVE'
             text='Export Excel'
-            handle={() => exportToExcel(ref)}
+            handle={handleExport}
         />
     )
 })
 
-function exportToExcel(tableData): void {
+export function exportToExcel(tableData): void {
+    console.log('ExportToExcel', tableData)
     
     const worksheet = utils.table_to_sheet(tableData)
-    console.log(worksheet)
     const workbook = utils.book_new()
     workbook.Props = {
         Title: 'Inventario',
