@@ -3,7 +3,6 @@ import { forwardRef } from 'react'
 import Button from '.'
 
 export const DownloadTable = forwardRef(function (_, ref) {
-    console.log('DownloadTable', ref)
     const handleExport = () => {
         exportToExcel(ref)
     }
@@ -18,7 +17,6 @@ export const DownloadTable = forwardRef(function (_, ref) {
 })
 
 export function exportToExcel(tableData): void {
-    console.log('ExportToExcel', tableData)
     
     const worksheet = utils.table_to_sheet(tableData)
     const workbook = utils.book_new()

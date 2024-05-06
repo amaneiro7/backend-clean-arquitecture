@@ -151,7 +151,7 @@ export default function AdministrativeSitePerEmployee() {
               />
             </Suspense>
             <Suspense>
-              <DownloadTable ref={tableRef} />
+              <DownloadTable ref={tableRef.current} />
             </Suspense>
           </HeaderInput>
         </Suspense>
