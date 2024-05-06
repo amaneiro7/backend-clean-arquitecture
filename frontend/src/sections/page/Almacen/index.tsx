@@ -17,7 +17,6 @@ import { SpinnerSKCircle } from '../../components/Loading/spinner-sk-circle'
 import { TypeOfSiteId } from '../../../modules/location/typeofsites/domain/typeOfSiteId'
 
 const HeaderInput = lazy(async () => import('../../components/HeaderInput').then(m => ({ default: m.HeaderInput })))
-const DownloadTable = lazy(async () => import('../../components/button/DownloadTableExcel').then(m => ({ default: m.DownloadTable })))
 const Main = lazy(async () => import('../../components/Main'))
 const PageTitle = lazy(async () => import('../../components/PageTitle'))
 const Table = lazy(async () => import('../../components/TableComponent/Table'))
@@ -160,7 +159,12 @@ export default function AlmacenPage() {
               />
             </Suspense>
             <Suspense>
-              <DownloadTable ref={tableRef.current} />
+              <Button
+                type='button'
+                actionType='SAVE'
+                text='Export Excel'
+                handle={() => { import('../../components/button/DownloadTableExcel').then(m => m.exportToExcel(tableRef)) }}
+              />
             </Suspense>
           </HeaderInput>
         </Suspense>

@@ -1,5 +1,5 @@
 import { Suspense, lazy, useCallback, useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import debounce from 'just-debounce-it'
 
 import { type DevicesMappedApiResponse } from '../../../modules/shared/domain/types/responseTypes'
@@ -17,7 +17,6 @@ import { SpinnerSKCircle } from '../../components/Loading/spinner-sk-circle'
 import { TypeOfSiteId } from '../../../modules/location/typeofsites/domain/typeOfSiteId'
 
 const HeaderInput = lazy(async () => import('../../components/HeaderInput').then(m => ({ default: m.HeaderInput })))
-const DownloadTable = lazy(async () => import('../../components/button/DownloadTableExcel').then(m => ({ default: m.DownloadTable })))
 const Main = lazy(async () => import('../../components/Main'))
 const PageTitle = lazy(async () => import('../../components/PageTitle'))
 const Table = lazy(async () => import('../../components/TableComponent/Table'))
@@ -39,6 +38,7 @@ const ActivoInput = lazy(async () => await import('../../components/text-inputs/
 
 export default function AdministrativeSitePage() {
   const tableRef = useRef(null)
+  const location = useLocation()
   const { repository } = useAppContext()
   const { devices, loading, addFilter, cleanFilters } = useDevice(repository, {
     filters: [{
@@ -160,14 +160,19 @@ export default function AdministrativeSitePage() {
               />
             </Suspense>
             <Suspense>
-              <DownloadTable ref={tableRef.current} />
+              <Button
+                type='button'
+                actionType='SAVE'
+                text='Export Excel'
+                handle={() => { import('../../components/button/DownloadTableExcel').then(m => m.exportToExcel(tableRef)) }}
+              />
             </Suspense>
           </HeaderInput>
         </Suspense>
         {loading && <SpinnerSKCircle />}
         {(!loading && devices.length === 0) && <p>No hay resultados</p>}
         {(!loading && devices.length > 0) && <Suspense fallback={<p>...Loading</p>}>
-          <Table ref={tableRef} className=''>
+          <Table key={location.key} ref={tableRef} className=''>
             <TableHeader>
               <TableRow>
                 {headerTitle.map((title, index) => (
@@ -195,7 +200,7 @@ export default function AdministrativeSitePage() {
                       <TableCell value={device?.computer?.hardDriveCapacity?.name} />
                       <TableCell value={device?.computer?.hardDriveType?.name} />
                       <TableCell value={device?.computer?.operatingSystem?.name} />
-                      <TableCell value={device?.computer?.operatingSystemArq?.name} />                      
+                      <TableCell value={device?.computer?.operatingSystemArq?.name} />
                       <TableCell value={device?.computer?.ipAddress} />
                     </>
                   }

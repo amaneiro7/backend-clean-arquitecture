@@ -1,32 +1,17 @@
-import { utils, writeFileXLSX }  from 'xlsx'
-import { forwardRef } from 'react'
-import Button from '.'
+import { utils, writeFileXLSX } from 'xlsx'
 
-export const DownloadTable = forwardRef(function (_, ref) {
-    const handleExport = () => {
-        exportToExcel(ref)
-    }
-    return (
-        <Button
-            type='button'
-            actionType='SAVE'
-            text='Export Excel'
-            handle={handleExport}
-        />
-    )
-})
+export function exportToExcel(tableData: React.MutableRefObject<any>): void {
+    console.log('exportToExcel', tableData)
 
-export function exportToExcel(tableData): void {
-    
     const worksheet = utils.table_to_sheet(tableData)
     const workbook = utils.book_new()
     workbook.Props = {
         Title: 'Inventario',
-        Subject: 'Inventario', 
-        Author: 'Inventarios', 
-        Company: 'Banco Nacional de Credito'        
+        Subject: 'Inventario',
+        Author: 'Inventarios',
+        Company: 'Banco Nacional de Credito'
     }
-    worksheet["!cols"] = [ { wch: 20 } ]; // set column A width to 10 characters
+    worksheet["!cols"] = [{ wch: 20 }]; // set column A width to 10 characters
     utils.book_append_sheet(workbook, worksheet, 'Inventario')
     const now = new Date()
     const filename = `Reporte-Inventario${now.toLocaleString().replace(/[/:]/g, '-')}.xlsx`
