@@ -1,13 +1,13 @@
 'use strict';
 
 const { randomUUID } = require('node:crypto');
-const { almacen } = require('./deviceData/almacen');
-
+const { agencia } = require('./deviceData/agencia');
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {    
-    const deviceWithRandomUUID = almacen.map((device) => {
+  async up (queryInterface, Sequelize) {
+    
+    const deviceWithRandomUUID = agencia.map((device) => {
       const id = randomUUID()
       return {
         ...device,

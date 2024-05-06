@@ -1,5 +1,5 @@
 import { type FormEvent, useEffect, lazy, Suspense, useLayoutEffect } from 'react'
-import { useDeviceForm, FormStatus } from './useDeviceForm'
+import { useDeviceForm, FormStatus } from '../../Device/device/useDeviceForm'
 import { useDeviceInitialState } from './DeviceFormInitialState'
 import { useGenericFormData } from '../../Hooks/useGenericFormData'
 import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoading'
@@ -16,7 +16,7 @@ const BrandComboBox = lazy(async () => await import('../../components/combo_box/
 const CategoryComboBox = lazy(async () => await import('../../components/combo_box/CategoryComboBox'))
 const LocationComboBox = lazy(async () => await import('../../components/combo_box/LocationComboBox'))
 const ModelComboBox = lazy(async () => await import('../../components/combo_box/ModelComboBox'))
-const DeviceFeatures = lazy(async () => await import('./components/DeviceFeatures'))
+const DeviceFeatures = lazy(async () => await import('../../Device/device/components/DeviceFeatures'))
 
 export default function CreateDeviceForm() {
   const { preloadedDeviceState, setResetState } = useDeviceInitialState()
@@ -64,6 +64,7 @@ export default function CreateDeviceForm() {
           handleClose={handleClose}
           isDisabled={formStatus === FormStatus.Loading}
           lastUpdated={formData.updatedAt}
+          url='/device/add'
         >
           <DeviceSearchComboBox />
           <div className='flex gap-4'>

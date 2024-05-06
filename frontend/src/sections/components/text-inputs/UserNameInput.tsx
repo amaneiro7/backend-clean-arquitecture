@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useRef, useState } from 'react'
+import { lazy, Suspense, useLayoutEffect, useRef, useState } from 'react'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
 import { EmployeeUserName } from '../../../modules/employee/employee/domain/UserName'
@@ -17,9 +17,9 @@ export default function EmployeeUserNameInput ({ value, onChange, type = 'search
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
   const isFirstInput = useRef(true)
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (isFirstInput.current) {
-      isFirstInput.current = value === ''
+      isFirstInput.current = value.length < UserName.NAME_MIN_LENGTH
       return
     }
 
@@ -31,6 +31,7 @@ export default function EmployeeUserNameInput ({ value, onChange, type = 'search
     return () => {
       setErrorMessage('')
       setIsError(false)
+      isFirstInput.current = true
     }
   }, [value])
   return (

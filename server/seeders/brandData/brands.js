@@ -1,13 +1,13 @@
 const brandOnlyName = {
+    ACER: 'Acer',
     HP: 'Hewlett-Packard',
     IBM: 'IBM',
-    ACER: 'Acer',
     LENOVO: 'Lenovo',
     SIRAGON: 'Siragon',
     DELL: 'Dell',
     HITACHI: 'Hitachi',
-    WESTERNDIGITAL: 'WesternDigital',
-    LG: 'LG',
+    WD: 'WesternDigital',
+    LG: 'LG Electronics',
     APPLE: 'Apple',
     SAMSUNG: 'Samsung',
     MICROSOFT: 'Microsoft',
@@ -20,7 +20,7 @@ const brandOnlyName = {
     LOGITECH: 'Logitech',
     PANASONIC: 'Panasonic',
     EPSON: 'Epson',
-    'WINCOR-NIXDORF': 'Wincor-Nixdorf',
+    WINCOR: 'Wincor-Nixdorf',
     OLIVETTI: 'Olivetti',
     SEAGATE: 'Seagate',
     KINGSTON: 'Kingston',
@@ -29,7 +29,14 @@ const brandOnlyName = {
     DIEBOLD: 'Diebold',
     GENIUS: 'Genius',
     UNISYS: 'Unisys',
-    BIOSTAR: 'Biostar Group'
+    BIOSTAR: 'Biostar Group',
+    AZULLE: 'Azulle',
+    BENQ: 'BenQ',
+    NEC: 'NEC',
+    SEIKI: 'Seiki',
+    VIEWSONIC: 'ViewSonic',
+    OEM: 'OEM',
+    ASUS: 'Asus'
   }
 
 const brandsData = [
@@ -41,7 +48,7 @@ const brandsData = [
     { id: "8aecf369-ba1b-4ca2-bf4b-636013caacdc", name: "Dell" },
     { id: "1a2b2a07-0b0a-4bb8-a824-f046b1ee378c", name: "Hitachi" },
     { id: "449021a8-ab13-4738-a303-7a4754ecc5a4", name: "WesternDigital" },
-    { id: "285b4361-baa2-434b-8ac2-942f86a15ee4", name: "LG" },
+    { id: "285b4361-baa2-434b-8ac2-942f86a15ee4", name: "LG Electronics" },
     { id: "5d669522-ef76-4a78-a6ce-7fa4237f4c6e", name: "Apple" },
     { id: "421bd0fd-a7b9-4e93-bef3-eda0844fc43b", name: "Samsung" },
     { id: "1e143627-534d-4747-9bda-37ad4e2abb16", name: "Microsoft" },
@@ -64,6 +71,13 @@ const brandsData = [
     { id: "cf7fa379-b3d7-4605-8324-026ab9835e3b", name: "Genius" },
     { id: "9b2dffe4-9afc-474b-b1ae-5703566bef57", name: "Unisys" },
     { id: "045c4765-ca7b-4051-81dc-64621fc82c61", name: "Biostar Group" },
+    { id: "5c3aa641-3da7-4089-850f-66c8cf9156f5", name: "BenQ" },
+    { id: "c33e21f1-2d7e-445e-8a01-a518d0b55ce3", name: "NEC" },
+    { id: "6ac354d2-925e-46f6-8edc-1949c5572a52", name: "Seiki" },
+    { id: "bd28692c-b578-4e6d-9b6a-bdbbf174af18", name: "ViewSonic" },
+    { id: "3a0a6b01-2df3-4f28-82f1-1ec2b3e04a00", name: "Azulle" },
+    { id: "025f694f-f72d-49ab-a5bc-92895c39c69a", name: "OEM" },
+    { id: "28b7410b-ebeb-4195-b1fd-3d626f91313b", name: "Asus" }
 ]
 
 module.exports = {brandsData, brandOnlyName}

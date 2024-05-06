@@ -1,7 +1,6 @@
 import { DataTypes, Model, type Sequelize } from 'sequelize'
 import { type ComputerModelsPrimitives } from '../../domain/ComputerModels'
 import { type Primitives } from '../../../../../../Shared/domain/value-object/Primitives'
-import { type ProcessorSocketId } from '../../../../../../Features/Processor/ProcessorSocket/domain/ProcessorSocketId'
 import { type MemoryRamTypeId } from '../../../../../../Features/MemoryRam/MemoryRamType/domain/MemoryRamTypeId'
 import { type MemoryRamSlotQuantity } from '../../domain/MemoryRamSlotQuantity'
 import { type HasBluetooth } from '../../domain/HasBluetooth'
@@ -21,7 +20,6 @@ export class ComputerModelsModel extends Model<ComputerModelsCreationAttributes>
   public id!: Primitives<ModelSeriesId>
   public modelSeriesId!: Primitives<ModelSeriesId>
   public categoryId!: Primitives<CategoryId>
-  public processorSocketId!: Primitives<ProcessorSocketId>
   public memoryRamTypeId!: Primitives<MemoryRamTypeId>
   public memoryRamSlotQuantity!: Primitives<MemoryRamSlotQuantity>
   public hasBluetooth!: Primitives<HasBluetooth>
@@ -60,10 +58,6 @@ export function initComputerModels (sequelize: Sequelize): void {
             msg: 'Solo puede pertenecer a la categoria de Computadoras, Servidores o All in One'
           }
         }
-      },
-      processorSocketId: {
-        type: DataTypes.INTEGER,
-        allowNull: false
       },
       memoryRamTypeId: {
         type: DataTypes.INTEGER,

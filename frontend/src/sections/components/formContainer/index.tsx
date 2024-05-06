@@ -4,17 +4,20 @@ import { useLocation } from 'react-router-dom'
 interface Props {
   handleSubmit: (event: React.FormEvent) => Promise<void>
   title: string
+  url?: string
   isDisabled: boolean
   handleClose: () => void
   lastUpdated?: string
 }
 
 const Button = lazy(async () => await import('../button'))
+const LinkAsButton = lazy(async () => await import('../button/LinkAsButton').then(m => ({ default: m.LinkAsButton })))
 const LastUpdated = lazy(async () => import('../LastUpdated').then(m => ({ default: m.LastUpdated })))
 const PageTitle = lazy(async () => import('../PageTitle'))
 
-export default function FormContainer({ title, children, isDisabled, handleSubmit, handleClose, lastUpdated }: React.PropsWithChildren<Props>) {
+export default function FormContainer({ url, title, children, isDisabled, handleSubmit, handleClose, lastUpdated }: React.PropsWithChildren<Props>) {
   const location = useLocation()
+  
   const isEdit = useMemo(() => location.pathname.includes('edit'), [location])
   return (
     <>
@@ -45,6 +48,11 @@ export default function FormContainer({ title, children, isDisabled, handleSubmi
                   text='Guardar'
                   isDisabled={isDisabled}
                 />
+                {isEdit && <LinkAsButton 
+                  actionType='ACTION'                  
+                  text='Añadir un nuevo'
+                  url={url}
+                />}
               </Suspense>
             </div>
             {children}

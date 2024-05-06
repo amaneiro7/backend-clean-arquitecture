@@ -6,6 +6,7 @@ const hddCapacitiesName = {
   '250': 250,
   '320': 320,
   '500': 500,
+  '640': 640,
   '680': 680,
   '768': 768,
   '1000': 1000,
@@ -21,11 +22,12 @@ const hddCapacities = [
     { id: '5', name: 250 },
     { id: '6', name: 320 },
     { id: '7', name: 500 },
-    { id: '8', name: 680 },
-    { id: '9', name: 768 },
-    { id: '10', name: 1000 },
-    { id: '11', name: 2000 },
-    { id: '12', name: 4000 },
+    { id: '8', name: 640 },
+    { id: '9', name: 680 },
+    { id: '10', name: 768 },
+    { id: '11', name: 1000 },
+    { id: '12', name: 2000 },
+    { id: '13', name: 4000 },
   ]
 
   module.exports = {hddCapacities, hddCapacitiesName}

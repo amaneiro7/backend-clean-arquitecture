@@ -1,21 +1,23 @@
 import { lazy, Suspense, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { useAppContext } from '../../Context/AppContext'
+import { useEmployee } from '../../Device/employee/useEmployee'
 import { useEmployeeInitialState } from './EmployeeFormInitialState'
 import { useGenericFormData } from '../../Hooks/useGenericFormData'
-import { FormStatus, useEmployeeForm } from './useEmployeeForm'
+import { FormStatus, useEmployeeForm } from '../../Device/employee/useEmployeeForm'
 import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoading'
-import { useEmployee } from './useEmployee'
-import { useAppContext } from '../../Context/AppContext'
-import Main from '../../components/Main'
-import { InfoBox } from '../../components/info-box/InfoBox'
-import { InfoBoxTitle } from '../../components/info-box/InfoBoxTitle'
-import { InfoBoxText } from '../../components/info-box/InfoBoxText'
 
+const Main = lazy(async () => import('../../components/Main'))
+const InfoBox = lazy(async () => import('../../components/info-box/InfoBox').then(m  => ({ default: m.InfoBox })))
+const InfoBoxTitle = lazy(async () => import('../../components/info-box/InfoBoxTitle').then(m  => ({ default: m.InfoBoxTitle })))
+const InfoBoxText = lazy(async () => import('../../components/info-box/InfoBoxText').then(m  => ({ default: m.InfoBoxText })))
+const EmployeeSearchComboBox = lazy(async () => import('../../components/combo_box/EmployeeSearchComboBox'))
 const FormContainer = lazy(async () => await import('../../components/formContainer'))
 const EmployeeUserNameInput = lazy(async () => await import('../../components/text-inputs/UserNameInput'))
 
 export default function CreateEmployeeForm() {
   const navigate = useNavigate()
+  const location = useLocation()
   const { repository } = useAppContext()
   const { createEmployee } = useEmployee(repository)
   const { preloadedEmployeeState } = useEmployeeInitialState()
@@ -49,6 +51,8 @@ export default function CreateEmployeeForm() {
     navigate('/')
   }
 
+  console.log(location.key)
+
   const handleChange = (name: string, value: string) => {
     updateForm({ [name]: value })
   }
@@ -62,9 +66,12 @@ export default function CreateEmployeeForm() {
           handleClose={handleClose}
           isDisabled={formStatus === FormStatus.Loading}
           lastUpdated={formData.updatedAt}
+          url='/employee/add'
         >
+          <EmployeeSearchComboBox />
           <Suspense fallback={<InputSkeletonLoading />}>
             <EmployeeUserNameInput
+              key={location.key}
               value={formData.userName}
               type='form'
               onChange={handleChange}

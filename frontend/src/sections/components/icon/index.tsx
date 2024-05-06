@@ -28,7 +28,7 @@ const iconTypes = {
 export const Icon = ({ type, isDisabled = false, children }: PropsWithChildren<Props>) => {
   return (
     <i
-      className={`relative w-12 h-12 p-2 flex justify-center items-center  ${isDisabled ? 'cursor-not-allowed opacity-50' : 'hover:[&>svg]:opacity-70'}`}
+      className={`relative w-12 h-12 p-2 flex justify-center items-center  ${isDisabled ? 'cursor-default opacity-50' : 'hover:[&>svg]:opacity-70'}`}
     >
       {iconTypes[type]()}
       {children}

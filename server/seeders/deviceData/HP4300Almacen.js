@@ -1,4 +1,4 @@
-const { brandsData, brandOnlyName } = require("../BrandData/brands")
+const { brandsData, brandOnlyName } = require("../brandData/brands")
 const { categoryData, categoryOnlyNames } = require("../categoryData/categoryData")
 const {almacenes, almacenName} = require("../location/locations")
 const { modelComputer, modelName } = require("../modelsSeries/modelComputer")
@@ -13,7 +13,7 @@ const HP4300_8000_Proliant = [
         statusId: statusData.filter(status => status.name === statusName.ENALMACEN)[0].id,
         categoryId: categoryData.filter(category => category.name === categoryOnlyNames.COMPUTADORAS)[0].id,
         brandId: brandsData.filter(brand => brand.name === brandOnlyName.HP)[0].id,
-        modelId: modelComputer.filter(model => model.name === modelName.HPCOMPAQPRO4300SFFPC)[0].id,
+        modelId: modelComputer.filter(model => model.name === modelName.HP4300)[0].id,
         employeeId: null,
         locationId: almacenes.filter(location => location.name === almacenName.TORREBNC5DEJULIOALMACENPISO1)[0].id,
         observation: '',
@@ -33,7 +33,7 @@ const HP4300_8000_Proliant = [
         statusId: statusData.filter(status => status.name === statusName.ENALMACEN)[0].id,
         categoryId: categoryData.filter(category => category.name === categoryOnlyNames.COMPUTADORAS)[0].id,
         brandId: brandsData.filter(brand => brand.name === brandOnlyName.HP)[0].id,
-        modelId: modelComputer.filter(model => model.name === modelName.HPCOMPAQPRO4300SFFPC)[0].id,
+        modelId: modelComputer.filter(model => model.name === modelName.HP4300)[0].id,
         employeeId: null,
         locationId: almacenes.filter(location => location.name === almacenName.TORREBNC5DEJULIOALMACENPISO1)[0].id,
         observation: '',
@@ -53,7 +53,7 @@ const HP4300_8000_Proliant = [
         statusId: statusData.filter(status => status.name === statusName.ENALMACEN)[0].id,
         categoryId: categoryData.filter(category => category.name === categoryOnlyNames.COMPUTADORAS)[0].id,
         brandId: brandsData.filter(brand => brand.name === brandOnlyName.HP)[0].id,
-        modelId: modelComputer.filter(model => model.name === modelName.HPCOMPAQPRO4300SFFPC)[0].id,
+        modelId: modelComputer.filter(model => model.name === modelName.HP4300)[0].id,
         employeeId: null,
         locationId: almacenes.filter(location => location.name === almacenName.TORREBNC5DEJULIOALMACENPISO1)[0].id,
         observation: '',
@@ -73,7 +73,7 @@ const HP4300_8000_Proliant = [
         statusId: statusData.filter(status => status.name === statusName.ENALMACEN)[0].id,
         categoryId: categoryData.filter(category => category.name === categoryOnlyNames.COMPUTADORAS)[0].id,
         brandId: brandsData.filter(brand => brand.name === brandOnlyName.HP)[0].id,
-        modelId: modelComputer.filter(model => model.name === modelName.HPCOMPAQPRO4300SFFPC)[0].id,
+        modelId: modelComputer.filter(model => model.name === modelName.HP4300)[0].id,
         employeeId: null,
         locationId: almacenes.filter(location => location.name === almacenName.TORREBNC5DEJULIOALMACENPISO1)[0].id,
         observation: '',
@@ -113,7 +113,7 @@ const HP4300_8000_Proliant = [
         statusId: statusData.filter(status => status.name === statusName.ENALMACEN)[0].id,
         categoryId: categoryData.filter(category => category.name === categoryOnlyNames.SERVIDORES)[0].id,
         brandId: brandsData.filter(brand => brand.name === brandOnlyName.HP)[0].id,
-        modelId: modelComputer.filter(model => model.name === modelName.HPPROLIANTML110GEN9)[0].id,
+        modelId: modelComputer.filter(model => model.name === modelName.HPML110GEN9)[0].id,
         employeeId: null,
         locationId: almacenes.filter(location => location.name === almacenName.TORREBNC5DEJULIOALMACENPISO1)[0].id,
         observation: 'Era el servido de caja de ahorro',

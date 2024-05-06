@@ -14,8 +14,7 @@ import { HasVGA } from './HasVGA'
 import { HasWifiAdapter } from './HasWifiAdapter'
 import { MemoryRamSlotQuantity } from './MemoryRamSlotQuantity'
 
-export interface ComputerModelsPrimitives extends ModelSeriesPrimitives {
-  processorSocketId: Primitives<ProcessorSocketId>
+export interface ComputerModelsPrimitives extends ModelSeriesPrimitives {  
   memoryRamTypeId: Primitives<MemoryRamTypeId>
   memoryRamSlotQuantity: Primitives<MemoryRamSlotQuantity>
   hasBluetooth: Primitives<HasBluetooth>
@@ -31,7 +30,6 @@ export class ComputerModels extends ModelSeries {
     name: ModelSeriesName,
     categoryId: CategoryId,
     brandId: BrandId,
-    private readonly processorSocketId: ProcessorSocketId,
     private readonly memoryRamTypeId: MemoryRamTypeId,
     private readonly memoryRamSlotQuantity: MemoryRamSlotQuantity,
     private readonly hasBluetooth: HasBluetooth,
@@ -47,7 +45,6 @@ export class ComputerModels extends ModelSeries {
     name,
     categoryId,
     brandId,
-    processorSocketId,
     memoryRamTypeId,
     memoryRamSlotQuantity,
     hasBluetooth,
@@ -62,7 +59,6 @@ export class ComputerModels extends ModelSeries {
       new ModelSeriesName(name),
       new CategoryId(categoryId),
       new BrandId(brandId),
-      new ProcessorSocketId(processorSocketId),
       new MemoryRamTypeId(memoryRamTypeId),
       new MemoryRamSlotQuantity(memoryRamSlotQuantity),
       new HasBluetooth(hasBluetooth),
@@ -84,7 +80,6 @@ export class ComputerModels extends ModelSeries {
       new ModelSeriesName(primitives.name),
       new CategoryId(primitives.categoryId),
       new BrandId(primitives.brandId),
-      new ProcessorSocketId(primitives.processorSocketId),
       new MemoryRamTypeId(primitives.memoryRamTypeId),
       new MemoryRamSlotQuantity(primitives.memoryRamSlotQuantity),
       new HasBluetooth(primitives.hasBluetooth),
@@ -101,7 +96,6 @@ export class ComputerModels extends ModelSeries {
       name: this.nameValue,
       categoryId: this.categoryIdValue,
       brandId: this.brandIdValue,
-      processorSocketId: this.ProcessorSocketValue,
       memoryRamTypeId: this.memoryRamTypeValue,
       memoryRamSlotQuantity: this.memoryRamSlotQuantityValue,
       hasBluetooth: this.hasBluetoothValue,
@@ -110,10 +104,6 @@ export class ComputerModels extends ModelSeries {
       hasHDMI: this.hasHDMIValue,
       hasVGA: this.hasVGAValue
     }
-  }
-
-  get ProcessorSocketValue (): Primitives<ProcessorSocketId> {
-    return this.processorSocketId.value
   }
 
   get memoryRamTypeValue (): Primitives<MemoryRamTypeId> {

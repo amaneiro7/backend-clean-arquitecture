@@ -11,7 +11,7 @@ const EmailInput = lazy(async () => await import ('./EmailInput').then(m => ({ d
 const PasswordInput = lazy(async () => await import ('./PasswordInput').then(m => ({ default: m.PasswordInput })))
 const PageTitle = lazy(async () => await import ('../../components/PageTitle'))
 const Button = lazy(async () => await import('../../components/button'))
-const Copyright = lazy(async () => await import ('../../ui/copyright').then(m => ({ default: m.Copyright })))
+const Copyright = lazy(async () => await import ('../../components/Copyright').then(m => ({ default: m.Copyright })))
 const Checkbox = lazy(async () => await import ('../../components/checkbox').then(m => ({ default: m.Checkbox })))
 
 

@@ -17,7 +17,7 @@ export interface UseEmployee {
 }
 
 export const useEmployeeByCriteria = (repository: Repository, defaultQuery?: SearchByCriteriaQuery) => {
-  const employeeByCriteria = new EmployeeGetterByCriteria(repository)  
+  const employeeByCriteria = new EmployeeGetterByCriteria(repository)
   const { query, addFilter, cleanFilters } = useSearchByCriteriaQuery(defaultQuery)
   const [loading, setLoading] = useState<boolean>(true)  
   const [error, setError] = useState<string | null>(null)  

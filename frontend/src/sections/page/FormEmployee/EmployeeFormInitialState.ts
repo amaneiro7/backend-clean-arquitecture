@@ -3,7 +3,7 @@ import { useAppContext } from '../../Context/AppContext'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { type EmployeeUserName } from '../../../modules/employee/employee/domain/UserName'
 import { useEffect, useState } from 'react'
-import { useEmployee } from './useEmployee'
+import { useEmployee } from '../../Device/employee/useEmployee'
 import { DevicesApiResponse } from '../../../modules/shared/domain/types/responseTypes'
 
 interface defaultProps {

@@ -1,6 +1,5 @@
 import { DataTypes, Model, type Sequelize } from 'sequelize'
 import { type Primitives } from '../../../../../../Shared/domain/value-object/Primitives'
-import { type ProcessorSocketId } from '../../../../../../Features/Processor/ProcessorSocket/domain/ProcessorSocketId'
 import { type MemoryRamTypeId } from '../../../../../../Features/MemoryRam/MemoryRamType/domain/MemoryRamTypeId'
 import { type CategoryId } from '../../../../../../Category/domain/CategoryId'
 import { type ModelSeriesId } from '../../../../../ModelSeries/domain/ModelSeriesId'
@@ -22,7 +21,6 @@ export class LaptopModelsModel extends Model<LaptopModelsCreationAttributes> imp
   public id!: Primitives<ModelSeriesId>
   public modelSeriesId!: Primitives<ModelSeriesId>
   public categoryId!: Primitives<CategoryId>
-  public processorSocketId!: Primitives<ProcessorSocketId>
   public memoryRamTypeId!: Primitives<MemoryRamTypeId>
   public memoryRamSlotQuantity!: Primitives<MemoryRamSlotQuantity>
   public hasBluetooth!: Primitives<HasBluetooth>
@@ -62,10 +60,6 @@ export function initLaptopModels (sequelize: Sequelize): void {
             msg: 'Solo puede pertenecer a la categoria de Laptops'
           }
         }
-      },
-      processorSocketId: {
-        type: DataTypes.INTEGER,
-        allowNull: false
       },
       memoryRamTypeId: {
         type: DataTypes.INTEGER,

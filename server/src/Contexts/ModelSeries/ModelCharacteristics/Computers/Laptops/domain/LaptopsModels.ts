@@ -2,7 +2,6 @@ import { BrandId } from '../../../../../Brand/domain/BrandId'
 import { CategoryDefaultData, type CategoryValues } from '../../../../../Category/domain/CategoryDefaultData'
 import { CategoryId } from '../../../../../Category/domain/CategoryId'
 import { MemoryRamTypeId } from '../../../../../Features/MemoryRam/MemoryRamType/domain/MemoryRamTypeId'
-import { ProcessorSocketId } from '../../../../../Features/Processor/ProcessorSocket/domain/ProcessorSocketId'
 import { type Primitives } from '../../../../../Shared/domain/value-object/Primitives'
 import { ModelSeriesId } from '../../../../ModelSeries/domain/ModelSeriesId'
 import { ModelSeriesName } from '../../../../ModelSeries/domain/ModelSeriesName'
@@ -25,7 +24,6 @@ export class LaptopsModels extends ComputerModels {
     name: ModelSeriesName,
     categoryId: CategoryId,
     brandId: BrandId,
-    processorSocketId: ProcessorSocketId,
     memoryRamTypeId: MemoryRamTypeId,
     memoryRamSlotQuantity: MemoryRamSlotQuantity,
     hasBluetooth: HasBluetooth,
@@ -36,14 +34,13 @@ export class LaptopsModels extends ComputerModels {
     readonly batteryModel: BatterModelName
 
   ) {
-    super(id, name, categoryId, brandId, processorSocketId, memoryRamTypeId, memoryRamSlotQuantity, hasBluetooth, hasWifiAdapter, hasDVI, hasHDMI, hasVGA)
+    super(id, name, categoryId, brandId,  memoryRamTypeId, memoryRamSlotQuantity, hasBluetooth, hasWifiAdapter, hasDVI, hasHDMI, hasVGA)
   }
 
   static create ({
     name,
     categoryId,
     brandId,
-    processorSocketId,
     memoryRamTypeId,
     memoryRamSlotQuantity,
     hasBluetooth,
@@ -59,7 +56,6 @@ export class LaptopsModels extends ComputerModels {
       new ModelSeriesName(name),
       new CategoryId(categoryId),
       new BrandId(brandId),
-      new ProcessorSocketId(processorSocketId),
       new MemoryRamTypeId(memoryRamTypeId),
       new MemoryRamSlotQuantity(memoryRamSlotQuantity),
       new HasBluetooth(hasBluetooth),
@@ -82,7 +78,6 @@ export class LaptopsModels extends ComputerModels {
       new ModelSeriesName(primitives.name),
       new CategoryId(primitives.categoryId),
       new BrandId(primitives.brandId),
-      new ProcessorSocketId(primitives.processorSocketId),
       new MemoryRamTypeId(primitives.memoryRamTypeId),
       new MemoryRamSlotQuantity(primitives.memoryRamSlotQuantity),
       new HasBluetooth(primitives.hasBluetooth),
@@ -100,7 +95,6 @@ export class LaptopsModels extends ComputerModels {
       name: this.nameValue,
       categoryId: this.categoryIdValue,
       brandId: this.brandIdValue,
-      processorSocketId: this.ProcessorSocketValue,
       memoryRamTypeId: this.memoryRamTypeValue,
       memoryRamSlotQuantity: this.memoryRamSlotQuantityValue,
       hasBluetooth: this.hasBluetoothValue,

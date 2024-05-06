@@ -1,10 +1,11 @@
 interface Props {
-  type: 'button' | 'submit' | 'reset' | undefined
+  type?: 'button' | 'submit' | 'reset'
   handle?: React.MouseEventHandler<HTMLButtonElement> | undefined
   text: string
   actionType: keyof typeof ACTIONTYPE
   isDisabled?: boolean
 }
+
 
 const ACTIONTYPE = {
   ACTION: 'text-white border-primary bg-primary hover:bg-primary-400 active:bg-primary-600',
@@ -14,17 +15,17 @@ const ACTIONTYPE = {
   CLOSE: 'text-white border-secondary bg-secondary-800 hover:bg-secondary-700 active:bg-secondary-950'
 } as const
 
-const Button = ({ text, type, handle, isDisabled = false, actionType = 'ACTION' }: Props) => {
+export default function Button ({ text, type, handle, isDisabled = false, actionType = 'ACTION' }: Props) {
   return (
         <button
             type={type}
             onClick={handle}
             className={`w-max h-min py-2 px-4 font-medium text-base align-middle text-center text-white rounded-md cursor-pointer border border-solid border-transparent transition-all duration-150 ease-in disabled:opacity-70 disabled:cursor-not-allowed ${ACTIONTYPE[actionType]}`}
             disabled={isDisabled}
+            aria-label={`${text}`}
+            title={`${text}`}
         >
             {text}
         </button>
   )
 }
-
-export default Button

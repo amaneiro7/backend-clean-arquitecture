@@ -6,18 +6,18 @@ import debounce from 'just-debounce-it'
 
 import { Autocomplete } from '../../mui/Autocomplete'
 import { useAppContext } from '../../Context/AppContext'
-import { useSearchDevice } from '../../Device/device/useSearchDevice'
 import { SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
+import { useSearchEmployee } from '../../Device/employee/useSearchEmployee'
 
 const TextField = lazy(async () => await import("../../mui/TextField").then(m => ({ default: m.TextField })))
 const CircularProgress = lazy(async () => await import('../../mui/CircularProgress').then(m => ({ default: m.CircularProgress })))
 const CloseIcon = lazy(async () => await import('../../mui/CloseIcon').then(m => ({ default: m.CloseIcon })))
 const RightIcon = lazy(async () => import('../icon/RightIcon').then(m => ({ default: m.RightIcon })))
 
-export default function DeviceSearchComboBox() {
+export default function EmployeeSearchComboBox() {
     const { repository } = useAppContext()
-    const { devices, loading, searchDevices } = useSearchDevice(repository)
+    const { employees, loading, searchEmployees } = useSearchEmployee(repository)
     const location = useLocation()
     const [value, setValue] = useState(null);
     const [inputValue, setInputValue] = useState('');
@@ -26,9 +26,9 @@ export default function DeviceSearchComboBox() {
 
     const debounceGetDevices = useCallback(
         debounce((query: SearchByCriteriaQuery) => {
-            searchDevices(query)
+            searchEmployees(query)
         }, 500)
-        , [searchDevices, inputValue]
+        , [searchEmployees, inputValue]
     )
 
     useEffect(() => {        
@@ -38,7 +38,7 @@ export default function DeviceSearchComboBox() {
         }
         debounceGetDevices({
             filters: [{
-                field: 'serial',
+                field: 'userName',
                 operator: Operator.CONTAINS,
                 value: inputValue
             }]
@@ -60,10 +60,10 @@ export default function DeviceSearchComboBox() {
                         if (typeof option === 'string') {
                             return option
                         }
-                        return option.serial
+                        return option.userName
                     }}
                     filterOptions={(x) => x}
-                    options={devices}
+                    options={employees}
                     autoComplete
                     includeInputInList
                     filterSelectedOptions
@@ -76,12 +76,12 @@ export default function DeviceSearchComboBox() {
                     onInputChange={(_, newInputValue) => {
                         setInputValue(newInputValue)
                     }}
-                    placeholder='Busque por serial'
+                    placeholder='Busque por Usuario'
                     size='small'
                     open={open}
                     onOpen={() => { setOpen(true) }}
                     onClose={() => { setOpen(false) }}
-                    isOptionEqualToValue={(option, value) => option.serial === value.serial}
+                    isOptionEqualToValue={(option, value) => option.userName === value.userName}
                     loading={loading}
 
                     clearText='Limpiar'
@@ -97,7 +97,7 @@ export default function DeviceSearchComboBox() {
                     renderInput={(params) => (
                         <TextField
                             {...params}
-                            label='Busqueda por serial'
+                            label='Busqueda por Usuario'
                             InputProps={{
                                 ...params.InputProps,
                                 endAdornment: (
@@ -111,8 +111,8 @@ export default function DeviceSearchComboBox() {
                         />
                     )}
                     renderOption={(props, option, { inputValue }) => {
-                        const matches = match(option.serial, inputValue, { insideWords: true });
-                        const parts = parse(option.serial, matches)
+                        const matches = match(option.userName, inputValue, { insideWords: true });
+                        const parts = parse(option.userName, matches)
                         return (
                             <li {...props}>
                                 <div>
@@ -134,7 +134,7 @@ export default function DeviceSearchComboBox() {
             </Suspense>
             <RightIcon isDisabled={!value}>
                 {value && <Link
-                    to={`/device/edit/${value?.id}`}
+                    to={`/employee/edit/${value?.id}`}
                     state={{ state: value }}
                     className='absolute w-full h-full'
                 >

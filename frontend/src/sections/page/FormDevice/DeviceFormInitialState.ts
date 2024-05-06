@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useAppContext } from '../../Context/AppContext'
-import { useDevice } from './useDevice'
+import { useDevice } from '../../Device/device/useDevice'
 import { type DevicesMappedApiResponse } from '../../../modules/shared/domain/types/responseTypes'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { type DeviceSerial } from '../../../modules/devices/devices/devices/domain/DeviceSerial'
