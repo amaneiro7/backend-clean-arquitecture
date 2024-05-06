@@ -180,8 +180,8 @@ export default function AlmacenPage() {
                 <TableRow key={device.id}>
                   <TableCellEditDeleteIcon state={device} url={`/device/edit/${device.id}`} />
                   <TableCell value={device.categoryName} />
-                  <TableCell value={device.serial} />
-                  <TableCell value={device.activo} />
+                  <TableCell value={device.serial ?? 'Sin Serial'} />
+                  <TableCell value={device.activo ?? 'Sin Activo'} />
                   <TableCell value={device.statusName} />
                   <TableCell value={device.brandName} />
                   <TableCell value={device.modelName} />
@@ -198,10 +198,10 @@ export default function AlmacenPage() {
                   {
                     isComputerFilter &&
                     <>
-                      <TableCell value={device?.computer?.processor?.numberModel} />
-                      <TableCell value={device?.computer?.memoryRamCapacity} />
-                      <TableCell value={device?.computer?.hardDriveCapacity?.name} />
-                      <TableCell value={device?.computer?.hardDriveType?.name} />
+                      <TableCell value={device?.computer?.processor?.numberModel ?? 'Sin Procesador'} />
+                      <TableCell value={device?.computer?.memoryRamCapacity ?? 'Sin Memorias'} />
+                      <TableCell value={device?.computer?.hardDriveCapacity?.name ?? 'Sin Disco'} />
+                      <TableCell value={device?.computer?.hardDriveType?.name ?? ''} />
                     </>
                   }
                 </TableRow>

@@ -188,8 +188,8 @@ export default function AgenciaPage() {
                   <TableCell value={device.employeeUserName} />
                   <TableCell value={device.locationName} />
                   <TableCell value={device.categoryName} />
-                  <TableCell value={device.serial} />
-                  <TableCell value={device.activo} />
+                  <TableCell value={device.serial ?? 'Sin Serial'} />
+                  <TableCell value={device.activo ?? 'Sin Activo'} />
                   <TableCell value={device.brandName} />
                   <TableCell value={device.modelName} />
                   <TableCell value={device.observation} />
