@@ -10,8 +10,8 @@ export class ProcessorSocketModel extends Model<ProcessorSocketPrimitives> imple
   readonly name!: Primitives<ProcessorSocketName>
 
   public static associate (models: Models): void {
-    this.hasMany(models.ModelLaptop, { as: 'modelLaptop' }) // An processor socket can have many laptops
-    this.hasMany(models.ModelComputer, { as: 'modelComputer' }) // An processor socket can have many computers
+    // this.hasMany(models.ModelLaptop, { as: 'modelLaptop' }) // An processor socket can have many laptops
+    // this.hasMany(models.ModelComputer, { as: 'modelComputer' }) // An processor socket can have many computers
   }
 }
 

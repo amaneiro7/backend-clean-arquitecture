@@ -31,7 +31,7 @@ export class ComputerModelsModel extends Model<ComputerModelsCreationAttributes>
   public static associate (models: Models): void {
     this.belongsTo(models.Model, { as: 'model', foreignKey: 'modelSeriesId' }) // A computer model belongs to a model
     this.belongsTo(models.Category, { as: 'category' }) // A computer model belongs to a category
-    this.belongsTo(models.ProcessorSocket, { as: 'processorSocket' }) // A computer model belongs to a processor socket
+    // this.belongsTo(models.ProcessorSocket, { as: 'processorSocket' }) // A computer model belongs to a processor socket
     this.belongsTo(models.MemoryRamType, { as: 'memoryRamType' }) // A computer model belongs to a memory ram
   }
 }

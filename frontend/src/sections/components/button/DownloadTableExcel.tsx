@@ -1,4 +1,4 @@
-import { utils, writeFileXLSX  }  from 'xlsx'
+import { utils, writeFileXLSX }  from 'xlsx'
 import { forwardRef } from 'react'
 import Button from '.'
 
@@ -14,7 +14,9 @@ export const DownloadTable = forwardRef(function (_, ref) {
 })
 
 function exportToExcel(tableData): void {
+    
     const worksheet = utils.table_to_sheet(tableData)
+    console.log(worksheet)
     const workbook = utils.book_new()
     workbook.Props = {
         Title: 'Inventario',
