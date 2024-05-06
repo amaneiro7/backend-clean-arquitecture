@@ -1,18 +1,18 @@
-import { useAppContext } from "../../Context/AppContext";
-import Main from "../../components/Main";
-import PageTitle from "../../components/PageTitle";
-import { FilterManager } from "../../components/Filter/FilterManager";
-import { useSearchDevice } from "../../Device/device/useSearchDevice";
-import { SpinnerSKCircle } from "../../components/Loading/spinner-sk-circle";
-import { lazy, Suspense, useRef } from "react";
-import TableHeader from "../../components/TableComponent/TableHeader";
-import TableHead from "../../components/TableComponent/TableHead";
-import { DevicesMappedApiResponse } from "../../../modules/shared/domain/types/responseTypes";
-import Table from "../../components/TableComponent/Table";
-import TableRow from "../../components/TableComponent/TableRow";
-import TableCellEditDeleteIcon from "../../components/TableComponent/TableCellEditDeleteIcon";
-import TableBody from "../../components/TableComponent/TableBody";
-import TableCell from "../../components/TableComponent/TableCell";
+import { useAppContext } from "../../Context/AppContext"
+import Main from "../../components/Main"
+import PageTitle from "../../components/PageTitle"
+import { FilterManager } from "../../components/Filter/FilterManager"
+import { useSearchDevice } from "../../Device/device/useSearchDevice"
+import { SpinnerSKCircle } from "../../components/Loading/spinner-sk-circle"
+import { lazy, Suspense, useRef } from "react"
+import TableHeader from "../../components/TableComponent/TableHeader"
+import TableHead from "../../components/TableComponent/TableHead"
+import { DevicesMappedApiResponse } from "../../../modules/shared/domain/types/responseTypes"
+import Table from "../../components/TableComponent/Table"
+import TableRow from "../../components/TableComponent/TableRow"
+import TableCellEditDeleteIcon from "../../components/TableComponent/TableCellEditDeleteIcon"
+import TableBody from "../../components/TableComponent/TableBody"
+import TableCell from "../../components/TableComponent/TableCell"
 
 const Button = lazy(async () => import("../../components/button"))
 

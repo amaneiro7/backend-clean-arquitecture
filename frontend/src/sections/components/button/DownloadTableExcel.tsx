@@ -1,9 +1,10 @@
+// import { utils, writeFileXLSX } from 'xlsx'
 import { utils, writeFileXLSX } from 'xlsx'
 
 export function exportToExcel(tableData: React.MutableRefObject<any>): void {
     console.log('exportToExcel', tableData)
 
-    const worksheet = utils.table_to_sheet(tableData)
+    const worksheet = utils.table_to_sheet(tableData.current)
     const workbook = utils.book_new()
     workbook.Props = {
         Title: 'Inventario',

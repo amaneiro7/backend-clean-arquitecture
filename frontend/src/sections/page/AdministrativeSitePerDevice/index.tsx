@@ -1,5 +1,5 @@
 import { Suspense, lazy, useCallback, useRef } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import debounce from 'just-debounce-it'
 
 import { type DevicesMappedApiResponse } from '../../../modules/shared/domain/types/responseTypes'
@@ -38,7 +38,6 @@ const ActivoInput = lazy(async () => await import('../../components/text-inputs/
 
 export default function AdministrativeSitePage() {
   const tableRef = useRef(null)
-  const location = useLocation()
   const { repository } = useAppContext()
   const { devices, loading, addFilter, cleanFilters } = useDevice(repository, {
     filters: [{
@@ -172,7 +171,7 @@ export default function AdministrativeSitePage() {
         {loading && <SpinnerSKCircle />}
         {(!loading && devices.length === 0) && <p>No hay resultados</p>}
         {(!loading && devices.length > 0) && <Suspense fallback={<p>...Loading</p>}>
-          <Table key={location.key} ref={tableRef} className=''>
+          <Table ref={tableRef} className=''>
             <TableHeader>
               <TableRow>
                 {headerTitle.map((title, index) => (
