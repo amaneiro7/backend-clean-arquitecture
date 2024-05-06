@@ -22,7 +22,7 @@ export interface InputData {
 
 type UpdateInputData = (params: inputDataType) => void
 interface inputDataType {
-  field: string
+  name: string
   value: string
 }
 
@@ -33,15 +33,15 @@ export const useInputsData = (): {
 } => {
   const [searchParams, setSearchParams] = useSearchParams()  
 
-  const updateInputData = ({ field, value }: inputDataType) => {
+  const updateInputData = ({ name, value }: inputDataType) => {
     if (value === '') {
       setSearchParams(prev => {
-        prev.delete(field)
+        prev.delete(name)
         return prev
       })
     } else {
       setSearchParams(prev => {
-        prev.set(field, value)
+        prev.set(name, value)
         return prev
       }, { replace: true })
     }

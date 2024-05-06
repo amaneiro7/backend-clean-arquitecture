@@ -42,7 +42,7 @@ export default function AgenciaPage() {
   const tableRef = useRef(null)
   const { inputData, updateInputData, clearInputs } = useInputsData()  
   const { repository } = useAppContext()
-  const { devices, loading, query, addFilter, cleanFilters } = useDevice(repository, {
+  const { devices, loading, addFilter, cleanFilters } = useDevice(repository, {
     filters: [{
       field: 'typeOfSiteId',
       operator: Operator.EQUAL,
@@ -65,7 +65,7 @@ export default function AgenciaPage() {
       value
     }]
     debounceGetDevices({ filters })
-    updateInputData({ query, field: name, value, operator })
+    updateInputData({ name, value })
   }
 
   const handleClear = () => {

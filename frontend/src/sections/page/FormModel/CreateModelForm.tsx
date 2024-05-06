@@ -2,10 +2,11 @@ import { type FormEvent, lazy, Suspense, useEffect } from 'react'
 import { useGenericFormData } from '../../Hooks/useGenericFormData'
 
 import { FormStatus, useModelForm } from '../../Hooks/model/useModelForm'
-import BrandSelect from '../../components/Select/BrandSelect'
-import CategorySelect from '../../components/Select/CategorySelect'
 import ModelNameInput from '../../components/text-inputs/ModelNameInput'
 import { useModelInitialState } from './ModelFormInitialState'
+
+const CategoryComboBox = lazy(async () => await import('../../components/combo_box/CategoryComboBox'))
+const BrandComboBox = lazy(async () => await import('../../components/combo_box/BrandComboBox'))
 
 const FormContainer = lazy(async () => import('../../components/formContainer'))
 export default function CreateModelForm() {
@@ -53,16 +54,16 @@ export default function CreateModelForm() {
         handleClose={handleClose}
         isDisabled={formStatus === FormStatus.Loading}
       >
-        <CategorySelect
+        <CategoryComboBox
           value={formData.categoryId}
           onChange={handleChange}
-          isRequired={true}
+          type='form'
         />
-        <BrandSelect
+        <BrandComboBox
           value={formData.brandId}
-          categoryId={formData.categoryId}
-          isRequired={true}
           onChange={handleChange}
+          categoryId={formData.categoryId}
+          type='form'
         />
         <ModelNameInput
           value={formData.name}

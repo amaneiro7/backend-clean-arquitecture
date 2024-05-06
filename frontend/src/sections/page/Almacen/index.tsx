@@ -28,7 +28,7 @@ const TableHead = lazy(async () => import('../../components/TableComponent/Table
 const TableCell = lazy(async () => import('../../components/TableComponent/TableCell'))
 const TableCellEditDeleteIcon = lazy(async () => import('../../components/TableComponent/TableCellEditDeleteIcon'))
 const Button = lazy(async () => await import('../../components/button'))
-const StatusSelect = lazy(async () => await import('../../components/Select/StatusSelect'))
+const StatusComboBox = lazy(async () => await import('../../components/combo_box/StatusComboBox'))
 const ActivoInput = lazy(async () => await import('../../components/text-inputs/ActivoInput'))
 const SerialInput = lazy(async () => await import('../../components/text-inputs/SerialInput'))
 const BrandComboBox = lazy(async () => await import('../../components/combo_box/BrandComboBox'))
@@ -108,7 +108,7 @@ export default function AlmacenPage() {
               />
             </Suspense>
             <Suspense>
-              <StatusSelect
+              <StatusComboBox
                 value={inputData.statusId}
                 onChange={handleChange}
               />

@@ -6,7 +6,7 @@ import { FormControl } from '../../mui/FormControl'
 
 interface Props {
   name: string
-  value: string | number
+  value?: string | number
   defaultValue?: string | number
   label: string
   options: Options[]
