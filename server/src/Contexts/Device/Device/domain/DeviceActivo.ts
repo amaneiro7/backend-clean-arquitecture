@@ -15,12 +15,6 @@ export class DeviceActivo extends AcceptedNullValueObject<string> {
 
   constructor(readonly value: string | null) {
     super(value)
-
-    // Convertir el valor a mayúsculas si no es nulo
-    if (value !== null) {
-      this.value = value.toUpperCase().trim()
-    }
-
     this.ensureIsValidActivo(value)
   }
 
@@ -35,7 +29,7 @@ export class DeviceActivo extends AcceptedNullValueObject<string> {
   }
 
   private isValid(name: string | null): boolean {
-    if (name === null) return false
+    if (name === null) return true
     const isHasNotSpecialCharacterOnlyGuiones = this.notSpecialCharacterOnlyGuiones.test(name)
     if (!isHasNotSpecialCharacterOnlyGuiones) {
       this.errors.push(`${name}: El Activo no puede contener caracteres especiales`)

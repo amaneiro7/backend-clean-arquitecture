@@ -34,7 +34,7 @@ export class DeviceSerial extends AcceptedNullValueObject<string> {
   }
 
   private isDeviceSerialValid(name: string | null): boolean {
-    if (name === null) return false
+    if (name === null) return true
     const isHasNotSpecialCharacterOnlyGuiones = this.notSpecialCharacterOnlyGuiones.test(name)
     if (!isHasNotSpecialCharacterOnlyGuiones) {
       this.errors.push(`${name}: El serial no puede contener caracteres especiales`)
