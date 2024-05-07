@@ -15,6 +15,7 @@ import { StatusId } from '../../../modules/devices/devices/status/domain/StatusI
 import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoading'
 import { SpinnerSKCircle } from '../../components/Loading/spinner-sk-circle'
 import { TypeOfSiteId } from '../../../modules/location/typeofsites/domain/typeOfSiteId'
+import TableSkeleton from '../../components/skeleton/TableSkeleton'
 
 const HeaderInput = lazy(async () => import('../../components/HeaderInput').then(m => ({ default: m.HeaderInput })))
 const Main = lazy(async () => import('../../components/Main'))
@@ -170,7 +171,7 @@ export default function AdministrativeSitePage() {
         </Suspense>
         {loading && <SpinnerSKCircle />}
         {(!loading && devices.length === 0) && <p>No hay resultados</p>}
-        {(!loading && devices.length > 0) && <Suspense fallback={<p>...Loading</p>}>
+        {(!loading && devices.length > 0) && <Suspense fallback={<TableSkeleton />}>
           <Table ref={tableRef} className=''>
             <TableHeader>
               <TableRow>
