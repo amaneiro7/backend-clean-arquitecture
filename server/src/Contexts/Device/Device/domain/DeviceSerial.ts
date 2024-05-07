@@ -7,30 +7,50 @@ import { type DeviceRepository } from './DeviceRepository'
 
 export class DeviceSerial extends AcceptedNullValueObject<string> {
   private readonly NAME_MAX_LENGTH = 100
-  private readonly NAME_MIN_LENGTH = 2
+  private readonly NAME_MIN_LENGTH = 4
+  private readonly notLowerCase = /^[^a-z]*$/
+  private readonly notSpecialCharacterOnlyGuiones = /^[^\W_]*-?[^\W_]*$/
+  private errors: string[] = []
 
-  constructor (readonly value: string | null) {
+  constructor(readonly value: string | null) {
     super(value)
+
+    // Convertir el valor a mayúsculas si no es nulo
+    if (value !== null) {
+      this.value = value.toUpperCase().trim()
+    }
 
     this.ensureIsValidSerial(value)
   }
 
-  toPrimitives (): string | null {
+  toPrimitives(): string | null {
     return this.value
   }
 
-  private ensureIsValidSerial (value: string | null): void {
-    if (this.isDeviceSerialValid(value)) {
-      throw new InvalidArgumentError(`<${value}> is not a valid name`)
+  private ensureIsValidSerial(value: string | null): void {
+    if (!this.isDeviceSerialValid(value)) {
+      throw new InvalidArgumentError(`<${value}> ${this.errors.join(' ')}`)
     }
   }
 
-  private isDeviceSerialValid (name: string | null): boolean {
+  private isDeviceSerialValid(name: string | null): boolean {
     if (name === null) return false
-    return name.length <= this.NAME_MIN_LENGTH && name.length >= this.NAME_MAX_LENGTH
+    const isHasNotSpecialCharacterOnlyGuiones = this.notSpecialCharacterOnlyGuiones.test(name)
+    if (!isHasNotSpecialCharacterOnlyGuiones) {
+      this.errors.push(`${name}: El serial no puede contener caracteres especiales`)
+    }
+    const isNotHasLowerCharacter = this.notLowerCase.test(name)
+    if (!isNotHasLowerCharacter) {
+      this.errors.push("El serial debe estar en mayúsculas")
+    }
+    const isNameValidLength = name.length >= this.NAME_MIN_LENGTH && name.length <= this.NAME_MAX_LENGTH
+    if (!isNameValidLength) {
+      this.errors.push(`El Serial debe tener entre ${this.NAME_MIN_LENGTH} y ${this.NAME_MAX_LENGTH} caracteres`)
+    }
+    return isHasNotSpecialCharacterOnlyGuiones && isNotHasLowerCharacter && isNameValidLength
   }
 
-  static async updateSerialField ({ repository, serial, entity }: { repository: DeviceRepository, serial?: Primitives<DeviceSerial>, entity: Device }): Promise<void> {
+  static async updateSerialField({ repository, serial, entity }: { repository: DeviceRepository, serial?: Primitives<DeviceSerial>, entity: Device }): Promise<void> {
     // Si no se ha pasado un nuevo serial no realiza ninguna acción
     if (serial === undefined) {
       return
@@ -45,7 +65,7 @@ export class DeviceSerial extends AcceptedNullValueObject<string> {
     entity.updateSerial(serial)
   }
 
-  static async ensureSerialDoesNotExit ({ repository, serial }: { repository: DeviceRepository, serial: Primitives<DeviceSerial> }): Promise<void> {
+  static async ensureSerialDoesNotExit({ repository, serial }: { repository: DeviceRepository, serial: Primitives<DeviceSerial> }): Promise<void> {
     // If the serial is null, it does not exist, so we don't need to do any verification
     if (serial === null) {
       return

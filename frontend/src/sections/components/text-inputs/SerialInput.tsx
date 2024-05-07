@@ -28,7 +28,7 @@ const SerialInput: FC<Props> = ({ value, onChange, isForm = false }) => {
     const isValid = DeviceSerial.isValid(value)
 
     setIsError(!isValid)
-    setErrorMessage(isValid ? '' : DeviceSerial.invalidMessage(value))
+    setErrorMessage(isValid ? '' : DeviceSerial.invalidMessage())
 
     return () => {
       setErrorMessage('')

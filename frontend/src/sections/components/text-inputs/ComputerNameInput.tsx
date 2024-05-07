@@ -58,8 +58,8 @@ export function ComputerNameInput({ value, status, onChange, type = 'form' }: Pr
         label='Nombre del equipo'
         placeholder='-- Ingrese el Nombre del equipo'
         handle={(event) => {
-          const { name, value } = event.target
-          const newValue = isDisabled ? '' : value
+          const { name, value } = event.target          
+          const newValue = isDisabled ? '' : value.trim().toUpperCase()
           onChange(name, newValue, Operator.CONTAINS)
         }}
         value={value}

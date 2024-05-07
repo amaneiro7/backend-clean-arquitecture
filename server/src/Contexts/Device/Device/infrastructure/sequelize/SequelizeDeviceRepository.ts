@@ -80,7 +80,6 @@ export class SequelizeDeviceRepository extends CriteriaToSequelizeConverter impl
       if (device === null) { // If the device does not exist
         await DeviceModel.create({ id, serial, activo, statusId, categoryId, brandId, modelId, locationId, observation, employeeId }, { transaction: t }) // Create a new device with the given payload
       } else { // If the device already exists
-        console.log(employeeId)
         await DeviceModel.update({ serial, activo, statusId, categoryId, brandId, modelId, employeeId, locationId, observation }, { where: { id }, transaction: t }) // Update the device with the given payload
         // await device.save({ transaction: t }) // Save the updated device
       }

@@ -7,30 +7,51 @@ import { type DeviceRepository } from './DeviceRepository'
 
 export class DeviceActivo extends AcceptedNullValueObject<string> {
   private readonly NAME_MAX_LENGTH = 100
-  private readonly NAME_MIN_LENGTH = 2
+  private readonly NAME_MIN_LENGTH = 4
 
-  constructor (readonly value: string | null) {
+  private readonly notLowerCase = /^[^a-z]*$/
+  private readonly notSpecialCharacterOnlyGuiones = /^[^\W_]*-?[^\W_]*$/
+  private errors: string[] = []
+
+  constructor(readonly value: string | null) {
     super(value)
+
+    // Convertir el valor a mayúsculas si no es nulo
+    if (value !== null) {
+      this.value = value.toUpperCase().trim()
+    }
 
     this.ensureIsValidActivo(value)
   }
 
-  toPrimitives (): string | null {
+  toPrimitives(): string | null {
     return this.value
   }
 
-  private ensureIsValidActivo (value: string | null): void {
+  private ensureIsValidActivo(value: string | null): void {
     if (!this.isValid(value)) {
-      throw new InvalidArgumentError(`<${value}> is not a valid name`)
+      throw new InvalidArgumentError(`<${value}> ${this.errors.join(' ')}`)
     }
   }
 
-  private isValid (name: string | null): boolean {
-    if (name === null) return true
-    return name.length >= this.NAME_MIN_LENGTH && name.length <= this.NAME_MAX_LENGTH
+  private isValid(name: string | null): boolean {
+    if (name === null) return false
+    const isHasNotSpecialCharacterOnlyGuiones = this.notSpecialCharacterOnlyGuiones.test(name)
+    if (!isHasNotSpecialCharacterOnlyGuiones) {
+      this.errors.push(`${name}: El Activo no puede contener caracteres especiales`)
+    }
+    const isNotHasLowerCharacter = this.notLowerCase.test(name)
+    if (!isNotHasLowerCharacter) {
+      this.errors.push("El Activo debe estar en mayúsculas")
+    }
+    const isNameValidLength = name.length >= this.NAME_MIN_LENGTH && name.length <= this.NAME_MAX_LENGTH
+    if (!isNameValidLength) {
+      this.errors.push(`El Activo debe tener entre ${this.NAME_MIN_LENGTH} y ${this.NAME_MAX_LENGTH} caracteres`)
+    }
+    return isHasNotSpecialCharacterOnlyGuiones && isNotHasLowerCharacter && isNameValidLength
   }
 
-  static async updateActivoField ({ repository, activo, entity }: { repository: DeviceRepository, activo?: Primitives<DeviceActivo>, entity: Device }): Promise<void> {
+  static async updateActivoField({ repository, activo, entity }: { repository: DeviceRepository, activo?: Primitives<DeviceActivo>, entity: Device }): Promise<void> {
     // Si no se ha pasado un nuevo activo no realiza ninguna acción
     if (activo === undefined) {
       return
@@ -45,7 +66,7 @@ export class DeviceActivo extends AcceptedNullValueObject<string> {
     entity.updateActivo(activo)
   }
 
-  static async ensureActivoDoesNotExit ({ repository, activo }: { repository: DeviceRepository, activo: Primitives<DeviceActivo> }): Promise<void> {
+  static async ensureActivoDoesNotExit({ repository, activo }: { repository: DeviceRepository, activo: Primitives<DeviceActivo> }): Promise<void> {
     // If the activo is null, it does not exist, so we don't need to do any verification
     if (activo === null) {
       return

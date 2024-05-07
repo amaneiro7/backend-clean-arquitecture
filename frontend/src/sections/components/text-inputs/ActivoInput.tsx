@@ -28,7 +28,7 @@ export default function ActivoInput({ value, onChange, isForm = false }: Props) 
     const isValid = DeviceActivo.isValid(value)
 
     setIsError(!isValid)
-    setErrorMessage(isValid ? '' : DeviceActivo.invalidMessage(value))
+    setErrorMessage(isValid ? '' : DeviceActivo.invalidMessage())
 
     return () => {
       setErrorMessage('')
@@ -45,7 +45,8 @@ export default function ActivoInput({ value, onChange, isForm = false }: Props) 
         placeholder='-- Ingrese el Activo del equipo'
         isRequired={false}
         handle={(event) => {
-          const { name, value } = event.target
+          let { name, value } = event.target
+          value = value.trim().toUpperCase()
           onChange(name, value, Operator.CONTAINS)
         }}
         value={value}

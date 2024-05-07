@@ -8,12 +8,20 @@ import { type DeviceComputer } from './Computer'
 export class ComputerName extends AcceptedNullValueObject<string> {
   private readonly NAME_MAX_LENGTH = 1000
   private readonly NAME_MIN_LENGTH = 3
+  private readonly notLowerCase = /^[^a-z]*$/
+  private readonly notSpecialCharacterOnlyGuiones = /^[^\W_]*-?[^\W_]*$/
+  private errors: string[] = []
 
   constructor (
     readonly value: string | null,
     private readonly statusId: Primitives<DeviceStatus>
   ) {
     super(value)
+    
+    // Convertir el valor a mayúsculas si no es nulo
+    if (value !== null) {
+      this.value = value.toUpperCase().trim()
+    }
 
     this.ensureIfStatusIsInUse(this.value, this.statusId)
     this.ensureIsValid(value)
@@ -36,8 +44,20 @@ export class ComputerName extends AcceptedNullValueObject<string> {
   }
 
   private isValid (name: string | null): boolean {
-    if (name === null || name === '') return true
-    return name.length >= this.NAME_MIN_LENGTH && name.length <= this.NAME_MAX_LENGTH
+    if (name === null) return true
+    const isHasNotSpecialCharacterOnlyGuiones = this.notSpecialCharacterOnlyGuiones.test(name)
+    if (!isHasNotSpecialCharacterOnlyGuiones) {
+      this.errors.push(`${name}: El Nombre de equipo no puede contener caracteres especiales`)
+    }
+    const isNotHasLowerCharacter = this.notLowerCase.test(name)
+    if (!isNotHasLowerCharacter) {
+      this.errors.push("El Nombre de equipo debe estar en mayúsculas")
+    }
+    const isNameValidLength = name.length >= this.NAME_MIN_LENGTH && name.length <= this.NAME_MAX_LENGTH
+    if (!isNameValidLength) {
+      this.errors.push(`El Nombre de equipo debe tener entre ${this.NAME_MIN_LENGTH} y ${this.NAME_MAX_LENGTH} caracteres`)
+    }
+    return isHasNotSpecialCharacterOnlyGuiones && isNotHasLowerCharacter && isNameValidLength
   }
 
   static async updateComputerNameField ({ repository, computerName, entity }: { repository: DeviceRepository, computerName?: Primitives<ComputerName>, entity: DeviceComputer }): Promise<void> {
