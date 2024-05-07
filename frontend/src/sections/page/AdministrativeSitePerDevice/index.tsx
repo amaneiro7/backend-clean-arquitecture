@@ -183,10 +183,10 @@ export default function AdministrativeSitePage() {
               {(devices as unknown as DevicesMappedApiResponse[]).map((device) => (
                 <TableRow key={device?.id}>
                   <TableCellEditDeleteIcon state={device} url={`/device/edit/${device.id}`} />
-                  <TableCell value={device.employeeUserName} />
+                  <TableCell value={device.employeeUserName} url={`/employee/edit/${device.employeeId}`} />
                   <TableCell value={device.locationName} />
                   <TableCell value={device.categoryName} />
-                  <TableCell value={device.serial ?? 'Sin Serial'} />
+                  <TableCell value={device.serial ?? 'Sin Serial'} url={`/device/edit/${device.id}`} />
                   <TableCell value={device.activo ?? 'Sin Activo'} />
                   <TableCell value={device.brandName} />
                   <TableCell value={device.modelName} />
