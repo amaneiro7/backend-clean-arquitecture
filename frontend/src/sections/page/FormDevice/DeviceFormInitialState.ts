@@ -51,6 +51,7 @@ interface defaultProps {
 }
 
 const defaultInitialState: defaultProps = {
+  id: undefined,
   serial: '',
   activo: '',
   statusId: '',
@@ -85,9 +86,9 @@ export const useDeviceInitialState = (): {
 
   const setResetState = (currentState?: defaultProps) => {    
     if (location.pathname.includes('add')) {
-      setPreloadedDeviceState(defaultInitialState)      
+      setPreloadedDeviceState({id: undefined, ...defaultInitialState})
     } else if(currentState === undefined) {
-      setPreloadedDeviceState(defaultInitialState)
+      setPreloadedDeviceState({id: undefined, ...defaultInitialState})
     } else {
       const updatedAt = new Date().toISOString()
       setPreloadedDeviceState(prev => ({...prev, ...currentState, updatedAt}))
@@ -113,7 +114,7 @@ export const useDeviceInitialState = (): {
           console.error('useDeviceInitialState', error)
         })
     }
-  }, [id, location.state?.state])
+  }, [id, location.state?.state, location.pathname])
 
   function processDeviceState (device: DevicePrimitives): void {
     const { serial, activo, statusId, modelId, categoryId, brandId, employeeId, locationId, observation, computer, hardDrive, updatedAt } = device as DevicesMappedApiResponse

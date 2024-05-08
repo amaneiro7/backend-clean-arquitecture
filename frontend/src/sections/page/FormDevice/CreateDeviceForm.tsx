@@ -1,4 +1,5 @@
 import { type FormEvent, useEffect, lazy, Suspense, useLayoutEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import { useDeviceForm, FormStatus } from '../../Device/device/useDeviceForm'
 import { useDeviceInitialState } from './DeviceFormInitialState'
 import { useGenericFormData } from '../../Hooks/useGenericFormData'
@@ -19,6 +20,7 @@ const ModelComboBox = lazy(async () => await import('../../components/combo_box/
 const DeviceFeatures = lazy(async () => await import('../../Device/device/components/DeviceFeatures'))
 
 export default function CreateDeviceForm() {
+  const location = useLocation()
   const { preloadedDeviceState, setResetState } = useDeviceInitialState()
   const { formData, updateForm, resetForm } = useGenericFormData(preloadedDeviceState)
   const { formStatus, submitForm, resetFormStatus } = useDeviceForm()
@@ -59,6 +61,7 @@ export default function CreateDeviceForm() {
     <Main>
       <Suspense>
         <FormContainer
+          key={location.key}
           title='Dispositivo'
           handleSubmit={handleSubmit}
           handleClose={handleClose}
