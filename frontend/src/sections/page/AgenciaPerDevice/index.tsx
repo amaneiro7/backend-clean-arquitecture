@@ -4,18 +4,17 @@ import debounce from 'just-debounce-it'
 
 import { useAppContext } from '../../Context/AppContext'
 import { useInputsData } from './useInputData'
-import { Computer } from '../../../modules/devices/fetures/computer/domain/Computer'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
-import { HardDrive } from '../../../modules/devices/fetures/hardDrive/hardDrive/domain/HardDrive'
 import { useDevice } from '../../Device/device/useDevice'
 import { StatusId } from '../../../modules/devices/devices/status/domain/StatusId'
+import { TypeOfSiteId } from '../../../modules/location/typeofsites/domain/typeOfSiteId'
 
 import { type DevicesMappedApiResponse } from '../../../modules/shared/domain/types/responseTypes'
 import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
 
 import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoading'
 import { SpinnerSKCircle } from '../../components/Loading/spinner-sk-circle'
-import { TypeOfSiteId } from '../../../modules/location/typeofsites/domain/typeOfSiteId'
+import TableSkeleton from '../../components/skeleton/TableSkeleton'
 
 
 const HeaderInput = lazy(async () => import('../../components/HeaderInput').then(m => ({ default: m.HeaderInput })))
@@ -39,7 +38,7 @@ const ModelComboBox = lazy(async () => await import('../../components/combo_box/
 
 export default function AgenciaPage() {
   const tableRef = useRef(null)
-  const { inputData, updateInputData, clearInputs } = useInputsData()  
+  const { inputData, updateInputData, clearInputs } = useInputsData()
   const { repository } = useAppContext()
   const { devices, loading, addFilter, cleanFilters } = useDevice(repository, {
     filters: [{
@@ -76,18 +75,6 @@ export default function AgenciaPage() {
         value: TypeOfSiteId.SitesOptions.AGENCY
       }]
     })
-  }
-
-  const defaultHeaderTitle = ['Acciones', 'Usuario', 'Ubicación', 'Categoria', 'Serial', 'Activo', 'Marca', 'Modelo', 'Observaciones']
-  let headerTitle: string[]
-  if (Computer.isComputerCategory({ categoryId: inputData.categoryId })) {
-    const headerTitleComputer = ['Procesador', 'Memoria Ram', 'Disco Duro', 'Tipo']
-    headerTitle = defaultHeaderTitle.concat(headerTitleComputer)
-  } else if (HardDrive.isHardDriveCategory({ categoryId: inputData.categoryId })) {
-    const headerTitleHardDrive = ['Capacidad', 'Tipo', 'Estado de salud']
-    headerTitle = defaultHeaderTitle.concat(headerTitleHardDrive)
-  } else {
-    headerTitle = defaultHeaderTitle
   }
 
   return (
@@ -176,27 +163,49 @@ export default function AgenciaPage() {
         </Suspense>
         {loading && <SpinnerSKCircle />}
         {(!loading && devices.length === 0) && <p>No hay resultados</p>}
-        {(!loading && devices.length > 0) && <Suspense fallback={<p>...Loading</p>}>
+        {(!loading && devices.length > 0) && <Suspense fallback={<TableSkeleton />}>
           <Table className=''>
             <TableHeader>
               <TableRow>
-                {headerTitle.map((title, index) => (
-                  <TableHead key={index} name={title} />
-                ))}
+                <TableHead name='Acciones' />
+                <TableHead name='Usuario' />
+                <TableHead name='Ubicación' />
+                <TableHead name='Categoria' />
+                <TableHead name='Serial' />
+                <TableHead name='Activo' />
+                <TableHead name='Marca' />
+                <TableHead name='Modelo' />
+                <TableHead name='Observaciones' />
+                <TableHead name='Nombre de Equipo' />
+                <TableHead name='Procesador' />
+                <TableHead name='Memoria Ram' />
+                <TableHead name='Disco Duro' />
+                <TableHead name='Tipo' />
+                <TableHead name='Sistema Operativo' />
+                <TableHead name='Arquitectura' />
+                <TableHead name='Dirección IP' />
               </TableRow>
             </TableHeader>
             <TableBody>
               {(devices as unknown as DevicesMappedApiResponse[]).map((device) => (
                 <TableRow key={device?.id}>
                   <TableCellEditDeleteIcon state={device} url={`/device/edit/${device.id}`} />
-                  <TableCell value={device.employeeUserName} />
+                  <TableCell value={device.employeeUserName} url={`/employee/edit/${device.employeeId}`} />
                   <TableCell value={device.locationName} />
                   <TableCell value={device.categoryName} />
-                  <TableCell value={device.serial ?? 'Sin Serial'} />
+                  <TableCell value={device.serial ?? 'Sin Serial'} state={device} url={`/device/edit/${device.id}`} />
                   <TableCell value={device.activo ?? 'Sin Activo'} />
                   <TableCell value={device.brandName} />
                   <TableCell value={device.modelName} />
                   <TableCell value={device.observation} />
+                  <TableCell value={device?.computer?.computerName} />
+                  <TableCell value={device?.computer ? `${device?.computer?.processor?.productCollection} ${device?.computer?.processor?.numberModel}` : ''} />
+                  <TableCell value={device?.computer ? `${device?.computer?.memoryRamCapacity} Gb` : ''} />
+                  <TableCell value={device?.computer ? `${device?.computer?.hardDriveCapacity?.name} Gb` : ''} />
+                  <TableCell value={device?.computer?.hardDriveType?.name} />
+                  <TableCell value={device?.computer?.operatingSystem?.name} />
+                  <TableCell value={device?.computer?.operatingSystemArq?.name} />
+                  <TableCell value={device?.computer?.ipAddress} />
                 </TableRow>
               ))}
             </TableBody>

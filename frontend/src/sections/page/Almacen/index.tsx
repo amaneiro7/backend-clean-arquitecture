@@ -4,9 +4,7 @@ import debounce from 'just-debounce-it'
 
 import { useAppContext } from '../../Context/AppContext'
 import { useInputsData } from './useInputData'
-import { Computer } from '../../../modules/devices/fetures/computer/domain/Computer'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
-import { HardDrive } from '../../../modules/devices/fetures/hardDrive/hardDrive/domain/HardDrive'
 import { useDevice } from '../../Device/device/useDevice'
 
 import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
@@ -15,6 +13,7 @@ import { type DevicesMappedApiResponse } from '../../../modules/shared/domain/ty
 import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoading'
 import { SpinnerSKCircle } from '../../components/Loading/spinner-sk-circle'
 import { TypeOfSiteId } from '../../../modules/location/typeofsites/domain/typeOfSiteId'
+import TableSkeleton from '../../components/skeleton/TableSkeleton'
 
 const HeaderInput = lazy(async () => import('../../components/HeaderInput').then(m => ({ default: m.HeaderInput })))
 const Main = lazy(async () => import('../../components/Main'))
@@ -75,15 +74,6 @@ export default function AlmacenPage() {
       }]
     })
   }
-
-  const defaultHeaderTitle = ['Acciones', 'Categoria', 'Serial', 'Activo', 'Status', 'Marca', 'Modelo', 'Ubicación', 'Observaciones']
-  const isComputerFilter = Computer.isComputerCategory({ categoryId: inputData.categoryId })
-  const isHardDriveFilter = HardDrive.isHardDriveCategory({ categoryId: inputData.categoryId })
-  const headerTitle: string[] = isComputerFilter
-    ? defaultHeaderTitle.concat(['Procesador', 'Memoria Ram', 'Disco Duro', 'Tipo'])
-    : isHardDriveFilter
-      ? defaultHeaderTitle.concat(['Capacidad', 'Tipo', 'Estado de salud'])
-      : defaultHeaderTitle
 
   return (
     <Suspense>
@@ -170,13 +160,24 @@ export default function AlmacenPage() {
         </Suspense>
         {loading && <SpinnerSKCircle />}
         {(!loading && devices.length === 0) && <p>No hay resultados</p>}
-        {(!loading && devices.length > 0) && <Suspense fallback={<p>...Loading</p>}>
+        {(!loading && devices.length > 0) && <Suspense fallback={<TableSkeleton />}>
           <Table ref={tableRef} className=''>
             <TableHeader>
               <TableRow>
-                {headerTitle.map((title, index) => (
-                  <TableHead key={`heade-${index}`} name={title} />
-                ))}
+                <TableHead name='Acciones' />
+                <TableHead name='Categoria' />
+                <TableHead name='Serial' />
+                <TableHead name='Activo' />
+                <TableHead name='Status' />
+                <TableHead name='Marca' />
+                <TableHead name='Modelo' />
+                <TableHead name='Ubicación' />
+                <TableHead name='Observaciones' />
+                <TableHead name='Procesador' />
+                <TableHead name='Memoria Ram' />
+                <TableHead name='Disco Duro' />
+                <TableHead name='Tipo' />
+                <TableHead name='Estado de Salud' />
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -191,23 +192,29 @@ export default function AlmacenPage() {
                   <TableCell value={device.modelName} />
                   <TableCell value={device.locationName} />
                   <TableCell value={device.observation} />
+                  <TableCell value={device.computer ? `${device?.computer?.processor?.productCollection} ${device?.computer?.processor?.numberModel}` : ''} />
+                  <TableCell value={device?.computer ? `${device?.computer?.memoryRamCapacity} Gb` : ''} />
                   {
-                    isHardDriveFilter &&
-                    <>
-                      <TableCell value={device?.hardDrive?.hardDriveCapacity?.name} />
-                      <TableCell value={device?.hardDrive?.hardDriveType?.name} />
-                      <TableCell value={device?.hardDrive?.health} />
-                    </>
+                    device?.hardDrive ?
+                      <>
+                        <TableCell value={device?.hardDrive ? `${device?.hardDrive?.hardDriveCapacity?.name} GB` : ''} />
+                        <TableCell value={device?.hardDrive?.hardDriveType?.name} />
+                      </>
+
+                      : device?.computer ?
+                        <>
+                          <TableCell value={device?.computer ? `${device?.computer?.hardDriveCapacity?.name} Gb` : 'Sin Disco'} />
+                          <TableCell value={device?.computer?.hardDriveType?.name ?? ''} />
+                        </>
+
+                        :
+                        <>
+                          <TableCell value='' />
+                          <TableCell value='' />
+                        </>
+
                   }
-                  {
-                    isComputerFilter &&
-                    <>
-                      <TableCell value={device?.computer?.processor?.numberModel ?? 'Sin Procesador'} />
-                      <TableCell value={device?.computer?.memoryRamCapacity ?? 'Sin Memorias'} />
-                      <TableCell value={device?.computer?.hardDriveCapacity?.name ?? 'Sin Disco'} />
-                      <TableCell value={device?.computer?.hardDriveType?.name ?? ''} />
-                    </>
-                  }
+                  <TableCell value={device?.hardDrive?.health} />
                 </TableRow>
               ))}
             </TableBody>
