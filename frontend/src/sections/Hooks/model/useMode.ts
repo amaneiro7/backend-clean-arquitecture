@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { type Repository } from '../../../modules/shared/domain/repository'
-import { AllModelGetter } from '../../../modules/devices/model/application/AllModelGetter'
-import { type ModelPrimitives } from '../../../modules/devices/model/domain/Model'
-import { ModelCreator } from '../../../modules/devices/model/application/ModelCreator'
-import { ModelGetter } from '../../../modules/devices/model/application/ModelGetter'
+import { AllModelGetter } from '../../../modules/devices/model/model/application/AllModelGetter'
+import { type ModelPrimitives } from '../../../modules/devices/model/model/domain/Model'
+import { ModelCreator } from '../../../modules/devices/model/model/application/ModelCreator'
+import { ModelGetter } from '../../../modules/devices/model/model/application/ModelGetter'
 
 export const useModel = (repository: Repository) => {
   const allModelGetter = new AllModelGetter(repository)

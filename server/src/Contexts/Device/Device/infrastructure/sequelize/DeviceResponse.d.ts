@@ -11,10 +11,13 @@ import { type IPAddress } from '../../../../Features/Computer/domain/IPAddress'
 import { type MACAddress } from '../../../../Features/Computer/domain/MACAddress'
 import { type HardDriveCapacityPrimitives } from '../../../../Features/HardDrive.ts/HardDriveCapacity/domain/HardDriveCapacity'
 import { type HardDriveTypePrimitives } from '../../../../Features/HardDrive.ts/HardDriveType/domain/HardDriveType'
+import { MemoryRamTypePrimitives } from '../../../../Features/MemoryRam/MemoryRamType/domain/MemoryRamType'
 import { type OperatingSystemPrimitives } from '../../../../Features/OperatingSystem/OperatingSystem/domain/OperatingSystem'
 import { type OperatingSystemArqPrimitives } from '../../../../Features/OperatingSystem/OperatingSystemArq/domain/OperatingSystemArq'
 import { type ProcessorPrimitives } from '../../../../Features/Processor/Processor/domain/Processor'
 import { LocationPrimitives } from '../../../../Location/Location/domain/Location'
+import { ComputerModelsPrimitives } from '../../../../ModelSeries/ModelCharacteristics/Computers/Computer/domain/ComputerModels'
+import { LaptopsModelsPrimitives } from '../../../../ModelSeries/ModelCharacteristics/Computers/Laptops/domain/LaptopsModels'
 import { type ModelSeriesId } from '../../../../ModelSeries/ModelSeries/domain/ModelSeriesId'
 import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
 import { type StatusPrimitives } from '../../../Status/domain/Status'
@@ -76,9 +79,16 @@ export interface ModelApiresponse {
   categoryId: number
   brandId: string
   createdAt: Date
-  updatedAt: Date
-  CategoryId: number
-  BrandId: string
+  updatedAt: Date  
   category: Status
   brand: Brand
+  modelComputer: ModelComputer
+  modelLaptop: ModelLaptop
+}
+
+export interface ModelComputer extends ComputerModelsPrimitives {
+  memoryRamType: MemoryRamTypePrimitives
+}
+export interface ModelLaptop extends LaptopsModelsPrimitives {
+  memoryRamType: MemoryRamTypePrimitives
 }

@@ -29,8 +29,9 @@ import { type OperatingSystemArqPrimitives } from '../../../devices/fetures/oper
 import { type OperatingSystemArqId } from '../../../devices/fetures/operatingSystem/operatingSystemArq/domain/OperatingSystemArqId'
 import { type ProcessorPrimitives } from '../../../devices/fetures/processor/domain/Processor'
 import { type ProcessorId } from '../../../devices/fetures/processor/domain/ProcessorId'
-import { type ModelId } from '../../../devices/model/domain/ModelId'
-import { type ModelName } from '../../../devices/model/domain/ModelName'
+import { type ModelId } from '../../../devices/model/model/domain/ModelId'
+import { type ModelName } from '../../../devices/model/model/domain/ModelName'
+import { ModelComputerPrimitives } from '../../../devices/model/ModelCharacteristics/modelComputer/ModelComputer'
 import { type EmployeePrimitives } from '../../../employee/employee/domain/Employee'
 import { type EmployeeId } from '../../../employee/employee/domain/EmployeeId'
 import { type EmployeeUserName } from '../../../employee/employee/domain/UserName'
@@ -129,6 +130,17 @@ export interface ModelApiresponse {
   updatedAt: string
   category: CategoryPrimitives
   brand: BrandPrimitives
+  modelPrinter: ModelPrinter
+  modelMonitor: ModelMonitor
+  modelComputer: ModelComputer
+  modelLaptop: ModelLaptop
+}
+
+export interface ModelComputer extends ModelComputerPrimitives {
+  memoryRamType: MemoryRamTypePrimitives
+}
+export interface ModelLaptop extends ModelLaptopPrimitives {
+  memoryRamType: MemoryRamTypePrimitives
 }
 export interface ModelMappedApiResponse {
   id: Primitives<ModelId>

@@ -4,7 +4,13 @@ import { Criteria } from "../../../../Shared/domain/criteria/Criteria";
 export class DeviceAssociation {
     convertFilterLocation(criteria: Criteria, options: FindOptions): FindOptions {
         options.include = [
-            'model',
+            {
+                association: 'model',
+                include: [
+                    { association: 'modelComputer', include: ['memoryRamType'] },
+                    { association: 'modelLaptop', include: ['memoryRamType'] }
+                ]
+            },
             'category',
             'brand',
             'status',
@@ -12,11 +18,11 @@ export class DeviceAssociation {
             {
                 association: 'computer',
                 include: [
-                    { association: 'processor'},
-                    { association: 'hardDriveCapacity'},
-                    { association: 'hardDriveType'},
-                    { association: 'operatingSystem'},
-                    { association: 'operatingSystemArq'},
+                    { association: 'processor' },
+                    { association: 'hardDriveCapacity' },
+                    { association: 'hardDriveType' },
+                    { association: 'operatingSystem' },
+                    { association: 'operatingSystemArq' },
                 ]
             },
             {

@@ -1,6 +1,6 @@
-import { type Primitives } from '../../../shared/domain/value-object/Primitives'
-import { BrandId } from '../../brand/domain/BrandId'
-import { CategoryId } from '../../category/domain/CategoryId'
+import { type Primitives } from '../../../../shared/domain/value-object/Primitives'
+import { BrandId } from '../../../brand/domain/BrandId'
+import { CategoryId } from '../../../category/domain/CategoryId'
 import { type ModelId } from './ModelId'
 import { ModelName } from './ModelName'
 

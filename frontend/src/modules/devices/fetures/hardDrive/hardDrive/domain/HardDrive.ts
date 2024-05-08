@@ -9,7 +9,7 @@ import { DeviceEmployee } from '../../../../devices/devices/domain/DeviceEmploye
 import { DeviceObservation } from '../../../../devices/devices/domain/DeviceObservation'
 import { DeviceSerial } from '../../../../devices/devices/domain/DeviceSerial'
 import { StatusId } from '../../../../devices/status/domain/StatusId'
-import { ModelId } from '../../../../model/domain/ModelId'
+import { ModelId } from '../../../../model/model/domain/ModelId'
 import { HardDriveCapacityId } from '../../hardDriveCapacity/domain/HardDriveCapacityId'
 import { HardDriveTypeId } from '../../hardDriveType/domain/HardDriveTypeId'
 import { HardDriveHealth } from './HardDriveHealth'

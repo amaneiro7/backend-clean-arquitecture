@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useAppContext } from '../../Context/AppContext'
 import { useModel } from './useMode'
 import { toastMessage } from '../../utils/toaster'
-import { type ModelPrimitives } from '../../../modules/devices/model/domain/Model'
+import { type ModelPrimitives } from '../../../modules/devices/model/model/domain/Model'
 
 export const enum FormStatus {
   Loading,

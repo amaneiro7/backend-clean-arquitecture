@@ -13,17 +13,26 @@ import { ModelSeriesModel } from './ModelSeriesSchema'
 
 export class SequelizeModelSeriesRepository implements ModelSeriesRepository {
   private readonly models = sequelize.models as unknown as Models
-  async searchAll (): Promise<ModelSeriesPrimitives[]> {
-    return await ModelSeriesModel.findAll({ include: ['category', 'brand', 'modelComputer', 'modelLaptop', 'modelMonitor', 'modelPrinter'] })
+  async searchAll(): Promise<ModelSeriesPrimitives[]> {
+    return await ModelSeriesModel.findAll({
+      include: [
+        'category',
+        'brand',
+        'modelPrinter',
+        'modelMonitor',
+        { association: 'modelLaptop', include: ['memoryRamType'] },
+        { association: 'modelComputer', include: ['memoryRamType'] }
+      ]
+    })
   }
 
-  async searchById (id: string): Promise<ModelSeriesPrimitives | null> {
+  async searchById(id: string): Promise<ModelSeriesPrimitives | null> {
     return await ModelSeriesModel.findByPk(id, {
       include: ['category', 'brand', 'modelComputer', 'modelLaptop', 'modelMonitor', 'modelPrinter']
     }) ?? null
   }
 
-  async searchByCategory (categoryId: Primitives<CategoryId>): Promise<ModelSeriesPrimitives[]> {
+  async searchByCategory(categoryId: Primitives<CategoryId>): Promise<ModelSeriesPrimitives[]> {
     return await ModelSeriesModel.findAll(
       {
         where: { categoryId },
@@ -31,7 +40,7 @@ export class SequelizeModelSeriesRepository implements ModelSeriesRepository {
       })
   }
 
-  async searchByName (name: string): Promise<ModelSeriesPrimitives | null> {
+  async searchByName(name: string): Promise<ModelSeriesPrimitives | null> {
     return await ModelSeriesModel.findOne(
       {
         where: { name },
@@ -39,7 +48,7 @@ export class SequelizeModelSeriesRepository implements ModelSeriesRepository {
       }) ?? null
   }
 
-  async save (payload: ModelSeriesPrimitives): Promise<void> {
+  async save(payload: ModelSeriesPrimitives): Promise<void> {
     const { id, name, categoryId, brandId } = payload
     const model = await ModelSeriesModel.findByPk(id) ?? null
 
@@ -67,23 +76,23 @@ export class SequelizeModelSeriesRepository implements ModelSeriesRepository {
     }
   }
 
-  private async createModelComputerIfCategoryMatches (id: Primitives<ModelSeriesId>, payload: ModelSeriesPrimitives): Promise<void> {
+  private async createModelComputerIfCategoryMatches(id: Primitives<ModelSeriesId>, payload: ModelSeriesPrimitives): Promise<void> {
     await this.models.ModelComputer.create({ modelSeriesId: id, ...payload })
   }
 
-  private async createModelLaptopIfCategoryMatches (id: Primitives<ModelSeriesId>, payload: ModelSeriesPrimitives): Promise<void> {
+  private async createModelLaptopIfCategoryMatches(id: Primitives<ModelSeriesId>, payload: ModelSeriesPrimitives): Promise<void> {
     await this.models.ModelLaptop.create({ modelSeriesId: id, ...payload })
   }
 
-  private async createModelMonitorIfCategoryMatches (id: Primitives<ModelSeriesId>, payload: ModelSeriesPrimitives): Promise<void> {
+  private async createModelMonitorIfCategoryMatches(id: Primitives<ModelSeriesId>, payload: ModelSeriesPrimitives): Promise<void> {
     await this.models.ModelMonitor.create({ modelSeriesId: id, ...payload })
   }
 
-  private async createModelPrinterIfCategoryMatches (id: Primitives<ModelSeriesId>, payload: ModelSeriesPrimitives): Promise<void> {
+  private async createModelPrinterIfCategoryMatches(id: Primitives<ModelSeriesId>, payload: ModelSeriesPrimitives): Promise<void> {
     await this.models.ModelPrinter.create({ modelSeriesId: id, ...payload })
   }
 
-  async remove (id: string): Promise<void> {
+  async remove(id: string): Promise<void> {
     await ModelSeriesModel.destroy({ where: { id } })
   }
 }

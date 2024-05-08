@@ -14,6 +14,7 @@ import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestruct
 import { SpinnerSKCircle } from '../../components/Loading/spinner-sk-circle'
 import { InputSkeletonLoading } from'../../components/skeleton/inputSkeletonLoading'
 import { TypeOfSiteId } from '../../../modules/location/typeofsites/domain/typeOfSiteId'
+import TableSkeleton from '../../components/skeleton/TableSkeleton'
 
 const HeaderInput = lazy(async () => import('../../components/HeaderInput').then(m => ({ default: m.HeaderInput })))
 const Main = lazy(async () => import('../../components/Main'))
@@ -161,7 +162,7 @@ export default function AdministrativeSitePerEmployee() {
         </Suspense>
         {loading && <SpinnerSKCircle />}
         {(!loading && employeeWithDevives.length === 0) && <p>No hay resultados</p>}
-        {(!loading && employeeWithDevives.length > 0) && <Suspense fallback={<p>...Loading</p>}>
+        {(!loading && employeeWithDevives.length > 0) && <Suspense fallback={<TableSkeleton />}>
           <Table ref={tableRef} className=''>
             <TableHeader>
               <TableRow>
@@ -187,21 +188,21 @@ export default function AdministrativeSitePerEmployee() {
               {(employeeWithDevives as unknown as EmployeeDevicesMappedApiResponse[]).map((employee) => (
                 <TableRow key={employee?.id}>
                   <TableCellEditDeleteIcon state={employee} url={`/employee/edit/${employee.id}`} />
-                  <TableCell value={employee?.userName} />
-                  <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => computer.location.name).join(' / ')} />
-                  <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => computer.computer.computerName).join(' / ')} />
-                  <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => computer.computer.operatingSystem.name).join(' / ')} />
-                  <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => computer.computer.operatingSystemArq.name).join(' / ')} />
-                  <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => computer.computer.ipAddress).join(' / ')} />
-                  <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => computer.brand.name).join(' / ')} />
-                  <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => computer.category.name).join(' / ')} />
-                  <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => `${computer.computer.memoryRamCapacity} Gb`).join(' / ')} />
-                  <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => `${computer.computer.hardDriveCapacity.name} Gb`).join(' / ')} />
-                  <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => computer.computer.hardDriveType.name).join(' / ')} />
-                  <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => computer.serial).join(' / ')} />
-                  <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => computer.model.name).join(' / ')} />
-                  <TableCell value={employee?.monitores?.length < 1 ? 'N/A' : employee.monitores.map(monitor => `${monitor.brand.name} ${monitor.model.name}`).join(' / ')} />
-                  <TableCell value={employee?.computers?.length < 1 ? 'N/A' : employee.computers.map(computer => computer.computer.processor.numberModel).join(' / ')} />
+                  <TableCell value={employee?.userName} url={`/employee/edit/${employee?.id}`} />
+                  <TableCell value={employee?.computers?.length < 1 ? '' : employee.computers.map(computer => computer.location.name).join(' / ')} />
+                  <TableCell value={employee?.computers?.length < 1 ? '' : employee.computers.map(computer => computer.computer.computerName).join(' / ')} />
+                  <TableCell value={employee?.computers?.length < 1 ? '' : employee.computers.map(computer => computer.computer.operatingSystem.name).join(' / ')} />
+                  <TableCell value={employee?.computers?.length < 1 ? '' : employee.computers.map(computer => computer.computer.operatingSystemArq.name).join(' / ')} />
+                  <TableCell value={employee?.computers?.length < 1 ? '' : employee.computers.map(computer => computer.computer.ipAddress).join(' / ')} />
+                  <TableCell value={employee?.computers?.length < 1 ? '' : employee.computers.map(computer => computer.brand.name).join(' / ')} />
+                  <TableCell value={employee?.computers?.length < 1 ? '' : employee.computers.map(computer => computer.category.name).join(' / ')} />
+                  <TableCell value={employee?.computers?.length < 1 ? '' : employee.computers.map(computer => `${computer.computer.memoryRamCapacity} Gb`).join(' / ')} />
+                  <TableCell value={employee?.computers?.length < 1 ? '' : employee.computers.map(computer => `${computer.computer.hardDriveCapacity.name} Gb`).join(' / ')} />
+                  <TableCell value={employee?.computers?.length < 1 ? '' : employee.computers.map(computer => computer.computer.hardDriveType.name).join(' / ')} />
+                  <TableCell value={employee?.computers?.length < 1 ? '' : employee.computers.map(computer => computer.serial).join(' / ')} />
+                  <TableCell value={employee?.computers?.length < 1 ? '' : employee.computers.map(computer => computer.model.name).join(' / ')} />
+                  <TableCell value={employee?.monitores?.length < 1 ? '' : employee.monitores.map(monitor => `${monitor.brand.name} ${monitor.model.name}`).join(' / ')} />
+                  <TableCell value={employee?.computers?.length < 1 ? '' : employee.computers.map(({computer: { processor}}) => `${processor.productCollection} ${processor.numberModel}`).join(' / ')} />
                 </TableRow>
               ))}
             </TableBody>

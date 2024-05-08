@@ -7,7 +7,7 @@ import { type Primitives } from '../../../modules/shared/domain/value-object/Pri
 import { type DeviceSerial } from '../../../modules/devices/devices/devices/domain/DeviceSerial'
 import { type DeviceActivo } from '../../../modules/devices/devices/devices/domain/DeviceActivo'
 import { type StatusId } from '../../../modules/devices/devices/status/domain/StatusId'
-import { type ModelId } from '../../../modules/devices/model/domain/ModelId'
+import { type ModelId } from '../../../modules/devices/model/model/domain/ModelId'
 import { type CategoryId } from '../../../modules/devices/category/domain/CategoryId'
 import { type BrandId } from '../../../modules/devices/brand/domain/BrandId'
 import { type ProcessorId } from '../../../modules/devices/fetures/processor/domain/ProcessorId'

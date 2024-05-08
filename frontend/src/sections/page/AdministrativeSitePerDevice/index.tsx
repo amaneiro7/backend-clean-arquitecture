@@ -8,7 +8,7 @@ import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestruct
 import { useAppContext } from '../../Context/AppContext'
 import { useInputsData } from './useInputData'
 import { useDevice } from '../../Device/device/useDevice'
-import { Computer } from '../../../modules/devices/fetures/computer/domain/Computer'
+// import { Computer } from '../../../modules/devices/fetures/computer/domain/Computer'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
 import { StatusId } from '../../../modules/devices/devices/status/domain/StatusId'
 
@@ -78,12 +78,6 @@ export default function AdministrativeSitePage() {
       }]
     })
   }
-
-  const defaultHeaderTitle = ['Acciones', 'Usuario', 'Ubicación', 'Categoria', 'Serial', 'Activo', 'Marca', 'Modelo', 'Observaciones']
-  const isComputerFilter = Computer.isComputerCategory({ categoryId: inputData.categoryId })
-  const headerTitle: string[] = isComputerFilter
-    ? defaultHeaderTitle.concat(['Nombre de Equipo', 'Procesador', 'Memoria Ram', 'Disco Duro', 'Tipo', 'Sistema Operativo', 'Arquitectura', 'Dirección IP'])
-    : defaultHeaderTitle
 
   return (
     <Suspense>
@@ -175,9 +169,23 @@ export default function AdministrativeSitePage() {
           <Table ref={tableRef} className=''>
             <TableHeader>
               <TableRow>
-                {headerTitle.map((title, index) => (
-                  <TableHead key={index} name={title} />
-                ))}
+                <TableHead name='Acciones' />
+                <TableHead name='Usuario' />
+                <TableHead name='Ubicación' />
+                <TableHead name='Categoria' />
+                <TableHead name='Serial' />
+                <TableHead name='Activo' />
+                <TableHead name='Marca' />
+                <TableHead name='Modelo' />
+                <TableHead name='Observaciones' />
+                <TableHead name='Nombre de Equipo' />
+                <TableHead name='Procesador' />
+                <TableHead name='Memoria Ram' />
+                <TableHead name='Disco Duro' />
+                <TableHead name='Tipo' />
+                <TableHead name='Sistema Operativo' />
+                <TableHead name='Arquitectura' />
+                <TableHead name='Dirección IP' />
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -192,18 +200,14 @@ export default function AdministrativeSitePage() {
                   <TableCell value={device.brandName} />
                   <TableCell value={device.modelName} />
                   <TableCell value={device.observation} />
-                  {isComputerFilter &&
-                    <>
-                      <TableCell value={device?.computer?.computerName} />
-                      <TableCell value={device?.computer?.processor?.numberModel} />
-                      <TableCell value={device?.computer?.memoryRamCapacity} />
-                      <TableCell value={device?.computer?.hardDriveCapacity?.name} />
-                      <TableCell value={device?.computer?.hardDriveType?.name} />
-                      <TableCell value={device?.computer?.operatingSystem?.name} />
-                      <TableCell value={device?.computer?.operatingSystemArq?.name} />
-                      <TableCell value={device?.computer?.ipAddress} />
-                    </>
-                  }
+                  <TableCell value={device?.computer?.computerName} />
+                  <TableCell value={device?.computer ? `${device?.computer?.processor?.productCollection} ${device?.computer?.processor?.numberModel}` : ''} />
+                  <TableCell value={device?.computer ? `${device?.computer?.memoryRamCapacity} Gb` : ''} />
+                  <TableCell value={device?.computer ? `${device?.computer?.hardDriveCapacity?.name} Gb` : ''} />
+                  <TableCell value={device?.computer?.hardDriveType?.name} />
+                  <TableCell value={device?.computer?.operatingSystem?.name} />
+                  <TableCell value={device?.computer?.operatingSystemArq?.name} />
+                  <TableCell value={device?.computer?.ipAddress} />
                 </TableRow>
               ))}
             </TableBody>

@@ -19,7 +19,7 @@ export function initMemoryRamTypeModel (sequelize: Sequelize): void {
   MemoryRamTypeModel.init(
     {
       id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         primaryKey: true,
         allowNull: false
       },

@@ -1,9 +1,10 @@
+import { Primitives } from '../../../../Shared/domain/value-object/Primitives'
 import { MemoryRamTypeId } from './MemoryRamTypeId'
 import { MemoryRamTypeName } from './MemoryRamTypeName'
 
 export interface MemoryRamTypePrimitives {
-  id: number
-  name: string
+  id: Primitives<MemoryRamTypeId>
+  name: Primitives<MemoryRamTypeName>
 }
 
 export class MemoryRamType {
@@ -19,18 +20,18 @@ export class MemoryRamType {
     )
   }
 
-  toPrimitive (): any {
+  toPrimitive (): MemoryRamTypePrimitives {
     return {
       id: this.id.value,
       name: this.name.value
     }
   }
 
-  get idValue (): number {
+  get idValue (): Primitives<MemoryRamTypeId> {
     return this.id.value
   }
 
-  get nameValue (): string {
+  get nameValue (): Primitives<MemoryRamTypeName> {
     return this.name.value
   }
 }

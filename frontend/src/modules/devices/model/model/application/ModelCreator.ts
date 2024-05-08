@@ -1,4 +1,4 @@
-import { type Repository } from '../../../shared/domain/repository'
+import { type Repository } from '../../../../shared/domain/repository'
 import { Model, type ModelPrimitives } from '../domain/Model'
 import { ModelId } from '../domain/ModelId'
 

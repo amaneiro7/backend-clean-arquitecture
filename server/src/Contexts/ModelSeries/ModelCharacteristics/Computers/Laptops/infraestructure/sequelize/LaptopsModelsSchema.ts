@@ -62,7 +62,7 @@ export function initLaptopModels (sequelize: Sequelize): void {
         }
       },
       memoryRamTypeId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false
       },
       memoryRamSlotQuantity: {

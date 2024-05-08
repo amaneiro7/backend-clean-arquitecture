@@ -5,7 +5,7 @@ import { type BrandId } from '../../../modules/devices/brand/domain/BrandId'
 import { type StatusId } from '../../../modules/devices/devices/status/domain/StatusId'
 import { type DeviceActivo } from '../../../modules/devices/devices/devices/domain/DeviceActivo'
 import { type DeviceSerial } from '../../../modules/devices/devices/devices/domain/DeviceSerial'
-import { type ModelId } from '../../../modules/devices/model/domain/ModelId'
+import { type ModelId } from '../../../modules/devices/model/model/domain/ModelId'
 
 export interface InputData {
   categoryId: Primitives<CategoryId>

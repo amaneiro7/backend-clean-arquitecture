@@ -9,7 +9,7 @@ import { ApiMemoryRamTypeRepository } from '../../devices/fetures/memoryRam/memo
 import { ApiOperatingSystemRepository } from '../../devices/fetures/operatingSystem/operatingSystem/infrastructure/ApiOperatingSystemRepository'
 import { ApiOperatingSystemArqRepository } from '../../devices/fetures/operatingSystem/operatingSystemArq/infrastructure/ApiOperatingSystemArqRepository'
 import { ApiProcessorRepository } from '../../devices/fetures/processor/infrastructure/ApiProcessorRepository'
-import { ApiModelRepository } from '../../devices/model/infraestructure/ApiModelRepository'
+import { ApiModelRepository } from '../../devices/model/model/infraestructure/ApiModelRepository'
 import { ApiRoleRepository } from '../../user/role/infrastructure/ApiRoleRepository'
 import { ApiAuthRepository } from '../../user/auth/infraestructure/ApiAuthRepository'
 import { SessionStorageRepository } from '../../user/user/infrastructure/SessionStorageRepository'

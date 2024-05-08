@@ -8,7 +8,7 @@ import { type MemoryRamTypeRepository } from '../../devices/fetures/memoryRam/me
 import { type OperatingSystemRepository } from '../../devices/fetures/operatingSystem/operatingSystem/domain/OperatingSystemRepository'
 import { type OperatingSystemArqRepository } from '../../devices/fetures/operatingSystem/operatingSystemArq/domain/OperatingSystemArqRepository'
 import { type ProcessorRepository } from '../../devices/fetures/processor/domain/ProcessorRepository'
-import { type ModelRepository } from '../../devices/model/domain/ModelRepository'
+import { type ModelRepository } from '../../devices/model/model/domain/ModelRepository'
 import { type VicepresidenciaEjecutivaRepository } from '../../employee/area/vicepresidenciaejecutiva/domain/VicepresidenciaEjecutivaRepository'
 import { type VicepresidenciaRepository } from '../../employee/area/vicepresidencia/domain/VicepresidenciaRepository'
 import { type GerenciaRepository } from '../../employee/area/gerencia/domain/gerenciaRepository'
