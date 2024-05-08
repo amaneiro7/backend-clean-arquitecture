@@ -3,10 +3,10 @@ import { useDeviceForm, FormStatus } from '../../Device/device/useDeviceForm'
 import { useDeviceInitialState } from './DeviceFormInitialState'
 import { useGenericFormData } from '../../Hooks/useGenericFormData'
 import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoading'
-import Main from '../../components/Main'
-import DeviceSearchComboBox from '../../components/combo_box/DeviceSearchComboBox'
 
+const Main = lazy(async () => import('../../components/Main'))
 const FormContainer = lazy(async () => await import('../../components/formContainer'))
+const DeviceSearchComboBox = lazy (async () => import('../../components/combo_box/DeviceSearchComboBox'))
 const SerialInput = lazy(async () => await import('../../components/text-inputs/SerialInput'))
 const ActivoInput = lazy(async () => await import('../../components/text-inputs/ActivoInput'))
 const ObservationInput = lazy(async () => await import('../../components/text-inputs/ObservationInput'))

@@ -20,8 +20,8 @@ export class SequelizeEmployeeRepository extends CriteriaToSequelizeConverter im
     return await EmployeeModel.findAll(locationJoin)    
   }
 
-  async searchById (employeeId: string): Promise<EmployeePrimitives | null> {
-    return await EmployeeModel.findByPk(employeeId, {
+  async searchById (id: string): Promise<EmployeePrimitives | null> {
+    return await EmployeeModel.findByPk(id, {
       include: [
         {
           association: 'devices',

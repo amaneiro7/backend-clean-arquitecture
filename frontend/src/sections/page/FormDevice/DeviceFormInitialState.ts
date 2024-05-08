@@ -99,7 +99,6 @@ export const useDeviceInitialState = (): {
       setPreloadedDeviceState(defaultInitialState)
       return
     }
-
     if (location.state?.state !== undefined) {
       const { state } = location.state
       processDeviceState(state)

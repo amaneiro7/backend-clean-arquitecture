@@ -83,7 +83,7 @@ export class ApiDeviceRepository implements DeviceRepository {
       }) satisfies DevicesMappedApiResponse))
   }
 
-  async getById ({ id }: { id: DeviceId }): Promise<DevicePrimitives> {
+  async getById ({ id }: { id: DeviceId }): Promise<DevicePrimitives> {    
     return await makeRequest<DevicesApiResponse>({ method: 'GET', endpoint: `${this.endpoint}/${id.value}` })
       .then(data => ({
         id: data.id,
@@ -100,7 +100,7 @@ export class ApiDeviceRepository implements DeviceRepository {
         locationId: data.location.id,
         locationName: data.location.name,
         observation: data.observation ?? '',
-        employeeId: data.employee?.id ?? null,
+        employeeId: data.employee?.id ?? '',
         employeeUserName: data.employee?.userName ?? '',
         computer: data.computer,
         hardDrive: data.hardDrive,

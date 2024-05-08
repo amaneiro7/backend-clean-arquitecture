@@ -3,7 +3,6 @@ import { type NextFunction, type Request, type Response } from 'express'
 import { type Repository } from '../../../../../Contexts/Shared/domain/Repository'
 import httpStatus from 'http-status'
 import { DeviceFinder } from '../../../../../Contexts/Device/Device/application/DeviceFinder'
-import { DeviceId } from '../../../../../Contexts/Device/Device/domain/DeviceId'
 import { SearchByCriteriaQuery } from '../../../../../Contexts/Shared/domain/SearchByCriteriaQuery'
 import { DeviceByCriteriaSearcher } from '../../../../../Contexts/Device/Device/application/DeviceByCriteriaSearcher'
 import { type FiltersPrimitives } from '../../../../../Contexts/Shared/domain/criteria/Filter'
@@ -13,7 +12,7 @@ export class DeviceGetController {
   getById = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const { id } = req.params
-      const data = await new DeviceFinder(this.repository).searchById(new DeviceId(id))
+      const data = await new DeviceFinder(this.repository).searchById(id)
       res.status(httpStatus.OK).json(data)
     } catch (error) {
       next(error)

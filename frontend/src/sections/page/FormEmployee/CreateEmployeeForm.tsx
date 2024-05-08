@@ -51,8 +51,6 @@ export default function CreateEmployeeForm() {
     navigate('/')
   }
 
-  console.log(location.key)
-
   const handleChange = (name: string, value: string) => {
     updateForm({ [name]: value })
   }

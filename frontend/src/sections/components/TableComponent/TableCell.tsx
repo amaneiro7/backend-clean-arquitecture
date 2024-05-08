@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-export default function TableCell({ value, url }: { value: string | number, url?: string }) {
+export default function TableCell({ value, url, state }: { value: string | number, url?: string, state?: Object }) {
   const className = "w-full max-w-[160px] text-left align-middle whitespace-nowrap text-ellipsis overflow-x-hidden overflow-y-visible break-words cursor-default"
   return (
     <td
@@ -9,7 +9,7 @@ export default function TableCell({ value, url }: { value: string | number, url?
       aria-label={`${value}`}
       title={`${value}`}
     >
-      {url ? <CellWithUrl value={value} className={className} url={url} /> : <NormalCell value={value} className={className} />}
+      {url ? <CellWithUrl state={state} value={value} className={className} url={url} /> : <NormalCell value={value} className={className} />}
     </td>)
 }
 
@@ -20,7 +20,7 @@ function NormalCell({ value, className }: { value: string | number, className: s
     </p>
   )
 }
-function CellWithUrl({ value, className, url }: { value: string | number, className: string, url: string }) {
+function CellWithUrl({ value, className, url, state }: { value: string | number, className: string, url: string, state?: Object }) {
   const [isHovered, setIsHovered] = useState(false)
   return (
     <p

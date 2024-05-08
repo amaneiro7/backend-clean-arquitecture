@@ -22,8 +22,8 @@ export class SequelizeDeviceRepository extends CriteriaToSequelizeConverter impl
       filtered = (data as unknown as DevicesApiResponse[]).filter(res => res.location !== null)
     }
     ['processor', 'hardDriveCapacity', 'hardDriveType', 'operatingSystem', 'operatingSystemArq'].forEach(ele => {
-      if (criteria.searchValueInArray(ele)) {        
-        filtered = (data as unknown as DevicesApiResponse[]).filter(res => {          
+      if (criteria.searchValueInArray(ele)) {
+        filtered = (data as unknown as DevicesApiResponse[]).filter(res => {
           return res.computer !== null
         })
       }
@@ -35,15 +35,20 @@ export class SequelizeDeviceRepository extends CriteriaToSequelizeConverter impl
   async searchById(id: string): Promise<DevicePrimitives | null> {
     return await DeviceModel.findByPk(id, {
       include: [
-        {
-          association: 'model',
-          include: ['category', 'brand']
-        },
+        'model',
+        'category',
+        'brand',
         'status',
+        'employee',
         {
           association: 'computer',
           include: ['processor', 'hardDriveCapacity', 'hardDriveType', 'operatingSystem', 'operatingSystemArq']
-        }
+        },
+        {
+          association: 'hardDrive',
+          include: ['hardDriveCapacity', 'hardDriveType']
+        },
+        'location'
       ]
     }) ?? null
   }

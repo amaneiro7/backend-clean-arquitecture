@@ -187,7 +187,7 @@ export default function AdministrativeSitePage() {
                   <TableCell value={device.employeeUserName} url={`/employee/edit/${device.employeeId}`} />
                   <TableCell value={device.locationName} />
                   <TableCell value={device.categoryName} />
-                  <TableCell value={device.serial ?? 'Sin Serial'} url={`/device/edit/${device.id}`} />
+                  <TableCell value={device.serial ?? 'Sin Serial'} state={device} url={`/device/edit/${device.id}`} />
                   <TableCell value={device.activo ?? 'Sin Activo'} />
                   <TableCell value={device.brandName} />
                   <TableCell value={device.modelName} />

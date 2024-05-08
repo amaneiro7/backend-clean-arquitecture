@@ -41,7 +41,6 @@ export const useEmployeeInitialState = () => {
     } else {
       getEmployee.getById(id)
         .then(employee => {
-          console.log('employee fetching',employee)
           setPreloadedEmployeeState(employee as defaultProps)
         })
         .catch(error => {
