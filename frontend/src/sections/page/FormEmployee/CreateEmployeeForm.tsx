@@ -76,11 +76,11 @@ export default function CreateEmployeeForm() {
             />
           </Suspense>
         {formData.devices.length > 0 &&
-          formData.devices.map(({id, category,brand, model, serial, location, computer}) =>
+          formData.devices.map(({id, category, brand, model, serial, location, computer}) =>
             (
               <Suspense key={id}>
                 <InfoBox>
-                  <InfoBoxTitle title={category?.name} />
+                  <InfoBoxTitle title={category?.name} url={`/device/edit/${id}`} />
                   <InfoBoxText desc='Marca' text={brand?.name}/>
                   <InfoBoxText desc='Modelo' text={model?.name}/>
                   <InfoBoxText desc='Serial' text={serial}/>
