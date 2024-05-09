@@ -20,8 +20,7 @@ export function MemoryRamCapacitySlotInput({ value, index, onChange, type = 'for
   const [isError, setIsError] = useState(false)  
   
   useLayoutEffect(() => {
-    if (type !== 'form') return
-    console.log('index',value)
+    if (type !== 'form') return    
     const isValid = MemoryRamCapacity.isValid(value, status)
 
     setIsError(!isValid)
