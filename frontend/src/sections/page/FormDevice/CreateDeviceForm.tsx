@@ -21,7 +21,7 @@ const DeviceFeatures = lazy(async () => await import('../../Device/device/compon
 
 export default function CreateDeviceForm() {
   const location = useLocation()
-  const { preloadedDeviceState, setResetState } = useDeviceInitialState()
+  const { preloadedDeviceState, setResetState, isAddForm } = useDeviceInitialState()
   const { formData, updateForm, resetForm } = useGenericFormData(preloadedDeviceState)
   const { formStatus, submitForm, resetFormStatus } = useDeviceForm()
 
@@ -76,8 +76,9 @@ export default function CreateDeviceForm() {
                 value={formData.categoryId}
                 onChange={handleChange}
                 type='form'
+                isAdd={isAddForm}
               />
-            </Suspense>
+            </Suspense>            
             <Suspense fallback={<InputSkeletonLoading />}>
               <StatusComboBox
                 value={formData.statusId}
@@ -94,6 +95,7 @@ export default function CreateDeviceForm() {
                 onChange={handleChange}
                 categoryId={formData.categoryId}
                 type='form'
+                isAdd={isAddForm}
               />
             </Suspense>
             <Suspense fallback={<InputSkeletonLoading />}>
@@ -103,6 +105,7 @@ export default function CreateDeviceForm() {
                 categoryId={formData.categoryId}
                 brandId={formData.brandId}
                 type='form'
+                isAdd={isAddForm}
               />
             </Suspense>
 
@@ -112,7 +115,8 @@ export default function CreateDeviceForm() {
               <SerialInput
                 value={formData.serial}
                 onChange={handleChange}
-                isForm={true}
+                type='form'
+                isAdd={isAddForm}
               />
             </Suspense>
             <Suspense fallback={<InputSkeletonLoading />}>

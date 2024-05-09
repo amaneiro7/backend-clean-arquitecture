@@ -11,11 +11,13 @@ interface Props {
     value: Primitives<CategoryId>    
     onChange: OnHandleChange
     type?: 'form' | 'search'
+    isAdd?: boolean
   }
 
   const ComboBox = lazy(async() => import("./combo_box"));  
+  const ReadOnlyInputBox = lazy(async () => import("../ReadOnlyInputBox").then(m => ({ default: m.ReadOnlyInputBox })))
 
-export default function CategoryComboBox ({ value, onChange, type = 'search' }: Props) {
+export default function CategoryComboBox ({ value, onChange, type = 'search', isAdd = false }: Props) {
     const { repository } = useAppContext()
     const { categories, loading } = useCategory(repository)
 
@@ -23,8 +25,10 @@ export default function CategoryComboBox ({ value, onChange, type = 'search' }: 
         return categories.find(category => category.id === value)
     }, [categories, value])
 
+
     return (
         <Suspense fallback={<InputSkeletonLoading />}>
+            {(!isAdd && type === 'form') ? <ReadOnlyInputBox label="Categoria" value={initialValue?.name} /> :
             <ComboBox
                 id='categoryId'
                 initialValue={initialValue}
@@ -32,15 +36,14 @@ export default function CategoryComboBox ({ value, onChange, type = 'search' }: 
                 name='categoryId'
                 type={type}
                 onChange={(_, newValue) => {
-                    onChange('categoryId', newValue ? newValue.id : '', Operator.EQUAL)
-                    
+                    onChange('categoryId', newValue ? newValue.id : '', Operator.EQUAL)                    
                 }}
                 options={categories}
                 isRequired={type === 'form'}
                 isDisabled={false}
                 loading={loading}
             >
-            </ComboBox>
+            </ComboBox>}
         </Suspense>
     )
 }
