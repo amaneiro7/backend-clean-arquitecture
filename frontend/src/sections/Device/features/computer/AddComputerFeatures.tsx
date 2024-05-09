@@ -1,12 +1,14 @@
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, useMemo } from 'react'
 import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
-import { Computer, type ComputerPrimitives } from '../../../../modules/devices/fetures/computer/domain/Computer'
+import { Computer } from '../../../../modules/devices/fetures/computer/domain/Computer'
 import { InputSkeletonLoading } from '../../../components/skeleton/inputSkeletonLoading'
 import MacAddressInput from '../../../components/text-inputs/MacAddressInput'
+import { DefaultProps } from '../../../page/FormDevice/DeviceFormInitialState'
+import { MemoryRamCapacitySlotInput } from '../../../components/number-inputs/MemoryRamCapacitySlotInput'
 
 interface Props {
   onChange: OnHandleChange
-  formData: ComputerPrimitives
+  formData: DefaultProps
 }
 
 const ComputerNameInput = lazy(async () => import('../../../components/text-inputs/ComputerNameInput').then(m => ({ default: m.ComputerNameInput })))
@@ -20,6 +22,13 @@ const IpAddressInput = lazy(async () => import('../../../components/text-inputs/
 
 export default function AddComputerFeatures({ formData, onChange }: Props) {
   const isComputerLaptopAllinOneDevice = Computer.isComputerCategory({ categoryId: formData.categoryId })
+
+  const renderInputs = useMemo(() => {
+    const inputs = formData.memoryRamSlotQuantity ? new Array(formData.memoryRamSlotQuantity).fill('').map((_, index) => index) : []
+    formData.memoryRamSlot = []
+    return inputs
+  }, [formData.memoryRamSlotQuantity])
+
 
   return (
     <>
@@ -40,6 +49,18 @@ export default function AddComputerFeatures({ formData, onChange }: Props) {
               value={formData.processorId}
             />
           </Suspense>
+          {
+            renderInputs.map((_, index) => (
+              <MemoryRamCapacitySlotInput
+                key={index} 
+                index={index}
+                type='form'
+                onChange={onChange}
+                value={formData.memoryRamSlot[index]}
+                status={formData.statusId}
+              />
+            ))
+          }
           <Suspense fallback={<InputSkeletonLoading />}>
             <MemoryRamCapacityInput
               onChange={onChange}

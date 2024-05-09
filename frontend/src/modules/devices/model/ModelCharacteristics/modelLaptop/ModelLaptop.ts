@@ -1,0 +1,76 @@
+import { Primitives } from "../../../../shared/domain/value-object/Primitives";
+import { BrandId } from "../../../brand/domain/BrandId";
+import { CategoryDefaultData, CategoryValues } from "../../../category/domain/CategoryDefaultData";
+import { CategoryId } from "../../../category/domain/CategoryId";
+import { MemoryRamTypeId } from "../../../fetures/memoryRam/memoryRamType/domain/MemoryRamTypeId";
+import { ModelName } from "../../model/domain/ModelName";
+import { MemoryRamSlotQuantity } from "../modelComputer/MemoryRamQuantity";
+import { ModelComputer, ModelComputerPrimitives } from "../modelComputer/ModelComputer";
+import { BatteryModel } from "./BatteryModel";
+
+export interface ModelLaptopPrimitives extends ModelComputerPrimitives {
+    batteryModel: Primitives<BatteryModel>
+    
+}
+
+export class ModelLaptop extends ModelComputer {
+    constructor(
+        name: ModelName,
+        categoryId: CategoryId,
+        brandId: BrandId,
+        memoryRamTypeId: MemoryRamTypeId,
+        memoryRamQuantity: MemoryRamSlotQuantity,
+        hasBluetooth: boolean,
+        hasWifiAdapter: boolean,
+        hasDVI: boolean,
+        hasHDMI: boolean,
+        hasVGA: boolean,
+        private readonly batterryModel: BatteryModel
+    ) {
+        super(name, categoryId, brandId, memoryRamTypeId, memoryRamQuantity, hasBluetooth, hasWifiAdapter, hasDVI, hasHDMI, hasVGA)
+        if (!ModelLaptop.isLaptopCategory({ categoryId: categoryId.value })) {
+            throw new Error('No Pertenece a esta categoria')
+        }
+    }
+
+    static isLaptopCategory ({ categoryId }: { categoryId: Primitives<CategoryId> }): boolean {
+        const AcceptedComputerCategories: CategoryValues[] = ['Laptops']
+        return AcceptedComputerCategories.includes(CategoryDefaultData[categoryId])
+      }
+
+      public static create(params: ModelLaptopPrimitives) {
+        return new ModelLaptop(
+          new ModelName(params.name),
+          new CategoryId(params.categoryId),
+          new BrandId(params.brandId),
+          new MemoryRamTypeId(params.memoryRamTypeId),
+          new MemoryRamSlotQuantity(params.memoryRamQuantity),
+          params.hasBluetooth,
+          params.hasWifiAdapter,
+          params.hasDVI,
+          params.hasHDMI,
+          params.hasVGA,
+          new BatteryModel(params.batteryModel)
+        )
+      }
+
+      batteryModelValue (): Primitives<BatteryModel> {
+        return this.batterryModel.value
+      }
+
+      toPrimitives(): ModelLaptopPrimitives {
+        return {
+          name: this.nameValue(),
+          categoryId: this.categoryValue(),
+          brandId: this.brandValue(),
+          memoryRamTypeId: this.memoryRamTypeValue(),
+          memoryRamQuantity: this.memoryRamQuantityValue(),
+          hasBluetooth: this.hasBluetoothValue(),
+          hasWifiAdapter: this.hasWifiAdapterValue(),
+          hasDVI: this.hasDVIValue(),
+          hasHDMI: this.hasHDMIValue(),
+          hasVGA: this.hasVGAValue(),
+          batteryModel: this.batteryModelValue()
+        }
+      }
+}

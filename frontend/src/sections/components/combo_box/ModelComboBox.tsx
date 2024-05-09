@@ -38,8 +38,8 @@ export default function ModelComboBox ({ value, onChange, categoryId, brandId, t
 
     const filterdModel = useMemo(() => {
         return (models as unknown as ModelApiresponse[]).filter(model => {
-          const category = model.categoryId === categoryId || (categoryId === undefined || categoryId === '')
-          const brand = model.brandId === brandId || (brandId === undefined || brandId === '')
+          const category = model.categoryId === categoryId || !categoryId
+          const brand = model.brandId === brandId || !brandId
           return category && brand
         })
       }, [models, categoryId, brandId])
@@ -62,8 +62,9 @@ export default function ModelComboBox ({ value, onChange, categoryId, brandId, t
                     } else if (newValue && newValue.inputValue) {
                         toggleOpen(true);
                         setDialogValue(prev => ({...prev, name: newValue.inputValue}));
-                    } else {
+                    } else {                        
                         onChange('modelId', newValue ? newValue.id : '', Operator.EQUAL)
+                        onChange('memoryRamSlotQuantity', newValue ? newValue.modelComputer.memoryRamSlotQuantity : undefined)
                     }
                 }}
                 options={filterdModel}

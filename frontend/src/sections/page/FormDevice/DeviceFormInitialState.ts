@@ -26,7 +26,7 @@ import { type DevicePrimitives } from '../../../modules/devices/devices/devices/
 import { type ComputerName } from '../../../modules/devices/fetures/computer/domain/ComputerName'
 import { type DeviceId } from '../../../modules/devices/devices/devices/domain/DeviceId'
 
-interface defaultProps {
+export interface DefaultProps {
   id?: Primitives<DeviceId>
   serial: Primitives<DeviceSerial>
   activo: Primitives<DeviceActivo>
@@ -48,9 +48,11 @@ interface defaultProps {
   ipAddress?: Primitives<IPAddress>
   health?: Primitives<HardDriveHealth>
   updatedAt?: string
+  memoryRamSlotQuantity?: number
+  memoryRamSlot?: number[]
 }
 
-const defaultInitialState: defaultProps = {
+const defaultInitialState: DefaultProps = {
   id: undefined,
   serial: '',
   activo: '',
@@ -71,11 +73,13 @@ const defaultInitialState: defaultProps = {
   macAddress: '',
   ipAddress: '',
   health: 100,
-  updatedAt: undefined
+  updatedAt: undefined,
+  memoryRamSlotQuantity: undefined,
+  memoryRamSlot: []
 }
 export const useDeviceInitialState = (): {
-  preloadedDeviceState: defaultProps
-  setResetState: (currentState?: defaultProps) => void
+  preloadedDeviceState: DefaultProps
+  setResetState: (currentState?: DefaultProps) => void
 } => {
   const { id } = useParams()
   const location = useLocation()
@@ -84,7 +88,7 @@ export const useDeviceInitialState = (): {
   const { getDevice } = useDevice(repository)
   const [preloadedDeviceState, setPreloadedDeviceState] = useState(defaultInitialState)
 
-  const setResetState = (currentState?: defaultProps) => {    
+  const setResetState = (currentState?: DefaultProps) => {    
     if (location.pathname.includes('add')) {
       setPreloadedDeviceState({id: undefined, ...defaultInitialState})
     } else if(currentState === undefined) {

@@ -5,11 +5,12 @@ import { CategoryId } from "../../../category/domain/CategoryId";
 import { MemoryRamTypeId } from "../../../fetures/memoryRam/memoryRamType/domain/MemoryRamTypeId";
 import { Model, ModelPrimitives } from "../../model/domain/Model";
 import { ModelName } from "../../model/domain/ModelName";
+import { MemoryRamSlotQuantity } from "./MemoryRamQuantity";
 
 
 export interface ModelComputerPrimitives extends ModelPrimitives {
     memoryRamTypeId: Primitives<MemoryRamTypeId>
-    memoryRamQuantity: number
+    memoryRamQuantity: Primitives<MemoryRamSlotQuantity>
     hasBluetooth: boolean
     hasWifiAdapter: boolean
     hasDVI: boolean
@@ -22,7 +23,7 @@ export class ModelComputer extends Model {
         categoryId: CategoryId,
         brandId: BrandId,
         private readonly memoryRamTypeId: MemoryRamTypeId,
-        private readonly memoryRamQuantity: number,
+        private readonly memoryRamQuantity: MemoryRamSlotQuantity,
         private readonly hasBluetooth: boolean,
         private readonly hasWifiAdapter: boolean,
         private readonly hasDVI: boolean,
@@ -30,6 +31,9 @@ export class ModelComputer extends Model {
         private readonly hasVGA: boolean
     ) {
         super(name, categoryId, brandId)
+        if (!ModelComputer.isComputerCategory({ categoryId: categoryId.value })) {
+          throw new Error('No Pertenece a esta categoria')
+      }
     }
 
     static isComputerCategory ({ categoryId }: { categoryId: Primitives<CategoryId> }): boolean {
@@ -43,7 +47,7 @@ export class ModelComputer extends Model {
           new CategoryId(params.categoryId),
           new BrandId(params.brandId),
           new MemoryRamTypeId(params.memoryRamTypeId),
-          params.memoryRamQuantity,
+          new MemoryRamSlotQuantity(params.memoryRamQuantity),
           params.hasBluetooth,
           params.hasWifiAdapter,
           params.hasDVI,
@@ -55,8 +59,8 @@ export class ModelComputer extends Model {
       memoryRamTypeValue (): Primitives<MemoryRamTypeId> {
         return this.memoryRamTypeId.value
       }
-      memoryRamQuantityValue (): number {
-        return this.memoryRamQuantity
+      memoryRamQuantityValue (): Primitives<MemoryRamSlotQuantity> {
+        return this.memoryRamQuantity.value
       }
       hasBluetoothValue (): boolean {
         return this.hasBluetooth
