@@ -1,6 +1,6 @@
 import { type Repository } from '../../../../shared/domain/repository'
 import { ModelComputer, ModelComputerPrimitives } from '../../ModelCharacteristics/modelComputer/ModelComputer'
-import { ModelLaptop, ModelLaptopPrimitives } from '../../ModelCharacteristics/modelLaptop/modelLaptop'
+import { ModelLaptop, ModelLaptopPrimitives } from '../../ModelCharacteristics/modelLaptop/ModelLaptop'
 import { Model, type ModelPrimitives } from '../domain/Model'
 import { ModelId } from '../domain/ModelId'
 

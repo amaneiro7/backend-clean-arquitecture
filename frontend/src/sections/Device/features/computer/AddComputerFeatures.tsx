@@ -24,11 +24,10 @@ export default function AddComputerFeatures({ formData, onChange }: Props) {
   const isComputerLaptopAllinOneDevice = Computer.isComputerCategory({ categoryId: formData.categoryId })
 
   const renderInputs = useMemo(() => {
-    const inputs = formData.memoryRamSlotQuantity ? new Array(formData.memoryRamSlotQuantity).fill('').map((_, index) => index) : []
-    formData.memoryRamSlot = []
+    const inputs = formData.memoryRamSlotQuantity ? new Array(formData.memoryRamSlotQuantity).fill(0) : []
+    formData.memoryRamSlot = inputs
     return inputs
   }, [formData.memoryRamSlotQuantity])
-
 
   return (
     <>
@@ -49,18 +48,29 @@ export default function AddComputerFeatures({ formData, onChange }: Props) {
               value={formData.processorId}
             />
           </Suspense>
-          {
-            renderInputs.map((_, index) => (
-              <MemoryRamCapacitySlotInput
-                key={index} 
-                index={index}
-                type='form'
-                onChange={onChange}
-                value={formData.memoryRamSlot[index]}
-                status={formData.statusId}
-              />
-            ))
-          }
+          <div className='flex gap-4'>
+            {
+              renderInputs.map((_, index) => (
+                <MemoryRamCapacitySlotInput
+                  key={index}
+                  index={index}
+                  type='form'
+                  onChange={(name, value) => {
+                    const parsedValue = Number(value)
+                    if (!isNaN(parsedValue)) {
+                      const updatedMemoryRamSlot = [...formData.memoryRamSlot]
+                      updatedMemoryRamSlot[index] = parsedValue
+                      onChange(name, updatedMemoryRamSlot)
+                    } else {
+                      console.error('El valor nos un número válido')
+                    }
+                  }}
+                  value={formData.memoryRamSlot[index]}
+                  status={formData.statusId}
+                />
+              ))
+            }
+          </div>
           <Suspense fallback={<InputSkeletonLoading />}>
             <MemoryRamCapacityInput
               onChange={onChange}

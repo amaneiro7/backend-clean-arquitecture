@@ -21,7 +21,7 @@ export function MemoryRamCapacitySlotInput({ value, index, onChange, type = 'for
   
   useLayoutEffect(() => {
     if (type !== 'form') return
-
+    console.log('index',value)
     const isValid = MemoryRamCapacity.isValid(value, status)
 
     setIsError(!isValid)
@@ -39,7 +39,7 @@ export function MemoryRamCapacitySlotInput({ value, index, onChange, type = 'for
         label={`Memoria Ram Slot ${index}`}
         onChange={(event) => {
           const { name, value } = event.target
-          onChange(name[index], value)
+          onChange(name, value)
         }}
         placeholder={`--- Ingrese la Capcacidad de Memoria del slot ${index} ---`}
         isRequired={type === 'form'}
