@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useRef, useState, type FC } from 'react'
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import { DeviceSerial } from '../../../modules/devices/devices/devices/domain/DeviceSerial'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
@@ -8,20 +8,22 @@ import { InputSkeletonLoading } from '../skeleton/inputSkeletonLoading'
 interface Props {
   value: Primitives<DeviceSerial>
   onChange: OnHandleChange
-  isForm?: boolean
+  type?: 'form' | 'search'
+  isAdd?: boolean
 }
 
-const FormInput = lazy(async () => import('./FormInput').then(m => ({default: m.FormInput})))
+const FormInput = lazy(async () => import('./FormInput').then(m => ({ default: m.FormInput })))
+const ReadOnlyInputBox = lazy(async () => import("../ReadOnlyInputBox").then(m => ({ default: m.ReadOnlyInputBox })))
 
-const SerialInput: FC<Props> = ({ value, onChange, isForm = false }) => {
+export default function SerialInput({ value, onChange, type = 'search', isAdd = false }: Props) {
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
   const isFirstInput = useRef(true)
   useEffect(() => {
-    if (!isForm) return
+    if (type !== 'form') return
 
     if (isFirstInput.current || value === '') {
-      isFirstInput.current = value === ''
+      isFirstInput.current = value.length <= DeviceSerial.NAME_MIN_LENGTH
       return
     }
 
@@ -37,9 +39,11 @@ const SerialInput: FC<Props> = ({ value, onChange, isForm = false }) => {
   }, [value])
   return (
     <Suspense fallback={<InputSkeletonLoading />}>
-      <FormInput
+      {(!isAdd && type === 'form') ?
+        <ReadOnlyInputBox label="Marca" value={value} />
+        : <FormInput
           id='serial'
-          isRequired={isForm}
+          isRequired={type === 'form'}
           name="serial"
           type="text"
           label='Serial'
@@ -52,10 +56,8 @@ const SerialInput: FC<Props> = ({ value, onChange, isForm = false }) => {
           value={value}
           isError={isError}
           errorMessage={errorMessage}
-      />
+        />}
 
     </Suspense>
   )
 }
-
-export default SerialInput

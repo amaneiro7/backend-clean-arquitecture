@@ -14,6 +14,7 @@ interface Props {
   initialValue?: any | null
   name: string
   freeSolo?: boolean
+  readonly?: boolean
   label: string
   loading?: boolean
   options: Options[]
@@ -50,7 +51,8 @@ export default function ComboBox({
   isError,
   errorMessage,
   children,
-  type = 'search'
+  type = 'search',
+  readonly = false
 }: PropsWithChildren<Props>) {
   const [open, setOpen] = useState(false)
 
@@ -94,7 +96,7 @@ export default function ComboBox({
         }}
         options={options}
         loading={loading}
-
+        readOnly={readonly}
         clearText='Limpiar'
         loadingText='Cargando...'
         openText='Abrir'

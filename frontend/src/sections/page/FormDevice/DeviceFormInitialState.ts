@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useAppContext } from '../../Context/AppContext'
 import { useDevice } from '../../Device/device/useDevice'
@@ -80,6 +80,7 @@ const defaultInitialState: DefaultProps = {
 export const useDeviceInitialState = (): {
   preloadedDeviceState: DefaultProps
   setResetState: (currentState?: DefaultProps) => void
+  isAddForm: boolean
 } => {
   const { id } = useParams()
   const location = useLocation()
@@ -99,8 +100,12 @@ export const useDeviceInitialState = (): {
     }
   }
 
+  const isAddForm = useMemo(() => {
+    return location.pathname.includes('add')
+  }, [location.pathname])
+
   useEffect(() => {
-    if (location.pathname.includes('add')) {
+    if (isAddForm) {
       setPreloadedDeviceState(defaultInitialState)
       return
     }
@@ -135,6 +140,7 @@ export const useDeviceInitialState = (): {
 
   return {
     preloadedDeviceState,
-    setResetState
+    setResetState,
+    isAddForm
   }
 }
