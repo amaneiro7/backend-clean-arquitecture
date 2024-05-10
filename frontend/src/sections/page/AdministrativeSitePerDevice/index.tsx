@@ -16,6 +16,7 @@ import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoa
 import { SpinnerSKCircle } from '../../components/Loading/spinner-sk-circle'
 import { TypeOfSiteId } from '../../../modules/location/typeofsites/domain/typeOfSiteId'
 import TableSkeleton from '../../components/skeleton/TableSkeleton'
+import { MainFallback } from '../../components/skeleton/MainFallback'
 
 const HeaderInput = lazy(async () => import('../../components/HeaderInput').then(m => ({ default: m.HeaderInput })))
 const Main = lazy(async () => import('../../components/Main'))
@@ -80,7 +81,7 @@ export default function AdministrativeSitePage() {
   }
 
   return (
-    <Suspense>
+    <Suspense fallback={<MainFallback />}>
       <Main>
         <Suspense>
           <PageTitle title='Equipos de Torre' />

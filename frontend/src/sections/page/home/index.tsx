@@ -1,6 +1,7 @@
 import { Suspense, lazy } from 'react'
 import { dropdownNavs } from '../../Routes/routes'
 import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoading'
+import { MainFallback } from '../../components/skeleton/MainFallback'
 
 const Banner = lazy(async () => await import('../../components/Banner'))
 const FeaturesCard = lazy(async () => await import('../../components/FeaturesSection/FeaturesCard'))
@@ -10,7 +11,7 @@ const Main = lazy(async () => await import('../../components/Main'))
 
 export default function Home() {
   return (
-    <Suspense>
+    <Suspense fallback={<MainFallback />}>
       <Main className='flex-none'>
 
         <Suspense fallback={<InputSkeletonLoading />}>

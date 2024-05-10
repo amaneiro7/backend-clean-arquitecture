@@ -15,6 +15,7 @@ import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestruct
 import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoading'
 import { SpinnerSKCircle } from '../../components/Loading/spinner-sk-circle'
 import TableSkeleton from '../../components/skeleton/TableSkeleton'
+import { MainFallback } from '../../components/skeleton/MainFallback'
 
 
 const HeaderInput = lazy(async () => import('../../components/HeaderInput').then(m => ({ default: m.HeaderInput })))
@@ -78,7 +79,7 @@ export default function AgenciaPage() {
   }
 
   return (
-    <Suspense>
+    <Suspense fallback={<MainFallback />}>
       <Main>
         <Suspense>
           <PageTitle title='Equipos de Agencia' />

@@ -23,7 +23,7 @@ import { MACAddress } from './MACAddress'
 export interface ComputerPrimitives extends DevicePrimitives {
   computerName: Primitives<ComputerName>
   processorId: Primitives<ComputerProcessor>
-  memoryRamCapacity: Primitives<MemoryRamCapacity>
+  memoryRamCapacity: Primitives<MemoryRamCapacity[]>
   hardDriveCapacityId: Primitives<ComputerHDDCapacity>
   hardDriveTypeId: Primitives<ComputerHDDType>
   operatingSystemId: Primitives<ComputerOs>

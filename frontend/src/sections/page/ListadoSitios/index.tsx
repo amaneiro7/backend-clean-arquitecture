@@ -11,6 +11,7 @@ import { SearchByCriteriaQuery } from "../../../modules/shared/infraestructure/c
 
 import { InputSkeletonLoading } from "../../components/skeleton/inputSkeletonLoading"
 import { SpinnerSKCircle } from "../../components/Loading/spinner-sk-circle"
+import { MainFallback } from "../../components/skeleton/MainFallback"
 
 const InfoBox  = lazy (async () => import("../../components/info-box/InfoBox").then(m => ({default: m.InfoBox})))
 const InfoBoxTitle  = lazy (async () => import("../../components/info-box/InfoBoxTitle").then(m => ({default: m.InfoBoxTitle})))
@@ -53,7 +54,7 @@ export default function ListadoSitios() {
         })
     }
     return (
-        <Suspense>
+        <Suspense fallback={<MainFallback />}>
             <Main>
                 <Suspense>
                     <PageTitle title='Listado de Sitios' />
