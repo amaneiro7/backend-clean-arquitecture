@@ -4,7 +4,6 @@ type InputProps = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputEle
 interface NumberInputProps extends InputProps {
   value: number
   name: string
-  onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
   placeholder: string
   label: string
   isRequired?: boolean
@@ -12,7 +11,7 @@ interface NumberInputProps extends InputProps {
   errorMessage?: string
 }
 
-export function NumberInput({ value, name, onChange, error, errorMessage, label, isRequired = false, ...inputProps}: NumberInputProps) {
+export function NumberInput({ value, name, error, errorMessage, label, isRequired = false, ...inputProps}: NumberInputProps) {
   const [isFocused, setIsFocused] = useState(false)
   return (
     <div className="relative inline-flex flex-col align-top w-full">
@@ -34,7 +33,6 @@ export function NumberInput({ value, name, onChange, error, errorMessage, label,
           name={name}
           type="number"
           value={value}
-          onChange={onChange}
           required={isRequired}          
           onFocus={() => { setIsFocused(true) }}
           onBlur={() => { setIsFocused(false) }}

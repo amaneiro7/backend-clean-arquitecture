@@ -27,7 +27,7 @@ export default function FormContainer({ url, title, children, isDisabled, handle
           onSubmit={(event) => { void handleSubmit(event) }}
           className='min-w-[800px] m-10 py-8 flex justify-center border border-secondary rounded-md'
         >
-          <fieldset className='w-9/12 py-10 pb-20 grid gap-5 relative'>
+          <fieldset className='max-w-[75%] w-9/12 py-10 pb-20 grid gap-5 relative'>
             <legend >
               <Suspense>
                 <PageTitle title={!isEdit ? 'Agregar un nuevo ' + title : 'Editar un ' + title} />

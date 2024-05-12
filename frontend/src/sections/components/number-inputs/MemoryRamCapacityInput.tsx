@@ -1,12 +1,14 @@
-import { lazy, Suspense, useLayoutEffect, useState } from 'react'
-import { MemoryRamCapacity } from '../../../modules/devices/fetures/memoryRam/memoryRamCapacity/domain/MemoryRamCapacity'
+import { lazy, Suspense, useLayoutEffect, useMemo, useState } from 'react'
 import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { type StatusId } from '../../../modules/devices/devices/status/domain/StatusId'
 import { InputSkeletonLoading } from '../skeleton/inputSkeletonLoading'
+import { MemoryRamValues } from '../../../modules/devices/fetures/memoryRam/memoryRamCapacity/domain/MemoryRamValue'
+import { MemoryRam } from '../../../modules/devices/fetures/computer/domain/MemoryRam'
 
 interface Props {
-  value: Primitives<MemoryRamCapacity>
+  value: Primitives<MemoryRamValues>
+  memoryRam: Primitives<MemoryRamValues>[]
   status?: Primitives<StatusId>
   onChange: OnHandleChange
   type?: 'form' | 'search'
@@ -14,17 +16,17 @@ interface Props {
 
 const NumberInput = lazy(async () => import('./NumberInput').then(m => ({ default: m.NumberInput })))
 
-export function MemoryRamCapacityInput({ value, onChange, type = 'form', status }: Props) {
+export function MemoryRamCapacityInput({ value, memoryRam, onChange, type = 'form', status }: Props) {
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)  
   
   useLayoutEffect(() => {
     if (type !== 'form') return
 
-    const isValid = MemoryRamCapacity.isValid(value, status)
+    const isValid = MemoryRam.isValid(memoryRam, status)
 
     setIsError(!isValid)
-    setErrorMessage(isValid ? '' : MemoryRamCapacity.invalidMessage())
+    setErrorMessage(isValid ? '' : MemoryRam.invalidMessage())
 
     return () => {
       setErrorMessage('')
@@ -32,22 +34,21 @@ export function MemoryRamCapacityInput({ value, onChange, type = 'form', status 
     }
   }, [value, status])
 
+  const updateValue = useMemo(() => {
+    const value = MemoryRam.totalAmount(memoryRam)
+    onChange('memoryRamCapacity', value)
+    return value
+  },[memoryRam])
+
 
   return (
     <Suspense fallback={<InputSkeletonLoading />}>
       <NumberInput
         name='memoryRamCapacity'
-        label='Memoria Ram'
-        onChange={(event) => {
-          const { name, value } = event.target          
-          onChange(name, value)
-        }}
+        label='Capacidad Total de Memoria Ram'
         placeholder='--- Ingrese la Capcacidad de Memoria ---'
         isRequired={type === 'form'}
-        value={value}
-        defaultValue={value}
-        max={MemoryRamCapacity.max}
-        min={MemoryRamCapacity.min}
+        value={updateValue}
         error={isError}
         readOnly        
         errorMessage={errorMessage}

@@ -25,7 +25,7 @@ import { type DeviceObservation } from '../../../modules/devices/devices/devices
 import { type DevicePrimitives } from '../../../modules/devices/devices/devices/domain/Device'
 import { type ComputerName } from '../../../modules/devices/fetures/computer/domain/ComputerName'
 import { type DeviceId } from '../../../modules/devices/devices/devices/domain/DeviceId'
-import { MemoryRamValues } from '../../../modules/devices/fetures/memoryRam/memoryRamCapacity/domain/MemoryRamValue'
+import  {type MemoryRamValues } from '../../../modules/devices/fetures/memoryRam/memoryRamCapacity/domain/MemoryRamValue'
 
 export interface DefaultProps {
   id?: Primitives<DeviceId>
@@ -130,7 +130,7 @@ export const useDeviceInitialState = (): {
     const { serial, activo, statusId, modelId, categoryId, brandId, employeeId, locationId, observation, computer, hardDrive, updatedAt } = device as DevicesMappedApiResponse
     setPreloadedDeviceState((prev) => ({ ...prev, id, serial, activo, statusId, modelId, categoryId, brandId, employeeId, locationId, observation, updatedAt }))
     if (computer !== null) {
-      const { computerName, processorId, memoryRamCapacity, hardDriveCapacityId, hardDriveTypeId, operatingSystemArqId, operatingSystemId, macAddress, ipAddress, updatedAt } = computer
+      const { computerName, processorId, memoryRamCapacity, hardDriveCapacityId, hardDriveTypeId, operatingSystemArqId, operatingSystemId, macAddress, ipAddress, updatedAt, memoryRam } = computer
       setPreloadedDeviceState(prev => ({ ...prev, computerName, processorId, memoryRamCapacity, hardDriveCapacityId, hardDriveTypeId, operatingSystemArqId, operatingSystemId, macAddress, ipAddress, updatedAt }))
     }
     if (hardDrive !== null) {

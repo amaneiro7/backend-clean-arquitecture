@@ -6,7 +6,7 @@ import { InputSkeletonLoading } from '../skeleton/inputSkeletonLoading'
 import { MemoryRamValues } from '../../../modules/devices/fetures/memoryRam/memoryRamCapacity/domain/MemoryRamValue'
 
 interface Props {
-  value: Primitives<MemoryRamValues>
+  value: Primitives<MemoryRamValues>[]
   index: number
   status?: Primitives<StatusId>
   onChange: OnHandleChange
@@ -15,13 +15,13 @@ interface Props {
 
 const NumberInput = lazy(async () => import('./NumberInput').then(m => ({ default: m.NumberInput })))
 
-export function MemoryRamCapacitySlotInput({ value, index, onChange, type = 'form', status }: Props) {
+export function MemoryRamCapacitySlotInput({ value: memRam, index, onChange, type = 'form', status }: Props) {
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)  
   
   useLayoutEffect(() => {
     if (type !== 'form') return    
-    const isValid = MemoryRamValues.isValid(value)
+    const isValid = MemoryRamValues.isValid(memRam[index])
 
     setIsError(!isValid)
     setErrorMessage(isValid ? '' : MemoryRamValues.invalidMessage())
@@ -30,18 +30,29 @@ export function MemoryRamCapacitySlotInput({ value, index, onChange, type = 'for
       setErrorMessage('')
       setIsError(false)
     }
-  }, [value, status])  
+  }, [memRam, status])  
   return (
     <Suspense fallback={<InputSkeletonLoading />}>
       <NumberInput
         name='memoryRam'
         label={`Memoria Ram Slot ${index}`}
+        // onChange={(event) => {
+        //   const { name, value } = event.target
+        //   onChange(name, value)
+        // }}
         onChange={(event) => {
           const { name, value } = event.target
-          onChange(name, value)
+          const parsedValue = Number(value)
+          if (!isNaN(parsedValue)) {
+            const updatedMemoryRamSlot = [...memRam]
+            updatedMemoryRamSlot[index] = parsedValue
+            onChange(name, updatedMemoryRamSlot)            
+          } else {
+            console.error('El valor nos un número válido')
+          }
         }}
         placeholder={`--- Ingrese la Capcacidad de Memoria del slot ${index} ---`}        
-        value={value}
+        value={memRam[index]}
         max={MemoryRamValues.max}
         min={MemoryRamValues.min}
         step={MemoryRamValues.minStep}        

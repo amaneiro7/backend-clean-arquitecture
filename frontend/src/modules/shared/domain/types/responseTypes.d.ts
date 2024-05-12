@@ -13,10 +13,12 @@ import { type DeviceSerial } from '../../../devices/devices/devices/domain/Devic
 import { type StatusPrimitives } from '../../../devices/devices/status/domain/Status'
 import { type StatusId } from '../../../devices/devices/status/domain/StatusId'
 import { type StatusName } from '../../../devices/devices/status/domain/StatusName'
+import { ComputerPrimitives } from '../../../devices/fetures/computer/domain/Computer'
 import { type ComputerId } from '../../../devices/fetures/computer/domain/ComputerId'
 import { type ComputerName } from '../../../devices/fetures/computer/domain/ComputerName'
 import { type IPAddress } from '../../../devices/fetures/computer/domain/IPAddress'
 import { type MACAddress } from '../../../devices/fetures/computer/domain/MACAddress'
+import { HardDrivePrimitives } from '../../../devices/fetures/hardDrive/hardDrive/domain/HardDrive'
 import { type HardDriveHealth } from '../../../devices/fetures/hardDrive/hardDrive/domain/HardDriveHealth'
 import { type HardDriveCapacityPrimitives } from '../../../devices/fetures/hardDrive/hardDriveCapacity/domain/HardDriveCapacity'
 import { type HardDriveCapacityId } from '../../../devices/fetures/hardDrive/hardDriveCapacity/domain/HardDriveCapacityId'
@@ -29,6 +31,7 @@ import { type OperatingSystemArqPrimitives } from '../../../devices/fetures/oper
 import { type OperatingSystemArqId } from '../../../devices/fetures/operatingSystem/operatingSystemArq/domain/OperatingSystemArqId'
 import { type ProcessorPrimitives } from '../../../devices/fetures/processor/domain/Processor'
 import { type ProcessorId } from '../../../devices/fetures/processor/domain/ProcessorId'
+import { ModelPrimitives } from '../../../devices/model/model/domain/Model'
 import { type ModelId } from '../../../devices/model/model/domain/ModelId'
 import { type ModelName } from '../../../devices/model/model/domain/ModelName'
 import { ModelComputerPrimitives } from '../../../devices/model/ModelCharacteristics/modelComputer/ModelComputer'
@@ -44,17 +47,7 @@ import { StatePrimitives } from '../../../location/state/domain/state'
 import { TypeOfSitePrimitives } from '../../../location/typeofsites/domain/typeOfSite'
 import { type Primitives } from '../value-object/Primitives'
 
-export interface DevicesApiResponse {
-  id: Primitives<DeviceId>
-  activo: Primitives<DeviceActivo>
-  serial: Primitives<DeviceSerial>
-  statusId: Primitives<StatusId>
-  categoryId: Primitives<CategoryId>
-  brandId: Primitives<BrandId>
-  modelId: Primitives<ModelId>
-  employeeId: Primitives<DeviceEmployee>
-  locationId: Primitives<LocationId>
-  observation: Primitives<DeviceObservation>
+export interface DevicesApiResponse extends DevicePrimitives {  
   createdAt: string
   updatedAt: string
   category: CategoryPrimitives
@@ -67,24 +60,18 @@ export interface DevicesApiResponse {
   hardDrive: HardDrive | null
 }
 
-export interface EmployeesApiResponse {
-  id: Primitives<EmployeeId>
-  userName: Primitives<EmployeeUserName>
-  devices: DevicesApiResponse[]
+export interface EmployeesApiResponse extends EmployeePrimitives {  
   createdAt: string
   updatedAt: string
+  devices: DevicesApiResponse[]
 }
 
-export interface EmployeeMappedApiResponse {
-  id: Primitives<EmployeeId>
-  userName: Primitives<EmployeeUserName>
+export interface EmployeeMappedApiResponse extends EmployeePrimitives {  
   createdAt: string
   updatedAt: string
   devices?: DevicePrimitives[]
 }
-export interface EmployeeDevicesMappedApiResponse {
-  id: Primitives<EmployeeId>
-  userName: Primitives<EmployeeUserName>
+export interface EmployeeDevicesMappedApiResponse extends EmployeePrimitives {  
   createdAt: string
   updatedAt: string
   computers: DevicesApiResponse[]
@@ -113,19 +100,13 @@ export interface DevicesMappedApiResponse {
   createdAt: string
   updatedAt: string
 }
-export interface BrandApiResponse {
-  id: Primitives<BrandId>
-  name: Primitives<BrandName>
+export interface BrandApiResponse extends BrandPrimitives {  
   createdAt: string
   updatedAt: string
-  model: ModelApiresponse[]
+  model: ModelPrimitives[]
 }
 
-export interface ModelApiresponse {
-  id: Primitives<ModelId>
-  name: Primitives<ModelName>
-  categoryId: Primitives<CategoryId>
-  brandId: Primitives<BrandId>
+export interface ModelApiresponse extends ModelPrimitives {  
   createdAt: string
   updatedAt: string
   category: CategoryPrimitives
@@ -153,19 +134,8 @@ export interface ModelMappedApiResponse {
   updatedAt: string
 }
 
-export interface Computer {
-  id: Primitives<ComputerId>
-  computerName: Primitives<ComputerName>
-  categoryId: Primitives<CategoryId>
-  deviceId: Primitives<DeviceId>
-  processorId: Primitives<ProcessorId>
-  memoryRamCapacity: Primitives<MemoryRamCapacity>
-  hardDriveCapacityId: Primitives<HardDriveCapacityId>
-  hardDriveTypeId: Primitives<HardDriveTypeId>
-  operatingSystemId: Primitives<OperatingSystemId>
-  operatingSystemArqId: Primitives<OperatingSystemArqId>
-  macAddress: Primitives<MACAddress>
-  ipAddress: Primitives<IPAddress>
+export interface Computer extends ComputerPrimitives {  
+  deviceId: Primitives<DeviceId>  
   createdAt: string
   updatedAt: string
   processor: ProcessorApiresponse
@@ -175,9 +145,7 @@ export interface Computer {
   operatingSystemArq: OperatingSystemArqPrimitives
 }
 
-export interface Brand {
-  id: Primitives<BrandId>
-  name: Primitives<BrandName>
+export interface BrandApiResponse extends BrandPrimitives {  
   createdAt: string
   updatedAt: string
 }
@@ -203,13 +171,10 @@ export interface StateApiResponse extends StatePrimitives {
   region: RegionPrimitives
 }
 
-export interface HardDrive {
+export interface HardDrive extends HardDrivePrimitives {
   id: Primitives<HardDriveId>
   categoryId: Primitives<CategoryId>
   deviceId: Primitives<DeviceId>
-  health: Primitives<HardDriveHealth>
-  hardDriveCapacityId: Primitives<HardDriveCapacityId>
-  hardDriveTypeId: Primitives<HardDriveTypeId>
   createdAt: string
   updatedAt: string
   hardDriveCapacity: HardDriveCapacityPrimitives

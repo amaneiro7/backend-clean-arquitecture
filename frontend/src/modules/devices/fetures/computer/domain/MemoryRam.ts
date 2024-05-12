@@ -17,7 +17,11 @@ export class MemoryRam {
     }
     
     public static isValid(value: Primitives<MemoryRamValues>[], status: Primitives<StatusId>): boolean {
-        return StatusId.StatusOptions.INUSE === status && MemoryRam.isZeroTotalMemory(value) && this.isEmpty(value)
+        console.log('MemoryRam - IsValid', value, status)
+        if (StatusId.StatusOptions.INUSE === status && MemoryRam.isZeroTotalMemory(value) && !this.isEmpty(value)) {
+            return false
+        }
+        return true
     }
 
     public static invalidMessage(): string {
@@ -31,7 +35,6 @@ export class MemoryRam {
    
     static totalAmount(value: Primitives<MemoryRamValues>[]): number {
         if (!value) return
-        console.log('no he ignadoro la condicion')
         let number = 0
         for (let totalAmount = 0; totalAmount < value.length; totalAmount++) {
             number += value[totalAmount]
