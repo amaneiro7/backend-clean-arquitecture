@@ -28,7 +28,7 @@ export default function CategoryComboBox ({ value, onChange, type = 'search', is
 
     return (
         <Suspense fallback={<InputSkeletonLoading />}>
-            {(!isAdd && type === 'form') ? <ReadOnlyInputBox label="Categoria" value={initialValue?.name} /> :
+            {(!isAdd && type === 'form') ? <ReadOnlyInputBox label="Categoria" required defaultValue={initialValue?.name} /> :
             <ComboBox
                 id='categoryId'
                 initialValue={initialValue}

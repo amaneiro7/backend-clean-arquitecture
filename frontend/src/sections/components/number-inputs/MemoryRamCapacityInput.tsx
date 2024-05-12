@@ -30,23 +30,26 @@ export function MemoryRamCapacityInput({ value, onChange, type = 'form', status 
       setErrorMessage('')
       setIsError(false)
     }
-  }, [value, status])  
+  }, [value, status])
+
+
   return (
     <Suspense fallback={<InputSkeletonLoading />}>
       <NumberInput
         name='memoryRamCapacity'
         label='Memoria Ram'
         onChange={(event) => {
-          const { name, value } = event.target
+          const { name, value } = event.target          
           onChange(name, value)
         }}
         placeholder='--- Ingrese la Capcacidad de Memoria ---'
         isRequired={type === 'form'}
         value={value}
+        defaultValue={value}
         max={MemoryRamCapacity.max}
         min={MemoryRamCapacity.min}
-        step={MemoryRamCapacity.minStep}
         error={isError}
+        readOnly        
         errorMessage={errorMessage}
       />
 

@@ -25,6 +25,7 @@ import { type DeviceObservation } from '../../../modules/devices/devices/devices
 import { type DevicePrimitives } from '../../../modules/devices/devices/devices/domain/Device'
 import { type ComputerName } from '../../../modules/devices/fetures/computer/domain/ComputerName'
 import { type DeviceId } from '../../../modules/devices/devices/devices/domain/DeviceId'
+import { MemoryRamValues } from '../../../modules/devices/fetures/memoryRam/memoryRamCapacity/domain/MemoryRamValue'
 
 export interface DefaultProps {
   id?: Primitives<DeviceId>
@@ -47,9 +48,9 @@ export interface DefaultProps {
   macAddress?: Primitives<MACAddress>
   ipAddress?: Primitives<IPAddress>
   health?: Primitives<HardDriveHealth>
-  updatedAt?: string
+  memoryRam?: Primitives<MemoryRamValues>[]
   memoryRamSlotQuantity?: number
-  memoryRamSlot?: number[]
+  updatedAt?: string
 }
 
 const defaultInitialState: DefaultProps = {
@@ -75,7 +76,7 @@ const defaultInitialState: DefaultProps = {
   health: 100,
   updatedAt: undefined,
   memoryRamSlotQuantity: undefined,
-  memoryRamSlot: []
+  memoryRam: []
 }
 export const useDeviceInitialState = (): {
   preloadedDeviceState: DefaultProps

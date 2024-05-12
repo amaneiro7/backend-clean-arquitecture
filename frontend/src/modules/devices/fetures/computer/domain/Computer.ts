@@ -11,6 +11,7 @@ import { DeviceSerial } from '../../../devices/devices/domain/DeviceSerial'
 import { StatusId } from '../../../devices/status/domain/StatusId'
 import { ModelId } from '../../../model/model/domain/ModelId'
 import { MemoryRamCapacity } from '../../memoryRam/memoryRamCapacity/domain/MemoryRamCapacity'
+import { MemoryRamValues } from '../../memoryRam/memoryRamCapacity/domain/MemoryRamValue'
 import { ComputerHDDType } from './ComputerHDDtype'
 import { ComputerHDDCapacity } from './ComputerHHDCapacity'
 import { ComputerName } from './ComputerName'
@@ -19,21 +20,23 @@ import { ComputerOsArq } from './ComputerOSArq'
 import { ComputerProcessor } from './ComputerProcessor'
 import { IPAddress } from './IPAddress'
 import { MACAddress } from './MACAddress'
+import { MemoryRam } from './MemoryRam'
 
 export interface ComputerPrimitives extends DevicePrimitives {
   computerName: Primitives<ComputerName>
   processorId: Primitives<ComputerProcessor>
-  memoryRamCapacity: Primitives<MemoryRamCapacity[]>
+  memoryRam: Primitives<MemoryRamValues>[],
+  memoryRamCapacity: Primitives<MemoryRamCapacity>
   hardDriveCapacityId: Primitives<ComputerHDDCapacity>
   hardDriveTypeId: Primitives<ComputerHDDType>
   operatingSystemId: Primitives<ComputerOs>
   operatingSystemArqId: Primitives<ComputerOsArq>
-  macAddress: Primitives<MACAddress> | null
+  macAddress: Primitives<MACAddress>
   ipAddress: Primitives<IPAddress>
 }
 
 export class Computer extends Device {
-  constructor (
+  constructor(
     serial: DeviceSerial,
     activo: DeviceActivo,
     statusId: StatusId,
@@ -46,22 +49,27 @@ export class Computer extends Device {
     private readonly computerName: ComputerName,
     private readonly processorId: ComputerProcessor,
     private readonly memoryRamCapacity: MemoryRamCapacity,
+    private readonly memoryRam: MemoryRam,
     private readonly hardDriveCapacityId: ComputerHDDCapacity,
     private readonly hardDriveTypeId: ComputerHDDType,
     private readonly operatingSystemId: ComputerOs,
     private readonly operatingSystemArqId: ComputerOsArq,
-    private readonly macAddress: MACAddress | null,
-    private readonly ipAddress: IPAddress | null
+    private readonly macAddress: MACAddress,
+    private readonly ipAddress: IPAddress
   ) {
     super(serial, activo, statusId, categoryId, brandId, modelId, employeeId, locationId, observation)
+
+    if (!Computer.isComputerCategory({ categoryId: categoryId.value })) {
+      throw new Error('No pertenece a esta categoria')
+    }
   }
 
-  static isComputerCategory ({ categoryId }: { categoryId: Primitives<CategoryId> }): boolean {
+  static isComputerCategory({ categoryId }: { categoryId: Primitives<CategoryId> }): boolean {
     const AcceptedComputerCategories: CategoryValues[] = ['Computadoras', 'All in One', 'Laptops', 'Servidores']
     return AcceptedComputerCategories.includes(CategoryDefaultData[categoryId])
   }
 
-  public static create (params: ComputerPrimitives) {
+  public static create(params: ComputerPrimitives) {
     return new Computer(
       new DeviceSerial(params.serial),
       new DeviceActivo(params.activo),
@@ -75,6 +83,7 @@ export class Computer extends Device {
       new ComputerName(params.computerName, params.statusId),
       new ComputerProcessor(params.processorId, params.statusId),
       new MemoryRamCapacity(params.memoryRamCapacity, params.statusId),
+      MemoryRam.fromPrimitives(params.memoryRam, params.statusId),
       new ComputerHDDCapacity(params.hardDriveCapacityId, params.statusId),
       new ComputerHDDType(params.hardDriveTypeId, params.hardDriveCapacityId),
       new ComputerOs(params.operatingSystemId, params.statusId, params.hardDriveCapacityId),
@@ -84,7 +93,39 @@ export class Computer extends Device {
     )
   }
 
-  toPrimitives (): ComputerPrimitives {
+  computerNameValue(): Primitives<ComputerName> {
+    return this.computerName.value
+  }
+  memoryRamCapacityValue(): Primitives<MemoryRamCapacity> {
+    return this.memoryRamCapacity.value
+  }
+  memoryRamValue(): number[] {
+    return this.memoryRam.toPrimitives()
+  }
+  processorValue(): Primitives<ComputerProcessor> {
+    return this.processorId.value
+  }
+  hardDriveCapacityValue(): Primitives<ComputerHDDCapacity> {
+    return this.hardDriveCapacityId.value
+  }
+  hardDriveTypeValue(): Primitives<ComputerHDDType> {
+    return this.hardDriveTypeId.value
+  }
+  operatingSystemValue(): Primitives<ComputerOs> {
+    return this.operatingSystemId.value
+  }
+  operatingSystemArqValue(): Primitives<ComputerOsArq> {
+    return this.operatingSystemArqId.value
+  }
+  macAddressValue(): Primitives<MACAddress> {
+    return this.macAddress.value
+  }
+  ipAddressValue(): Primitives<IPAddress> {
+    return this.ipAddress.value
+  }
+
+
+  toPrimitives(): ComputerPrimitives {
     return {
       serial: this.serialValue(),
       activo: this.activoValue(),
@@ -95,15 +136,16 @@ export class Computer extends Device {
       employeeId: this.employeeValue(),
       locationId: this.locationValue(),
       observation: this.observationValue(),
-      computerName: this.computerName.value,
-      memoryRamCapacity: this.memoryRamCapacity.value,
-      processorId: this.processorId?.value ?? null,
-      hardDriveCapacityId: this.hardDriveCapacityId?.value ?? null,
-      hardDriveTypeId: this.hardDriveTypeId?.value ?? null,
-      operatingSystemId: this.operatingSystemId?.value ?? null,
-      operatingSystemArqId: this.operatingSystemArqId?.value ?? null,
-      macAddress: this.macAddress?.value ?? null,
-      ipAddress: this.ipAddress?.value ?? null
+      computerName: this.computerNameValue(),
+      memoryRamCapacity: this.memoryRamCapacityValue(),
+      memoryRam: this.memoryRamValue(),
+      processorId: this.processorValue(),
+      hardDriveCapacityId: this.hardDriveCapacityValue(),
+      hardDriveTypeId: this.hardDriveTypeValue(),
+      operatingSystemId: this.operatingSystemValue(),
+      operatingSystemArqId: this.operatingSystemArqValue(),
+      macAddress: this.macAddressValue(),
+      ipAddress: this.ipAddressValue(),
     }
   }
 }

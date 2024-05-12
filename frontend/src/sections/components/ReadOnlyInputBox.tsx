@@ -1,4 +1,9 @@
-export const ReadOnlyInputBox = ({ value, label }: { label: string, value: string | number }) => {
+type InputProps = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
+interface Props extends InputProps {  
+  label: string
+}
+
+export const ReadOnlyInputBox = ({ label, ...props }: Props) => {
     return (
         <div className="relative inline-flex flex-col align-top h-6 min-h-[40px] w-full">
             <label
@@ -13,7 +18,8 @@ export const ReadOnlyInputBox = ({ value, label }: { label: string, value: strin
             <div className='w-full p-1 pr-2 border rounded-md outline-none border-black/2'>
                 <input
                     className='py-1 pr-1 pl-2 w-0 min-w-full flex-1 text-ellipsis focus-visible:outline-none text-black/60'
-                    value={value}
+                    readOnly
+                    {...props}
                 />                
             </div>
         </div >

@@ -40,7 +40,7 @@ export default function SerialInput({ value, onChange, type = 'search', isAdd = 
   return (
     <Suspense fallback={<InputSkeletonLoading />}>
       {(!isAdd && type === 'form') ?
-        <ReadOnlyInputBox label="Marca" value={value} />
+        <ReadOnlyInputBox label="Serial" defaultValue={value} required />
         : <FormInput
           id='serial'
           isRequired={type === 'form'}

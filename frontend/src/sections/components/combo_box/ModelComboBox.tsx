@@ -48,7 +48,7 @@ export default function ModelComboBox({ value, onChange, categoryId, brandId, ty
     return (
         <Suspense fallback={<InputSkeletonLoading />}>
             {(!isAdd && type === 'form') ?
-                <ReadOnlyInputBox label="Modelo" value={initialValue?.name} />
+                <ReadOnlyInputBox label="Modelo" defaultValue={initialValue?.name} />
                 : <ComboBox
                     id='modelId'
                     initialValue={initialValue}

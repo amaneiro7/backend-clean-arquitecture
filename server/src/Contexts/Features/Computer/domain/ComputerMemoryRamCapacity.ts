@@ -32,6 +32,6 @@ export class ComputerMemoryRamCapacity extends MemoryRamCapacity {
     }
     const status = entity.statusValue
     // Actualiza el campo la memoria Ram de la entidad {@link Device} con el nuevo la memoria Ram
-    entity.updateMemoryRam(memoryRam, status)
+    entity.updateMemoryRamCapacity(memoryRam, status)
   }
 }

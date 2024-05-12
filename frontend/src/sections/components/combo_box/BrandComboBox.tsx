@@ -48,7 +48,7 @@ export default function BrandComboBox({ value, onChange, categoryId, type = 'sea
     return (
         <Suspense fallback={<InputSkeletonLoading />}>
             {(!isAdd && type === 'form') ?
-                <ReadOnlyInputBox label="Marca" value={initialValue?.name} />
+                <ReadOnlyInputBox label="Marca" required defaultValue={initialValue?.name} />
                 : <ComboBox
                     id='brandId'
                     initialValue={initialValue}

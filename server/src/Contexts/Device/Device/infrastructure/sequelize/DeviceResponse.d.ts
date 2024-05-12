@@ -1,5 +1,6 @@
 import { type BrandId } from '../../../../Brand/domain/BrandId'
 import { type CategoryId } from '../../../../Category/domain/CategoryId'
+import { DeviceComputerPrimitives } from '../../../../Features/Computer/domain/Computer'
 import { type ComputerHardDriveCapacity } from '../../../../Features/Computer/domain/ComputerHardDriveCapacity'
 import { type ComputerHardDriveType } from '../../../../Features/Computer/domain/ComputerHardDriveType'
 import { type ComputerMemoryRamCapacity } from '../../../../Features/Computer/domain/ComputerMemoryRamCapacity'
@@ -21,6 +22,7 @@ import { LaptopsModelsPrimitives } from '../../../../ModelSeries/ModelCharacteri
 import { type ModelSeriesId } from '../../../../ModelSeries/ModelSeries/domain/ModelSeriesId'
 import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
 import { type StatusPrimitives } from '../../../Status/domain/Status'
+import { DevicePrimitives } from '../../domain/Device'
 
 import { type DeviceActivo } from '../../domain/DeviceActivo'
 import { type DeviceEmployee } from '../../domain/DeviceEmployee'
@@ -31,17 +33,7 @@ import { type DeviceObservation } from '../../domain/DeviceObservation'
 import { type DeviceSerial } from '../../domain/DeviceSerial'
 import { type DeviceStatus } from '../../domain/DeviceStatus'
 
-export interface DevicesApiResponse {
-  id: Primitives<DeviceId>
-  serial: Primitives<DeviceSerial>
-  activo: Primitives<DeviceActivo>
-  statusId: Primitives<DeviceStatus>
-  categoryId: Primitives<CategoryId>
-  brandId: Primitives<BrandId>
-  modelId: Primitives<ModelSeriesId>
-  employeeId: Primitives<DeviceEmployee>
-  locationId: Primitives<DeviceLocation>
-  observation: Primitives<DeviceObservation>
+export interface DevicesApiResponse extends DevicePrimitives {  
   location: LocationPrimitives
   createdAt: Date
   updatedAt: Date
@@ -51,19 +43,10 @@ export interface DevicesApiResponse {
   hardDrive: HardDrive | null
 }
 
-export interface Computer {
+export interface Computer extends DeviceComputerPrimitives {
   id: Primitives<DeviceId>
   categoryId: Primitives<CategoryId>
   deviceId: Primitives<DeviceId>
-  computerName: Primitives<ComputerName>
-  processorId: Primitives<ComputerProcessor>
-  memoryRamCapacity: Primitives<ComputerMemoryRamCapacity>
-  hardDriveCapacityId: Primitives<ComputerHardDriveCapacity>
-  hardDriveTypeId: Primitives<ComputerHardDriveType>
-  operatingSystemId: Primitives<ComputerOperatingSystem>
-  operatingSystemArqId: Primitives<ComputerOperatingSystemArq>
-  macAddress: Primitives<MACAddress>
-  ipAddress: Primitives<IPAddress>
   createdAt: Date
   updatedAt: Date
   processor: ProcessorPrimitives

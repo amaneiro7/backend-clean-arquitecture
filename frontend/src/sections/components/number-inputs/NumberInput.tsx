@@ -1,20 +1,18 @@
 import { useState } from 'react'
 
-interface Props {
+type InputProps = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
+interface NumberInputProps extends InputProps {
   value: number
   name: string
   onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
-  min?: number
-  max?: number
-  step?: number
-  error?: boolean
-  errorMessage?: string
   placeholder: string
   label: string
   isRequired?: boolean
+  error?: boolean
+  errorMessage?: string
 }
 
-export function NumberInput({ value, name, onChange, min, max, step, error, errorMessage, placeholder, label, isRequired = false}: Props) {
+export function NumberInput({ value, name, onChange, error, errorMessage, label, isRequired = false, ...inputProps}: NumberInputProps) {
   const [isFocused, setIsFocused] = useState(false)
   return (
     <div className="relative inline-flex flex-col align-top w-full">
@@ -31,16 +29,13 @@ export function NumberInput({ value, name, onChange, min, max, step, error, erro
       </label>
       <div className={`w-full p-1 pr-2 border rounded-md outline-none ${isFocused && 'ring-1'} ${error ? `border-error hover:border-error ${isFocused && 'ring-error'} ` : `${isFocused ? 'ring-focus border-focus' : 'border-black/25 hover:border-black'}`}`}>
         <input
+          {...inputProps}
           className='py-1 pr-1 pl-2 w-0 min-w-full flex-1 text-ellipsis focus-visible:outline-none'
           name={name}
           type="number"
           value={value}
           onChange={onChange}
-          required={isRequired}
-          min={min}
-          max={max}
-          step={step}
-          placeholder={placeholder}
+          required={isRequired}          
           onFocus={() => { setIsFocused(true) }}
           onBlur={() => { setIsFocused(false) }}
         />

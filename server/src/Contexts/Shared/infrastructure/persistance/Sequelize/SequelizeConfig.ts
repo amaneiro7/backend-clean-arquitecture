@@ -25,9 +25,9 @@ export function initializeDatabase (): void {
     console.error('Unable to connect to the database:', error)
   })
 
-  !isProd && sequelize.sync({ alter: true }).then(() => {
-    console.log('Database and tables synced')
-  }).catch((error) => {
-    console.error('Error syncing database:', error)
-  })
+  // !isProd && sequelize.sync({ alter: true }).then(() => {
+  //   console.log('Database and tables synced')
+  // }).catch((error) => {
+  //   console.error('Error syncing database:', error)
+  // })
 }

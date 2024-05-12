@@ -4,18 +4,19 @@ import { type DeviceComputerPrimitives } from '../../domain/Computer'
 import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
 import { type DeviceId } from '../../../../Device/Device/domain/DeviceId'
 import { type ProcessorId } from '../../../Processor/Processor/domain/ProcessorId'
-import { type MemoryRamCapacity } from '../../../MemoryRam/MemoryRamCapacity/MemoryRamCapacity'
-import { type HardDriveCapacityId } from '../../../HardDrive.ts/HardDriveCapacity/domain/HardDriveCapacityId'
-import { type HardDriveTypeId } from '../../../HardDrive.ts/HardDriveType/domain/HardDriveTypeId'
-import { type OperatingSystemId } from '../../../OperatingSystem/OperatingSystem/domain/OperatingSystemId'
-import { type OperatingSystemArqId } from '../../../OperatingSystem/OperatingSystemArq/domain/OperatingSystemArqID'
 import { type MACAddress } from '../../domain/MACAddress'
 import { type IPAddress } from '../../domain/IPAddress'
 import { type CategoryId } from '../../../../Category/domain/CategoryId'
 import { type ComputerName } from '../../domain/ComputerName'
 import { CategoryValues } from '../../../../Category/domain/Category'
+import { ComputerMemoryRam } from '../../domain/ComputerMemoryRam'
+import { ComputerMemoryRamCapacity } from '../../domain/ComputerMemoryRamCapacity'
+import { ComputerHardDriveCapacity } from '../../domain/ComputerHardDriveCapacity'
+import { ComputerHardDriveType } from '../../domain/ComputerHardDriveType'
+import { ComputerOperatingSystem } from '../../domain/ComputerOperatingSystem'
+import { ComputerOperatingSystemArq } from '../../domain/ComputerOperatingSystemArq'
 
-interface DeviceComputerCreationAttributes extends Pick<DeviceComputerPrimitives, 'id' | 'categoryId' | 'computerName' | 'processorId' | 'memoryRamCapacity' | 'hardDriveCapacityId'
+interface DeviceComputerCreationAttributes extends Pick<DeviceComputerPrimitives, 'id' | 'categoryId' | 'computerName' | 'processorId' | 'memoryRam' | 'memoryRamCapacity' | 'hardDriveCapacityId'
 | 'hardDriveTypeId' | 'operatingSystemId' | 'operatingSystemArqId' | 'macAddress' | 'ipAddress' > {
   deviceId: Primitives<DeviceId>
 }
@@ -24,14 +25,15 @@ export class DeviceComputerModel extends Model<DeviceComputerCreationAttributes>
   readonly id!: Primitives<DeviceId>
   readonly categoryId!: Primitives<CategoryId>
   readonly computerName!: Primitives<ComputerName>
-  readonly processorId!: Primitives<ProcessorId> | null
-  readonly memoryRamCapacity!: Primitives<MemoryRamCapacity>
-  readonly hardDriveCapacityId!: Primitives<HardDriveCapacityId> | null
-  readonly hardDriveTypeId!: Primitives<HardDriveTypeId> | null
-  readonly operatingSystemId!: Primitives<OperatingSystemId> | null
-  readonly operatingSystemArqId!: Primitives<OperatingSystemArqId> | null
-  readonly macAddress!: Primitives<MACAddress> | null
-  readonly ipAddress!: Primitives<IPAddress> | null
+  readonly memoryRam! : Primitives<ComputerMemoryRam>
+  readonly processorId!: Primitives<ProcessorId>
+  readonly memoryRamCapacity!: Primitives<ComputerMemoryRamCapacity>
+  readonly hardDriveCapacityId!: Primitives<ComputerHardDriveCapacity>
+  readonly hardDriveTypeId!: Primitives<ComputerHardDriveType>
+  readonly operatingSystemId!: Primitives<ComputerOperatingSystem>
+  readonly operatingSystemArqId!: Primitives<ComputerOperatingSystemArq>
+  readonly macAddress!: Primitives<MACAddress>
+  readonly ipAddress!: Primitives<IPAddress>
 
   public static associate (models: Models): void {
     this.belongsTo(models.Category, { as: 'category', foreignKey: 'categoryId' }) // A computer belongs to a category
@@ -73,6 +75,10 @@ export function initDeviceComputerModel (sequelize: Sequelize): void {
       },
       processorId: {
         type: DataTypes.UUID,
+        allowNull: true
+      },
+      memoryRam: {
+        type: DataTypes.ARRAY(DataTypes.INTEGER),
         allowNull: true
       },
       memoryRamCapacity: {

@@ -10,14 +10,14 @@ import { ComputerProcessor } from '../domain/ComputerProcessor'
 export class ComputerValidation {
   constructor (private readonly repository: Repository) {}
 
-  async run ({ serial, activo, statusId, categoryId, brandId, modelId, employeeId, observation, locationId, computerName, processorId, memoryRamCapacity, operatingSystemArqId, operatingSystemId, hardDriveCapacityId, hardDriveTypeId, ipAddress, macAddress }: Omit<DeviceComputerPrimitives, 'id'>): Promise<DeviceComputer> {
-    await ComputerName.ensuerComputerNameDoesNotExit({ repository: this.repository.device, computerName })
-    await ComputerProcessor.ensureProcessorExit({ repository: this.repository.processor, processor: processorId })
-    await HardDriveCapacityId.ensureHardDriveCapacityExit({ repository: this.repository.hardDriveCapacity, hardDriveCapacity: hardDriveCapacityId })
-    await HardDriveTypeId.ensureHardDriveTypeExit({ repository: this.repository.hardDriveType, hardDriveType: hardDriveTypeId })
-    await ComputerOperatingSystem.ensureOperatingSystemExit({ repository: this.repository.operatingSystemVersion, operatingSystem: operatingSystemId })
-    await ComputerOperatingSystemArq.ensureOperatingSystemArqExit({ repository: this.repository.operatingSystemArq, operatingSystemArq: operatingSystemArqId })
+  async run (params: Omit<DeviceComputerPrimitives, 'id' | 'memoryRamCapacity'>): Promise<DeviceComputer> {
+    await ComputerName.ensuerComputerNameDoesNotExit({ repository: this.repository.device, computerName: params.computerName })
+    await ComputerProcessor.ensureProcessorExit({ repository: this.repository.processor, processor: params.processorId })
+    await HardDriveCapacityId.ensureHardDriveCapacityExit({ repository: this.repository.hardDriveCapacity, hardDriveCapacity: params.hardDriveCapacityId })
+    await HardDriveTypeId.ensureHardDriveTypeExit({ repository: this.repository.hardDriveType, hardDriveType: params.hardDriveTypeId })
+    await ComputerOperatingSystem.ensureOperatingSystemExit({ repository: this.repository.operatingSystemVersion, operatingSystem: params.operatingSystemId })
+    await ComputerOperatingSystemArq.ensureOperatingSystemArqExit({ repository: this.repository.operatingSystemArq, operatingSystemArq: params.operatingSystemArqId })
 
-    return DeviceComputer.create({ serial, activo, statusId, categoryId, brandId, modelId, employeeId, observation, locationId, computerName, processorId, memoryRamCapacity, operatingSystemArqId, operatingSystemId, hardDriveCapacityId, hardDriveTypeId, ipAddress, macAddress })
+    return DeviceComputer.create(params)
   }
 }

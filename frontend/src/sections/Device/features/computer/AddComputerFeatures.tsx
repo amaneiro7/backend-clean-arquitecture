@@ -5,6 +5,7 @@ import { InputSkeletonLoading } from '../../../components/skeleton/inputSkeleton
 import MacAddressInput from '../../../components/text-inputs/MacAddressInput'
 import { DefaultProps } from '../../../page/FormDevice/DeviceFormInitialState'
 import { MemoryRamCapacitySlotInput } from '../../../components/number-inputs/MemoryRamCapacitySlotInput'
+import { MemoryRam } from '../../../../modules/devices/fetures/computer/domain/MemoryRam'
 
 interface Props {
   onChange: OnHandleChange
@@ -25,7 +26,7 @@ export default function AddComputerFeatures({ formData, onChange }: Props) {
 
   const renderInputs = useMemo(() => {
     const inputs = formData.memoryRamSlotQuantity ? new Array(formData.memoryRamSlotQuantity).fill(0) : []
-    formData.memoryRamSlot = inputs
+    formData.memoryRam = inputs
     return inputs
   }, [formData.memoryRamSlotQuantity])
 
@@ -58,14 +59,15 @@ export default function AddComputerFeatures({ formData, onChange }: Props) {
                   onChange={(name, value) => {
                     const parsedValue = Number(value)
                     if (!isNaN(parsedValue)) {
-                      const updatedMemoryRamSlot = [...formData.memoryRamSlot]
+                      const updatedMemoryRamSlot = [...formData.memoryRam]
                       updatedMemoryRamSlot[index] = parsedValue
                       onChange(name, updatedMemoryRamSlot)
+                      onChange('memoryRamCapacity', MemoryRam.totalAmount(formData.memoryRam))
                     } else {
                       console.error('El valor nos un número válido')
                     }
                   }}
-                  value={formData.memoryRamSlot[index]}
+                  value={formData.memoryRam[index]}
                   status={formData.statusId}
                 />
               ))

@@ -3,16 +3,20 @@ import { StatusId } from "../../../devices/status/domain/StatusId";
 import { MemoryRamValues } from "../../memoryRam/memoryRamCapacity/domain/MemoryRamValue";
 
 export class MemoryRam {
-    constructor(
-        readonly value: MemoryRamValues[],
-        private readonly status: Primitives<StatusId>
-    ) {
-        if (MemoryRam.isValid(value, this.status)) {
-            throw new Error(MemoryRam.invalidMessage())
-        }
+    constructor(readonly value: MemoryRamValues[]) {}
+
+    public toPrimitives(): Primitives<MemoryRamValues>[] {
+        return this.value.map(memValue => memValue.value)
     }
 
-    public static isValid(value: Primitives<MemoryRam>, status: Primitives<StatusId>): boolean {
+    static fromPrimitives (memoryRamValues: Primitives<MemoryRamValues>[], status: Primitives<StatusId>) {
+        if (!MemoryRam.isValid(memoryRamValues, status)) {
+            throw new Error(MemoryRam.invalidMessage())
+        }
+        return new MemoryRam(memoryRamValues.map(MemoryRamValues.fromValues))
+    }
+    
+    public static isValid(value: Primitives<MemoryRamValues>[], status: Primitives<StatusId>): boolean {
         return StatusId.StatusOptions.INUSE === status && MemoryRam.isZeroTotalMemory(value) && this.isEmpty(value)
     }
 
@@ -21,19 +25,21 @@ export class MemoryRam {
 
     }
 
-    private static isEmpty(value: Primitives<MemoryRam>): boolean {
+    private static isEmpty(value: Primitives<MemoryRamValues>[]): boolean {
         return value.length === 0
     }
-
-    private static totalAmount(value: Primitives<MemoryRam>): number {
+   
+    static totalAmount(value: Primitives<MemoryRamValues>[]): number {
+        if (!value) return
+        console.log('no he ignadoro la condicion')
         let number = 0
         for (let totalAmount = 0; totalAmount < value.length; totalAmount++) {
-            number += value[totalAmount].value
+            number += value[totalAmount]
         }
         return number
     }
 
-    public static isZeroTotalMemory(value: Primitives<MemoryRam>): boolean {
+    public static isZeroTotalMemory(value: Primitives<MemoryRamValues>[]): boolean {
         return this.totalAmount(value) === 0
     }
 }

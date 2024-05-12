@@ -12,9 +12,13 @@ export class MemoryRamValues {
         }
     }
 
+    public static fromValues(value: Primitives<MemoryRamValues>) {
+        return new MemoryRamValues(value)
+    }
+
     static generarSecuencia(): number[] {
-        const secuencia: number[] = []
-        let valorActual = this.min
+        const secuencia: number[] = [this.min]
+        let valorActual = this.minStep
         for (let i = 0; i < this.numStep; i++) {
             secuencia.push(valorActual)
             valorActual *= 2
@@ -24,7 +28,7 @@ export class MemoryRamValues {
 
     public static isValid(value: Primitives<MemoryRamValues>): boolean {
         const numberValue = Number(value)
-        const secuencia = this.generarSecuencia()
+        const secuencia = this.generarSecuencia()        
         return secuencia.includes(numberValue)
     }
 

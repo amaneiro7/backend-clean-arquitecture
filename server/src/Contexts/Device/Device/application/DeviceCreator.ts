@@ -20,8 +20,8 @@ export class DeviceCreator {
     let device
 
     if (DeviceComputer.isComputerCategory({ categoryId })) {
-      const { computerName, processorId, memoryRamCapacity, operatingSystemArqId, operatingSystemId, hardDriveCapacityId, hardDriveTypeId, ipAddress, macAddress } = otherParams as DeviceComputerPrimitives
-      device = await new ComputerValidation(this.repository).run({ serial, activo, statusId, categoryId, brandId, modelId, employeeId, locationId, observation, computerName, processorId, memoryRamCapacity, operatingSystemArqId, operatingSystemId, hardDriveCapacityId, hardDriveTypeId, ipAddress, macAddress })
+      const { computerName, processorId, memoryRam, memoryRamCapacity, operatingSystemArqId, operatingSystemId, hardDriveCapacityId, hardDriveTypeId, ipAddress, macAddress } = otherParams as DeviceComputerPrimitives
+      device = await new ComputerValidation(this.repository).run({ serial, activo, statusId, categoryId, brandId, modelId, employeeId, locationId, observation, computerName, processorId, memoryRam, operatingSystemArqId, operatingSystemId, hardDriveCapacityId, hardDriveTypeId, ipAddress, macAddress })
     } else if (DeviceHardDrive.isHardDriveCategory({ categoryId })) {
       const { hardDriveCapacityId, hardDriveTypeId, health } = otherParams as DeviceHardDrivePrimitives
       device = await new HardDriveValidation(this.repository).run({ serial, activo, statusId, categoryId, brandId, modelId, employeeId, locationId, observation, hardDriveCapacityId, hardDriveTypeId, health })

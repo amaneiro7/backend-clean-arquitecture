@@ -1,6 +1,7 @@
 import { DeviceComputer, type DeviceComputerPrimitives } from '../../../Features/Computer/domain/Computer'
 import { ComputerHardDriveCapacity } from '../../../Features/Computer/domain/ComputerHardDriveCapacity'
 import { ComputerHardDriveType } from '../../../Features/Computer/domain/ComputerHardDriveType'
+import { ComputerMemoryRam } from '../../../Features/Computer/domain/ComputerMemoryRam'
 import { ComputerMemoryRamCapacity } from '../../../Features/Computer/domain/ComputerMemoryRamCapacity'
 import { ComputerName } from '../../../Features/Computer/domain/ComputerName'
 import { ComputerOperatingSystem } from '../../../Features/Computer/domain/ComputerOperatingSystem'
@@ -72,6 +73,7 @@ export class DeviceUpdater {
         observation: device.observation,
         computerName: computer.computerName,
         processorId: computer.processorId,
+        memoryRam: computer.memoryRam,
         memoryRamCapacity: computer.memoryRamCapacity,
         hardDriveCapacityId: computer.hardDriveCapacityId,
         hardDriveTypeId: computer.hardDriveTypeId,
@@ -85,12 +87,12 @@ export class DeviceUpdater {
 
       // Extraemos los parametros de la clase Computer
       const {
-        computerName, processorId, operatingSystemArqId, operatingSystemId, hardDriveCapacityId, hardDriveTypeId, memoryRamCapacity, ipAddress, macAddress
+        computerName, processorId, operatingSystemArqId, operatingSystemId, hardDriveCapacityId, hardDriveTypeId, memoryRam, ipAddress, macAddress
       } = params as Partial<DeviceComputerPrimitives>
 
       // Actualizamos los campos de la clase Computer
       await ComputerName.updateComputerNameField({ repository: this.repository.device, computerName, entity: deviceEntity })
-      await ComputerMemoryRamCapacity.updateMemoryRamField({ memoryRam: memoryRamCapacity, entity: deviceEntity })
+      await ComputerMemoryRam.updateMemoryRam({entity: deviceEntity, memoryRam})      
       await ComputerProcessor.updateProcessorField({ repository: this.repository.processor, processor: processorId, entity: deviceEntity })
       await ComputerHardDriveCapacity.updateHardDriveCapacityField({ repository: this.repository.hardDriveCapacity, entity: deviceEntity, hardDriveCapacity: hardDriveCapacityId })
       await ComputerHardDriveType.updateHardDriveTypeField({ repository: this.repository.hardDriveType, hardDriveType: hardDriveTypeId, entity: deviceEntity })
