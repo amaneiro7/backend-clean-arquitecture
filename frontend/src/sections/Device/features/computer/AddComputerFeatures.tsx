@@ -4,7 +4,6 @@ import { Computer } from '../../../../modules/devices/fetures/computer/domain/Co
 import { InputSkeletonLoading } from '../../../components/skeleton/inputSkeletonLoading'
 import MacAddressInput from '../../../components/text-inputs/MacAddressInput'
 import { DefaultProps } from '../../../page/FormDevice/DeviceFormInitialState'
-import { MemoryRamCapacitySlotInput } from '../../../components/number-inputs/MemoryRamCapacitySlotInput'
 
 interface Props {
   onChange: OnHandleChange
@@ -19,6 +18,8 @@ const OperatingSystemArqComboBox = lazy(async () => import('../../../components/
 const HardDriveCapacityComboBox = lazy(async () => import('../../../components/combo_box/HardDriveCapacityComboBox').then(m => ({ default: m.HardDriveCapacityComboBox })))
 const HardDriveTypeComboBox = lazy(async () => import('../../../components/combo_box/HardDriveTypeComboBox'))
 const IpAddressInput = lazy(async () => import('../../../components/text-inputs/IpAddressInput').then(m => ({ default: m.IpAddressInput })))
+const MemoryRamCapacitySlotInput = lazy(async () => import('../../../components/number-inputs/MemoryRamCapacitySlotInput').then(m => ({ default: m.MemoryRamCapacitySlotInput })))
+const ReadOnlyInputBox = lazy(async () => import('../../../components/ReadOnlyInputBox').then(m => ({ default: m.ReadOnlyInputBox })))
 
 export default function AddComputerFeatures({ formData, onChange }: Props) {
   const isComputerLaptopAllinOneDevice = Computer.isComputerCategory({ categoryId: formData.categoryId })
@@ -32,8 +33,8 @@ export default function AddComputerFeatures({ formData, onChange }: Props) {
     formData.memoryRam = inputs
     return inputs
   }, [formData.memoryRamSlotQuantity])
-  
-  
+
+
   return (
     <>
       {(isComputerLaptopAllinOneDevice && renderInputs) &&
@@ -67,15 +68,25 @@ export default function AddComputerFeatures({ formData, onChange }: Props) {
               ))
             }
           </div>
-          <Suspense fallback={<InputSkeletonLoading />}>
-            <MemoryRamCapacityInput
-              onChange={onChange}
-              value={formData.memoryRamCapacity}
-              memoryRam={formData.memoryRam}
-              status={formData.statusId}
-              type='form'
-            />
-          </Suspense>
+
+          <div className='flex gap-4'>
+            <Suspense fallback={<InputSkeletonLoading />}>
+              <MemoryRamCapacityInput
+                onChange={onChange}
+                value={formData.memoryRamCapacity}
+                memoryRam={formData.memoryRam}
+                status={formData.statusId}
+                type='form'
+              />
+            </Suspense>
+            <Suspense>
+              <ReadOnlyInputBox
+                label='Tipo de Memoria'
+                value={formData.memoryRamType}
+              />
+            </Suspense>
+          </div>
+
           <div className='flex gap-4'>
             <Suspense fallback={<InputSkeletonLoading />}>
               <HardDriveCapacityComboBox

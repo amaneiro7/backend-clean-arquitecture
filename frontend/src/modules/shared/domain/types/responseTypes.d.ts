@@ -108,6 +108,7 @@ export interface BrandApiResponse extends BrandPrimitives {
 }
 
 export interface ModelApiresponse extends ModelPrimitives {  
+  id: Primitives<ModelId>
   createdAt: string
   updatedAt: string
   category: CategoryPrimitives

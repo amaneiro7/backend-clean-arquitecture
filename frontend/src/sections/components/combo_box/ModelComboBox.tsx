@@ -67,8 +67,16 @@ export default function ModelComboBox({ value, onChange, categoryId, brandId, ty
                             setDialogValue(prev => ({ ...prev, name: newValue.inputValue }))
                         } else {
                             onChange('modelId', newValue ? newValue.id : '', Operator.EQUAL)
-                            onChange('memoryRamSlotQuantity', newValue ? newValue.modelComputer.memoryRamSlotQuantity : undefined)
-                            
+                            if (type === 'form') {
+                                if (newValue?.modelComputer !== null) {
+                                    onChange('memoryRamSlotQuantity', newValue ? newValue?.modelComputer.memoryRamSlotQuantity : undefined)
+                                    onChange('memoryRamType', newValue ? newValue?.modelComputer.memoryRamType.name : '')                               
+                                }
+                                if (newValue?.modelLaptop !== null) {
+                                    onChange('memoryRamSlotQuantity', newValue ? newValue?.modelComputer.memoryRamSlotQuantity : undefined)
+                                    onChange('memoryRamType', newValue ? newValue?.modelComputer.memoryRamType.name : '')                               
+                                }
+                            }
                         }
                     }}
                     options={filterdModel}

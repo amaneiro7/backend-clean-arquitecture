@@ -26,6 +26,8 @@ import { type DevicePrimitives } from '../../../modules/devices/devices/devices/
 import { type ComputerName } from '../../../modules/devices/fetures/computer/domain/ComputerName'
 import { type DeviceId } from '../../../modules/devices/devices/devices/domain/DeviceId'
 import { type MemoryRamValues } from '../../../modules/devices/fetures/memoryRam/memoryRamCapacity/domain/MemoryRamValue'
+import { MemoryRamSlotQuantity } from '../../../modules/devices/model/ModelCharacteristics/modelComputer/MemoryRamQuantity'
+import { MemoryRamTypeName } from '../../../modules/devices/fetures/memoryRam/memoryRamType/domain/MemoryRamTypeName'
 
 export interface DefaultProps {
   id?: Primitives<DeviceId>
@@ -49,7 +51,8 @@ export interface DefaultProps {
   ipAddress?: Primitives<IPAddress>
   health?: Primitives<HardDriveHealth>
   memoryRam?: Primitives<MemoryRamValues>[]
-  memoryRamSlotQuantity?: number
+  memoryRamSlotQuantity?: Primitives<MemoryRamSlotQuantity>
+  memoryRamType?: Primitives<MemoryRamTypeName>
   updatedAt?: string
 }
 
@@ -76,6 +79,7 @@ const defaultInitialState: DefaultProps = {
   health: 100,
   updatedAt: undefined,
   memoryRamSlotQuantity: undefined,
+  memoryRamType: '',
   memoryRam: []
 }
 export const useDeviceInitialState = (): {
@@ -132,18 +136,22 @@ export const useDeviceInitialState = (): {
     if (computer !== null) {
       const { computerName, processorId, memoryRamCapacity, hardDriveCapacityId, hardDriveTypeId, operatingSystemArqId, operatingSystemId, macAddress, ipAddress, memoryRam } = computer
       let memoryRamSlotQuantity: undefined | number
+      let memoryRamType: string
       if (model?.modelComputer !== null) {
         memoryRamSlotQuantity = model?.modelComputer.memoryRamSlotQuantity
+        memoryRamType = model?.modelComputer.memoryRamType.name
       }else if (model?.modelLaptop !== null) {
         memoryRamSlotQuantity = model?.modelLaptop.memoryRamSlotQuantity
+        memoryRamType = model?.modelLaptop.memoryRamType.name
       } else {
         memoryRamSlotQuantity = undefined
+        memoryRamType = ''
       }
       const meRam = memoryRam.length !== memoryRamSlotQuantity ? [...memoryRam, ...Array(memoryRamSlotQuantity - memoryRam.length).fill(0)] : memoryRam
       if (memoryRamCapacity > 0 && memoryRam.length !== memoryRamSlotQuantity) {
         meRam[0] = Number(memoryRamCapacity)
       }
-      setPreloadedDeviceState(prev => ({ ...prev, computerName, processorId, memoryRamSlotQuantity, memoryRam: meRam, hardDriveCapacityId, hardDriveTypeId, operatingSystemArqId, operatingSystemId, macAddress, ipAddress }))
+      setPreloadedDeviceState(prev => ({ ...prev, computerName, processorId, memoryRamType, memoryRamSlotQuantity, memoryRam: meRam, hardDriveCapacityId, hardDriveTypeId, operatingSystemArqId, operatingSystemId, macAddress, ipAddress }))
     }
     if (hardDrive !== null) {
       const { health, hardDriveCapacityId, hardDriveTypeId } = hardDrive

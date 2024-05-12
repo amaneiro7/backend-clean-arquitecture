@@ -9,7 +9,7 @@ const TextField = lazy(async () => await import("../../mui/TextField").then(m =>
 const CircularProgress = lazy(async () => await import('../../mui/CircularProgress').then(m => ({ default: m.CircularProgress })))
 const CloseIcon = lazy(async () => await import('../../mui/CloseIcon').then(m => ({ default: m.CloseIcon })))
 
-interface Props {
+interface Props  {
   id: string
   initialValue?: any | null
   name: string
@@ -28,11 +28,13 @@ interface Props {
   type?: 'form' | 'search'
 }
 
+
+
 interface Options {
   inputValue?: string
   id: string
   name: string
-
+  [key: string]: any
 }
 
 const filter = createFilterOptions()
@@ -105,7 +107,7 @@ export default function ComboBox({
         selectOnFocus
         clearOnEscape
         clearOnBlur        
-        handleHomeEndKeys
+        handleHomeEndKeys        
         clearIcon={<Suspense><CloseIcon fontSize='small' /></Suspense>}
         renderInput={(params) => (
           <TextField
