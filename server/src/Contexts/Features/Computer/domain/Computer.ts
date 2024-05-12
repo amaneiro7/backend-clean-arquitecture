@@ -22,11 +22,12 @@ import { ComputerOperatingSystemArq } from './ComputerOperatingSystemArq'
 import { DeviceLocation } from '../../../Device/Device/domain/DeviceLocation'
 import { ComputerMemoryRam } from './ComputerMemoryRam'
 import { InvalidArgumentError } from '../../../Shared/domain/value-object/InvalidArgumentError'
+import { MemoryRamValues } from '../../MemoryRam/MemoryRamCapacity/MemoryRamValues'
 
 export interface DeviceComputerPrimitives extends DevicePrimitives {
   computerName: Primitives<ComputerName>
   processorId: Primitives<ComputerProcessor>
-  memoryRam: Primitives<ComputerMemoryRam>
+  memoryRam: Primitives<MemoryRamValues>[]
   memoryRamCapacity: Primitives<ComputerMemoryRamCapacity>
   hardDriveCapacityId: Primitives<ComputerHardDriveCapacity>
   hardDriveTypeId: Primitives<ComputerHardDriveType>
@@ -82,7 +83,7 @@ export class DeviceComputer extends Device {
       new DeviceObservation(params.observation),
       new ComputerName(params.computerName, params.statusId),
       new ComputerProcessor(params.processorId),
-      new ComputerMemoryRam(params.memoryRam),
+      ComputerMemoryRam.fromPrimitives(params.memoryRam),
       new ComputerMemoryRamCapacity(ComputerMemoryRam.totalAmount(params.memoryRam), params.statusId),
       new ComputerHardDriveCapacity(params.hardDriveCapacityId),
       new ComputerHardDriveType(params.hardDriveTypeId, params.hardDriveCapacityId),
@@ -137,7 +138,7 @@ export class DeviceComputer extends Device {
       new DeviceObservation(primitives.observation),
       new ComputerName(primitives.computerName, primitives.statusId),
       new ComputerProcessor(primitives.processorId),
-      new ComputerMemoryRam(primitives.memoryRam),
+      ComputerMemoryRam.fromPrimitives(primitives.memoryRam),
       new ComputerMemoryRamCapacity(primitives.memoryRamCapacity, primitives.statusId),
       new ComputerHardDriveCapacity(primitives.hardDriveCapacityId),
       new ComputerHardDriveType(primitives.hardDriveTypeId, primitives.hardDriveCapacityId),
@@ -156,8 +157,8 @@ export class DeviceComputer extends Device {
     this.processorId = new ComputerProcessor(newProcessorId)
   }
 
-  updateMemoryRam (newMemoryRam: Primitives<ComputerMemoryRam>): void {
-    this.memoryRam = new ComputerMemoryRam(newMemoryRam)
+  updateMemoryRam (newMemoryRam: Primitives<MemoryRamValues>[]): void {
+    this.memoryRam = ComputerMemoryRam.fromPrimitives(newMemoryRam)
   }
   updateMemoryRamCapacity (newMemoryRamCapacity: Primitives<ComputerMemoryRamCapacity>, status: Primitives<DeviceStatus>): void {
     this.memoryRamCapacity = new ComputerMemoryRamCapacity(newMemoryRamCapacity, status)
@@ -194,8 +195,8 @@ export class DeviceComputer extends Device {
   get memoryRamCapacityValue (): Primitives<ComputerMemoryRamCapacity> {
     return this.memoryRamCapacity.value
   }
-  get memoryRamValue (): Primitives<ComputerMemoryRam> {
-    return this.memoryRam.value
+  get memoryRamValue (): Primitives<MemoryRamValues>[] {
+    return this.memoryRam.toPrimitives()
   }
 
   get processorValue (): Primitives<ComputerProcessor> {

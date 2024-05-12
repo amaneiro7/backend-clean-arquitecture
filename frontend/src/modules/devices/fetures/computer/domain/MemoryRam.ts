@@ -17,7 +17,6 @@ export class MemoryRam {
     }
     
     public static isValid(value: Primitives<MemoryRamValues>[], status: Primitives<StatusId>): boolean {
-        console.log('MemoryRam - IsValid', value, status)
         if (StatusId.StatusOptions.INUSE === status && MemoryRam.isZeroTotalMemory(value) && !this.isEmpty(value)) {
             return false
         }
@@ -26,7 +25,6 @@ export class MemoryRam {
 
     public static invalidMessage(): string {
         return 'La capacidad de la memoria Ram no puede ser 0 si el equipo está en uso'
-
     }
 
     private static isEmpty(value: Primitives<MemoryRamValues>[]): boolean {

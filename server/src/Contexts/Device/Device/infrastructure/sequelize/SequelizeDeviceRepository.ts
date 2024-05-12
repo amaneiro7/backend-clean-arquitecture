@@ -35,7 +35,13 @@ export class SequelizeDeviceRepository extends CriteriaToSequelizeConverter impl
   async searchById(id: string): Promise<DevicePrimitives | null> {
     return await DeviceModel.findByPk(id, {
       include: [
-        'model',
+        {
+          association:'model',
+          include: [
+            { association: 'modelComputer', include: ['memoryRamType'] },
+            { association: 'modelLaptop', include: ['memoryRamType'] }
+          ]
+        },
         'category',
         'brand',
         'status',

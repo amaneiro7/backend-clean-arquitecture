@@ -38,7 +38,7 @@ export function MemoryRamCapacityInput({ value, memoryRam, onChange, type = 'for
     const value = MemoryRam.totalAmount(memoryRam)
     onChange('memoryRamCapacity', value)
     return value
-  },[memoryRam])
+  }, [memoryRam])
 
 
   return (
@@ -46,14 +46,12 @@ export function MemoryRamCapacityInput({ value, memoryRam, onChange, type = 'for
       <NumberInput
         name='memoryRamCapacity'
         label='Capacidad Total de Memoria Ram'
-        placeholder='--- Ingrese la Capcacidad de Memoria ---'
         isRequired={type === 'form'}
         value={updateValue}
         error={isError}
         readOnly        
         errorMessage={errorMessage}
       />
-
     </Suspense>
   )
 }

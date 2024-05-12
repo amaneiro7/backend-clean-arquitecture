@@ -7,7 +7,7 @@ import { SpinnerSKCircle } from "../../components/Loading/spinner-sk-circle"
 import { lazy, Suspense, useRef } from "react"
 import TableHeader from "../../components/TableComponent/TableHeader"
 import TableHead from "../../components/TableComponent/TableHead"
-import { DevicesMappedApiResponse } from "../../../modules/shared/domain/types/responseTypes"
+import { type DevicesApiResponse } from "../../../modules/shared/domain/types/responseTypes"
 import Table from "../../components/TableComponent/Table"
 import TableRow from "../../components/TableComponent/TableRow"
 import TableCellEditDeleteIcon from "../../components/TableComponent/TableCellEditDeleteIcon"
@@ -58,17 +58,17 @@ export default function FilterByDevice() {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {(devices as unknown as DevicesMappedApiResponse[]).map((device) => (
+                        {(devices as unknown as DevicesApiResponse[]).map((device) => (
                             <TableRow key={device?.id}>
                                 <TableCellEditDeleteIcon state={device} url={`/device/edit/${device.id}`} />
-                                <TableCell value={device.employeeUserName} />
-                                <TableCell value={device.locationName} />
-                                <TableCell value={device.categoryName} />
-                                <TableCell value={device.serial} />
-                                <TableCell value={device.activo} />
-                                <TableCell value={device.brandName} />
-                                <TableCell value={device.modelName} />
-                                <TableCell value={device.observation} />
+                                <TableCell value={device?.employee?.userName} />
+                                <TableCell value={device?.location?.name} />
+                                <TableCell value={device?.category?.name} />
+                                <TableCell value={device?.serial} />
+                                <TableCell value={device?.activo} />
+                                <TableCell value={device?.brand?.name} />
+                                <TableCell value={device?.model?.name} />
+                                <TableCell value={device?.observation} />
                                 <TableCell value={device?.computer?.computerName ?? 'N/A'} />
                                 <TableCell value={device?.computer?.processor?.numberModel ?? 'N/A'} />
                                 <TableCell value={device?.computer?.memoryRamCapacity ? `${device?.computer?.memoryRamCapacity} Gb` : 'N/A'} />

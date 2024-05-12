@@ -1,20 +1,18 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 type InputProps = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
-interface NumberInputProps extends InputProps {
-  value: number
-  name: string
-  placeholder: string
+interface NumberInputProps extends InputProps {  
   label: string
   isRequired?: boolean
   error?: boolean
   errorMessage?: string
 }
 
-export function NumberInput({ value, name, error, errorMessage, label, isRequired = false, ...inputProps}: NumberInputProps) {
+export function NumberInput({ error, errorMessage, label, isRequired = false, ...inputProps}: NumberInputProps) {
   const [isFocused, setIsFocused] = useState(false)
+  const inputRef = useRef(null)
   return (
-    <div className="relative inline-flex flex-col align-top w-full">
+    <div className="relative inline-flex flex-col align-top w-full select-all">
       <label
         style={{
           transformOrigin: 'top left',
@@ -26,15 +24,17 @@ export function NumberInput({ value, name, error, errorMessage, label, isRequire
       >
         {`${label} ${isRequired ? '*' : ''}`}
       </label>
-      <div className={`w-full p-1 pr-2 border rounded-md outline-none ${isFocused && 'ring-1'} ${error ? `border-error hover:border-error ${isFocused && 'ring-error'} ` : `${isFocused ? 'ring-focus border-focus' : 'border-black/25 hover:border-black'}`}`}>
+      <div className={`w-full p-1 pr-2 border rounded-md outline-none select-all ${isFocused && 'ring-1'} ${error ? `border-error hover:border-error ${isFocused && 'ring-error'} ` : `${isFocused ? 'ring-focus border-focus' : 'border-black/25 hover:border-black'}`}`}>
         <input
           {...inputProps}
-          className='py-1 pr-1 pl-2 w-0 min-w-full flex-1 text-ellipsis focus-visible:outline-none'
-          name={name}
+          className='py-1 pr-1 pl-2 w-0 min-w-full flex-1 text-ellipsis focus-visible:outline-none select-all'          
           type="number"
-          value={value}
-          required={isRequired}          
-          onFocus={() => { setIsFocused(true) }}
+          ref={inputRef}
+          required={isRequired}
+          onFocus={() => { 
+            setIsFocused(true)
+            inputRef.current.select()
+           }}
           onBlur={() => { setIsFocused(false) }}
         />
         <fieldset aria-hidden className={`text-left absolute inset-0 -top-1 m-0 p-0 pointer-events-none overflow-hidden min-w-0

@@ -36,10 +36,6 @@ export function MemoryRamCapacitySlotInput({ value: memRam, index, onChange, typ
       <NumberInput
         name='memoryRam'
         label={`Memoria Ram Slot ${index}`}
-        // onChange={(event) => {
-        //   const { name, value } = event.target
-        //   onChange(name, value)
-        // }}
         onChange={(event) => {
           const { name, value } = event.target
           const parsedValue = Number(value)
@@ -55,7 +51,7 @@ export function MemoryRamCapacitySlotInput({ value: memRam, index, onChange, typ
         value={memRam[index]}
         max={MemoryRamValues.max}
         min={MemoryRamValues.min}
-        step={MemoryRamValues.minStep}        
+        step={memRam[index]*2}        
         error={isError}
         errorMessage={errorMessage}
       />

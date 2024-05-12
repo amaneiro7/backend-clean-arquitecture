@@ -9,7 +9,7 @@ import { useDevice } from '../../Device/device/useDevice'
 import { StatusId } from '../../../modules/devices/devices/status/domain/StatusId'
 import { TypeOfSiteId } from '../../../modules/location/typeofsites/domain/typeOfSiteId'
 
-import { type DevicesMappedApiResponse } from '../../../modules/shared/domain/types/responseTypes'
+import { type DevicesApiResponse } from '../../../modules/shared/domain/types/responseTypes'
 import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
 
 import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoading'
@@ -188,17 +188,17 @@ export default function AgenciaPage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {(devices as unknown as DevicesMappedApiResponse[]).map((device) => (
+              {(devices as unknown as DevicesApiResponse[]).map((device) => (
                 <TableRow key={device?.id}>
                   <TableCellEditDeleteIcon state={device} url={`/device/edit/${device.id}`} />
-                  <TableCell value={device.employeeUserName} url={`/employee/edit/${device.employeeId}`} />
-                  <TableCell value={device.locationName} />
-                  <TableCell value={device.categoryName} />
-                  <TableCell value={device.serial ?? 'Sin Serial'} state={device} url={`/device/edit/${device.id}`} />
-                  <TableCell value={device.activo ?? 'Sin Activo'} />
-                  <TableCell value={device.brandName} />
-                  <TableCell value={device.modelName} />
-                  <TableCell value={device.observation} />
+                  <TableCell value={device?.employee?.userName} url={`/employee/edit/${device?.employeeId}`} />
+                  <TableCell value={device?.location?.name} />
+                  <TableCell value={device?.category?.name} />
+                  <TableCell value={device?.serial ?? 'Sin Serial'} state={device} url={`/device/edit/${device.id}`} />
+                  <TableCell value={device?.activo ?? 'Sin Activo'} />
+                  <TableCell value={device?.brand?.name} />
+                  <TableCell value={device?.model?.name} />
+                  <TableCell value={device?.observation} />
                   <TableCell value={device?.computer?.computerName} />
                   <TableCell value={device?.computer ? `${device?.computer?.processor?.productCollection} ${device?.computer?.processor?.numberModel}` : ''} />
                   <TableCell value={device?.computer ? `${device?.computer?.memoryRamCapacity} Gb` : ''} />

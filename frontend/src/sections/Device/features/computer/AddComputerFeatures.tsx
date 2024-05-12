@@ -25,16 +25,15 @@ export default function AddComputerFeatures({ formData, onChange }: Props) {
 
   const renderInputs = useMemo(() => {
     let inputs: number[]
-    // if (formData.memoryRam.length > 0) {
-    //   inputs = formData.memoryRam
-    //   return
-    // }
-    inputs = formData.memoryRamSlotQuantity ? new Array(formData.memoryRamSlotQuantity).fill(0) : []
+    if (formData.memoryRam && formData.memoryRam?.length === formData.memoryRamSlotQuantity) {
+      return formData.memoryRam
+    }
+    inputs = new Array(formData.memoryRamSlotQuantity).fill(0)
     formData.memoryRam = inputs
     return inputs
   }, [formData.memoryRamSlotQuantity])
-  console.log(renderInputs)
-  console.log(formData.memoryRam)
+  
+  
   return (
     <>
       {(isComputerLaptopAllinOneDevice && renderInputs) &&

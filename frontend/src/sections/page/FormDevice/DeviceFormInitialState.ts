@@ -2,7 +2,7 @@ import { useEffect, useState, useMemo } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useAppContext } from '../../Context/AppContext'
 import { useDevice } from '../../Device/device/useDevice'
-import { type DevicesMappedApiResponse } from '../../../modules/shared/domain/types/responseTypes'
+import { type DevicesApiResponse } from '../../../modules/shared/domain/types/responseTypes'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { type DeviceSerial } from '../../../modules/devices/devices/devices/domain/DeviceSerial'
 import { type DeviceActivo } from '../../../modules/devices/devices/devices/domain/DeviceActivo'
@@ -25,7 +25,7 @@ import { type DeviceObservation } from '../../../modules/devices/devices/devices
 import { type DevicePrimitives } from '../../../modules/devices/devices/devices/domain/Device'
 import { type ComputerName } from '../../../modules/devices/fetures/computer/domain/ComputerName'
 import { type DeviceId } from '../../../modules/devices/devices/devices/domain/DeviceId'
-import  {type MemoryRamValues } from '../../../modules/devices/fetures/memoryRam/memoryRamCapacity/domain/MemoryRamValue'
+import { type MemoryRamValues } from '../../../modules/devices/fetures/memoryRam/memoryRamCapacity/domain/MemoryRamValue'
 
 export interface DefaultProps {
   id?: Primitives<DeviceId>
@@ -90,14 +90,14 @@ export const useDeviceInitialState = (): {
   const { getDevice } = useDevice(repository)
   const [preloadedDeviceState, setPreloadedDeviceState] = useState(defaultInitialState)
 
-  const setResetState = (currentState?: DefaultProps) => {    
+  const setResetState = (currentState?: DefaultProps) => {
     if (location.pathname.includes('add')) {
-      setPreloadedDeviceState({id: undefined, ...defaultInitialState})
-    } else if(currentState === undefined) {
-      setPreloadedDeviceState({id: undefined, ...defaultInitialState})
+      setPreloadedDeviceState({ id: undefined, ...defaultInitialState })
+    } else if (currentState === undefined) {
+      setPreloadedDeviceState({ id: undefined, ...defaultInitialState })
     } else {
       const updatedAt = new Date().toISOString()
-      setPreloadedDeviceState(prev => ({...prev, ...currentState, updatedAt}))
+      setPreloadedDeviceState(prev => ({ ...prev, ...currentState, updatedAt }))
     }
   }
 
@@ -111,7 +111,7 @@ export const useDeviceInitialState = (): {
       return
     }
     if (location.state?.state !== undefined) {
-      const { state } = location.state
+      const { state } = location.state      
       processDeviceState(state)
     } else if (id === undefined) {
       navigate('/error')
@@ -126,16 +126,28 @@ export const useDeviceInitialState = (): {
     }
   }, [id, location.state?.state, location.pathname])
 
-  function processDeviceState (device: DevicePrimitives): void {
-    const { serial, activo, statusId, modelId, categoryId, brandId, employeeId, locationId, observation, computer, hardDrive, updatedAt } = device as DevicesMappedApiResponse
-    setPreloadedDeviceState((prev) => ({ ...prev, id, serial, activo, statusId, modelId, categoryId, brandId, employeeId, locationId, observation, updatedAt }))
+  function processDeviceState(device: DevicePrimitives): void {
+    const { serial, activo, statusId, model, modelId, categoryId, brandId, employeeId, locationId, observation, computer, hardDrive, updatedAt } = device as DevicesApiResponse
+    setPreloadedDeviceState((prev) => ({ ...prev, id, serial, activo: activo ?? '', statusId, modelId, categoryId, brandId, employeeId, locationId, observation, updatedAt }))
     if (computer !== null) {
-      const { computerName, processorId, memoryRamCapacity, hardDriveCapacityId, hardDriveTypeId, operatingSystemArqId, operatingSystemId, macAddress, ipAddress, updatedAt, memoryRam } = computer
-      setPreloadedDeviceState(prev => ({ ...prev, computerName, processorId, memoryRamCapacity, hardDriveCapacityId, hardDriveTypeId, operatingSystemArqId, operatingSystemId, macAddress, ipAddress, updatedAt }))
+      const { computerName, processorId, memoryRamCapacity, hardDriveCapacityId, hardDriveTypeId, operatingSystemArqId, operatingSystemId, macAddress, ipAddress, memoryRam } = computer
+      let memoryRamSlotQuantity: undefined | number
+      if (model?.modelComputer !== null) {
+        memoryRamSlotQuantity = model?.modelComputer.memoryRamSlotQuantity
+      }else if (model?.modelLaptop !== null) {
+        memoryRamSlotQuantity = model?.modelLaptop.memoryRamSlotQuantity
+      } else {
+        memoryRamSlotQuantity = undefined
+      }
+      const meRam = memoryRam.length !== memoryRamSlotQuantity ? [...memoryRam, ...Array(memoryRamSlotQuantity - memoryRam.length).fill(0)] : memoryRam
+      if (memoryRamCapacity > 0 && memoryRam.length !== memoryRamSlotQuantity) {
+        meRam[0] = Number(memoryRamCapacity)
+      }
+      setPreloadedDeviceState(prev => ({ ...prev, computerName, processorId, memoryRamSlotQuantity, memoryRam: meRam, hardDriveCapacityId, hardDriveTypeId, operatingSystemArqId, operatingSystemId, macAddress, ipAddress }))
     }
     if (hardDrive !== null) {
-      const { health, hardDriveCapacityId, hardDriveTypeId, updatedAt } = hardDrive
-      setPreloadedDeviceState(prev => ({ ...prev, health, hardDriveCapacityId, hardDriveTypeId, updatedAt }))
+      const { health, hardDriveCapacityId, hardDriveTypeId } = hardDrive
+      setPreloadedDeviceState(prev => ({ ...prev, health, hardDriveCapacityId, hardDriveTypeId }))
     }
   }
 

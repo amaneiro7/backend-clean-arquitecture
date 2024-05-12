@@ -2,7 +2,7 @@ import { Suspense, lazy, useCallback, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import debounce from 'just-debounce-it'
 
-import { type DevicesMappedApiResponse } from '../../../modules/shared/domain/types/responseTypes'
+import { type DevicesApiResponse } from '../../../modules/shared/domain/types/responseTypes'
 import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
 
 import { useAppContext } from '../../Context/AppContext'
@@ -132,8 +132,8 @@ export default function AdministrativeSitePage() {
             <Suspense fallback={<InputSkeletonLoading />}>
               <LocationComboBox
                 value={inputData.locationId}
-                typeOfSiteId={TypeOfSiteId.SitesOptions.ADMINISTRATIVE} // Modificarlo para que no sea un magic string
-                statusId={StatusId.StatusOptions.INUSE} // Modificarlo para que no sea un magic string
+                typeOfSiteId={TypeOfSiteId.SitesOptions.ADMINISTRATIVE}
+                statusId={StatusId.StatusOptions.INUSE}
                 onChange={handleChange}
                 type='search'
               />
@@ -190,16 +190,16 @@ export default function AdministrativeSitePage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {(devices as unknown as DevicesMappedApiResponse[]).map((device) => (
+              {(devices as unknown as DevicesApiResponse[]).map((device) => (
                 <TableRow key={device?.id}>
                   <TableCellEditDeleteIcon state={device} url={`/device/edit/${device.id}`} />
-                  <TableCell value={device.employeeUserName} url={`/employee/edit/${device.employeeId}`} />
-                  <TableCell value={device.locationName} />
-                  <TableCell value={device.categoryName} />
+                  <TableCell value={device.employee?.userName} url={`/employee/edit/${device.employeeId}`} />
+                  <TableCell value={device.location?.name} />
+                  <TableCell value={device.category?.name} />
                   <TableCell value={device.serial ?? 'Sin Serial'} state={device} url={`/device/edit/${device.id}`} />
                   <TableCell value={device.activo ?? 'Sin Activo'} />
-                  <TableCell value={device.brandName} />
-                  <TableCell value={device.modelName} />
+                  <TableCell value={device.brand?.name} />
+                  <TableCell value={device.model?.name} />
                   <TableCell value={device.observation} />
                   <TableCell value={device?.computer?.computerName} />
                   <TableCell value={device?.computer ? `${device?.computer?.processor?.productCollection} ${device?.computer?.processor?.numberModel}` : ''} />

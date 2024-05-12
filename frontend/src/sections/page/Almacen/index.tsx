@@ -8,7 +8,7 @@ import { Operator } from '../../../modules/shared/domain/criteria/FilterOperator
 import { useDevice } from '../../Device/device/useDevice'
 
 import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
-import { type DevicesMappedApiResponse } from '../../../modules/shared/domain/types/responseTypes'
+import { type DevicesApiResponse } from '../../../modules/shared/domain/types/responseTypes'
 
 import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoading'
 import { SpinnerSKCircle } from '../../components/Loading/spinner-sk-circle'
@@ -182,18 +182,18 @@ export default function AlmacenPage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {(devices as unknown as DevicesMappedApiResponse[]).map((device) => (
+              {(devices as unknown as DevicesApiResponse[]).map((device) => (
                 <TableRow key={device.id}>
                   <TableCellEditDeleteIcon state={device} url={`/device/edit/${device.id}`} />
-                  <TableCell value={device.categoryName} />
-                  <TableCell value={device.serial ?? 'Sin Serial'} />
-                  <TableCell value={device.activo ?? 'Sin Activo'} />
-                  <TableCell value={device.statusName} />
-                  <TableCell value={device.brandName} />
-                  <TableCell value={device.modelName} />
-                  <TableCell value={device.locationName} />
-                  <TableCell value={device.observation} />
-                  <TableCell value={device.computer ? `${device?.computer?.processor?.productCollection} ${device?.computer?.processor?.numberModel}` : ''} />
+                  <TableCell value={device?.category?.name} />
+                  <TableCell value={device?.serial ?? 'Sin Serial'} />
+                  <TableCell value={device?.activo ?? 'Sin Activo'} />
+                  <TableCell value={device?.status?.name} />
+                  <TableCell value={device?.brand?.name} />
+                  <TableCell value={device?.model?.name} />
+                  <TableCell value={device?.location.name} />
+                  <TableCell value={device?.observation} />
+                  <TableCell value={device?.computer ? `${device?.computer?.processor?.productCollection} ${device?.computer?.processor?.numberModel}` : ''} />
                   <TableCell value={device?.computer ? `${device?.computer?.memoryRamCapacity} Gb` : ''} />
                   {
                     device?.hardDrive ?

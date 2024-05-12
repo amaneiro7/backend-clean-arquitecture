@@ -9,12 +9,12 @@ import { type IPAddress } from '../../domain/IPAddress'
 import { type CategoryId } from '../../../../Category/domain/CategoryId'
 import { type ComputerName } from '../../domain/ComputerName'
 import { CategoryValues } from '../../../../Category/domain/Category'
-import { ComputerMemoryRam } from '../../domain/ComputerMemoryRam'
 import { ComputerMemoryRamCapacity } from '../../domain/ComputerMemoryRamCapacity'
 import { ComputerHardDriveCapacity } from '../../domain/ComputerHardDriveCapacity'
 import { ComputerHardDriveType } from '../../domain/ComputerHardDriveType'
 import { ComputerOperatingSystem } from '../../domain/ComputerOperatingSystem'
 import { ComputerOperatingSystemArq } from '../../domain/ComputerOperatingSystemArq'
+import { MemoryRamValues } from '../../../MemoryRam/MemoryRamCapacity/MemoryRamValues'
 
 interface DeviceComputerCreationAttributes extends Pick<DeviceComputerPrimitives, 'id' | 'categoryId' | 'computerName' | 'processorId' | 'memoryRam' | 'memoryRamCapacity' | 'hardDriveCapacityId'
 | 'hardDriveTypeId' | 'operatingSystemId' | 'operatingSystemArqId' | 'macAddress' | 'ipAddress' > {
@@ -25,7 +25,7 @@ export class DeviceComputerModel extends Model<DeviceComputerCreationAttributes>
   readonly id!: Primitives<DeviceId>
   readonly categoryId!: Primitives<CategoryId>
   readonly computerName!: Primitives<ComputerName>
-  readonly memoryRam! : Primitives<ComputerMemoryRam>
+  readonly memoryRam! : Primitives<MemoryRamValues>[]
   readonly processorId!: Primitives<ProcessorId>
   readonly memoryRamCapacity!: Primitives<ComputerMemoryRamCapacity>
   readonly hardDriveCapacityId!: Primitives<ComputerHardDriveCapacity>

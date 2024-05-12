@@ -12,7 +12,7 @@ export class MemoryRamValues {
         }
     }
 
-    public static fromValues(value: Primitives<MemoryRamValues>) {
+    public static fromValues(value: Primitives<MemoryRamValues>): MemoryRamValues {
         return new MemoryRamValues(value)
     }
 

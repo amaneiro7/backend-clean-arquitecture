@@ -10,7 +10,7 @@ import { MemoryRamSlotQuantity } from "./MemoryRamQuantity";
 
 export interface ModelComputerPrimitives extends ModelPrimitives {
     memoryRamTypeId: Primitives<MemoryRamTypeId>
-    memoryRamQuantity: Primitives<MemoryRamSlotQuantity>
+    memoryRamSlotQuantity: Primitives<MemoryRamSlotQuantity>
     hasBluetooth: boolean
     hasWifiAdapter: boolean
     hasDVI: boolean
@@ -23,7 +23,7 @@ export class ModelComputer extends Model {
         categoryId: CategoryId,
         brandId: BrandId,
         private readonly memoryRamTypeId: MemoryRamTypeId,
-        private readonly memoryRamQuantity: MemoryRamSlotQuantity,
+        private readonly memoryRamSlotQuantity: MemoryRamSlotQuantity,
         private readonly hasBluetooth: boolean,
         private readonly hasWifiAdapter: boolean,
         private readonly hasDVI: boolean,
@@ -47,7 +47,7 @@ export class ModelComputer extends Model {
           new CategoryId(params.categoryId),
           new BrandId(params.brandId),
           new MemoryRamTypeId(params.memoryRamTypeId),
-          new MemoryRamSlotQuantity(params.memoryRamQuantity),
+          new MemoryRamSlotQuantity(params.memoryRamSlotQuantity),
           params.hasBluetooth,
           params.hasWifiAdapter,
           params.hasDVI,
@@ -60,7 +60,7 @@ export class ModelComputer extends Model {
         return this.memoryRamTypeId.value
       }
       memoryRamQuantityValue (): Primitives<MemoryRamSlotQuantity> {
-        return this.memoryRamQuantity.value
+        return this.memoryRamSlotQuantity.value
       }
       hasBluetoothValue (): boolean {
         return this.hasBluetooth
@@ -84,7 +84,7 @@ export class ModelComputer extends Model {
           categoryId: this.categoryValue(),
           brandId: this.brandValue(),
           memoryRamTypeId: this.memoryRamTypeValue(),
-          memoryRamQuantity: this.memoryRamQuantityValue(),
+          memoryRamSlotQuantity: this.memoryRamQuantityValue(),
           hasBluetooth: this.hasBluetoothValue(),
           hasWifiAdapter: this.hasWifiAdapterValue(),
           hasDVI: this.hasDVIValue(),

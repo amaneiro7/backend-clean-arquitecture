@@ -1,5 +1,6 @@
 import { InvalidArgumentError } from '../../../Shared/domain/value-object/InvalidArgumentError'
 import { NumberValueObject } from '../../../Shared/domain/value-object/NumberValueObject'
+import { Primitives } from '../../../Shared/domain/value-object/Primitives'
 
 
 export class MemoryRamValues extends NumberValueObject {
@@ -18,6 +19,10 @@ export class MemoryRamValues extends NumberValueObject {
   // Convert the memory ram capacity value to its primitive representation
   toPrimitives (): number {
     return this.value
+  }
+
+  static fromValues (value: Primitives<MemoryRamValues>):MemoryRamValues  {
+    return new MemoryRamValues(value)
   }
 
   private generarSecuencia(): number[] {
