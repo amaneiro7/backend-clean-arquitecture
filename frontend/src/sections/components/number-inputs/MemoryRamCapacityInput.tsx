@@ -44,13 +44,16 @@ export function MemoryRamCapacityInput({ value, memoryRam, onChange, type = 'for
   return (
     <Suspense fallback={<InputSkeletonLoading />}>
       <NumberInput
-        name='memoryRamCapacity'
+        name='memoryRamCapacity'        
         label='Capacidad Total de Memoria Ram'
         isRequired={type === 'form'}
         value={updateValue}
         error={isError}
-        readOnly        
         errorMessage={errorMessage}
+        readOnly
+        aria-readonly
+        tabIndex={-1}
+        onMouseDown={(e) => { e.preventDefault() }}
       />
     </Suspense>
   )

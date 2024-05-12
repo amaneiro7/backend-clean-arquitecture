@@ -17,10 +17,10 @@ const NumberInput = lazy(async () => import('./NumberInput').then(m => ({ defaul
 
 export function MemoryRamCapacitySlotInput({ value: memRam, index, onChange, type = 'form', status }: Props) {
   const [errorMessage, setErrorMessage] = useState('')
-  const [isError, setIsError] = useState(false)  
-  
+  const [isError, setIsError] = useState(false)
+
   useLayoutEffect(() => {
-    if (type !== 'form') return    
+    if (type !== 'form') return
     const isValid = MemoryRamValues.isValid(memRam[index])
 
     setIsError(!isValid)
@@ -30,28 +30,33 @@ export function MemoryRamCapacitySlotInput({ value: memRam, index, onChange, typ
       setErrorMessage('')
       setIsError(false)
     }
-  }, [memRam, status])  
+  }, [memRam, status])
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target
+    let parsedValue = parseFloat(value)
+
+    if (isNaN(parsedValue)) {
+      console.error('El valor nos un número válido')
+      return
+    }
+  
+    const updatedMemoryRamSlot = [...memRam]
+    updatedMemoryRamSlot[index] = parsedValue
+    onChange(name, updatedMemoryRamSlot)
+  }
+
   return (
     <Suspense fallback={<InputSkeletonLoading />}>
       <NumberInput
         name='memoryRam'
         label={`Memoria Ram Slot ${index}`}
-        onChange={(event) => {
-          const { name, value } = event.target
-          const parsedValue = Number(value)
-          if (!isNaN(parsedValue)) {
-            const updatedMemoryRamSlot = [...memRam]
-            updatedMemoryRamSlot[index] = parsedValue
-            onChange(name, updatedMemoryRamSlot)            
-          } else {
-            console.error('El valor nos un número válido')
-          }
-        }}
-        placeholder={`--- Ingrese la Capcacidad de Memoria del slot ${index} ---`}        
+        onChange={handleChange}
+        placeholder={`--- Ingrese la Capcacidad de Memoria del slot ${index} ---`}
         value={memRam[index]}
         max={MemoryRamValues.max}
         min={MemoryRamValues.min}
-        step={memRam[index]*2}        
+        step={MemoryRamValues.minStep*2}
         error={isError}
         errorMessage={errorMessage}
       />

@@ -18,7 +18,8 @@ export const ReadOnlyInputBox = ({ label, ...props }: Props) => {
             <div className='w-full p-1 pr-2 border rounded-md outline-none border-black/2'>
                 <input
                     className='py-1 pr-1 pl-2 w-0 min-w-full flex-1 text-ellipsis focus-visible:outline-none text-black/60'
-                    readOnly
+                    readOnly                    
+                    tabIndex={-1}
                     {...props}
                 />                
             </div>
