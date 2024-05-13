@@ -4,13 +4,12 @@ import { CategoryDefaultData, CategoryValues } from "../../../category/domain/Ca
 import { CategoryId } from "../../../category/domain/CategoryId";
 import { MemoryRamTypeId } from "../../../fetures/memoryRam/memoryRamType/domain/MemoryRamTypeId";
 import { ModelName } from "../../model/domain/ModelName";
-import { MemoryRamSlotQuantity } from "../modelComputer/MemoryRamQuantity";
+import { MemoryRamSlotQuantity } from "../modelComputer/MemoryRamSlotQuantity";
 import { ModelComputer, ModelComputerPrimitives } from "../modelComputer/ModelComputer";
 import { BatteryModel } from "./BatteryModel";
 
 export interface ModelLaptopPrimitives extends ModelComputerPrimitives {
-    batteryModel: Primitives<BatteryModel>
-    
+    batteryModel: Primitives<BatteryModel>    
 }
 
 export class ModelLaptop extends ModelComputer {
@@ -19,7 +18,7 @@ export class ModelLaptop extends ModelComputer {
         categoryId: CategoryId,
         brandId: BrandId,
         memoryRamTypeId: MemoryRamTypeId,
-        memoryRamQuantity: MemoryRamSlotQuantity,
+        memoryRamSlotQuantity: MemoryRamSlotQuantity,
         hasBluetooth: boolean,
         hasWifiAdapter: boolean,
         hasDVI: boolean,
@@ -27,24 +26,24 @@ export class ModelLaptop extends ModelComputer {
         hasVGA: boolean,
         private readonly batterryModel: BatteryModel
     ) {
-        super(name, categoryId, brandId, memoryRamTypeId, memoryRamQuantity, hasBluetooth, hasWifiAdapter, hasDVI, hasHDMI, hasVGA)
-        if (!ModelLaptop.isLaptopCategory({ categoryId: categoryId.value })) {
-            throw new Error('No Pertenece a esta categoria')
-        }
-    }
-
-    static isLaptopCategory ({ categoryId }: { categoryId: Primitives<CategoryId> }): boolean {
+        super(name, categoryId, brandId, memoryRamTypeId, memoryRamSlotQuantity, hasBluetooth, hasWifiAdapter, hasDVI, hasHDMI, hasVGA)
+      }
+      
+      static isLaptopCategory ({ categoryId }: { categoryId: Primitives<CategoryId> }): boolean {
         const AcceptedComputerCategories: CategoryValues[] = ['Laptops']
         return AcceptedComputerCategories.includes(CategoryDefaultData[categoryId])
       }
-
+      
       public static create(params: ModelLaptopPrimitives) {
+        if (!ModelLaptop.isLaptopCategory({ categoryId: params.categoryId })) {
+            throw new Error('No Pertenece a esta categoria, solo se permite la categoria de Laptops')
+        }
         return new ModelLaptop(
           new ModelName(params.name),
           new CategoryId(params.categoryId),
           new BrandId(params.brandId),
           new MemoryRamTypeId(params.memoryRamTypeId),
-          new MemoryRamSlotQuantity(params.memoryRamQuantity),
+          new MemoryRamSlotQuantity(params.memoryRamSlotQuantity),
           params.hasBluetooth,
           params.hasWifiAdapter,
           params.hasDVI,
@@ -64,7 +63,7 @@ export class ModelLaptop extends ModelComputer {
           categoryId: this.categoryValue(),
           brandId: this.brandValue(),
           memoryRamTypeId: this.memoryRamTypeValue(),
-          memoryRamQuantity: this.memoryRamQuantityValue(),
+          memoryRamSlotQuantity: this.memoryRamSlotQuantityValue(),
           hasBluetooth: this.hasBluetoothValue(),
           hasWifiAdapter: this.hasWifiAdapterValue(),
           hasDVI: this.hasDVIValue(),

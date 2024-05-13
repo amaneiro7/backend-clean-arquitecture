@@ -1,5 +1,5 @@
-import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
 import { lazy, Suspense } from 'react'
+import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
 
 interface Props {
   formData: any

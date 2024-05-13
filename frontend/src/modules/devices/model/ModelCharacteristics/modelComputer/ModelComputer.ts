@@ -5,7 +5,7 @@ import { CategoryId } from "../../../category/domain/CategoryId";
 import { MemoryRamTypeId } from "../../../fetures/memoryRam/memoryRamType/domain/MemoryRamTypeId";
 import { Model, ModelPrimitives } from "../../model/domain/Model";
 import { ModelName } from "../../model/domain/ModelName";
-import { MemoryRamSlotQuantity } from "./MemoryRamQuantity";
+import { MemoryRamSlotQuantity } from "./MemoryRamSlotQuantity";
 
 
 export interface ModelComputerPrimitives extends ModelPrimitives {
@@ -31,17 +31,17 @@ export class ModelComputer extends Model {
         private readonly hasVGA: boolean
     ) {
         super(name, categoryId, brandId)
-        if (!ModelComputer.isComputerCategory({ categoryId: categoryId.value })) {
-          throw new Error('No Pertenece a esta categoria')
       }
-    }
-
-    static isComputerCategory ({ categoryId }: { categoryId: Primitives<CategoryId> }): boolean {
+      
+      static isComputerCategory ({ categoryId }: { categoryId: Primitives<CategoryId> }): boolean {
         const AcceptedComputerCategories: CategoryValues[] = ['Computadoras', 'All in One', 'Servidores']
         return AcceptedComputerCategories.includes(CategoryDefaultData[categoryId])
       }
-
+      
       public static create(params: ModelComputerPrimitives) {
+        if (!ModelComputer.isComputerCategory({ categoryId: params.categoryId })) {
+          throw new Error('No Pertenece a esta categoria, solo se permite Computadoras, All in One o Servidores')
+      }
         return new ModelComputer(
           new ModelName(params.name),
           new CategoryId(params.categoryId),
@@ -59,7 +59,7 @@ export class ModelComputer extends Model {
       memoryRamTypeValue (): Primitives<MemoryRamTypeId> {
         return this.memoryRamTypeId.value
       }
-      memoryRamQuantityValue (): Primitives<MemoryRamSlotQuantity> {
+      memoryRamSlotQuantityValue (): Primitives<MemoryRamSlotQuantity> {
         return this.memoryRamSlotQuantity.value
       }
       hasBluetoothValue (): boolean {
@@ -84,7 +84,7 @@ export class ModelComputer extends Model {
           categoryId: this.categoryValue(),
           brandId: this.brandValue(),
           memoryRamTypeId: this.memoryRamTypeValue(),
-          memoryRamSlotQuantity: this.memoryRamQuantityValue(),
+          memoryRamSlotQuantity: this.memoryRamSlotQuantityValue(),
           hasBluetooth: this.hasBluetoothValue(),
           hasWifiAdapter: this.hasWifiAdapterValue(),
           hasDVI: this.hasDVIValue(),

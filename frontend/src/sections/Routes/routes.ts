@@ -85,7 +85,8 @@ export const dropdownAddsNavs: DropDown[] = [
         icon: 'icon'
       }
     ]
-  }, {
+  }, 
+  {
     label: 'Agregar un nuevo Usuario',
     navs: [
       {
@@ -95,7 +96,18 @@ export const dropdownAddsNavs: DropDown[] = [
         icon: 'icon'
       }
     ]
-  }
+  },
+  {
+    label: 'Agregar un nuevo Modelo',
+    navs: [
+      {
+        title: 'Agregar un nuevo Modelo',
+        desc: 'Aqui se puede agregar un nuevo modelo',
+        path: '/model/add',
+        icon: 'icon'
+      }
+    ]
+  },
 ]
 
 export const navigation: Navigation[] = [

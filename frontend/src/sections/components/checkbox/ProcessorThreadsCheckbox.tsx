@@ -6,18 +6,18 @@ import { Primitives } from "../../../modules/shared/domain/value-object/Primitiv
 interface Props {
     value: Primitives<ProcessorHasThreads>
     onChange: OnHandleChange
-   
-  }
-export default function ProcessorThreadsCheckbox ({value, onChange}: Props) {
+
+}
+export default function ProcessorThreadsCheckbox({ value, onChange }: Props) {
     return (
         <Suspense>
-            <Checkbox 
+            <Checkbox
                 label="Tiene Threads"
                 text="¿Tiene Threads?"
                 name="threads"
                 value={value}
-                handle={(event) =>{
-                    const {name, checked} = event.target
+                handle={(event) => {
+                    const { name, checked } = event.target
                     onChange(name, checked);
                 }}
             />

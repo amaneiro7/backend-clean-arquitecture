@@ -20,12 +20,12 @@ export function useModelForm (): {
   const { repository } = useAppContext()
   const { createModel } = useModel(repository)
 
-  async function submitForm ({ name, categoryId, brandId }: ModelPrimitives) {
+  async function submitForm (formData: ModelPrimitives) {
     setFormStatus(FormStatus.Loading)
     toastMessage({ type: 'loading', message: '...Cargando' })
 
     try {
-      await createModel({ name, categoryId, brandId })
+      await createModel(formData)
       setFormStatus(FormStatus.Success)
       toastMessage({ type: 'success', message: 'Marca creada exitosamente' })
     } catch (error) {

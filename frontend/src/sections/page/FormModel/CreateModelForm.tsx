@@ -1,16 +1,19 @@
-import { type FormEvent, lazy, Suspense, useEffect } from 'react'
-import { useGenericFormData } from '../../Hooks/useGenericFormData'
-
+import { lazy, Suspense, useEffect } from 'react'
 import { FormStatus, useModelForm } from '../../Hooks/model/useModelForm'
-import ModelNameInput from '../../components/text-inputs/ModelNameInput'
+import { useGenericFormData } from '../../Hooks/useGenericFormData'
 import { useModelInitialState } from './ModelFormInitialState'
+import { useLocation } from 'react-router-dom'
 
-const CategoryComboBox = lazy(async () => await import('../../components/combo_box/CategoryComboBox'))
-const BrandComboBox = lazy(async () => await import('../../components/combo_box/BrandComboBox'))
-
+const Main = lazy(async () => import('../../components/Main'))
+const ModelNameInput = lazy(async () => import('../../components/text-inputs/ModelNameInput'))
+const CategoryComboBox = lazy(async () => import('../../components/combo_box/CategoryComboBox'))
+const BrandComboBox = lazy(async () => import('../../components/combo_box/BrandComboBox'))
 const FormContainer = lazy(async () => import('../../components/formContainer'))
+const ModelFeatures = lazy(async () => import('./ModelFeatures').then(m => ({default: m.ModelFeatures})))
+
 export default function CreateModelForm() {
-  const { preloadedModelState } = useModelInitialState()
+  const location = useLocation()
+  const { preloadedModelState, isAddForm } = useModelInitialState()
   const { formData, updateForm, resetForm } = useGenericFormData(preloadedModelState)
   const { formStatus, submitForm, resetFormStatus } = useModelForm()
 
@@ -33,7 +36,7 @@ export default function CreateModelForm() {
     }
   }, [formStatus])
 
-  const handleSubmit = async (event: FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
     await submitForm(formData)
   }
@@ -47,29 +50,37 @@ export default function CreateModelForm() {
   }
 
   return (
-    <Suspense>
-      <FormContainer
-        title='Modelo'
-        handleSubmit={handleSubmit}
-        handleClose={handleClose}
-        isDisabled={formStatus === FormStatus.Loading}
-      >
-        <CategoryComboBox
-          value={formData.categoryId}
-          onChange={handleChange}
-          type='form'
-        />
-        <BrandComboBox
-          value={formData.brandId}
-          onChange={handleChange}
-          categoryId={formData.categoryId}
-          type='form'
-        />
-        <ModelNameInput
-          value={formData.name}
-          onChange={handleChange}
-        />
-      </FormContainer>
-    </Suspense>
+    <Main>
+      <Suspense>
+        <FormContainer
+          key={location.key}
+          title='Modelo'
+          handleSubmit={handleSubmit}
+          handleClose={handleClose}
+          isDisabled={formStatus === FormStatus.Loading}
+        >
+          <CategoryComboBox
+            value={formData.categoryId}
+            onChange={handleChange}
+            type='form'
+            isAdd={isAddForm}
+          />
+          <BrandComboBox
+            value={formData.brandId}
+            onChange={handleChange}
+            categoryId={formData.categoryId}
+            type='form'
+            isAdd={isAddForm}
+          />
+          <ModelNameInput
+            value={formData.name}
+            onChange={handleChange}
+          />
+          <Suspense>
+            <ModelFeatures formData={formData} onChange={handleChange} />
+          </Suspense>
+        </FormContainer>
+      </Suspense>
+    </Main>
   )
 }

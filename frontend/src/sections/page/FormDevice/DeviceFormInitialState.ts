@@ -26,7 +26,7 @@ import { type DevicePrimitives } from '../../../modules/devices/devices/devices/
 import { type ComputerName } from '../../../modules/devices/fetures/computer/domain/ComputerName'
 import { type DeviceId } from '../../../modules/devices/devices/devices/domain/DeviceId'
 import { type MemoryRamValues } from '../../../modules/devices/fetures/memoryRam/memoryRamCapacity/domain/MemoryRamValue'
-import { MemoryRamSlotQuantity } from '../../../modules/devices/model/ModelCharacteristics/modelComputer/MemoryRamQuantity'
+import { MemoryRamSlotQuantity } from '../../../modules/devices/model/ModelCharacteristics/modelComputer/MemoryRamSlotQuantity'
 import { MemoryRamTypeName } from '../../../modules/devices/fetures/memoryRam/memoryRamType/domain/MemoryRamTypeName'
 
 export interface DefaultProps {

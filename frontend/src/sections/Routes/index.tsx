@@ -34,6 +34,8 @@ export const privateRouter = [
   { path: '/employee/add', element: <CreateEmployeeForm /> },
   { path: '/employee/edit/:id', element: <CreateEmployeeForm /> },
   { path: '/device/edit/:id', element: <CreateDeviceForm /> },
+  { path: '/model/add', element: <CreateModelForm /> },
+  { path: '/model/edit/:edit', element: <CreateModelForm /> },
   { path: '/brand/add', element: <CreateBrandForm /> },
   { path: '/brand/edit/:id', element: <CreateBrandForm /> },
   { path: '/model/add', element: <CreateModelForm /> },
