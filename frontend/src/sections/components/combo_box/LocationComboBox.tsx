@@ -1,4 +1,4 @@
-import { lazy, Suspense, useMemo } from "react";
+import { lazy, Suspense, useLayoutEffect, useMemo, useState } from "react";
 
 import { StatusId } from "../../../modules/devices/devices/status/domain/StatusId";
 import { OnHandleChange } from "../../../modules/shared/domain/types/types";
@@ -9,6 +9,8 @@ import { Operator } from "../../../modules/shared/domain/criteria/FilterOperator
 import { LocationId } from "../../../modules/location/locations/domain/locationId";
 import { useLocation } from "../../Hooks/locations/useLocation";
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading";
+import { TypeOfSiteId } from "../../../modules/location/typeofsites/domain/typeOfSiteId";
+import { DeviceLocation } from "../../../modules/devices/devices/devices/domain/DeviceLocation";
 
 interface Props {
     value?: Primitives<LocationId>    
@@ -23,7 +25,9 @@ interface Props {
 
 export default function LocationComboBox ({ value, statusId, typeOfSiteId, onChange, type = 'search' }: Props) {
     const { repository } = useAppContext()
-    const { locations, loading } = useLocation(repository)          
+    const { locations, loading } = useLocation(repository)        
+    const [errorMessage, setErrorMessage] = useState('')
+    const [isError, setIsError] = useState(false)  
     // const [open, toggleOpen] = useState(false)
     // const [dialogValue, setDialogValue] = useState<BrandPrimitives>({name: ''});
 
@@ -33,11 +37,34 @@ export default function LocationComboBox ({ value, statusId, typeOfSiteId, onCha
 
     const filterLocation = useMemo(() => {
         return locations.filter(location => {
-          const typeOfSite = location.typeOfSiteId === typeOfSiteId || (typeOfSiteId === undefined || typeOfSiteId === '')
-          const status = !statusId ? true : statusId === StatusId.StatusOptions.INUSE ? (location.typeOfSiteId === '1' || location.typeOfSiteId === '2') : location.typeOfSiteId === '3'
+          const typeOfSite = location.typeOfSiteId === typeOfSiteId || !typeOfSiteId
+          const status = !statusId ? true : statusId === StatusId.StatusOptions.INUSE ? (location.typeOfSiteId === TypeOfSiteId.SitesOptions.ADMINISTRATIVE || location.typeOfSiteId === TypeOfSiteId.SitesOptions.AGENCY) : location.typeOfSiteId === TypeOfSiteId.SitesOptions.ALMACEN
           return typeOfSite && status
         })
       }, [locations, typeOfSiteId, statusId])
+
+      useLayoutEffect(() => {
+        if (type !== 'form') return
+        
+
+        if (!value || !initialValue) {      
+          return
+        }
+        const isValid = DeviceLocation.isValid({typeOfSite: initialValue.typeOfSiteId, status: statusId})
+        
+    
+        setIsError(!isValid)
+        setErrorMessage(isValid ? '' : DeviceLocation.invalidMessage())
+    
+        return () => {
+          setErrorMessage('')
+          setIsError(false)
+        }
+      }, [value, statusId, typeOfSiteId])
+
+      useLayoutEffect(() => {        
+          onChange('locationId', '')
+      }, [statusId])
   
     return (
         <Suspense fallback={<InputSkeletonLoading />}>
@@ -69,7 +96,9 @@ export default function LocationComboBox ({ value, statusId, typeOfSiteId, onCha
                 options={filterLocation}
                 isDisabled={false}
                 isRequired={type === 'form'}                
-                loading={loading}                
+                loading={loading}
+                isError={isError}
+                errorMessage={errorMessage}
             >
             {/* {type === 'form' && (
                 <Suspense>

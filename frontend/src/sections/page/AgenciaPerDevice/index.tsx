@@ -179,7 +179,9 @@ export default function AgenciaPage() {
                 <TableHead name='Observaciones' />
                 <TableHead name='Nombre de Equipo' />
                 <TableHead name='Procesador' />
-                <TableHead name='Memoria Ram' />
+                <TableHead name='Memoria Ram Total' />
+                <TableHead name='Memoria Ram Modulos' />
+                <TableHead name='Tipo' />
                 <TableHead name='Disco Duro' />
                 <TableHead name='Tipo' />
                 <TableHead name='Sistema Operativo' />
@@ -202,6 +204,8 @@ export default function AgenciaPage() {
                   <TableCell value={device?.computer?.computerName} />
                   <TableCell value={device?.computer ? `${device?.computer?.processor?.productCollection} ${device?.computer?.processor?.numberModel}` : ''} />
                   <TableCell value={device?.computer ? `${device?.computer?.memoryRamCapacity} Gb` : ''} />
+                  <TableCell value={device?.computer ? device?.computer?.memoryRam.map(mem => mem).join(' / ') : ''} />
+                  <TableCell value={device?.model?.modelComputer ? device?.model?.modelComputer.memoryRamType?.name : device?.model?.modelLaptop ? device?.model?.modelLaptop?.memoryRamType?.name : '' } />
                   <TableCell value={device?.computer ? `${device?.computer?.hardDriveCapacity?.name} Gb` : ''} />
                   <TableCell value={device?.computer?.hardDriveType?.name} />
                   <TableCell value={device?.computer?.operatingSystem?.name} />

@@ -22,7 +22,7 @@ export function OperatingSystemArqComboBox ({ value, operatingSystem, onChange, 
     const { repository } = useAppContext()
     const { operatingSystemArq, loading } = useOperatingSystemArq(repository)
     const [errorMessage, setErrorMessage] = useState('')
-    const [isError, setIsError] = useState(false)    
+    const [isError, setIsError] = useState(false)
     const [isDisabled, setIsDisabled] = useState(false)
     const [isRequired, setIsRequired] = useState(false)
 
