@@ -17,7 +17,7 @@ import { initComputerModels } from '../../../../ModelSeries/ModelCharacteristics
 import { initLaptopModels } from '../../../../ModelSeries/ModelCharacteristics/Computers/Laptops/infraestructure/sequelize/LaptopsModelsSchema'
 import { initProcessorSocketModel } from '../../../../Features/Processor/ProcessorSocket/infrastructure/sequelize/ProcessorSocketSchema'
 import { initMonitorModels } from '../../../../ModelSeries/ModelCharacteristics/Monitors/infraestructure/MonitorModelSchema'
-import { initModelPrinter } from '../../../../ModelSeries/ModelCharacteristics/Printers/Printers/insfraestructure/sequelize/ModelPrinterSchema'
+import { initModelPrinter } from '../../../../ModelSeries/ModelCharacteristics/Printers/infraestructure/sequelize/ModelPrinterSchema'
 import { initStateModel } from '../../../../Location/State/infrastructure/sequelize/StateSchema'
 import { initCityModel } from '../../../../Location/City/infrastructure/sequelize/CitySchema'
 import { initTypeOfSiteModel } from '../../../../Location/TypeOfSite/infrastructure/sequelize/TypeOfSiteSchema'

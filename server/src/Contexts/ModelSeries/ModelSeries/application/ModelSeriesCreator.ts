@@ -2,7 +2,7 @@ import { type Repository } from '../../../Shared/domain/Repository'
 import { ComputerModels, type ComputerModelsPrimitives } from '../../ModelCharacteristics/Computers/Computer/domain/ComputerModels'
 import { LaptopsModels, type LaptopsModelsPrimitives } from '../../ModelCharacteristics/Computers/Laptops/domain/LaptopsModels'
 import { MonitorModels, type MonitorModelsPrimitives } from '../../ModelCharacteristics/Monitors/domain/MonitorModels'
-import { ModelPrinters, type ModelPrintersPrimitives } from '../../ModelCharacteristics/Printers/Printers/domain/ModelPrinters'
+import { ModelPrinters, type ModelPrintersPrimitives } from '../../ModelCharacteristics/Printers/domain/ModelPrinters'
 import { ModelSeries, type ModelSeriesPrimitives } from '../domain/ModelSeries'
 import { ModelSeriesAlreadyExistError } from '../domain/ModelSeriesAlreadyExistError'
 import { ModelSeriesName } from '../domain/ModelSeriesName'
@@ -18,7 +18,7 @@ export class ModelSeriesCreator {
   async run ({ name, categoryId, brandId, ...otherParams }: ModelParams): Promise<void> {
     // Ensure the model series does not already exist
     await this.ensureModelSeriesDoesNotExist(name)
-
+console.log(otherParams)
     let modelSeries
 
     // Create the model series based on the category

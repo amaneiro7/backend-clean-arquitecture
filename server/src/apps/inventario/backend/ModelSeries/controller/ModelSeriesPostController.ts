@@ -17,10 +17,9 @@ export class ModelSeriesPostController {
   }
 
   update = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    try {
-      const { name, categoryId, brandId } = req.body
+    try {      
       const { id } = req.params
-      await new ModelSeriesUpdater(this.repository).run({ id, newName: name, categoryId, brandId })
+      await new ModelSeriesUpdater(this.repository).run({ id, params: req.body })
       res.status(httpStatus.CREATED).json({ message: 'Model Updated' })
     } catch (error) {
       next(error)

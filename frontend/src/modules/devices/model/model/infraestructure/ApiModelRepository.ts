@@ -7,6 +7,7 @@ import { type ModelRepository } from '../domain/ModelRepository'
 export class ApiModelRepository implements ModelRepository {
   private readonly endpoint:string = 'models'
   async save ({ model }: { model: Model }): Promise<void> {
+    console.log(model.toPrimitives())
     await makeRequest({ method: 'POST', endpoint: this.endpoint, data: model.toPrimitives() })
   }
 

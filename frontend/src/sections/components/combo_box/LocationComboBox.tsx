@@ -62,9 +62,10 @@ export default function LocationComboBox ({ value, statusId, typeOfSiteId, onCha
         }
       }, [value, statusId, typeOfSiteId])
 
-      useLayoutEffect(() => {        
-          onChange('locationId', '')
-      }, [statusId])
+      // useLayoutEffect(() => {
+          
+      //     onChange('locationId', '')
+      // }, [statusId])
   
     return (
         <Suspense fallback={<InputSkeletonLoading />}>

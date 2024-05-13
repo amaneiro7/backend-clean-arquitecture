@@ -9,7 +9,7 @@ import { ModelApiresponse } from "../../../modules/shared/domain/types/responseT
 import { useModel } from "../../Hooks/model/useMode"
 import { ModelId } from "../../../modules/devices/model/model/domain/ModelId"
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
-import { ModelPrimitives } from "../../../modules/devices/model/model/domain/Model"
+import { DefaultModelProps, defaultInitialModelState } from "../../page/FormModel/ModelFormInitialState"
 
 interface Props {
     value: Primitives<ModelId>
@@ -23,15 +23,12 @@ interface Props {
 const ComboBox = lazy(async () => import("./combo_box"))
 const ModelDialog = lazy(async () => import("../Dialog/ModelDialog"))
 const ReadOnlyInputBox = lazy(async () => import("../ReadOnlyInputBox").then(m => ({ default: m.ReadOnlyInputBox })))
+
 export default function ModelComboBox({ value, onChange, categoryId, brandId, type = 'search', isAdd = false }: Props) {
     const { repository } = useAppContext()
     const { models, loading } = useModel(repository)
-    const [open, toggleOpen] = useState(false)
-    const [dialogValue, setDialogValue] = useState<ModelPrimitives>({
-        name: '',
-        categoryId: '',
-        brandId: ''
-    })
+    const [open, toggleOpen] = useState(false)    
+    const [dialogValue, setDialogValue] = useState<DefaultModelProps>(defaultInitialModelState)
 
     const initialValue = useMemo(() => {
         return models.find(model => model.id === value)

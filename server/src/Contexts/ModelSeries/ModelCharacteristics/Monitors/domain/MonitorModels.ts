@@ -35,7 +35,7 @@ export class MonitorModels extends ModelSeries {
       throw new Error('Invalid category')
     }
        
-    const id = String(ModelSeriesId.random())
+    const id = ModelSeriesId.random().value
     return new MonitorModels(
       new ModelSeriesId(id),
       new ModelSeriesName(params.name),

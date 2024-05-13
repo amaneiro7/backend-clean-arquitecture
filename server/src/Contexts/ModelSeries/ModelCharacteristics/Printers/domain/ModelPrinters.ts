@@ -1,10 +1,10 @@
-import { BrandId } from '../../../../../Brand/domain/BrandId'
-import { CategoryDefaultData, type CategoryValues } from '../../../../../Category/domain/CategoryDefaultData'
-import { CategoryId } from '../../../../../Category/domain/CategoryId'
-import { type Primitives } from '../../../../../Shared/domain/value-object/Primitives'
-import { ModelSeries, type ModelSeriesPrimitives } from '../../../../ModelSeries/domain/ModelSeries'
-import { ModelSeriesId } from '../../../../ModelSeries/domain/ModelSeriesId'
-import { ModelSeriesName } from '../../../../ModelSeries/domain/ModelSeriesName'
+import { BrandId } from '../../../../Brand/domain/BrandId'
+import { CategoryDefaultData, type CategoryValues } from '../../../../Category/domain/CategoryDefaultData'
+import { CategoryId } from '../../../../Category/domain/CategoryId'
+import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
+import { ModelSeries, type ModelSeriesPrimitives } from '../../../ModelSeries/domain/ModelSeries'
+import { ModelSeriesId } from '../../../ModelSeries/domain/ModelSeriesId'
+import { ModelSeriesName } from '../../../ModelSeries/domain/ModelSeriesName'
 import { CartridgeModel } from './CartridgeModel'
 
 export interface ModelPrintersPrimitives extends ModelSeriesPrimitives {

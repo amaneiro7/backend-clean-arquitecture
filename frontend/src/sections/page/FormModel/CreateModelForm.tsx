@@ -35,6 +35,7 @@ export default function CreateModelForm() {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
+    event.stopPropagation()
     await submitForm(formData)
   }
 
@@ -55,6 +56,8 @@ export default function CreateModelForm() {
           handleSubmit={handleSubmit}
           handleClose={handleClose}
           isDisabled={formStatus === FormStatus.Loading}
+          lastUpdated={formData.updatedAt}
+          url='/model/add'
         >          
           <Suspense>
             <ModelInputs isAddForm={isAddForm} formData={formData} onChange={handleChange} />

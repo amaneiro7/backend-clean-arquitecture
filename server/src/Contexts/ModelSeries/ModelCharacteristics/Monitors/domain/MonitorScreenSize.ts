@@ -3,7 +3,7 @@ import { NumberValueObject } from '../../../../Shared/domain/value-object/Number
 import { Primitives } from '../../../../Shared/domain/value-object/Primitives'
 
 export class MonitorScreenSize extends NumberValueObject {
-  private readonly MIN_SIZE = 14
+  private readonly MIN_SIZE = 11
   private readonly MAX_SIZE = 35
 
   constructor (readonly value: number) {

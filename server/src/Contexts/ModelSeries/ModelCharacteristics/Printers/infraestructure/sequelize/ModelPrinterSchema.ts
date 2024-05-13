@@ -1,8 +1,8 @@
 import { DataTypes, Model, type Sequelize } from 'sequelize'
-import { type Primitives } from '../../../../../../Shared/domain/value-object/Primitives'
-import { type CategoryId } from '../../../../../../Category/domain/CategoryId'
-import { type ModelSeriesId } from '../../../../../ModelSeries/domain/ModelSeriesId'
-import { type Models } from '../../../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
+import { type Primitives } from '../../../../../Shared/domain/value-object/Primitives'
+import { type CategoryId } from '../../../../../Category/domain/CategoryId'
+import { type ModelSeriesId } from '../../../../ModelSeries/domain/ModelSeriesId'
+import { type Models } from '../../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
 import { type ModelPrintersPrimitives } from '../../domain/ModelPrinters'
 import { type CartridgeModel } from '../../domain/CartridgeModel'
 

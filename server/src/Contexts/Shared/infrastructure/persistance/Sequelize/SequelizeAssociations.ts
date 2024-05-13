@@ -23,7 +23,7 @@ import { ComputerModelsModel } from '../../../../ModelSeries/ModelCharacteristic
 import { LaptopModelsModel } from '../../../../ModelSeries/ModelCharacteristics/Computers/Laptops/infraestructure/sequelize/LaptopsModelsSchema'
 import { KeyboardModelsModel } from '../../../../ModelSeries/ModelCharacteristics/Keyboards/infraestructure/KeyboardModelSchema'
 import { MonitorModelsModel } from '../../../../ModelSeries/ModelCharacteristics/Monitors/infraestructure/MonitorModelSchema'
-import { ModelPrinterModel } from '../../../../ModelSeries/ModelCharacteristics/Printers/Printers/insfraestructure/sequelize/ModelPrinterSchema'
+import { ModelPrinterModel } from '../../../../ModelSeries/ModelCharacteristics/Printers/infraestructure/sequelize/ModelPrinterSchema'
 import { ModelSeriesModel } from '../../../../ModelSeries/ModelSeries/infraestructure/Sequelize/ModelSeriesSchema'
 import { RolesModel } from '../../../../User/Role/infrastructure/sequelize/RolesSchema'
 import { UserModel } from '../../../../User/user/infrastructure/persistance/Sequelize/UserSchema'

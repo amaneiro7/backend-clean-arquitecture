@@ -11,6 +11,8 @@ import { MemoryRamTypeId } from '../../../modules/devices/fetures/memoryRam/memo
 import { MemoryRamSlotQuantity } from '../../../modules/devices/model/ModelCharacteristics/modelComputer/MemoryRamSlotQuantity'
 import { ModelPrimitives } from '../../../modules/devices/model/model/domain/Model'
 import { BatteryModel } from '../../../modules/devices/model/ModelCharacteristics/modelLaptop/BatteryModel'
+import { ScreenSize } from '../../../modules/devices/model/ModelCharacteristics/modelMonitor/ScreenSize'
+import { CartridgeModel } from '../../../modules/devices/model/ModelCharacteristics/modelPrinter/CartridgeModel'
 
 export interface DefaultModelProps {
   id?: Primitives<ModelId>
@@ -25,8 +27,11 @@ export interface DefaultModelProps {
   hasHDMI?: boolean
   hasVGA?: boolean
   batteryModel?: Primitives<BatteryModel>
+  screenSize?: Primitives<ScreenSize>
+  cartridgeModel?: Primitives<CartridgeModel>
+  updatedAt?: string
 }
-const defaultInitialState: DefaultModelProps = {
+export const defaultInitialModelState: DefaultModelProps = {
   id: undefined,
   name: '',
   categoryId: '',
@@ -36,9 +41,12 @@ const defaultInitialState: DefaultModelProps = {
   hasHDMI: false,
   hasVGA: true,
   hasWifiAdapter: false,
-  memoryRamSlotQuantity: 1,
+  memoryRamSlotQuantity: MemoryRamSlotQuantity.MIN,
   memoryRamTypeId: '',
-  batteryModel: '' 
+  batteryModel: '',
+  screenSize: ScreenSize.MIN,
+  cartridgeModel: '',
+  updatedAt: undefined
 }
 export const useModelInitialState = () => {
   const { id } = useParams()
@@ -46,7 +54,7 @@ export const useModelInitialState = () => {
   const navigate = useNavigate()
   const { repository } = useAppContext()
   const { getModel } = useModel(repository)
-  const [preloadedModelState, setPreloadedModelState] = useState(defaultInitialState)
+  const [preloadedModelState, setPreloadedModelState] = useState(defaultInitialModelState)
 
   const isAddForm = useMemo(() => {
     return location.pathname.includes('add')
@@ -54,7 +62,7 @@ export const useModelInitialState = () => {
 
   useEffect(() => {
     if (isAddForm) {
-      setPreloadedModelState(defaultInitialState)
+      setPreloadedModelState(defaultInitialModelState)
       return
     }
 

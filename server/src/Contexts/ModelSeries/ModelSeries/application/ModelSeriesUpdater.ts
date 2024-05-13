@@ -9,21 +9,22 @@ import { ModelSeriesName } from '../domain/ModelSeriesName'
 import { type Repository } from '../../../Shared/domain/Repository'
 import { ModelSeries } from '../domain/ModelSeries'
 import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
+import { ModelParams } from './ModelSeriesCreator'
 
 export class ModelSeriesUpdater {
   constructor (private readonly repository: Repository) {}
 
-  async run (params: { id: string, newName?: string, categoryId?: string, brandId?: string }): Promise<void> {
-    const { id, newName, brandId, categoryId } = params
+  async run ({id, params}: {id: Primitives<ModelSeriesId>, params: Partial<ModelParams>}): Promise<void> {
+    const { name, brandId, categoryId } = params
     const modelSeriesId = new ModelSeriesId(id).toString()
     const modelSeries = await this.repository.modelSeries.searchById(modelSeriesId)
     if (modelSeries === null) {
       throw new ModelSeriesDoesNotExistError(id)
     }
     const modelEntity = ModelSeries.fromPrimitives(modelSeries)
-    if (newName !== undefined) {
-      await this.ensureModelSeriesDoesNotExist(newName)
-      modelEntity.updateName(newName)
+    if (name !== undefined) {
+      await this.ensureModelSeriesDoesNotExist(name)
+      modelEntity.updateName(name)
     }
 
     if (categoryId !== undefined) {

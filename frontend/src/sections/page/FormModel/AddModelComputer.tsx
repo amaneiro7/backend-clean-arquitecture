@@ -43,7 +43,7 @@ export function AddModelComputer({ formData, onChange }: Props) {
                                 label="Tiene Puerto VGA"
                                 text="¿Tiene Puerto VGA?"
                                 name="hasVGA"
-                                value={formData.hasVGA}
+                                value={formData.hasVGA ?? true}
                                 handle={(event) => {
                                     const { name, checked } = event.target
                                     onChange(name, checked);
@@ -53,7 +53,7 @@ export function AddModelComputer({ formData, onChange }: Props) {
                                 label="Tiene Puerto DVI"
                                 text="¿Tiene Puerto DVI?"
                                 name="hasDVI"
-                                value={formData.hasDVI}
+                                value={formData.hasDVI ?? false}
                                 handle={(event) => {
                                     const { name, checked } = event.target
                                     onChange(name, checked);
@@ -63,7 +63,7 @@ export function AddModelComputer({ formData, onChange }: Props) {
                                 label="Tiene Puerto HDMI"
                                 text="¿Tiene Puerto HDMI?"
                                 name="hasHDMI"
-                                value={formData.hasHDMI}
+                                value={formData.hasHDMI ?? false}
                                 handle={(event) => {
                                     const { name, checked } = event.target
                                     onChange(name, checked);
@@ -73,7 +73,7 @@ export function AddModelComputer({ formData, onChange }: Props) {
                                 label="Tiene BlueTooth"
                                 text="¿Tiene Bluetooth?"
                                 name="hasBluetooth"
-                                value={formData.hasBluetooth}
+                                value={formData.hasBluetooth ?? false}
                                 handle={(event) => {
                                     const { name, checked } = event.target
                                     onChange(name, checked);
@@ -83,7 +83,7 @@ export function AddModelComputer({ formData, onChange }: Props) {
                                 label="Tiene WiFi"
                                 text="¿Tiene Adaptador Wifi?"
                                 name="hasWifiAdapter"
-                                value={formData.hasWifiAdapter}
+                                value={formData.hasWifiAdapter ?? false}
                                 handle={(event) => {
                                     const { name, checked } = event.target
                                     onChange(name, checked);

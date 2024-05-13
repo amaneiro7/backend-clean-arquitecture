@@ -12,6 +12,8 @@ const ModelNameInput = lazy(async () => import('../../components/text-inputs/Mod
 const CategoryComboBox = lazy(async () => import('../../components/combo_box/CategoryComboBox'))
 const BrandComboBox = lazy(async () => import('../../components/combo_box/BrandComboBox'))
 const AddModelComputer = lazy(async () => import('./AddModelComputer').then(m => ({ default: m.AddModelComputer })))
+const AddModelMonitor = lazy(async () => import('./AddModelMonitor').then(m => ({ default: m.AddModelMonitor })))
+const AddModelPrinter = lazy(async () => import('./AddModelPrinter').then(m => ({ default: m.AddModelPrinter })))
 
 export function ModelInputs({ onChange, formData, isAddForm }: Props) {
     return (
@@ -43,6 +45,8 @@ export function ModelInputs({ onChange, formData, isAddForm }: Props) {
             </Suspense>
             <Suspense>
                 <AddModelComputer formData={formData} onChange={onChange} />
+                <AddModelMonitor formData={formData} onChange={onChange} />                
+                <AddModelPrinter formData={formData} onChange={onChange} />                
             </Suspense>
         </>
     )

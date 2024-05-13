@@ -5,7 +5,7 @@ import { type Models } from '../../../../Shared/infrastructure/persistance/Seque
 import { ComputerModels } from '../../../ModelCharacteristics/Computers/Computer/domain/ComputerModels'
 import { LaptopsModels } from '../../../ModelCharacteristics/Computers/Laptops/domain/LaptopsModels'
 import { MonitorModels } from '../../../ModelCharacteristics/Monitors/domain/MonitorModels'
-import { ModelPrinters } from '../../../ModelCharacteristics/Printers/Printers/domain/ModelPrinters'
+import { ModelPrinters } from '../../../ModelCharacteristics/Printers/domain/ModelPrinters'
 import { type ModelSeriesPrimitives } from '../../domain/ModelSeries'
 import { type ModelSeriesId } from '../../domain/ModelSeriesId'
 import { type ModelSeriesRepository } from '../../domain/ModelSeriesRepository'
