@@ -2,48 +2,48 @@ import { useEffect, useState } from 'react'
 import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
 import { type Repository } from '../../../modules/shared/domain/repository'
 import { useSearchByCriteriaQuery } from '../useQueryUpdate'
-import { LocationPrimitives } from '../../../modules/location/locations/domain/location'
-import { LocationGetterByCriteria } from '../../../modules/location/locations/application/LocationGetterByCriteria'
+import { ModelPrimitives } from '../../../modules/devices/model/model/domain/Model'
+import { ModelGetterByCriteria } from '../../../modules/devices/model/model/application/ModelGetterByCriteria'
 
-export interface UseLocationByCriteria {
-  locations: LocationPrimitives[]
+export interface UseModelByCriteria {
+  models: ModelPrimitives[]
   loading: boolean
   error: string | null
   addFilter: (payload: SearchByCriteriaQuery) => void
   cleanFilters: (payload?: SearchByCriteriaQuery) => void
 }
 
-export const useLocationByCriteria = (repository: Repository, defaultQuery?: SearchByCriteriaQuery): UseLocationByCriteria => {
-  const locationByCriteria = new LocationGetterByCriteria(repository)  
+export const useModelByCriteria = (repository: Repository, defaultQuery?: SearchByCriteriaQuery): UseModelByCriteria => {
+  const modelByCriteria = new ModelGetterByCriteria(repository)  
   const { query, addFilter, cleanFilters } = useSearchByCriteriaQuery(defaultQuery)
   const [loading, setLoading] = useState<boolean>(true)  
   const [error, setError] = useState<string | null>(null)  
-  const [locations, setLocations] = useState<LocationPrimitives[]>([])  
+  const [models, setModels] = useState<ModelPrimitives[]>([])  
 
-  function searchLocationsByCriteria () {
+  function searchModelsByCriteria () {
     setLoading(true)
-    locationByCriteria
+    modelByCriteria
       .get(query)
-      .then((location) => {
-        setLocations(location)
+      .then((model) => {
+        setModels(model)
         setLoading(false)
       })
-      .catch((error) => {
-        console.error('searchLocations', error)
-        setError('An unexpected error occurred while trying to search Locations')
+      .catch((error: any) => {
+        console.error('searchModels', error)
+        setError('An unexpected error occurred while trying to search models')
         setLoading(false)
       })
   }
 
   useEffect(() => {
-    searchLocationsByCriteria()
+    searchModelsByCriteria()
     return () => {
-      setLocations([])
+      setModels([])
     }
   }, [query])
 
   return {
-    locations,
+    models,
     loading,
     error,
     addFilter,

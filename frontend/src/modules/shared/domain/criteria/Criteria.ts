@@ -42,4 +42,19 @@ export class Criteria {
   hasOrder (): boolean {
     return this.order.hasOrder()
   }
+
+  buildQuery(criteria: CriteriaPrimitives): string {    
+
+    const filters = criteria.filters.length > 0 && criteria.filters.map(
+      (filter, index) => {
+        const { field, operator, value } = filter.toPrimitives()
+        return `filters[${index}][field]=${field}&filters[${index}][operator]=${operator}&filters[${index}][value]=${value}`
+      }
+    )
+    const paramsLimitAndOffset = criteria.limit ? `limit=${criteria.limit}&offset=${criteria.offset}` : undefined
+    const paramsOrder = criteria.orderBy ? `orderBy=${criteria.orderBy}&orderType=${criteria.orderType}` : undefined
+    const paramsFilters = filters ? `${filters.join('&')}` : undefined
+    const queryParams = [paramsFilters, paramsLimitAndOffset, paramsOrder].join('&')
+    return queryParams
+  }
 }

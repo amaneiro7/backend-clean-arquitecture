@@ -6,6 +6,7 @@ import { useAppContext } from '../Context/AppContext.tsx'
 
 const Home = lazy(async () => await import('../page/home/index.tsx'))
 const ListadoSitios = lazy(async () => await import('../page/ListadoSitios'))
+const ListadoModelos = lazy(async () => await import('../page/ListadoModelos'))
 const FilterByDevice = lazy(async () => await import('../page/FiltroPorDevice'))
 const AlmacenPage = lazy(async () => await import('../page/Almacen/index.tsx'))
 const EquiposAgenciaPage = lazy(async () => await import('../page/AgenciaPerDevice/index.tsx'))
@@ -36,6 +37,7 @@ export const privateRouter = [
   { path: '/device/edit/:id', element: <CreateDeviceForm /> },  
   { path: '/brand/add', element: <CreateBrandForm /> },
   { path: '/brand/edit/:id', element: <CreateBrandForm /> },
+  { path: '/model', element: <ListadoModelos /> },
   { path: '/model/add', element: <CreateModelForm /> },
   { path: '/model/edit/:id', element: <CreateModelForm /> },
   { path: '/processor/add', element: <CreateProcessorForm /> },

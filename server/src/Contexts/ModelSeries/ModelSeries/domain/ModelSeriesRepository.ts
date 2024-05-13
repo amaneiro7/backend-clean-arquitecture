@@ -1,4 +1,5 @@
 import { type CategoryId } from '../../../Category/domain/CategoryId'
+import { Criteria } from '../../../Shared/domain/criteria/Criteria'
 import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
 import { type ModelSeriesPrimitives } from './ModelSeries'
 import { type ModelSeriesId } from './ModelSeriesId'
@@ -8,6 +9,8 @@ export abstract class ModelSeriesRepository {
   abstract save (payload: ModelSeriesPrimitives): Promise<void>
 
   abstract searchAll (): Promise<ModelSeriesPrimitives[]>
+  
+  abstract matching (criteria: Criteria): Promise<ModelSeriesPrimitives[]>
 
   abstract searchById (id: Primitives<ModelSeriesId>): Promise<ModelSeriesPrimitives | null>
 

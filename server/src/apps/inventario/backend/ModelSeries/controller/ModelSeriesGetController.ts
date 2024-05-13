@@ -5,6 +5,9 @@ import { SearchAllModelSeries } from '../../../../../Contexts/ModelSeries/ModelS
 import { ModelSeriesFinder } from '../../../../../Contexts/ModelSeries/ModelSeries/application/ModelSeriesFinder'
 import { ModelSeriesId } from '../../../../../Contexts/ModelSeries/ModelSeries/domain/ModelSeriesId'
 import { ModelSeriesName } from '../../../../../Contexts/ModelSeries/ModelSeries/domain/ModelSeriesName'
+import { SearchByCriteriaQuery } from '../../../../../Contexts/Shared/domain/SearchByCriteriaQuery'
+import { ModelByCriteriaSearcher } from '../../../../../Contexts/ModelSeries/ModelSeries/application/ModelByCriteriaSearcher'
+import { FiltersPrimitives } from '../../../../../Contexts/Shared/domain/criteria/Filter'
 
 export class ModelSeriesGetController {
   constructor (private readonly repository: Repository) {}
@@ -22,6 +25,24 @@ export class ModelSeriesGetController {
     try {
       const { id } = req.params
       const data = await new ModelSeriesFinder(this.repository).searchById(new ModelSeriesId(id))
+      res.status(httpStatus.OK).json(data)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  getByCriteria = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const { filters, orderBy, orderType, limit, offset } = req.query
+      const query = new SearchByCriteriaQuery(
+        filters ? filters as unknown as FiltersPrimitives[] : [],
+        orderBy ? orderBy as string : undefined,
+        orderType ? orderType as string : undefined,
+        limit ? Number(limit) : undefined,
+        offset ? Number(offset) : undefined
+      )
+
+      const data = await new ModelByCriteriaSearcher(this.repository).search(query)
       res.status(httpStatus.OK).json(data)
     } catch (error) {
       next(error)

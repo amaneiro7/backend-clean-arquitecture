@@ -44,7 +44,8 @@ export const dropdownNavs: DropDown[] = [
         icon: 'icon'
       }
     ]
-  }, {
+  }, 
+  {
     label: 'Equipos en Almacen',
     navs: [
       {
@@ -54,7 +55,8 @@ export const dropdownNavs: DropDown[] = [
         icon: 'icon'
       }
     ]
-  }, {
+  }, 
+  {
     label: 'Equipos en uso por usuario',
     navs: [
       {
@@ -132,7 +134,12 @@ export const navigation: Navigation[] = [
     name: 'Listado de Sitios',
     path: '/sitios',
     isDrapdown: false
-  }
+  },
+  {
+    name: 'Listado de Modelos',
+    path: '/model',
+    isDrapdown: false
+  },
 ]
 
 export interface Navigation {

@@ -12,7 +12,8 @@ export const createModelSeriesRouter = ({ repository }: Props): Router => {
   const modelSeriesGetController = new ModelSeriesGetController(repository)
   const modelSeriesPostController = new ModelSeriesPostController(repository)
 
-  router.get('/', modelSeriesGetController.getAll)
+  router.get('/', modelSeriesGetController.getByCriteria)
+  router.get('/all', modelSeriesGetController.getAll)
   router.get('/:id', modelSeriesGetController.getById)
   router.post('/', modelSeriesPostController.create)
   router.patch('/:id', modelSeriesPostController.update)
