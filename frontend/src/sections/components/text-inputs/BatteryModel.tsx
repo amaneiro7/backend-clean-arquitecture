@@ -13,7 +13,7 @@ interface Props {
 
 const FormInput = lazy(async () => import('./FormInput').then(m => ({ default: m.FormInput })))
 
-export function BatteryModelInput({ value, onChange, type = 'form' }: Props) {
+export function BatteryModelInput({ value = '', onChange, type = 'form' }: Props) {
     const [errorMessage, setErrorMessage] = useState('')
     const [isError, setIsError] = useState(false)
     const isFirstInput = useRef(true)

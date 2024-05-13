@@ -1,9 +1,10 @@
+import { Primitives } from '../../../Shared/domain/value-object/Primitives'
 import { InputTypeId } from './InputTypeId'
 import { InputTypeName } from './InputTypeName'
 
 export interface InputTypePrimitives {
-  id: number
-  name: string
+  id: Primitives<InputTypeId>
+  name: Primitives<InputTypeName>
 }
 
 export class InputType {
@@ -19,18 +20,18 @@ export class InputType {
     )
   }
 
-  toPrimitive (): any {
+  toPrimitive (): InputTypePrimitives {
     return {
       id: this.id.value,
       name: this.name.value
     }
   }
 
-  get idValue (): number {
+  get idValue (): Primitives<InputTypeId> {
     return this.id.value
   }
 
-  get nameValue (): string {
+  get nameValue (): Primitives<InputTypeName> {
     return this.name.value
   }
 }

@@ -30,25 +30,21 @@ export class MonitorModels extends ModelSeries {
     super(id, name, categoryId, brandId)
   }
 
-  static create ({
-    name,
-    categoryId,
-    brandId,
-    screenSize,
-    hasDVI,
-    hasHDMI,
-    hasVGA
-  }: Omit<MonitorModelsPrimitives, 'id'>): MonitorModels {
+  static create (params: Omit<MonitorModelsPrimitives, 'id'>): MonitorModels {
+    if (!this.isMonitorCategory({categoryId: params.categoryId})) {
+      throw new Error('Invalid category')
+    }
+       
     const id = String(ModelSeriesId.random())
     return new MonitorModels(
       new ModelSeriesId(id),
-      new ModelSeriesName(name),
-      new CategoryId(categoryId),
-      new BrandId(brandId),
-      new MonitorScreenSize(screenSize),
-      new HasDVI(hasDVI),
-      new HasHDMI(hasHDMI),
-      new HasVGA(hasVGA)
+      new ModelSeriesName(params.name),
+      new CategoryId(params.categoryId),
+      new BrandId(params.brandId),
+      new MonitorScreenSize(params.screenSize),
+      new HasDVI(params.hasDVI),
+      new HasHDMI(params.hasHDMI),
+      new HasVGA(params.hasVGA)
     )
   }
 

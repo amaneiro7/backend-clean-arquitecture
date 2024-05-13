@@ -1,19 +1,16 @@
-import { lazy, Suspense, useEffect } from "react";
-import { useGenericFormData } from "../../Hooks/useGenericFormData";
-import { ModelPrimitives } from "../../../modules/devices/model/model/domain/Model";
-import { useModelForm, FormStatus } from "../../Hooks/model/useModelForm";
-import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading";
+import { lazy, Suspense, useEffect } from "react"
+import { useGenericFormData } from "../../Hooks/useGenericFormData"
+import { ModelPrimitives } from "../../../modules/devices/model/model/domain/Model"
+import { useModelForm, FormStatus } from "../../Hooks/model/useModelForm"
 
 interface Props {
-    dialogValue: ModelPrimitives
-    open: boolean,
-    toggleOpen: React.Dispatch<React.SetStateAction<boolean>>
+  dialogValue: ModelPrimitives
+  open: boolean,
+  toggleOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const DialogAdd = lazy(async () => import("./dialog"))
-const CategoryComboBox = lazy(async () => import("../combo_box/CategoryComboBox"))
-const BrandComboBox = lazy(async () => import("../combo_box/BrandComboBox"))
-const ModelNameInput = lazy(async () => import("../text-inputs/ModelNameInput"))
+const ModelInputs = lazy(async () => import("../../page/FormModel/ModelFeatures").then(m => ({ default: m.ModelInputs})))
 
 export default function ModelDialog ({ dialogValue, open, toggleOpen }: Props) {    
     const { formData, resetForm, updateForm } = useGenericFormData(dialogValue)
@@ -56,27 +53,9 @@ export default function ModelDialog ({ dialogValue, open, toggleOpen }: Props) {
             handleSubmit={handleSubmit}
             resetForm={resetForm}            
         >   
-            <Suspense fallback={<InputSkeletonLoading/>}>
-                <CategoryComboBox
-                    onChange={handleChange}
-                    value={formData.categoryId}
-                    type="form"
-                />
-            </Suspense> 
-            <Suspense fallback={<InputSkeletonLoading/>}>
-                <BrandComboBox 
-                    value={formData.brandId}
-                    categoryId={formData.categoryId}
-                    onChange={handleChange}
-                    type="form"
-                />
-            </Suspense> 
-            <Suspense fallback={<InputSkeletonLoading/>}>
-                <ModelNameInput
-                    value={formData.name}
-                    onChange={handleChange}
-                />
-            </Suspense> 
+        <Suspense>
+          <ModelInputs formData={formData} onChange={handleChange} isAddForm/>
+        </Suspense>            
         </DialogAdd>
     )
 }

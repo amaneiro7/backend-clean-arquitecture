@@ -5,11 +5,8 @@ import { useModelInitialState } from './ModelFormInitialState'
 import { useLocation } from 'react-router-dom'
 
 const Main = lazy(async () => import('../../components/Main'))
-const ModelNameInput = lazy(async () => import('../../components/text-inputs/ModelNameInput'))
-const CategoryComboBox = lazy(async () => import('../../components/combo_box/CategoryComboBox'))
-const BrandComboBox = lazy(async () => import('../../components/combo_box/BrandComboBox'))
 const FormContainer = lazy(async () => import('../../components/formContainer'))
-const ModelFeatures = lazy(async () => import('./ModelFeatures').then(m => ({default: m.ModelFeatures})))
+const ModelInputs = lazy(async () => import('./ModelFeatures').then(m => ({default: m.ModelInputs})))
 
 export default function CreateModelForm() {
   const location = useLocation()
@@ -58,26 +55,9 @@ export default function CreateModelForm() {
           handleSubmit={handleSubmit}
           handleClose={handleClose}
           isDisabled={formStatus === FormStatus.Loading}
-        >
-          <CategoryComboBox
-            value={formData.categoryId}
-            onChange={handleChange}
-            type='form'
-            isAdd={isAddForm}
-          />
-          <BrandComboBox
-            value={formData.brandId}
-            onChange={handleChange}
-            categoryId={formData.categoryId}
-            type='form'
-            isAdd={isAddForm}
-          />
-          <ModelNameInput
-            value={formData.name}
-            onChange={handleChange}
-          />
+        >          
           <Suspense>
-            <ModelFeatures formData={formData} onChange={handleChange} />
+            <ModelInputs isAddForm={isAddForm} formData={formData} onChange={handleChange} />
           </Suspense>
         </FormContainer>
       </Suspense>

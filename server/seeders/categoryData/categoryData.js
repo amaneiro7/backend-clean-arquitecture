@@ -22,6 +22,12 @@ const categoryData = [
     { id: '8', name: 'Impresoras Tinta' },
     { id: '9', name: 'Discos Duros' },
     { id: '10', name: 'Teclados' },
+    { id: '11', name: 'Mouses' },
+    { id: '12', name: 'BAMs' },
+    { id: '13', name: 'Impresoras Multifuncionales' },
+    { id: '14', name: 'Celulares' },
+    { id: '15', name: 'Escaners' },
+
   ]
 
   module.exports = {categoryData, categoryOnlyNames}

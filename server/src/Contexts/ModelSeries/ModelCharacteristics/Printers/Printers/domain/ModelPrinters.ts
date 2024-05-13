@@ -21,19 +21,17 @@ export class ModelPrinters extends ModelSeries {
     super(id, name, categoryId, brandId)
   }
 
-  static create ({
-    name,
-    categoryId,
-    brandId,
-    cartridgeModel
-  }: Omit<ModelPrintersPrimitives, 'id'>): ModelPrinters {
-    const id = String(ModelSeriesId.random())
+  static create (params: Omit<ModelPrintersPrimitives, 'id'>): ModelPrinters {
+    if (!this.isPrinterCategory({categoryId: params.categoryId})) {
+      throw new Error('Invalid category for printer model The category must be "printer"')
+    }
+    const id = ModelSeriesId.random().value
     return new ModelPrinters(
       new ModelSeriesId(id),
-      new ModelSeriesName(name),
-      new CategoryId(categoryId),
-      new BrandId(brandId),
-      new CartridgeModel(cartridgeModel)
+      new ModelSeriesName(params.name),
+      new CategoryId(params.categoryId),
+      new BrandId(params.brandId),
+      new CartridgeModel(params.cartridgeModel)
     )
   }
 

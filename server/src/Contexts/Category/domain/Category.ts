@@ -17,8 +17,13 @@ export const CategoryValues = {
   LASERPRINTER: '7',
   INKPRINTER: '8',
   HARDDRIVE: '9',
-  KEYBOARD: '10'
-}
+  KEYBOARD: '10',
+  MOUSE: '11',
+  BAM: '12',
+  MFP: '13',
+  PHONES: '14',
+  SCANNER: '15'
+} as const
 
 export class Category {
   constructor (
@@ -33,7 +38,7 @@ export class Category {
     )
   }
 
-  toPrimitive (): any {
+  toPrimitive (): CategoryPrimitives {
     return {
       id: this.id.value,
       name: this.name.value

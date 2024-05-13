@@ -13,7 +13,7 @@ interface Props {
 
 const NumberInput = lazy(async () => import('./NumberInput').then(m => ({ default: m.NumberInput })))
 
-export function MemoryRamSlotQuantityInput({ value, onChange, type = 'form' }: Props) {
+export function MemoryRamSlotQuantityInput({ value = 1, onChange, type = 'form' }: Props) {
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
 

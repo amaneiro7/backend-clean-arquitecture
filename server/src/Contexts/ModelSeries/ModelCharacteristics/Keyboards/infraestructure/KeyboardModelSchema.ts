@@ -5,6 +5,7 @@ import { type CategoryId } from '../../../../Category/domain/CategoryId'
 import { type Models } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
 import { type KeyboardModelsPrimitives } from '../domain/KeyboadModels'
 import { type InputTypeId } from '../../../InputType/domain/InputTypeId'
+import { CategoryValues } from '../../../../Category/domain/Category'
 
 interface KeyboardModelsCreationAttributes extends Omit<KeyboardModelsPrimitives, 'name' | 'brandId'> {
   modelSeriesId: Primitives<ModelSeriesId>
@@ -39,7 +40,7 @@ export function initKeyboardModels (sequelize: Sequelize): void {
         allowNull: false,
         validate: {
           isIn: {
-            args: [['10']],
+            args: [[CategoryValues.KEYBOARD]],
             msg: 'Solo puede pertenecer a la categoria de Keyboardes'
           }
         }
