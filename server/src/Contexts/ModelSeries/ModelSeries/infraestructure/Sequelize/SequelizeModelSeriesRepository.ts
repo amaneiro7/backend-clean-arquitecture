@@ -17,13 +17,23 @@ import { ModelSeriesModel } from './ModelSeriesSchema'
 export class SequelizeModelSeriesRepository extends CriteriaToSequelizeConverter implements ModelSeriesRepository {
   private readonly models = sequelize.models as unknown as Models
   async searchAll(): Promise<ModelSeriesPrimitives[]> {
-    return await ModelSeriesModel.findAll()
+    return await ModelSeriesModel.findAll({
+      include: [
+        'category',
+        'brand',
+        'modelPrinter',
+        'modelMonitor',
+        { association: 'modelLaptop', include: ['memoryRamType'] },
+        { association: 'modelComputer', include: ['memoryRamType'] },
+        { association: 'modelKeyboard', include: ['inputType'] }
+      ]
+    })
   }
 
   async matching(criteria: Criteria): Promise<ModelSeriesPrimitives[]> {
     const options = this.convert(criteria)
     const locationOption = new ModelAssociation().convertFilterLocation(criteria, options)
-   
+
     return await ModelSeriesModel.findAll(locationOption)
   }
 

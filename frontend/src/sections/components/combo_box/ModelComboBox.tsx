@@ -40,6 +40,8 @@ export default function ModelComboBox({ value, onChange, categoryId, brandId, ty
         })
     }, [models, categoryId, brandId])
 
+    console.log('modelComboBox', value)
+
     return (
         <Suspense fallback={<InputSkeletonLoading />}>
             {(!isAdd && type === 'form') ?
