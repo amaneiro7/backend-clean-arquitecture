@@ -5,6 +5,7 @@ import { type ModelSeriesId } from '../../../../ModelSeries/domain/ModelSeriesId
 import { type Models } from '../../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
 import { type ModelPrintersPrimitives } from '../../domain/ModelPrinters'
 import { type CartridgeModel } from '../../domain/CartridgeModel'
+import { CategoryValues } from '../../../../../Category/domain/Category'
 
 interface ModelPrinterCreationAttributes extends Omit<ModelPrintersPrimitives, 'name' | 'brandId'> {
   modelSeriesId: Primitives<ModelSeriesId>
@@ -40,7 +41,7 @@ export function initModelPrinter (sequelize: Sequelize): void {
         allowNull: false,
         validate: {
           isIn: {
-            args: [['7', '8']],
+            args: [[CategoryValues.LASERPRINTER, CategoryValues.INKPRINTER]],
             msg: 'Solo puede pertenecer a la categoria de Impresoras Laser e Impresoras Tinta'
           }
         }

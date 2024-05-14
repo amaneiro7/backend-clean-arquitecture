@@ -29,7 +29,7 @@ export class SequelizeModelSeriesRepository extends CriteriaToSequelizeConverter
 
   async searchById(id: string): Promise<ModelSeriesPrimitives | null> {
     return await ModelSeriesModel.findByPk(id, {
-      include: ['category', 'brand', 'modelComputer', 'modelLaptop', 'modelMonitor', 'modelPrinter']
+      include: ['category', 'brand', 'modelComputer', 'modelLaptop', 'modelMonitor', 'modelPrinter', 'modelKeyboard']
     }) ?? null
   }
 

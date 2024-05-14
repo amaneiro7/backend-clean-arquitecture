@@ -11,6 +11,7 @@ import { type HasVGA } from '../../domain/HasVGA'
 import { type CategoryId } from '../../../../../../Category/domain/CategoryId'
 import { type ModelSeriesId } from '../../../../../ModelSeries/domain/ModelSeriesId'
 import { type Models } from '../../../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
+import { CategoryValues } from '../../../../../../Category/domain/Category'
 
 interface ComputerModelsCreationAttributes extends Omit<ComputerModelsPrimitives, 'name' | 'brandId'> {
   modelSeriesId: Primitives<ModelSeriesId>
@@ -54,7 +55,7 @@ export function initComputerModels (sequelize: Sequelize): void {
         allowNull: false,
         validate: {
           isIn: {
-            args: [['1', '2', '4']],
+            args: [[CategoryValues.COMPUTADORAS, CategoryValues.SERVIDORES, CategoryValues.ALLINONE]],
             msg: 'Solo puede pertenecer a la categoria de Computadoras, Servidores o All in One'
           }
         }

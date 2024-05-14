@@ -21,8 +21,8 @@ export class KeyboardModelsModel extends Model<KeyboardModelsCreationAttributes>
 
   public static associate (models: Models): void {
     this.belongsTo(models.Model, { as: 'model', foreignKey: 'modelSeriesId' }) // A keyboard model belongs to a model
-    this.belongsTo(models.Category, { as: 'category' }) // A keyboard model belongs to a category
-    this.belongsTo(models.InputType, { as: 'inputType' }) // A keyboard model belongs to a InputTypes
+    this.belongsTo(models.Category, { as: 'category', foreignKey: 'categoryId' }) // A keyboard model belongs to a category
+    this.belongsTo(models.InputType, { as: 'inputType', foreignKey: 'inputTypeId' }) // A keyboard model belongs to a InputTypes
   }
 }
 
@@ -55,7 +55,8 @@ export function initKeyboardModels (sequelize: Sequelize): void {
       },
       hasFingerPrintReader: {
         type: DataTypes.BOOLEAN,        
-        defaultValue: false
+        defaultValue: false,
+        field: 'has_fingerprint_reader'
       }
     },
     {

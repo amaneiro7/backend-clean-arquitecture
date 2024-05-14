@@ -8,6 +8,7 @@ import { type HasDVI } from '../domain/HasDVI'
 import { type HasHDMI } from '../domain/HasHDMI'
 import { type HasVGA } from '../domain/HasVGA'
 import { type Models } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
+import { CategoryValues } from '../../../../Category/domain/Category'
 
 interface MonitorModelsCreationAttributes extends Omit<MonitorModelsPrimitives, 'name' | 'brandId'> {
   modelSeriesId: Primitives<ModelSeriesId>
@@ -46,7 +47,7 @@ export function initMonitorModels (sequelize: Sequelize): void {
         allowNull: false,
         validate: {
           isIn: {
-            args: [['5']],
+            args: [[CategoryValues.MONITORES]],
             msg: 'Solo puede pertenecer a la categoria de Monitores'
           }
         }

@@ -9,7 +9,8 @@ export class ModelAssociation {
             'modelPrinter',
             'modelMonitor',
             { association: 'modelLaptop', include: ['memoryRamType'] },
-            { association: 'modelComputer', include: ['memoryRamType'] }
+            { association: 'modelComputer', include: ['memoryRamType'] },
+            { association: 'modelKeyboard', include: ['inputType'] }
           ]   
         return options
     }
