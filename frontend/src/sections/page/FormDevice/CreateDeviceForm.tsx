@@ -68,8 +68,8 @@ export default function CreateDeviceForm() {
           isDisabled={formStatus === FormStatus.Loading}
           lastUpdated={formData.updatedAt}
           url='/device/add'
+          searchInput={<DeviceSearchComboBox />}
         >
-          <DeviceSearchComboBox />
           <div className='flex gap-4'>
             <Suspense fallback={<InputSkeletonLoading />}>
               <CategoryComboBox

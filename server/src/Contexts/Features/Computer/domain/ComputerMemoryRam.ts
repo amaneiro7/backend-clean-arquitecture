@@ -21,7 +21,6 @@ export class ComputerMemoryRam {
         for (let totalAmount = 0; totalAmount < value.length; totalAmount++) {
             number += value[totalAmount]
         }
-        console.log(value)
         return number
     }
 

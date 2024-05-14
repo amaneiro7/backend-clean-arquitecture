@@ -8,6 +8,7 @@ interface Props {
   isDisabled: boolean
   handleClose: () => void
   lastUpdated?: string
+  searchInput?: React.ReactNode
 }
 
 const Button = lazy(async () => await import('../button'))
@@ -15,7 +16,7 @@ const LinkAsButton = lazy(async () => await import('../button/LinkAsButton').the
 const LastUpdated = lazy(async () => import('../LastUpdated').then(m => ({ default: m.LastUpdated })))
 const PageTitle = lazy(async () => import('../PageTitle'))
 
-export default function FormContainer({ url, title, children, isDisabled, handleSubmit, handleClose, lastUpdated }: React.PropsWithChildren<Props>) {
+export default function FormContainer({ url, title, searchInput, children, isDisabled, handleSubmit, handleClose, lastUpdated }: React.PropsWithChildren<Props>) {
   const location = useLocation()
 
   const isEdit = useMemo(() => location.pathname.includes('edit'), [location])
@@ -33,6 +34,7 @@ export default function FormContainer({ url, title, children, isDisabled, handle
                 <PageTitle title={!isEdit ? 'Agregar un nuevo ' + title : 'Editar un ' + title} />
               </Suspense>
             </legend>
+            {searchInput}
             <div className='flex gap-5 justify-around'>
               <Suspense>
                 <Button

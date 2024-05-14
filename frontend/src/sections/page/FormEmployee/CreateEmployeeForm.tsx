@@ -7,12 +7,12 @@ import { FormStatus, useEmployeeForm } from '../../Hooks/employee/useEmployeeFor
 import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoading'
 
 const Main = lazy(async () => import('../../components/Main'))
-const InfoBox = lazy(async () => import('../../components/info-box/InfoBox').then(m  => ({ default: m.InfoBox })))
-const InfoBoxTitle = lazy(async () => import('../../components/info-box/InfoBoxTitle').then(m  => ({ default: m.InfoBoxTitle })))
-const InfoBoxText = lazy(async () => import('../../components/info-box/InfoBoxText').then(m  => ({ default: m.InfoBoxText })))
+const InfoBox = lazy(async () => import('../../components/info-box/InfoBox').then(m => ({ default: m.InfoBox })))
+const InfoBoxTitle = lazy(async () => import('../../components/info-box/InfoBoxTitle').then(m => ({ default: m.InfoBoxTitle })))
+const InfoBoxText = lazy(async () => import('../../components/info-box/InfoBoxText').then(m => ({ default: m.InfoBoxText })))
 const EmployeeSearchComboBox = lazy(async () => import('../../components/combo_box/EmployeeSearchComboBox'))
 const FormContainer = lazy(async () => await import('../../components/formContainer'))
-const EmployeeUserNameInput = lazy(async () => await import('../../components/text-inputs/UserNameInput').then(m => ({ default: m.EmployeeUserNameInput})))
+const EmployeeUserNameInput = lazy(async () => await import('../../components/text-inputs/UserNameInput').then(m => ({ default: m.EmployeeUserNameInput })))
 
 export default function CreateEmployeeForm() {
   const navigate = useNavigate()
@@ -63,8 +63,8 @@ export default function CreateEmployeeForm() {
           isDisabled={formStatus === FormStatus.Loading}
           lastUpdated={formData.updatedAt}
           url='/employee/add'
+          searchInput={<EmployeeSearchComboBox />}
         >
-          <EmployeeSearchComboBox />
           <Suspense fallback={<InputSkeletonLoading />}>
             <EmployeeUserNameInput
               key={location.key}
@@ -73,21 +73,21 @@ export default function CreateEmployeeForm() {
               onChange={handleChange}
             />
           </Suspense>
-        {formData.devices.length > 0 &&
-          formData.devices.map(({id, category, brand, model, serial, location, computer}) =>
+          {formData.devices.length > 0 &&
+            formData.devices.map(({ id, category, brand, model, serial, location, computer }) =>
             (
               <Suspense key={id}>
                 <InfoBox>
                   <InfoBoxTitle title={category?.name} url={`/device/edit/${id}`} />
-                  <InfoBoxText desc='Marca' text={brand?.name}/>
-                  <InfoBoxText desc='Modelo' text={model?.name}/>
-                  <InfoBoxText desc='Serial' text={serial}/>
-                  <InfoBoxText desc='Ubicación' text={location?.name}/>
-                  {computer !== null && <InfoBoxText desc='Dirección IP' text={computer?.ipAddress}/>}
+                  <InfoBoxText desc='Marca' text={brand?.name} />
+                  <InfoBoxText desc='Modelo' text={model?.name} />
+                  <InfoBoxText desc='Serial' text={serial} />
+                  <InfoBoxText desc='Ubicación' text={location?.name} />
+                  {computer !== null && <InfoBoxText desc='Dirección IP' text={computer?.ipAddress} />}
                 </InfoBox>
               </Suspense>
             )
-          )}
+            )}
         </FormContainer>
       </Main>
     </Suspense>
