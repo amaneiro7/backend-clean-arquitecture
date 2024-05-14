@@ -14,6 +14,7 @@ const BrandComboBox = lazy(async () => import('../../components/combo_box/BrandC
 const AddModelComputer = lazy(async () => import('./AddModelComputer').then(m => ({ default: m.AddModelComputer })))
 const AddModelMonitor = lazy(async () => import('./AddModelMonitor').then(m => ({ default: m.AddModelMonitor })))
 const AddModelPrinter = lazy(async () => import('./AddModelPrinter').then(m => ({ default: m.AddModelPrinter })))
+const AddModelKeyboard = lazy(async () => import('./AddModelKeyboard').then(m => ({ default: m.AddModelKeyboard })))
 
 export function ModelInputs({ onChange, formData, isAddForm }: Props) {
     return (
@@ -47,6 +48,7 @@ export function ModelInputs({ onChange, formData, isAddForm }: Props) {
                 <AddModelComputer formData={formData} onChange={onChange} />
                 <AddModelMonitor formData={formData} onChange={onChange} />                
                 <AddModelPrinter formData={formData} onChange={onChange} />                
+                <AddModelKeyboard formData={formData} onChange={onChange} />                
             </Suspense>
         </>
     )

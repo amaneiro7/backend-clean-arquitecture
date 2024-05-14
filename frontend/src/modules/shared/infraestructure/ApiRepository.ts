@@ -25,6 +25,7 @@ import { ApiStateRepository } from '../../location/state/infraestructure/ApiStat
 import { ApiSiteRepository } from '../../location/site/infraestructure/ApiSiteRepository'
 import { ApiTypeOfSiteRepository } from '../../location/typeofsites/infraestructure/ApiTypeOfSiteRepository'
 import { ApiEmployeeRepository } from '../../employee/employee/infrastructure/ApiEmployeeRepository'
+import { ApiInputTypeRepository } from '../../devices/model/InputType/infra/ApiInputTypeRepository'
 
 export const apiRepository: Repository = {
   brand: new ApiBrandRepository(),
@@ -38,6 +39,7 @@ export const apiRepository: Repository = {
   hardDriveCapacity: new ApiHardDriveCapacityRepository(),
   hardDriveType: new ApiHardDriveTypeRepository(),
   memoryRamType: new ApiMemoryRamTypeRepository(),
+  inputType: new ApiInputTypeRepository(),
   role: new ApiRoleRepository(),
   auth: new ApiAuthRepository(),
   user: new SessionStorageRepository(),

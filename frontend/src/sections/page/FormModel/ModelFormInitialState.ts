@@ -13,6 +13,8 @@ import { ModelPrimitives } from '../../../modules/devices/model/model/domain/Mod
 import { BatteryModel } from '../../../modules/devices/model/ModelCharacteristics/modelLaptop/BatteryModel'
 import { ScreenSize } from '../../../modules/devices/model/ModelCharacteristics/modelMonitor/ScreenSize'
 import { CartridgeModel } from '../../../modules/devices/model/ModelCharacteristics/modelPrinter/CartridgeModel'
+import { InputTypeId } from '../../../modules/devices/model/InputType/domain/InputTypeId'
+import { HasFingerPrinteReader } from '../../../modules/devices/model/ModelCharacteristics/modelKeyboard/HasFingerPrintReader'
 
 export interface DefaultModelProps {
   id?: Primitives<ModelId>
@@ -29,6 +31,8 @@ export interface DefaultModelProps {
   batteryModel?: Primitives<BatteryModel>
   screenSize?: Primitives<ScreenSize>
   cartridgeModel?: Primitives<CartridgeModel>
+  inputTypeId?: Primitives<InputTypeId>
+  hasFingerPrintReader?: Primitives<HasFingerPrinteReader>
   updatedAt?: string
 }
 export const defaultInitialModelState: DefaultModelProps = {
@@ -41,11 +45,13 @@ export const defaultInitialModelState: DefaultModelProps = {
   hasHDMI: false,
   hasVGA: true,
   hasWifiAdapter: false,
+  hasFingerPrintReader: false,
   memoryRamSlotQuantity: MemoryRamSlotQuantity.MIN,
   memoryRamTypeId: '',
   batteryModel: '',
   screenSize: ScreenSize.MIN,
   cartridgeModel: '',
+  inputTypeId: '',
   updatedAt: undefined
 }
 export const useModelInitialState = () => {

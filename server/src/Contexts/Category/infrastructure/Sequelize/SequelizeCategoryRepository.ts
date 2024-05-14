@@ -7,7 +7,11 @@ import { CategoryModel } from './CategorySchema'
 
 export class SequelizeCategoryRepository implements CategoryRepository {
   async searchAll (): Promise<CategoryPrimitives[]> {
-    return await CategoryModel.findAll()
+    return await CategoryModel.findAll({
+      order: [
+        ['name', 'ASC']
+      ]
+    })
   }
 
   async searchById (id: Primitives<CategoryId>): Promise<CategoryPrimitives | null> {

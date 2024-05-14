@@ -75,7 +75,7 @@ export default function ListadoModelos() {
                                 type='button'
                                 text='Añadir'
                                 actionType='ACTION'
-                                handle={() => { navigate('/device/add') }}
+                                handle={() => { navigate('/model/add') }}
                             />
                         </Suspense>
                         <Suspense fallback={<InputSkeletonLoading />}>

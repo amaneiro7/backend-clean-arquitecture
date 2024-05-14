@@ -14,8 +14,8 @@ export function EmailInput({ value, onChange, isRequired = true }: Props) {
   const [isError, setIsError] = useState(false)
   const isFirstInput = useRef(true)
   useEffect(() => {
-    if (isFirstInput.current || value.length === 0) {
-      isFirstInput.current = value === ''
+    if (isFirstInput.current || value === '') {
+      isFirstInput.current = !value.includes('@')
       return
     }
 

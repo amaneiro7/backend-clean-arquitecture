@@ -17,8 +17,8 @@ export default function ModelNameInput ({ value, onChange, type = 'form' }: Prop
   const [isError, setIsError] = useState(false)
   const isFirstInput = useRef(true)
   useEffect(() => {
-    if (isFirstInput.current) {
-      isFirstInput.current = value === ''
+    if (isFirstInput.current || value === '') {
+      isFirstInput.current = value?.length <= ModelName.NAME_MIN_LENGTH
       return
     }
 

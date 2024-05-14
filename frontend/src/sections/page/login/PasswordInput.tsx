@@ -15,8 +15,8 @@ export function PasswordInput({ value, onChange, isRequired = true }: Props) {
   const [isError, setIsError] = useState(false)
   const isFirstInput = useRef(true)
   useEffect(() => {
-    if (isFirstInput.current || value.length === 0) {
-      isFirstInput.current = value === ''
+    if (isFirstInput.current || value === '') {
+      isFirstInput.current = value?.length <= UserPassword.HAS_MIN_LENGTH
       return
     }
 

@@ -24,6 +24,7 @@ import { type RegionRepository } from '../../location/region/domain/regionReposi
 import { type SiteRepository } from '../../location/site/domain/siteRepository'
 import { type LocationRepository } from '../../location/locations/domain/locationRepository'
 import { type EmployeeRepository } from '../../employee/employee/domain/EmployeeRepository'
+import { InputTypeRepository } from '../../devices/model/InputType/domain/InputTypeRepository'
 
 export interface Repository {
   brand: BrandRepository
@@ -36,6 +37,7 @@ export interface Repository {
   operatingSystemArq: OperatingSystemArqRepository
   hardDriveType: HardDriveTypeRepository
   hardDriveCapacity: HardDriveCapacityRepository
+  inputType: InputTypeRepository
   // hardDrive: HardDriveRepository
   // computer: ComputerRepository
   memoryRamType: MemoryRamTypeRepository

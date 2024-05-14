@@ -6,6 +6,7 @@ import { type Models } from '../../../../Shared/infrastructure/persistance/Seque
 import { type KeyboardModelsPrimitives } from '../domain/KeyboadModels'
 import { type InputTypeId } from '../../../InputType/domain/InputTypeId'
 import { CategoryValues } from '../../../../Category/domain/Category'
+import { HasFingerPrintReader } from '../domain/HasFingerPrintReader'
 
 interface KeyboardModelsCreationAttributes extends Omit<KeyboardModelsPrimitives, 'name' | 'brandId'> {
   modelSeriesId: Primitives<ModelSeriesId>
@@ -16,9 +17,12 @@ export class KeyboardModelsModel extends Model<KeyboardModelsCreationAttributes>
   public modelSeriesId!: Primitives<ModelSeriesId>
   public categoryId!: Primitives<CategoryId>
   public inputTypeId!: Primitives<InputTypeId>
+  public hasFingerPrintReader!: Primitives<HasFingerPrintReader>
 
   public static associate (models: Models): void {
-
+    this.belongsTo(models.Model, { as: 'model', foreignKey: 'modelSeriesId' }) // A keyboard model belongs to a model
+    this.belongsTo(models.Category, { as: 'category' }) // A keyboard model belongs to a category
+    this.belongsTo(models.InputType, { as: 'inputType' }) // A keyboard model belongs to a InputTypes
   }
 }
 
@@ -41,13 +45,17 @@ export function initKeyboardModels (sequelize: Sequelize): void {
         validate: {
           isIn: {
             args: [[CategoryValues.KEYBOARD]],
-            msg: 'Solo puede pertenecer a la categoria de Keyboardes'
+            msg: 'Solo puede pertenecer a la categoria de Teclados'
           }
         }
       },
       inputTypeId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false
+      },
+      hasFingerPrintReader: {
+        type: DataTypes.BOOLEAN,        
+        defaultValue: false
       }
     },
     {

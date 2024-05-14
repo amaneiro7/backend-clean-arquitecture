@@ -10,7 +10,7 @@ export class InputTypeModel extends Model<InputTypePrimitives> implements InputT
   readonly name!: Primitives<InputTypeName>
 
   public static associate (models: Models): void {
-
+    this.hasOne(models.ModelKeyboard, { as: 'modelKeyboard', foreignKey: 'inputTypeId' }) // An inputType has one keyboard model (if it is a keyboard)
   }
 }
 
