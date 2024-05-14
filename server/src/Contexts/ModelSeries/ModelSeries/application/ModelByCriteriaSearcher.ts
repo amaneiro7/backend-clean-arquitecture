@@ -20,7 +20,7 @@ export class ModelByCriteriaSearcher {
         new FilterValue(filter.value))
     })
     const order = Order.fromValues(
-      query.orderBy ?? 'name',
+      query.orderBy ?? 'categoryId',
       query.orderType
     )
     const criteria = new Criteria(new Filters(filters), order, query.limit, query.offset)
