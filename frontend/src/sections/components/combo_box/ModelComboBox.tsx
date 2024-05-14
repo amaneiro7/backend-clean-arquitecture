@@ -62,12 +62,7 @@ export default function ModelComboBox({ value, onChange, categoryId, brandId, ty
                             toggleOpen(true)
                             setDialogValue(prev => ({ ...prev, name: newValue.inputValue }))
                         } else {
-                            if (name === 'modelId') {
-                                onChange(name, newValue ? newValue.id : '', Operator.EQUAL)
-                            }
-                            if (name === 'name') {
-                                onChange(name, newValue ? newValue.name : '', Operator.CONTAINS)
-                            }
+                            onChange(name, newValue ? newValue.id : '', Operator.EQUAL)
                             if (type === 'form') {
                                 if (newValue?.modelComputer !== null) {
                                     onChange('memoryRamSlotQuantity', newValue ? newValue?.modelComputer.memoryRamSlotQuantity : undefined)

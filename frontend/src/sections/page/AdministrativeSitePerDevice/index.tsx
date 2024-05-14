@@ -7,7 +7,6 @@ import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestruct
 
 import { useInputsData } from './useInputData'
 import { useDevice } from '../../Hooks/device/useDevice'
-// import { Computer } from '../../../modules/devices/fetures/computer/domain/Computer'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
 import { StatusId } from '../../../modules/devices/devices/status/domain/StatusId'
 
@@ -67,8 +66,7 @@ export default function AdministrativeSitePage() {
   }
 
   const handleClear = () => {
-    clearInputs()
-    // Modificarlo para que no sea un magic string
+    clearInputs()    
     cleanFilters({
       filters: [{
         field: 'typeOfSiteId',

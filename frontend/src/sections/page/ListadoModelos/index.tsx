@@ -1,22 +1,30 @@
-import { lazy, Suspense, useCallback, useRef } from "react"
+import { lazy, Suspense, useCallback, useMemo, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import debounce from "just-debounce-it"
 
+import { type SearchByCriteriaQuery } from "../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery"
+import { type ModelApiresponse } from "../../../modules/shared/domain/types/responseTypes"
 import { useInputsData } from "./useInputData"
 import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
-import { SearchByCriteriaQuery } from "../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery"
+import { useModelByCriteria } from "../../Hooks/model/useModelByCriteria"
 import { InputSkeletonLoading } from "../../components/skeleton/inputSkeletonLoading"
 import { SpinnerSKCircle } from "../../components/Loading/spinner-sk-circle"
 import { MainFallback } from "../../components/skeleton/MainFallback"
 import TableSkeleton from "../../components/skeleton/TableSkeleton"
-import { useModelByCriteria } from "../../Hooks/model/useModelByCriteria"
-import { ModelApiresponse } from "../../../modules/shared/domain/types/responseTypes"
+import { ModelComputer } from "../../../modules/devices/model/ModelCharacteristics/modelComputer/ModelComputer"
+import { ModelLaptop } from "../../../modules/devices/model/ModelCharacteristics/modelLaptop/ModelLaptop"
+import { ModelPrinter } from "../../../modules/devices/model/ModelCharacteristics/modelPrinter/ModelPrinter"
+import { ModelMonitor } from "../../../modules/devices/model/ModelCharacteristics/modelMonitor/ModelMonitor"
+import { ModelKeyboard } from "../../../modules/devices/model/ModelCharacteristics/modelKeyboard/ModelKeyboard"
 
 
-const Button = lazy(async () => import("../../components/button"))
 const HeaderInput = lazy(async () => import('../../components/HeaderInput').then(m => ({ default: m.HeaderInput })))
 const Main = lazy(async () => import('../../components/Main'))
 const PageTitle = lazy(async () => import('../../components/PageTitle'))
+const Button = lazy(async () => import("../../components/button"))
+const CategoryComboBox = lazy(async () => await import('../../components/combo_box/CategoryComboBox'))
+const BrandComboBox = lazy(async () => await import('../../components/combo_box/BrandComboBox'))
+const ModelComboBox = lazy(async () => await import('../../components/combo_box/ModelComboBox'))
 const Table = lazy(async () => import('../../components/TableComponent/Table'))
 const TableHeader = lazy(async () => import('../../components/TableComponent/TableHeader'))
 const TableRow = lazy(async () => import('../../components/TableComponent/TableRow'))
@@ -24,16 +32,31 @@ const TableBody = lazy(async () => import('../../components/TableComponent/Table
 const TableHead = lazy(async () => import('../../components/TableComponent/TableHead'))
 const TableCell = lazy(async () => import('../../components/TableComponent/TableCell'))
 const TableCellEditDeleteIcon = lazy(async () => import('../../components/TableComponent/TableCellEditDeleteIcon'))
-const CategoryComboBox = lazy(async () => await import('../../components/combo_box/CategoryComboBox'))
-const BrandComboBox = lazy(async () => await import('../../components/combo_box/BrandComboBox'))
-const ModelComboBox = lazy(async () => await import('../../components/combo_box/ModelComboBox'))
 
 export default function ListadoModelos() {
     const tableRef = useRef(null)
-    const navigate = useNavigate()
     const { models, loading, addFilter, cleanFilters } = useModelByCriteria()
+    const navigate = useNavigate()
     const { inputData, updateInputData, clearInputs } = useInputsData()
 
+
+    const isComputer = useMemo(() => {
+        return ModelComputer.isComputerCategory({ categoryId: inputData.categoryId })
+    }, [inputData.categoryId])
+    const isLaptop = useMemo(() => {
+        return ModelLaptop.isLaptopCategory({ categoryId: inputData.categoryId })
+    }, [inputData.categoryId])
+    const isMonitor = useMemo(() => {
+        return ModelMonitor.isMonitorCategory({ categoryId: inputData.categoryId })
+    }, [inputData.categoryId])
+    const isPrinter = useMemo(() => {
+        return ModelPrinter.isPrinterCategory({ categoryId: inputData.categoryId })
+    }, [inputData.categoryId])
+    const isKeyboard = useMemo(() => {
+        return ModelKeyboard.isKeyboardCategory({ categoryId: inputData.categoryId })
+    }, [inputData.categoryId])
+
+    console.log((!isComputer || !isLaptop || !isMonitor || !isPrinter))
     const debounceGetLocations = useCallback(
         debounce((query: SearchByCriteriaQuery) => {
             addFilter(query)
@@ -68,7 +91,6 @@ export default function ListadoModelos() {
                             <CategoryComboBox
                                 value={inputData.categoryId}
                                 onChange={handleChange}
-                                type='search'
                             />
                         </Suspense>
                         <Suspense fallback={<InputSkeletonLoading />}>
@@ -76,17 +98,15 @@ export default function ListadoModelos() {
                                 categoryId={inputData.categoryId}
                                 value={inputData.brandId}
                                 onChange={handleChange}
-                                type='search'
                             />
                         </Suspense>
                         <Suspense fallback={<InputSkeletonLoading />}>
                             <ModelComboBox
-                                name='name'
+                                name='id'
                                 brandId={inputData.brandId}
                                 categoryId={inputData.categoryId}
-                                value={inputData.name}
+                                value={inputData.id}
                                 onChange={handleChange}
-                                type='search'
                             />
                         </Suspense>
                         <Suspense fallback={<InputSkeletonLoading />}>
@@ -105,6 +125,14 @@ export default function ListadoModelos() {
                                 handle={handleClear}
                             />
                         </Suspense>
+                        <Suspense>
+                            <Button
+                                type='button'
+                                actionType='SAVE'
+                                text='Export Excel'
+                                handle={() => { import('../../components/button/DownloadTableExcel').then(m => m.exportToExcel(tableRef)) }}
+                            />
+                        </Suspense>
                     </HeaderInput>
                 </Suspense>
                 {loading && <SpinnerSKCircle />}
@@ -112,23 +140,23 @@ export default function ListadoModelos() {
                 {(!loading && models.length > 0) && <Suspense fallback={<TableSkeleton />}>
                     <Table ref={tableRef} className=''>
                         <TableHeader>
-                            <TableRow>
+                            <TableRow>                                
                                 <TableHead name='Acciones' />
                                 <TableHead name='Categoria' />
                                 <TableHead name='Marca' />
                                 <TableHead name='Modelo' />
-                                <TableHead name='Tipo de Memoria' />
-                                <TableHead name='Cantidad de Ranuras' />
-                                <TableHead name='Puerto VGA' />
-                                <TableHead name='Puerto DVI' />
-                                <TableHead name='Puerto HDMI' />
-                                <TableHead name='Adaptador Bluetooth' />
-                                <TableHead name='Adaptador Wifi' />
-                                <TableHead name='Modelo de bateria' />
-                                <TableHead name='Tamaño de Pantalla' />
-                                <TableHead name='Modelo de cartucho' />
-                                <TableHead name='Tipo de entrada' />
-                                <TableHead name='Lector de huella' />
+                                {!(!isMonitor || !isPrinter || !isKeyboard) && <TableHead name='Tipo de Memoria' />}
+                                {!(!isMonitor || !isPrinter || !isKeyboard) && <TableHead name='Cantidad de Ranuras' />}
+                                {!(!isPrinter || !isKeyboard) && <TableHead name='Puerto VGA' />}
+                                {!(!isPrinter || !isKeyboard) && <TableHead name='Puerto DVI' />}
+                                {!(!isPrinter || !isKeyboard) && <TableHead name='Puerto HDMI' />}
+                                {!(!isMonitor || !isPrinter || !isKeyboard) && <TableHead name='Adaptador Bluetooth' />}
+                                {!(!isMonitor || !isPrinter || !isKeyboard) && <TableHead name='Adaptador Wifi' />}
+                                {!(!isComputer || !isMonitor || !isPrinter || !isKeyboard) && <TableHead name='Modelo de bateria' />}
+                                {!(!isComputer || !isLaptop || !isPrinter || !isKeyboard) && <TableHead name='Tamaño de Pantalla' />}
+                                {!(!isComputer || !isLaptop || !isMonitor || !isKeyboard) && <TableHead name='Modelo de cartucho' />}
+                                {!(!isComputer || !isLaptop || !isMonitor || !isPrinter) && <TableHead name='Tipo de entrada' />}
+                                {!(!isComputer || !isLaptop || !isMonitor || !isPrinter) && <TableHead name='Lector de huella' />}
                             </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -140,16 +168,16 @@ export default function ListadoModelos() {
                                     <TableCell value={model?.name} />
                                     <TableCell value={model?.modelComputer?.memoryRamType?.name || model?.modelLaptop?.memoryRamType?.name} />
                                     <TableCell value={model?.modelComputer?.memoryRamSlotQuantity || model?.modelLaptop?.memoryRamSlotQuantity} />
-                                    <TableCell value={(model?.modelComputer || model?.modelLaptop || model?.modelMonitor) ? (model?.modelComputer?.hasVGA || model?.modelLaptop?.hasVGA || model?.modelMonitor?.hasVGA ? 'Si' : 'No' ) : ''} />
-                                    <TableCell value={(model?.modelComputer || model?.modelLaptop || model?.modelMonitor) ? (model?.modelComputer?.hasDVI || model?.modelLaptop?.hasDVI || model?.modelMonitor?.hasDVI ? 'Si' : 'No' ) : ''} />
-                                    <TableCell value={(model?.modelComputer || model?.modelLaptop || model?.modelMonitor) ? (model?.modelComputer?.hasHDMI || model?.modelLaptop?.hasHDMI || model?.modelMonitor?.hasHDMI ? 'Si' : 'No' ) : ''} />                                    
-                                    <TableCell value={(model?.modelComputer || model?.modelLaptop) ? (model?.modelComputer?.hasBluetooth || model?.modelLaptop?.hasBluetooth ? 'Si' : 'No' ) : ''} />                                                                        
-                                    <TableCell value={(model?.modelComputer || model?.modelLaptop) ? (model?.modelComputer?.hasWifiAdapter || model?.modelLaptop?.hasWifiAdapter ? 'Si' : 'No' ) : ''} />                                                                                                            
-                                    <TableCell value={model?.modelLaptop?.batteryModel} />
-                                    <TableCell value={model?.modelMonitor ? `${model?.modelMonitor.screenSize} pulgadas` : '' } />
-                                    <TableCell value={model?.modelPrinter?.cartridgeModel} />
-                                    <TableCell value={model?.modelkeyboard?.inputType?.name} />
-                                    <TableCell value={model?.modelkeyboard ? (model?.modelkeyboard?.hasFingerPrinteReader ? 'Si' : 'No') : ''} />
+                                    <TableCell value={(model?.modelComputer || model?.modelLaptop || model?.modelMonitor) ? (model?.modelComputer?.hasVGA || model?.modelLaptop?.hasVGA || model?.modelMonitor?.hasVGA ? 'Si' : 'No') : ''} />
+                                    <TableCell value={(model?.modelComputer || model?.modelLaptop || model?.modelMonitor) ? (model?.modelComputer?.hasDVI || model?.modelLaptop?.hasDVI || model?.modelMonitor?.hasDVI ? 'Si' : 'No') : ''} />
+                                    <TableCell value={(model?.modelComputer || model?.modelLaptop || model?.modelMonitor) ? (model?.modelComputer?.hasHDMI || model?.modelLaptop?.hasHDMI || model?.modelMonitor?.hasHDMI ? 'Si' : 'No') : ''} />
+                                    <TableCell value={(model?.modelComputer || model?.modelLaptop) ? (model?.modelComputer?.hasBluetooth || model?.modelLaptop?.hasBluetooth ? 'Si' : 'No') : ''} />
+                                    <TableCell value={(model?.modelComputer || model?.modelLaptop) ? (model?.modelComputer?.hasWifiAdapter || model?.modelLaptop?.hasWifiAdapter ? 'Si' : 'No') : ''} />
+                                    {!isComputer && <TableCell value={model?.modelLaptop?.batteryModel} />}
+                                    {!isComputer && <TableCell value={model?.modelMonitor ? `${model?.modelMonitor.screenSize} pulgadas` : ''} />}
+                                    {!isComputer && <TableCell value={model?.modelPrinter?.cartridgeModel} />}
+                                    {!isComputer && <TableCell value={model?.modelkeyboard?.inputType?.name} />}
+                                    {!isComputer && <TableCell value={model?.modelkeyboard ? (model?.modelkeyboard?.hasFingerPrinteReader ? 'Si' : 'No') : ''} />}
                                 </TableRow>
                             ))}
                         </TableBody>

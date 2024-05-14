@@ -35,7 +35,9 @@ export const useInputsData = (): {
   }
 
   const inputData = {
-    name: searchParams.get('name') ?? ''
+    id: searchParams.get('id') ?? '',
+    categoryId: searchParams.get('categoryId') ?? '',
+    brandId: searchParams.get('brandId') ?? '',
   }
 
   return {
