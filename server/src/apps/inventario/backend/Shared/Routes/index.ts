@@ -43,33 +43,33 @@ interface Props {
 export const routerApi = ({ app, repository }: Props): Router => {
   const router = Router()
   app.use('/api/v1/', router)
-  router.use('/check-token', authenticate, validateToken) //
-  router.use('/categories', createCategoryRouter({ repository }))
-  router.use('/brands', createBrandRouter({ repository })) //
-  router.use('/models', createModelSeriesRouter({ repository })) //
-  router.use('/devices', createDeviceRouter({ repository })) //
-  router.use('/status', createStatusRouter({ repository })) //
-  router.use('/processors', createProcessorRouter({ repository })) //
-  router.use('/processorsockets', createProcessorSocketRouter({ repository }))
   router.use('/auth', createAuthRouter())
-  router.use('/memoryramtypes', createMemoryRamRouter({ repository }))
-  router.use('/harddrivetypes', createHardDriveTypeRouter({ repository }))
-  router.use('/harddrivecapacities', createHardDriveCapacityRouter({ repository }))
-  router.use('/operatingsystemarqs', createOperatingSystemArqRouter({ repository })) //
-  router.use('/operatingsystems', createOperatingSystemVersionsRouter({ repository })) //
-  router.use('/inputtypes', createInputTypeRouter({ repository }))
-  router.use('/cities', createCityRouter({ repository }))
-  router.use('/states', createStateRouter({ repository }))
-  router.use('/regions', createRegionRouter({ repository }))
-  router.use('/sites', createSiteRouter({ repository }))
-  router.use('/locations', createLocationRouter({ repository }))
-  router.use('/typeofsites', createTypeOfSiteRouter({ repository }))
-  router.use('/cargos', createCargoRouter({ repository }))
-  router.use('/coordinaciones', createCoordinacionRouter({ repository }))
-  router.use('/gerencias', createGerenciaRouter({ repository }))
-  router.use('/vicepresidencias', createVicepresidenciaRouter({ repository }))
-  router.use('/vicepresidenciasejecutivas', createVicepresidenciaEjecutivaRouter({ repository }))
-  router.use('/employees', createEmployeeRouter({ repository }))
+  router.use('/check-token', authenticate, validateToken) //
+  router.use('/categories', authenticate, createCategoryRouter({ repository }))
+  router.use('/brands', authenticate, createBrandRouter({ repository })) //
+  router.use('/models', authenticate, createModelSeriesRouter({ repository })) //
+  router.use('/devices', authenticate, createDeviceRouter({ repository })) //
+  router.use('/status', authenticate, createStatusRouter({ repository })) //
+  router.use('/processors', authenticate, createProcessorRouter({ repository })) //
+  router.use('/processorsockets', authenticate, createProcessorSocketRouter({ repository }))
+  router.use('/memoryramtypes', authenticate, createMemoryRamRouter({ repository }))
+  router.use('/harddrivetypes', authenticate, createHardDriveTypeRouter({ repository }))
+  router.use('/harddrivecapacities', authenticate, createHardDriveCapacityRouter({ repository }))
+  router.use('/operatingsystemarqs', authenticate, createOperatingSystemArqRouter({ repository })) //
+  router.use('/operatingsystems', authenticate, createOperatingSystemVersionsRouter({ repository })) //
+  router.use('/inputtypes', authenticate, createInputTypeRouter({ repository }))
+  router.use('/cities', authenticate, createCityRouter({ repository }))
+  router.use('/states', authenticate, createStateRouter({ repository }))
+  router.use('/regions', authenticate, createRegionRouter({ repository }))
+  router.use('/sites', authenticate, createSiteRouter({ repository }))
+  router.use('/locations', authenticate, createLocationRouter({ repository }))
+  router.use('/typeofsites', authenticate, createTypeOfSiteRouter({ repository }))
+  router.use('/cargos', authenticate, createCargoRouter({ repository }))
+  router.use('/coordinaciones', authenticate, createCoordinacionRouter({ repository }))
+  router.use('/gerencias', authenticate, createGerenciaRouter({ repository }))
+  router.use('/vicepresidencias', authenticate, createVicepresidenciaRouter({ repository }))
+  router.use('/vicepresidenciasejecutivas', authenticate, createVicepresidenciaEjecutivaRouter({ repository }))
+  router.use('/employees', authenticate, createEmployeeRouter({ repository }))
 
   // router.use('/users', createUserRouter({ router, repository }))
   // router.use('/profiles', createProfileRouter({ router, repository }))
