@@ -51,7 +51,7 @@ export const useInputsData = (): {
     setSearchParams('')
   }
 
-  const inputData = {    
+  const inputData = {
     id: searchParams.get('id') ?? '',
     categoryId: searchParams.get('categoryId') ?? '',
     brandId: searchParams.get('brandId') ?? '',

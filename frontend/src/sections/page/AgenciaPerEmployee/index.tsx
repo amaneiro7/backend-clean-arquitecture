@@ -2,8 +2,7 @@ import { Suspense, lazy, useCallback, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import debounce from 'just-debounce-it'
 
-import { useAppContext } from '../../Context/AppContext'
-import { useEmployeeByCriteria } from '../../Device/employee/useEmployeeByCriteria'
+import { useEmployeeByCriteria } from '../../Hooks/employee/useEmployeeByCriteria'
 import { useInputsData } from './useInputData'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
 import { StatusId } from '../../../modules/devices/devices/status/domain/StatusId'
@@ -12,7 +11,7 @@ import { type EmployeeDevicesMappedApiResponse } from '../../../modules/shared/d
 import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
 
 import { SpinnerSKCircle } from '../../components/Loading/spinner-sk-circle'
-import { InputSkeletonLoading } from'../../components/skeleton/inputSkeletonLoading'
+import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoading'
 import { TypeOfSiteId } from '../../../modules/location/typeofsites/domain/typeOfSiteId'
 import TableSkeleton from '../../components/skeleton/TableSkeleton'
 import { MainFallback } from '../../components/skeleton/MainFallback'
@@ -37,9 +36,8 @@ const LocationComboBox = lazy(async () => await import('../../components/combo_b
 const ModelComboBox = lazy(async () => await import('../../components/combo_box/ModelComboBox'))
 
 export default function AgencySitePerEmployee() {
-  const { repository } = useAppContext()
   const tableRef = useRef(null)
-  const { employeeWithDevives, loading, addFilter, cleanFilters } = useEmployeeByCriteria(repository, {
+  const { employeeWithDevives, loading, addFilter, cleanFilters } = useEmployeeByCriteria({
     filters: [{
       field: 'typeOfSiteId',
       operator: Operator.EQUAL,
@@ -203,7 +201,7 @@ export default function AgencySitePerEmployee() {
                   <TableCell value={employee?.computers?.length < 1 ? '' : employee.computers.map(computer => computer.serial).join(' / ')} />
                   <TableCell value={employee?.computers?.length < 1 ? '' : employee.computers.map(computer => computer.model.name).join(' / ')} />
                   <TableCell value={employee?.monitores?.length < 1 ? '' : employee.monitores.map(monitor => `${monitor.brand.name} ${monitor.model.name}`).join(' / ')} />
-                  <TableCell value={employee?.computers?.length < 1 ? '' : employee.computers.map(({computer: { processor}}) => `${processor.productCollection} ${processor.numberModel}`).join(' / ')} />
+                  <TableCell value={employee?.computers?.length < 1 ? '' : employee.computers.map(({ computer: { processor } }) => `${processor.productCollection} ${processor.numberModel}`).join(' / ')} />
                 </TableRow>
               ))}
             </TableBody>

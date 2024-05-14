@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react'
-import { type Repository } from '../../../modules/shared/domain/repository'
-
-import { type StatusPrimitives } from '../../../modules/devices/devices/status/domain/Status'
 import { AllStatusGetter } from '../../../modules/devices/devices/status/application/AllStatusGetter'
+import { ApiStateRepository } from '../../../modules/location/state/infraestructure/ApiStateRepository'
+import { type StatusPrimitives } from '../../../modules/devices/devices/status/domain/Status'
 
 export interface UseStatus {
   status: StatusPrimitives[]
@@ -10,15 +9,14 @@ export interface UseStatus {
   error: Error | null
 }
 
-export const useStatus = (repository: Repository) => {
-  const allStatusGetter = new AllStatusGetter(repository)
+export const useStatus = (): UseStatus => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [status, setStatus] = useState<StatusPrimitives[]>([])
 
-  function getStatus () {
+  function getStatus() {
     setLoading(true)
-    allStatusGetter
+    new AllStatusGetter(new ApiStateRepository())
       .get()
       .then((res) => {
         setStatus(res)

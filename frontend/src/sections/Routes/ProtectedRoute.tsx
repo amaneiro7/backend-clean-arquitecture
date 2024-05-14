@@ -5,7 +5,7 @@ import { UserPrimitives } from '../../modules/user/user/domain/User'
 interface Props {
   user: UserPrimitives | null
 }
-export default function ProtectedRoute ({ children, user }: PropsWithChildren<Props>) {  
+export default function ProtectedRoute({ children, user }: PropsWithChildren<Props>) {
   const navigate = useNavigate()
 
   useLayoutEffect(() => {

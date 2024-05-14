@@ -6,12 +6,12 @@ import { Filters } from '../../../shared/domain/criteria/Filters'
 import { FilterValue } from '../../../shared/domain/criteria/FilterValue'
 import { Limit } from '../../../shared/domain/criteria/Limit'
 import { Order } from '../../../shared/domain/criteria/Order'
-import { type Repository } from '../../../shared/domain/repository'
 import { type SearchByCriteriaQuery } from '../../../shared/infraestructure/criteria/SearchByCriteriaQuery'
 import { type EmployeePrimitives } from '../domain/Employee'
+import { EmployeeRepository } from '../domain/EmployeeRepository'
 
 export class EmployeeGetterByCriteria {
-  constructor (private readonly repository: Repository) { }
+  constructor (private readonly repository: EmployeeRepository) { }
   async get (query: SearchByCriteriaQuery): Promise<EmployeePrimitives[]> {
     const filters = query.filters.length > 0 && query.filters.map((filter) => {
       return new Filter(
@@ -24,6 +24,6 @@ export class EmployeeGetterByCriteria {
     const offset = new Limit(query.offset)
     const criteria = new Criteria(new Filters(filters), order, limit, offset)
 
-    return await this.repository.employee.getByCriteria(criteria)
+    return await this.repository.getByCriteria(criteria)
   }
 }

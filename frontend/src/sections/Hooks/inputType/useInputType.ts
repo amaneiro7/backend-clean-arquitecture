@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { type Repository } from '../../../modules/shared/domain/repository'
 import { InputTypePrimitives } from '../../../modules/devices/model/InputType/domain/InputType'
 import { AllInputTypeGetter } from '../../../modules/devices/model/InputType/application/AllInputTypeGetter'
+import { ApiInputTypeRepository } from '../../../modules/devices/model/InputType/infra/ApiInputTypeRepository'
 
 
 export interface UseInputType {
@@ -10,15 +10,14 @@ export interface UseInputType {
   error: Error | null
 }
 
-export const useInputType = (repository: Repository) => {
-  const allInputTypeGetter = new AllInputTypeGetter(repository)
+export const useInputType = () => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [inputType, setInputType] = useState<InputTypePrimitives[]>([])
 
-  function getInputType () {
+  function getInputType() {
     setLoading(true)
-    allInputTypeGetter
+    new AllInputTypeGetter(new ApiInputTypeRepository())
       .get()
       .then((res) => {
         setInputType(res)

@@ -1,7 +1,6 @@
 import { lazy, Suspense, useMemo, useState } from "react"
 import { OnHandleChange } from "../../../modules/shared/domain/types/types"
 import { Primitives } from "../../../modules/shared/domain/value-object/Primitives"
-import { useAppContext } from "../../Context/AppContext"
 import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
 import { BrandId } from "../../../modules/devices/brand/domain/BrandId"
 import { CategoryId } from "../../../modules/devices/category/domain/CategoryId"
@@ -9,7 +8,7 @@ import { ModelApiresponse } from "../../../modules/shared/domain/types/responseT
 import { useModel } from "../../Hooks/model/useMode"
 import { ModelId } from "../../../modules/devices/model/model/domain/ModelId"
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
-import { DefaultModelProps, defaultInitialModelState } from "../../page/FormModel/ModelFormInitialState"
+import { DefaultModelProps, defaultInitialModelState } from "../../Hooks/model/ModelFormInitialState"
 
 interface Props {
     value: Primitives<ModelId>
@@ -25,9 +24,8 @@ const ModelDialog = lazy(async () => import("../Dialog/ModelDialog"))
 const ReadOnlyInputBox = lazy(async () => import("../ReadOnlyInputBox").then(m => ({ default: m.ReadOnlyInputBox })))
 
 export default function ModelComboBox({ value, onChange, categoryId, brandId, type = 'search', isAdd = false }: Props) {
-    const { repository } = useAppContext()
-    const { models, loading } = useModel(repository)
-    const [open, toggleOpen] = useState(false)    
+    const { models, loading } = useModel()
+    const [open, toggleOpen] = useState(false)
     const [dialogValue, setDialogValue] = useState<DefaultModelProps>(defaultInitialModelState)
 
     const initialValue = useMemo(() => {
@@ -36,9 +34,9 @@ export default function ModelComboBox({ value, onChange, categoryId, brandId, ty
 
     const filterdModel = useMemo(() => {
         return (models as unknown as ModelApiresponse[]).filter(model => {
-          const category = model.categoryId === categoryId || !categoryId
-          const brand = model.brandId === brandId || !brandId
-          return category && brand
+            const category = model.categoryId === categoryId || !categoryId
+            const brand = model.brandId === brandId || !brandId
+            return category && brand
         })
     }, [models, categoryId, brandId])
 
@@ -67,11 +65,11 @@ export default function ModelComboBox({ value, onChange, categoryId, brandId, ty
                             if (type === 'form') {
                                 if (newValue?.modelComputer !== null) {
                                     onChange('memoryRamSlotQuantity', newValue ? newValue?.modelComputer.memoryRamSlotQuantity : undefined)
-                                    onChange('memoryRamType', newValue ? newValue?.modelComputer.memoryRamType.name : '')                               
+                                    onChange('memoryRamType', newValue ? newValue?.modelComputer.memoryRamType.name : '')
                                 }
                                 if (newValue?.modelLaptop !== null) {
                                     onChange('memoryRamSlotQuantity', newValue ? newValue?.modelComputer.memoryRamSlotQuantity : undefined)
-                                    onChange('memoryRamType', newValue ? newValue?.modelComputer.memoryRamType.name : '')                               
+                                    onChange('memoryRamType', newValue ? newValue?.modelComputer.memoryRamType.name : '')
                                 }
                             }
                         }

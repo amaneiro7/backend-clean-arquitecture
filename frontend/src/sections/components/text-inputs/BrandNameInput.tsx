@@ -10,9 +10,9 @@ interface Props {
   type?: 'form' | 'search' | 'dialog'
 }
 
-const FormInput = lazy(async () => import('./FormInput').then(m => ({default: m.FormInput})))
+const FormInput = lazy(async () => import('./FormInput').then(m => ({ default: m.FormInput })))
 
-export default function BrandNameInput ({ value, onChange, type = 'form' }: Props) {
+export default function BrandNameInput({ value, onChange, type = 'form' }: Props) {
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
   const isFirstInput = useRef(true)
@@ -33,21 +33,21 @@ export default function BrandNameInput ({ value, onChange, type = 'form' }: Prop
     }
   }, [value])
   return (
-    <Suspense fallback={<InputSkeletonLoading/>}>
+    <Suspense fallback={<InputSkeletonLoading />}>
       <FormInput
-          id='name'
-          name="name"
-          type="text"
-          label='Name'
-          isRequired={type === 'form'}
-          placeholder='-- Ingrese el Nombre de la Marca --'
-          handle={(event) => {
-            const { name, value } = event.target
-            onChange(name, value)
-          }}
-          value={value}
-          isError={isError}
-          errorMessage={errorMessage}
+        id='name'
+        name="name"
+        type="text"
+        label='Name'
+        isRequired={type === 'form'}
+        placeholder='-- Ingrese el Nombre de la Marca --'
+        handle={(event) => {
+          const { name, value } = event.target
+          onChange(name, value)
+        }}
+        value={value}
+        isError={isError}
+        errorMessage={errorMessage}
       />
     </Suspense>
   )

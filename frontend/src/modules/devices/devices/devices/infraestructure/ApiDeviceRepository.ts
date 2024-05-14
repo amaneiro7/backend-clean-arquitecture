@@ -16,18 +16,8 @@ export class ApiDeviceRepository implements DeviceRepository {
   }
 
   async getByCriteria (criteria: Criteria): Promise<DevicePrimitives[]> {
-    const criteriaPrimitives = criteria.toPrimitives()
-
-    const filters = criteriaPrimitives.filters.length > 0 && criteriaPrimitives.filters.map(
-      (filter, index) => {
-        const { field, operator, value } = filter.toPrimitives()
-        return `filters[${index}][field]=${field}&filters[${index}][operator]=${operator}&filters[${index}][value]=${value}`
-      }
-    )
-    const paramsLimitAndOffset = criteriaPrimitives.limit ? `limit=${criteriaPrimitives.limit}&offset=${criteriaPrimitives.offset}` : undefined
-    const paramsOrder = criteriaPrimitives.orderBy ? `orderBy=${criteriaPrimitives.orderBy}&orderType=${criteriaPrimitives.orderType}` : undefined
-    const paramsFilters = filters ? `${filters.join('&')}` : undefined
-    const queryParams = [paramsFilters, paramsLimitAndOffset, paramsOrder].join('&')
+    const criteriaPrimitives = criteria.toPrimitives()    
+    const queryParams = criteria.buildQuery(criteriaPrimitives)
     return await makeRequest<DevicesApiResponse[]>({ method: 'GET', endpoint: `${this.endpoint}?${queryParams}` })      
   }
 

@@ -1,12 +1,12 @@
 import { lazy, Suspense, useEffect } from 'react'
 import { FormStatus, useModelForm } from '../../Hooks/model/useModelForm'
 import { useGenericFormData } from '../../Hooks/useGenericFormData'
-import { useModelInitialState } from './ModelFormInitialState'
+import { useModelInitialState } from '../../Hooks/model/ModelFormInitialState'
 import { useLocation } from 'react-router-dom'
 
 const Main = lazy(async () => import('../../components/Main'))
 const FormContainer = lazy(async () => import('../../components/formContainer'))
-const ModelInputs = lazy(async () => import('./ModelFeatures').then(m => ({default: m.ModelInputs})))
+const ModelInputs = lazy(async () => import('./ModelFeatures').then(m => ({ default: m.ModelInputs })))
 
 export default function CreateModelForm() {
   const location = useLocation()
@@ -58,7 +58,7 @@ export default function CreateModelForm() {
           isDisabled={formStatus === FormStatus.Loading}
           lastUpdated={formData.updatedAt}
           url='/model/add'
-        >          
+        >
           <Suspense>
             <ModelInputs isAddForm={isAddForm} formData={formData} onChange={handleChange} />
           </Suspense>

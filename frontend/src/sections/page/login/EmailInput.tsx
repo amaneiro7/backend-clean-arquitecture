@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useRef, useState} from 'react'
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import { UserEmail } from '../../../modules/user/user/domain/UserEmail'
 import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoading'
 
@@ -8,7 +8,7 @@ interface Props {
   isRequired?: boolean
 }
 
-const FormInput = lazy(async () => import('../../components/text-inputs/FormInput').then(m => ({default: m.FormInput})))
+const FormInput = lazy(async () => import('../../components/text-inputs/FormInput').then(m => ({ default: m.FormInput })))
 export function EmailInput({ value, onChange, isRequired = true }: Props) {
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)

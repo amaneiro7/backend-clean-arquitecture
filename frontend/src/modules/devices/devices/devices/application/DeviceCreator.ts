@@ -1,11 +1,11 @@
-import { type Repository } from '../../../../shared/domain/repository'
 import { Computer, type ComputerPrimitives } from '../../../fetures/computer/domain/Computer'
 import { HardDrive, type HardDrivePrimitives } from '../../../fetures/hardDrive/hardDrive/domain/HardDrive'
 import { Device, type DevicePrimitives } from '../domain/Device'
 import { DeviceId } from '../domain/DeviceId'
+import { DeviceRepository } from '../domain/DeviceRepository'
 
 export class DeviceCreator {
-  constructor (private readonly repository: Repository) {}
+  constructor (private readonly repository: DeviceRepository) {}
 
   async create (params: DevicePrimitives): Promise<void> {
     let device: Device | Computer | HardDrive
@@ -18,10 +18,10 @@ export class DeviceCreator {
     }
     
     if (params.id === undefined) {
-      await this.repository.device.save({ device })
+      await this.repository.save({ device })
     } else {
       const deviceId = new DeviceId(params.id)
-      await this.repository.device.update({ id: deviceId, device })
+      await this.repository.update({ id: deviceId, device })
     }
   }
 }

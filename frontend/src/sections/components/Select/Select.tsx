@@ -24,7 +24,7 @@ interface Options {
   name: string | number
 }
 
-export default function Select ({
+export default function Select({
   name,
   value,
   defaultValue,
@@ -39,32 +39,32 @@ export default function Select ({
   errorMessage
 }: Props) {
   return (
-      <FormControl size='small' className='w-full'>
-          <InputLabelMui className='p-0' id='simple-select-label'>{label}</InputLabelMui>
-              <SelectMui
-                  labelId='simple-select-label'
-                  id='simple-select'
-                  value={value}
-                  label={label}
-                  name={name}
-                  onChange={onChange}
-                  defaultValue={defaultValue}
-                  required={isRequired}
-                  disabled={isDisabled}
-                  error={isError}
+    <FormControl size='small' className='w-full'>
+      <InputLabelMui className='p-0' id='simple-select-label'>{label}</InputLabelMui>
+      <SelectMui
+        labelId='simple-select-label'
+        id='simple-select'
+        value={value}
+        label={label}
+        name={name}
+        onChange={onChange}
+        defaultValue={defaultValue}
+        required={isRequired}
+        disabled={isDisabled}
+        error={isError}
 
-              >
-                  <MenuItemMui value='' hidden={isHidden} disabled={isDisabled}><em>{placeholder}</em></MenuItemMui>
-                  {options?.map(elem =>
-                      <MenuItemMui
-                          key={elem.id}
-                          value={elem?.id}
-                      >
-                          {elem?.name}
-                      </MenuItemMui>
-                  )}
-              </SelectMui>
-              <FormHelperText error={isError}>{errorMessage}</FormHelperText>
-      </FormControl>
+      >
+        <MenuItemMui value='' hidden={isHidden} disabled={isDisabled}><em>{placeholder}</em></MenuItemMui>
+        {options?.map(elem =>
+          <MenuItemMui
+            key={elem.id}
+            value={elem?.id}
+          >
+            {elem?.name}
+          </MenuItemMui>
+        )}
+      </SelectMui>
+      <FormHelperText error={isError}>{errorMessage}</FormHelperText>
+    </FormControl>
   )
 }

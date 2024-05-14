@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom'
 import { type Navigation } from '../../Routes/routes'
 
-export function DrapdownNavMenu ({ route }: { route: Navigation }) {
+export function DrapdownNavMenu({ route }: { route: Navigation }) {
   return (
     <div className="z-50 mt-6 inset-x-0 top-20 w-full md:absolute md:border-y md:shadow-md md:mt-0 bg-white">
       <ul className='bg-white max-w-screen-xl mx-auto grid items-center gap-6 md:p-8 md:grid-cols-2 lg:grid-cols-3'>
@@ -13,11 +13,11 @@ export function DrapdownNavMenu ({ route }: { route: Navigation }) {
                 <li key={index} className="group">
                   <NavLink className='flex gap-3 items-center' to={navItem.path} >
                     <DrapDownIcon icon={navItem.icon} />
-                      <div>
-                        <NavItemTitle title={navItem.title} />
-                        <NavItemDesc desc={navItem.desc}/>
-                      </div>
-                    </NavLink>
+                    <div>
+                      <NavItemTitle title={navItem.title} />
+                      <NavItemDesc desc={navItem.desc} />
+                    </div>
+                  </NavLink>
                 </li>
               ))}
             </ul>
@@ -28,34 +28,34 @@ export function DrapdownNavMenu ({ route }: { route: Navigation }) {
   )
 }
 
-function DrapdownLabel ({ label }: { label: string }) {
+function DrapdownLabel({ label }: { label: string }) {
   return (
     <p className="text-indigo-600 text-sm">
-        {label}
+      {label}
     </p>
   )
 }
 
-function DrapDownIcon ({ icon }: { icon: string }) {
+function DrapDownIcon({ icon }: { icon: string }) {
   return (
     <div className='w-12 h-12 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center duration-150 group-hover:bg-indigo-600 group-hover:text-white md:w-14 md:h-14'>
-        {icon}
+      {icon}
     </div>
   )
 }
 
-function NavItemTitle ({ title }: { title: string }) {
+function NavItemTitle({ title }: { title: string }) {
   return (
     <span className="text-gray-800 duration-200 group-hover:text-indigo-600 text-sm font-medium md:text-base">
-        {title}
+      {title}
     </span>
   )
 }
 
-function NavItemDesc ({ desc }: { desc: string }) {
+function NavItemDesc({ desc }: { desc: string }) {
   return (
     <p className='text-sm text-gray-600 group-hover:text-gray-800 mt-1'>
-        {desc}
+      {desc}
     </p>
   )
 }

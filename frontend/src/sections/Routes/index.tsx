@@ -18,7 +18,7 @@ const CreateEmployeeForm = lazy(async () => await import('../page/FormEmployee/C
 const CreateDeviceForm = lazy(async () => await import('../page/FormDevice/CreateDeviceForm.tsx'))
 const CreateBrandForm = lazy(async () => await import('../page/FormBrand/CreateBrandForm.tsx'))
 const CreateModelForm = lazy(async () => await import('../page/FormModel/CreateModelForm.tsx'))
-const CreateProcessorForm = lazy(async () => await import('../Device/features/processor/CreateProcessorForm.tsx'))
+const CreateProcessorForm = lazy(async () => await import('../Hooks/processor/CreateProcessorForm.tsx'))
 const Login = lazy(async () => await import('../page/login/index.tsx'))
 const NotFound = lazy(async () => await import('../page/404/index.tsx'))
 const Layout = lazy(async () => await import('../components/Layout.tsx'))
@@ -34,7 +34,7 @@ export const privateRouter = [
   { path: '/device/add', element: <CreateDeviceForm /> },
   { path: '/employee/add', element: <CreateEmployeeForm /> },
   { path: '/employee/edit/:id', element: <CreateEmployeeForm /> },
-  { path: '/device/edit/:id', element: <CreateDeviceForm /> },  
+  { path: '/device/edit/:id', element: <CreateDeviceForm /> },
   { path: '/brand/add', element: <CreateBrandForm /> },
   { path: '/brand/edit/:id', element: <CreateBrandForm /> },
   { path: '/model', element: <ListadoModelos /> },
@@ -45,20 +45,20 @@ export const privateRouter = [
   { path: '/devicefilter', element: <FilterByDevice /> }
 ]
 
-export default function AppRoutes () {
-  const { useAuth: { user } } = useAppContext()  
+export default function AppRoutes() {
+  const { useAuth: { user } } = useAppContext()
   return (
     <Routes>
       {
         privateRouter.map(route => (
           <Route key={route.path} path={route.path} element={
-              <Suspense fallback={<Loading />}>
-                <ProtectedRoute user={user} >
-                  <Layout>
-                    {route.element}
-                  </Layout>
-                </ProtectedRoute>
-              </Suspense>
+            <Suspense fallback={<Loading />}>
+              <ProtectedRoute user={user} >
+                <Layout>
+                  {route.element}
+                </Layout>
+              </ProtectedRoute>
+            </Suspense>
           } />
         ))
       }

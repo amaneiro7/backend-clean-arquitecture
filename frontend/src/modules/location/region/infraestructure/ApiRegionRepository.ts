@@ -1,19 +1,10 @@
-import { errorApiMessage } from '../../../shared/infraestructure/errorMessage'
-import { API_URL } from '../../../shared/infraestructure/config'
 import { type RegionPrimitives } from '../domain/region'
 import { type RegionRepository } from '../domain/regionRepository'
+import { makeRequest } from '../../../shared/infraestructure/fetching'
 
 export class ApiRegionRepository implements RegionRepository {
+  private readonly endpoint: string = 'regions'
   async getAll (): Promise<RegionPrimitives[]> {
-    return await fetch(`${API_URL}/regions`)
-      .then(async res => {
-        if (!res.ok) {
-          throw new Error(await res.text())
-        }
-        return await (res.json() as Promise<RegionPrimitives[]>)
-      })
-      .catch(() => {
-        throw new Error(errorApiMessage)
-      })
-  }
+    return await makeRequest({ method: 'GET', endpoint: this.endpoint })      
+  }  
 }

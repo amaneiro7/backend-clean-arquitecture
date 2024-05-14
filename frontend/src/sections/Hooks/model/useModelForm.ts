@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { useAppContext } from '../../Context/AppContext'
 import { useModel } from './useMode'
 import { toastMessage } from '../../utils/toaster'
 import { type ModelPrimitives } from '../../../modules/devices/model/model/domain/Model'
@@ -17,8 +16,7 @@ export function useModelForm (): {
   resetFormStatus: () => void
 } {
   const [formStatus, setFormStatus] = useState(FormStatus.Initial)
-  const { repository } = useAppContext()
-  const { createModel } = useModel(repository)
+  const { createModel } = useModel()
 
   async function submitForm (formData: ModelPrimitives) {
     setFormStatus(FormStatus.Loading)

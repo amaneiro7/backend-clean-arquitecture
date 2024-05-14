@@ -44,7 +44,7 @@ export const dropdownNavs: DropDown[] = [
         icon: 'icon'
       }
     ]
-  }, 
+  },
   {
     label: 'Equipos en Almacen',
     navs: [
@@ -55,7 +55,7 @@ export const dropdownNavs: DropDown[] = [
         icon: 'icon'
       }
     ]
-  }, 
+  },
   {
     label: 'Equipos en uso por usuario',
     navs: [
@@ -87,7 +87,7 @@ export const dropdownAddsNavs: DropDown[] = [
         icon: 'icon'
       }
     ]
-  }, 
+  },
   {
     label: 'Agregar un nuevo Usuario',
     navs: [

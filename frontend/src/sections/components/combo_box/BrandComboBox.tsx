@@ -8,6 +8,7 @@ import { useBrand } from "../../Hooks/brand/useBrand"
 import { BrandPrimitives } from "../../../modules/devices/brand/domain/Brand"
 import { BrandApiResponse } from "../../../modules/shared/domain/types/responseTypes"
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
+import { defaultInitialBrandState } from "../../Hooks/brand/BrandFormInitialState"
 
 
 interface Props {
@@ -25,7 +26,7 @@ const ReadOnlyInputBox = lazy(async () => import("../ReadOnlyInputBox").then(m =
 export default function BrandComboBox({ value, onChange, categoryId, type = 'search', isAdd = false }: Props) {
     const { brands, loading } = useBrand()
     const [open, toggleOpen] = useState(false)
-    const [dialogValue, setDialogValue] = useState<BrandPrimitives>({ name: '' })
+    const [dialogValue, setDialogValue] = useState<BrandPrimitives>(defaultInitialBrandState)
 
     const initialValue = useMemo(() => {
         return brands.find(brand => brand.id === value)

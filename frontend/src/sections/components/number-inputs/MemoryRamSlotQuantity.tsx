@@ -35,13 +35,13 @@ export function MemoryRamSlotQuantityInput({ value = MemoryRamSlotQuantity.MIN, 
   return (
     <Suspense fallback={<InputSkeletonLoading />}>
       <NumberInput
-        name='memoryRamSlotQuantity'        
+        name='memoryRamSlotQuantity'
         label='Cantidad de Ranuras'
         isRequired={type === 'form'}
         value={value}
         onChange={(event) => {
-            const {name, value} = event.target
-            onChange(name, value)
+          const { name, value } = event.target
+          onChange(name, value)
         }}
         error={isError}
         errorMessage={errorMessage}

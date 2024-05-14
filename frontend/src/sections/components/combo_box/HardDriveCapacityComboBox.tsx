@@ -1,12 +1,11 @@
-import { lazy, Suspense, useLayoutEffect, useMemo, useState } from "react";
-import { OnHandleChange } from "../../../modules/shared/domain/types/types";
-import { Primitives } from "../../../modules/shared/domain/value-object/Primitives";
-import { useAppContext } from "../../Context/AppContext";
-import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators";
-import { StatusId } from "../../../modules/devices/devices/status/domain/StatusId";
-import { useHardDriveCapacity } from "../../Device/features/hardDrive/useHardDriveCapacity";
-import { ComputerHDDCapacity } from "../../../modules/devices/fetures/computer/domain/ComputerHHDCapacity";
-import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading";
+import { lazy, Suspense, useLayoutEffect, useMemo, useState } from "react"
+import { OnHandleChange } from "../../../modules/shared/domain/types/types"
+import { Primitives } from "../../../modules/shared/domain/value-object/Primitives"
+import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
+import { StatusId } from "../../../modules/devices/devices/status/domain/StatusId"
+import { useHardDriveCapacity } from "../../Hooks/hardDrive/useHardDriveCapacity"
+import { ComputerHDDCapacity } from "../../../modules/devices/fetures/computer/domain/ComputerHHDCapacity"
+import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
 
 interface Props {
     value: Primitives<ComputerHDDCapacity>    
@@ -15,11 +14,10 @@ interface Props {
     type?: 'form' | 'search'
   }
 
-  const ComboBox = lazy(async() => import("./combo_box"));  
+  const ComboBox = lazy(async() => import("./combo_box"))  
 
 export function HardDriveCapacityComboBox ({ value, status, onChange, type = 'search' }: Props) {
-    const { repository } = useAppContext()
-    const { hardDriveCapacity, loading } = useHardDriveCapacity(repository)
+    const { hardDriveCapacity, loading } = useHardDriveCapacity()
     const [errorMessage, setErrorMessage] = useState('')
     const [isError, setIsError] = useState(false)    
     const [isRequired, setIsRequired] = useState(false)
@@ -29,7 +27,7 @@ export function HardDriveCapacityComboBox ({ value, status, onChange, type = 'se
     }, [hardDriveCapacity, value])
 
     useLayoutEffect(() => {
-        if (type !== 'form') return;
+        if (type !== 'form') return
 
         if (value === undefined) {      
           return

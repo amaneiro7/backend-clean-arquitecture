@@ -1,10 +1,9 @@
 import { lazy, Suspense } from 'react'
 import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
-import { useAppContext } from '../../Context/AppContext'
 import { type VicepresidenciaId } from '../../../modules/employee/area/vicepresidencia/domain/VicepresidenciaId'
 import { type VicepresidenciaEjecutivaId } from '../../../modules/employee/area/vicepresidenciaejecutiva/domain/VicepresidenciaEjecutivaId'
-import { useVicepresidencia } from '../../Device/area/vicepresidencia/useVicepresidencia'
+import { useVicepresidencia } from '../../Hooks/area/useVicepresidencia'
 
 const Select = lazy(async () => await import('./Select'))
 
@@ -16,9 +15,8 @@ interface Props {
   isForm?: boolean
 }
 
-export default function VicepresidenciaSelect ({ value, onChange, isRequired, vicepresidenciaEjecutivaId }: Props) {
-  const { repository } = useAppContext()
-  const { vicepresidencia } = useVicepresidencia(repository)
+export default function VicepresidenciaSelect({ value, onChange, isRequired, vicepresidenciaEjecutivaId }: Props) {
+  const { vicepresidencia } = useVicepresidencia()
 
   const vicepresidenciaFiltered = vicepresidencia.filter((vicepresidencia) => vicepresidencia.vicepresidenciaEjecutivaId === vicepresidenciaEjecutivaId)
 

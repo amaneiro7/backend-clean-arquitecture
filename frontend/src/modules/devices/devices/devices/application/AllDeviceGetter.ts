@@ -1,9 +1,9 @@
-import { type Repository } from '../../../../shared/domain/repository'
 import { type DevicePrimitives } from '../domain/Device'
+import { DeviceRepository } from '../domain/DeviceRepository'
 
 export class AllDeviceGetter {
-  constructor (private readonly repository: Repository) {}
+  constructor (private readonly repository: DeviceRepository) {}
   async get (): Promise<DevicePrimitives[]> {
-    return await this.repository.device.getAll()
+    return await this.repository.getAll()
   }
 }

@@ -1,10 +1,9 @@
 import { lazy, Suspense, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { useAppContext } from '../../Context/AppContext'
-import { useEmployee } from '../../Device/employee/useEmployee'
-import { useEmployeeInitialState } from './EmployeeFormInitialState'
+import { useEmployee } from '../../Hooks/employee/useEmployee'
+import { useEmployeeInitialState } from '../../Hooks/employee/EmployeeFormInitialState'
 import { useGenericFormData } from '../../Hooks/useGenericFormData'
-import { FormStatus, useEmployeeForm } from '../../Device/employee/useEmployeeForm'
+import { FormStatus, useEmployeeForm } from '../../Hooks/employee/useEmployeeForm'
 import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoading'
 
 const Main = lazy(async () => import('../../components/Main'))
@@ -13,13 +12,12 @@ const InfoBoxTitle = lazy(async () => import('../../components/info-box/InfoBoxT
 const InfoBoxText = lazy(async () => import('../../components/info-box/InfoBoxText').then(m  => ({ default: m.InfoBoxText })))
 const EmployeeSearchComboBox = lazy(async () => import('../../components/combo_box/EmployeeSearchComboBox'))
 const FormContainer = lazy(async () => await import('../../components/formContainer'))
-const EmployeeUserNameInput = lazy(async () => await import('../../components/text-inputs/UserNameInput'))
+const EmployeeUserNameInput = lazy(async () => await import('../../components/text-inputs/UserNameInput').then(m => ({ default: m.EmployeeUserNameInput})))
 
 export default function CreateEmployeeForm() {
   const navigate = useNavigate()
   const location = useLocation()
-  const { repository } = useAppContext()
-  const { createEmployee } = useEmployee(repository)
+  const { createEmployee } = useEmployee()
   const { preloadedEmployeeState } = useEmployeeInitialState()
   const { formData, resetForm, updateForm } = useGenericFormData(preloadedEmployeeState)
   const { formStatus, resetFormStatus, submitForm } = useEmployeeForm({ createEmployee })

@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react'
 import { OnHandleChange } from "../../../modules/shared/domain/types/types"
-import { DefaultModelProps } from './ModelFormInitialState'
+import { DefaultModelProps } from '../../Hooks/model/ModelFormInitialState'
 import { ModelMonitor } from '../../../modules/devices/model/ModelCharacteristics/modelMonitor/ModelMonitor'
 
 interface Props {
@@ -13,7 +13,7 @@ const Checkbox = lazy(async () => import('../../components/checkbox').then(m => 
 
 export function AddModelMonitor({ formData, onChange }: Props) {
     const isMonitorModel = ModelMonitor.isMonitorCategory({ categoryId: formData.categoryId })
-    
+
     return (
         <>
             {isMonitorModel &&
@@ -58,7 +58,7 @@ export function AddModelMonitor({ formData, onChange }: Props) {
                                     const { name, checked } = event.target
                                     onChange(name, checked);
                                 }}
-                            />                            
+                            />
                         </div>
                     </Suspense>
                 </>

@@ -1,14 +1,14 @@
 import { useRef, useState } from 'react'
 
 type InputProps = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
-interface NumberInputProps extends InputProps {  
+interface NumberInputProps extends InputProps {
   label: string
   isRequired?: boolean
   error?: boolean
   errorMessage?: string
 }
 
-export function NumberInput({ error, errorMessage, label, isRequired = false, ...inputProps}: NumberInputProps) {
+export function NumberInput({ error, errorMessage, label, isRequired = false, ...inputProps }: NumberInputProps) {
   const [isFocused, setIsFocused] = useState(false)
   const inputRef = useRef(null)
   return (
@@ -27,14 +27,14 @@ export function NumberInput({ error, errorMessage, label, isRequired = false, ..
       <div className={`w-full p-1 pr-2 border rounded-md outline-none select-all ${isFocused && 'ring-1'} ${error ? `border-error hover:border-error ${isFocused && 'ring-error'} ` : `${isFocused ? 'ring-focus border-focus' : 'border-black/25 hover:border-black read-only:hover:border-black/25'}`}`}>
         <input
           {...inputProps}
-          className='py-1 pr-1 pl-2 w-0 min-w-full flex-1 text-ellipsis focus-visible:outline-none select-all'          
+          className='py-1 pr-1 pl-2 w-0 min-w-full flex-1 text-ellipsis focus-visible:outline-none select-all'
           type="number"
           ref={inputRef}
           required={isRequired}
-          onFocus={() => { 
+          onFocus={() => {
             setIsFocused(true)
             inputRef.current.select()
-           }}
+          }}
           onBlur={() => { setIsFocused(false) }}
         />
         <fieldset aria-hidden className={`text-left absolute inset-0 -top-1 m-0 p-0 pointer-events-none overflow-hidden min-w-0

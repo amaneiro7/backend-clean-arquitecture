@@ -10,7 +10,7 @@ export interface FilterState {
 }
 
 interface Props {
-    handleFilter: (payload: SearchByCriteriaQuery) => Promise<void>
+    handleFilter: (payload: SearchByCriteriaQuery) => void
 }
 
 export function FilterManager({ handleFilter, children }: React.PropsWithChildren<Props>) {

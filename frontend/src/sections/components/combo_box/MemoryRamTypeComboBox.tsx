@@ -1,8 +1,7 @@
 import { lazy, Suspense, useMemo } from "react"
 import { OnHandleChange } from "../../../modules/shared/domain/types/types"
-import { useAppContext } from "../../Context/AppContext"
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
-import { useMemoryRamType } from "../../Device/features/memoryRam/useMemoryRamType"
+import { useMemoryRamType } from "../../Hooks/memoryRam/useMemoryRamType"
 
 interface Props {
     value?: string
@@ -13,8 +12,7 @@ interface Props {
 const ComboBox = lazy(async () => import("./combo_box"))
 
 export function MemoryRamTypeComboBox({ value, onChange, type = 'search' }: Props) {
-    const { repository } = useAppContext()
-    const { memoryRamTypes, loading } = useMemoryRamType(repository)
+    const { memoryRamTypes, loading } = useMemoryRamType()
 
     const initialValue = useMemo(() => {
         return memoryRamTypes.find(type => type.id === value)

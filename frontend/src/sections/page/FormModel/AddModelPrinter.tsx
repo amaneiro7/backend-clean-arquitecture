@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react'
 import { OnHandleChange } from "../../../modules/shared/domain/types/types"
-import { DefaultModelProps } from './ModelFormInitialState'
+import { DefaultModelProps } from '../../Hooks/model/ModelFormInitialState'
 import { ModelPrinter } from '../../../modules/devices/model/ModelCharacteristics/modelPrinter/ModelPrinter'
 
 
@@ -13,7 +13,7 @@ const CartridgeModelInput = lazy(async () => import('../../components/text-input
 
 export function AddModelPrinter({ formData, onChange }: Props) {
     const isPrinterCategory = ModelPrinter.isPrinterCategory({ categoryId: formData.categoryId })
-    
+
     return (
         <>
             {isPrinterCategory &&
@@ -27,7 +27,7 @@ export function AddModelPrinter({ formData, onChange }: Props) {
                             />
                         </Suspense>
                     </div>
-                   
+
                 </>
             }
         </>

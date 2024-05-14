@@ -1,8 +1,7 @@
-import { useAppContext } from "../../Context/AppContext"
 import Main from "../../components/Main"
 import PageTitle from "../../components/PageTitle"
 import { FilterManager } from "../../components/Filter/FilterManager"
-import { useSearchDevice } from "../../Device/device/useSearchDevice"
+import { useSearchDevice } from "../../Hooks/device/useSearchDevice"
 import { SpinnerSKCircle } from "../../components/Loading/spinner-sk-circle"
 import { lazy, Suspense, useRef } from "react"
 import TableHeader from "../../components/TableComponent/TableHeader"
@@ -18,8 +17,7 @@ const Button = lazy(async () => import("../../components/button"))
 
 export default function FilterByDevice() {
     const tableRef = useRef(null)
-    const { repository } = useAppContext()
-    const { devices, loading, searchDevices } = useSearchDevice(repository)    
+    const { devices, loading, searchDevices } = useSearchDevice()    
     return (
         <Main>
             <PageTitle title="Filtrar por Dispositivo" />

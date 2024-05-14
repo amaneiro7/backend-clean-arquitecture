@@ -2,7 +2,7 @@ import { lazy, Suspense, useEffect } from "react";
 import { useGenericFormData } from "../../Hooks/useGenericFormData"
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
 import { ProcessorPrimitives } from "../../../modules/devices/fetures/processor/domain/Processor"
-import { useProcessorForm, FormStatus } from "../../Device/features/processor/useProcessorForm"
+import { useProcessorForm, FormStatus } from "../../Hooks/processor/useProcessorForm"
 
 interface Props {
     dialogValue: ProcessorPrimitives

@@ -6,7 +6,7 @@ export interface InputData {
   name: string
   stateId: string
   cityId: string
-  typeOfSiteId: Primitives<TypeOfSiteId>  
+  typeOfSiteId: Primitives<TypeOfSiteId>
 }
 
 type UpdateInputData = ({ name, value }: inputDataType) => void

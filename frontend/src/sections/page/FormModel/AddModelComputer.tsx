@@ -1,7 +1,7 @@
 import { lazy, Suspense } from 'react'
 import { OnHandleChange } from "../../../modules/shared/domain/types/types"
 import { ModelComputer } from '../../../modules/devices/model/ModelCharacteristics/modelComputer/ModelComputer'
-import { DefaultModelProps } from './ModelFormInitialState'
+import { DefaultModelProps } from '../../Hooks/model/ModelFormInitialState'
 import { ModelLaptop } from '../../../modules/devices/model/ModelCharacteristics/modelLaptop/ModelLaptop'
 
 interface Props {

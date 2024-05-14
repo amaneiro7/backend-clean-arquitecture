@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { type Repository } from '../../../modules/shared/domain/repository'
 import { type LocationPrimitives } from '../../../modules/location/locations/domain/location'
 import { AllLocationGetter } from '../../../modules/location/locations/application/AllLocationGetter'
+import { ApiLocationRepository } from '../../../modules/location/locations/infraestructure/ApiLocationRepository'
 
 export interface UseLocation {
   locations: LocationPrimitives[]
@@ -9,15 +9,14 @@ export interface UseLocation {
   error: string | null
 }
 
-export const useLocation = (repository: Repository) => {
-  const allLocationGetter = new AllLocationGetter(repository)
+export const useLocation = () => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [locations, setLocation] = useState<LocationPrimitives[]>([])
 
-  function getLocation () {
+  function getLocation() {
     setLoading(true)
-    allLocationGetter
+    new AllLocationGetter(new ApiLocationRepository())
       .get()
       .then((res) => {
         setLocation(res)

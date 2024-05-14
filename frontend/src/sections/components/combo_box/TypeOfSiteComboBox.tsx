@@ -1,9 +1,8 @@
-import { lazy, Suspense, useMemo } from "react";
-import { OnHandleChange } from "../../../modules/shared/domain/types/types";
-import { useAppContext } from "../../Context/AppContext";
-import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators";
-import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading";
-import { useTypeOfSite } from "../../Hooks/locations/useTypeOfSite";
+import { lazy, Suspense, useMemo } from "react"
+import { OnHandleChange } from "../../../modules/shared/domain/types/types"
+import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
+import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
+import { useTypeOfSite } from "../../Hooks/locations/useTypeOfSite"
 
 interface Props {
     value?: string
@@ -11,11 +10,10 @@ interface Props {
     type?: 'form' | 'search'
 }
 
-const ComboBox = lazy(async () => import("./combo_box"));
+const ComboBox = lazy(async () => import("./combo_box"))
 
 export function TypeOfSiteComboBox({ value, onChange, type = 'search' }: Props) {
-    const { repository } = useAppContext()
-    const { typeOfSite, loading } = useTypeOfSite(repository)
+    const { typeOfSite, loading } = useTypeOfSite()
 
     const initialValue = useMemo(() => {
         return typeOfSite.find(type => type.id === value)

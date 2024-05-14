@@ -40,7 +40,7 @@ export function MemoryRamCapacitySlotInput({ value: memRam, index, onChange, typ
       console.error('El valor nos un número válido')
       return
     }
-  
+
     const updatedMemoryRamSlot = [...memRam]
     updatedMemoryRamSlot[index] = parsedValue
     onChange(name, updatedMemoryRamSlot)
@@ -56,7 +56,7 @@ export function MemoryRamCapacitySlotInput({ value: memRam, index, onChange, typ
         value={memRam[index]}
         max={MemoryRamValues.max}
         min={MemoryRamValues.min}
-        step={MemoryRamValues.minStep*2}
+        step={MemoryRamValues.minStep * 2}
         error={isError}
         errorMessage={errorMessage}
       />

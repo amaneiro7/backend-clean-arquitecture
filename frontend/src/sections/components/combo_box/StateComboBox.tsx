@@ -1,9 +1,8 @@
-import { lazy, Suspense, useMemo } from "react";
-import { OnHandleChange } from "../../../modules/shared/domain/types/types";
-import { useAppContext } from "../../Context/AppContext";
-import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators";
-import { useCountryStates } from "../../Hooks/locations/useCountryStates";
-import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading";
+import { lazy, Suspense, useMemo } from "react"
+import { OnHandleChange } from "../../../modules/shared/domain/types/types"
+import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
+import { useCountryStates } from "../../Hooks/locations/useCountryStates"
+import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
 
 interface Props {
     value?: string
@@ -12,11 +11,10 @@ interface Props {
     type?: 'form' | 'search'
 }
 
-const ComboBox = lazy(async () => import("./combo_box"));
+const ComboBox = lazy(async () => import("./combo_box"))
 
 export function StateComboBox({ value, onChange, type = 'search' }: Props) {
-    const { repository } = useAppContext()
-    const { state, loading } = useCountryStates(repository)
+    const { state, loading } = useCountryStates()
 
     const initialValue = useMemo(() => {
         return state.find(sta => sta.id === value)

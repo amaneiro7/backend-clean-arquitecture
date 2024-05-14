@@ -1,5 +1,5 @@
 import './inputSkeletonLoading.css'
 
-export function InputSkeletonLoading () {
+export function InputSkeletonLoading() {
     return <span className="inputSkeletonLoading"></span>;
 }

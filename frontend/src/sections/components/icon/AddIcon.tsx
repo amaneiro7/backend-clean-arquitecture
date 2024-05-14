@@ -1,6 +1,6 @@
 import { Icon } from '.'
 
-export function AddIcon () {
+export function AddIcon() {
   return (
     <Icon
       type='add'

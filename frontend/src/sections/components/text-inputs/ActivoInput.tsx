@@ -8,10 +8,10 @@ import { InputSkeletonLoading } from '../skeleton/inputSkeletonLoading'
 interface Props {
   value: Primitives<DeviceActivo>
   onChange: OnHandleChange
-  isForm?: boolean  
+  isForm?: boolean
 }
 
-const FormInput = lazy(async () => import('./FormInput').then(m => ({default: m.FormInput})))
+const FormInput = lazy(async () => import('./FormInput').then(m => ({ default: m.FormInput })))
 
 export default function ActivoInput({ value, onChange, isForm = false }: Props) {
   const [errorMessage, setErrorMessage] = useState('')

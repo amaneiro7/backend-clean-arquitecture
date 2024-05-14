@@ -2,7 +2,6 @@ import { lazy, Suspense, useCallback, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import debounce from "just-debounce-it"
 
-import { useAppContext } from "../../Context/AppContext"
 import { useInputsData } from "./useInputData"
 import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
 import { SearchByCriteriaQuery } from "../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery"
@@ -29,9 +28,8 @@ const CategoryComboBox = lazy(async () => await import('../../components/combo_b
 
 export default function ListadoModelos() {
     const tableRef = useRef(null)
-    const { repository } = useAppContext()
     const navigate = useNavigate()
-    const { models, loading, addFilter, cleanFilters } = useModelByCriteria(repository)
+    const { models, loading, addFilter, cleanFilters } = useModelByCriteria()
     const { inputData, updateInputData, clearInputs } = useInputsData()
 
     const debounceGetLocations = useCallback(

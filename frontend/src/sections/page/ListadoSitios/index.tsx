@@ -2,7 +2,6 @@ import { lazy, Suspense, useCallback } from "react"
 import { useNavigate } from "react-router-dom"
 import debounce from "just-debounce-it"
 
-import { useAppContext } from "../../Context/AppContext"
 import { LocationApiResponse } from "../../../modules/shared/domain/types/responseTypes"
 import { useInputsData } from "./useInputData"
 import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
@@ -13,12 +12,12 @@ import { InputSkeletonLoading } from "../../components/skeleton/inputSkeletonLoa
 import { SpinnerSKCircle } from "../../components/Loading/spinner-sk-circle"
 import { MainFallback } from "../../components/skeleton/MainFallback"
 
-const InfoBox  = lazy (async () => import("../../components/info-box/InfoBox").then(m => ({default: m.InfoBox})))
-const InfoBoxTitle  = lazy (async () => import("../../components/info-box/InfoBoxTitle").then(m => ({default: m.InfoBoxTitle})))
-const InfoBoxText  = lazy (async () => import("../../components/info-box/InfoBoxText").then(m => ({default: m.InfoBoxText})))
-const TypeOfSiteComboBox  = lazy (async () => import("../../components/combo_box/TypeOfSiteComboBox").then(m => ({default: m.TypeOfSiteComboBox})))
-const LocationNameInput  = lazy (async () => import("../../components/text-inputs/LocationNameInput").then(m => ({default: m.LocationNameInput})))
-const Button = lazy (async () => import("../../components/button"))
+const InfoBox = lazy(async () => import("../../components/info-box/InfoBox").then(m => ({ default: m.InfoBox })))
+const InfoBoxTitle = lazy(async () => import("../../components/info-box/InfoBoxTitle").then(m => ({ default: m.InfoBoxTitle })))
+const InfoBoxText = lazy(async () => import("../../components/info-box/InfoBoxText").then(m => ({ default: m.InfoBoxText })))
+const TypeOfSiteComboBox = lazy(async () => import("../../components/combo_box/TypeOfSiteComboBox").then(m => ({ default: m.TypeOfSiteComboBox })))
+const LocationNameInput = lazy(async () => import("../../components/text-inputs/LocationNameInput").then(m => ({ default: m.LocationNameInput })))
+const Button = lazy(async () => import("../../components/button"))
 const StateComboBox = lazy(async () => import("../../components/combo_box/StateComboBox").then(m => ({ default: m.StateComboBox })))
 const CityComboBox = lazy(async () => import("../../components/combo_box/CityComboBox").then(m => ({ default: m.CityComboBox })))
 const HeaderInput = lazy(async () => import('../../components/HeaderInput').then(m => ({ default: m.HeaderInput })))
@@ -26,9 +25,8 @@ const Main = lazy(async () => import('../../components/Main'))
 const PageTitle = lazy(async () => import('../../components/PageTitle'))
 
 export default function ListadoSitios() {
-    const { repository } = useAppContext()
     const navigate = useNavigate()
-    const { locations, loading, addFilter, cleanFilters } = useLocationByCriteria(repository)
+    const { locations, loading, addFilter, cleanFilters } = useLocationByCriteria()
     const { inputData, updateInputData, clearInputs } = useInputsData()
 
     const debounceGetLocations = useCallback(

@@ -47,7 +47,7 @@ export function BatteryModelInput({ value = '', onChange, type = 'form' }: Props
                 handle={(event) => {
                     const { name, value } = event.target
                     onChange(name, value, Operator.CONTAINS)
-                }}                
+                }}
                 value={value}
                 isError={isError}
                 errorMessage={errorMessage}

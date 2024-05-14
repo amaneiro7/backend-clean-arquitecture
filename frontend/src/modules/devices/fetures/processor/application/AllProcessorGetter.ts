@@ -1,9 +1,9 @@
-import { type Repository } from '../../../../shared/domain/repository'
 import { type ProcessorPrimitives } from '../domain/Processor'
+import { ProcessorRepository } from '../domain/ProcessorRepository'
 
 export class AllProcessorGetter {
-  constructor (private readonly repository: Repository) {}
+  constructor (private readonly repository: ProcessorRepository) {}
   async get (): Promise<ProcessorPrimitives[]> {
-    return await this.repository.processor.getAll()
+    return await this.repository.getAll()
   }
 }

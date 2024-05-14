@@ -1,5 +1,5 @@
 import './spinner-sk-circle.css'
-export function SpinnerSKCircle () {
+export function SpinnerSKCircle() {
     return (
         <div className="sk-circle">
             <div className="sk-circle1 sk-child"></div>

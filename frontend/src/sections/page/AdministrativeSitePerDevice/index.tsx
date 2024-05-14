@@ -5,9 +5,8 @@ import debounce from 'just-debounce-it'
 import { type DevicesApiResponse } from '../../../modules/shared/domain/types/responseTypes'
 import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
 
-import { useAppContext } from '../../Context/AppContext'
 import { useInputsData } from './useInputData'
-import { useDevice } from '../../Device/device/useDevice'
+import { useDevice } from '../../Hooks/device/useDevice'
 // import { Computer } from '../../../modules/devices/fetures/computer/domain/Computer'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
 import { StatusId } from '../../../modules/devices/devices/status/domain/StatusId'
@@ -40,8 +39,7 @@ const ActivoInput = lazy(async () => await import('../../components/text-inputs/
 
 export default function AdministrativeSitePage() {
   const tableRef = useRef(null)
-  const { repository } = useAppContext()
-  const { devices, loading, addFilter, cleanFilters } = useDevice(repository, {
+  const { devices, loading, addFilter, cleanFilters } = useDevice({
     filters: [{
       field: 'typeOfSiteId',
       operator: Operator.EQUAL,
@@ -165,7 +163,7 @@ export default function AdministrativeSitePage() {
           </HeaderInput>
         </Suspense>
         {loading && <SpinnerSKCircle />}
-        {(!loading && devices.length === 0) && <p>No hay resultados</p>}        
+        {(!loading && devices.length === 0) && <p>No hay resultados</p>}
         {(!loading && devices.length > 0) && <Suspense fallback={<TableSkeleton />}>
           <Table ref={tableRef} className=''>
             <TableHeader>
@@ -207,7 +205,7 @@ export default function AdministrativeSitePage() {
                   <TableCell value={device?.computer ? `${device?.computer?.processor?.productCollection} ${device?.computer?.processor?.numberModel}` : ''} />
                   <TableCell value={device?.computer ? `${device?.computer?.memoryRamCapacity} Gb` : ''} />
                   <TableCell value={device?.computer ? device?.computer?.memoryRam.map(mem => mem).join(' / ') : ''} />
-                  <TableCell value={device?.model?.modelComputer ? device?.model?.modelComputer.memoryRamType?.name : device?.model?.modelLaptop ? device?.model?.modelLaptop?.memoryRamType?.name : '' } />
+                  <TableCell value={device?.model?.modelComputer ? device?.model?.modelComputer.memoryRamType?.name : device?.model?.modelLaptop ? device?.model?.modelLaptop?.memoryRamType?.name : ''} />
                   <TableCell value={device?.computer ? `${device?.computer?.hardDriveCapacity?.name} Gb` : ''} />
                   <TableCell value={device?.computer?.hardDriveType?.name} />
                   <TableCell value={device?.computer?.operatingSystem?.name} />

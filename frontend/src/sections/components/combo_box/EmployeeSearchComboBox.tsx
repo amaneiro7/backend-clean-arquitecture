@@ -5,10 +5,9 @@ import match from 'autosuggest-highlight/match'
 import debounce from 'just-debounce-it'
 
 import { Autocomplete } from '../../mui/Autocomplete'
-import { useAppContext } from '../../Context/AppContext'
 import { SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
-import { useSearchEmployee } from '../../Device/employee/useSearchEmployee'
+import { useSearchEmployee } from '../../Hooks/employee/useSearchEmployee'
 
 const TextField = lazy(async () => await import("../../mui/TextField").then(m => ({ default: m.TextField })))
 const CircularProgress = lazy(async () => await import('../../mui/CircularProgress').then(m => ({ default: m.CircularProgress })))
@@ -16,8 +15,7 @@ const CloseIcon = lazy(async () => await import('../../mui/CloseIcon').then(m =>
 const RightIcon = lazy(async () => import('../icon/RightIcon').then(m => ({ default: m.RightIcon })))
 
 export default function EmployeeSearchComboBox() {
-    const { repository } = useAppContext()
-    const { employees, loading, searchEmployees } = useSearchEmployee(repository)
+    const { employees, loading, searchEmployees } = useSearchEmployee()
     const location = useLocation()
     const [value, setValue] = useState(null);
     const [inputValue, setInputValue] = useState('');
@@ -31,7 +29,7 @@ export default function EmployeeSearchComboBox() {
         , [searchEmployees, inputValue]
     )
 
-    useEffect(() => {        
+    useEffect(() => {
         if (inputValue === '') {
             setOptions(value ? [value] : [])
             return undefined

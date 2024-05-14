@@ -14,7 +14,7 @@ export interface DrapdownState {
   index: number | null
 }
 
-export default function Header () {
+export default function Header() {
   const location = useLocation()
   const [state, setState] = useState(false)
   const [drapdownState, setDrapdownState] = useState<DrapdownState>({ isActive: false, index: null })
@@ -47,11 +47,11 @@ export default function Header () {
         <Nav>
           <div className='flex items-center justify-center py-3 md:py-5 md:block'>
             <Link to={'/'}>
-              <Logo/>
+              <Logo />
             </Link>
             <HamburguerMenu state={state} handleState={handleState} />
           </div>
-          <Menu state={state} drapdownState={drapdownState} handleDrapdownState={handleDrapdownState}/>
+          <Menu state={state} drapdownState={drapdownState} handleDrapdownState={handleDrapdownState} />
           <Button
             actionType='CLOSE'
             text='Cerrar Sesión'
@@ -63,6 +63,6 @@ export default function Header () {
       {state &&
         (<div className='z-10 fixed top-0 w-screen h-screen bg-black/20 backdrop-blur-sm md:hidden' onClick={handleState}></div>)
       }
-      </>
+    </>
   )
 }

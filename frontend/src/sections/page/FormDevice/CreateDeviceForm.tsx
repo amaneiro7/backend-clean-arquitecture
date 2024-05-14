@@ -1,13 +1,13 @@
 import { type FormEvent, useEffect, lazy, Suspense, useLayoutEffect } from 'react'
 import { useLocation } from 'react-router-dom'
-import { useDeviceForm, FormStatus } from '../../Device/device/useDeviceForm'
-import { useDeviceInitialState } from './DeviceFormInitialState'
+import { useDeviceForm, FormStatus } from '../../Hooks/device/useDeviceForm'
+import { useDeviceInitialState } from '../../Hooks/device/DeviceFormInitialState'
 import { useGenericFormData } from '../../Hooks/useGenericFormData'
 import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoading'
 
 const Main = lazy(async () => import('../../components/Main'))
 const FormContainer = lazy(async () => await import('../../components/formContainer'))
-const DeviceSearchComboBox = lazy (async () => import('../../components/combo_box/DeviceSearchComboBox'))
+const DeviceSearchComboBox = lazy(async () => import('../../components/combo_box/DeviceSearchComboBox'))
 const SerialInput = lazy(async () => await import('../../components/text-inputs/SerialInput'))
 const ActivoInput = lazy(async () => await import('../../components/text-inputs/ActivoInput'))
 const ObservationInput = lazy(async () => await import('../../components/text-inputs/ObservationInput'))
@@ -17,7 +17,7 @@ const BrandComboBox = lazy(async () => await import('../../components/combo_box/
 const CategoryComboBox = lazy(async () => await import('../../components/combo_box/CategoryComboBox'))
 const LocationComboBox = lazy(async () => await import('../../components/combo_box/LocationComboBox'))
 const ModelComboBox = lazy(async () => await import('../../components/combo_box/ModelComboBox'))
-const DeviceFeatures = lazy(async () => await import('../../Device/device/components/DeviceFeatures'))
+const DeviceFeatures = lazy(async () => await import('./DeviceFeatures'))
 
 export default function CreateDeviceForm() {
   const location = useLocation()
@@ -27,7 +27,7 @@ export default function CreateDeviceForm() {
 
   useEffect(() => {
     updateForm(preloadedDeviceState)
-    return () => {      
+    return () => {
       resetForm()
     }
   }, [preloadedDeviceState])
@@ -78,7 +78,7 @@ export default function CreateDeviceForm() {
                 type='form'
                 isAdd={isAddForm}
               />
-            </Suspense>            
+            </Suspense>
             <Suspense fallback={<InputSkeletonLoading />}>
               <StatusComboBox
                 value={formData.statusId}
@@ -127,14 +127,14 @@ export default function CreateDeviceForm() {
               />
             </Suspense>
           </div>
-            <Suspense fallback={<InputSkeletonLoading />}>
-              <LocationComboBox
-                onChange={handleChange}
-                value={formData.locationId}
-                statusId={formData.statusId}
-                type='form'
-              />
-            </Suspense>
+          <Suspense fallback={<InputSkeletonLoading />}>
+            <LocationComboBox
+              onChange={handleChange}
+              value={formData.locationId}
+              statusId={formData.statusId}
+              type='form'
+            />
+          </Suspense>
           <div className='flex gap-4'>
             <Suspense fallback={<InputSkeletonLoading />}>
               <EmployeeComboBox

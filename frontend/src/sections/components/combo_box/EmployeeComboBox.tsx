@@ -1,14 +1,13 @@
-import { Suspense, useLayoutEffect, useMemo, useState } from "react";
-import { DeviceEmployee } from "../../../modules/devices/devices/devices/domain/DeviceEmployee";
-import { StatusId } from "../../../modules/devices/devices/status/domain/StatusId";
-import { OnHandleChange } from "../../../modules/shared/domain/types/types";
-import { Primitives } from "../../../modules/shared/domain/value-object/Primitives";
-import ComboBox from "./combo_box";
-import { useAppContext } from "../../Context/AppContext";
-import { useEmployee } from "../../Device/employee/useEmployee";
-import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators";
-import EmployeeDialog from "../Dialog/EmployeeDialog";
-import { EmployeePrimitives } from "../../../modules/employee/employee/domain/Employee";
+import { Suspense, useLayoutEffect, useMemo, useState } from "react"
+import { DeviceEmployee } from "../../../modules/devices/devices/devices/domain/DeviceEmployee"
+import { StatusId } from "../../../modules/devices/devices/status/domain/StatusId"
+import { OnHandleChange } from "../../../modules/shared/domain/types/types"
+import { Primitives } from "../../../modules/shared/domain/value-object/Primitives"
+import ComboBox from "./combo_box"
+import { useEmployee } from "../../Hooks/employee/useEmployee"
+import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
+import EmployeeDialog from "../Dialog/EmployeeDialog"
+import { EmployeePrimitives } from "../../../modules/employee/employee/domain/Employee"
 
 interface Props {
   value: Primitives<DeviceEmployee>
@@ -19,8 +18,7 @@ interface Props {
 }
 
 export default function EmployeeComboBox({ value, name, onChange, status, type = 'search' }: Props) {
-  const { repository } = useAppContext()
-  const { employees, loading, createEmployee } = useEmployee(repository)  
+  const { employees, loading, createEmployee } = useEmployee()
   const employeeOptions = useMemo(() => (
     employees.map(employee => ({ id: employee.id, name: employee.userName }))
   ), [employees, loading])
@@ -33,28 +31,28 @@ export default function EmployeeComboBox({ value, name, onChange, status, type =
   const [isError, setIsError] = useState(false)
   const [isDisabled, setIsDisabled] = useState(false)
   const [open, toggleOpen] = useState(false)
-  const [dialogValue, setDialogValue] = useState<EmployeePrimitives>({ userName: '' });
+  const [dialogValue, setDialogValue] = useState<EmployeePrimitives>({ userName: '' })
 
   useLayoutEffect(() => {
-    if (type !== 'form') return;
+    if (type !== 'form') return
 
-    if (value === undefined) {      
+    if (value === undefined) {
       return
     }
 
 
     const isValid = DeviceEmployee.isValid(value, status)
     setIsDisabled(StatusId.StatusOptions.INUSE !== status)
-    
+
     setIsError(!isValid)
     setErrorMessage(isValid ? '' : DeviceEmployee.invalidMessage())
-    
+
     return () => {
       setErrorMessage('')
       setIsError(false)
     }
   }, [value, status])
-  
+
   useLayoutEffect(() => {
     if (isDisabled) {
       onChange(name, '')
@@ -73,16 +71,16 @@ export default function EmployeeComboBox({ value, name, onChange, status, type =
           if (typeof newValue === 'string') {
             // timeout to avoid instant validation of the dialog's form.
             setTimeout(() => {
-              toggleOpen(true);
+              toggleOpen(true)
               setDialogValue({
                 userName: newValue
-              });
-            });
+              })
+            })
           } else if (newValue && newValue.inputValue) {
-            toggleOpen(true);
+            toggleOpen(true)
             setDialogValue({
               userName: newValue.inputValue
-            });
+            })
           } else {
             const hasNewValue = newValue ? newValue.id : ''
             onChange(name, hasNewValue, Operator.EQUAL)

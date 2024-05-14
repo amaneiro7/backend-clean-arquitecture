@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { type Repository } from '../../../modules/shared/domain/repository'
 import { AllCityGetter } from '../../../modules/location/city/application/AllCityGetter'
 import { CityPrimitives } from '../../../modules/location/city/domain/city'
+import { ApiCityRepository } from '../../../modules/location/city/infraestructure/ApiCityRepository'
 
 export interface UseCities {
   cities: CityPrimitives[]
@@ -9,15 +9,14 @@ export interface UseCities {
   error: Error | null
 }
 
-export const useCity = (repository: Repository): UseCities => {
-  const getter = new AllCityGetter(repository)
+export const useCity = (): UseCities => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [cities, setCities] = useState<CityPrimitives[]>([])
 
-  function gefetchData () {
+  function gefetchData() {
     setLoading(true)
-    getter
+    new AllCityGetter(new ApiCityRepository())
       .get()
       .then((res) => {
         setCities(res)

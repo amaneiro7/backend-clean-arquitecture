@@ -5,8 +5,7 @@ import match from 'autosuggest-highlight/match'
 import debounce from 'just-debounce-it'
 
 import { Autocomplete } from '../../mui/Autocomplete'
-import { useAppContext } from '../../Context/AppContext'
-import { useSearchDevice } from '../../Device/device/useSearchDevice'
+import { useSearchDevice } from '../../Hooks/device/useSearchDevice'
 import { SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
 
@@ -16,8 +15,7 @@ const CloseIcon = lazy(async () => await import('../../mui/CloseIcon').then(m =>
 const RightIcon = lazy(async () => import('../icon/RightIcon').then(m => ({ default: m.RightIcon })))
 
 export default function DeviceSearchComboBox() {
-    const { repository } = useAppContext()
-    const { devices, loading, searchDevices } = useSearchDevice(repository)
+    const { devices, loading, searchDevices } = useSearchDevice()
     const location = useLocation()
     const [value, setValue] = useState(null);
     const [inputValue, setInputValue] = useState('');

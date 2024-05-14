@@ -1,10 +1,10 @@
-import { type Repository } from '../../../../../shared/domain/repository'
 import { type HardDriveCapacityPrimitives } from '../domain/HardDriveCapacity'
+import { HardDriveCapacityRepository } from '../domain/HardDriveCapacityRepository'
 
 export class AllHardDriveCapacityGetter {
-  constructor (readonly repository: Repository) {}
+  constructor (readonly repository: HardDriveCapacityRepository) {}
 
   async get (): Promise<HardDriveCapacityPrimitives[]> {
-    return await this.repository.hardDriveCapacity.getAll()
+    return await this.repository.getAll()
   }
 }

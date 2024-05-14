@@ -22,19 +22,19 @@ export const SIZES = {
 } as const
 
 const iconTypes = {
-  add: ({size}) => (
+  add: ({ size }) => (
     <AddSVG className={`${size} aspect-square transition-all fill-primary`} />
   ),
-  edit: ({size}) => (
+  edit: ({ size }) => (
     <EditSVG className={`${size} aspect-square transition-all fill-secondary`} />
   ),
-  delete: ({size}) => (
+  delete: ({ size }) => (
     <DeleteSVG className={`${size} aspect-square transition-all fill-quaternary`} />
   ),
-  right: ({size}) => (
+  right: ({ size }) => (
     <RightArrowSVG className={`${size} aspect-square transition-all fill-terciary`} />
   ),
-  thinRight: ({size}) => (
+  thinRight: ({ size }) => (
     <ThinRightArrowSVG className={`${size} aspect-square transition-all fill-secondary`} />
   )
 } as const
@@ -44,7 +44,7 @@ export const Icon = ({ type, isDisabled = false, children, size = 'w-6' }: Props
     <i
       className={`relative w-12 aspect-square p-2 flex justify-center items-center  ${isDisabled ? 'cursor-default opacity-50' : 'cursor-pointer hover:[&>svg]:opacity-70'}`}
     >
-      {iconTypes[type]({size})}
+      {iconTypes[type]({ size })}
       {children}
     </i>
   )

@@ -1,19 +1,10 @@
-import { API_URL } from '../../../../shared/infraestructure/config'
-import { errorApiMessage } from '../../../../shared/infraestructure/errorMessage'
+import { makeRequest } from '../../../../shared/infraestructure/fetching'
 import { type VicepresidenciaPrimitives } from '../domain/Vicepresidencia'
 import { type VicepresidenciaRepository } from '../domain/VicepresidenciaRepository'
 
 export class ApiVicepresidenciaRepository implements VicepresidenciaRepository {
-  async getAll (): Promise<VicepresidenciaPrimitives[]> {
-    return await fetch(`${API_URL}/vicepresidencias`)
-      .then(async res => {
-        if (!res.ok) {
-          throw new Error(await res.text())
-        }
-        return await (res.json() as Promise<VicepresidenciaPrimitives[]>)
-      })
-      .catch(() => {
-        throw new Error(errorApiMessage)
-      })
+  private readonly endpoint: string = 'vicepresidencias'
+  async getAll(): Promise<VicepresidenciaPrimitives[]> {
+    return await makeRequest({ method: 'GET', endpoint: this.endpoint })
   }
 }

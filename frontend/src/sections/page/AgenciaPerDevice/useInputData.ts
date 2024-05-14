@@ -31,7 +31,7 @@ export const useInputsData = (): {
   updateInputData: UpdateInputData
   clearInputs: () => void
 } => {
-  const [searchParams, setSearchParams] = useSearchParams()  
+  const [searchParams, setSearchParams] = useSearchParams()
 
   const updateInputData = ({ name, value }: inputDataType) => {
     if (value === '') {

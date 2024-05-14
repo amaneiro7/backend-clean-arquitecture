@@ -46,9 +46,9 @@ export function ModelInputs({ onChange, formData, isAddForm }: Props) {
             </Suspense>
             <Suspense>
                 <AddModelComputer formData={formData} onChange={onChange} />
-                <AddModelMonitor formData={formData} onChange={onChange} />                
-                <AddModelPrinter formData={formData} onChange={onChange} />                
-                <AddModelKeyboard formData={formData} onChange={onChange} />                
+                <AddModelMonitor formData={formData} onChange={onChange} />
+                <AddModelPrinter formData={formData} onChange={onChange} />
+                <AddModelKeyboard formData={formData} onChange={onChange} />
             </Suspense>
         </>
     )

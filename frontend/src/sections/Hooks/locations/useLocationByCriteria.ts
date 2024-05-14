@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
-import { type Repository } from '../../../modules/shared/domain/repository'
 import { useSearchByCriteriaQuery } from '../useQueryUpdate'
 import { LocationPrimitives } from '../../../modules/location/locations/domain/location'
 import { LocationGetterByCriteria } from '../../../modules/location/locations/application/LocationGetterByCriteria'
+import { ApiLocationRepository } from '../../../modules/location/locations/infraestructure/ApiLocationRepository'
 
 export interface UseLocationByCriteria {
   locations: LocationPrimitives[]
@@ -13,16 +13,15 @@ export interface UseLocationByCriteria {
   cleanFilters: (payload?: SearchByCriteriaQuery) => void
 }
 
-export const useLocationByCriteria = (repository: Repository, defaultQuery?: SearchByCriteriaQuery): UseLocationByCriteria => {
-  const locationByCriteria = new LocationGetterByCriteria(repository)  
+export const useLocationByCriteria = (defaultQuery?: SearchByCriteriaQuery): UseLocationByCriteria => {
   const { query, addFilter, cleanFilters } = useSearchByCriteriaQuery(defaultQuery)
-  const [loading, setLoading] = useState<boolean>(true)  
-  const [error, setError] = useState<string | null>(null)  
-  const [locations, setLocations] = useState<LocationPrimitives[]>([])  
+  const [loading, setLoading] = useState<boolean>(true)
+  const [error, setError] = useState<string | null>(null)
+  const [locations, setLocations] = useState<LocationPrimitives[]>([])
 
-  function searchLocationsByCriteria () {
+  function searchLocationsByCriteria() {
     setLoading(true)
-    locationByCriteria
+    new LocationGetterByCriteria(new ApiLocationRepository())
       .get(query)
       .then((location) => {
         setLocations(location)

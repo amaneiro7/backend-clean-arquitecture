@@ -1,6 +1,5 @@
 import { lazy, Suspense, useMemo } from "react"
 import { OnHandleChange } from "../../../modules/shared/domain/types/types"
-import { useAppContext } from "../../Context/AppContext"
 import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
 import { useInputType } from "../../Hooks/inputType/useInputType"
@@ -14,8 +13,7 @@ interface Props {
 const ComboBox = lazy(async () => import("./combo_box"))
 
 export function InputTypeComboBox({ value, onChange, type = 'search' }: Props) {
-    const { repository } = useAppContext()
-    const { inputType, loading } = useInputType(repository)
+    const { inputType, loading } = useInputType()
 
     const initialValue = useMemo(() => {
         return inputType.find(input => input.id === value)

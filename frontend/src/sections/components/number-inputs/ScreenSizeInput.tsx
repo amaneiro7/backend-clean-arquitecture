@@ -35,13 +35,13 @@ export function ScreenSizeInput({ value = ScreenSize.MIN, onChange, type = 'form
   return (
     <Suspense fallback={<InputSkeletonLoading />}>
       <NumberInput
-        name='screenSize'        
+        name='screenSize'
         label='Tamaño de la Pantalla'
         isRequired={type === 'form'}
         value={value}
         onChange={(event) => {
-            const {name, value} = event.target
-            onChange(name, value)
+          const { name, value } = event.target
+          onChange(name, value)
         }}
         error={isError}
         errorMessage={errorMessage}

@@ -4,12 +4,12 @@ import type TableHeader from './TableHeader'
 
 interface Props {
   className?: string
-  children: Array<React.ReactElement<typeof TableHeader | typeof TableBody>>  
+  children: Array<React.ReactElement<typeof TableHeader | typeof TableBody>>
 }
 
-const Table = forwardRef(function ({ children, className}: Props, ref: React.LegacyRef<HTMLTableElement>) {  
+const Table = forwardRef(function ({ children, className }: Props, ref: React.LegacyRef<HTMLTableElement>) {
   return (
-    <section className='min-w-full max-w-max overflow-x-auto overflow-y-auto'>      
+    <section className='min-w-full max-w-max overflow-x-auto overflow-y-auto'>
       <table
         className={`relative min-w-full max-w-max border-collapse table-fixed ${className}`}
         ref={ref}

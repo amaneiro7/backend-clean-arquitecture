@@ -2,10 +2,9 @@ import { Suspense, lazy, useCallback, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import debounce from 'just-debounce-it'
 
-import { useAppContext } from '../../Context/AppContext'
 import { useInputsData } from './useInputData'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
-import { useDevice } from '../../Device/device/useDevice'
+import { useDevice } from '../../Hooks/device/useDevice'
 import { StatusId } from '../../../modules/devices/devices/status/domain/StatusId'
 import { TypeOfSiteId } from '../../../modules/location/typeofsites/domain/typeOfSiteId'
 
@@ -40,8 +39,7 @@ const ModelComboBox = lazy(async () => await import('../../components/combo_box/
 export default function AgenciaPage() {
   const tableRef = useRef(null)
   const { inputData, updateInputData, clearInputs } = useInputsData()
-  const { repository } = useAppContext()
-  const { devices, loading, addFilter, cleanFilters } = useDevice(repository, {
+  const { devices, loading, addFilter, cleanFilters } = useDevice({
     filters: [{
       field: 'typeOfSiteId',
       operator: Operator.EQUAL,
@@ -205,7 +203,7 @@ export default function AgenciaPage() {
                   <TableCell value={device?.computer ? `${device?.computer?.processor?.productCollection} ${device?.computer?.processor?.numberModel}` : ''} />
                   <TableCell value={device?.computer ? `${device?.computer?.memoryRamCapacity} Gb` : ''} />
                   <TableCell value={device?.computer ? device?.computer?.memoryRam.map(mem => mem).join(' / ') : ''} />
-                  <TableCell value={device?.model?.modelComputer ? device?.model?.modelComputer.memoryRamType?.name : device?.model?.modelLaptop ? device?.model?.modelLaptop?.memoryRamType?.name : '' } />
+                  <TableCell value={device?.model?.modelComputer ? device?.model?.modelComputer.memoryRamType?.name : device?.model?.modelLaptop ? device?.model?.modelLaptop?.memoryRamType?.name : ''} />
                   <TableCell value={device?.computer ? `${device?.computer?.hardDriveCapacity?.name} Gb` : ''} />
                   <TableCell value={device?.computer?.hardDriveType?.name} />
                   <TableCell value={device?.computer?.operatingSystem?.name} />

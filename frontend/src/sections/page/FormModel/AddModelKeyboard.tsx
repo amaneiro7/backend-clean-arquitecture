@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react'
 import { OnHandleChange } from "../../../modules/shared/domain/types/types"
-import { DefaultModelProps } from './ModelFormInitialState'
+import { DefaultModelProps } from '../../Hooks/model/ModelFormInitialState'
 import { ModelKeyboard } from '../../../modules/devices/model/ModelCharacteristics/modelKeyboard/ModelKeyboard'
 
 

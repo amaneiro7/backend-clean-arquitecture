@@ -1,10 +1,10 @@
-import { API_URL } from '../../../../../shared/infraestructure/config'
+import { makeRequest } from '../../../../../shared/infraestructure/fetching'
 import { type HardDriveTypePrimitives } from '../domain/HardDriveType'
 import { type HardDriveTypeRepository } from '../domain/HardDriveTypeRepository'
 
 export class ApiHardDriveTypeRepository implements HardDriveTypeRepository {
+  private readonly endpoint: string = 'harddrivetypes'
   async getAll (): Promise<HardDriveTypePrimitives[]> {
-    return await fetch(`${API_URL}/harddrivetypes`)
-      .then(async response => await (response.json() as Promise<HardDriveTypePrimitives[]>))
+    return await makeRequest({ method: 'GET', endpoint: this.endpoint })
   }
 }

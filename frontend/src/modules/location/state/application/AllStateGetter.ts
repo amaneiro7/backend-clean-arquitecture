@@ -1,9 +1,9 @@
-import { type Repository } from '../../../shared/domain/repository'
 import { type StatePrimitives } from '../domain/state'
+import { StateRepository } from '../domain/stateRepository'
 export class AllStateGetter {
-  constructor (private readonly repository: Repository) {}
+  constructor (private readonly repository: StateRepository) {}
 
   async get (): Promise<StatePrimitives[]> {
-    return await this.repository.state.getAll()
+    return await this.repository.getAll()
   }
 }

@@ -1,10 +1,10 @@
-import { type Repository } from '../../../shared/domain/repository'
 import { type RegionPrimitives } from '../domain/region'
+import { RegionRepository } from '../domain/regionRepository'
 
 export class AllRegionGetter {
-  constructor (private readonly repository: Repository) {}
+  constructor (private readonly repository: RegionRepository) {}
 
   async get (): Promise<RegionPrimitives[]> {
-    return await this.repository.region.getAll()
+    return await this.repository.getAll()
   }
 }

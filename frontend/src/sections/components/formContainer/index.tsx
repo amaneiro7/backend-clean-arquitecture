@@ -17,7 +17,7 @@ const PageTitle = lazy(async () => import('../PageTitle'))
 
 export default function FormContainer({ url, title, children, isDisabled, handleSubmit, handleClose, lastUpdated }: React.PropsWithChildren<Props>) {
   const location = useLocation()
-  
+
   const isEdit = useMemo(() => location.pathname.includes('edit'), [location])
   return (
     <>
@@ -48,8 +48,8 @@ export default function FormContainer({ url, title, children, isDisabled, handle
                   text='Guardar'
                   isDisabled={isDisabled}
                 />
-                {isEdit && <LinkAsButton 
-                  actionType='ACTION'                  
+                {isEdit && <LinkAsButton
+                  actionType='ACTION'
                   text='Añadir un nuevo'
                   url={url}
                 />}

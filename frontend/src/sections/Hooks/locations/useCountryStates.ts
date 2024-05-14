@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { type Repository } from '../../../modules/shared/domain/repository'
 import { AllStateGetter } from '../../../modules/location/state/application/AllStateGetter'
 import { StatePrimitives } from '../../../modules/location/state/domain/state'
+import { ApiStateRepository } from '../../../modules/location/state/infraestructure/ApiStateRepository'
 
 export interface UseStates {
   state: StatePrimitives[]
@@ -9,15 +9,14 @@ export interface UseStates {
   error: Error | null
 }
 
-export const useCountryStates = (repository: Repository): UseStates => {
-  const getter = new AllStateGetter(repository)
+export const useCountryStates = (): UseStates => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [state, setState] = useState<StatePrimitives[]>([])
 
-  function getStatus () {
+  function getStatus() {
     setLoading(true)
-    getter
+    new AllStateGetter(new ApiStateRepository())
       .get()
       .then((res) => {
         setState(res)

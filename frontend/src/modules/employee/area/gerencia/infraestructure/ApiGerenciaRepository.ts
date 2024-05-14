@@ -1,19 +1,10 @@
-import { API_URL } from '../../../../shared/infraestructure/config'
-import { errorApiMessage } from '../../../../shared/infraestructure/errorMessage'
+import { makeRequest } from '../../../../shared/infraestructure/fetching'
 import { type GerenciaPrimitives } from '../domain/gerencia'
 import { type GerenciaRepository } from '../domain/gerenciaRepository'
 
 export class ApiGerenciaRepository implements GerenciaRepository {
+  private readonly endpoint: string = 'gerencias'
   async getAll (): Promise<GerenciaPrimitives[]> {
-    return await fetch(`${API_URL}/gerencias`)
-      .then(async res => {
-        if (!res.ok) {
-          throw new Error(await res.text())
-        }
-        return await (res.json() as Promise<GerenciaPrimitives[]>)
-      })
-      .catch(() => {
-        throw new Error(errorApiMessage)
-      })
-  }
+    return await makeRequest({ method: 'GET', endpoint: this.endpoint })      
+  }  
 }

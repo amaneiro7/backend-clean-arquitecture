@@ -7,12 +7,12 @@ import { Filters } from '../../../../shared/domain/criteria/Filters'
 import { FilterValue } from '../../../../shared/domain/criteria/FilterValue'
 import { Limit } from '../../../../shared/domain/criteria/Limit'
 import { Order } from '../../../../shared/domain/criteria/Order'
-import { Repository } from '../../../../shared/domain/repository'
 import { SearchByCriteriaQuery } from '../../../../shared/infraestructure/criteria/SearchByCriteriaQuery'
 import { ModelPrimitives } from '../domain/Model'
+import { ModelRepository } from '../domain/ModelRepository'
 
 export class ModelGetterByCriteria {
-  constructor (private readonly repository: Repository) { }
+  constructor (private readonly repository: ModelRepository) { }
   async get (query: SearchByCriteriaQuery): Promise<ModelPrimitives[]> {
     const filters = query.filters.length > 0 && query.filters.map((filter) => {
       return new Filter(
@@ -25,6 +25,6 @@ export class ModelGetterByCriteria {
     const offset = new Limit(query.offset)
     const criteria = new Criteria(new Filters(filters), order, limit, offset)
 
-    return await this.repository.model.getByCriteria(criteria)
+    return await this.repository.getByCriteria(criteria)
   }
 }

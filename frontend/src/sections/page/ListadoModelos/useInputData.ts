@@ -1,7 +1,7 @@
 import { useSearchParams } from 'react-router-dom'
 import { ModelPrimitives } from '../../../modules/devices/model/model/domain/Model'
 
-export interface InputData extends Partial<ModelPrimitives> {}
+export interface InputData extends Partial<ModelPrimitives> { }
 
 type UpdateInputData = ({ name, value }: inputDataType) => void
 interface inputDataType {
