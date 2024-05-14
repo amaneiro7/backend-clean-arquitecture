@@ -11,7 +11,6 @@ import { MainFallback } from "../../components/skeleton/MainFallback"
 import TableSkeleton from "../../components/skeleton/TableSkeleton"
 import { useModelByCriteria } from "../../Hooks/model/useModelByCriteria"
 import { ModelApiresponse } from "../../../modules/shared/domain/types/responseTypes"
-import { ModelComputer } from "../../../modules/devices/model/ModelCharacteristics/modelComputer/ModelComputer"
 
 
 const Button = lazy(async () => import("../../components/button"))
