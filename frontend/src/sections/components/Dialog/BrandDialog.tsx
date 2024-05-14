@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import DialogAdd from "./dialog";
 import { useGenericFormData } from "../../Hooks/useGenericFormData";
 import { BrandPrimitives } from "../../../modules/devices/brand/domain/Brand";
-import { FormStatus, useBrandForm } from "../../Device/brand/useBrandForm";
+import { FormStatus, useBrandForm } from "../../Hooks/brand/useBrandForm";
 import BrandNameInput from "../text-inputs/BrandNameInput";
 
 interface Props {

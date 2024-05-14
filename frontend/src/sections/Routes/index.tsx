@@ -16,7 +16,7 @@ const AgencySitePerEmployee = lazy(async () => await import('../page/AgenciaPerE
 
 const CreateEmployeeForm = lazy(async () => await import('../page/FormEmployee/CreateEmployeeForm.tsx'))
 const CreateDeviceForm = lazy(async () => await import('../page/FormDevice/CreateDeviceForm.tsx'))
-const CreateBrandForm = lazy(async () => await import('../Device/brand/CreateBrandForm.tsx'))
+const CreateBrandForm = lazy(async () => await import('../page/FormBrand/CreateBrandForm.tsx'))
 const CreateModelForm = lazy(async () => await import('../page/FormModel/CreateModelForm.tsx'))
 const CreateProcessorForm = lazy(async () => await import('../Device/features/processor/CreateProcessorForm.tsx'))
 const Login = lazy(async () => await import('../page/login/index.tsx'))

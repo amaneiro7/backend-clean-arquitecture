@@ -1,6 +1,6 @@
 import { type FormEvent, lazy, Suspense, useEffect } from 'react'
 import { useGenericFormData } from '../../Hooks/useGenericFormData'
-import { FormStatus, useBrandForm } from './useBrandForm'
+import { FormStatus, useBrandForm } from '../../Hooks/brand/useBrandForm'
 import BrandNameInput from '../../components/text-inputs/BrandNameInput'
 import { useBrandInitialState } from './BrandFormInitialState'
 

@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { useAppContext } from '../../Context/AppContext'
 import { useBrand } from './useBrand'
 import { toastMessage } from '../../utils/toaster'
 
@@ -15,9 +14,8 @@ export function useBrandForm (): {
   submitForm: (formData: { id?: string, name: string }) => Promise<void>
   resetFormStatus: () => void
 } {
-  const [formStatus, setFormStatus] = useState(FormStatus.Initial)
-  const { repository } = useAppContext()
-  const { createBrand } = useBrand(repository)
+  const [formStatus, setFormStatus] = useState(FormStatus.Initial)  
+  const { createBrand } = useBrand()
 
   async function submitForm ({ id, name }: { id?: string, name: string }) {
     setFormStatus(FormStatus.Loading)

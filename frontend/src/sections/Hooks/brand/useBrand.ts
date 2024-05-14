@@ -1,24 +1,23 @@
 import { useEffect, useState } from 'react'
-import { type Repository } from '../../../modules/shared/domain/repository'
 import { AllBrandGetter } from '../../../modules/devices/brand/application/AllBrandGetter'
 import { BrandCreator } from '../../../modules/devices/brand/application/BrandCreator'
 import { type BrandPrimitives } from '../../../modules/devices/brand/domain/Brand'
 import { BrandGetter } from '../../../modules/devices/brand/application/BrandGetter'
+import { ApiBrandRepository } from '../../../modules/devices/brand/infraestructure/ApiBrandRepository'
 
-export const useBrand = (repository: Repository) => {
-  const allBrandGetter = new AllBrandGetter(repository)
+export const useBrand = () => {
+  const repository = new ApiBrandRepository()
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [brands, setBrands] = useState<BrandPrimitives[]>([])
 
-  async function createBrand ({ id, name }: { id?: string, name: string }) {
-    const brandCreator = new BrandCreator(repository)
-    await brandCreator.create({ id, name })
+  async function createBrand(formData: BrandPrimitives) {
+    await new BrandCreator(repository).create(formData)
   }
 
-  function getBrands () {
+  function getBrands() {
     setLoading(true)
-    allBrandGetter
+    new AllBrandGetter(repository)
       .get()
       .then((brand) => {
         setBrands(brand)

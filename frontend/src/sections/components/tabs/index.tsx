@@ -2,18 +2,16 @@ import * as Tabs from '@radix-ui/react-tabs'
 import { useState } from 'react'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { type CategoryId } from '../../../modules/devices/category/domain/CategoryId'
-import { useAppContext } from '../../Context/AppContext'
 import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
-import { useCategory } from '../../Device/category/useCategory'
+import { useCategory } from '../../Hooks/category/useCategory'
 
 interface Props {
   value: Primitives<CategoryId>
   onChange: OnHandleChange
 }
 export default function TabsComponent ({ value, onChange }: Props) {
-  const { repository } = useAppContext()
-  const { categories: tabItems } = useCategory(repository)
+  const { categories: tabItems } = useCategory()
   const [selectedTab, setSelectedTab] = useState('')
 
   return (

@@ -1,25 +1,22 @@
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
-import { useAppContext } from '../../Context/AppContext'
+import { useBrand } from '../../Hooks/brand/useBrand'
 import { type BrandApiResponse } from '../../../modules/shared/domain/types/responseTypes'
-
-import { useBrand } from './useBrand'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { type BrandName } from '../../../modules/devices/brand/domain/BrandName'
 
-interface defaultProps {
+interface DefaultProps {
   name: Primitives<BrandName>
 }
 
-const defaultInitialState: defaultProps = {
+const defaultInitialState: DefaultProps = {
   name: ''
 }
 export const useBrandInitialState = () => {
   const { id } = useParams()
   const location = useLocation()
   const navigate = useNavigate()
-  const { repository } = useAppContext()
-  const { getBrand } = useBrand(repository)
+  const { getBrand } = useBrand()
   const [preloadedBrandState, setPreloadedBrandState] = useState(defaultInitialState)
 
   useEffect(() => {

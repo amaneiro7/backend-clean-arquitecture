@@ -1,87 +1,23 @@
-import { API_URL } from '../../../shared/infraestructure/config'
-import { errorApiMessage } from '../../../shared/infraestructure/errorMessage'
+import { makeRequest } from '../../../shared/infraestructure/fetching'
 import { type BrandPrimitives, type Brand } from '../domain/Brand'
 import { type BrandId } from '../domain/BrandId'
-import { type BrandName } from '../domain/BrandName'
 import { type BrandRepository } from '../domain/BrandRepository'
 
 export class ApiBrandRepository implements BrandRepository {
+  private readonly endpoint: string = 'brands'
   async save ({ brand }: { brand: Brand }): Promise<void> {
-    try {
-      const brandPrimitives = brand.toPrimitives()
-      const res = await fetch(`${API_URL}/brands`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          name: brandPrimitives.name
-        })
-      })
-      if (!res.ok) {
-        throw new Error(await res.text())
-      }
-    } catch (error) {
-      throw new Error(errorApiMessage)
-    }
+    return await makeRequest({ method: 'POST', endpoint: this.endpoint, data: brand.toPrimitives() })    
   }
-
+  
   async update ({ id, brand }: { id: BrandId, brand: Brand }): Promise<void> {
-    try {
-      const brandPrimitives = brand.toPrimitives()
-      const res = await fetch(`${API_URL}/brands/${id.value}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          name: brandPrimitives.name
-        })
-      })
-      if (!res.ok) {
-        throw new Error(await res.text())
-      }
-    } catch (error) {
-      throw new Error(errorApiMessage)
-    }
+    return await makeRequest({ method: 'PATCH', endpoint: `${this.endpoint}/${id.value}`, data: brand.toPrimitives() })        
   }
-
+  
   async getAll (): Promise<BrandPrimitives[]> {
-    return await fetch(`${API_URL}/brands`).then(
-      async res => {
-        if (!res.ok) {
-          throw new Error(await res.text())
-        }
-        return await (res.json() as Promise<BrandPrimitives[]>)
-      })
-      .catch(() => {
-        throw new Error(errorApiMessage)
-      })
+    return await makeRequest({ method: 'GET', endpoint: this.endpoint })    
   }
-
+  
   async getById ({ id }: { id: BrandId }): Promise<BrandPrimitives | null> {
-    return await fetch(`${API_URL}/brands/${id.value}`).then(
-      async res => {
-        if (!res.ok) {
-          throw new Error(await res.text())
-        }
-        return await (res.json() as Promise<BrandPrimitives | null>)
-      })
-      .catch(() => {
-        throw new Error(errorApiMessage)
-      })
-  }
-
-  async getByName ({ name }: { name: BrandName }): Promise<BrandPrimitives | null> {
-    return await fetch(`${API_URL}/brands/name/${name.value}`).then(
-      async res => {
-        if (!res.ok) {
-          throw new Error(await res.text())
-        }
-        return await (res.json() as Promise<BrandPrimitives | null>)
-      })
-      .catch(() => {
-        throw new Error(errorApiMessage)
-      })
+    return await makeRequest({ method: 'GET', endpoint: `${this.endpoint}/${id.value}` })            
   }
 }

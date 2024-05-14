@@ -102,6 +102,7 @@ export interface DevicesMappedApiResponse {
   updatedAt: string
 }
 export interface BrandApiResponse extends BrandPrimitives {  
+  id: Primitives<BrandId>
   createdAt: string
   updatedAt: string
   model: ModelPrimitives[]
