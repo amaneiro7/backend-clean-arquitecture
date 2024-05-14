@@ -12,6 +12,7 @@ import { DefaultModelProps, defaultInitialModelState } from "../../Hooks/model/M
 
 interface Props {
     value: Primitives<ModelId>
+    name?: string
     categoryId: Primitives<CategoryId>
     brandId: Primitives<BrandId>
     onChange: OnHandleChange
@@ -23,7 +24,7 @@ const ComboBox = lazy(async () => import("./combo_box"))
 const ModelDialog = lazy(async () => import("../Dialog/ModelDialog"))
 const ReadOnlyInputBox = lazy(async () => import("../ReadOnlyInputBox").then(m => ({ default: m.ReadOnlyInputBox })))
 
-export default function ModelComboBox({ value, onChange, categoryId, brandId, type = 'search', isAdd = false }: Props) {
+export default function ModelComboBox({ value, onChange, categoryId, brandId, type = 'search', name = 'modelId', isAdd = false }: Props) {
     const { models, loading } = useModel()
     const [open, toggleOpen] = useState(false)
     const [dialogValue, setDialogValue] = useState<DefaultModelProps>(defaultInitialModelState)
@@ -48,7 +49,7 @@ export default function ModelComboBox({ value, onChange, categoryId, brandId, ty
                     id='modelId'
                     initialValue={initialValue}
                     label="Modelo"
-                    name='modelId'
+                    name={name}
                     type={type}
                     onChange={(_, newValue) => {
                         if (typeof newValue === 'string') {
@@ -61,7 +62,12 @@ export default function ModelComboBox({ value, onChange, categoryId, brandId, ty
                             toggleOpen(true)
                             setDialogValue(prev => ({ ...prev, name: newValue.inputValue }))
                         } else {
-                            onChange('modelId', newValue ? newValue.id : '', Operator.EQUAL)
+                            if (name === 'modelId') {
+                                onChange(name, newValue ? newValue.id : '', Operator.EQUAL)
+                            }
+                            if (name === 'name') {
+                                onChange(name, newValue ? newValue.name : '', Operator.CONTAINS)
+                            }
                             if (type === 'form') {
                                 if (newValue?.modelComputer !== null) {
                                     onChange('memoryRamSlotQuantity', newValue ? newValue?.modelComputer.memoryRamSlotQuantity : undefined)

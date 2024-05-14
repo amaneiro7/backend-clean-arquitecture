@@ -113,7 +113,7 @@ export const useDeviceInitialState = (): {
       return
     }
     if (location.state?.state !== undefined) {
-      const { state } = location.state      
+      const { state } = location.state
       processDeviceState(state)
     } else if (id === undefined) {
       navigate('/error')
@@ -138,7 +138,7 @@ export const useDeviceInitialState = (): {
       if (model?.modelComputer !== null) {
         memoryRamSlotQuantity = model?.modelComputer.memoryRamSlotQuantity
         memoryRamType = model?.modelComputer.memoryRamType.name
-      }else if (model?.modelLaptop !== null) {
+      } else if (model?.modelLaptop !== null) {
         memoryRamSlotQuantity = model?.modelLaptop.memoryRamSlotQuantity
         memoryRamType = model?.modelLaptop.memoryRamType.name
       } else {

@@ -14,6 +14,7 @@ import { ScreenSize } from '../../../modules/devices/model/ModelCharacteristics/
 import { CartridgeModel } from '../../../modules/devices/model/ModelCharacteristics/modelPrinter/CartridgeModel'
 import { InputTypeId } from '../../../modules/devices/model/InputType/domain/InputTypeId'
 import { HasFingerPrinteReader } from '../../../modules/devices/model/ModelCharacteristics/modelKeyboard/HasFingerPrintReader'
+import { ModelApiresponse } from '../../../modules/shared/domain/types/responseTypes'
 
 export interface DefaultModelProps {
   id?: Primitives<ModelId>
@@ -72,7 +73,7 @@ export const useModelInitialState = () => {
 
     if (location.state?.state !== undefined) {
       const { state: model } = location.state
-      setPreloadedModelState(model)
+      processModelState(model)
     } else {
       if (id === undefined) {
         navigate('/error')
@@ -89,10 +90,22 @@ export const useModelInitialState = () => {
   }, [id, location.state?.state])
 
   function processModelState(model: ModelPrimitives): void {
-    const { brandId, categoryId, name } = model
-    setPreloadedModelState((prev) => ({ ...prev, id, brandId, categoryId, name }))
+    const { brandId, categoryId, name, updatedAt, modelComputer, modelLaptop, modelMonitor, modelPrinter } = model as ModelApiresponse
+    setPreloadedModelState((prev) => ({ ...prev, id, brandId, categoryId, name, updatedAt }))
+    if (modelComputer !== null) {      
+      setPreloadedModelState((prev) => ({ ...prev, ...modelComputer }))
+    }
+    if (modelLaptop !== null) {      
+      setPreloadedModelState((prev) => ({ ...prev, ...modelLaptop }))
+    }
+    if (modelPrinter !== null) {
+      setPreloadedModelState((prev) => ({ ...prev, ...modelPrinter }))
+    }
+    if (modelMonitor !== null) {
+      setPreloadedModelState((prev) => ({ ...prev, ...modelMonitor }))
+    }
   }
-
+  
   return {
     preloadedModelState,
     isAddForm

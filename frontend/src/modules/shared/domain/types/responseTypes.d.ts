@@ -31,11 +31,15 @@ import { type OperatingSystemArqPrimitives } from '../../../devices/fetures/oper
 import { type OperatingSystemArqId } from '../../../devices/fetures/operatingSystem/operatingSystemArq/domain/OperatingSystemArqId'
 import { type ProcessorPrimitives } from '../../../devices/fetures/processor/domain/Processor'
 import { type ProcessorId } from '../../../devices/fetures/processor/domain/ProcessorId'
+import { InputTypePrimitives } from '../../../devices/model/InputType/domain/InputType'
 import { ModelPrimitives } from '../../../devices/model/model/domain/Model'
 import { type ModelId } from '../../../devices/model/model/domain/ModelId'
 import { type ModelName } from '../../../devices/model/model/domain/ModelName'
 import { ModelComputerPrimitives } from '../../../devices/model/ModelCharacteristics/modelComputer/ModelComputer'
+import { ModelKeyboardPrimitives } from '../../../devices/model/ModelCharacteristics/modelKeyboard/ModelKeyboard'
 import { ModelLaptopPrimitives } from '../../../devices/model/ModelCharacteristics/modelLaptop/ModelLaptop'
+import { ModelMonitorPrimitives } from '../../../devices/model/ModelCharacteristics/modelMonitor/ModelMonitor'
+import { ModelPrinterPrimitives } from '../../../devices/model/ModelCharacteristics/modelPrinter/ModelPrinter'
 import { type EmployeePrimitives } from '../../../employee/employee/domain/Employee'
 import { type EmployeeId } from '../../../employee/employee/domain/EmployeeId'
 import { type EmployeeUserName } from '../../../employee/employee/domain/UserName'
@@ -118,6 +122,7 @@ export interface ModelApiresponse extends ModelPrimitives {
   modelMonitor: ModelMonitor
   modelComputer: ModelComputer
   modelLaptop: ModelLaptop
+  modelkeyboard: ModelKeyboard
 }
 
 export interface ModelComputer extends ModelComputerPrimitives {
@@ -125,6 +130,12 @@ export interface ModelComputer extends ModelComputerPrimitives {
 }
 export interface ModelLaptop extends ModelLaptopPrimitives {
   memoryRamType: MemoryRamTypePrimitives
+}
+
+export interface ModelPrinter extends ModelPrinterPrimitives {}
+export interface ModelMonitor extends ModelMonitorPrimitives {}
+export interface ModelKeyboard extends ModelKeyboardPrimitives {
+  inputType: InputTypePrimitives
 }
 export interface ModelMappedApiResponse {
   id: Primitives<ModelId>
