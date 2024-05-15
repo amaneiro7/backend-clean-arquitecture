@@ -39,6 +39,8 @@ export default function ListadoModelos() {
     const navigate = useNavigate()
     const { inputData, updateInputData, clearInputs } = useInputsData()
 
+    console.log(models)
+
 
     const isComputer = useMemo(() => {
         return ModelComputer.isComputerCategory({ categoryId: inputData.categoryId })

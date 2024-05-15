@@ -21,7 +21,6 @@ export class ModelSeriesCreator {
   // Define the run method to create model series
   async run({ name, categoryId, brandId, ...otherParams }: ModelParams): Promise<void> {
     let modelSeries
-    console.log('ModelSeriesCreator', otherParams)
 
     // Create the model series based on the category
     if (ComputerModels.isComputerCategory({ categoryId })) { // Check if the category is a computer

@@ -3,7 +3,7 @@ import { InvalidArgumentError } from '../../../../Shared/domain/value-object/Inv
 import { Primitives } from '../../../../Shared/domain/value-object/Primitives'
 import { MonitorModels } from './MonitorModels'
 
-export class HasHDMI extends BooleanValueObject {
+export class MonitorHasVGA extends BooleanValueObject {
   constructor (readonly value: boolean) {
     super(value)
 
@@ -24,16 +24,16 @@ export class HasHDMI extends BooleanValueObject {
     return typeof value === 'boolean'
   }
 
-  static async updateDVIField(params: { hasHDMI: Primitives<HasHDMI>, entity: MonitorModels }): Promise<void> {
+  static async updateVGAField(params: { hasVGA: Primitives<MonitorHasVGA>, entity: MonitorModels }): Promise<void> {
     
-    if (params.hasHDMI === undefined) {
+    if (params.hasVGA === undefined) {
       return
     }
     
-    if (params.entity.hasHDMIValue === params.hasHDMI) {
+    if (params.entity.hasVGAValue === params.hasVGA) {
       return
     }
     
-    params.entity.updateHasHDMI(params.hasHDMI)
+    params.entity.updateHasVGA(params.hasVGA)
   }
 }

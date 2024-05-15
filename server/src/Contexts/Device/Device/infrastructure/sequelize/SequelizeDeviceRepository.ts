@@ -112,8 +112,6 @@ export class SequelizeDeviceRepository extends CriteriaToSequelizeConverter impl
       await this.models.DeviceComputer.create({ deviceId: id, ...payload }, { transaction })
     } else {
       await this.models.DeviceComputer.update({ ...payload }, { where: { id }, transaction })
-      // computer.set({ deviceId: id, ...payload })
-      // await computer.save({ transaction })
     }
   }
 

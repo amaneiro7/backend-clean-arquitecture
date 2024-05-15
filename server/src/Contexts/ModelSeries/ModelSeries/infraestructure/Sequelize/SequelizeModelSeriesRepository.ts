@@ -1,3 +1,4 @@
+import { Transaction } from 'sequelize'
 import { type CategoryId } from '../../../../Category/domain/CategoryId'
 import { Criteria } from '../../../../Shared/domain/criteria/Criteria'
 import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
@@ -13,6 +14,7 @@ import { type ModelSeriesId } from '../../domain/ModelSeriesId'
 import { type ModelSeriesRepository } from '../../domain/ModelSeriesRepository'
 import { ModelAssociation } from './ModelAssociation'
 import { ModelSeriesModel } from './ModelSeriesSchema'
+import { KeyboardModels } from '../../../ModelCharacteristics/Keyboards/domain/KeyboadModels'
 
 export class SequelizeModelSeriesRepository extends CriteriaToSequelizeConverter implements ModelSeriesRepository {
   private readonly models = sequelize.models as unknown as Models
@@ -60,47 +62,120 @@ export class SequelizeModelSeriesRepository extends CriteriaToSequelizeConverter
   }
 
   async save(payload: ModelSeriesPrimitives): Promise<void> {
-    const { id, name, categoryId, brandId } = payload
-    const model = await ModelSeriesModel.findByPk(id) ?? null
+    const t = await sequelize.transaction()
+    try {
+      const { id, name, categoryId, brandId } = payload
+      const model = await ModelSeriesModel.findByPk(id) ?? null
 
-    if (model === null) {
-      await ModelSeriesModel.create({ id, name, categoryId, brandId })
+      if (model === null) {
+        await ModelSeriesModel.create({ id, name, categoryId, brandId })
+      } else {
+        await ModelSeriesModel.update(
+          { name, categoryId, brandId },
+          {
+            where: { id },
+            transaction: t
+          }
+        )
+      }
+
+      if (ComputerModels.isComputerCategory({ categoryId })) {
+        await this.createModelComputerIfCategoryMatches(id, payload, t)
+      }
+
+      if (LaptopsModels.isLaptopCategory({ categoryId })) {
+        await this.createModelLaptopIfCategoryMatches(id, payload, t)
+      }
+
+      if (MonitorModels.isMonitorCategory({ categoryId })) {
+        await this.createModelMonitorIfCategoryMatches(id, payload, t)
+      }
+
+      if (ModelPrinters.isPrinterCategory({ categoryId })) {
+        await this.createModelPrinterIfCategoryMatches(id, payload, t)
+      }
+      if (KeyboardModels.isKeyboardCategory({ categoryId })) {
+        await this.createModelKeyboardIfCategoryMatches(id, payload, t)
+      }
+      await t.commit()
+    } catch (error: any) {
+      await t.rollback()
+      throw new Error(error)
+    }
+  }
+
+  private async createModelComputerIfCategoryMatches(id: Primitives<ModelSeriesId>, payload: ModelSeriesPrimitives, transaction: Transaction): Promise<void> {
+    const modelComputer = await this.models.ModelComputer.findByPk(id) ?? null
+    if (modelComputer === null) {
+      await this.models.ModelComputer.create({ modelSeriesId: id, ...payload })
     } else {
-      model.set({ id, name, categoryId, brandId })
-      await model.save()
-    }
-
-    if (ComputerModels.isComputerCategory({ categoryId })) {
-      await this.createModelComputerIfCategoryMatches(id, payload)
-    }
-
-    if (LaptopsModels.isLaptopCategory({ categoryId })) {
-      await this.createModelLaptopIfCategoryMatches(id, payload)
-    }
-
-    if (MonitorModels.isMonitorCategory({ categoryId })) {
-      await this.createModelMonitorIfCategoryMatches(id, payload)
-    }
-
-    if (ModelPrinters.isPrinterCategory({ categoryId })) {
-      await this.createModelPrinterIfCategoryMatches(id, payload)
+      await this.models.ModelComputer.update(
+        { ...payload },
+        {
+          where: { id },
+          transaction
+        }
+      )
     }
   }
 
-  private async createModelComputerIfCategoryMatches(id: Primitives<ModelSeriesId>, payload: ModelSeriesPrimitives): Promise<void> {
-    await this.models.ModelComputer.create({ modelSeriesId: id, ...payload })
+  private async createModelLaptopIfCategoryMatches(id: Primitives<ModelSeriesId>, payload: ModelSeriesPrimitives, transaction: Transaction): Promise<void> {
+    const modelLaptop = await this.models.ModelLaptop.findByPk(id) ?? null
+    if (modelLaptop === null) {
+      await this.models.ModelLaptop.create({ modelSeriesId: id, ...payload })
+    } else {
+      await this.models.ModelLaptop.update(
+        { ...payload },
+        {
+          where: { id },
+          transaction
+        }
+      )
+    }
   }
 
-  private async createModelLaptopIfCategoryMatches(id: Primitives<ModelSeriesId>, payload: ModelSeriesPrimitives): Promise<void> {
-    await this.models.ModelLaptop.create({ modelSeriesId: id, ...payload })
+  private async createModelMonitorIfCategoryMatches(id: Primitives<ModelSeriesId>, payload: ModelSeriesPrimitives, transaction: Transaction): Promise<void> {
+    const modelMonitor = await this.models.ModelMonitor.findByPk(id) ?? null
+    if (modelMonitor === null) {
+      await this.models.ModelMonitor.create({ modelSeriesId: id, ...payload })
+    } else {
+      await this.models.ModelMonitor.update(
+        { ...payload },
+        {
+          where: { id },
+          transaction
+        }
+      )
+    }
   }
 
-  private async createModelMonitorIfCategoryMatches(id: Primitives<ModelSeriesId>, payload: ModelSeriesPrimitives): Promise<void> {
-    await this.models.ModelMonitor.create({ modelSeriesId: id, ...payload })
+  private async createModelPrinterIfCategoryMatches(id: Primitives<ModelSeriesId>, payload: ModelSeriesPrimitives, transaction: Transaction): Promise<void> {
+    const modelPrinter = await this.models.ModelPrinter.findByPk(id) ?? null
+    if (modelPrinter === null) {
+      await this.models.ModelPrinter.create({ modelSeriesId: id, ...payload })
+    } else {
+      await this.models.ModelPrinter.update(
+        { ...payload },
+        {
+          where: { id },
+          transaction
+        }
+      )
+    }
   }
-
-  private async createModelPrinterIfCategoryMatches(id: Primitives<ModelSeriesId>, payload: ModelSeriesPrimitives): Promise<void> {
-    await this.models.ModelPrinter.create({ modelSeriesId: id, ...payload })
+  private async createModelKeyboardIfCategoryMatches(id: Primitives<ModelSeriesId>, payload: ModelSeriesPrimitives, transaction: Transaction): Promise<void> {
+    const modelKeyboard = await this.models.ModelKeyboard.findByPk(id) ?? null
+    if (modelKeyboard === null) {
+      await this.models.ModelKeyboard.create({ modelSeriesId: id, ...payload })
+    } else {
+      await this.models.ModelKeyboard.update(
+        { ...payload },
+        {
+          where: { id },
+          transaction
+        }
+      )
+    }
   }
 
   async remove(id: string): Promise<void> {

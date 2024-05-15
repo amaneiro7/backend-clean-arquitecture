@@ -4,9 +4,9 @@ import { type ModelSeriesId } from '../../../ModelSeries/domain/ModelSeriesId'
 import { type MonitorModelsPrimitives } from '../domain/MonitorModels'
 import { type MonitorScreenSize } from '../domain/MonitorScreenSize'
 import { type CategoryId } from '../../../../Category/domain/CategoryId'
-import { type HasDVI } from '../domain/HasDVI'
-import { type HasHDMI } from '../domain/HasHDMI'
-import { type HasVGA } from '../domain/HasVGA'
+import { type MonitorHasDVI } from '../domain/MonitorHasDVI'
+import { type MonitorHasHDMI } from '../domain/MonitorHasHDMI'
+import { type MonitorHasVGA } from '../domain/MonitorHasVGA'
 import { type Models } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
 import { CategoryValues } from '../../../../Category/domain/Category'
 
@@ -19,9 +19,9 @@ export class MonitorModelsModel extends Model<MonitorModelsCreationAttributes> i
   public modelSeriesId!: Primitives<ModelSeriesId>
   public categoryId!: Primitives<CategoryId>
   public screenSize!: Primitives<MonitorScreenSize>
-  public hasDVI!: Primitives<HasDVI>
-  public hasHDMI!: Primitives<HasHDMI>
-  public hasVGA!: Primitives<HasVGA>
+  public hasDVI!: Primitives<MonitorHasDVI>
+  public hasHDMI!: Primitives<MonitorHasHDMI>
+  public hasVGA!: Primitives<MonitorHasVGA>
 
   public static associate (models: Models): void {
     this.belongsTo(models.Model, { as: 'model', foreignKey: 'modelSeriesId' }) // A monitor model belongs to a model

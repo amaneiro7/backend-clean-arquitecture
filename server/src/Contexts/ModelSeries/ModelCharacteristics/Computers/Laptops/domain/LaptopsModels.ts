@@ -90,11 +90,11 @@ export class LaptopsModels extends ComputerModels {
       hasDVI: this.hasDVIValue,
       hasHDMI: this.hasHDMIValue,
       hasVGA: this.hasVGAValue,
-      batteryModel: this.BatteryModelValue
+      batteryModel: this.batteryModelValue
     }
   }
 
-  get BatteryModelValue (): Primitives<BatteryModelName> {
+  get batteryModelValue (): Primitives<BatteryModelName> {
     return this.batteryModel.value
   }
 

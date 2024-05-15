@@ -3,37 +3,37 @@ import { InvalidArgumentError } from '../../../../Shared/domain/value-object/Inv
 import { Primitives } from '../../../../Shared/domain/value-object/Primitives'
 import { MonitorModels } from './MonitorModels'
 
-export class HasVGA extends BooleanValueObject {
-  constructor (readonly value: boolean) {
+export class MonitorHasDVI extends BooleanValueObject {
+  constructor(readonly value: boolean) {
     super(value)
 
     this.ensureIsValid(value)
   }
 
-  toPrimitives (): boolean {
+  toPrimitives(): boolean {
     return this.value
   }
 
-  private ensureIsValid (value: boolean): void {
+  private ensureIsValid(value: boolean): void {
     if (!this.isValid(value)) {
       throw new InvalidArgumentError(`This <${value}> is not a valid type`)
     }
   }
 
-  private isValid (value: boolean): boolean {
+  private isValid(value: boolean): boolean {
     return typeof value === 'boolean'
   }
 
-  static async updateVGAField(params: { hasVGA: Primitives<HasVGA>, entity: MonitorModels }): Promise<void> {
+  static async updateDVIField(params: { hasDVI: Primitives<MonitorHasDVI>, entity: MonitorModels }): Promise<void> {
     
-    if (params.hasVGA === undefined) {
+    if (params.hasDVI === undefined) {
       return
     }
     
-    if (params.entity.hasVGAValue === params.hasVGA) {
+    if (params.entity.hasDVIValue === params.hasDVI) {
       return
     }
     
-    params.entity.updateHasVGA(params.hasVGA)
+    params.entity.updateHasDVI(params.hasDVI)
   }
 }

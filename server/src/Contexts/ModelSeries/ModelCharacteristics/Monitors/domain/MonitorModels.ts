@@ -5,16 +5,16 @@ import { type Primitives } from '../../../../Shared/domain/value-object/Primitiv
 import { ModelSeries, type ModelSeriesPrimitives } from '../../../ModelSeries/domain/ModelSeries'
 import { ModelSeriesId } from '../../../ModelSeries/domain/ModelSeriesId'
 import { ModelSeriesName } from '../../../ModelSeries/domain/ModelSeriesName'
-import { HasDVI } from './HasDVI'
-import { HasHDMI } from './HasHDMI'
-import { HasVGA } from './HasVGA'
+import { MonitorHasDVI } from './MonitorHasDVI'
+import { MonitorHasHDMI } from './MonitorHasHDMI'
+import { MonitorHasVGA } from './MonitorHasVGA'
 import { MonitorScreenSize } from './MonitorScreenSize'
 
 export interface MonitorModelsPrimitives extends ModelSeriesPrimitives {
   screenSize: Primitives<MonitorScreenSize>
-  hasDVI: Primitives<HasDVI>
-  hasHDMI: Primitives<HasHDMI>
-  hasVGA: Primitives<HasVGA>
+  hasDVI: Primitives<MonitorHasDVI>
+  hasHDMI: Primitives<MonitorHasHDMI>
+  hasVGA: Primitives<MonitorHasVGA>
 }
 export class MonitorModels extends ModelSeries {
   constructor (
@@ -23,9 +23,9 @@ export class MonitorModels extends ModelSeries {
     categoryId: CategoryId,
     brandId: BrandId,
     private screenSize: MonitorScreenSize,
-    private hasDVI: HasDVI,
-    private hasHDMI: HasHDMI,
-    private hasVGA: HasVGA
+    private hasDVI: MonitorHasDVI,
+    private hasHDMI: MonitorHasHDMI,
+    private hasVGA: MonitorHasVGA
   ) {
     super(id, name, categoryId, brandId)
   }
@@ -42,9 +42,9 @@ export class MonitorModels extends ModelSeries {
       new CategoryId(params.categoryId),
       new BrandId(params.brandId),
       new MonitorScreenSize(params.screenSize),
-      new HasDVI(params.hasDVI),
-      new HasHDMI(params.hasHDMI),
-      new HasVGA(params.hasVGA)
+      new MonitorHasDVI(params.hasDVI),
+      new MonitorHasHDMI(params.hasHDMI),
+      new MonitorHasVGA(params.hasVGA)
     )
   }
 
@@ -60,9 +60,9 @@ export class MonitorModels extends ModelSeries {
       new CategoryId(primitives.categoryId),
       new BrandId(primitives.brandId),
       new MonitorScreenSize(primitives.screenSize),
-      new HasDVI(primitives.hasDVI),
-      new HasHDMI(primitives.hasHDMI),
-      new HasVGA(primitives.hasVGA)
+      new MonitorHasDVI(primitives.hasDVI),
+      new MonitorHasHDMI(primitives.hasHDMI),
+      new MonitorHasVGA(primitives.hasVGA)
     )
   }
 
@@ -83,28 +83,28 @@ export class MonitorModels extends ModelSeries {
     return this.screenSize.value
   }
 
-  get hasDVIValue (): Primitives<HasDVI> {
+  get hasDVIValue (): Primitives<MonitorHasDVI> {
     return this.hasDVI.value
   }
 
-  get hasHDMIValue (): Primitives<HasHDMI> {
+  get hasHDMIValue (): Primitives<MonitorHasHDMI> {
     return this.hasHDMI.value
   }
 
-  get hasVGAValue (): Primitives<HasVGA> {
+  get hasVGAValue (): Primitives<MonitorHasVGA> {
     return this.hasVGA.value
   }
 
   updateScreenSize (newValue: Primitives<MonitorScreenSize>): void {
     this.screenSize = new MonitorScreenSize(newValue)
   }
-  updateHasDVI (newValue: Primitives<HasDVI>): void {
-    this.hasDVI = new HasDVI(newValue)
+  updateHasDVI (newValue: Primitives<MonitorHasDVI>): void {
+    this.hasDVI = new MonitorHasDVI(newValue)
   }
-  updateHasHDMI (newValue: Primitives<HasHDMI>): void {
-    this.hasHDMI = new HasHDMI(newValue)
+  updateHasHDMI (newValue: Primitives<MonitorHasHDMI>): void {
+    this.hasHDMI = new MonitorHasHDMI(newValue)
   }
-  updateHasVGA (newValue: Primitives<HasVGA>): void {
-    this.hasVGA = new HasVGA(newValue)
+  updateHasVGA (newValue: Primitives<MonitorHasVGA>): void {
+    this.hasVGA = new MonitorHasVGA(newValue)
   }
 }

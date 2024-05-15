@@ -28,7 +28,7 @@ export class CartridgeModel extends StringValueObject {
     return name.length >= this.NAME_MIN_LENGTH && name.length <= this.NAME_MAX_LENGTH
   }
 
-  static async updateDVIField(params: { cartridgeModel: Primitives<CartridgeModel>, entity: ModelPrinters }): Promise<void> {
+  static async updateCartridgeModelField(params: { cartridgeModel: Primitives<CartridgeModel>, entity: ModelPrinters }): Promise<void> {
     
     if (params.cartridgeModel === undefined) {
       return
