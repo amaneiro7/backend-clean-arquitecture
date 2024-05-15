@@ -22,10 +22,10 @@ export class MonitorModels extends ModelSeries {
     name: ModelSeriesName,
     categoryId: CategoryId,
     brandId: BrandId,
-    private readonly screenSize: MonitorScreenSize,
-    private readonly hasDVI: HasDVI,
-    private readonly hasHDMI: HasHDMI,
-    private readonly hasVGA: HasVGA
+    private screenSize: MonitorScreenSize,
+    private hasDVI: HasDVI,
+    private hasHDMI: HasHDMI,
+    private hasVGA: HasVGA
   ) {
     super(id, name, categoryId, brandId)
   }
@@ -93,5 +93,18 @@ export class MonitorModels extends ModelSeries {
 
   get hasVGAValue (): Primitives<HasVGA> {
     return this.hasVGA.value
+  }
+
+  updateScreenSize (newValue: Primitives<MonitorScreenSize>): void {
+    this.screenSize = new MonitorScreenSize(newValue)
+  }
+  updateHasDVI (newValue: Primitives<HasDVI>): void {
+    this.hasDVI = new HasDVI(newValue)
+  }
+  updateHasHDMI (newValue: Primitives<HasHDMI>): void {
+    this.hasHDMI = new HasHDMI(newValue)
+  }
+  updateHasVGA (newValue: Primitives<HasVGA>): void {
+    this.hasVGA = new HasVGA(newValue)
   }
 }

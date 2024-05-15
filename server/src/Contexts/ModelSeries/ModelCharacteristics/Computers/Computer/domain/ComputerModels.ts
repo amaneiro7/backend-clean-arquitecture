@@ -14,7 +14,7 @@ import { HasVGA } from './HasVGA'
 import { HasWifiAdapter } from './HasWifiAdapter'
 import { MemoryRamSlotQuantity } from './MemoryRamSlotQuantity'
 
-export interface ComputerModelsPrimitives extends ModelSeriesPrimitives {  
+export interface ComputerModelsPrimitives extends ModelSeriesPrimitives {
   memoryRamTypeId: Primitives<MemoryRamTypeId>
   memoryRamSlotQuantity: Primitives<MemoryRamSlotQuantity>
   hasBluetooth: Primitives<HasBluetooth>
@@ -25,56 +25,45 @@ export interface ComputerModelsPrimitives extends ModelSeriesPrimitives {
 }
 
 export class ComputerModels extends ModelSeries {
-  constructor (
+  constructor(
     id: ModelSeriesId,
     name: ModelSeriesName,
     categoryId: CategoryId,
     brandId: BrandId,
-    private readonly memoryRamTypeId: MemoryRamTypeId,
-    private readonly memoryRamSlotQuantity: MemoryRamSlotQuantity,
-    private readonly hasBluetooth: HasBluetooth,
-    private readonly hasWifiAdapter: HasWifiAdapter,
-    private readonly hasDVI: HasDVI,
-    private readonly hasHDMI: HasHDMI,
-    private readonly hasVGA: HasVGA
+    private memoryRamTypeId: MemoryRamTypeId,
+    private memoryRamSlotQuantity: MemoryRamSlotQuantity,
+    private hasBluetooth: HasBluetooth,
+    private hasWifiAdapter: HasWifiAdapter,
+    private hasDVI: HasDVI,
+    private hasHDMI: HasHDMI,
+    private hasVGA: HasVGA
   ) {
     super(id, name, categoryId, brandId)
   }
 
-  static create ({
-    name,
-    categoryId,
-    brandId,
-    memoryRamTypeId,
-    memoryRamSlotQuantity,
-    hasBluetooth,
-    hasWifiAdapter,
-    hasDVI,
-    hasHDMI,
-    hasVGA
-  }: Omit<ComputerModelsPrimitives, 'id'>): ComputerModels {
+  static create(params: Omit<ComputerModelsPrimitives, 'id'>): ComputerModels {
     const id = ModelSeriesId.random().toString()
     return new ComputerModels(
       new ModelSeriesId(id),
-      new ModelSeriesName(name),
-      new CategoryId(categoryId),
-      new BrandId(brandId),
-      new MemoryRamTypeId(memoryRamTypeId),
-      new MemoryRamSlotQuantity(memoryRamSlotQuantity),
-      new HasBluetooth(hasBluetooth),
-      new HasWifiAdapter(hasWifiAdapter),
-      new HasDVI(hasDVI),
-      new HasHDMI(hasHDMI),
-      new HasVGA(hasVGA)
+      new ModelSeriesName(params.name),
+      new CategoryId(params.categoryId),
+      new BrandId(params.brandId),
+      new MemoryRamTypeId(params.memoryRamTypeId),
+      new MemoryRamSlotQuantity(params.memoryRamSlotQuantity),
+      new HasBluetooth(params.hasBluetooth),
+      new HasWifiAdapter(params.hasWifiAdapter),
+      new HasDVI(params.hasDVI),
+      new HasHDMI(params.hasHDMI),
+      new HasVGA(params.hasVGA)
     )
   }
 
-  public static isComputerCategory ({ categoryId }: { categoryId: Primitives<CategoryId> }): boolean {
+  public static isComputerCategory({ categoryId }: { categoryId: Primitives<CategoryId> }): boolean {
     const AcceptedComputerCategories: CategoryValues[] = ['Computadoras', 'All in One', 'Servidores']
     return AcceptedComputerCategories.includes(CategoryDefaultData[categoryId])
   }
 
-  static fromPrimitives (primitives: ComputerModelsPrimitives): ComputerModels {
+  static fromPrimitives(primitives: ComputerModelsPrimitives): ComputerModels {
     return new ComputerModels(
       new ModelSeriesId(primitives.id),
       new ModelSeriesName(primitives.name),
@@ -90,7 +79,7 @@ export class ComputerModels extends ModelSeries {
     )
   }
 
-  toPrimitives (): ComputerModelsPrimitives {
+  toPrimitives(): ComputerModelsPrimitives {
     return {
       id: this.idValue,
       name: this.nameValue,
@@ -106,31 +95,61 @@ export class ComputerModels extends ModelSeries {
     }
   }
 
-  get memoryRamTypeValue (): Primitives<MemoryRamTypeId> {
+  get memoryRamTypeValue(): Primitives<MemoryRamTypeId> {
     return this.memoryRamTypeId.value
   }
 
-  get memoryRamSlotQuantityValue (): Primitives<MemoryRamSlotQuantity> {
+  get memoryRamSlotQuantityValue(): Primitives<MemoryRamSlotQuantity> {
     return this.memoryRamSlotQuantity.value
   }
 
-  get hasBluetoothValue (): Primitives<HasBluetooth> {
+  get hasBluetoothValue(): Primitives<HasBluetooth> {
     return this.hasBluetooth.value
   }
 
-  get hasWifiAdapterValue (): Primitives<HasWifiAdapter> {
+  get hasWifiAdapterValue(): Primitives<HasWifiAdapter> {
     return this.hasWifiAdapter.value
   }
 
-  get hasDVIValue (): Primitives<HasDVI> {
+  get hasDVIValue(): Primitives<HasDVI> {
     return this.hasDVI.value
   }
 
-  get hasHDMIValue (): Primitives<HasHDMI> {
+  get hasHDMIValue(): Primitives<HasHDMI> {
     return this.hasHDMI.value
   }
 
-  get hasVGAValue (): Primitives<HasVGA> {
+  get hasVGAValue(): Primitives<HasVGA> {
     return this.hasVGA.value
   }
+
+  updateMemoryRamTypeId(memoryRamTypeId: Primitives<MemoryRamTypeId>): void {
+    this.memoryRamTypeId = new MemoryRamTypeId(memoryRamTypeId)
+  }
+
+  updateMemoryRamSlotQuantity(memoryRamSlotQuantity: Primitives<MemoryRamSlotQuantity>): void {
+    this.memoryRamSlotQuantity = new MemoryRamSlotQuantity(memoryRamSlotQuantity)
+  }
+
+  updateHasBluetooth(hasBluetooth: Primitives<HasBluetooth>): void {
+    this.hasBluetooth = new HasBluetooth(hasBluetooth)
+  }
+
+  updateHasWifiAdapter(hasWifiAdapter: Primitives<HasWifiAdapter>): void {
+    this.hasWifiAdapter = new HasWifiAdapter(hasWifiAdapter)
+  }
+
+  updateHasDVI(hasDVI: Primitives<HasDVI>): void {
+    this.hasDVI = new HasDVI(hasDVI)
+  }
+
+  updateHasHDMI(hasHDMI: Primitives<HasHDMI>): void {
+    this.hasHDMI = new HasHDMI(hasHDMI)
+  }
+
+  updateHasVGA(hasVGA: Primitives<HasVGA>): void {
+    this.hasVGA = new HasVGA(hasVGA)
+  }
+
+
 }

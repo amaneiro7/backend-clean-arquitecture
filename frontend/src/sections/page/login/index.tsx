@@ -1,10 +1,11 @@
 import { lazy, Suspense, useEffect, useLayoutEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { FormStatus, useLoginForm } from './useLoginForm'
 import { useGenericFormData } from '../../Hooks/useGenericFormData'
 import { ToasterComponent } from '../../utils/toaster'
 import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoading'
 import { UserPrimitives } from '../../../modules/user/user/domain/User'
+import { FormStatus, useGenericForm } from '../../Hooks/useGenericForm'
+import { useAppContext } from '../../Context/AppContext'
 
 const Logo = lazy(async () => await import('../../components/Logo'))
 const EmailInput = lazy(async () => await import('./EmailInput').then(m => ({ default: m.EmailInput })))
@@ -16,11 +17,13 @@ const Checkbox = lazy(async () => await import('../../components/checkbox').then
 
 
 export default function Login({ user }: { user: UserPrimitives | null }) {
+  const { useAuth: { getLogin } } = useAppContext()
   const { formData, updateForm, resetForm } = useGenericFormData({
     email: '',
     password: ''
   })
-  const { formStatus, resetFormStatus, submitForm } = useLoginForm()
+  //const { formStatus, resetFormStatus, submitForm } = useLoginForm()
+  const { formStatus, resetFormStatus, submitForm } = useGenericForm({ create: getLogin })
   const navigate = useNavigate()
   const location = useLocation()
   const [remember, setRemember] = useState<boolean>(false)

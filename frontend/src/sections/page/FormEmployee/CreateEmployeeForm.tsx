@@ -3,8 +3,8 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { useEmployee } from '../../Hooks/employee/useEmployee'
 import { useEmployeeInitialState } from '../../Hooks/employee/EmployeeFormInitialState'
 import { useGenericFormData } from '../../Hooks/useGenericFormData'
-import { FormStatus, useEmployeeForm } from '../../Hooks/employee/useEmployeeForm'
 import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoading'
+import { FormStatus, useGenericForm } from '../../Hooks/useGenericForm'
 
 const Main = lazy(async () => import('../../components/Main'))
 const InfoBox = lazy(async () => import('../../components/info-box/InfoBox').then(m => ({ default: m.InfoBox })))
@@ -20,7 +20,7 @@ export default function CreateEmployeeForm() {
   const { createEmployee } = useEmployee()
   const { preloadedEmployeeState } = useEmployeeInitialState()
   const { formData, resetForm, updateForm } = useGenericFormData(preloadedEmployeeState)
-  const { formStatus, resetFormStatus, submitForm } = useEmployeeForm({ createEmployee })
+  const { formStatus, resetFormStatus, submitForm } = useGenericForm({ create: createEmployee })
 
   useEffect(() => {
     updateForm(preloadedEmployeeState)

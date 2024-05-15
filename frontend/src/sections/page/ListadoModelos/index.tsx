@@ -56,7 +56,6 @@ export default function ListadoModelos() {
         return ModelKeyboard.isKeyboardCategory({ categoryId: inputData.categoryId })
     }, [inputData.categoryId])
 
-    console.log((!isComputer || !isLaptop || !isMonitor || !isPrinter))
     const debounceGetLocations = useCallback(
         debounce((query: SearchByCriteriaQuery) => {
             addFilter(query)
@@ -177,7 +176,7 @@ export default function ListadoModelos() {
                                     {!(isComputer || isLaptop || isPrinter || isKeyboard) && <TableCell value={model?.modelMonitor ? `${model?.modelMonitor.screenSize} pulgadas` : ''} />}
                                     {!(isComputer || isLaptop || isMonitor || isKeyboard) && <TableCell value={model?.modelPrinter?.cartridgeModel} />}
                                     {!(isComputer || isLaptop || isMonitor || isPrinter) && <TableCell value={model?.modelKeyboard?.inputType?.name} />}
-                                    {!(isComputer || isLaptop || isMonitor || isPrinter) && <TableCell value={model?.modelKeyboard ? (model?.modelKeyboard?.hasFingerPrinteReader ? 'Si' : 'No') : ''} />}
+                                    {!(isComputer || isLaptop || isMonitor || isPrinter) && <TableCell value={model?.modelKeyboard ? (model?.modelKeyboard?.hasFingerPrintReader ? 'Si' : 'No') : ''} />}
                                 </TableRow>
                             ))}
                         </TableBody>

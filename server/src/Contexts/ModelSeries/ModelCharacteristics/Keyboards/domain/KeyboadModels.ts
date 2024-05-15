@@ -2,14 +2,14 @@ import { BrandId } from '../../../../Brand/domain/BrandId'
 import { CategoryDefaultData, type CategoryValues } from '../../../../Category/domain/CategoryDefaultData'
 import { CategoryId } from '../../../../Category/domain/CategoryId'
 import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
-import { InputTypeId } from '../../../InputType/domain/InputTypeId'
 import { ModelSeries, type ModelSeriesPrimitives } from '../../../ModelSeries/domain/ModelSeries'
 import { ModelSeriesId } from '../../../ModelSeries/domain/ModelSeriesId'
 import { ModelSeriesName } from '../../../ModelSeries/domain/ModelSeriesName'
 import { HasFingerPrintReader } from './HasFingerPrintReader'
+import { ModelKeyboardInputType } from './ModelKeyboardInputType'
 
 export interface KeyboardModelsPrimitives extends ModelSeriesPrimitives {
-  inputTypeId: Primitives<InputTypeId>
+  inputTypeId: Primitives<ModelKeyboardInputType>
   hasFingerPrintReader: Primitives<HasFingerPrintReader>
 }
 export class KeyboardModels extends ModelSeries {
@@ -18,8 +18,8 @@ export class KeyboardModels extends ModelSeries {
     name: ModelSeriesName,
     categoryId: CategoryId,
     brandId: BrandId,
-    private readonly InputTypeId: InputTypeId,
-    private readonly hasFingerPrintReader: HasFingerPrintReader
+    private InputTypeId: ModelKeyboardInputType,
+    private hasFingerPrintReader: HasFingerPrintReader
   ) {
     super(id, name, categoryId, brandId)
   }
@@ -31,7 +31,7 @@ export class KeyboardModels extends ModelSeries {
       new ModelSeriesName(params.name),
       new CategoryId(params.categoryId),
       new BrandId(params.brandId),
-      new InputTypeId(params.inputTypeId),
+      new ModelKeyboardInputType(params.inputTypeId),
       new HasFingerPrintReader(params.hasFingerPrintReader)
     )
   }
@@ -47,7 +47,7 @@ export class KeyboardModels extends ModelSeries {
       new ModelSeriesName(primitives.name),
       new CategoryId(primitives.categoryId),
       new BrandId(primitives.brandId),
-      new InputTypeId(primitives.inputTypeId),
+      new ModelKeyboardInputType(primitives.inputTypeId),
       new HasFingerPrintReader(primitives.hasFingerPrintReader),
     )
   }
@@ -63,10 +63,17 @@ export class KeyboardModels extends ModelSeries {
     }
   }
 
-  get inputTypeValue (): Primitives<InputTypeId> {
+  get inputTypeValue (): Primitives<ModelKeyboardInputType> {
     return this.InputTypeId.value
   }
   get hasFingerPrintReaderValue (): Primitives<HasFingerPrintReader> {
     return this.hasFingerPrintReader.value
+  }
+
+  updateHasFingerPrintReader (newValue: Primitives<HasFingerPrintReader>): void {
+    this.hasFingerPrintReader = new HasFingerPrintReader(newValue)
+  }
+  updateInputType (newValue: Primitives<ModelKeyboardInputType>): void {
+    this.InputTypeId = new ModelKeyboardInputType(newValue)
   }
 }

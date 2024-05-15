@@ -1,5 +1,7 @@
 import { BooleanValueObject } from '../../../../../Shared/domain/value-object/BooleanValueObject'
 import { InvalidArgumentError } from '../../../../../Shared/domain/value-object/InvalidArgumentError'
+import { Primitives } from '../../../../../Shared/domain/value-object/Primitives'
+import { ComputerModels } from './ComputerModels'
 
 export class HasVGA extends BooleanValueObject {
   constructor (readonly value: boolean) {
@@ -20,5 +22,18 @@ export class HasVGA extends BooleanValueObject {
 
   private isValid (value: boolean): boolean {
     return typeof value === 'boolean'
+  }
+
+  static async updateVGAField(params: { hasVGA: Primitives<HasVGA>, entity: ComputerModels }): Promise<void> {
+    
+    if (params.hasVGA === undefined) {
+      return
+    }
+    
+    if (params.entity.hasVGAValue === params.hasVGA) {
+      return
+    }
+    
+    params.entity.updateHasVGA(params.hasVGA)
   }
 }

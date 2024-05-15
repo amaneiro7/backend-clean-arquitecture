@@ -18,7 +18,7 @@ const CreateEmployeeForm = lazy(async () => await import('../page/FormEmployee/C
 const CreateDeviceForm = lazy(async () => await import('../page/FormDevice/CreateDeviceForm.tsx'))
 const CreateBrandForm = lazy(async () => await import('../page/FormBrand/CreateBrandForm.tsx'))
 const CreateModelForm = lazy(async () => await import('../page/FormModel/CreateModelForm.tsx'))
-const CreateProcessorForm = lazy(async () => await import('../Hooks/processor/CreateProcessorForm.tsx'))
+const CreateProcessorForm = lazy(async () => await import('../page/FormProcessor/CreateProcessorForm.tsx'))
 const Login = lazy(async () => await import('../page/login/index.tsx'))
 const NotFound = lazy(async () => await import('../page/404/index.tsx'))
 const Layout = lazy(async () => await import('../components/Layout.tsx'))

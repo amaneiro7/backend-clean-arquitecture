@@ -1,11 +1,12 @@
-import { lazy, Suspense, useMemo, useState } from "react";
-import { OnHandleChange } from "../../../modules/shared/domain/types/types";
-import { Primitives } from "../../../modules/shared/domain/value-object/Primitives";
-import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators";
-import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading";
-import { ProcessorId } from "../../../modules/devices/fetures/processor/domain/ProcessorId";
-import { useProcessor } from "../../Hooks/processor/useProcessor";
-import { ProcessorPrimitives } from "../../../modules/devices/fetures/processor/domain/Processor";
+import { lazy, Suspense, useMemo, useState } from "react"
+import { OnHandleChange } from "../../../modules/shared/domain/types/types"
+import { Primitives } from "../../../modules/shared/domain/value-object/Primitives"
+import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
+import { ProcessorId } from "../../../modules/devices/fetures/processor/domain/ProcessorId"
+import { useProcessor } from "../../Hooks/processor/useProcessor"
+import { ProcessorPrimitives } from "../../../modules/devices/fetures/processor/domain/Processor"
+import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
+import { defaultInitialProcessorState } from "../../Hooks/processor/ProcessorFormInitialState"
 
 interface Props {
     value?: Primitives<ProcessorId>
@@ -13,19 +14,13 @@ interface Props {
     type?: 'form' | 'search'
 }
 
-const ComboBox = lazy(async () => import("./combo_box"));
-const ProcessorDialog = lazy(async () => import("../Dialog/ProcessorDialog"));
+const ComboBox = lazy(async () => import("./combo_box"))
+const ProcessorDialog = lazy(async () => import("../Dialog/ProcessorDialog"))
 
 export default function ProcessorComboBox({ value, onChange, type = 'search' }: Props) {
-    const { processors, loading } = useProcessor()
+    const { processors, createProcessor, loading } = useProcessor()
     const [open, toggleOpen] = useState(false)
-    const [dialogValue, setDialogValue] = useState<ProcessorPrimitives>({
-        productCollection: '',
-        numberModel: '',
-        cores: 1,
-        frequency: 1,
-        threads: false
-    });
+    const [dialogValue, setDialogValue] = useState<ProcessorPrimitives>(defaultInitialProcessorState)
 
     const initialValue = useMemo(() => {
         return processors.find(processor => processor.id === value)
@@ -55,11 +50,11 @@ export default function ProcessorComboBox({ value, onChange, type = 'search' }: 
                             }))
                         })
                     } else if (newValue && newValue.inputValue) {
-                        toggleOpen(true);
+                        toggleOpen(true)
                         setDialogValue(prev => ({
                             ...prev,
                             numberModel: newValue.inputValue
-                        }));
+                        }))
                     } else {
                         onChange('processorId', newValue ? newValue.id : '', Operator.EQUAL)
                     }
@@ -72,7 +67,12 @@ export default function ProcessorComboBox({ value, onChange, type = 'search' }: 
             >
                 {type === 'form' && (
                     <Suspense>
-                        <ProcessorDialog dialogValue={dialogValue} open={open} toggleOpen={toggleOpen} />
+                        <ProcessorDialog
+                            dialogValue={dialogValue}
+                            open={open}
+                            toggleOpen={toggleOpen}
+                            createProcessor={createProcessor}
+                        />
                     </Suspense>
                 )}
             </ComboBox>

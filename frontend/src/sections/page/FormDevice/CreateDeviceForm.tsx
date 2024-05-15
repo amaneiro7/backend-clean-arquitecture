@@ -1,9 +1,10 @@
 import { type FormEvent, useEffect, lazy, Suspense, useLayoutEffect } from 'react'
 import { useLocation } from 'react-router-dom'
-import { useDeviceForm, FormStatus } from '../../Hooks/device/useDeviceForm'
 import { useDeviceInitialState } from '../../Hooks/device/DeviceFormInitialState'
 import { useGenericFormData } from '../../Hooks/useGenericFormData'
 import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoading'
+import { FormStatus, useGenericForm } from '../../Hooks/useGenericForm'
+import { useDevice } from '../../Hooks/device/useDevice'
 
 const Main = lazy(async () => import('../../components/Main'))
 const FormContainer = lazy(async () => await import('../../components/formContainer'))
@@ -21,9 +22,10 @@ const DeviceFeatures = lazy(async () => await import('./DeviceFeatures'))
 
 export default function CreateDeviceForm() {
   const location = useLocation()
+  const { createDevice } = useDevice()
   const { preloadedDeviceState, setResetState, isAddForm } = useDeviceInitialState()
   const { formData, updateForm, resetForm } = useGenericFormData(preloadedDeviceState)
-  const { formStatus, submitForm, resetFormStatus } = useDeviceForm()
+  const { formStatus, submitForm, resetFormStatus } = useGenericForm({ create: createDevice })
 
   useEffect(() => {
     updateForm(preloadedDeviceState)

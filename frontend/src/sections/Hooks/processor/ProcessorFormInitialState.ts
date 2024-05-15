@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useProcessor } from './useProcessor'
 import { ProcessorPrimitives } from '../../../modules/devices/fetures/processor/domain/Processor'
 
-const defaultInitialState: ProcessorPrimitives = {
+export const defaultInitialProcessorState: ProcessorPrimitives = {
+  id: undefined,
   name: '',
   cores: 1,
   frequency: 1,
@@ -16,11 +17,15 @@ export const useProcessorInitialState = () => {
   const location = useLocation()
   const navigate = useNavigate()
   const { getProcessor } = useProcessor()
-  const [preloadedProcessorState, setPreloadedProcessorState] = useState(defaultInitialState)
+  const [preloadedProcessorState, setPreloadedProcessorState] = useState(defaultInitialProcessorState)
+
+  const isAddForm = useMemo(() => {
+    return location.pathname.includes('add')
+  }, [location.pathname])
 
   useEffect(() => {
     if (location.pathname.includes('add')) {
-      setPreloadedProcessorState(defaultInitialState)
+      setPreloadedProcessorState(defaultInitialProcessorState)
       return
     }
 
@@ -45,6 +50,6 @@ export const useProcessorInitialState = () => {
 
   return {
     preloadedProcessorState,
-    id
+    isAddForm
   }
 }

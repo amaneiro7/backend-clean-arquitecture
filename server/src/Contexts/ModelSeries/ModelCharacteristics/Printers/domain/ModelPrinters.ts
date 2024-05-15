@@ -16,7 +16,7 @@ export class ModelPrinters extends ModelSeries {
     name: ModelSeriesName,
     categoryId: CategoryId,
     brandId: BrandId,
-    private readonly cartridgeModel: CartridgeModel
+    private cartridgeModel: CartridgeModel
   ) {
     super(id, name, categoryId, brandId)
   }
@@ -62,5 +62,9 @@ export class ModelPrinters extends ModelSeries {
 
   get cartridgeModelValue (): Primitives<CartridgeModel> {
     return this.cartridgeModel.value
+  }
+
+  updateCartridgeModel (newValue: Primitives<CartridgeModel>): void {
+    this.cartridgeModel = new CartridgeModel(newValue)
   }
 }

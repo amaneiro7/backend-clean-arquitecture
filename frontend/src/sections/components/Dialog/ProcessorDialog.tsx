@@ -2,12 +2,14 @@ import { lazy, Suspense, useEffect } from "react";
 import { useGenericFormData } from "../../Hooks/useGenericFormData"
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
 import { ProcessorPrimitives } from "../../../modules/devices/fetures/processor/domain/Processor"
-import { useProcessorForm, FormStatus } from "../../Hooks/processor/useProcessorForm"
+import { FormStatus, useGenericForm } from "../../Hooks/useGenericForm";
+
 
 interface Props {
     dialogValue: ProcessorPrimitives
     open: boolean,
     toggleOpen: React.Dispatch<React.SetStateAction<boolean>>
+    createProcessor: (formData: ProcessorPrimitives) => Promise<void> 
 }
 
 const DialogAdd = lazy(async () => import("./dialog"))
@@ -17,9 +19,9 @@ const ProcessorFrequencyInput = lazy(async () => import("../number-inputs/Proces
 const ProcessorThreadsCheckbox = lazy(async () => import("../checkbox/ProcessorThreadsCheckbox"))
 const ProcessorCollectionComboBox = lazy(async () => import("../combo_box/ProductCollectionComboBox"))
 
-export default function ProcessorDialog({ dialogValue, open, toggleOpen }: Props) {
+export default function ProcessorDialog({ dialogValue, open, toggleOpen, createProcessor }: Props) {
     const { formData, resetForm, updateForm } = useGenericFormData(dialogValue)
-    const { formStatus, resetFormStatus, submitForm } = useProcessorForm()
+    const { formStatus, resetFormStatus, submitForm } = useGenericForm({create: createProcessor})
 
     useEffect(() => {
         updateForm(dialogValue)

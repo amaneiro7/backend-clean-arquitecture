@@ -1,5 +1,7 @@
 import { BooleanValueObject } from '../../../../../Shared/domain/value-object/BooleanValueObject'
 import { InvalidArgumentError } from '../../../../../Shared/domain/value-object/InvalidArgumentError'
+import { Primitives } from '../../../../../Shared/domain/value-object/Primitives'
+import { ComputerModels } from './ComputerModels'
 
 export class HasDVI extends BooleanValueObject {
   constructor (readonly value: boolean) {
@@ -20,5 +22,18 @@ export class HasDVI extends BooleanValueObject {
 
   private isValid (value: boolean): boolean {
     return typeof value === 'boolean'
+  }
+
+  static async updateDVIField(params: { hasDVI: Primitives<HasDVI>, entity: ComputerModels }): Promise<void> {
+    
+    if (params.hasDVI === undefined) {
+      return
+    }
+    
+    if (params.entity.hasDVIValue === params.hasDVI) {
+      return
+    }
+    
+    params.entity.updateHasDVI(params.hasDVI)
   }
 }

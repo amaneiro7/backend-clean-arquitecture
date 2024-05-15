@@ -1,9 +1,9 @@
 import { type FormEvent, lazy, Suspense, useEffect } from 'react'
-import { useGenericFormData } from '../useGenericFormData'
-import { useProcessorInitialState } from './ProcessorFormInitialState'
+import { useGenericFormData } from '../../Hooks/useGenericFormData'
+import { useProcessorInitialState } from '../../Hooks/processor/ProcessorFormInitialState'
 import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoading'
-import { useProcessor } from './useProcessor'
-import { useGenericForm, FormStatus } from '../useGenericForm'
+import { useProcessor } from '../../Hooks/processor/useProcessor'
+import { useGenericForm, FormStatus } from '../../Hooks/useGenericForm'
 
 const Main = lazy(async () => import('../../components/Main'))
 const FormContainer = lazy(async () => import('../../components/formContainer'))

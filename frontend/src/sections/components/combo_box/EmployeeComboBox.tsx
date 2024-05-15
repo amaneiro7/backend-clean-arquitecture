@@ -1,13 +1,12 @@
-import { Suspense, useLayoutEffect, useMemo, useState } from "react"
+import { lazy, Suspense, useLayoutEffect, useMemo, useState } from "react"
 import { DeviceEmployee } from "../../../modules/devices/devices/devices/domain/DeviceEmployee"
 import { StatusId } from "../../../modules/devices/devices/status/domain/StatusId"
 import { OnHandleChange } from "../../../modules/shared/domain/types/types"
 import { Primitives } from "../../../modules/shared/domain/value-object/Primitives"
-import ComboBox from "./combo_box"
 import { useEmployee } from "../../Hooks/employee/useEmployee"
 import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
-import EmployeeDialog from "../Dialog/EmployeeDialog"
 import { EmployeePrimitives } from "../../../modules/employee/employee/domain/Employee"
+import { defaultInitialEmployeeState } from "../../Hooks/employee/EmployeeFormInitialState"
 
 interface Props {
   value: Primitives<DeviceEmployee>
@@ -17,6 +16,8 @@ interface Props {
   type?: 'form' | 'search'
 }
 
+const EmployeeDialog = lazy(async () => import("../Dialog/EmployeeDialog"))
+const ComboBox = lazy(async () => import("./combo_box"))
 export default function EmployeeComboBox({ value, name, onChange, status, type = 'search' }: Props) {
   const { employees, loading, createEmployee } = useEmployee()
   const employeeOptions = useMemo(() => (
@@ -31,7 +32,7 @@ export default function EmployeeComboBox({ value, name, onChange, status, type =
   const [isError, setIsError] = useState(false)
   const [isDisabled, setIsDisabled] = useState(false)
   const [open, toggleOpen] = useState(false)
-  const [dialogValue, setDialogValue] = useState<EmployeePrimitives>({ userName: '' })
+  const [dialogValue, setDialogValue] = useState<EmployeePrimitives>(defaultInitialEmployeeState)
 
   useLayoutEffect(() => {
     if (type !== 'form') return

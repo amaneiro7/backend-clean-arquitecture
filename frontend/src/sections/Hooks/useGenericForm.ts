@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { toastMessage } from '../utils/toaster'
 
-
 export const enum FormStatus {
     Loading,
     Success,
@@ -23,7 +22,7 @@ export function useGenericForm<T>({ create }: { create: (formData: T) => Promise
         try {
             await create(formData)
             setFormStatus(FormStatus.Success)
-            toastMessage({ type: 'success', message: 'Marca Creada exitosamente' })
+            toastMessage({ type: 'success', message: 'Creado exitosamente' })
         } catch (error) {
             setFormStatus(FormStatus.Error)
             toastMessage({ type: 'error', message: 'Ha ocurrido un error' })

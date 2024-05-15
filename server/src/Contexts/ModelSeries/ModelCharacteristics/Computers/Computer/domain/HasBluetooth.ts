@@ -1,5 +1,7 @@
 import { BooleanValueObject } from '../../../../../Shared/domain/value-object/BooleanValueObject'
 import { InvalidArgumentError } from '../../../../../Shared/domain/value-object/InvalidArgumentError'
+import { Primitives } from '../../../../../Shared/domain/value-object/Primitives'
+import { ComputerModels } from './ComputerModels'
 
 export class HasBluetooth extends BooleanValueObject {
   constructor (readonly value: boolean) {
@@ -20,5 +22,18 @@ export class HasBluetooth extends BooleanValueObject {
 
   private isValid (value: boolean): boolean {
     return typeof value === 'boolean'
+  }
+
+  static async updateBluetoothField(params: { hasBluetooth: Primitives<HasBluetooth>, entity: ComputerModels }): Promise<void> {
+    
+    if (params.hasBluetooth === undefined) {
+      return
+    }
+    
+    if (params.entity.hasBluetoothValue === params.hasBluetooth) {
+      return
+    }
+    
+    params.entity.updateHasBluetooth(params.hasBluetooth)
   }
 }

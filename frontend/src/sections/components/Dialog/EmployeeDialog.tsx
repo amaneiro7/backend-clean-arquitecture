@@ -1,8 +1,8 @@
 import { lazy, Suspense, useEffect } from "react"
 import { useGenericFormData } from "../../Hooks/useGenericFormData"
-import { FormStatus, useEmployeeForm } from "../../Hooks/employee/useEmployeeForm"
 import { EmployeePrimitives } from "../../../modules/employee/employee/domain/Employee"
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
+import { FormStatus, useGenericForm } from "../../Hooks/useGenericForm"
 
 interface Props {
   dialogValue: EmployeePrimitives
@@ -16,7 +16,7 @@ const EmployeeUserNameInput = lazy(async () => import("../text-inputs/UserNameIn
 
 export default function EmployeeDialog({ createEmployee, dialogValue, open, toggleOpen }: Props) {
   const { formData, resetForm, updateForm } = useGenericFormData(dialogValue)
-  const { formStatus, resetFormStatus, submitForm } = useEmployeeForm({ createEmployee })
+  const { formStatus, resetFormStatus, submitForm } = useGenericForm({ create: createEmployee })
 
   useEffect(() => {
     updateForm(dialogValue)

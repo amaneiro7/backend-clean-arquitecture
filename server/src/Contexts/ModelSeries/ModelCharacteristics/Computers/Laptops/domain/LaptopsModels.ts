@@ -12,10 +12,10 @@ import { HasHDMI } from '../../Computer/domain/HasHDMI'
 import { HasVGA } from '../../Computer/domain/HasVGA'
 import { HasWifiAdapter } from '../../Computer/domain/HasWifiAdapter'
 import { MemoryRamSlotQuantity } from '../../Computer/domain/MemoryRamSlotQuantity'
-import { BatterModelName } from './BatteryModelName'
+import { BatteryModelName } from './BatteryModelName'
 
 export interface LaptopsModelsPrimitives extends ComputerModelsPrimitives {
-  batteryModel: Primitives<BatterModelName>
+  batteryModel: Primitives<BatteryModelName>
 }
 
 export class LaptopsModels extends ComputerModels {
@@ -31,39 +31,27 @@ export class LaptopsModels extends ComputerModels {
     hasDVI: HasDVI,
     hasHDMI: HasHDMI,
     hasVGA: HasVGA,
-    readonly batteryModel: BatterModelName
+    private batteryModel: BatteryModelName
 
   ) {
     super(id, name, categoryId, brandId,  memoryRamTypeId, memoryRamSlotQuantity, hasBluetooth, hasWifiAdapter, hasDVI, hasHDMI, hasVGA)
   }
 
-  static create ({
-    name,
-    categoryId,
-    brandId,
-    memoryRamTypeId,
-    memoryRamSlotQuantity,
-    hasBluetooth,
-    hasWifiAdapter,
-    hasDVI,
-    hasHDMI,
-    hasVGA,
-    batteryModel
-  }: Omit<LaptopsModelsPrimitives, 'id'>): LaptopsModels {
+  static create (params: Omit<LaptopsModelsPrimitives, 'id'>): LaptopsModels {
     const id = String(ModelSeriesId.random())
     return new LaptopsModels(
       new ModelSeriesId(id),
-      new ModelSeriesName(name),
-      new CategoryId(categoryId),
-      new BrandId(brandId),
-      new MemoryRamTypeId(memoryRamTypeId),
-      new MemoryRamSlotQuantity(memoryRamSlotQuantity),
-      new HasBluetooth(hasBluetooth),
-      new HasWifiAdapter(hasWifiAdapter),
-      new HasDVI(hasDVI),
-      new HasHDMI(hasHDMI),
-      new HasVGA(hasVGA),
-      new BatterModelName(batteryModel)
+      new ModelSeriesName(params.name),
+      new CategoryId(params.categoryId),
+      new BrandId(params.brandId),
+      new MemoryRamTypeId(params.memoryRamTypeId),
+      new MemoryRamSlotQuantity(params.memoryRamSlotQuantity),
+      new HasBluetooth(params.hasBluetooth),
+      new HasWifiAdapter(params.hasWifiAdapter),
+      new HasDVI(params.hasDVI),
+      new HasHDMI(params.hasHDMI),
+      new HasVGA(params.hasVGA),
+      new BatteryModelName(params.batteryModel)
     )
   }
 
@@ -85,7 +73,7 @@ export class LaptopsModels extends ComputerModels {
       new HasDVI(primitives.hasDVI),
       new HasHDMI(primitives.hasHDMI),
       new HasVGA(primitives.hasVGA),
-      new BatterModelName(primitives.batteryModel)
+      new BatteryModelName(primitives.batteryModel)
     )
   }
 
@@ -106,7 +94,11 @@ export class LaptopsModels extends ComputerModels {
     }
   }
 
-  get BatteryModelValue (): Primitives<BatterModelName> {
+  get BatteryModelValue (): Primitives<BatteryModelName> {
     return this.batteryModel.value
+  }
+
+  updateBatterModel (newValue: Primitives<BatteryModelName>): void {
+    this.batteryModel = new BatteryModelName(newValue)
   }
 }

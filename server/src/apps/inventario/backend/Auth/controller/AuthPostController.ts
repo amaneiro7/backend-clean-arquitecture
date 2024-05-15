@@ -15,8 +15,7 @@ export class AuthPostController {
       res
         .status(httpStatus.OK)
         .cookie('accessToken', accessToken, { httpOnly: true })
-        .json(infoUser)
-      // res.status(httpStatus.OK).json(infoUser)
+        .json({...infoUser, message: 'Usuario logeado exitosamente'})
     } catch (error) {
       next(error)
     }

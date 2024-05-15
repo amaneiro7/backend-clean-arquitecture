@@ -1,5 +1,8 @@
 import { InvalidArgumentError } from '../../../../Shared/domain/value-object/InvalidArgumentError'
+import { Primitives } from '../../../../Shared/domain/value-object/Primitives'
 import { StringValueObject } from '../../../../Shared/domain/value-object/StringValueObject'
+
+import { ModelPrinters } from './ModelPrinters'
 
 export class CartridgeModel extends StringValueObject {
   private readonly NAME_MAX_LENGTH = 20
@@ -23,5 +26,18 @@ export class CartridgeModel extends StringValueObject {
 
   private isValid (name: string): boolean {
     return name.length >= this.NAME_MIN_LENGTH && name.length <= this.NAME_MAX_LENGTH
+  }
+
+  static async updateDVIField(params: { cartridgeModel: Primitives<CartridgeModel>, entity: ModelPrinters }): Promise<void> {
+    
+    if (params.cartridgeModel === undefined) {
+      return
+    }
+    
+    if (params.entity.cartridgeModelValue === params.cartridgeModel) {
+      return
+    }
+    
+    params.entity.updateCartridgeModel(params.cartridgeModel)
   }
 }

@@ -1,17 +1,20 @@
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { type EmployeeUserName } from '../../../modules/employee/employee/domain/UserName'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useEmployee } from './useEmployee'
 import { DevicesApiResponse } from '../../../modules/shared/domain/types/responseTypes'
+import { EmployeeId } from '../../../modules/employee/employee/domain/EmployeeId'
 
 interface DefaultProps {
+  id?: Primitives<EmployeeId>
   userName: Primitives<EmployeeUserName>
   devices?: DevicesApiResponse[]
   updatedAt?: string
 }
 
 export const defaultInitialEmployeeState: DefaultProps = {
+  id: undefined,
   userName: '',
   devices: [],
   updatedAt: undefined
@@ -23,6 +26,10 @@ export const useEmployeeInitialState = () => {
   const navidate = useNavigate()
   const { getEmployee } = useEmployee()
   const [preloadedEmployeeState, setPreloadedEmployeeState] = useState(defaultInitialEmployeeState)
+
+  const isAddForm = useMemo(() => {
+    return location.pathname.includes('add')
+  }, [location.pathname])
 
   useEffect(() => {
     if (location.pathname.includes('add')) {
@@ -48,6 +55,7 @@ export const useEmployeeInitialState = () => {
   }, [id, location.state?.state])
 
   return {
-    preloadedEmployeeState
+    preloadedEmployeeState,
+    isAddForm
   }
 }
