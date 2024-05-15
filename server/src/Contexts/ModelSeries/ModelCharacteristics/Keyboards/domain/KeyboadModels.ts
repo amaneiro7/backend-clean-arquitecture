@@ -36,9 +36,9 @@ export class KeyboardModels extends ModelSeries {
     )
   }
 
-  public static isMonitorCategory ({ categoryId }: { categoryId: Primitives<CategoryId> }): boolean {
-    const AcceptedMonitorCategories: CategoryValues[] = ['Monitores']
-    return AcceptedMonitorCategories.includes(CategoryDefaultData[categoryId])
+  public static isKeyboardCategory ({ categoryId }: { categoryId: Primitives<CategoryId> }): boolean {
+    const AcceptedKeyboardCategories: CategoryValues[] = ['Teclados']
+    return AcceptedKeyboardCategories.includes(CategoryDefaultData[categoryId])
   }
 
   static fromPrimitives (primitives: KeyboardModelsPrimitives): KeyboardModels {

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
-import { useModel } from './useMode'
+import { useModel } from './useModel'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { type ModelId } from '../../../modules/devices/model/model/domain/ModelId'
 import { type ModelName } from '../../../modules/devices/model/model/domain/ModelName'
@@ -13,7 +13,7 @@ import { BatteryModel } from '../../../modules/devices/model/ModelCharacteristic
 import { ScreenSize } from '../../../modules/devices/model/ModelCharacteristics/modelMonitor/ScreenSize'
 import { CartridgeModel } from '../../../modules/devices/model/ModelCharacteristics/modelPrinter/CartridgeModel'
 import { InputTypeId } from '../../../modules/devices/model/InputType/domain/InputTypeId'
-import { HasFingerPrinteReader } from '../../../modules/devices/model/ModelCharacteristics/modelKeyboard/HasFingerPrintReader'
+import { HasFingerPrintReader } from '../../../modules/devices/model/ModelCharacteristics/modelKeyboard/HasFingerPrintReader'
 import { ModelApiresponse } from '../../../modules/shared/domain/types/responseTypes'
 
 export interface DefaultModelProps {
@@ -32,7 +32,7 @@ export interface DefaultModelProps {
   screenSize?: Primitives<ScreenSize>
   cartridgeModel?: Primitives<CartridgeModel>
   inputTypeId?: Primitives<InputTypeId>
-  hasFingerPrintReader?: Primitives<HasFingerPrinteReader>
+  hasFingerPrintReader?: Primitives<HasFingerPrintReader>
   updatedAt?: string
 }
 export const defaultInitialModelState: DefaultModelProps = {

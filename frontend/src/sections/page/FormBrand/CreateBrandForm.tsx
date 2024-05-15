@@ -1,15 +1,18 @@
 import { type FormEvent, lazy, Suspense, useEffect } from 'react'
 import { useGenericFormData } from '../../Hooks/useGenericFormData'
-import { FormStatus, useBrandForm } from '../../Hooks/brand/useBrandForm'
 import BrandNameInput from '../../components/text-inputs/BrandNameInput'
 import { useBrandInitialState } from '../../Hooks/brand/BrandFormInitialState'
+import { useGenericForm, FormStatus } from '../../Hooks/useGenericForm'
+import { useBrand } from '../../Hooks/brand/useBrand'
+import { BrandPrimitives } from '../../../modules/devices/brand/domain/Brand'
 
 const FormContainer = lazy(async () => import('../../components/formContainer'))
 
 export default function CreateBrandForm() {
+  const { createBrand } = useBrand()
   const { preloadedBrandState } = useBrandInitialState()
   const { formData, updateForm, resetForm } = useGenericFormData(preloadedBrandState)
-  const { formStatus, submitForm, resetFormStatus } = useBrandForm()
+  const { formStatus, submitForm, resetFormStatus } = useGenericForm<BrandPrimitives>({create: createBrand})
 
   useEffect(() => {
     updateForm(preloadedBrandState)

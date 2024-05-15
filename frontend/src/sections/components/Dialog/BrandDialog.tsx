@@ -1,20 +1,21 @@
 import { lazy, Suspense, useEffect } from "react";
 import { useGenericFormData } from "../../Hooks/useGenericFormData";
 import { BrandPrimitives } from "../../../modules/devices/brand/domain/Brand";
-import { FormStatus, useBrandForm } from "../../Hooks/brand/useBrandForm";
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading";
+import { useGenericForm, FormStatus } from "../../Hooks/useGenericForm";
 
 interface Props {
   dialogValue: BrandPrimitives
   open: boolean,
   toggleOpen: React.Dispatch<React.SetStateAction<boolean>>
+  createBrand: (formData: BrandPrimitives) => Promise<void>
 }
 
 const DialogAdd = lazy(async () => import("./dialog"))
 const BrandNameInput = lazy(async () => import("../text-inputs/BrandNameInput"))
-export default function BrandDialog({ dialogValue, open, toggleOpen }: Props) {
+export function BrandDialog({ dialogValue, open, toggleOpen, createBrand }: Props) {
   const { formData, resetForm, updateForm } = useGenericFormData(dialogValue)
-  const { formStatus, resetFormStatus, submitForm } = useBrandForm()
+  const { formStatus, resetFormStatus, submitForm } = useGenericForm<BrandPrimitives>({create: createBrand})
 
   useEffect(() => {
     updateForm(dialogValue)

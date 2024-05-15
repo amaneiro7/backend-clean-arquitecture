@@ -5,7 +5,7 @@ import { Operator } from "../../../modules/shared/domain/criteria/FilterOperator
 import { BrandId } from "../../../modules/devices/brand/domain/BrandId"
 import { CategoryId } from "../../../modules/devices/category/domain/CategoryId"
 import { ModelApiresponse } from "../../../modules/shared/domain/types/responseTypes"
-import { useModel } from "../../Hooks/model/useMode"
+import { useModel } from "../../Hooks/model/useModel"
 import { ModelId } from "../../../modules/devices/model/model/domain/ModelId"
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
 import { DefaultModelProps, defaultInitialModelState } from "../../Hooks/model/ModelFormInitialState"
@@ -25,7 +25,7 @@ const ModelDialog = lazy(async () => import("../Dialog/ModelDialog"))
 const ReadOnlyInputBox = lazy(async () => import("../ReadOnlyInputBox").then(m => ({ default: m.ReadOnlyInputBox })))
 
 export default function ModelComboBox({ value, onChange, categoryId, brandId, type = 'search', name = 'modelId', isAdd = false }: Props) {
-    const { models, loading } = useModel()
+    const { models, loading, createModel } = useModel()
     const [open, toggleOpen] = useState(false)
     const [dialogValue, setDialogValue] = useState<DefaultModelProps>(defaultInitialModelState)
 
@@ -82,7 +82,12 @@ export default function ModelComboBox({ value, onChange, categoryId, brandId, ty
                 >
                     {type === 'form' && (
                         <Suspense>
-                            <ModelDialog dialogValue={dialogValue} open={open} toggleOpen={toggleOpen} />
+                            <ModelDialog
+                                dialogValue={dialogValue}
+                                open={open}
+                                toggleOpen={toggleOpen}
+                                createModel={createModel}
+                            />
                         </Suspense>
                     )}
                 </ComboBox>}

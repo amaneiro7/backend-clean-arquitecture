@@ -1,18 +1,21 @@
 import { lazy, Suspense, useEffect } from 'react'
-import { FormStatus, useModelForm } from '../../Hooks/model/useModelForm'
 import { useGenericFormData } from '../../Hooks/useGenericFormData'
 import { useModelInitialState } from '../../Hooks/model/ModelFormInitialState'
 import { useLocation } from 'react-router-dom'
+import { useGenericForm, FormStatus } from '../../Hooks/useGenericForm'
+import { useModel } from '../../Hooks/model/useModel'
+import { ModelPrimitives } from '../../../modules/devices/model/model/domain/Model'
 
 const Main = lazy(async () => import('../../components/Main'))
 const FormContainer = lazy(async () => import('../../components/formContainer'))
 const ModelInputs = lazy(async () => import('./ModelFeatures').then(m => ({ default: m.ModelInputs })))
 
 export default function CreateModelForm() {
+  const { createModel } = useModel()
   const location = useLocation()
   const { preloadedModelState, isAddForm } = useModelInitialState()
   const { formData, updateForm, resetForm } = useGenericFormData(preloadedModelState)
-  const { formStatus, submitForm, resetFormStatus } = useModelForm()
+  const { formStatus, submitForm, resetFormStatus } = useGenericForm<ModelPrimitives>({create: createModel })
 
   useEffect(() => {
     updateForm(preloadedModelState)

@@ -1,25 +1,25 @@
 import { type Repository } from '../../../Shared/domain/Repository'
 import { ComputerModels, type ComputerModelsPrimitives } from '../../ModelCharacteristics/Computers/Computer/domain/ComputerModels'
 import { LaptopsModels, type LaptopsModelsPrimitives } from '../../ModelCharacteristics/Computers/Laptops/domain/LaptopsModels'
+import { KeyboardModels, KeyboardModelsPrimitives } from '../../ModelCharacteristics/Keyboards/domain/KeyboadModels'
 import { MonitorModels, type MonitorModelsPrimitives } from '../../ModelCharacteristics/Monitors/domain/MonitorModels'
 import { ModelPrinters, type ModelPrintersPrimitives } from '../../ModelCharacteristics/Printers/domain/ModelPrinters'
 import { ModelSeries, type ModelSeriesPrimitives } from '../domain/ModelSeries'
-import { ModelSeriesAlreadyExistError } from '../domain/ModelSeriesAlreadyExistError'
+import { ModelSeriesBrand } from '../domain/ModelSeriesBrand'
+import { ModelSeriesCategory } from '../domain/ModelSeriesCategory'
 import { ModelSeriesName } from '../domain/ModelSeriesName'
 
 // Define the model parameters interface
-export interface ModelParams extends Omit<ModelSeriesPrimitives, 'id'> {}
+export interface ModelParams extends Omit<ModelSeriesPrimitives, 'id'> { }
 
 // Create the ModelSeriesCreator class
 export class ModelSeriesCreator {
-  constructor (private readonly repository: Repository) {}
+  constructor(private readonly repository: Repository) { }
 
   // Define the run method to create model series
-  async run ({ name, categoryId, brandId, ...otherParams }: ModelParams): Promise<void> {
-    // Ensure the model series does not already exist
-    await this.ensureModelSeriesDoesNotExist(name)
-console.log(otherParams)
+  async run({ name, categoryId, brandId, ...otherParams }: ModelParams): Promise<void> {
     let modelSeries
+    console.log('ModelSeriesCreator', otherParams)
 
     // Create the model series based on the category
     if (ComputerModels.isComputerCategory({ categoryId })) { // Check if the category is a computer
@@ -42,19 +42,21 @@ console.log(otherParams)
       const printerParams = otherParams as ModelPrintersPrimitives
       // Create a printer model series with the extracted parameters, name, category ID, and brand ID
       modelSeries = ModelPrinters.create({ ...printerParams, name, categoryId, brandId })
+    } else if (KeyboardModels.isKeyboardCategory({ categoryId })) {
+      // If it is a keyboard category, extract keyboard-specific parameters
+      const keyboardParams = otherParams as KeyboardModelsPrimitives
+      // Create a keyboard model series with the extracted parameters, name, category ID, and brand ID
+      modelSeries = KeyboardModels.create({ ...keyboardParams, name, categoryId, brandId })
     } else {
       // If the category does not match any specific type, create a general model series with the name, category ID, and brand ID
       modelSeries = ModelSeries.create({ name, categoryId, brandId })
     }
 
+    await ModelSeriesCategory.ensureCategoryExist({ repository: this.repository.category, categoryId })
+    await ModelSeriesBrand.ensureBrandExist({ repository: this.repository.brand, brandId })
+    await ModelSeriesName.ensureModelNameDoesNotExist({ repository: this.repository.modelSeries, name, brandId })
     // Save the model series
     await this.repository.modelSeries.save(modelSeries.toPrimitives())
   }
-
-  // Ensure that the model series does not already exist
-  private async ensureModelSeriesDoesNotExist (name: string): Promise<void> {
-    if (await this.repository.modelSeries.searchByName(new ModelSeriesName(name).toString()) !== null) {
-      throw new ModelSeriesAlreadyExistError(name)
-    }
-  }
 }
+

@@ -122,7 +122,7 @@ export interface ModelApiresponse extends ModelPrimitives {
   modelMonitor: ModelMonitor
   modelComputer: ModelComputer
   modelLaptop: ModelLaptop
-  modelkeyboard: ModelKeyboard
+  modelKeyboard: ModelKeyboard
 }
 
 export interface ModelComputer extends ModelComputerPrimitives {

@@ -5,12 +5,12 @@ import { CategoryId } from "../../../category/domain/CategoryId"
 import { InputTypeId } from "../../InputType/domain/InputTypeId"
 import { Model, ModelPrimitives } from "../../model/domain/Model"
 import { ModelName } from "../../model/domain/ModelName"
-import { HasFingerPrinteReader } from "./HasFingerPrintReader"
+import { HasFingerPrintReader } from "./HasFingerPrintReader"
 
 
 export interface ModelKeyboardPrimitives extends ModelPrimitives {    
-    inputType: Primitives<InputTypeId>
-    hasFingerPrinteReader: Primitives<HasFingerPrinteReader>
+    inputTypeId: Primitives<InputTypeId>
+    hasFingerPrintReader: Primitives<HasFingerPrintReader>
 }
 export class ModelKeyboard extends Model {
     constructor(
@@ -18,7 +18,7 @@ export class ModelKeyboard extends Model {
         categoryId: CategoryId,
         brandId: BrandId,
         private readonly inputTypeId: InputTypeId,
-        private readonly hasFingerPrinteReader: HasFingerPrinteReader
+        private readonly hasFingerPrintReader: HasFingerPrintReader
     ) {
         super(name, categoryId, brandId)
       }
@@ -36,8 +36,8 @@ export class ModelKeyboard extends Model {
           new ModelName(params.name),
           new CategoryId(params.categoryId),
           new BrandId(params.brandId),
-          new InputTypeId(params.inputType),
-          new HasFingerPrinteReader(params.hasFingerPrinteReader)
+          new InputTypeId(params.inputTypeId),
+          new HasFingerPrintReader(params.hasFingerPrintReader)
         )
       }
 
@@ -45,8 +45,8 @@ export class ModelKeyboard extends Model {
         return this.inputTypeId.value
       }
 
-      fingerPrinteReaderValue (): Primitives<HasFingerPrinteReader> {
-        return this.hasFingerPrinteReader.value
+      fingerPrinteReaderValue (): Primitives<HasFingerPrintReader> {
+        return this.hasFingerPrintReader.value
       }
 
       toPrimitives(): ModelKeyboardPrimitives {
@@ -54,8 +54,8 @@ export class ModelKeyboard extends Model {
           name: this.nameValue(),
           categoryId: this.categoryValue(),
           brandId: this.brandValue(),
-          inputType: this.inputTypeIdValue(),
-          hasFingerPrinteReader: this.fingerPrinteReaderValue()
+          inputTypeId: this.inputTypeIdValue(),
+          hasFingerPrintReader: this.fingerPrinteReaderValue()
         }
       }
 }

@@ -31,7 +31,6 @@ export function ModelInputs({ onChange, formData, isAddForm }: Props) {
                 <BrandComboBox
                     value={formData.brandId}
                     onChange={onChange}
-                    categoryId={formData.categoryId}
                     type='form'
                     isAdd={isAddForm}
                 />

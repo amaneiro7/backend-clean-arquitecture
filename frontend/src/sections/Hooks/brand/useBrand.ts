@@ -13,6 +13,7 @@ export const useBrand = () => {
 
   async function createBrand(formData: BrandPrimitives) {
     await new BrandCreator(repository).create(formData)
+    getBrands()
   }
 
   function getBrands() {

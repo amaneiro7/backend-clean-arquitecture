@@ -20,11 +20,11 @@ interface Props {
 }
 
 const ComboBox = lazy(async () => import("./combo_box"))
-const BrandDialog = lazy(async () => import("../Dialog/BrandDialog"))
+const BrandDialog = lazy(async () => import("../Dialog/BrandDialog").then(m => ({ default: m.BrandDialog })))
 const ReadOnlyInputBox = lazy(async () => import("../ReadOnlyInputBox").then(m => ({ default: m.ReadOnlyInputBox })))
 
 export default function BrandComboBox({ value, onChange, categoryId, type = 'search', isAdd = false }: Props) {
-    const { brands, loading } = useBrand()
+    const { brands, createBrand, loading } = useBrand()
     const [open, toggleOpen] = useState(false)
     const [dialogValue, setDialogValue] = useState<BrandPrimitives>(defaultInitialBrandState)
 
@@ -80,7 +80,12 @@ export default function BrandComboBox({ value, onChange, categoryId, type = 'sea
                 >
                     {type === 'form' && (
                         <Suspense>
-                            <BrandDialog dialogValue={dialogValue} open={open} toggleOpen={toggleOpen} />
+                            <BrandDialog
+                                dialogValue={dialogValue}
+                                open={open}
+                                toggleOpen={toggleOpen}
+                                createBrand={createBrand}
+                            />
                         </Suspense>
                     )}
                 </ComboBox>}

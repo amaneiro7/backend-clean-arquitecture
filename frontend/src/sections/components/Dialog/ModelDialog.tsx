@@ -1,20 +1,21 @@
 import { lazy, Suspense, useEffect } from "react"
 import { useGenericFormData } from "../../Hooks/useGenericFormData"
 import { ModelPrimitives } from "../../../modules/devices/model/model/domain/Model"
-import { useModelForm, FormStatus } from "../../Hooks/model/useModelForm"
+import { FormStatus, useGenericForm } from "../../Hooks/useGenericForm"
 
 interface Props {
   dialogValue: ModelPrimitives
   open: boolean,
   toggleOpen: React.Dispatch<React.SetStateAction<boolean>>
+  createModel: (formData: ModelPrimitives) => Promise<void>
 }
 
 const DialogAdd = lazy(async () => import("./dialog"))
 const ModelInputs = lazy(async () => import("../../page/FormModel/ModelFeatures").then(m => ({ default: m.ModelInputs })))
 
-export default function ModelDialog({ dialogValue, open, toggleOpen }: Props) {
+export default function ModelDialog({ dialogValue, open, toggleOpen, createModel }: Props) {
   const { formData, resetForm, updateForm } = useGenericFormData(dialogValue)
-  const { formStatus, resetFormStatus, submitForm } = useModelForm()
+  const { formStatus, resetFormStatus, submitForm } = useGenericForm({create: createModel})
 
   useEffect(() => {
     updateForm(dialogValue)

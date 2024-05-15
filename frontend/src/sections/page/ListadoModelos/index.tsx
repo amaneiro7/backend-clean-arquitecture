@@ -145,18 +145,18 @@ export default function ListadoModelos() {
                                 <TableHead name='Categoria' />
                                 <TableHead name='Marca' />
                                 <TableHead name='Modelo' />
-                                {!(!isMonitor || !isPrinter || !isKeyboard) && <TableHead name='Tipo de Memoria' />}
-                                {!(!isMonitor || !isPrinter || !isKeyboard) && <TableHead name='Cantidad de Ranuras' />}
-                                {!(!isPrinter || !isKeyboard) && <TableHead name='Puerto VGA' />}
-                                {!(!isPrinter || !isKeyboard) && <TableHead name='Puerto DVI' />}
-                                {!(!isPrinter || !isKeyboard) && <TableHead name='Puerto HDMI' />}
-                                {!(!isMonitor || !isPrinter || !isKeyboard) && <TableHead name='Adaptador Bluetooth' />}
-                                {!(!isMonitor || !isPrinter || !isKeyboard) && <TableHead name='Adaptador Wifi' />}
-                                {!(!isComputer || !isMonitor || !isPrinter || !isKeyboard) && <TableHead name='Modelo de bateria' />}
-                                {!(!isComputer || !isLaptop || !isPrinter || !isKeyboard) && <TableHead name='Tamaño de Pantalla' />}
-                                {!(!isComputer || !isLaptop || !isMonitor || !isKeyboard) && <TableHead name='Modelo de cartucho' />}
-                                {!(!isComputer || !isLaptop || !isMonitor || !isPrinter) && <TableHead name='Tipo de entrada' />}
-                                {!(!isComputer || !isLaptop || !isMonitor || !isPrinter) && <TableHead name='Lector de huella' />}
+                                {!(isMonitor || isPrinter || isKeyboard) && <TableHead name='Tipo de Memoria' />}
+                                {!(isMonitor || isPrinter || isKeyboard) && <TableHead name='Cantidad de Ranuras' />}
+                                {!(isPrinter || isKeyboard) && <TableHead name='Puerto VGA' />}
+                                {!(isPrinter || isKeyboard) && <TableHead name='Puerto DVI' />}
+                                {!(isPrinter || isKeyboard) && <TableHead name='Puerto HDMI' />}
+                                {!(isMonitor || isPrinter || isKeyboard) && <TableHead name='Adaptador Bluetooth' />}
+                                {!(isMonitor || isPrinter || isKeyboard) && <TableHead name='Adaptador Wifi' />}
+                                {!(isComputer || isMonitor || isPrinter || isKeyboard) && <TableHead name='Modelo de bateria' />}
+                                {!(isComputer || isLaptop || isPrinter || isKeyboard) && <TableHead name='Tamaño de Pantalla' />}
+                                {!(isComputer || isLaptop || isMonitor || isKeyboard) && <TableHead name='Modelo de cartucho' />}
+                                {!(isComputer || isLaptop || isMonitor || isPrinter) && <TableHead name='Tipo de entrada' />}
+                                {!(isComputer || isLaptop || isMonitor || isPrinter) && <TableHead name='Lector de huella' />}
                             </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -166,18 +166,18 @@ export default function ListadoModelos() {
                                     <TableCell value={model?.category?.name} />
                                     <TableCell value={model?.brand?.name} />
                                     <TableCell value={model?.name} />
-                                    <TableCell value={model?.modelComputer?.memoryRamType?.name || model?.modelLaptop?.memoryRamType?.name} />
-                                    <TableCell value={model?.modelComputer?.memoryRamSlotQuantity || model?.modelLaptop?.memoryRamSlotQuantity} />
-                                    <TableCell value={(model?.modelComputer || model?.modelLaptop || model?.modelMonitor) ? (model?.modelComputer?.hasVGA || model?.modelLaptop?.hasVGA || model?.modelMonitor?.hasVGA ? 'Si' : 'No') : ''} />
-                                    <TableCell value={(model?.modelComputer || model?.modelLaptop || model?.modelMonitor) ? (model?.modelComputer?.hasDVI || model?.modelLaptop?.hasDVI || model?.modelMonitor?.hasDVI ? 'Si' : 'No') : ''} />
-                                    <TableCell value={(model?.modelComputer || model?.modelLaptop || model?.modelMonitor) ? (model?.modelComputer?.hasHDMI || model?.modelLaptop?.hasHDMI || model?.modelMonitor?.hasHDMI ? 'Si' : 'No') : ''} />
-                                    <TableCell value={(model?.modelComputer || model?.modelLaptop) ? (model?.modelComputer?.hasBluetooth || model?.modelLaptop?.hasBluetooth ? 'Si' : 'No') : ''} />
-                                    <TableCell value={(model?.modelComputer || model?.modelLaptop) ? (model?.modelComputer?.hasWifiAdapter || model?.modelLaptop?.hasWifiAdapter ? 'Si' : 'No') : ''} />
-                                    {!isComputer && <TableCell value={model?.modelLaptop?.batteryModel} />}
-                                    {!isComputer && <TableCell value={model?.modelMonitor ? `${model?.modelMonitor.screenSize} pulgadas` : ''} />}
-                                    {!isComputer && <TableCell value={model?.modelPrinter?.cartridgeModel} />}
-                                    {!isComputer && <TableCell value={model?.modelkeyboard?.inputType?.name} />}
-                                    {!isComputer && <TableCell value={model?.modelkeyboard ? (model?.modelkeyboard?.hasFingerPrinteReader ? 'Si' : 'No') : ''} />}
+                                    {!(isMonitor || isPrinter || isKeyboard) && <TableCell value={model?.modelComputer?.memoryRamType?.name || model?.modelLaptop?.memoryRamType?.name} />}
+                                    {!(isMonitor || isPrinter || isKeyboard) && <TableCell value={model?.modelComputer?.memoryRamSlotQuantity || model?.modelLaptop?.memoryRamSlotQuantity} />}
+                                    {!(isPrinter || isKeyboard) && <TableCell value={(model?.modelComputer || model?.modelLaptop || model?.modelMonitor) ? (model?.modelComputer?.hasVGA || model?.modelLaptop?.hasVGA || model?.modelMonitor?.hasVGA ? 'Si' : 'No') : ''} />}
+                                    {!(isPrinter || isKeyboard) && <TableCell value={(model?.modelComputer || model?.modelLaptop || model?.modelMonitor) ? (model?.modelComputer?.hasDVI || model?.modelLaptop?.hasDVI || model?.modelMonitor?.hasDVI ? 'Si' : 'No') : ''} />}
+                                    {!(isPrinter || isKeyboard) && <TableCell value={(model?.modelComputer || model?.modelLaptop || model?.modelMonitor) ? (model?.modelComputer?.hasHDMI || model?.modelLaptop?.hasHDMI || model?.modelMonitor?.hasHDMI ? 'Si' : 'No') : ''} />}
+                                    {!(isMonitor || isPrinter || isKeyboard) && <TableCell value={(model?.modelComputer || model?.modelLaptop) ? (model?.modelComputer?.hasBluetooth || model?.modelLaptop?.hasBluetooth ? 'Si' : 'No') : ''} />}
+                                    {!(isMonitor || isPrinter || isKeyboard) && <TableCell value={(model?.modelComputer || model?.modelLaptop) ? (model?.modelComputer?.hasWifiAdapter || model?.modelLaptop?.hasWifiAdapter ? 'Si' : 'No') : ''} />}
+                                    {!(isComputer || isMonitor || isPrinter || isKeyboard) && <TableCell value={model?.modelLaptop?.batteryModel} />}
+                                    {!(isComputer || isLaptop || isPrinter || isKeyboard) && <TableCell value={model?.modelMonitor ? `${model?.modelMonitor.screenSize} pulgadas` : ''} />}
+                                    {!(isComputer || isLaptop || isMonitor || isKeyboard) && <TableCell value={model?.modelPrinter?.cartridgeModel} />}
+                                    {!(isComputer || isLaptop || isMonitor || isPrinter) && <TableCell value={model?.modelKeyboard?.inputType?.name} />}
+                                    {!(isComputer || isLaptop || isMonitor || isPrinter) && <TableCell value={model?.modelKeyboard ? (model?.modelKeyboard?.hasFingerPrinteReader ? 'Si' : 'No') : ''} />}
                                 </TableRow>
                             ))}
                         </TableBody>
