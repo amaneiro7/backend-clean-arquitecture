@@ -1,3 +1,4 @@
+import { BrandPrimitives } from '../../../../Brand/domain/Brand'
 import { type BrandId } from '../../../../Brand/domain/BrandId'
 import { type CategoryId } from '../../../../Category/domain/CategoryId'
 import { DeviceComputerPrimitives } from '../../../../Features/Computer/domain/Computer'
@@ -17,8 +18,13 @@ import { type OperatingSystemPrimitives } from '../../../../Features/OperatingSy
 import { type OperatingSystemArqPrimitives } from '../../../../Features/OperatingSystem/OperatingSystemArq/domain/OperatingSystemArq'
 import { type ProcessorPrimitives } from '../../../../Features/Processor/Processor/domain/Processor'
 import { LocationPrimitives } from '../../../../Location/Location/domain/Location'
+import { InputTypePrimitives } from '../../../../ModelSeries/InputType/domain/InputType'
 import { ComputerModelsPrimitives } from '../../../../ModelSeries/ModelCharacteristics/Computers/Computer/domain/ComputerModels'
 import { LaptopsModelsPrimitives } from '../../../../ModelSeries/ModelCharacteristics/Computers/Laptops/domain/LaptopsModels'
+import { KeyboardModelsPrimitives } from '../../../../ModelSeries/ModelCharacteristics/Keyboards/domain/KeyboadModels'
+import { MonitorModelsPrimitives } from '../../../../ModelSeries/ModelCharacteristics/Monitors/domain/MonitorModels'
+import { ModelPrintersPrimitives } from '../../../../ModelSeries/ModelCharacteristics/Printers/domain/ModelPrinters'
+import { ModelSeriesPrimitives } from '../../../../ModelSeries/ModelSeries/domain/ModelSeries'
 import { type ModelSeriesId } from '../../../../ModelSeries/ModelSeries/domain/ModelSeriesId'
 import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
 import { type StatusPrimitives } from '../../../Status/domain/Status'
@@ -33,7 +39,7 @@ import { type DeviceObservation } from '../../domain/DeviceObservation'
 import { type DeviceSerial } from '../../domain/DeviceSerial'
 import { type DeviceStatus } from '../../domain/DeviceStatus'
 
-export interface DevicesApiResponse extends DevicePrimitives {  
+export interface DevicesApiResponse extends DevicePrimitives {
   location: LocationPrimitives
   createdAt: Date
   updatedAt: Date
@@ -56,17 +62,16 @@ export interface Computer extends DeviceComputerPrimitives {
   operatingSystemArq: OperatingSystemArqPrimitives
 }
 
-export interface ModelApiresponse {
-  id: string
-  name: string
-  categoryId: number
-  brandId: string
+export interface ModelApiresponse extends ModelSeriesPrimitives {
   createdAt: Date
-  updatedAt: Date  
+  updatedAt: Date
   category: Status
-  brand: Brand
+  brand: BrandPrimitives
   modelComputer: ModelComputer
   modelLaptop: ModelLaptop
+  modelKeyboard: ModelKeyboard
+  modelMonitor: ModelMonitor
+  modelPrinter: ModelPrinter
 }
 
 export interface ModelComputer extends ComputerModelsPrimitives {
@@ -75,3 +80,11 @@ export interface ModelComputer extends ComputerModelsPrimitives {
 export interface ModelLaptop extends LaptopsModelsPrimitives {
   memoryRamType: MemoryRamTypePrimitives
 }
+
+export interface ModelKeyboard extends KeyboardModelsPrimitives {
+  inputType: InputTypePrimitives
+}
+
+export interface ModelMonitor extends MonitorModelsPrimitives { }
+
+export interface ModelPrinter extends ModelPrintersPrimitives { }

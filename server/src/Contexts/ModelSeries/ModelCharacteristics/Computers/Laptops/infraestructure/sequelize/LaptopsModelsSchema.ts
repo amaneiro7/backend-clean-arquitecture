@@ -11,7 +11,7 @@ import { type HasWifiAdapter } from '../../../Computer/domain/HasWifiAdapter'
 import { type HasDVI } from '../../../Computer/domain/HasDVI'
 import { type HasHDMI } from '../../../Computer/domain/HasHDMI'
 import { type HasVGA } from '../../../Computer/domain/HasVGA'
-import { type BatterModelName } from '../../domain/BatteryModelName'
+import { type BatteryModelName } from '../../domain/BatteryModelName'
 import { CategoryValues } from '../../../../../../Category/domain/Category'
 
 interface LaptopModelsCreationAttributes extends Omit<LaptopsModelsPrimitives, 'name' | 'brandId'> {
@@ -29,7 +29,7 @@ export class LaptopModelsModel extends Model<LaptopModelsCreationAttributes> imp
   public hasDVI!: Primitives<HasDVI>
   public hasHDMI!: Primitives<HasHDMI>
   public hasVGA!: Primitives<HasVGA>
-  public batteryModel!: Primitives<BatterModelName>
+  public batteryModel!: Primitives<BatteryModelName>
 
   public static associate (models: Models): void {
     this.belongsTo(models.Model, { as: 'model', foreignKey: 'modelSeriesId' }) // A Laptop model belongs to a model

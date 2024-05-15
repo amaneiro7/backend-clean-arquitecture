@@ -1,7 +1,9 @@
 import { type Repository } from '../../../Shared/domain/Repository'
+import { ComputerMemoryRamType } from '../../ModelCharacteristics/Computers/Computer/domain/ComputerMemoryRamType'
 import { ComputerModels, type ComputerModelsPrimitives } from '../../ModelCharacteristics/Computers/Computer/domain/ComputerModels'
 import { LaptopsModels, type LaptopsModelsPrimitives } from '../../ModelCharacteristics/Computers/Laptops/domain/LaptopsModels'
 import { KeyboardModels, KeyboardModelsPrimitives } from '../../ModelCharacteristics/Keyboards/domain/KeyboadModels'
+import { ModelKeyboardInputType } from '../../ModelCharacteristics/Keyboards/domain/ModelKeyboardInputType'
 import { MonitorModels, type MonitorModelsPrimitives } from '../../ModelCharacteristics/Monitors/domain/MonitorModels'
 import { ModelPrinters, type ModelPrintersPrimitives } from '../../ModelCharacteristics/Printers/domain/ModelPrinters'
 import { ModelSeries, type ModelSeriesPrimitives } from '../domain/ModelSeries'
@@ -25,11 +27,13 @@ export class ModelSeriesCreator {
     if (ComputerModels.isComputerCategory({ categoryId })) { // Check if the category is a computer
       // If it is a computer category, extract computer-specific parameters
       const computerParams = otherParams as ComputerModelsPrimitives
+      await ComputerMemoryRamType.ensureInputTypeExist({ repository: this.repository.memoryRamType, memoryRamTypeId: computerParams.memoryRamTypeId })
       // Create a computer model series with the extracted parameters, name, category ID, and brand ID
       modelSeries = ComputerModels.create({ ...computerParams, name, categoryId, brandId })
     } else if (LaptopsModels.isLaptopCategory({ categoryId })) { // Check if the category is a laptop
       // If it is a laptop category, extract laptop-specific parameters
       const laptopParams = otherParams as LaptopsModelsPrimitives
+      await ComputerMemoryRamType.ensureInputTypeExist({ repository: this.repository.memoryRamType, memoryRamTypeId: laptopParams.memoryRamTypeId })
       // Create a laptop model series with the extracted parameters, name, category ID, and brand ID
       modelSeries = LaptopsModels.create({ ...laptopParams, name, categoryId, brandId })
     } else if (MonitorModels.isMonitorCategory({ categoryId })) { // Check if the category is a monitor
@@ -45,6 +49,7 @@ export class ModelSeriesCreator {
     } else if (KeyboardModels.isKeyboardCategory({ categoryId })) {
       // If it is a keyboard category, extract keyboard-specific parameters
       const keyboardParams = otherParams as KeyboardModelsPrimitives
+      await ModelKeyboardInputType.ensureInputTypeExist({ repository: this.repository.inputType, inputTypeId: keyboardParams.inputTypeId })
       // Create a keyboard model series with the extracted parameters, name, category ID, and brand ID
       modelSeries = KeyboardModels.create({ ...keyboardParams, name, categoryId, brandId })
     } else {

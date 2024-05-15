@@ -5,7 +5,7 @@ import { Primitives } from "../../../../../Shared/domain/value-object/Primitives
 import { LaptopsModels } from "../../Laptops/domain/LaptopsModels"
 import { ComputerModels } from "./ComputerModels"
 
-export class ModelKeyboardInputType extends MemoryRamTypeId {
+export class ComputerMemoryRamType extends MemoryRamTypeId {
     static async updateInputTypeField(params: { repository: MemoryRamTypeRepository, memoryRamTypeId: Primitives<MemoryRamTypeId>, entity: ComputerModels | LaptopsModels }): Promise<void> {
         
         if (params.memoryRamTypeId === undefined) {
@@ -16,7 +16,7 @@ export class ModelKeyboardInputType extends MemoryRamTypeId {
             return
         }
         
-        await ModelKeyboardInputType.ensureInputTypeExist({ repository: params.repository, memoryRamTypeId: params.memoryRamTypeId })
+        await ComputerMemoryRamType.ensureInputTypeExist({ repository: params.repository, memoryRamTypeId: params.memoryRamTypeId })
         
         params.entity.updateMemoryRamTypeId(params.memoryRamTypeId)
     }

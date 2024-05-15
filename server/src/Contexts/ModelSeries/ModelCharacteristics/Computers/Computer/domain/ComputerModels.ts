@@ -1,12 +1,12 @@
 import { BrandId } from '../../../../../Brand/domain/BrandId'
 import { CategoryDefaultData, type CategoryValues } from '../../../../../Category/domain/CategoryDefaultData'
 import { CategoryId } from '../../../../../Category/domain/CategoryId'
-import { MemoryRamTypeId } from '../../../../../Features/MemoryRam/MemoryRamType/domain/MemoryRamTypeId'
 import { ProcessorSocketId } from '../../../../../Features/Processor/ProcessorSocket/domain/ProcessorSocketId'
 import { type Primitives } from '../../../../../Shared/domain/value-object/Primitives'
 import { ModelSeries, type ModelSeriesPrimitives } from '../../../../ModelSeries/domain/ModelSeries'
 import { ModelSeriesId } from '../../../../ModelSeries/domain/ModelSeriesId'
 import { ModelSeriesName } from '../../../../ModelSeries/domain/ModelSeriesName'
+import { ComputerMemoryRamType } from './ComputerMemoryRamType'
 import { HasBluetooth } from './HasBluetooth'
 import { HasDVI } from './HasDVI'
 import { HasHDMI } from './HasHDMI'
@@ -15,7 +15,7 @@ import { HasWifiAdapter } from './HasWifiAdapter'
 import { MemoryRamSlotQuantity } from './MemoryRamSlotQuantity'
 
 export interface ComputerModelsPrimitives extends ModelSeriesPrimitives {
-  memoryRamTypeId: Primitives<MemoryRamTypeId>
+  memoryRamTypeId: Primitives<ComputerMemoryRamType>
   memoryRamSlotQuantity: Primitives<MemoryRamSlotQuantity>
   hasBluetooth: Primitives<HasBluetooth>
   hasWifiAdapter: Primitives<HasWifiAdapter>
@@ -30,7 +30,7 @@ export class ComputerModels extends ModelSeries {
     name: ModelSeriesName,
     categoryId: CategoryId,
     brandId: BrandId,
-    private memoryRamTypeId: MemoryRamTypeId,
+    private memoryRamTypeId: ComputerMemoryRamType,
     private memoryRamSlotQuantity: MemoryRamSlotQuantity,
     private hasBluetooth: HasBluetooth,
     private hasWifiAdapter: HasWifiAdapter,
@@ -48,7 +48,7 @@ export class ComputerModels extends ModelSeries {
       new ModelSeriesName(params.name),
       new CategoryId(params.categoryId),
       new BrandId(params.brandId),
-      new MemoryRamTypeId(params.memoryRamTypeId),
+      new ComputerMemoryRamType(params.memoryRamTypeId),
       new MemoryRamSlotQuantity(params.memoryRamSlotQuantity),
       new HasBluetooth(params.hasBluetooth),
       new HasWifiAdapter(params.hasWifiAdapter),
@@ -69,7 +69,7 @@ export class ComputerModels extends ModelSeries {
       new ModelSeriesName(primitives.name),
       new CategoryId(primitives.categoryId),
       new BrandId(primitives.brandId),
-      new MemoryRamTypeId(primitives.memoryRamTypeId),
+      new ComputerMemoryRamType(primitives.memoryRamTypeId),
       new MemoryRamSlotQuantity(primitives.memoryRamSlotQuantity),
       new HasBluetooth(primitives.hasBluetooth),
       new HasWifiAdapter(primitives.hasWifiAdapter),
@@ -95,7 +95,7 @@ export class ComputerModels extends ModelSeries {
     }
   }
 
-  get memoryRamTypeValue(): Primitives<MemoryRamTypeId> {
+  get memoryRamTypeValue(): Primitives<ComputerMemoryRamType> {
     return this.memoryRamTypeId.value
   }
 
@@ -123,8 +123,8 @@ export class ComputerModels extends ModelSeries {
     return this.hasVGA.value
   }
 
-  updateMemoryRamTypeId(memoryRamTypeId: Primitives<MemoryRamTypeId>): void {
-    this.memoryRamTypeId = new MemoryRamTypeId(memoryRamTypeId)
+  updateMemoryRamTypeId(memoryRamTypeId: Primitives<ComputerMemoryRamType>): void {
+    this.memoryRamTypeId = new ComputerMemoryRamType(memoryRamTypeId)
   }
 
   updateMemoryRamSlotQuantity(memoryRamSlotQuantity: Primitives<MemoryRamSlotQuantity>): void {
