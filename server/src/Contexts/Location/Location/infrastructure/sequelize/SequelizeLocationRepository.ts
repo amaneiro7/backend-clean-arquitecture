@@ -3,6 +3,7 @@ import { type Primitives } from '../../../../Shared/domain/value-object/Primitiv
 import { CriteriaToSequelizeConverter } from '../../../../Shared/infrastructure/criteria/CriteriaToSequelizeConverter'
 import { type LocationPrimitives } from '../../domain/Location'
 import { type LocationId } from '../../domain/LocationId'
+import { LocationName } from '../../domain/LocationName'
 import { type LocationRepository } from '../../domain/LocationRepository'
 import { LocationAssociation } from './LocationAssociation'
 import { LocationApiResponse } from './LocationResponse'
@@ -36,5 +37,9 @@ export class SequelizeLocationRepository extends CriteriaToSequelizeConverter im
 
   async searchById(id: Primitives<LocationId>): Promise<LocationPrimitives | null> {
     return await LocationModel.findByPk(id) ?? null
+  }
+
+  async searchByName (name: Primitives<LocationName>): Promise<LocationPrimitives | null> {
+    return await LocationModel.findOne({ where: { name } }) ?? null
   }
 }

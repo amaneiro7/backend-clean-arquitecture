@@ -17,7 +17,7 @@ export class BrandName extends StringValueObject {
 
   private ensureIsValidName (value: string): void {
     if (!this.isBrandNameValid(value)) {
-      throw new InvalidArgumentError(`<${value}> is not a valid name`)
+      throw new InvalidArgumentError(`<${value}> no es un nombre de marca válido`)
     }
   }
 

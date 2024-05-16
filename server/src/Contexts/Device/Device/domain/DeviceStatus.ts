@@ -16,12 +16,12 @@ export class DeviceStatus extends StatusId {
       return
     }
     // Verifica que el status no exista en la base de datos, si existe lanza un error {@link DeviceAlreadyExistError} con el status pasado
-    await DeviceStatus.ensuerStatusExit({ repository, status })
+    await DeviceStatus.ensureStatusExit({ repository, status })
     // Actualiza el campo status de la entidad {@link Device} con el nuevo status
     entity.updateStatus(status)
   }
 
-  static async ensuerStatusExit ({ repository, status }: { repository: StatusRepository, status: Primitives<StatusId> }): Promise<void> {
+  static async ensureStatusExit ({ repository, status }: { repository: StatusRepository, status: Primitives<StatusId> }): Promise<void> {
     // Searches for a device with the given status in the database
     const deviceWithStatus: StatusPrimitives | null = await repository.searchById(new StatusId(status).toString())
     // If a device with the given status exists, it means that it already exists in the database,

@@ -41,7 +41,7 @@ export class DeviceCreator {
     }
     await DeviceSerial.ensureSerialDoesNotExit({ repository: this.repository.device, serial: params.serial })
     await DeviceActivo.ensureActivoDoesNotExit({ repository: this.repository.device, activo: params.activo })
-    await DeviceStatus.ensuerStatusExit({ repository: this.repository.status, status: params.statusId })
+    await DeviceStatus.ensureStatusExit({ repository: this.repository.status, status: params.statusId })
     await DeviceModelSeries.ensureModelSeriesExit({ repository: this.repository.modelSeries, modelSeries: params.modelId, brand: params.brandId, category: categoryId })
     await DeviceEmployee.ensureEmployeeExit({ repository: this.repository.employee, employee: params.employeeId })
     await DeviceLocation.ensureLocationExit({ repository: this.repository.location, location: params.locationId, status: params.statusId })

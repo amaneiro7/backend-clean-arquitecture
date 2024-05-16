@@ -3,36 +3,49 @@ import { SiteId } from '../../Site/domain/SiteId'
 import { TypeOfSiteId } from '../../TypeOfSite/domain/TypeOfSiteId'
 import { LocationId } from './LocationId'
 import { LocationName } from './LocationName'
+import { LocationSite } from './LocationSite'
 import { LocationSubnet } from './LocationSubnet'
+import { LocationTypeOfSite } from './LocationTypeOfSite'
 
 export interface LocationPrimitives {
   id: Primitives<LocationId>
-  typeOfSiteId: Primitives<TypeOfSiteId>
-  siteId: Primitives<SiteId>
+  typeOfSiteId: Primitives<LocationTypeOfSite>
+  siteId: Primitives<LocationSite>
   name: Primitives<LocationName>
   subnet: Primitives<LocationSubnet>
 }
 
 export class Location {
-  constructor (
+  constructor(
     private readonly id: LocationId,
-    private readonly typeOfSiteId: TypeOfSiteId,
-    private readonly siteId: SiteId,
-    private readonly name: LocationName,
-    private readonly subnet: LocationSubnet
-  ) {}
+    private typeOfSiteId: TypeOfSiteId,
+    private siteId: SiteId,
+    private name: LocationName,
+    private subnet: LocationSubnet
+  ) { }
 
-  static fromPrimitives (primitives: LocationPrimitives): Location {
+  static create (params: Omit<LocationPrimitives, 'id'>): Location {
+    const id = LocationId.random().value
+    return new Location(
+      new LocationId(id),
+      new LocationTypeOfSite(params.typeOfSiteId),
+      new LocationSite(params.siteId),
+      new LocationName(params.name),
+      new LocationSubnet(params.subnet)
+    )
+  }
+
+  static fromPrimitives(primitives: LocationPrimitives): Location {
     return new Location(
       new LocationId(primitives.id),
-      new TypeOfSiteId(primitives.typeOfSiteId),
+      new LocationTypeOfSite(primitives.typeOfSiteId),
       new SiteId(primitives.siteId),
       new LocationName(primitives.name),
       new LocationSubnet(primitives.subnet)
     )
   }
 
-  toPrimitive (): LocationPrimitives {
+  toPrimitive(): LocationPrimitives {
     return {
       id: this.idValue,
       typeOfSiteId: this.typeOfSiteValue,
@@ -42,23 +55,36 @@ export class Location {
     }
   }
 
-  get idValue (): Primitives<LocationId> {
+  get idValue(): Primitives<LocationId> {
     return this.id.value
   }
 
-  get typeOfSiteValue (): Primitives<TypeOfSiteId> {
+  get typeOfSiteValue(): Primitives<LocationTypeOfSite> {
     return this.typeOfSiteId.value
   }
 
-  get siteValue (): Primitives<SiteId> {
+  get siteValue(): Primitives<SiteId> {
     return this.siteId.value
   }
 
-  get nameValue (): Primitives<LocationName> {
+  get nameValue(): Primitives<LocationName> {
     return this.name.value
   }
 
-  get subnetValue (): Primitives<LocationSubnet> {
+  get subnetValue(): Primitives<LocationSubnet> {
     return this.subnet.value
+  }
+
+  updateSubnet(subnet: Primitives<LocationSubnet>): void {
+    this.subnet = new LocationSubnet(subnet)
+  }
+  updateTypeOfSite(typeOfSite: Primitives<LocationTypeOfSite>): void {
+    this.typeOfSiteId = new LocationTypeOfSite(typeOfSite)
+  }
+  updateSite(site: Primitives<SiteId>): void {
+    this.siteId = new SiteId(site)
+  }
+  updateLocationName(name: Primitives<LocationName>): void {
+    this.name = new LocationName(name)
   }
 }
