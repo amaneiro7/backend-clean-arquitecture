@@ -7,6 +7,7 @@ interface Props {
 }
 const AddComputerFeatures = lazy(async () => await import('./AddComputerFeatures'))
 const AddHardDriveFeatures = lazy(async () => await import('./AddHardDriveFeatures'))
+const AddMFPFeatures = lazy(async () => await import('./AddMFPFeatures'))
 
 export default function DeviceFeatures({ onChange, formData }: Props) {
   return (
@@ -16,6 +17,9 @@ export default function DeviceFeatures({ onChange, formData }: Props) {
       </Suspense>
       <Suspense>
         <AddComputerFeatures formData={formData} onChange={onChange} />
+      </Suspense>
+      <Suspense>
+        <AddMFPFeatures formData={formData} onChange={onChange} />
       </Suspense>
     </>
   )

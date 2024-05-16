@@ -8,11 +8,11 @@ import { type EmployeeRepository } from '../domain/EmployeeRepository'
 export class ApiEmployeeRepository implements EmployeeRepository {
   private readonly endpoint: string = 'employees'
   async save ({ employee }: { employee: Employee }): Promise<void> {
-    await makeRequest({ method: 'POST', endpoint: this.endpoint, data: employee.toPrimitives() })
+    return await makeRequest({ method: 'POST', endpoint: this.endpoint, data: employee.toPrimitives() })
   }
 
   async update ({ id, employee }: { id: EmployeeId, employee: Employee }): Promise<void> {
-    await makeRequest({ method: 'PATCH', endpoint: `${this.endpoint}/${id.value}`, data: employee.toPrimitives() })
+    return await makeRequest({ method: 'PATCH', endpoint: `${this.endpoint}/${id.value}`, data: employee.toPrimitives() })
   }
 
   async getByCriteria (criteria: Criteria): Promise<EmployeePrimitives[]> {

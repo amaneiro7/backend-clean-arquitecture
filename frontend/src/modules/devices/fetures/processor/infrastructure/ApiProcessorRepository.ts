@@ -6,12 +6,12 @@ import { type ProcessorRepository } from '../domain/ProcessorRepository'
 export class ApiProcessorRepository implements ProcessorRepository {
   private readonly endpoint: string = 'processors'
   async save({ processor }: { processor: Processor }): Promise<void> {
-    await makeRequest({ method: 'POST', endpoint: this.endpoint, data: processor.toPrimitives() })
+    return await makeRequest({ method: 'POST', endpoint: this.endpoint, data: processor.toPrimitives() })
 
   }
 
   async update({ id, processor }: { id: ProcessorId, processor: Processor }): Promise<void> {
-    await makeRequest({ method: 'PATCH', endpoint: `${this.endpoint}/${id.value}`, data: processor.toPrimitives() })
+    return await makeRequest({ method: 'PATCH', endpoint: `${this.endpoint}/${id.value}`, data: processor.toPrimitives() })
   }
 
   async getAll(): Promise<ProcessorPrimitives[]> {

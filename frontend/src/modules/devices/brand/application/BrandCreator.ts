@@ -9,10 +9,10 @@ export class BrandCreator {
     const brand = Brand.create({ name })
 
     if (id === undefined) {
-      await this.repository.save({ brand })
+      return await this.repository.save({ brand })
     } else {
       const brandId = new BrandId(id)
-      await this.repository.update({ id: brandId, brand })
+      return await this.repository.update({ id: brandId, brand })
     }
   }
 }

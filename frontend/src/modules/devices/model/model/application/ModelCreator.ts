@@ -28,10 +28,10 @@ export class ModelCreator {
     }
 
     if (params.id === undefined) {
-      await this.repository.save({ model })
+      return await this.repository.save({ model })
     } else {
       const modelId = new ModelId(params.id)
-      await this.repository.update({ id: modelId, model })
+      return await this.repository.update({ id: modelId, model })
     }
   }
 }

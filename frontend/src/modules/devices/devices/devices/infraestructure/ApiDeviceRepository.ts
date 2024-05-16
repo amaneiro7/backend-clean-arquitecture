@@ -8,11 +8,11 @@ import { type DeviceRepository } from '../domain/DeviceRepository'
 export class ApiDeviceRepository implements DeviceRepository {
   private readonly endpoint: string = 'devices'
   async save ({ device }: { device: Device }): Promise<void> {
-    await makeRequest({ method: 'POST', endpoint: this.endpoint, data: device.toPrimitives() })
+    return await makeRequest({ method: 'POST', endpoint: this.endpoint, data: device.toPrimitives() })
   }
 
   async update ({ id, device }: { id: DeviceId, device: Device }): Promise<void> {
-    await makeRequest({ method: 'PATCH', endpoint: `${this.endpoint}/${id.value}`, data: device.toPrimitives() })
+    return await makeRequest({ method: 'PATCH', endpoint: `${this.endpoint}/${id.value}`, data: device.toPrimitives() })
   }
 
   async getByCriteria (criteria: Criteria): Promise<DevicePrimitives[]> {

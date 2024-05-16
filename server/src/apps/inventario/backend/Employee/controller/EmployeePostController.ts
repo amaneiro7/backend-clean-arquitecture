@@ -24,7 +24,7 @@ export class EmployeePostController {
             const { userName } = req.body
             const { id } = req.params
             await new EmployeeUpdater(this.repository).run({ id, params: { userName } })
-            res.status(httpStatus.CREATED).json({ message: 'Employee Updated' })
+            res.status(httpStatus.CREATED).json({ message: 'Usuario creado exitosamente' })
         } catch (error) {
             next(error)
         }
@@ -34,7 +34,7 @@ export class EmployeePostController {
         try {
             const { id } = req.params
             await new EmployeeRemover(this.repository).run({ id })
-            res.status(httpStatus.OK).json({ message: 'Employee Removed' })
+            res.status(httpStatus.OK).json({ message: 'Usuario actualizado exitosamente' })
         } catch (error) {
             next(error)
         }

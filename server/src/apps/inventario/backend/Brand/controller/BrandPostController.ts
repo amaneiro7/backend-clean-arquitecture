@@ -11,7 +11,7 @@ export class BrandPostController {
     try {
       const { name } = req.body
       await new BrandCreator(this.repository).run({ name })
-      res.status(httpStatus.CREATED).json({message: 'Brand created'})
+      res.status(httpStatus.CREATED).json({message: 'Marca creada exitosamente'})
     } catch (error) {
       next(error)
     }
@@ -22,7 +22,7 @@ export class BrandPostController {
       const { name } = req.body
       const { id } = req.params
       await new BrandUpdater(this.repository).run({ id, newName: name })
-      res.status(httpStatus.CREATED).json({message: 'Brand updated'})
+      res.status(httpStatus.CREATED).json({message: 'Marca actualizado exitosamente'})
     } catch (error) {
       next(error)
     }

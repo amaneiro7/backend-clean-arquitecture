@@ -19,8 +19,9 @@ export const useModel = (): UseModel => {
   const [models, setModels] = useState<ModelPrimitives[]>([])
 
   async function createModel(formData: ModelPrimitives) {
-    await new ModelCreator(repository).create(formData)
+    const data = await new ModelCreator(repository).create(formData)
     getModels()
+    return data
   }
 
   function getModels() {

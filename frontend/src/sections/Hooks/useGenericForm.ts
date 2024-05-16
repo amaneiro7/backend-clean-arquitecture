@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { toastMessage } from '../utils/toaster'
+import { tostPromise } from '../utils/toaster'
+
 
 export const enum FormStatus {
     Loading,
@@ -17,17 +18,29 @@ export function useGenericForm<T>({ create }: { create: (formData: T) => Promise
 
     async function submitForm(formData: T) {
         setFormStatus(FormStatus.Loading)
-        toastMessage({ type: 'loading', message: 'Cargando...' })
+        tostPromise(create(formData), {
+            loading: 'Procesando...',
+            success: () => {
+                setFormStatus(FormStatus.Success)
+                return `Operacion exitosa`
+            },
+            error() {
+                setFormStatus(FormStatus.Error)
+                return `Ha ocurrido un error`
+            },
+            description: (data) => {
+                return `${data?.message}`                
+            },
+            duration: 3000,
+            onAutoClose: () => {
 
-        try {
-            await create(formData)
-            setFormStatus(FormStatus.Success)
-            toastMessage({ type: 'success', message: 'Creado exitosamente' })
-        } catch (error) {
-            setFormStatus(FormStatus.Error)
-            toastMessage({ type: 'error', message: 'Ha ocurrido un error' })
-        }
+            },
+            onDismiss() {
+
+            },
+        })
     }
+
 
     function resetFormStatus() {
         setFormStatus(FormStatus.Initial)

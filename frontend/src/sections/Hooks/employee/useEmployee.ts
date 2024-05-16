@@ -21,8 +21,9 @@ export const useEmployee = (): UseEmployee => {
   
   
   async function createEmployee (formData: EmployeePrimitives) {
-    await new EmployeeCreator(repository).create(formData)
+    const data = await new EmployeeCreator(repository).create(formData)
     await searchEmployees()
+    return data
   }
   
   async function searchEmployees () {    

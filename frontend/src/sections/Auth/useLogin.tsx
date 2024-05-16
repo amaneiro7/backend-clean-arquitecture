@@ -22,7 +22,7 @@ export const useLogin = (repository: Repository) => {
   const location = useLocation()
 
   async function getLogin ({ email, password }: Pick<UserPrimitives, 'email' | 'password'>) {
-    await new Login(repository)
+    return await new Login(repository)
       .run(email, password).then(async (user) => {
         if (await new CheckToken(repository).run()) {
           await new SaveSession(repository).save(user)
@@ -38,7 +38,7 @@ export const useLogin = (repository: Repository) => {
   }, [location])
 
   async function checkCookieAndUser () {
-    await new CheckToken(repository).run().then(async () => {
+    return await new CheckToken(repository).run().then(async () => {
       const userFromSession = await new GetSession(repository).get()
       setUser(userFromSession)
       setIsSignin(true)

@@ -9,10 +9,10 @@ export class ProcessorCreator {
     const processor = Processor.create({ productCollection, numberModel, cores, threads, frequency })
 
     if (id === undefined) {
-      await this.repository.save({ processor })
+      return await this.repository.save({ processor })
     } else {
       const processorId = new ProcessorId(id)
-      await this.repository.update({ id: processorId, processor })
+      return await this.repository.update({ id: processorId, processor })
     }
   }
 }

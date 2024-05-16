@@ -12,8 +12,9 @@ export const useBrand = () => {
   const [brands, setBrands] = useState<BrandPrimitives[]>([])
 
   async function createBrand(formData: BrandPrimitives) {
-    await new BrandCreator(repository).create(formData)
+    const data = await new BrandCreator(repository).create(formData)
     getBrands()
+    return data
   }
 
   function getBrands() {

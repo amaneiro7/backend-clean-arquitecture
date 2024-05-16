@@ -8,11 +8,11 @@ import { type ModelRepository } from '../domain/ModelRepository'
 export class ApiModelRepository implements ModelRepository {
   private readonly endpoint:string = 'models'
   async save ({ model }: { model: Model }): Promise<void> {    
-    await makeRequest({ method: 'POST', endpoint: this.endpoint, data: model.toPrimitives() })
+    return await makeRequest({ method: 'POST', endpoint: this.endpoint, data: model.toPrimitives() })
   }
 
   async update ({ id, model }: { id: ModelId, model: Model }): Promise<void> {
-    await makeRequest({ method: 'PATCH', endpoint: `${this.endpoint}/${id.value}`, data: model.toPrimitives() }) 
+    return await makeRequest({ method: 'PATCH', endpoint: `${this.endpoint}/${id.value}`, data: model.toPrimitives() }) 
   }
 
   async getAll (): Promise<ModelPrimitives[]> {

@@ -10,7 +10,7 @@ export class ModelSeriesPostController {
   create = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       await new ModelSeriesCreator(this.repository).run(req.body)
-      res.status(httpStatus.CREATED).json({ message: 'Model Created' })
+      res.status(httpStatus.CREATED).json({ message: 'Modelo creado exitosamente' })
     } catch (error) {
       next(error)
     }
@@ -20,7 +20,7 @@ export class ModelSeriesPostController {
     try {      
       const { id } = req.params
       await new ModelSeriesUpdater(this.repository).run({ id, params: req.body })
-      res.status(httpStatus.CREATED).json({ message: 'Model Updated' })
+      res.status(httpStatus.CREATED).json({ message: 'Modelo actualizado exitosamente' })
     } catch (error) {
       next(error)
     }

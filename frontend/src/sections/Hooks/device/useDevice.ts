@@ -22,14 +22,14 @@ export interface UseDevice {
 export const useDevice = (defaultQuery?: SearchByCriteriaQuery): UseDevice => {  
   const repository = new ApiDeviceRepository()
   const { query, addFilter, cleanFilters } = useSearchByCriteriaQuery(defaultQuery)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [devices, setDevices] = useState<DevicePrimitives[]>([])
   
   async function createDevice (formData: DevicePrimitives) {
-    const deviceCreator = new DeviceCreator(repository)
-    await deviceCreator.create(formData)
+    const data = await new DeviceCreator(repository).create(formData)
     searchDevices(query)
+    return data
   }
   
   function searchDevices (filter: SearchByCriteriaQuery) {

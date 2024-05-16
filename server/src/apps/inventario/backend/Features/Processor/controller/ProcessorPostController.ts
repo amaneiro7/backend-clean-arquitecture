@@ -12,7 +12,7 @@ export class ProcessorPostController {
       const { productCollection, numberModel, cores, threads, frequency } = req.body
       console.log(productCollection)
       await new ProcessorCreator(this.repository).run({ productCollection, numberModel, cores, threads, frequency })
-      res.status(httpStatus.CREATED).json({ message: 'Procesador Creado' })
+      res.status(httpStatus.CREATED).json({ message: 'Procesador creado exitosamente' })
     } catch (error) {
       next(error)
     }
@@ -23,7 +23,7 @@ export class ProcessorPostController {
       const { productCollection, numberModel, cores, threads, frequency } = req.body
       const { id } = req.params
       await new ProcessorUpdater(this.repository).run({ id, params: { productCollection, numberModel, cores, threads, frequency } })
-      res.status(httpStatus.CREATED).json({ message: 'Procesador Actualizado' })
+      res.status(httpStatus.CREATED).json({ message: 'Procesador actualizado exitosamente' })
     } catch (error) {
       next(error)
     }
