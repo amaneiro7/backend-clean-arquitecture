@@ -1,46 +1,53 @@
 import { type Primitives } from '../../../shared/domain/value-object/Primitives'
+import { SiteId } from '../../site/domain/SiteId'
+import { TypeOfSiteId } from '../../typeofsites/domain/typeOfSiteId'
 import { type LocationId } from './locationId'
+import { LocationName } from './LocationName'
+import { Subnet } from './Subnet'
 
 export interface LocationPrimitives {
-  id: Primitives<LocationId>
-  name: string
-  typeOfSiteId: string
-  siteId: string
-  subnet: string | null
+  id?: Primitives<LocationId>
+  name: Primitives<LocationName>
+  typeOfSiteId: Primitives<TypeOfSiteId>
+  siteId: Primitives<SiteId>
+  subnet: Primitives<Subnet>
 }
 
 export class Location {
-  constructor (
-    private readonly id: LocationId,
-    private readonly name: string,
-    private readonly typeOfSiteId: string,
-    private readonly siteId: string,
-    private readonly subnet: string | null
+  constructor (    
+    private readonly name: LocationName,
+    private readonly typeOfSiteId: TypeOfSiteId,
+    private readonly siteId: SiteId,
+    private readonly subnet: Subnet
   ) {}
 
-  idValue (): Primitives<LocationId> {
-    return this.id.value
+  public static create (params: Omit<LocationPrimitives, 'id'>): Location {
+    return new Location(
+      new LocationName(params.name),
+      new TypeOfSiteId(params.typeOfSiteId),
+      new SiteId(params.siteId),
+      new Subnet(params.subnet)
+    )
   }
 
-  nameValue (): string {
-    return this.name
+  nameValue (): Primitives<LocationName> {
+    return this.name.value
   }
 
-  typeOfSiteValue (): string {
-    return this.typeOfSiteId
+  typeOfSiteValue (): Primitives<TypeOfSiteId> {
+    return this.typeOfSiteId.value
   }
 
-  siteValue (): string {
-    return this.siteId
+  siteValue (): Primitives<SiteId> {
+    return this.siteId.value
   }
 
-  subnetValue (): string | null {
-    return this.subnet
+  subnetValue (): Primitives<Subnet> {
+    return this.subnet.value
   }
 
   toPrimitives (): LocationPrimitives {
-    return {
-      id: this.idValue(),
+    return {      
       name: this.nameValue(),
       typeOfSiteId: this.typeOfSiteValue(),
       siteId: this.siteValue(),

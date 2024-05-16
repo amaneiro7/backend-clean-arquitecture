@@ -39,7 +39,6 @@ export const useEmployeeInitialState = () => {
 
     if (location.state?.state2 !== undefined) {
       const { state } = location.state
-      console.log('employee state',state)
       setPreloadedEmployeeState(state)
     } else if (id === undefined) {
       navidate('/error')

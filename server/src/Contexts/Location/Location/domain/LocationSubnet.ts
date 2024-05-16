@@ -1,5 +1,7 @@
 import { AcceptedNullValueObject } from '../../../Shared/domain/value-object/AcceptedNullValueObjects'
 import { InvalidArgumentError } from '../../../Shared/domain/value-object/InvalidArgumentError'
+import { Primitives } from '../../../Shared/domain/value-object/Primitives'
+import { Location } from './Location'
 
 // Define a class LocationSubnet that extends the StringValueObject class
 export class LocationSubnet extends AcceptedNullValueObject<string> {
@@ -30,4 +32,18 @@ export class LocationSubnet extends AcceptedNullValueObject<string> {
     if (name === null) return false
     return this.IPADRRESS_VALIDATION.test(name)
   }
+
+  static async updateSubnetField ({ subnet, entity }: { subnet?: Primitives<LocationSubnet>, entity: Location }): Promise<void> {
+    
+    if (subnet === undefined) {
+      return
+    }
+    
+    if (entity.subnetValue === subnet) {
+      return
+    }
+    
+    entity.updateSubnet(subnet)
+  }
+
 }

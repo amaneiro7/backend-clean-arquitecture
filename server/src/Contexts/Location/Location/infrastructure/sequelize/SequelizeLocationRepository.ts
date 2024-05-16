@@ -42,4 +42,15 @@ export class SequelizeLocationRepository extends CriteriaToSequelizeConverter im
   async searchByName (name: Primitives<LocationName>): Promise<LocationPrimitives | null> {
     return await LocationModel.findOne({ where: { name } }) ?? null
   }
+
+  async save (payload: LocationPrimitives): Promise<void> {
+    const { id } = payload
+    const employee = await LocationModel.findByPk(id) ?? null
+    if (employee === null) {
+      await LocationModel.create({ ...payload })
+    } else {
+      employee.set({ ...payload })
+      await employee.save()
+    }
+  }
 }

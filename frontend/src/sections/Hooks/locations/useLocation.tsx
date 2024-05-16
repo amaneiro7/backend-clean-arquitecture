@@ -2,21 +2,35 @@ import { useEffect, useState } from 'react'
 import { type LocationPrimitives } from '../../../modules/location/locations/domain/location'
 import { AllLocationGetter } from '../../../modules/location/locations/application/AllLocationGetter'
 import { ApiLocationRepository } from '../../../modules/location/locations/infraestructure/ApiLocationRepository'
+import { LocationCreator } from '../../../modules/location/locations/application/LocationCreator'
+import { LocationGetter } from '../../../modules/location/locations/application/LocationGetter'
 
 export interface UseLocation {
   locations: LocationPrimitives[]
   loading: boolean
   error: string | null
+  createLocation: (FormData: LocationPrimitives) => Promise<void>
+  getLocation: LocationGetter
 }
 
-export const useLocation = () => {
+export const useLocation = (): UseLocation => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [locations, setLocation] = useState<LocationPrimitives[]>([])
 
-  function getLocation() {
+  const repository = new ApiLocationRepository()
+
+  async function createLocation (formData: LocationPrimitives) {
+    const data = await new LocationCreator(repository).create(formData)
+    getLocations()
+    return data
+  }
+
+  const getLocation = new LocationGetter(repository)
+
+  function getLocations() {
     setLoading(true)
-    new AllLocationGetter(new ApiLocationRepository())
+    new AllLocationGetter(repository)
       .get()
       .then((res) => {
         setLocation(res)
@@ -29,7 +43,7 @@ export const useLocation = () => {
   }
 
   useEffect(() => {
-    getLocation()
+    getLocations()
 
     return () => {
       setLocation([])
@@ -39,6 +53,8 @@ export const useLocation = () => {
   return {
     locations,
     loading,
-    error
+    error,
+    createLocation,
+    getLocation
   }
 }

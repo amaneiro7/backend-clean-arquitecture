@@ -110,6 +110,17 @@ export const dropdownAddsNavs: DropDown[] = [
       }
     ]
   },
+  {
+    label: 'Agregar una nueva ubicación',
+    navs: [
+      {
+        title: 'Agregar una nueva ubicación',
+        desc: 'Aqui se puede agregar una nueva ubicación',
+        path: '/location/add',
+        icon: 'icon'
+      }
+    ]
+  },
 ]
 
 export const navigation: Navigation[] = [
