@@ -11,6 +11,8 @@ import { type Criteria } from '../../../../Shared/domain/criteria/Criteria'
 import { CriteriaToSequelizeConverter } from '../../../../Shared/infrastructure/criteria/CriteriaToSequelizeConverter'
 import { DeviceAssociation } from './DeviceAssociation'
 import { DevicesApiResponse } from './DeviceResponse'
+import { DeviceHardDrive, DeviceHardDrivePrimitives } from '../../../../Features/HardDrive.ts/HardDrive/domain/HardDrive'
+import { DeviceMFPPrimitives, MFP } from '../../../../Features/MFP/domain/MFP'
 export class SequelizeDeviceRepository extends CriteriaToSequelizeConverter implements DeviceRepository {
   private readonly models = sequelize.models as unknown as Models
   async matching(criteria: Criteria): Promise<DevicePrimitives[]> {
@@ -98,6 +100,12 @@ export class SequelizeDeviceRepository extends CriteriaToSequelizeConverter impl
       if (DeviceComputer.isComputerCategory({ categoryId })) { // If the device category is a computer category
         await this.creareDeviceComputerIfCategoryMatches(id, payload, t) // Create a new DeviceComputer entity with the given payload
       }
+      if (DeviceHardDrive.isHardDriveCategory({ categoryId })) { // If the device category is a computer category
+        await this.creareDeviceHardDriveIfCategoryMatches(id, payload, t) // Create a new DeviceComputer entity with the given payload
+      }
+      if (MFP.isMFPCategory({ categoryId })) { // If the device category is a computer category
+        await this.creareDeviceMFPIfCategoryMatches(id, payload, t) // Create a new DeviceComputer entity with the given payload
+      }
 
       await t.commit() // Commit the transaction
     } catch (error: any) { // If there is an error
@@ -112,6 +120,22 @@ export class SequelizeDeviceRepository extends CriteriaToSequelizeConverter impl
       await this.models.DeviceComputer.create({ deviceId: id, ...payload }, { transaction })
     } else {
       await this.models.DeviceComputer.update({ ...payload }, { where: { id }, transaction })
+    }
+  }
+  private async creareDeviceHardDriveIfCategoryMatches(id: Primitives<DeviceId>, payload: DevicePrimitives, transaction: Transaction): Promise<void> {
+    const hardDrive = await this.models.DeviceHardDrive.findByPk(id) ?? null
+    if (hardDrive === null) {
+      await this.models.DeviceComputer.create({ deviceId: id, ...payload }, { transaction })
+    } else {
+      await this.models.DeviceComputer.update({ ...payload }, { where: { id }, transaction })
+    }
+  }
+  private async creareDeviceMFPIfCategoryMatches(id: Primitives<DeviceId>, payload: DevicePrimitives, transaction: Transaction): Promise<void> {
+    const mfp = await this.models.DeviceMFP.findByPk(id) ?? null
+    if (mfp === null) {
+      await this.models.DeviceMFP.create({ deviceId: id, ...payload }, { transaction })
+    } else {
+      await this.models.DeviceMFP.update({ ...payload }, { where: { id }, transaction })
     }
   }
 

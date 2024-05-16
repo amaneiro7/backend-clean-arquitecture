@@ -34,6 +34,7 @@ import { initDeviceComputerModel } from '../../../../Features/Computer/infraestr
 import { initInputTypeModel } from '../../../../ModelSeries/InputType/infrastructure/sequelize/InputTypeSchema'
 import { initKeyboardModels } from '../../../../ModelSeries/ModelCharacteristics/Keyboards/infraestructure/KeyboardModelSchema'
 import { initEmployeeModel } from '../../../../employee/Employee/infrastructure/sequelize/EmployeeSchema'
+import { initDeviceMFPModel } from '../../../../Features/MFP/infraestructure/MFPSchema'
 
 export function setupModels (sequelize: Sequelize): void {
   initCategoryModel(sequelize)
@@ -53,6 +54,7 @@ export function setupModels (sequelize: Sequelize): void {
   initOperatingSystemModel(sequelize)
   initOperatingSystemArqModel(sequelize)
   initDeviceComputerModel(sequelize)
+  initDeviceMFPModel(sequelize)
   initHistoryModel(sequelize)
   initComputerModels(sequelize)
   initLaptopModels(sequelize)

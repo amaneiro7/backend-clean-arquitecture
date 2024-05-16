@@ -6,6 +6,7 @@ import { DeviceComputerModel } from '../../../../Features/Computer/infraestructu
 import { DeviceHardDriveModel } from '../../../../Features/HardDrive.ts/HardDrive/infraestructure/sequelize/DeviceHardDriveSchema'
 import { HardDriveCapacityModel } from '../../../../Features/HardDrive.ts/HardDriveCapacity/infraestructure/sequelize/HardDriveCapacitySchema'
 import { HardDriveTypeModel } from '../../../../Features/HardDrive.ts/HardDriveType/infraestructure/sequelize/HardDriveTypeSchema'
+import { DeviceMFPModel } from '../../../../Features/MFP/infraestructure/MFPSchema'
 import { MemoryRamTypeModel } from '../../../../Features/MemoryRam/MemoryRamType/infraestructure/sequelize/MemoryRamTypeSchema'
 import { OperatingSystemModel } from '../../../../Features/OperatingSystem/OperatingSystem/infraesructure/sequelize/OperatingSystemSchema'
 import { OperatingSystemArqModel } from '../../../../Features/OperatingSystem/OperatingSystemArq/infraestructure/sequelize/OperatingSystemArqSchema'
@@ -51,6 +52,7 @@ export function InitSequelizeAssociation (): void {
   DeviceModel.associate(models)// Device Associations
   DeviceComputerModel.associate(models) // DeviceComputer Associations
   DeviceHardDriveModel.associate(models) // DeviceHardDrive Associations
+  DeviceMFPModel.associate(models) // MFP Associations
   HardDriveCapacityModel.associate(models) // HardDriveCapacity Associations
   HardDriveTypeModel.associate(models) // HardDriveType Associations
   ProcessorModel.associate(models) // Processor Associations

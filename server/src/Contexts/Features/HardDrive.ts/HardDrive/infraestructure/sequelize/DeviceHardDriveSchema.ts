@@ -7,6 +7,7 @@ import { type CategoryId } from '../../../../../Category/domain/CategoryId'
 import { type HardDriveHealth } from '../../domain/HardDriveHealth'
 import { type HDDCapacity } from '../../domain/HDDCapacity'
 import { type HDDType } from '../../domain/HDDType'
+import { CategoryValues } from '../../../../../Category/domain/Category'
 
 interface DeviceHardDriveCreationAttributes extends Pick<DeviceHardDrivePrimitives, 'id' | 'categoryId' | 'health' | 'hardDriveCapacityId' | 'hardDriveTypeId'> {
   deviceId: Primitives<DeviceId>
@@ -40,7 +41,7 @@ export function initDeviceHardDriveModel (sequelize: Sequelize): void {
         allowNull: false,
         validate: {
           isIn: {
-            args: [['9']],
+            args: [[CategoryValues.HARDDRIVE]],
             msg: 'No pertenece a esta categoria'
           }
         }

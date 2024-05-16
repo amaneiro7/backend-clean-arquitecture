@@ -10,7 +10,7 @@ import { Models } from '../../../Shared/infrastructure/persistance/Sequelize/Seq
 interface MFPCreationAttributes extends Pick<DeviceMFPPrimitives, 'id' | 'categoryId' | 'ipAddress'> {
   deviceId: Primitives<DeviceId>
 }
-export class MFPModel extends Model<MFPCreationAttributes> implements MFPCreationAttributes {
+export class DeviceMFPModel extends Model<MFPCreationAttributes> implements MFPCreationAttributes {
   readonly deviceId!: Primitives<DeviceId>
   readonly id!: Primitives<DeviceId>
   readonly categoryId!: Primitives<CategoryId>
@@ -23,8 +23,8 @@ export class MFPModel extends Model<MFPCreationAttributes> implements MFPCreatio
   }
 }
 
-export function initMFPModel (sequelize: Sequelize): void {
-  MFPModel.init(
+export function initDeviceMFPModel (sequelize: Sequelize): void {
+  DeviceMFPModel.init(
     {
       id: {
         type: DataTypes.UUID,
@@ -54,7 +54,8 @@ export function initMFPModel (sequelize: Sequelize): void {
       }
     },
     {
-      modelName: 'DeviceMultifunctionalPrinter',
+      modelName: 'DeviceMFP',
+      tableName: 'device_mfp',
       timestamps: true,
       underscored: true,
       sequelize

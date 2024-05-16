@@ -14,6 +14,7 @@ export class CategoryModel extends Model<CategoryPrimitives> implements Category
     CategoryModel.hasMany(models.Device, { as: 'device', foreignKey: 'categoryId' }) // A category can have many device
     CategoryModel.hasMany(models.DeviceHardDrive, { as: 'deviceHardDrive', foreignKey: 'categoryId' }) // A category can have many hard drive
     CategoryModel.hasMany(models.DeviceComputer, { as: 'deviceComputer', foreignKey: 'categoryId' }) // A category can have many computer
+    CategoryModel.hasMany(models.DeviceMFP, { as: 'deviceMFP', foreignKey: 'categoryId' }) // A category can have many multifunctionalprinter
     CategoryModel.hasMany(models.ModelComputer, { as: 'modelComputer', foreignKey: 'categoryId' }) // A category can have many computer model
     CategoryModel.hasMany(models.ModelLaptop, { as: 'modelLaptop', foreignKey: 'categoryId' }) // A category can have many laptop model
     CategoryModel.hasMany(models.ModelMonitor, { as: 'modelMonitor', foreignKey: 'categoryId' }) // A category can have many monitor model

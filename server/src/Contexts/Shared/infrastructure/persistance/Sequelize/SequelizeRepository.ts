@@ -45,6 +45,7 @@ export interface Models {
   Device: ModelStatic<Model<any>>
   DeviceComputer: ModelStatic<Model<any>>
   DeviceHardDrive: ModelStatic<Model<any>>
+  DeviceMFP: ModelStatic<Model<any>>
   Processor: ModelStatic<Model<any>>
   ProcessorSocket: ModelStatic<Model<any>>
   MemoryRamType: ModelStatic<Model<any>>

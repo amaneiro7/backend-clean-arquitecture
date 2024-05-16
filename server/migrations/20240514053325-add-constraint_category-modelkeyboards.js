@@ -3,41 +3,41 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    return await queryInterface.addConstraint('model_keyboards', 
-    {
-      fields: ['category_id'],
-      type: 'foreign key',
-      name: 'model_keyboards_category_id_fkey',
-      references: {
-        table: 'categories',
-        field: 'id'
+    return await queryInterface.addConstraint('model_keyboards',
+      {
+        fields: ['category_id'],
+        type: 'foreign key',
+        name: 'model_keyboards_category_id_fkey',
+        references: {
+          table: 'categories',
+          field: 'id'
+        },
+        onDelete: 'cascade',
+        onUpdate: 'no action'
       },
-      onDelete: 'cascade',
-      onUpdate: 'no action'
-    },
-    {
-      fields: ['model_series_id'],
-      type: 'foreign key',
-      name: 'model_keyboards_model_series_id_fkey',
-      references: {
-        table: 'models',
-        field: 'id'
+      {
+        fields: ['model_series_id'],
+        type: 'foreign key',
+        name: 'model_keyboards_model_series_id_fkey',
+        references: {
+          table: 'models',
+          field: 'id'
+        },
+        onDelete: 'cascade',
+        onUpdate: 'no action'
       },
-      onDelete: 'cascade',
-      onUpdate: 'no action'
-    },
-    {
-      fields: ['input_type_id'],
-      type: 'foreign key',
-      name: 'model_keyboards_input_type_id_fkey',
-      references: {
-        table: 'input_types',
-        field: 'id'
+      {
+        fields: ['input_type_id'],
+        type: 'foreign key',
+        name: 'model_keyboards_input_type_id_fkey',
+        references: {
+          table: 'input_types',
+          field: 'id'
+        },
+        onDelete: 'cascade',
+        onUpdate: 'no action'
       },
-      onDelete: 'cascade',
-      onUpdate: 'no action'
-    },
-  )
+    )
   },
 
   async down (queryInterface, Sequelize) {

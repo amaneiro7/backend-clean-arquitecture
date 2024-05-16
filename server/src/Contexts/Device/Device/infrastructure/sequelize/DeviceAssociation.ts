@@ -52,7 +52,8 @@ export class DeviceAssociation {
                         ]
                     }
                 ]
-            }
+            },
+            'mfp'            
         ]
         const firstLevelJoin = ['computerName', 'processorId', 'hardDriveCapacityId', 'hardDriveTypeId', 'operatingSystemId', 'operatingSystemArqId']
         firstLevelJoin.forEach(ele => {
