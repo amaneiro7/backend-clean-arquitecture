@@ -68,7 +68,7 @@ export default function ListadoSitios() {
                                 type='button'
                                 text='Añadir'
                                 actionType='ACTION'
-                                handle={() => { navigate('/sitios/add') }}
+                                handle={() => { navigate('/location/add') }}
                             />
                         </Suspense>
                         <Suspense fallback={<InputSkeletonLoading />}>
