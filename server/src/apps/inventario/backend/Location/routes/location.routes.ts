@@ -12,9 +12,10 @@ export const createLocationRouter = ({ repository }: Props): Router => {
   const postController = new LocationPostController(repository)
 
   router.get('/all', getController.getAll)
+  router.get('/:id', getController.getById)
   router.get('/', getController.getByCriteria)
-  router.post('/', postController.create)
-  router.patch('/:id', postController.update)
+  // router.post('/', postController.create)
+  // router.patch('/:id', postController.update)
 
   return router
 }

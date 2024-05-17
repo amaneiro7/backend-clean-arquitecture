@@ -5,6 +5,7 @@ import { type Repository } from '../../../../../Contexts/Shared/domain/Repositor
 import { SearchByCriteriaQuery } from '../../../../../Contexts/Shared/domain/SearchByCriteriaQuery'
 import { FiltersPrimitives } from '../../../../../Contexts/Shared/domain/criteria/Filter'
 import { LocationByCriteriaSearcher } from '../../../../../Contexts/Location/Location/application/LocationByCriteriaSearcher'
+import { LocationFinder } from '../../../../../Contexts/Location/Location/application/LocationFiner'
 
 export class LocationGetController {
   constructor (private readonly repository: Repository) {}
@@ -12,6 +13,16 @@ export class LocationGetController {
   getAll = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const data = await new SearchAllLocation(this.repository).search()
+      res.status(httpStatus.OK).json(data)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  getById = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const { id } = req.params
+      const data = await new LocationFinder(this.repository).searchById(id)
       res.status(httpStatus.OK).json(data)
     } catch (error) {
       next(error)

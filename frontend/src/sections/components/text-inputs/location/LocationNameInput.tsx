@@ -44,9 +44,10 @@ export function LocationNameInput({ value = '', onChange, type = 'form' }: Props
                 name="name"
                 type="text"
                 label='Nombre del sitio'
-                placeholder=''
+                placeholder='-- Ingrese el nombre del sitio --'
                 handle={(event) => {
-                    const { name, value } = event.target
+                    let { name, value } = event.target
+                    value = value.trim().toUpperCase()
                     onChange(name, value, Operator.CONTAINS)
                 }}
                 value={value}

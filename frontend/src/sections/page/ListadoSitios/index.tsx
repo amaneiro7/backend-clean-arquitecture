@@ -16,7 +16,7 @@ const InfoBox = lazy(async () => import("../../components/info-box/InfoBox").the
 const InfoBoxTitle = lazy(async () => import("../../components/info-box/InfoBoxTitle").then(m => ({ default: m.InfoBoxTitle })))
 const InfoBoxText = lazy(async () => import("../../components/info-box/InfoBoxText").then(m => ({ default: m.InfoBoxText })))
 const TypeOfSiteComboBox = lazy(async () => import("../../components/combo_box/TypeOfSiteComboBox").then(m => ({ default: m.TypeOfSiteComboBox })))
-const LocationNameInput = lazy(async () => import("../../components/text-inputs/LocationNameInput").then(m => ({ default: m.LocationNameInput })))
+const LocationNameInput = lazy(async () => import("../../components/text-inputs/location/LocationNameInput").then(m => ({ default: m.LocationNameInput })))
 const Button = lazy(async () => import("../../components/button"))
 const StateComboBox = lazy(async () => import("../../components/combo_box/StateComboBox").then(m => ({ default: m.StateComboBox })))
 const CityComboBox = lazy(async () => import("../../components/combo_box/CityComboBox").then(m => ({ default: m.CityComboBox })))
@@ -85,14 +85,14 @@ export default function ListadoSitios() {
                     {loading && <SpinnerSKCircle />}
                     {(!loading && locations.length === 0) && <p>No hay resultados</p>}
                     {(!loading && locations.length > 0) &&
-                        (locations as LocationApiResponse[]).map(({ id, name, subnet, site, typeOfSite }) => (
-                            <InfoBox key={id}>
-                                <InfoBoxTitle title={name} />
-                                <InfoBoxText desc="Tipo" text={typeOfSite.name} />
-                                <InfoBoxText desc="Dirección" text={site.address} />
-                                <InfoBoxText desc="Estado" text={site.city.state.name} />
-                                <InfoBoxText desc="Ciudad" text={site.city.name} />
-                                <InfoBoxText desc="Subnet" text={subnet} />
+                        (locations as LocationApiResponse[]).map((location) => (
+                            <InfoBox key={location.id}>
+                                <InfoBoxTitle title={location.name} state={location} url={`/location/edit/${location.id}`} />
+                                <InfoBoxText desc="Tipo" text={location.typeOfSite.name} />
+                                <InfoBoxText desc="Dirección" text={location.site.address} />
+                                <InfoBoxText desc="Estado" text={location.site.city.state.name} />
+                                <InfoBoxText desc="Ciudad" text={location.site.city.name} />
+                                <InfoBoxText desc="Subnet" text={location.subnet} />
                             </InfoBox>
                         ))
                     }
