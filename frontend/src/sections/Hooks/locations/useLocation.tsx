@@ -5,7 +5,7 @@ import { ApiLocationRepository } from '../../../modules/location/locations/infra
 import { LocationCreator } from '../../../modules/location/locations/application/LocationCreator'
 import { LocationGetter } from '../../../modules/location/locations/application/LocationGetter'
 
-export interface UseLocation {
+export interface UseSiteLocation {
   locations: LocationPrimitives[]
   loading: boolean
   error: string | null
@@ -13,7 +13,7 @@ export interface UseLocation {
   getLocation: LocationGetter
 }
 
-export const useLocation = (): UseLocation => {
+export const useSiteLocation = (): UseSiteLocation => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [locations, setLocation] = useState<LocationPrimitives[]>([])

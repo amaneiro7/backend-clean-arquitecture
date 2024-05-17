@@ -1,8 +1,8 @@
 import { Suspense, lazy } from 'react'
 import { Route, Routes } from 'react-router-dom'
+import { useAppContext } from '../Context/AppContext.tsx'
 import ProtectedRoute from './ProtectedRoute.tsx'
 import Loading from '../components/Loading/index.tsx'
-import { useAppContext } from '../Context/AppContext.tsx'
 
 const Home = lazy(async () => await import('../page/home/index.tsx'))
 const ListadoSitios = lazy(async () => await import('../page/ListadoSitios'))
@@ -28,14 +28,15 @@ export const privateRouter = [
   { path: '/', element: <Home /> },
   { path: '/location', element: <ListadoSitios /> },
   { path: '/location/add', element: <CreateLocationForm /> },
+  { path: '/location/edit/:id', element: <CreateLocationForm /> },
   { path: '/almacen', element: <AlmacenPage /> },
   { path: '/equipos/agencia', element: <EquiposAgenciaPage /> },
   { path: '/equipos/torre', element: <EquiposTorrePage /> },
   { path: '/employees/torre', element: <AdministrativeSitePerEmployee /> },
   { path: '/employees/agencia', element: <AgencySitePerEmployee /> },
-  { path: '/device/add', element: <CreateDeviceForm /> },
   { path: '/employee/add', element: <CreateEmployeeForm /> },
   { path: '/employee/edit/:id', element: <CreateEmployeeForm /> },
+  { path: '/device/add', element: <CreateDeviceForm /> },
   { path: '/device/edit/:id', element: <CreateDeviceForm /> },
   { path: '/brand/add', element: <CreateBrandForm /> },
   { path: '/brand/edit/:id', element: <CreateBrandForm /> },

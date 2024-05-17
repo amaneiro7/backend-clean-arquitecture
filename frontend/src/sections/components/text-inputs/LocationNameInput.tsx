@@ -11,7 +11,7 @@ interface Props {
 
 const FormInput = lazy(async () => import('./FormInput').then(m => ({default: m.FormInput})))
 
-export function LocationNameInput({ value, onChange, type ='search' }: Props) {
+export function LocationNameInpu222t({ value, onChange, type ='search' }: Props) {
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
   const isFirstInput = useRef(true)

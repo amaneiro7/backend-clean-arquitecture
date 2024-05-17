@@ -143,7 +143,7 @@ export const navigation: Navigation[] = [
   },
   {
     name: 'Listado de Sitios',
-    path: '/sitios',
+    path: '/location',
     isDrapdown: false
   },
   {

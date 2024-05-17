@@ -169,6 +169,7 @@ export interface ProcessorApiresponse extends ProcessorPrimitives {
 }
 
 export interface LocationApiResponse extends LocationPrimitives {
+  id: Primitives<LocationId>
   typeOfSite: TypeOfSitePrimitives
   site: SiteApiResponse
 }

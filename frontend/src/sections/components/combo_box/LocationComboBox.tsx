@@ -4,12 +4,12 @@ import { StatusId } from "../../../modules/devices/devices/status/domain/StatusI
 import { OnHandleChange } from "../../../modules/shared/domain/types/types"
 import { Primitives } from "../../../modules/shared/domain/value-object/Primitives"
 import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
-
 import { LocationId } from "../../../modules/location/locations/domain/locationId"
-import { useLocation } from "../../Hooks/locations/useLocation"
+import { useSiteLocation } from "../../Hooks/locations/useLocation"
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
 import { TypeOfSiteId } from "../../../modules/location/typeofsites/domain/typeOfSiteId"
 import { DeviceLocation } from "../../../modules/devices/devices/devices/domain/DeviceLocation"
+import { LocationApiResponse } from "../../../modules/shared/domain/types/responseTypes"
 
 interface Props {
   value?: Primitives<LocationId>
@@ -23,7 +23,7 @@ const ComboBox = lazy(async () => import("./combo_box"))
 //   const BrandDialog = lazy(async () => import("../Dialog/BrandDialog"))
 
 export default function LocationComboBox({ value, statusId, typeOfSiteId, onChange, type = 'search' }: Props) {
-  const { locations, loading } = useLocation()
+  const { locations, loading } = useSiteLocation()
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
   // const [open, toggleOpen] = useState(false)
@@ -60,10 +60,10 @@ export default function LocationComboBox({ value, statusId, typeOfSiteId, onChan
     }
   }, [value, statusId, typeOfSiteId])
 
-  // useLayoutEffect(() => {
+  useLayoutEffect(() => {
 
-  //     onChange('locationId', '')
-  // }, [statusId])
+      onChange('locationId', '')
+  }, [statusId])
 
   return (
     <Suspense fallback={<InputSkeletonLoading />}>
@@ -92,7 +92,7 @@ export default function LocationComboBox({ value, statusId, typeOfSiteId, onChan
           // }
           onChange('locationId', newValue ? newValue.id : '', Operator.EQUAL)
         }}
-        options={filterLocation}
+        options={filterLocation as LocationApiResponse[]}
         isDisabled={false}
         isRequired={type === 'form'}
         loading={loading}

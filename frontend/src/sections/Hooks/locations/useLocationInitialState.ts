@@ -6,7 +6,7 @@ import { SiteId } from '../../../modules/location/site/domain/SiteId'
 import { TypeOfSiteId } from '../../../modules/location/typeofsites/domain/typeOfSiteId'
 import { LocationName } from '../../../modules/location/locations/domain/LocationName'
 import { Subnet } from '../../../modules/location/locations/domain/Subnet'
-import { useLocation as useSiteLocation } from './useLocation'
+import { useSiteLocation } from './useLocation'
 
 interface DefaultProps {
   id?: Primitives<LocationId>
