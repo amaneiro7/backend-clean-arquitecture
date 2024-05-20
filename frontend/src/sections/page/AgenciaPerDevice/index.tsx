@@ -163,7 +163,7 @@ export default function AgenciaPage() {
         {loading && <SpinnerSKCircle />}
         {(!loading && devices.length === 0) && <p>No hay resultados</p>}
         {(!loading && devices.length > 0) && <Suspense fallback={<TableSkeleton />}>
-          <Table className=''>
+          <Table ref={tableRef} className=''>
             <TableHeader>
               <TableRow>
                 <TableHead name='Acciones' />
