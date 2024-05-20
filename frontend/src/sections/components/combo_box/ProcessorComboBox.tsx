@@ -14,6 +14,10 @@ interface Props {
     type?: 'form' | 'search'
 }
 
+interface NewValue extends ProcessorPrimitives {
+    inputValue: string
+}
+
 const ComboBox = lazy(async () => import("./combo_box"))
 const ProcessorDialog = lazy(async () => import("../Dialog/ProcessorDialog"))
 
@@ -39,7 +43,7 @@ export default function ProcessorComboBox({ value, onChange, type = 'search' }: 
                 label="Procesador"
                 name='processorId'
                 type={type}
-                onChange={(_, newValue) => {
+                onChange={(_, newValue: NewValue) => {
                     if (typeof newValue === 'string') {
                         // timeout to avoid instant validation of the dialog's form.
                         setTimeout(() => {

@@ -137,7 +137,7 @@ export default function CreateDeviceForm() {
               type='form'
             />
           </Suspense>
-          <div className='flex gap-4'>
+          <div className='flex gap-4'>            
             <Suspense fallback={<InputSkeletonLoading />}>
               <EmployeeComboBox
                 onChange={handleChange}

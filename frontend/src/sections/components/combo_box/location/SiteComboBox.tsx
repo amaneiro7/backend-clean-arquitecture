@@ -4,6 +4,7 @@ import { Operator } from "../../../../modules/shared/domain/criteria/FilterOpera
 import { useSite } from "../../../Hooks/locations/useSite"
 import { Primitives } from "../../../../modules/shared/domain/value-object/Primitives"
 import { SiteId } from "../../../../modules/location/site/domain/SiteId"
+import { SitePrimitives } from "../../../../modules/location/site/domain/site"
 
 interface Props {
     value?: Primitives<SiteId>
@@ -28,7 +29,7 @@ export function SiteComboBox({ value, onChange, type = 'search' }: Props) {
                 label="Sitio"
                 name='siteId'
                 type={type}
-                onChange={(_, newValue) => {
+                onChange={(_, newValue: SitePrimitives) => {
                     onChange('siteId', newValue ? newValue.id : '', Operator.EQUAL)
                 }}
                 options={sites}

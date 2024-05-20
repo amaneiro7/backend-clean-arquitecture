@@ -2,6 +2,7 @@ import { lazy, Suspense, useMemo } from "react"
 import { OnHandleChange } from "../../../modules/shared/domain/types/types"
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
 import { useMemoryRamType } from "../../Hooks/memoryRam/useMemoryRamType"
+import { MemoryRamTypePrimitives } from "../../../modules/devices/fetures/memoryRam/memoryRamType/domain/MemoryRamType"
 
 interface Props {
     value?: string
@@ -26,7 +27,7 @@ export function MemoryRamTypeComboBox({ value, onChange, type = 'search' }: Prop
                 label="Tipo de Memoria"
                 name='memoryRamTypeId'
                 type={type}
-                onChange={(_, newValue) => {
+                onChange={(_, newValue: MemoryRamTypePrimitives) => {
                     onChange('memoryRamTypeId', newValue ? newValue.id : '')
                 }}
                 options={memoryRamTypes}

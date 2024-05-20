@@ -5,6 +5,7 @@ import { Operator } from "../../../modules/shared/domain/criteria/FilterOperator
 import { CategoryId } from "../../../modules/devices/category/domain/CategoryId"
 import { useCategory } from "../../Hooks/category/useCategory"
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
+import { CategoryPrimitives } from "../../../modules/devices/category/domain/Category"
 
 interface Props {
     value: Primitives<CategoryId>
@@ -33,7 +34,7 @@ export default function CategoryComboBox({ value, onChange, type = 'search', isA
                     label="Categoria"
                     name='categoryId'
                     type={type}
-                    onChange={(_, newValue) => {
+                    onChange={(_, newValue: CategoryPrimitives) => {
                         onChange('categoryId', newValue ? newValue.id : '', Operator.EQUAL)
                     }}
                     options={categories}

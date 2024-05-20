@@ -20,6 +20,10 @@ interface Props {
     isAdd?: boolean
 }
 
+interface NewValue extends ModelApiresponse {
+    inputValue: string
+}
+
 const ComboBox = lazy(async () => import("./combo_box"))
 const ModelDialog = lazy(async () => import("../Dialog/ModelDialog"))
 const ReadOnlyInputBox = lazy(async () => import("../ReadOnlyInputBox").then(m => ({ default: m.ReadOnlyInputBox })))
@@ -51,7 +55,7 @@ export default function ModelComboBox({ value, onChange, categoryId, brandId, ty
                     label="Modelo"
                     name={name}
                     type={type}
-                    onChange={(_, newValue) => {
+                    onChange={(_, newValue: NewValue) => {
                         if (typeof newValue === 'string') {
                             // timeout to avoid instant validation of the dialog's form.
                             setTimeout(() => {

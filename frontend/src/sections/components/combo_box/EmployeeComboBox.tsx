@@ -16,6 +16,10 @@ interface Props {
   type?: 'form' | 'search'
 }
 
+interface NewValue extends EmployeePrimitives {
+  inputValue: string
+}
+
 const EmployeeDialog = lazy(async () => import("../Dialog/EmployeeDialog"))
 const ComboBox = lazy(async () => import("./combo_box"))
 export default function EmployeeComboBox({ value, name, onChange, status, type = 'search' }: Props) {
@@ -68,7 +72,7 @@ export default function EmployeeComboBox({ value, name, onChange, status, type =
         label="Usuarios"
         name={name}
         type={type}
-        onChange={(_, newValue) => {
+        onChange={(_, newValue: NewValue) => {
           if (typeof newValue === 'string') {
             // timeout to avoid instant validation of the dialog's form.
             setTimeout(() => {

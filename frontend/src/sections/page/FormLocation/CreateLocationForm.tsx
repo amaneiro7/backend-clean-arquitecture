@@ -4,13 +4,11 @@ import { useLocation } from 'react-router-dom'
 import { useGenericForm, FormStatus } from '../../Hooks/useGenericForm'
 import { useSiteLocation } from '../../Hooks/locations/useLocation'
 import { useLocationInitialState } from '../../Hooks/locations/useLocationInitialState'
-import { SubnetInput } from '../../components/text-inputs/location/SubnetInput'
-import { LocationNameInput } from '../../components/text-inputs/location/LocationNameInput'
+
 
 const Main = lazy(async () => import('../../components/Main'))
 const FormContainer = lazy(async () => import('../../components/formContainer'))
-const TypeOfSiteComboBox = lazy(async () => import('../../components/combo_box/TypeOfSiteComboBox').then(m => ({ default: m.TypeOfSiteComboBox })))
-const SiteComboBox = lazy(async () => import('../../components/combo_box/location/SiteComboBox').then(m => ({ default: m.SiteComboBox })))
+const LocationInputs = lazy(async () => import('./LocationInputs').then(m => ({ default: m.LocationInputs })))
 
 export default function CreateLocationForm() {
     const { createLocation } = useSiteLocation()
@@ -65,33 +63,7 @@ export default function CreateLocationForm() {
                     url='/location/add'
                 >
                     <Suspense>
-                        <TypeOfSiteComboBox
-                            onChange={handleChange}
-                            value={formData.typeOfSiteId}
-                            type='form'
-                        />
-                    </Suspense>
-                    <Suspense>
-                        <SiteComboBox
-                            onChange={handleChange}
-                            type='form'
-                            value={formData.siteId}
-                        />
-
-                    </Suspense>
-                    <Suspense>
-                        <SubnetInput
-                            onChange={handleChange}
-                            value={formData.subnet}
-                            type='form'
-                        />
-                    </Suspense>
-                    <Suspense>
-                    <LocationNameInput
-                        onChange={handleChange}
-                        value={formData.name}
-                        type='form'
-                    />
+                        <LocationInputs formData={formData} onChange={handleChange} />
                     </Suspense>
                 </FormContainer>
             </Suspense>

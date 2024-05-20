@@ -4,6 +4,7 @@ import { Operator } from "../../../../modules/shared/domain/criteria/FilterOpera
 import { Primitives } from "../../../../modules/shared/domain/value-object/Primitives"
 import { useRegion } from "../../../Hooks/locations/useRegion"
 import { RegionId } from "../../../../modules/location/region/domain/RegionId"
+import { RegionPrimitives } from "../../../../modules/location/region/domain/region"
 
 interface Props {
     value?: Primitives<RegionId>
@@ -28,7 +29,7 @@ export function RegionComboBox({ value, onChange, type = 'search' }: Props) {
                 label="Región"
                 name='regionId'
                 type={type}
-                onChange={(_, newValue) => {
+                onChange={(_, newValue: RegionPrimitives) => {
                     onChange('regionsId', newValue ? newValue.id : '', Operator.EQUAL)
                 }}
                 options={regions}

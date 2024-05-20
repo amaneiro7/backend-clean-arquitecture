@@ -1,8 +1,9 @@
 import { lazy, Suspense, useLayoutEffect, useMemo, useState } from "react"
-import { OnHandleChange } from "../../../modules/shared/domain/types/types"
-import { Primitives } from "../../../modules/shared/domain/value-object/Primitives"
-import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
+import { type OnHandleChange } from "../../../modules/shared/domain/types/types"
+import { type Primitives } from "../../../modules/shared/domain/value-object/Primitives"
+import { type HardDrivePrimitives } from "../../../modules/devices/fetures/hardDrive/hardDrive/domain/HardDrive"
 import { StatusId } from "../../../modules/devices/devices/status/domain/StatusId"
+import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
 import { useHardDriveCapacity } from "../../Hooks/hardDrive/useHardDriveCapacity"
 import { ComputerHDDCapacity } from "../../../modules/devices/fetures/computer/domain/ComputerHHDCapacity"
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
@@ -53,7 +54,7 @@ export function HardDriveCapacityComboBox ({ value, status, onChange, type = 'se
                 label="Capacidad de Disco Duro"
                 name='hardDriveCapacityId'
                 type={type}
-                onChange={(_, newValue) => {
+                onChange={(_, newValue: HardDrivePrimitives) => {
                     onChange('hardDriveCapacityId', newValue ? newValue.id : '', Operator.EQUAL)
                     
                 }}

@@ -7,6 +7,7 @@ import { ComputerHDDCapacity } from "../../../modules/devices/fetures/computer/d
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
 import { ComputerOs } from "../../../modules/devices/fetures/computer/domain/ComputerOS"
 import { useOperatingSystemVersions } from "../../Hooks/operatingSystem/useOperatingSystemVersion"
+import { OperatingSystemPrimitives } from "../../../modules/devices/fetures/operatingSystem/operatingSystem/domain/OperatingSystem"
 
 interface Props {
   value: Primitives<ComputerOs>
@@ -63,7 +64,7 @@ export function OperatingSystemComboBox({ value, status, hardDriveCapacity, onCh
         label="Sistemas Operativo"
         name='operatingSystemId'
         type={type}
-        onChange={(_, newValue) => {
+        onChange={(_, newValue: OperatingSystemPrimitives) => {
           onChange('operatingSystemId', newValue ? newValue.id : '', Operator.EQUAL)
 
         }}

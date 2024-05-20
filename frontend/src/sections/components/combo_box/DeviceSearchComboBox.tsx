@@ -74,7 +74,6 @@ export default function DeviceSearchComboBox() {
                     onInputChange={(_, newInputValue) => {
                         setInputValue(newInputValue)
                     }}
-                    placeholder='Busque por serial'
                     size='small'
                     open={open}
                     onOpen={() => { setOpen(true) }}

@@ -53,8 +53,8 @@ export default function BrandComboBox({ value, onChange, categoryId, type = 'sea
                     initialValue={initialValue}
                     label="Marca"
                     name='brandId'
-                    type={type}
-                    onChange={(_, newValue) => {
+                    type={type}                                        
+                    onChange={(_, newValue: any) => {
                         if (typeof newValue === 'string') {
                             // timeout to avoid instant validation of the dialog's form.
                             setTimeout(() => {

@@ -4,6 +4,7 @@ import { Primitives } from "../../../modules/shared/domain/value-object/Primitiv
 import { useProcessor } from "../../Hooks/processor/useProcessor"
 import { ProcessorProductCollection } from "../../../modules/devices/fetures/processor/domain/ProcessorCollection"
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
+import { ProcessorPrimitives } from "../../../modules/devices/fetures/processor/domain/Processor"
 
 
 interface Props {
@@ -60,7 +61,7 @@ export default function ProcessorCollectionComboBox({ value, onChange, type = 's
                 name='productCollection'
                 freeSolo
                 type='search'
-                onChange={(_, newValue) => {
+                onChange={(_, newValue: ProcessorPrimitives) => {
                     onChange('productCollection', newValue ? newValue.name : '')
 
                 }}

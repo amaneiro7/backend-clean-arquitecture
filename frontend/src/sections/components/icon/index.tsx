@@ -10,8 +10,10 @@ import { PropsWithChildren } from 'react'
 interface Props {
   type: keyof typeof iconTypes
   isDisabled?: boolean
-  size?: typeof SIZES[keyof typeof SIZES]
+  size?: Size
 }
+
+type Size = typeof SIZES[keyof typeof SIZES]
 
 export const SIZES = {
   extraSmall: 'w-4',
@@ -22,19 +24,19 @@ export const SIZES = {
 } as const
 
 const iconTypes = {
-  add: ({ size }) => (
+  add: ({ size }: { size: Size }) => (
     <AddSVG className={`${size} aspect-square transition-all fill-primary`} />
   ),
-  edit: ({ size }) => (
+  edit: ({ size }: { size: Size }) => (
     <EditSVG className={`${size} aspect-square transition-all fill-secondary`} />
   ),
-  delete: ({ size }) => (
+  delete: ({ size }: { size: Size }) => (
     <DeleteSVG className={`${size} aspect-square transition-all fill-quaternary`} />
   ),
-  right: ({ size }) => (
+  right: ({ size }: { size: Size }) => (
     <RightArrowSVG className={`${size} aspect-square transition-all fill-terciary`} />
   ),
-  thinRight: ({ size }) => (
+  thinRight: ({ size }: { size: Size }) => (
     <ThinRightArrowSVG className={`${size} aspect-square transition-all fill-secondary`} />
   )
 } as const

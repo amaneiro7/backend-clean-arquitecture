@@ -7,6 +7,7 @@ import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
 import { useHardDriveType } from "../../Hooks/hardDrive/useHardDriveType"
 import { ComputerHDDType } from "../../../modules/devices/fetures/computer/domain/ComputerHDDtype"
 import { ComputerHDDCapacity } from "../../../modules/devices/fetures/computer/domain/ComputerHHDCapacity"
+import { type HardDriveTypePrimitives } from "../../../modules/devices/fetures/hardDrive/hardDriveType/domain/HardDriveType"
 
 interface Props {
   value: Primitives<CategoryId>
@@ -60,7 +61,7 @@ export default function HardDriveTypeComboBox({ value, hardDriveCapacity, onChan
         label="Tipo de Disco Duro"
         name='hardDriveTypeId'
         type={type}
-        onChange={(_, newValue) => {
+        onChange={(_, newValue: HardDriveTypePrimitives) => {
           onChange('hardDriveTypeId', newValue ? newValue.id : '', Operator.EQUAL)
 
         }}

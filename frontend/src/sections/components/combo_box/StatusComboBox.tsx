@@ -5,6 +5,7 @@ import { Operator } from "../../../modules/shared/domain/criteria/FilterOperator
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
 import { StatusId } from "../../../modules/devices/devices/status/domain/StatusId"
 import { useStatus } from "../../Hooks/status/useStatus"
+import { StatusPrimitives } from "../../../modules/devices/devices/status/domain/Status"
 
 interface Props {
     value: Primitives<StatusId>
@@ -29,7 +30,7 @@ export default function StatusComboBox({ value, onChange, type = 'search' }: Pro
                 label="Estado"
                 name='statusId'
                 type={type}
-                onChange={(_, newValue) => {
+                onChange={(_, newValue: StatusPrimitives) => {
                     onChange('statusId', newValue ? newValue.id : '', Operator.EQUAL)
                 }}
                 options={status}

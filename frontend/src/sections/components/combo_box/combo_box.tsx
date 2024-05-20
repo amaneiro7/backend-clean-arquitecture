@@ -9,18 +9,16 @@ const TextField = lazy(async () => await import("../../mui/TextField").then(m =>
 const CircularProgress = lazy(async () => await import('../../mui/CircularProgress').then(m => ({ default: m.CircularProgress })))
 const CloseIcon = lazy(async () => await import('../../mui/CloseIcon').then(m => ({ default: m.CloseIcon })))
 
-interface Props  {
+interface Props<T, Multiple extends boolean, Disable extends boolean, FreeSolo extends boolean> extends Omit<AutocompleteProps<T, Multiple, Disable, FreeSolo>, 'renderInput'>  {
   id: string
   initialValue?: any | null
-  name: string
-  freeSolo?: boolean
+  name: string  
   readonly?: boolean
   label: string
   loading?: boolean
-  options: Options[]
+  options: T[]
   isHidden?: boolean
-  isDisabled?: boolean
-  onChange: AutocompleteProps<any, false, false, false>["onChange"]
+  isDisabled?: boolean  
   isRequired?: boolean
   placeholder?: string
   isError?: boolean
@@ -29,25 +27,18 @@ interface Props  {
 }
 
 
-
-interface Options {
-  inputValue?: string
-  id: string
-  name: string
-  [key: string]: any
-}
-
 const filter = createFilterOptions()
-export default function ComboBox({
+export default function ComboBox<T, Multiple extends boolean, Disable extends boolean, FreeSolo extends boolean>({
   id,
   name,
   initialValue = null,
   label,
   options,
   isDisabled = true,
-  freeSolo = false,
+  freeSolo,
+  multiple,
+  disableClearable,
   loading,
-  placeholder,
   onChange,
   isRequired = false,
   isError,
@@ -55,15 +46,17 @@ export default function ComboBox({
   children,
   type = 'search',
   readonly = false
-}: PropsWithChildren<Props>) {
+}: PropsWithChildren<Props<T, Multiple, Disable, FreeSolo>>) {
   const [open, setOpen] = useState(false)
 
   return (
-    <Suspense>
+    <>
       <Autocomplete
         id={`combo-box-${id}`}
         value={initialValue}
-        freeSolo={freeSolo}
+        freeSolo={freeSolo ?? false}
+        multiple={multiple ?? false}
+        disableClearable={disableClearable ?? false}
         onChange={(event, newValue, reason, details) => {
           onChange(event, newValue, reason, details)
         }}
@@ -80,7 +73,6 @@ export default function ComboBox({
           return filtered
         }}
         fullWidth
-        placeholder={placeholder}
         disabled={isDisabled}
         size='small'
         open={open}
@@ -151,6 +143,6 @@ export default function ComboBox({
         }}
       />
       {children}
-    </Suspense>
+    </>
   )
 }

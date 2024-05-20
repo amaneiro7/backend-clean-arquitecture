@@ -1,5 +1,5 @@
 import { Suspense, lazy } from 'react'
-import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
+import { operatorArray } from '../../../modules/shared/domain/criteria/FilterOperators'
 import { SelectChangeEvent } from '@mui/material';
 
 const Select = lazy(async () => await import('./Select'))
@@ -9,8 +9,6 @@ interface Props {
 }
 
 export function FilterOperator({ onChange }: Props) {
-  const operatorArray = Object.keys(Operator).map(key => ({ id: Operator[key], name: key }))
-
   return (
     <Suspense>
       <Select

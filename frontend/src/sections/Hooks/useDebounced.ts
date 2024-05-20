@@ -1,7 +1,7 @@
 import debounce from 'just-debounce-it'
 import { useCallback } from 'react'
 
-export default function useDebouncedCallback (callback, delay: number) {
+export default function useDebounced(callback: Function, delay: number) {
   const debouncedCallback = useCallback(
     debounce(callback, delay),
     [callback, delay]

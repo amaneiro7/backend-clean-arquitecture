@@ -14,7 +14,7 @@ const CircularProgress = lazy(async () => await import('../../mui/CircularProgre
 const CloseIcon = lazy(async () => await import('../../mui/CloseIcon').then(m => ({ default: m.CloseIcon })))
 const RightIcon = lazy(async () => import('../icon/RightIcon').then(m => ({ default: m.RightIcon })))
 
-export default function EmployeeSearchComboBox() {
+export const EmployeeSearchComboBox = () => {
     const { employees, loading, searchEmployees } = useSearchEmployee()
     const location = useLocation()
     const [value, setValue] = useState(null);
@@ -27,7 +27,7 @@ export default function EmployeeSearchComboBox() {
             searchEmployees(query)
         }, 500)
         , [searchEmployees, inputValue]
-    )
+    )    
 
     useEffect(() => {
         if (inputValue === '') {
@@ -74,7 +74,6 @@ export default function EmployeeSearchComboBox() {
                     onInputChange={(_, newInputValue) => {
                         setInputValue(newInputValue)
                     }}
-                    placeholder='Busque por Usuario'
                     size='small'
                     open={open}
                     onOpen={() => { setOpen(true) }}
@@ -106,6 +105,7 @@ export default function EmployeeSearchComboBox() {
                                 ),
                             }}
                             color='primary'
+                        
                         />
                     )}
                     renderOption={(props, option, { inputValue }) => {

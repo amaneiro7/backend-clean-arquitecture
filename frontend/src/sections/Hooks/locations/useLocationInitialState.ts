@@ -8,7 +8,7 @@ import { LocationName } from '../../../modules/location/locations/domain/Locatio
 import { Subnet } from '../../../modules/location/locations/domain/Subnet'
 import { useSiteLocation } from './useLocation'
 
-interface DefaultProps {
+export interface DefaultLocationProps {
   id?: Primitives<LocationId>
   name: Primitives<LocationName>
   typeOfSiteId: Primitives<TypeOfSiteId>
@@ -17,7 +17,7 @@ interface DefaultProps {
   updatedAt?: string
 }
 
-export const defaultInitialLocationState: DefaultProps = {
+export const defaultInitialLocationState: DefaultLocationProps = {
   id: undefined,
   name: '',
   typeOfSiteId: '',
@@ -51,7 +51,7 @@ export const useLocationInitialState = () => {
     } else {
       getLocation.getById(id)
         .then(location => {
-          setPreloadedLocationState(location as DefaultProps)
+          setPreloadedLocationState(location as DefaultLocationProps)
         })
         .catch(error => {
           console.error('useLocationInitialState', error)

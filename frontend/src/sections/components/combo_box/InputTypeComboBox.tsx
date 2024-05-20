@@ -3,6 +3,7 @@ import { OnHandleChange } from "../../../modules/shared/domain/types/types"
 import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
 import { useInputType } from "../../Hooks/inputType/useInputType"
+import { InputTypePrimitives } from "../../../modules/devices/model/InputType/domain/InputType"
 
 interface Props {
     value?: string
@@ -27,7 +28,7 @@ export function InputTypeComboBox({ value, onChange, type = 'search' }: Props) {
                 label="Tipo de Entrada"
                 name='inputTypeId'
                 type={type}
-                onChange={(_, newValue) => {
+                onChange={(_, newValue: InputTypePrimitives) => {
                     onChange('inputTypeId', newValue ? newValue.id : '', Operator.EQUAL)
                 }}
                 options={inputType}

@@ -6,6 +6,7 @@ import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
 import { ComputerOs } from "../../../modules/devices/fetures/computer/domain/ComputerOS"
 import { useOperatingSystemArq } from "../../Hooks/operatingSystem/useOperatingSystemArq"
 import { ComputerOsArq } from "../../../modules/devices/fetures/computer/domain/ComputerOSArq"
+import { OperatingSystemArqPrimitives } from "../../../modules/devices/fetures/operatingSystem/operatingSystemArq/domain/OperatingSystemArq"
 
 interface Props {
   value: Primitives<ComputerOsArq>
@@ -62,7 +63,7 @@ export function OperatingSystemArqComboBox({ value, operatingSystem, onChange, t
         label="Arquitectura del Sistema Operativo"
         name='operatingSystemArqId'
         type={type}
-        onChange={(_, newValue) => {
+        onChange={(_, newValue: OperatingSystemArqPrimitives) => {
           onChange('operatingSystemArqId', newValue ? newValue.id : '', Operator.EQUAL)
 
         }}

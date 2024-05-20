@@ -3,6 +3,7 @@ import { OnHandleChange } from "../../../modules/shared/domain/types/types"
 import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
 import { useTypeOfSite } from "../../Hooks/locations/useTypeOfSite"
+import { TypeOfSitePrimitives } from "../../../modules/location/typeofsites/domain/typeOfSite"
 
 interface Props {
     value?: string
@@ -27,7 +28,7 @@ export function TypeOfSiteComboBox({ value, onChange, type = 'search' }: Props) 
                 label="Tipo de Sitio"
                 name='typeOfSiteId'
                 type={type}
-                onChange={(_, newValue) => {
+                onChange={(_, newValue: TypeOfSitePrimitives) => {
                     onChange('typeOfSiteId', newValue ? newValue.id : '', Operator.EQUAL)
                 }}
                 options={typeOfSite}

@@ -16,7 +16,7 @@ export const useSearchEmployee = (): UseSearchEmployee => {
   const [error, setError] = useState(null)
   const [employees, setEmployees] = useState<EmployeePrimitives[]>([])
   
-  async function searchEmployees (filter: SearchByCriteriaQuery): Promise<void> {    
+  async function searchEmployees (filter: SearchByCriteriaQuery): Promise<void> {
     setLoading(true)
     new EmployeeGetterByCriteria(new ApiEmployeeRepository())
       .get(filter)

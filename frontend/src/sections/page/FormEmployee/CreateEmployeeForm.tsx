@@ -10,7 +10,7 @@ const Main = lazy(async () => import('../../components/Main'))
 const InfoBox = lazy(async () => import('../../components/info-box/InfoBox').then(m => ({ default: m.InfoBox })))
 const InfoBoxTitle = lazy(async () => import('../../components/info-box/InfoBoxTitle').then(m => ({ default: m.InfoBoxTitle })))
 const InfoBoxText = lazy(async () => import('../../components/info-box/InfoBoxText').then(m => ({ default: m.InfoBoxText })))
-const EmployeeSearchComboBox = lazy(async () => import('../../components/combo_box/EmployeeSearchComboBox'))
+const EmployeeSearchComboBox = lazy(async () => import('../../components/combo_box/EmployeeSearchComboBox').then(m => ({default: m.EmployeeSearchComboBox})))
 const FormContainer = lazy(async () => await import('../../components/formContainer'))
 const EmployeeUserNameInput = lazy(async () => await import('../../components/text-inputs/UserNameInput').then(m => ({ default: m.EmployeeUserNameInput })))
 
