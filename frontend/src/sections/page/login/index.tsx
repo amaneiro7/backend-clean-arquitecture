@@ -1,11 +1,10 @@
 import { lazy, Suspense, useEffect, useLayoutEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useGenericFormData } from '../../Hooks/useGenericFormData'
-import { ToasterComponent } from '../../utils/toaster'
-import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoading'
 import { UserPrimitives } from '../../../modules/user/user/domain/User'
 import { FormStatus, useGenericForm } from '../../Hooks/useGenericForm'
 import { useAppContext } from '../../Context/AppContext'
+import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoading'
 
 const Logo = lazy(async () => await import('../../components/Logo'))
 const EmailInput = lazy(async () => await import('./EmailInput').then(m => ({ default: m.EmailInput })))
@@ -68,8 +67,7 @@ export default function Login({ user }: { user: UserPrimitives | null }) {
   // }
 
   return (
-    <section className="bg-gray-50 dark:bg-gray-900">
-      <ToasterComponent />
+    <section className="bg-gray-50 dark:bg-gray-900">      
       <div className="flex flex-col items-center justify-center gap-2 px-6 py-8 mx-auto md:h-screen lg:py-0">
         <a href="#" >
           <Logo />

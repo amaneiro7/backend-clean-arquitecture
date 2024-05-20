@@ -27,9 +27,7 @@ export function CityComboBox({ value, state, onChange, type = 'search' }: Props)
     const filtered = useMemo(() => {
         if (!state) return cities
         return cities.filter(city => city.stateId === state)
-    }, [cities, state])
-
-    console.log(cities)
+    }, [cities, state])    
 
     return (
         <Suspense fallback={<InputSkeletonLoading />}>

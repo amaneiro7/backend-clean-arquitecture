@@ -1,6 +1,5 @@
-import { lazy, Suspense, useEffect, useRef, useState } from 'react'
+import { lazy, useEffect, useRef, useState } from 'react'
 import { UserEmail } from '../../../modules/user/user/domain/UserEmail'
-import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoading'
 
 interface Props {
   value: string
@@ -30,7 +29,6 @@ export function EmailInput({ value, onChange, isRequired = true }: Props) {
     }
   }, [value])
   return (
-    <Suspense fallback={<InputSkeletonLoading />}>
       <FormInput
         id='email'
         name="email"
@@ -43,7 +41,5 @@ export function EmailInput({ value, onChange, isRequired = true }: Props) {
         errorMessage={errorMessage}
         isRequired={isRequired}
       />
-
-    </Suspense>
   )
 }

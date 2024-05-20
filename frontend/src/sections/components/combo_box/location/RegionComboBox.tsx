@@ -30,7 +30,7 @@ export function RegionComboBox({ value, onChange, type = 'search' }: Props) {
                 name='regionId'
                 type={type}
                 onChange={(_, newValue: RegionPrimitives) => {
-                    onChange('regionsId', newValue ? newValue.id : '', Operator.EQUAL)
+                    onChange('regionId', newValue ? newValue.id : '', Operator.EQUAL)
                 }}
                 options={regions}
                 isDisabled={false}

@@ -29,7 +29,9 @@ export async function makeRequest<T> ({
     }
     return await (res.json() as Promise<T>)
   }).catch((error: any) => {
-    console.error('makeRequest', error)
+    if (error.message !== 'Unauthorized') {
+      console.error('makeRequest', error)
+    }
     throw new Error(error.message)
   })
 }

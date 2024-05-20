@@ -21,23 +21,24 @@ export const useLogin = (repository: Repository) => {
   const [isSignin, setIsSignin] = useState<boolean>(false)
   const location = useLocation()
 
-  async function getLogin ({ email, password }: Pick<UserPrimitives, 'email' | 'password'>) {
-    return await new Login(repository)
+  async function getLogin({ email, password }: Pick<UserPrimitives, 'email' | 'password'>) {
+    await new Login(repository)
       .run(email, password).then(async (user) => {
         if (await new CheckToken(repository).run()) {
           await new SaveSession(repository).save(user)
           setUser(user)
           setIsSignin(true)
+          return user
         }
       })
   }
 
-  useLayoutEffect(() => {    
+  useLayoutEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     checkCookieAndUser()
   }, [location])
 
-  async function checkCookieAndUser () {
+  async function checkCookieAndUser() {
     return await new CheckToken(repository).run().then(async () => {
       const userFromSession = await new GetSession(repository).get()
       setUser(userFromSession)
@@ -47,7 +48,7 @@ export const useLogin = (repository: Repository) => {
     })
   }
 
-  async function logout () {
+  async function logout() {
     setUser(null)
     setIsSignin(false)
     await new LogOutSession(repository).run()

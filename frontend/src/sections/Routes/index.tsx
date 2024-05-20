@@ -22,7 +22,7 @@ const CreateLocationForm = lazy(async () => await import('../page/FormLocation/C
 const CreateProcessorForm = lazy(async () => await import('../page/FormProcessor/CreateProcessorForm.tsx'))
 const Login = lazy(async () => await import('../page/login/index.tsx'))
 const NotFound = lazy(async () => await import('../page/404/index.tsx'))
-const Layout = lazy(async () => await import('../components/Layout.tsx'))
+const Layout = lazy(async () => await import('../components/Layout.tsx'));
 
 export const privateRouter = [
   { path: '/', element: <Home /> },
@@ -51,7 +51,7 @@ export const privateRouter = [
 export default function AppRoutes() {
   const { useAuth: { user } } = useAppContext()
   return (
-    <Routes>
+    <Routes>      
       {
         privateRouter.map(route => (
           <Route key={route.path} path={route.path} element={

@@ -20,15 +20,17 @@ export function useGenericForm<T>({ create }: { create: (formData: T) => Promise
         setFormStatus(FormStatus.Loading)
         tostPromise(create(formData), {
             loading: 'Procesando...',
-            success: (data: any) => {                
+            success: () => {                
                 setFormStatus(FormStatus.Success)
-                return `${data?.message}`
+                return 'Operacion exitosa'
             },
             error() {
                 setFormStatus(FormStatus.Error)
                 return `Ha ocurrido un error`
             },
-            description: `Operacion exitosa`,
+            description(data: any) {
+                return `${data?.message}`                
+            },
             duration: 5000,
             onAutoClose: () => {
 

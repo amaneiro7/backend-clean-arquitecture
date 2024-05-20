@@ -90,7 +90,7 @@ export default function LocationComboBox({ value, statusId, typeOfSiteId, onChan
             toggleOpen(true)
             setDialogValue(prev => ({ ...prev, name: newValue.inputValue }))
           } else {
-            onChange('brandId', newValue ? newValue.id : '', Operator.EQUAL)
+            onChange('locationId', newValue ? newValue.id : '', Operator.EQUAL)
           }
           // onChange('locationId', newValue ? newValue.id : '', Operator.EQUAL)
         }}

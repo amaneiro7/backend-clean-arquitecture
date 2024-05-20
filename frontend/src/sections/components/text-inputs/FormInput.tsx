@@ -18,9 +18,10 @@ export function FormInput ({ id, name, value, type, placeholder, handle, default
   return (
         <TextField
             id={id}
+            className='min-w-full min-h-10'
             required={isRequired}
             disabled={isDisabled}
-            fullWidth            
+            fullWidth                        
             size='small'
             name={name}
             value={value}
