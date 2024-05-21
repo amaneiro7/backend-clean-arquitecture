@@ -9,7 +9,7 @@ export const enum FormStatus {
     Initial
 }
 
-export function useGenericForm<T>({ create }: { create: (formData: T) => Promise<void> }): {
+export function useGenericForm<T>({ create }: { create: (formData: T) => Promise<any> }): {
     formStatus: FormStatus
     submitForm: (formData: T) => Promise<void>
     resetFormStatus: () => void
