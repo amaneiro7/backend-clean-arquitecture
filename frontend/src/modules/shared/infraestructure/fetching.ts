@@ -24,7 +24,7 @@ export async function makeRequest<T> ({
   }
 
   return await fetch(apiURL, requestInit).then(async res => {
-    if (!res.ok) {
+    if (!res.ok) {      
       throw new Error(await res.text())
     }
     return await (res.json() as Promise<T>)

@@ -18,6 +18,7 @@ const Button = lazy(async () => import("../../components/button"))
 export default function FilterByDevice() {
     const tableRef = useRef(null)
     const { devices, loading, searchDevices } = useSearchDevice()
+    console.log(devices)
     return (
         <Main>
             <PageTitle title="Filtrar por Dispositivo" />
