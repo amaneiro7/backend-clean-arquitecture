@@ -581,7 +581,7 @@ const arrayToUpdate = [
     "serial": "MXJ9460CFD",
     "id": "d4de1945-0bf8-4893-aa7b-d0746fb1d431",
     memory_ram_capacity: 2,
-    memory_ram: [2]
+    memory_ram: [2, 0, 0, 0]
   },
   {
     "serial": "MJHDHYB",
@@ -1499,7 +1499,7 @@ const arrayToUpdate = [
     "serial": "BWYW303",
     "id": "6cd22e07-92a7-4332-a01a-c65131bd4642",
     memory_ram_capacity: 16,
-    memory_ram: [16]
+    memory_ram: [16, 0]
   },
   {
     "serial": "MP1LQD9N",
@@ -1517,7 +1517,7 @@ const arrayToUpdate = [
     "serial": "5CG95055HX",
     "id": "e237643b-5250-4bd8-b559-59a2bcb2e0a2",
     memory_ram_capacity: 16,
-    memory_ram: [16]
+    memory_ram: [16, 0]
   },
   {
     "serial": "MP1LREFC",
@@ -1535,19 +1535,19 @@ const arrayToUpdate = [
     "serial": "5CG9505539",
     "id": "aad6a7df-4b74-4cf1-b63b-0d559449cb31",
     memory_ram_capacity: 16,
-    memory_ram: [16]
+    memory_ram: [16, 0]
   },
   {
     "serial": "5CG95055GC",
     "id": "6a80eb89-b24a-48a8-9fec-5279bb66b3ac",
     memory_ram_capacity: 16,
-    memory_ram: [16]
+    memory_ram: [16, 0]
   },
   {
     "serial": "5CG950553Z",
     "id": "a7a1b2d0-d5ae-43ad-8a76-97421320d15b",
     memory_ram_capacity: 16,
-    memory_ram: [16]
+    memory_ram: [16, 0]
   },
   {
     "serial": "PF0S7BJN",
@@ -1721,7 +1721,7 @@ const arrayToUpdate = [
     "serial": "MXJ00503SX",
     "id": "cd356a10-03eb-4263-81bc-ba3a97022195",
     memory_ram_capacity: 2,
-    memory_ram: [2]
+    memory_ram: [2, 0, 0, 0]
   },
   {
     "serial": "MXJ94500ZJ",
