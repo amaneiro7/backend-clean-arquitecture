@@ -32,6 +32,9 @@ export default function StatusComboBox({ value, onChange, type = 'search' }: Pro
                 type={type}
                 onChange={(_, newValue: StatusPrimitives) => {
                     onChange('statusId', newValue ? newValue.id : '', Operator.EQUAL)
+                    if (type === 'form') {
+                        onChange('locationId', '')
+                    }
                 }}
                 options={status}
                 isRequired={type === 'form'}
