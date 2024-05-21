@@ -5,13 +5,13 @@ const arrayToUpdate = [
     "serial": "MXL3201W5F",
     "id": "62ff21b7-135a-4130-bfc6-f08fb21708c3",
     memory_ram_capacity: 4,
-    memory_ram: [2, 2]
+    memory_ram: [2, 2, 0, 0]
   },
   {
     "serial": "MXL04309X7",
     "id": "fabe6d38-c512-4504-b7f2-c6b999e640b8",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0, 0, 0]
   },
   {
     "serial": "MJBPHFZ",
@@ -29,7 +29,7 @@ const arrayToUpdate = [
     "serial": "MXL3201WFW",
     "id": "7dc8649b-429d-485c-8ce1-2124cefcecfa",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0, 0, 0]
   },
   {
     "serial": "MXJ00503SG",
@@ -41,19 +41,19 @@ const arrayToUpdate = [
     "serial": "MJXDKGA",
     "id": "ac68f80e-77f1-419d-b338-05cfd703dc57",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0]
   },
   {
     "serial": "MXL3201SZS",
     "id": "655e7f0b-06c7-4939-a18e-a6d1964c5e2d",
     memory_ram_capacity: 6,
-    memory_ram: [2, 4]
+    memory_ram: [2, 4, 0, 0]
   },
   {
     "serial": "MXL318182G",
     "id": "b9d6958a-a795-4dcb-abff-5e8a0f08392a",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0, 0, 0]
   },
   {
     "serial": "MJ25BD9",
@@ -65,13 +65,13 @@ const arrayToUpdate = [
     "serial": "MXL31600BS",
     "id": "648cb601-5641-4143-8066-be03497e848e",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0, 0, 0]
   },
   {
     "serial": "MXL3201WGL",
     "id": "8b571c61-b80c-406c-9fe5-492e763d2b07",
     memory_ram_capacity: 4,
-    memory_ram: [2, 2]
+    memory_ram: [2, 2, 0, 0]
   },
   {
     "serial": "MXJ94500Q5",
@@ -83,13 +83,13 @@ const arrayToUpdate = [
     "serial": "MXL3201T0L",
     "id": "afb225c6-5f83-44a8-9f50-4ddd33187918",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0, 0, 0]
   },
   {
     "serial": "MXL05108BL",
     "id": "470a2e73-b033-45fa-94df-f8b2fa88d328",
     memory_ram_capacity: 4,
-    memory_ram: [2, 2]
+    memory_ram: [2, 2, 0, 0]
   },
   {
     "serial": "MJ13K05",
@@ -101,13 +101,13 @@ const arrayToUpdate = [
     "serial": "MXL31809W3",
     "id": "ada15de6-292c-46eb-9883-e98359358720",
     memory_ram_capacity: 6,
-    memory_ram: [2, 4]
+    memory_ram: [2, 4, 0, 0]
   },
   {
     "serial": "MJWDXM7",
     "id": "bf8dd34d-d9b3-40c8-8903-ae550d94c19c",
     memory_ram_capacity: 8,
-    memory_ram: [4, 4]
+    memory_ram: [4, 4, 0, 0]
   },
   {
     "serial": "MXJ94709Z1",
@@ -119,13 +119,13 @@ const arrayToUpdate = [
     "serial": "MJXLATM",
     "id": "7b6a08c0-0f6e-4f7e-afbb-ff9ae1076b2e",
     memory_ram_capacity: 6,
-    memory_ram: [2, 2, 2]
+    memory_ram: [2, 2, 2, 0]
   },
   {
     "serial": "MXL3201WN6",
     "id": "25ebeaec-2674-4d58-a55c-4fd030d31ae6",
     memory_ram_capacity: 4,
-    memory_ram: [2, 2]
+    memory_ram: [2, 2, 0, 0]
   },
   {
     "serial": "MJ52B42",
@@ -137,19 +137,19 @@ const arrayToUpdate = [
     "serial": "MXL31817PZ",
     "id": "8cd09f70-4fe4-4775-9032-21444a67ec8b",
     memory_ram_capacity: 8,
-    memory_ram: [2, 2, 4]
+    memory_ram: [2, 2, 0, 0, 4]
   },
   {
     "serial": "MXL3201WGB",
     "id": "3413b753-29b7-48cd-9710-a4d393962dd5",
     memory_ram_capacity: 8,
-    memory_ram: [2, 2, 4]
+    memory_ram: [2, 2, 0, 0, 4]
   },
   {
     "serial": "MJ017ED",
     "id": "3af2fa26-5dbf-4900-82e1-e6a1f4c0e7d3",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0]
   },
   {
     "serial": "MJHDHRV",
@@ -173,7 +173,7 @@ const arrayToUpdate = [
     "serial": "MXL3201WNF",
     "id": "5c8d4c5b-7cc6-4633-8cae-8c080eee4bfb",
     memory_ram_capacity: 8,
-    memory_ram: [4, 2, 2]
+    memory_ram: [4, 2, 0, 0, 2]
   },
   {
     "serial": "MXJ94500T9",
@@ -185,7 +185,7 @@ const arrayToUpdate = [
     "serial": "MXL0430B69",
     "id": "81606da3-644d-487f-bf18-ef8b5dac8d2a",
     memory_ram_capacity: 2,
-    memory_ram: [2]
+    memory_ram: [2, 0, 0, 0]
   },
   {
     "serial": "MJHETGV",
@@ -197,7 +197,7 @@ const arrayToUpdate = [
     "serial": "MXL31817H8",
     "id": "7b6e95fa-5aff-4863-87f2-f2aa07f7075e",
     memory_ram_capacity: 6,
-    memory_ram: [2, 2, 2]
+    memory_ram: [2, 2, 2, 0]
   },
   {
     "serial": "MJBPHCG",
@@ -221,61 +221,61 @@ const arrayToUpdate = [
     "serial": "MXL3201WMT",
     "id": "91ba31ad-d030-41c6-b811-19a1b1267d1f",
     memory_ram_capacity: 4,
-    memory_ram: [2, 2]
+    memory_ram: [2, 2, 0, 0]
   },
   {
     "serial": "MJWDXL1",
     "id": "6b97f717-d8a3-4d24-8903-073f807b0750",
     memory_ram_capacity: 8,
-    memory_ram: [4, 4]
+    memory_ram: [4, 4, 0, 0]
   },
   {
     "serial": "MXL3180J1M",
     "id": "adf1c98f-1675-432e-b5a5-b0fb7299a7ab",
     memory_ram_capacity: 6,
-    memory_ram: [2, 2, 2]
+    memory_ram: [2, 2, 2, 0]
   },
   {
     "serial": "MXL3151VLR",
     "id": "ba03f15b-673b-4234-9b60-8aa535c62835",
     memory_ram_capacity: 4,
-    memory_ram: [2, 2]
+    memory_ram: [2, 2, 0, 0]
   },
   {
     "serial": "MJ52A53",
     "id": "07295f6b-9db2-4421-84ba-e1313e8f9385",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0]
   },
   {
     "serial": "MJXLAWG",
     "id": "1bd076b7-e5d5-4697-8a68-c94f03b2922b",
     memory_ram_capacity: 8,
-    memory_ram: [4, 4]
+    memory_ram: [4, 4, 0, 0]
   },
   {
     "serial": "MXL3201WP8",
     "id": "c4e648ab-b8a5-487c-b261-a8d240bffb15",
     memory_ram_capacity: 8,
-    memory_ram: [4, 2, 2]
+    memory_ram: [4, 2, 0, 0, 2]
   },
   {
     "serial": "MJHDHYV",
     "id": "a48a336f-a212-4759-9451-95c761354348",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0]
   },
   {
     "serial": "MXL051087Y",
     "id": "1c7514fb-72a2-4bf5-8a29-0fd99ea8bd8c",
     memory_ram_capacity: 6,
-    memory_ram: [2, 2, 2]
+    memory_ram: [2, 2, 2, 0]
   },
   {
     "serial": "MXL1390T39",
     "id": "347b9af5-b39d-4bbd-ad8d-68e61b8b30ad",
     memory_ram_capacity: 4,
-    memory_ram: [2, 2]
+    memory_ram: [2, 2, 0, 0]
   },
   {
     "serial": "MXJ94500VC",
@@ -287,7 +287,7 @@ const arrayToUpdate = [
     "serial": "MXL04309QT",
     "id": "0990a241-4a9a-43ab-9ded-26bae3ffd13d",
     memory_ram_capacity: 4,
-    memory_ram: [2, 2]
+    memory_ram: [2, 2, 0, 0]
   },
   {
     "serial": "MJ55A69",
@@ -299,7 +299,7 @@ const arrayToUpdate = [
     "serial": "MXL31817JG",
     "id": "eee12245-1285-4874-a747-88d49c543e91",
     memory_ram_capacity: 4,
-    memory_ram: [2, 2]
+    memory_ram: [2, 2, 0, 0]
   },
   {
     "serial": "MJTYGVX",
@@ -311,13 +311,13 @@ const arrayToUpdate = [
     "serial": "MJWDXL7",
     "id": "f91fa979-e30a-4715-9142-2722b2194379",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0, 0, 0]
   },
   {
     "serial": "MJHCVHT",
     "id": "d07547d3-7de4-4f48-b1af-302c2fc62564",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0]
   },
   {
     "serial": "MJHDHTX",
@@ -341,7 +341,7 @@ const arrayToUpdate = [
     "serial": "MJXDKYN",
     "id": "94ed561f-16e3-432d-8c38-5b9b8dee4796",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0]
   },
   {
     "serial": "MJBPHHN",
@@ -353,7 +353,7 @@ const arrayToUpdate = [
     "serial": "MXL04228SP",
     "id": "d9724541-4061-473d-b0e3-271560f0042e",
     memory_ram_capacity: 4,
-    memory_ram: [2, 2]
+    memory_ram: [2, 2, 0, 0]
   },
   {
     "serial": "MJBPHHK",
@@ -371,7 +371,7 @@ const arrayToUpdate = [
     "serial": "MXL1390RTH",
     "id": "f3d1c36e-33d4-47ea-8b47-e703b9051054",
     memory_ram_capacity: 6,
-    memory_ram: [2, 2, 2]
+    memory_ram: [2, 2, 2, 0]
   },
   {
     "serial": "MJBPHHX",
@@ -389,19 +389,19 @@ const arrayToUpdate = [
     "serial": "MXL1390RRH",
     "id": "1ea0b63c-6109-43b2-af64-2e3ac89d9e7a",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0, 0, 0]
   },
   {
     "serial": "MXL1390T4K",
     "id": "be85372b-d066-4014-bfcc-5ef45c53864e",
     memory_ram_capacity: 4,
-    memory_ram: [2, 2]
+    memory_ram: [2, 2, 0, 0]
   },
   {
     "serial": "MXL1390T57",
     "id": "00e01d6b-503d-4244-8c03-3056536a89ac",
     memory_ram_capacity: 6,
-    memory_ram: [2, 2, 2]
+    memory_ram: [2, 2, 2, 0]
   },
   {
     "serial": "MJHDKAL",
@@ -419,7 +419,7 @@ const arrayToUpdate = [
     "serial": "MXL3201WP7",
     "id": "04c295a6-98fb-4581-bb5a-180624985195",
     memory_ram_capacity: 4,
-    memory_ram: [2, 2]
+    memory_ram: [2, 2, 0, 0]
   },
   {
     "serial": "MXJ00609YB",
@@ -437,7 +437,7 @@ const arrayToUpdate = [
     "serial": "MJHCWFZ",
     "id": "9906d7aa-e345-4af3-a60e-77b7e5fe7d97",
     memory_ram_capacity: 8,
-    memory_ram: [4, 4]
+    memory_ram: [4, 4, 0, 0]
   },
   {
     "serial": "MXJ00609MJ",
@@ -461,7 +461,7 @@ const arrayToUpdate = [
     "serial": "MXL31817LG",
     "id": "ce4972e5-29f5-413c-a539-ab525a12ebd7",
     memory_ram_capacity: 6,
-    memory_ram: [2, 2, 2]
+    memory_ram: [2, 2, 2, 0]
   },
   {
     "serial": "MJBPHEB",
@@ -473,7 +473,7 @@ const arrayToUpdate = [
     "serial": "MXL3151VLJ",
     "id": "9ab899f2-9f3e-4add-bd40-8f4819a357cb",
     memory_ram_capacity: 4,
-    memory_ram: [2, 2]
+    memory_ram: [2, 2, 0, 0]
   },
   {
     "serial": "MJ52B45",
@@ -485,13 +485,13 @@ const arrayToUpdate = [
     "serial": "MXL3201WN0",
     "id": "7473a953-f211-48a2-afd7-130dbc7a9b38",
     memory_ram_capacity: 4,
-    memory_ram: [2, 2]
+    memory_ram: [2, 2, 0, 0]
   },
   {
     "serial": "MXL3201WH3",
     "id": "ef8f7344-2256-4949-93df-677146b198dc",
     memory_ram_capacity: 4,
-    memory_ram: [2, 2]
+    memory_ram: [2, 2, 0, 0]
   },
   {
     "serial": "MJBPHDR",
@@ -503,13 +503,13 @@ const arrayToUpdate = [
     "serial": "MXL3201WG0",
     "id": "817092f2-fec5-41f9-bb4e-e31a6fd760c1",
     memory_ram_capacity: 4,
-    memory_ram: [2, 2]
+    memory_ram: [2, 2, 0, 0]
   },
   {
     "serial": "MJHDHZF",
     "id": "224afd6a-1a47-4629-8fb4-11cc641145ec",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0]
   },
   {
     "serial": "MJBPHFG",
@@ -521,19 +521,19 @@ const arrayToUpdate = [
     "serial": "MJHDHWZ",
     "id": "6df79814-efc7-4e2d-8c57-fea612b7a46d",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0]
   },
   {
     "serial": "MJTYGTF",
     "id": "cee49985-ccbb-4203-aaef-fa6836d538d3",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0]
   },
   {
     "serial": "MJTYGVA",
     "id": "d68b307c-8536-4840-beff-4eeca01399f8",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0]
   },
   {
     "serial": "MJBPHCD",
@@ -551,7 +551,7 @@ const arrayToUpdate = [
     "serial": "MXJ00601ML",
     "id": "73bcb67a-8936-42c9-acd6-7b0d2a811b85",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0]
   },
   {
     "serial": "MJXKDHT",
@@ -569,13 +569,13 @@ const arrayToUpdate = [
     "serial": "MJHCWEX",
     "id": "47004bfb-f1f9-499f-913b-214512f73a4b",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0, 0, 0]
   },
   {
     "serial": "MXL3201WGQ",
     "id": "93cf4c3d-3329-48a7-aa2d-1f1ec0671373",
     memory_ram_capacity: 4,
-    memory_ram: [2, 2]
+    memory_ram: [2, 2, 0, 0]
   },
   {
     "serial": "MXJ9460CFD",
@@ -587,25 +587,25 @@ const arrayToUpdate = [
     "serial": "MJHDHYB",
     "id": "31efef41-e117-4828-9a62-d764f4109eda",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0]
   },
   {
     "serial": "MJHERBW",
     "id": "49c6e98a-254c-4671-b87d-e9e90cb1814b",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0]
   },
   {
     "serial": "MXL051085M",
     "id": "c693c361-bf63-4cd4-8c12-dff32ad14abf",
     memory_ram_capacity: 4,
-    memory_ram: [2, 2]
+    memory_ram: [2, 2, 0, 0]
   },
   {
     "serial": "MXL3201WFY",
     "id": "d77adffa-0926-4722-8c2a-978472cd4cb4",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0, 0, 0]
   },
   {
     "serial": "MJXDLHM",
@@ -617,19 +617,19 @@ const arrayToUpdate = [
     "serial": "MJ51X89",
     "id": "f4b655d7-9a97-4209-9e59-bc62d924abcd",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0]
   },
   {
     "serial": "MXL3151VL3",
     "id": "7a2a9c1b-69f3-433e-bc41-2a7434161fca",
     memory_ram_capacity: 6,
-    memory_ram: [2, 2, 2]
+    memory_ram: [2, 2, 2, 0]
   },
   {
     "serial": "MXL3201WGG",
     "id": "29652cb2-49f6-434d-83e1-c1784c691d17",
     memory_ram_capacity: 6,
-    memory_ram: [2, 4]
+    memory_ram: [2, 4, 0, 0]
   },
   {
     "serial": "MJHCVFF",
@@ -647,7 +647,7 @@ const arrayToUpdate = [
     "serial": "MJTYGTL",
     "id": "a1408b22-ca4d-4945-93b9-2597f86210a5",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0]
   },
   {
     "serial": "MJTYGXC",
@@ -659,7 +659,7 @@ const arrayToUpdate = [
     "serial": "MXL3201WGP",
     "id": "19bea415-4ab8-49ae-a1b8-cd9631e2a437",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0, 0, 0]
   },
   {
     "serial": "MJTYGTB",
@@ -677,7 +677,7 @@ const arrayToUpdate = [
     "serial": "MXL0430B11",
     "id": "a5787099-632e-4c93-a29d-904383ed3b26",
     memory_ram_capacity: 4,
-    memory_ram: [2, 2]
+    memory_ram: [2, 2, 0, 0]
   },
   {
     "serial": "MJXDKCK",
@@ -701,13 +701,13 @@ const arrayToUpdate = [
     "serial": "MXL3201WGH",
     "id": "1163cc44-836e-4390-90a2-d88ca54aae89",
     memory_ram_capacity: 4,
-    memory_ram: [2, 2]
+    memory_ram: [2, 2, 0, 0]
   },
   {
     "serial": "MXL31809V6",
     "id": "a03aa2f5-f84e-41ea-9198-dbe9dcca722c",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0, 0, 0]
   },
   {
     "serial": "MJ52A57",
@@ -719,7 +719,7 @@ const arrayToUpdate = [
     "serial": "MXL1370JGM",
     "id": "a980fe6f-5d1d-4d72-ab4d-cd0809446fbe",
     memory_ram_capacity: 4,
-    memory_ram: [2, 2]
+    memory_ram: [2, 2, 0, 0]
   },
   {
     "serial": "MJERGYX",
@@ -749,13 +749,13 @@ const arrayToUpdate = [
     "serial": "MXL31817J2",
     "id": "d775a239-1673-463c-b288-2659799c9b8f",
     memory_ram_capacity: 6,
-    memory_ram: [2, 4]
+    memory_ram: [2, 4, 0, 0]
   },
   {
     "serial": "MJHDKBL",
     "id": "d95c914c-dd86-4fc5-984c-48421226315a",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0]
   },
   {
     "serial": "MJHDHXW",
@@ -767,13 +767,13 @@ const arrayToUpdate = [
     "serial": "MJHDHMA",
     "id": "27e01eea-6bf2-40da-9320-a469ff86cddc",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0]
   },
   {
     "serial": "MXL333293Q",
     "id": "40c27892-961b-4f43-8e26-10326036e2c8",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0, 0, 0]
   },
   {
     "serial": "MXJ00601JR",
@@ -785,13 +785,13 @@ const arrayToUpdate = [
     "serial": "MXL3151VM0",
     "id": "7237d5e9-8d9e-4480-bde4-a236af4b6c37",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0, 0, 0]
   },
   {
     "serial": "MXL31817Q1",
     "id": "51e2b817-6732-4195-bc6e-86f4206a2ae6",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0, 0, 0]
   },
   {
     "serial": "MJTYGVY",
@@ -803,7 +803,7 @@ const arrayToUpdate = [
     "serial": "MXL3151VLT",
     "id": "2a060e88-839b-4e3e-a675-504c4119f15b",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0, 0, 0]
   },
   {
     "serial": "MJHCVTR",
@@ -815,7 +815,7 @@ const arrayToUpdate = [
     "serial": "MXL3201WH1",
     "id": "4e506176-aa3c-413c-a78b-ac95b99726dc",
     memory_ram_capacity: 6,
-    memory_ram: [2, 2, 2]
+    memory_ram: [2, 2, 2, 0]
   },
   {
     "serial": "MJHDHYZ",
@@ -833,7 +833,7 @@ const arrayToUpdate = [
     "serial": "MXL3201WN2",
     "id": "42a089cd-e2d6-4b40-96c9-eee2eee8716f",
     memory_ram_capacity: 6,
-    memory_ram: [2, 2, 2]
+    memory_ram: [2, 2, 2, 0]
   },
   {
     "serial": "MJMMBEZ",
@@ -845,7 +845,7 @@ const arrayToUpdate = [
     "serial": "MJ54Z84",
     "id": "27f534fc-9342-4eaf-8344-f0e1c4b28536",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0]
   },
   {
     "serial": "MJHDHYG",
@@ -857,7 +857,7 @@ const arrayToUpdate = [
     "serial": "MXL333292H",
     "id": "2483dabd-1463-415f-9d88-49056b9a3d49",
     memory_ram_capacity: 6,
-    memory_ram: [4, 2]
+    memory_ram: [4, 2, 0, 0]
   },
   {
     "serial": "MJHDHNB",
@@ -875,7 +875,7 @@ const arrayToUpdate = [
     "serial": "MJHCVFB",
     "id": "eb6fd69d-a561-41ff-bfed-a133f15275e8",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0]
   },
   {
     "serial": "MJHCVFA",
@@ -887,13 +887,13 @@ const arrayToUpdate = [
     "serial": "MJHCWEF",
     "id": "9f533796-a9b5-4374-8362-aa4b39435649",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0, 0, 0]
   },
   {
     "serial": "MJ55A37",
     "id": "e9d3d453-79cf-4b68-88c2-d3f7412bbc62",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0]
   },
   {
     "serial": "MJTYGRY",
@@ -911,43 +911,43 @@ const arrayToUpdate = [
     "serial": "MJ03JPQV",
     "id": "95e4a119-9175-4219-ae42-ecb55dbc9afa",
     memory_ram_capacity: 6,
-    memory_ram: [4, 2]
+    memory_ram: [4, 2, 0, 0]
   },
   {
     "serial": "MXL4020TNT",
     "id": "c065704f-f473-4f1f-ad31-67b74785e6df",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0, 0, 0]
   },
   {
     "serial": "MJBPHDH",
     "id": "a3f85bfe-d6fc-4995-92aa-486939a3aedf",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0]
   },
   {
     "serial": "MJTYGVM",
     "id": "1cdb9f98-7236-4fea-a491-05876afc4c7e",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0]
   },
   {
     "serial": "MJXDKBP",
     "id": "8a860822-dbb2-4e0d-b507-edea5a366969",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0]
   },
   {
     "serial": "MXL31600JK",
     "id": "359faf95-6fd0-4312-895d-5557fa70c72b",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0, 0, 0]
   },
   {
     "serial": "MXL31817M0",
     "id": "2a04279d-e2cd-4230-b329-389d71d35d8f",
     memory_ram_capacity: 2,
-    memory_ram: [2]
+    memory_ram: [2, 0, 0, 0]
   },
   {
     "serial": "MXJ00609N2",
@@ -1043,7 +1043,7 @@ const arrayToUpdate = [
     "serial": "CS02299330",
     "id": "ff49eedd-b926-4e62-a92b-83b914fc37fe",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0]
   },
   {
     "serial": "MJ00XUBG",
@@ -1205,7 +1205,7 @@ const arrayToUpdate = [
     "serial": "CS02236924",
     "id": "71e6de23-9f23-4b3c-8f9d-103476a91087",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0]
   },
   {
     "serial": "MJ00RZHJ",
@@ -1229,7 +1229,7 @@ const arrayToUpdate = [
     "serial": "CS02299444",
     "id": "eefb5386-c512-4816-a8c3-7c30d9626984",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0]
   },
   {
     "serial": "MJ00XUAU",
@@ -1577,7 +1577,7 @@ const arrayToUpdate = [
     "serial": "MJWDYP2",
     "id": "1f096e78-4f07-4a12-8e67-b5a4a94c98de",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0]
   },
   {
     "serial": "MJWEBF0",
@@ -1607,25 +1607,25 @@ const arrayToUpdate = [
     "serial": "MJHDHZX",
     "id": "8d0fd9fe-0a3f-43ed-9d1b-e19dfb900634",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0]
   },
   {
     "serial": "MXL3201WNB",
     "id": "ad868562-4dd4-4d6f-b2b5-5d0d50aac2cd",
     memory_ram_capacity: 4,
-    memory_ram: [2, 2]
+    memory_ram: [2, 2, 0, 0]
   },
   {
     "serial": "MJ13K82",
     "id": "554f1f26-1349-403e-b778-134cacb31476",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0]
   },
   {
     "serial": "MXL051084W",
     "id": "90f65c64-456a-470c-ac0f-78bb806ef77d",
     memory_ram_capacity: 4,
-    memory_ram: [2, 2]
+    memory_ram: [2, 2, 0, 0]
   },
   {
     "serial": "MXJ94500WL",
@@ -1667,7 +1667,7 @@ const arrayToUpdate = [
     "serial": "MXL05108C5",
     "id": "0b583e88-33f7-49d1-a7b5-1185e67e9682",
     memory_ram_capacity: 6,
-    memory_ram: [2, 2, 2]
+    memory_ram: [2, 2, 2, 0]
   },
   {
     "serial": "MXJ00609W7",
@@ -1679,7 +1679,7 @@ const arrayToUpdate = [
     "serial": "MXL3201WGR",
     "id": "dd76375c-420f-4a38-8dc9-748820ee4917",
     memory_ram_capacity: 4,
-    memory_ram: [2, 2]
+    memory_ram: [2, 2, 0, 0]
   },
   {
     "serial": "MJWEBC8",
@@ -1703,7 +1703,7 @@ const arrayToUpdate = [
     "serial": "MXL3201WH8",
     "id": "fb3164be-ca87-4c3e-9fe2-364fe03a6a0f",
     memory_ram_capacity: 6,
-    memory_ram: [2, 2, 2]
+    memory_ram: [2, 2, 2, 0]
   },
   {
     "serial": "PF26GV4P",
@@ -1715,7 +1715,7 @@ const arrayToUpdate = [
     "serial": "MXL3201WGV",
     "id": "dbeb7314-6355-407a-bcb4-c2f82fe5d44b",
     memory_ram_capacity: 4,
-    memory_ram: [4]
+    memory_ram: [4, 0, 0, 0]
   },
   {
     "serial": "MXJ00503SX",
@@ -1763,9 +1763,9 @@ const arrayToUpdate = [
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {    
+  async up (queryInterface, Sequelize) {
     await Promise.all(
-      arrayToUpdate.map(async ({ id, memory_ram, memory_ram_capacity}) => {
+      arrayToUpdate.map(async ({ id, memory_ram, memory_ram_capacity }) => {
         return await queryInterface.bulkUpdate('device_computers', {
           memory_ram_capacity,
           memory_ram
