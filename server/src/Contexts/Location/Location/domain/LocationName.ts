@@ -25,7 +25,7 @@ export class LocationName extends StringValueObject {
 
   private ensureIsValidSerial (value: string): void {
     if (!this.isValid(value)) {
-      throw new InvalidArgumentError(`<${value}> is not a valid location name`)
+      throw new InvalidArgumentError(`Este valor <${value}> no es válido, el nombre del sitio debe entre ${this.NAME_MIN_LENGTH} y ${this.NAME_MAX_LENGTH} carácteres`)
     }
   }
 
