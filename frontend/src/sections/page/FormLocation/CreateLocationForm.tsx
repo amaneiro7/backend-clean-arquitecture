@@ -13,7 +13,7 @@ const LocationInputs = lazy(async () => import('./LocationInputs').then(m => ({ 
 export default function CreateLocationForm() {
     const { createLocation } = useSiteLocation()
     const location = useLocation()
-    const { preloadedLocationState } = useLocationInitialState()
+    const { preloadedLocationState, isAddForm } = useLocationInitialState()
     const { formData, updateForm, resetForm } = useGenericFormData(preloadedLocationState)
     const { formStatus, submitForm, resetFormStatus } = useGenericForm({ create: createLocation })
 
@@ -63,7 +63,7 @@ export default function CreateLocationForm() {
                     url='/location/add'
                 >
                     <Suspense>
-                        <LocationInputs formData={formData} onChange={handleChange} />
+                        <LocationInputs isAddForm={isAddForm} formData={formData} onChange={handleChange} />
                     </Suspense>
                 </FormContainer>
             </Suspense>

@@ -16,16 +16,16 @@ export class LocationName extends StringValueObject {
   constructor (readonly value: string) {
     super(value)
 
-    this.ensureIsValidSerial(value)
+    this.ensureIsValid(value)
   }
 
   toPrimitives (): string {
     return this.value
   }
 
-  private ensureIsValidSerial (value: string): void {
+  private ensureIsValid (value: string): void {
     if (!this.isValid(value)) {
-      throw new InvalidArgumentError(`<${value}> is not a valid location name`)
+      throw new InvalidArgumentError(`Este valor <${value}> no es válido, el nombre del sitio debe entre ${this.NAME_MIN_LENGTH} y ${this.NAME_MAX_LENGTH} carácteres`)
     }
   }
 

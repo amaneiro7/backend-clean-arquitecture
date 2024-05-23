@@ -1,6 +1,6 @@
-import { TextField } from '../../mui/TextField'
+import { TextField, TextFieldProps } from '../../mui/TextField'
 
-interface Props {
+interface Props extends Omit<TextFieldProps, 'variant'> {
   id: string
   name: string
   type: React.HTMLInputTypeAttribute
