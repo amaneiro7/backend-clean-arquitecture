@@ -36,7 +36,21 @@ export class SequelizeLocationRepository extends CriteriaToSequelizeConverter im
   }
 
   async searchById(id: Primitives<LocationId>): Promise<LocationPrimitives | null> {
-    return await LocationModel.findByPk(id) ?? null
+    return await LocationModel.findByPk(id, {
+      include: [
+        'typeOfSite',
+        {
+          association: 'site',
+          include: [{
+            association: 'city',
+            include: [{
+              association: 'state',
+              include: ['region']
+            }]
+          }]
+        }
+      ]
+    }) ?? null
   }
 
   async searchByName (name: Primitives<LocationName>): Promise<LocationPrimitives | null> {

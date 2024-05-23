@@ -1,10 +1,12 @@
 import { lazy, Suspense } from "react"
-import { OnHandleChange } from "../../../modules/shared/domain/types/types"
 import { InputSkeletonLoading } from "../../components/skeleton/inputSkeletonLoading"
+import { type OnHandleChange } from "../../../modules/shared/domain/types/types"
+import { type DefaultLocationProps } from "../../Hooks/locations/useLocationInitialState"
 
 interface Props {
-    formData: any
+    formData: DefaultLocationProps
     onChange: OnHandleChange
+    isAddForm: boolean
 }
 
 const TypeOfSiteComboBox = lazy(async () => import('../../components/combo_box/TypeOfSiteComboBox').then(m => ({ default: m.TypeOfSiteComboBox })))
@@ -15,11 +17,12 @@ const CityComboBox = lazy(async () => import('../../components/combo_box/locatio
 const SubnetInput = lazy(async () => import('../../components/text-inputs/location/SubnetInput').then(m => ({ default: m.SubnetInput })))
 const LocationNameInput = lazy(async () => import('../../components/text-inputs/location/LocationNameInput').then(m => ({ default: m.LocationNameInput })))
 
-export function LocationInputs({ onChange, formData }: Props) {
+export function LocationInputs({ onChange, formData, isAddForm }: Props) {
     return (
         <>
             <Suspense fallback={<InputSkeletonLoading />}>
                 <TypeOfSiteComboBox
+                    isAddForm={isAddForm}
                     onChange={onChange}
                     value={formData.typeOfSiteId}
                     type='form'
@@ -28,6 +31,7 @@ export function LocationInputs({ onChange, formData }: Props) {
             <div className="flex gap-4">
                 <Suspense fallback={<InputSkeletonLoading />}>
                     <RegionComboBox
+                        isAddForm={isAddForm}
                         onChange={onChange}
                         type='form'
                         value={formData.regionId}
@@ -35,6 +39,7 @@ export function LocationInputs({ onChange, formData }: Props) {
                 </Suspense>
                 <Suspense fallback={<InputSkeletonLoading />}>
                     <StateComboBox
+                        isAddForm={isAddForm}
                         onChange={onChange}
                         type='form'
                         value={formData.stateId}
@@ -45,6 +50,7 @@ export function LocationInputs({ onChange, formData }: Props) {
             <div className="flex gap-4">
                 <Suspense fallback={<InputSkeletonLoading />}>
                     <CityComboBox
+                        isAddForm={isAddForm}
                         onChange={onChange}
                         type='form'
                         value={formData.cityId}
@@ -53,6 +59,7 @@ export function LocationInputs({ onChange, formData }: Props) {
                 </Suspense>
                 <Suspense fallback={<InputSkeletonLoading />}>
                     <SiteComboBox
+                        isAddForm={isAddForm}
                         onChange={onChange}
                         type='form'
                         value={formData.siteId}
@@ -60,13 +67,19 @@ export function LocationInputs({ onChange, formData }: Props) {
                     />
                 </Suspense>
             </div>
-            <Suspense fallback={<InputSkeletonLoading />}>
-                <LocationNameInput
-                    onChange={onChange}
-                    value={formData.name}
-                    type='form'
-                />
-            </Suspense>
+            <div className="flex gap-4">
+                <Suspense fallback={<InputSkeletonLoading />}>
+                    <LocationNameInput
+                        onChange={onChange}
+                        value={formData.name}
+                        siteName={formData.siteName}
+                        typeOfSite={formData.typeOfSiteId}
+                        type='form'
+                        isAddForm={isAddForm}
+                    />
+                </Suspense>
+            </div>
+
             <Suspense fallback={<InputSkeletonLoading />}>
                 <SubnetInput
                     onChange={onChange}
