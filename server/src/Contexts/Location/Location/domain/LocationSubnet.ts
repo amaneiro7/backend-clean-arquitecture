@@ -16,21 +16,21 @@ export class LocationSubnet extends AcceptedNullValueObject<string> {
   }
 
   // Return the value as a primitive string
-  toPrimitives (): string | null {
+  toPrimitives (): Primitives<LocationSubnet> {
     return this.value
   }
 
   // Private method to ensure the provided value is a valid IP address
-  private ensureIsValid (value: string | null): void {
+  private ensureIsValid (value: Primitives<LocationSubnet>): void {
     if (!this.isValid(value)) {
       throw new InvalidArgumentError(`this <${value}> is not a valid Subnet`) // Throw an error if the value is not a valid IP address
     }
   }
 
   // Private method to check if the provided value is a valid IP address using the defined regular expression
-  private isValid (name: string | null): boolean {
-    if (name === null) return false
-    return this.IPADRRESS_VALIDATION.test(name)
+  private isValid (value: Primitives<LocationSubnet>): boolean {
+    if (value === null) return true
+    return this.IPADRRESS_VALIDATION.test(value)
   }
 
   static async updateSubnetField ({ subnet, entity }: { subnet?: Primitives<LocationSubnet>, entity: Location }): Promise<void> {

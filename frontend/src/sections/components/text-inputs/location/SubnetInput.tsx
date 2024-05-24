@@ -46,7 +46,7 @@ export function SubnetInput({ value, onChange, type = 'form' }: Props) {
         type="text"
         label='Subnet'
         placeholder='-- Ingrese la Subnet del Sitio --'
-        isRequired={type === 'form'}        
+        isRequired={false}        
         handle={(event) => {
           const { name, value } = event.target
           // value = value.replace(/\D/g, '').trim() // Remove non-numeric characters from input

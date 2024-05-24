@@ -10,7 +10,7 @@ export class LocationPostController {
   create = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       await new LocationCreator(this.repository).run(req.body)
-      res.status(httpStatus.CREATED).json({ message: 'Unicación creado exitosamente' })
+      res.status(httpStatus.CREATED).json({ message: 'Ubicación creado exitosamente' })
     } catch (error) {
       next(error)
     }
@@ -20,7 +20,7 @@ export class LocationPostController {
     try {
       const { id } = req.params
       await new LocationUpdater(this.repository).run({ id, params: req.body })
-      res.status(httpStatus.CREATED).json({ message: 'Unicación actualizada exitosamente' })
+      res.status(httpStatus.CREATED).json({ message: 'Ubicación actualizada exitosamente' })
     } catch (error) {
       next(error)
     }

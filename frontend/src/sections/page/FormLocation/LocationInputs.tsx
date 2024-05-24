@@ -84,7 +84,7 @@ export function LocationInputs({ onChange, formData, isAddForm }: Props) {
                 <SubnetInput
                     onChange={onChange}
                     value={formData.subnet}
-                    type='search'
+                    type='form'
                 />
             </Suspense>
         </>

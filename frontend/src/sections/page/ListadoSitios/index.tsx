@@ -59,7 +59,7 @@ export default function ListadoSitios() {
                 </Suspense>
                 <Suspense>
                     <HeaderInput>
-                        <LocationNameInput onChange={handleChange} value={inputData.name} />
+                        <LocationNameInput type="search" onChange={handleChange} value={inputData.name} />
                         <StateComboBox onChange={handleChange} value={inputData.stateId}  />
                         <CityComboBox onChange={handleChange} value={inputData.cityId} state={inputData.stateId} />
                         <TypeOfSiteComboBox onChange={handleChange} value={inputData.typeOfSiteId} />

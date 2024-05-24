@@ -12,7 +12,7 @@ interface Props {
     onChange: OnHandleChange
     siteName?: string
     typeOfSite?: Primitives<TypeOfSiteId>
-    isAddForm: boolean
+    isAddForm?: boolean
     type?: 'form' | 'search' | 'dialog'
 }
 
