@@ -56,7 +56,7 @@ export function LocationNameInput({ value = '', onChange, type = 'form', siteNam
             onChange('name', '')
             return
         }
-        if (typeOfSite === TypeOfSiteId.SitesOptions.AGENCY) {
+        if (typeOfSite === TypeOfSiteId.SitesOptions.AGENCY && isAddForm) {
             const name = `Agencia (${codeAgency}) ${siteName}`            
             onChange('name', name)
         }
