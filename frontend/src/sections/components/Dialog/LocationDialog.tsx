@@ -4,18 +4,18 @@ import { FormStatus, useGenericForm } from "../../Hooks/useGenericForm"
 import { LocationPrimitives } from "../../../modules/location/locations/domain/location"
 
 interface Props {
-    dialogValue: LocationPrimitives
-    open: boolean,
-    toggleOpen: React.Dispatch<React.SetStateAction<boolean>>
-    createLocation: (formData: LocationPrimitives) => Promise<void>
+  dialogValue: LocationPrimitives
+  open: boolean,
+  toggleOpen: React.Dispatch<React.SetStateAction<boolean>>
+  createLocation: (formData: LocationPrimitives) => Promise<void>
 }
 
 const DialogAdd = lazy(async () => import("./dialog"))
-const LocationInputs = lazy(async () => import("../../page/FormLocation/LocationInputs").then(m => ({default: m.LocationInputs})))
+const LocationInputs = lazy(async () => import("../../page/FormLocation/LocationInputs").then(m => ({ default: m.LocationInputs })))
 
 export function LocationDialog({ dialogValue, open, toggleOpen, createLocation }: Props) {
   const { formData, resetForm, updateForm } = useGenericFormData(dialogValue)
-  const { formStatus, resetFormStatus, submitForm } = useGenericForm({create: createLocation})
+  const { formStatus, resetFormStatus, submitForm } = useGenericForm({ create: createLocation })
 
   useEffect(() => {
     updateForm(dialogValue)
@@ -55,7 +55,7 @@ export function LocationDialog({ dialogValue, open, toggleOpen, createLocation }
       resetForm={resetForm}
     >
       <Suspense>
-        <LocationInputs formData={formData} onChange={handleChange} />
+        <LocationInputs formData={formData} onChange={handleChange} isAddForm />
       </Suspense>
     </DialogAdd>
   )

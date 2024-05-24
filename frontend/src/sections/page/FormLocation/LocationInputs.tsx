@@ -1,10 +1,9 @@
 import { lazy, Suspense } from "react"
 import { InputSkeletonLoading } from "../../components/skeleton/inputSkeletonLoading"
 import { type OnHandleChange } from "../../../modules/shared/domain/types/types"
-import { type DefaultLocationProps } from "../../Hooks/locations/useLocationInitialState"
 
 interface Props {
-    formData: DefaultLocationProps
+    formData: any
     onChange: OnHandleChange
     isAddForm: boolean
 }

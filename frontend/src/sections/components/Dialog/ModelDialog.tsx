@@ -15,7 +15,7 @@ const ModelInputs = lazy(async () => import("../../page/FormModel/ModelFeatures"
 
 export default function ModelDialog({ dialogValue, open, toggleOpen, createModel }: Props) {
   const { formData, resetForm, updateForm } = useGenericFormData(dialogValue)
-  const { formStatus, resetFormStatus, submitForm } = useGenericForm({create: createModel})
+  const { formStatus, resetFormStatus, submitForm } = useGenericForm({ create: createModel })
 
   useEffect(() => {
     updateForm(dialogValue)
