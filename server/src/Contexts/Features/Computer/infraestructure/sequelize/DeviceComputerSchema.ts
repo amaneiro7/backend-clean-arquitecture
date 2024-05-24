@@ -78,7 +78,7 @@ export function initDeviceComputerModel (sequelize: Sequelize): void {
         allowNull: true
       },
       memoryRam: {
-        type: DataTypes.ARRAY(DataTypes.INTEGER),
+        type: DataTypes.ARRAY(DataTypes.DECIMAL),
         allowNull: true
       },
       memoryRamCapacity: {
