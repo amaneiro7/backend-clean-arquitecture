@@ -14,15 +14,14 @@ import { DevicesApiResponse } from './DeviceResponse'
 import { DeviceHardDrive } from '../../../../Features/HardDrive.ts/HardDrive/domain/HardDrive'
 import { MFP } from '../../../../Features/MFP/domain/MFP'
 import { SequelizeCriteriaConverter } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeCriteriaConverter'
-export class SequelizeDeviceRepository extends CriteriaToSequelizeConverter implements DeviceRepository {
+
+export class SequelizeDeviceRepository extends SequelizeCriteriaConverter implements DeviceRepository {
   private readonly models = sequelize.models as unknown as Models
-  async matching(criteria: Criteria): Promise<DevicePrimitives[]> {
-    const transform = new SequelizeCriteriaConverter()
-    const options2 = transform.convert(criteria)
-    console.log('device infra transform',options2)
+  async matching(criteria: Criteria): Promise<DevicePrimitives[]> {    
     const options = this.convert(criteria)
-    console.log('device infra convert', options)
-    const deviceOptions = new DeviceAssociation().convertFilterLocation(criteria, options2)
+    console.log(options)
+    
+    const deviceOptions = new DeviceAssociation().convertFilterLocation(criteria, options)
     const data = await DeviceModel.findAll(deviceOptions)
     let filtered: DevicesApiResponse[] | undefined
     if (criteria.searchValueInArray('cityId')) {
