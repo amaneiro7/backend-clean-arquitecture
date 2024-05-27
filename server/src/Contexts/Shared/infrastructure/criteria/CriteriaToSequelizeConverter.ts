@@ -5,7 +5,7 @@ import { type Filter } from '../../domain/criteria/Filter'
 export type Mappings = Record<string, string>
 
 export class CriteriaToSequelizeConverter {
-  convert (criteria: Criteria, mappings: Mappings = {}): FindOptions {
+  convert(criteria: Criteria, mappings: Mappings = {}): FindOptions {
     const query: FindOptions = {}
 
     if (criteria.hasFilters()) {
@@ -30,7 +30,7 @@ export class CriteriaToSequelizeConverter {
   }
 
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-  private generateWhereQuery (filter: Filter, mappings: Mappings = {}) {
+  private generateWhereQuery(filter: Filter, mappings: Mappings = {}) {
     const field = mappings[filter.field.value] ?? filter.field.value
 
     if (filter.operator.isContains()) {
@@ -46,5 +46,6 @@ export class CriteriaToSequelizeConverter {
     }
 
     return { [field]: filter.value.value }
+    
   }
 }

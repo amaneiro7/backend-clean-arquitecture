@@ -1,23 +1,28 @@
 import { type Transaction } from 'sequelize'
 import { type DevicePrimitives } from '../../domain/Device'
 import { type DeviceRepository } from '../../domain/DeviceRepository'
-import { DeviceModel } from './DeviceSchema'
-import { sequelize } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeConfig'
-import { DeviceComputer } from '../../../../Features/Computer/domain/Computer'
 import { type Models } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
 import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
 import { type DeviceId } from '../../domain/DeviceId'
 import { type Criteria } from '../../../../Shared/domain/criteria/Criteria'
+import { DeviceModel } from './DeviceSchema'
+import { sequelize } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeConfig'
+import { DeviceComputer } from '../../../../Features/Computer/domain/Computer'
 import { CriteriaToSequelizeConverter } from '../../../../Shared/infrastructure/criteria/CriteriaToSequelizeConverter'
 import { DeviceAssociation } from './DeviceAssociation'
 import { DevicesApiResponse } from './DeviceResponse'
-import { DeviceHardDrive, DeviceHardDrivePrimitives } from '../../../../Features/HardDrive.ts/HardDrive/domain/HardDrive'
-import { DeviceMFPPrimitives, MFP } from '../../../../Features/MFP/domain/MFP'
+import { DeviceHardDrive } from '../../../../Features/HardDrive.ts/HardDrive/domain/HardDrive'
+import { MFP } from '../../../../Features/MFP/domain/MFP'
+import { SequelizeCriteriaConverter } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeCriteriaConverter'
 export class SequelizeDeviceRepository extends CriteriaToSequelizeConverter implements DeviceRepository {
   private readonly models = sequelize.models as unknown as Models
   async matching(criteria: Criteria): Promise<DevicePrimitives[]> {
+    const transform = new SequelizeCriteriaConverter()
+    const options2 = transform.convert(criteria)
+    console.log('device infra transform',options2)
     const options = this.convert(criteria)
-    const deviceOptions = new DeviceAssociation().convertFilterLocation(criteria, options)
+    console.log('device infra convert', options)
+    const deviceOptions = new DeviceAssociation().convertFilterLocation(criteria, options2)
     const data = await DeviceModel.findAll(deviceOptions)
     let filtered: DevicesApiResponse[] | undefined
     if (criteria.searchValueInArray('cityId')) {

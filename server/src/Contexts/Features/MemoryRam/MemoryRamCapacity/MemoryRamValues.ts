@@ -21,8 +21,8 @@ export class MemoryRamValues extends NumberValueObject {
     return this.value
   }
 
-  static fromValues (value: Primitives<MemoryRamValues>):MemoryRamValues  {
-    return new MemoryRamValues(value)
+  static fromValues (value: Primitives<MemoryRamValues>):MemoryRamValues  {    
+    return new MemoryRamValues(Number(value))
   }
 
   private generarSecuencia(): number[] {

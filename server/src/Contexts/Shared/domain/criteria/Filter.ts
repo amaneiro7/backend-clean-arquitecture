@@ -1,13 +1,14 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { InvalidArgumentError } from '../value-object/InvalidArgumentError'
+import { Primitives } from '../value-object/Primitives'
 import { FilterField } from './FilterField'
 import { FilterOperator } from './FilterOperator'
 import { FilterValue } from './FilterValue'
 
 export interface FiltersPrimitives {
-  field: string
-  operator: string
-  value: string
+  field: Primitives<FilterField>
+  operator: Primitives<FilterOperator>
+  value: Primitives<FilterValue>
 }
 
 export class Filter {
