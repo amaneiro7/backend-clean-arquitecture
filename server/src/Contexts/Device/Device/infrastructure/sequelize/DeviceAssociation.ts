@@ -5,45 +5,54 @@ export class DeviceAssociation {
     convertFilterLocation(criteria: Criteria, options: FindOptions): FindOptions {
         options.include = [
             {
-                association: 'model',
+                association: 'model', // 0
                 include: [
-                    { association: 'modelComputer', include: ['memoryRamType'] },
-                    { association: 'modelLaptop', include: ['memoryRamType'] }
-                ]
-            },
-            'category',
-            'brand',
-            'status',
-            'employee',
-            {
-                association: 'computer',
-                include: [
-                    { association: 'processor' },
-                    { association: 'hardDriveCapacity' },
-                    { association: 'hardDriveType' },
-                    { association: 'operatingSystem' },
-                    { association: 'operatingSystemArq' },
-                ]
-            },
-            {
-                association: 'hardDrive',
-                include: ['hardDriveCapacity', 'hardDriveType']
-            },
-            {
-                association: 'location',
-                include: [
-                    'typeOfSite',
                     {
-                        association: 'site',
+                        association: 'modelComputer', // 0 - 0
+                        include: ['memoryRamType']
+                    },
+                    {
+                        association: 'modelLaptop', // 0 - 1
+                        include: ['memoryRamType']
+                    }
+                ]
+            },
+            'category', // 1
+            'brand', // 2
+            'status', // 3
+            'employee', // 4
+            {
+                association: 'computer', // 5
+                include: [
+                    { association: 'processor' }, // 5 - 0
+                    { association: 'hardDriveCapacity' }, // 5 - 1
+                    { association: 'hardDriveType' }, // 5 - 2
+                    { association: 'operatingSystem' }, // 5 - 3
+                    { association: 'operatingSystemArq' }, // 5 - 4
+                ]
+            },
+            {
+                association: 'hardDrive', // 6
+                include: [
+                    'hardDriveCapacity', // 6 - 0
+                    'hardDriveType' // 6 - 1
+                ]
+            },
+            {
+                association: 'location', // 7
+                include: [
+                    'typeOfSite', // 7 - 0
+                    {
+                        association: 'site', // 7 - 1
                         include: [
                             {
-                                association: 'city',
+                                association: 'city', // 7 - 1 - 0
                                 include: [
                                     {
-                                        association: 'state',
+                                        association: 'state', // 7 - 1 - 1
                                         include: [
                                             {
-                                                association: 'region'
+                                                association: 'region' // 7 - 1 - 1 - 0
                                             }
                                         ]
                                     }
@@ -53,9 +62,10 @@ export class DeviceAssociation {
                     }
                 ]
             },
-            'mfp'            
+            'mfp' // 8
         ]
-        const firstLevelJoin = ['computerName', 'processorId', 'hardDriveCapacityId', 'hardDriveTypeId', 'operatingSystemId', 'operatingSystemArqId']
+        // Poder filtrar por las caracteristicas de computer
+        const firstLevelJoin = ['computerName', 'processorId', 'hardDriveCapacityId', 'hardDriveTypeId', 'operatingSystemId', 'operatingSystemArqId', 'memoryRam', 'memoryRamCapacity', 'ipAddress', 'macAddress']
         firstLevelJoin.forEach(ele => {
             if (criteria.searchValueInArray(ele)) {
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -66,6 +76,7 @@ export class DeviceAssociation {
                 delete options.where[ele]
             }
         })
+        // Poder filtrar por ubicacion - Tipo de sitio y sitio
         const locationFilter = ['typeOfSiteId', 'siteId']
         locationFilter.forEach(ele => {
             if (criteria.searchValueInArray(ele)) {
@@ -77,6 +88,7 @@ export class DeviceAssociation {
                 delete options.where[ele]
             }
         })
+        // Poder filtrar por ciudad
         if (criteria.searchValueInArray('cityId')) {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-expect-error
@@ -84,6 +96,24 @@ export class DeviceAssociation {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-expect-error
             delete options.where.cityId
+        }
+        // Poder filtrar por estado
+        if (criteria.searchValueInArray('stateId')) {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
+            options.include[7].include[1].include[1].where = { ...options.include[7].include[1].include[1].where, stateId: options.where.stateId }
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
+            delete options.where.stateId
+        }
+        // Poder filtrar por region
+        if (criteria.searchValueInArray('regionId')) {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
+            options.include[7].include[1].include[1].include[1].where = { ...options.include[7].include[1].include[1].include[1].where, regionId: options.where.regionId }
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
+            delete options.where.regionId
         }
         if (criteria.searchValueInArray('processor')) {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
