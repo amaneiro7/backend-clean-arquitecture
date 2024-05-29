@@ -4,7 +4,7 @@ import { EditIcon } from '../icon/EditIcon'
 
 export default function TableCellEditDeleteIcon({ state, url }: { state: any, url: string }) {
   return (
-    <td className='align-middle whitespace-nowrap border-b-2 border-b-gray-300 flex'>
+    <td className='h-min w-full place-content-center align-middle text-xs text-ellipsis whitespace-nowrap border-b-2 border-b-gray-300 flex'>
       <EditIcon>
         <Link
           to={url}
@@ -13,9 +13,6 @@ export default function TableCellEditDeleteIcon({ state, url }: { state: any, ur
         >
         </Link>
       </EditIcon>
-      {/* <a href='#'>
-        <DeleteIcon />
-      </a> */}
     </td>
   )
 }

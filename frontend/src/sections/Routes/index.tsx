@@ -13,6 +13,7 @@ const EquiposAgenciaPage = lazy(async () => await import('../page/AgenciaPerDevi
 const EquiposTorrePage = lazy(async () => await import('../page/AdministrativeSitePerDevice/index.tsx'))
 const AdministrativeSitePerEmployee = lazy(async () => await import('../page/AdministrativeSitePerEmployee/index.tsx'))
 const AgencySitePerEmployee = lazy(async () => await import('../page/AgenciaPerEmployee/index.tsx'))
+const DeviceList = lazy(async () => await import('../page/DeviceList'))
 
 const CreateEmployeeForm = lazy(async () => await import('../page/FormEmployee/CreateEmployeeForm.tsx'))
 const CreateDeviceForm = lazy(async () => await import('../page/FormDevice/CreateDeviceForm.tsx'))
@@ -45,7 +46,8 @@ export const privateRouter = [
   { path: '/model/edit/:id', element: <CreateModelForm /> },
   { path: '/processor/add', element: <CreateProcessorForm /> },
   { path: '/processor/edit/:id', element: <CreateProcessorForm /> },
-  { path: '/devicefilter', element: <FilterByDevice /> }
+  { path: '/devicefilter', element: <FilterByDevice /> },
+  { path: '/device', element: <DeviceList /> }
 ]
 
 export default function AppRoutes() {

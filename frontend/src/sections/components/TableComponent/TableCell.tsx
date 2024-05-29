@@ -5,7 +5,7 @@ export default function TableCell({ value, url, state }: { value: string | numbe
   const className = "w-full max-w-[200px] text-left align-middle whitespace-nowrap text-ellipsis overflow-x-hidden overflow-y-visible break-words cursor-default"
   return (
     <td
-      className="text-xs text-ellipsis border-b-2 border-b-gray-300 p-3 pb-2"
+      className="text-xs text-ellipsis border-b-2 border-b-gray-300 p-2"
       aria-label={`${value}`}
       title={`${value}`}
     >

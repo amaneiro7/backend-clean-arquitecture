@@ -38,6 +38,12 @@ export const dropdownNavs: DropDown[] = [
         icon: 'icon'
       },
       {
+        title: 'Equipos de computación',
+        desc: 'Equipos asignados en agencia',
+        path: '/device',
+        icon: 'icon'
+      },
+      {
         title: 'Filtro por Dispositvos',
         desc: 'Filtro por dispositivos',
         path: '/devicefilter',
