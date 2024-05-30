@@ -1,23 +1,20 @@
-import { lazy, Suspense } from 'react'
-import { type TabProps } from '../../mui/Tab'
-interface Props extends TabProps {
-
+interface Props extends React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
+    displayName: string
+    active: boolean
+    value: string
+    handleClick: React.MouseEventHandler<HTMLButtonElement> | undefined
 }
 
-const Tab = lazy(async () => import('../../mui/Tab').then(m => ({ default: m.Tab })))
-export function TabNav({ ...props }: Props) {
+export function TabNav({displayName, value, active, handleClick, ...props }: Props) {
     return (
-        <Suspense>
-            <Tab
-                sx={{
-                    padding: '4px',
-                    fontSize: '12px',
-                    willChange: 'scroll-position',
-                    width: 'min-content'
-                }}
-                wrapped
-                {...props}
-            />
-        </Suspense>
+        <button
+            className={`flex p-4 h-7 will-change-auto items-center justify-center rounded-full px-4 text-center text-sm transition-colors duration-75 font-medium ${active ? 'bg-secondary text-white cursor-default' : 'bg-transparent text-secondary hover:bg-slate-200'}`}
+
+            {...props}
+            value={value}
+            onClick={handleClick}
+        >
+            {displayName}
+        </button>
     )
 }
