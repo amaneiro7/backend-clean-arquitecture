@@ -7,6 +7,7 @@ import { type DeviceActivo } from '../../../modules/devices/devices/devices/doma
 import { type DeviceSerial } from '../../../modules/devices/devices/devices/domain/DeviceSerial'
 import { type ModelId } from '../../../modules/devices/model/model/domain/ModelId'
 import { type LocationId } from '../../../modules/location/locations/domain/locationId'
+import { type TypeOfSiteId } from '../../../modules/location/typeofsites/domain/typeOfSiteId'
 import { DeviceEmployee } from '../../../modules/devices/devices/devices/domain/DeviceEmployee'
 
 export interface InputData {
@@ -18,6 +19,7 @@ export interface InputData {
   modelId: Primitives<ModelId>
   employeeId: Primitives<DeviceEmployee>
   locationId: Primitives<LocationId>
+  typeOfSiteId: Primitives<TypeOfSiteId>
 }
 
 type UpdateInputData = ({ name, value }: inputDataType) => void
@@ -59,7 +61,8 @@ export const useInputsData = (): {
     serial: searchParams.get('serial') ?? '',
     modelId: searchParams.get('modelId') ?? '',
     employeeId: searchParams.get('employeeId') ?? '',
-    locationId: searchParams.get('locationId') ?? ''
+    locationId: searchParams.get('locationId') ?? '',
+    typeOfSiteId: searchParams.get('typeOfSiteId') ?? ''
   }
 
   return {
