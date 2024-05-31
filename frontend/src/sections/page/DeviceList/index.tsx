@@ -14,53 +14,11 @@ const DeviceTable = lazy(async () => import('./DeviceTable').then(m => ({ defaul
 const FilterSection = lazy(async () => import('./FilterSection').then(m => ({ default: m.FilterSection })))
 
 export default function DeviceList() {
-    const defaultFilter: SearchByCriteriaQuery = useMemo(() => {
-        return {
-            filters: [
-                {
-                    field: 'categoryId',
-                    operator: Operator.EQUAL,
-                    value: '1'
-                },
-                {
-                    field: 'categoryId',
-                    operator: Operator.EQUAL,
-                    value: '2'
-                },
-                {
-                    field: 'categoryId',
-                    operator: Operator.EQUAL,
-                    value: '3'
-                },
-                {
-                    field: 'categoryId',
 
-                    operator: Operator.EQUAL,
-                    value: '4'
-                },
-            ]
-        }
-    }, [])
-
-    const { devices, loading, addFilter, cleanFilters } = useDevice(defaultFilter)
-    const navigate = useNavigate()
-    const { inputData, updateInputData, clearInputs } = useInputsData()
-    const debounceGetDevices = useCallback(
-        debounce((query: SearchByCriteriaQuery) => {
-            addFilter(query)
-        }, 300)
-        , [addFilter]
-    )
-
-    const handleChange = (name: string, value: string, operator?: Operator) => {
-        const filters = [{
-            field: name,
-            operator: operator ?? Operator.EQUAL,
-            value
-        }]
-        updateInputData({ name, value })
-        debounceGetDevices({ filters })
-    }
+    
+    
+    const { inputData, devices, handleChange, loading } = useInputsData()
+    
 
     return (
         <Suspense>
