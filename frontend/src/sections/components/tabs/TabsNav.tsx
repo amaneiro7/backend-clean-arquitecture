@@ -5,7 +5,7 @@ interface Props<T> extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivE
 export function TabsNav<T extends typeof TabNav>({ children, ...props }: Props<T>) {
     return (
         <div
-            className='mb-4 flex items-center [&>a:first-child]:text-secondary'
+            className='flex items-center'
             {...props}
         >
             {children}

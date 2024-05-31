@@ -11,6 +11,7 @@ import { SpinnerSKCircle } from "../../components/Loading/spinner-sk-circle";
 const Main = lazy(async () => import('../../components/Main'))
 const PageTitle = lazy(async () => import('../../components/PageTitle'))
 const DeviceTable = lazy(async () => import('./DeviceTable').then(m => ({ default: m.DeviceTable })))
+const FilterSection = lazy(async () => import('./FilterSection').then(m => ({ default: m.FilterSection })))
 
 export default function DeviceList() {
     const defaultFilter: SearchByCriteriaQuery = useMemo(() => {
@@ -67,10 +68,12 @@ export default function DeviceList() {
                 <Suspense>
                     <PageTitle title="Lista de equipos de computación" />
                 </Suspense>
-     
+                <Suspense>
+                    <FilterSection handleChange={handleChange} inputData={inputData} />
+                </Suspense>
                 {loading && <SpinnerSKCircle />}
                 {(!loading && devices.length === 0) && <p>No hay resultados</p>}
-                {(!loading && devices.length > 0) && <Suspense>
+                {<Suspense>
                     <DeviceTable devices={devices} onChange={handleChange}/>
                 </Suspense>}
             </Main>

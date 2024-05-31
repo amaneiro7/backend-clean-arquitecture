@@ -1,9 +1,12 @@
+import { FilterButon } from "./button/FilterButton";
+
 export function HeaderInput({ className, children }: React.PropsWithChildren<{ className?: string }>) {
     return (
         <header
-            className={`min-h-min grid grid-cols-[repeat(auto-fit,_150px)] gap-5 place-content-center ${className}`}
+            className={`min-h-min w-screen grid grid-cols-[repeat(auto-fit,_150px)] gap-4 ${className}`}
         >
             {children}
+            <FilterButon />
         </header>
     )
 

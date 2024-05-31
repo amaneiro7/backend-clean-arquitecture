@@ -5,6 +5,7 @@ import EditSVG from './edit.svg?react'
 import DeleteSVG from './delete.svg?react'
 import RightArrowSVG from './rightArrow.svg?react'
 import ThinRightArrowSVG from './thinArrow.svg?react'
+import FilterSVG from './filter.svg?react'
 import { PropsWithChildren } from 'react'
 
 interface Props {
@@ -38,13 +39,16 @@ const iconTypes = {
   ),
   thinRight: ({ size }: { size: Size }) => (
     <ThinRightArrowSVG className={`${size} aspect-square transition-all fill-secondary`} />
+  ),
+  filter: ({ size }: { size: Size }) => (
+    <FilterSVG className={`${size} p-0 aspect-square transition-all fill-inheret hover:fill-inherit`} />
   )
 } as const
 export const Icon = ({ type, isDisabled = false, children, size = 'w-6' }: PropsWithChildren<Props>) => {
 
   return (
     <i
-      className={`relative w-12 aspect-square p-2 flex justify-center items-center  ${isDisabled ? 'cursor-default opacity-50' : 'cursor-pointer hover:[&>svg]:opacity-70'}`}
+      className={`relative w-12 aspect-square flex justify-center items-center  ${isDisabled ? 'cursor-default opacity-50' : 'cursor-pointer hover:[&>svg]:opacity-70'}`}
     >
       {iconTypes[type]({ size })}
       {children}
