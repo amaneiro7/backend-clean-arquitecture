@@ -12,8 +12,8 @@ export interface UseDevice {
   loading: boolean
   error: string | null
   getDevice: DeviceGetter
-  createDevice: (formData: DevicePrimitives) => Promise<void>
   query: SearchByCriteriaQuery
+  createDevice: (formData: DevicePrimitives) => Promise<void>
   addFilter: (payload: SearchByCriteriaQuery) => void
   cleanFilters: (payload?: SearchByCriteriaQuery) => void
   searchDevices: (filter: SearchByCriteriaQuery) => void
@@ -51,6 +51,7 @@ export const useDevice = (defaultQuery?: SearchByCriteriaQuery): UseDevice => {
   const getDevice = new DeviceGetter(repository)
 
   useEffect(() => {
+    console.log('useDevice', query)
     searchDevices(query)
     return () => {
       setDevices([])

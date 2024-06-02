@@ -101,7 +101,7 @@ export class DeviceAssociation {
         if (criteria.searchValueInArray('stateId')) {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-expect-error
-            options.include[7].include[1].include[1].where = { ...options.include[7].include[1].include[1].where, stateId: options.where.stateId }
+            options.include[7].include[1].include[0].where = { ...options.include[7].include[1].include[0].where, stateId: options.where.stateId }
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-expect-error
             delete options.where.stateId
@@ -110,7 +110,7 @@ export class DeviceAssociation {
         if (criteria.searchValueInArray('regionId')) {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-expect-error
-            options.include[7].include[1].include[1].include[1].where = { ...options.include[7].include[1].include[1].include[1].where, regionId: options.where.regionId }
+            options.include[7].include[1].include[0].include[0].where = { ...options.include[7].include[1].include[0].include[0].where, regionId: options.where.regionId }
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-expect-error
             delete options.where.regionId

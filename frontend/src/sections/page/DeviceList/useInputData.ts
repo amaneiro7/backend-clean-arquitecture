@@ -1,8 +1,11 @@
 import { useCallback, useReducer } from 'react'
 import debounce from 'just-debounce-it'
 import { useSearchParams } from 'react-router-dom'
-
-import { type CategoryId } from '../../../modules/devices/category/domain/CategoryId'
+import { getValueFromQueryParams } from '../../utils/getValueFromQueryParams'
+import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
+import { useDevice } from '../../Hooks/device/useNewDevice'
+import { createFilterFromQueryParams } from '../../utils/createFilterFromQueryParams'
+import { CategoryId } from '../../../modules/devices/category/domain/CategoryId'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { type BrandId } from '../../../modules/devices/brand/domain/BrandId'
 import { type StatusId } from '../../../modules/devices/devices/status/domain/StatusId'
@@ -22,36 +25,61 @@ import { type IPAddress } from '../../../modules/devices/fetures/computer/domain
 import { type DevicePrimitives } from '../../../modules/devices/devices/devices/domain/Device'
 import { type DeviceEmployee } from '../../../modules/devices/devices/devices/domain/DeviceEmployee'
 import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
-import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
-import { useDevice } from '../../Hooks/device/useDevice'
 
-const initialState = {
-  inputData: {
-    categoryId: '',
-    brandId: '',
-    statusId: '',
-    activo: '',
-    serial: '',
-    modelId: '',
-    employeeId: '',
-    locationId: '',
-    typeOfSiteId: '',
-    cityId: '',
-    stateId: '',
-    regionId: '',
-    computerName: '',
-    operatingSystem: '',
-    operatingSystemArq: '',
-    processorId: '',
-    ipAddress: '',
-  },
-  query: {
-    filters: [
-      { field: 'categoryId', operator: Operator.EQUAL, value: '1' },
-      { field: 'categoryId', operator: Operator.EQUAL, value: '2' },
-      { field: 'categoryId', operator: Operator.EQUAL, value: '3' },
-      { field: 'categoryId', operator: Operator.EQUAL, value: '4' },
-    ]
+
+const defaultInputData = {
+  categoryId: '',
+  brandId: '',
+  statusId: '',
+  activo: '',
+  serial: '',
+  modelId: '',
+  employeeId: '',
+  locationId: '',
+  typeOfSiteId: '',
+  cityId: '',
+  stateId: '',
+  regionId: '',
+  computerName: '',
+  operatingSystemId: '',
+  operatingSystemArqId: '',
+  processorId: '',
+  ipAddress: '',
+}
+
+const defaultQuery: SearchByCriteriaQuery = {
+  filters: [
+    ...[
+      CategoryId.categoryOptions.COMPUTER,
+      CategoryId.categoryOptions.LAPTOP,
+      CategoryId.categoryOptions.ALLINONE,
+      CategoryId.categoryOptions.SERVER
+    ].map(id => ({ field: 'categoryId', operator: Operator.EQUAL, value: id })),
+  ]
+}
+
+const initialState: State = (() => {
+  const { inputData, query } = getInputDataAndQuery()
+  return {
+    inputData,
+    query
+  }
+})()
+function getInputDataAndQuery() {
+  const { serial, activo, categoryId, ...resParams } = getValueFromQueryParams(defaultInputData)
+
+  const resFilters = createFilterFromQueryParams(resParams)
+
+  const filters = [
+    serial && { field: 'serial', operator: Operator.CONTAINS, value: serial },
+    activo && { field: 'activo', operator: Operator.CONTAINS, value: activo },
+    ...resFilters,
+    ...(!!categoryId ? [{ field: 'categoryId', operator: Operator.EQUAL, value: categoryId }] : defaultQuery.filters),
+  ].filter(Boolean)
+
+  return {
+    inputData: { ...defaultInputData, serial, activo, categoryId, ...resParams },
+    query: { filters },
   }
 }
 
@@ -69,15 +97,16 @@ export interface InputData {
   stateId: Primitives<StateId>
   regionId: Primitives<RegionId>
   computerName: Primitives<ComputerName>
-  operatingSystem: Primitives<OperatingSystemId>
-  operatingSystemArq: Primitives<OperatingSystemArqId>
+  operatingSystemId: Primitives<OperatingSystemId>
+  operatingSystemArqId: Primitives<OperatingSystemArqId>
   processorId: Primitives<ProcessorId>
   ipAddress: Primitives<IPAddress>
 }
 
 type Action =
   | { type: 'INIT_STATE', payload: { inputData?: InputData, query?: SearchByCriteriaQuery } }
-  | { type: 'UPDATE_FILTER', payload: { query: SearchByCriteriaQuery } }
+  | { type: 'UPDATE_INPUTS', payload: { name: string, value: string } }
+  | { type: 'UPDATE_FILTER' }
   | { type: 'CLEAR_FILTER' }
 
 
@@ -88,35 +117,33 @@ interface State {
 
 const reducer = (state: State, action: Action) => {
   if (action.type === 'INIT_STATE') {
-    return { ...state, inputData: action.payload.inputData, query: action.payload.query }
+    return {
+      ...state,
+      inputData: action.payload.inputData,
+      query: action.payload.query
+    }
   }
   if (action.type === 'UPDATE_FILTER') {
-    const { query } = action.payload
-    const params = new URLSearchParams(window.location.search)
-    console.log('state', initialState.inputData)
-    // Obtener las llaves del initialState InputData
-    const inputDataArray = Object.keys(initialState.inputData)
-    console.log('inputDataArray', inputDataArray)
-    // Obtener el valor de los parametros searchParam, si no existe que ese valor sea 0
-    const inputData = inputDataArray.map(key => {      
-      return { [key]: params.get(key) ?? '' }
-    }).reduce((obj, item) => {
-      const key = Object.keys(item)[0]
-      const value = item[key]
-      obj[key] = value
-      return obj
-    }, {})
-    console.log('inputData', inputData)
-    return { ...state, inputData, query }
+    const { query } = getInputDataAndQuery()
+    return {
+      ...state,
+      query
+    }
+  }
+  if (action.type === 'UPDATE_INPUTS') {
+    const { name, value } = action.payload
+    return {
+      ...state,
+      inputData: { ...state.inputData, [name]: value },
+
+    }
   }
   if (action.type === 'CLEAR_FILTER') {
-    return initialState
+    return {
+      inputData: defaultInputData,
+      query: defaultQuery
+    }
   }
-}
-
-interface inputDataType {
-  name: string
-  value: string
 }
 
 export const useInputsData = (): {
@@ -126,50 +153,45 @@ export const useInputsData = (): {
   handleChange: (name: string, value: string, operator?: Operator) => void
   handleClear: () => void
 } => {
-  const [{ inputData, query: defaultQuery }, dispatch] = useReducer(reducer, initialState)
+  const [{ inputData, query }, dispatch] = useReducer(reducer, initialState)
   const [_, setSearchParams] = useSearchParams()
-  const { query, devices, loading, addFilter, cleanFilters } = useDevice(defaultQuery)
+  const { devices, loading, handleSync } = useDevice(query)
 
-  const updateInputData = ({ name, value }: inputDataType) => {
-    if (value === '') {
-      setSearchParams(prev => {
+
+  const updateInputData = useCallback((name: string, value: string) => {
+    setSearchParams(prev => {
+      if (value === '') {
         prev.delete(name)
-        return prev
-      })
-    } else {
-      setSearchParams(prev => {
+      } else {
         prev.set(name, value)
-        return prev
-      }, { replace: true })
-    }
-  }
+      }
+      return prev
+    })
+  }, [setSearchParams])
 
-  const clearInputs = () => {
+  const handleClear = useCallback(() => {
     setSearchParams('')
-  }
+    dispatch({ type: 'CLEAR_FILTER' })
+    handleSync()
+  }, [setSearchParams])
 
   const debounceGetDevices = useCallback(
-    debounce((query: SearchByCriteriaQuery) => {
-      addFilter(query)
+    debounce(() => {
+      handleSync()
     }, 300)
-    , [addFilter]
+    , [handleSync]
   )
 
-  const handleChange = (name: string, value: string, operator?: Operator) => {
-    const filters = [{
-      field: name,
-      operator: operator ?? Operator.EQUAL,
-      value
-    }]
-    dispatch({ type: 'UPDATE_FILTER', payload: { query } })
-    updateInputData({ name, value })
-    debounceGetDevices({ filters })
-  }
-
-  const handleClear = () => {
-    clearInputs()
-    cleanFilters(defaultQuery)
-  }
+  const handleChange = useCallback((name: string, value: string) => {
+    dispatch({ type: 'UPDATE_INPUTS', payload: { name, value } })
+    updateInputData(name, value)
+    dispatch({ type: 'UPDATE_FILTER' })
+    if (name === 'serial' || name === 'activo') {
+      debounceGetDevices()
+    } else {
+      handleSync()
+    }
+  }, [dispatch, updateInputData])
 
 
   return {

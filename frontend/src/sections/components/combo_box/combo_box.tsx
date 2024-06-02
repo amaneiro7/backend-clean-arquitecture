@@ -125,7 +125,7 @@ export default function ComboBox<T, Multiple extends boolean, Disable extends bo
           const matches = match(option.name, inputValue, { insideWords: true });
           const parts = parse(option.name, matches)
           return (
-            <li {...props}>
+            <li key={option.id} {...props}>
               <div>
                 {parts.map((part, index) => (
                   <span

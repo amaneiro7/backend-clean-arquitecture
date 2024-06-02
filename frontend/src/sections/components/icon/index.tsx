@@ -41,7 +41,7 @@ const iconTypes = {
     <ThinRightArrowSVG className={`${size} aspect-square transition-all fill-secondary`} />
   ),
   filter: ({ size }: { size: Size }) => (
-    <FilterSVG className={`${size} p-0 aspect-square transition-all fill-inheret hover:fill-inherit`} />
+    <FilterSVG className={`${size} p-0 aspect-square transition-all fill-inheret`} />
   )
 } as const
 export const Icon = ({ type, isDisabled = false, children, size = 'w-6' }: PropsWithChildren<Props>) => {

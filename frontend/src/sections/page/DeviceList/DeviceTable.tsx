@@ -1,8 +1,9 @@
 import { lazy, Suspense, useRef } from 'react'
 import { type DevicesApiResponse } from '../../../modules/shared/domain/types/responseTypes'
 import { type DevicePrimitives } from '../../../modules/devices/devices/devices/domain/Device'
+import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
+import { type InputData } from './useInputData'
 import TableSkeleton from '../../components/skeleton/TableSkeleton'
-import { OnHandleChange } from '../../../modules/shared/domain/types/types'
 
 const Table = lazy(async () => import('../../components/TableComponent/Table'))
 const TableHeader = lazy(async () => import('../../components/TableComponent/TableHeader'))
@@ -15,15 +16,16 @@ const TypeOfSiteTabNav = lazy(async () => import('../../components/tabs/TypeOfSi
 interface Props {
     devices: DevicePrimitives[]
     onChange: OnHandleChange
+    inputData: InputData
 }
-export function DeviceTable({ devices, onChange }: Props) {
+export function DeviceTable({ devices, onChange, inputData }: Props) {
     const tableRef = useRef(null)
     return (
         <Suspense fallback={<TableSkeleton />}>
             <Table
                 className=''
                 ref={tableRef}
-                tabs={<Suspense><TypeOfSiteTabNav onChange={onChange} /></Suspense>}>
+                tabs={<Suspense><TypeOfSiteTabNav onChange={onChange} value={inputData.typeOfSiteId} /></Suspense>}>
                 <TableHeader className='bg-secondary text-white'>
                     <TableRow>
                         <TableHead name='Acciones' />

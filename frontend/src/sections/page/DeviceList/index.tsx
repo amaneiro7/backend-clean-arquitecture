@@ -1,10 +1,4 @@
-import { lazy, Suspense, useCallback, useMemo } from "react";
-import debounce from "just-debounce-it";
-import { type SearchByCriteriaQuery } from "../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery";
-import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators";
-
-import { useDevice } from "../../Hooks/device/useDevice";
-import { useNavigate } from "react-router-dom";
+import { lazy, Suspense } from "react";
 import { useInputsData } from "./useInputData";
 import { SpinnerSKCircle } from "../../components/Loading/spinner-sk-circle";
 
@@ -15,10 +9,7 @@ const FilterSection = lazy(async () => import('./FilterSection').then(m => ({ de
 
 export default function DeviceList() {
 
-    
-    
-    const { inputData, devices, handleChange, loading } = useInputsData()
-    
+    const { inputData, devices, handleChange, handleClear, loading } = useInputsData()
 
     return (
         <Suspense>
@@ -27,12 +18,12 @@ export default function DeviceList() {
                     <PageTitle title="Lista de equipos de computación" />
                 </Suspense>
                 <Suspense>
-                    <FilterSection handleChange={handleChange} inputData={inputData} />
+                    <FilterSection handleChange={handleChange} handleClear={handleClear} inputData={inputData} />
                 </Suspense>
                 {loading && <SpinnerSKCircle />}
-                {(!loading && devices.length === 0) && <p>No hay resultados</p>}
+                {(!loading && devices.length === 0) && <p>No hay resultados que coincidan con el filtro</p>}
                 {<Suspense>
-                    <DeviceTable devices={devices} onChange={handleChange}/>
+                    <DeviceTable devices={devices} onChange={handleChange} inputData={inputData} />
                 </Suspense>}
             </Main>
         </Suspense>
