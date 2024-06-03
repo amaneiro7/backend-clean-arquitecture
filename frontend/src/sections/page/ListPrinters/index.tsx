@@ -23,7 +23,7 @@ export default function ListPrinter() {
                 {loading && <SpinnerSKCircle />}
                 {(!loading && devices.length === 0) && <p>No hay resultados que coincidan con el filtro</p>}
                 {<Suspense>
-                    <DeviceTable devices={devices} onChange={handleChange} inputData={inputData} />
+                    <DeviceTable loading={loading} devices={devices} onChange={handleChange} inputData={inputData} />
                 </Suspense>}
             </Main>
         </Suspense>

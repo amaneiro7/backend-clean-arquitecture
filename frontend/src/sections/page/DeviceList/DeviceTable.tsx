@@ -17,8 +17,9 @@ interface Props {
     devices: DevicePrimitives[]
     onChange: OnHandleChange
     inputData: InputData
+    loading: boolean
 }
-export function DeviceTable({ devices, onChange, inputData }: Props) {
+export function DeviceTable({ devices, loading, onChange, inputData }: Props) {
     const tableRef = useRef(null)
     return (
         <Suspense fallback={<TableSkeleton />}>
@@ -51,7 +52,7 @@ export function DeviceTable({ devices, onChange, inputData }: Props) {
                 </TableHeader>
                 <TableBody>
                     {(devices as unknown as DevicesApiResponse[]).map((device) => (
-                        <TableRow key={device?.id}>
+                        <TableRow totalTd={19} loading={loading} key={device?.id}>
                             <TableCellEditDeleteIcon state={device} url={`/device/edit/${device.id}`} />
                             <TableCell value={device.employee?.userName} url={`/employee/edit/${device.employeeId}`} />
                             <TableCell value={device.location?.name} />

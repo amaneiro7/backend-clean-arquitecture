@@ -43,7 +43,7 @@ export function DeviceTable({ devices, loading, onChange, inputData }: Props) {
                     </TableHeader>
                     <TableBody>
                         {(devices as unknown as DevicesApiResponse[]).map((device) => (
-                            <TableRow loading={loading} key={device?.id}>
+                            <TableRow totalTd={9} loading={loading} key={device?.id}>
                                 <TableCellEditDeleteIcon state={device} url={`/device/edit/${device.id}`} />
                                 <TableCell value={device.employee?.userName} url={`/employee/edit/${device.employeeId}`} />
                                 <TableCell value={device.location?.name} />
