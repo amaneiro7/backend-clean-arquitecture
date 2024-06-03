@@ -15,8 +15,9 @@ const Table = forwardRef(function ({ children, className, tabs }: Props, ref: Re
     <>
 
       <Suspense>
-        <Button
+        <Button        
           type='button'
+          className='my-5'
           actionType='SAVE'
           text='Exportar a Excel'
           handle={() => { import('../../components/button/DownloadTableExcel').then(m => m.exportToExcel(ref)) }}

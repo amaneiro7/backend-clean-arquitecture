@@ -9,7 +9,7 @@ export function FilterButon({ className, ...props }: Props) {
             type="button"
             {...props}
         >
-            <FilterIcon />
+            <FilterIcon /> Filtros
         </button>
     )
 }

@@ -1,7 +1,8 @@
-interface Props {
+interface Props extends React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
   type?: 'button' | 'submit' | 'reset'
   handle?: React.MouseEventHandler<HTMLButtonElement> | undefined
   text: string
+  className?: string
   actionType: keyof typeof ACTIONTYPE
   isDisabled?: boolean
 }
@@ -15,17 +16,18 @@ const ACTIONTYPE = {
   CLOSE: 'text-white border-secondary bg-secondary-800 hover:bg-secondary-700 active:bg-secondary-950'
 } as const
 
-export default function Button ({ text, type, handle, isDisabled = false, actionType = 'ACTION' }: Props) {
+export default function Button({ text, type, className, handle, isDisabled = false, actionType = 'ACTION', ...props }: Props) {
   return (
-        <button
-            type={type}
-            onClick={handle}
-            className={`w-max h-min py-2 px-4 font-medium text-base align-middle text-center text-white rounded-md cursor-pointer border border-solid border-transparent transition-all duration-150 ease-in disabled:opacity-70 disabled:cursor-not-allowed ${ACTIONTYPE[actionType]}`}
-            disabled={isDisabled}
-            aria-label={`${text}`}
-            title={`${text}`}
-        >
-            {text}
-        </button>
+    <button
+      type={type}
+      onClick={handle}
+      className={`w-max h-min py-2 px-4 font-medium text-base align-middle text-center text-white rounded-md cursor-pointer border border-solid border-transparent transition-all duration-150 ease-in disabled:opacity-70 disabled:cursor-not-allowed ${className} ${ACTIONTYPE[actionType]}`}
+      disabled={isDisabled}
+      aria-label={`${text}`}
+      title={`${text}`}
+      {...props}
+    >
+      {text}
+    </button>
   )
 }

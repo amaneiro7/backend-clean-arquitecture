@@ -1,12 +1,12 @@
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference types="vite-plugin-svgr/client" />
-import AddSVG from './add.svg?react'
-import EditSVG from './edit.svg?react'
-import DeleteSVG from './delete.svg?react'
-import RightArrowSVG from './rightArrow.svg?react'
-import ThinRightArrowSVG from './thinArrow.svg?react'
-import FilterSVG from './filter.svg?react'
-import { PropsWithChildren } from 'react'
+import { lazy, PropsWithChildren, Suspense } from 'react'
+const AddSVG = lazy(async () => import('./add.svg?react'))
+const EditSVG = lazy(async () => import('./edit.svg?react'))
+const DeleteSVG = lazy(async () => import('./delete.svg?react'))
+const RightArrowSVG = lazy(async () => import('./rightArrow.svg?react'))
+const ThinRightArrowSVG = lazy(async () => import('./thinArrow.svg?react'))
+const FilterSVG = lazy(async () => import('./filter.svg?react'))
 
 interface Props {
   type: keyof typeof iconTypes
@@ -26,22 +26,22 @@ export const SIZES = {
 
 const iconTypes = {
   add: ({ size }: { size: Size }) => (
-    <AddSVG className={`${size} aspect-square transition-all fill-primary`} />
+    <Suspense><AddSVG className={`${size} aspect-square transition-all fill-primary`} /></Suspense>
   ),
   edit: ({ size }: { size: Size }) => (
-    <EditSVG className={`${size} aspect-square transition-all fill-secondary`} />
+    <Suspense><EditSVG className={`${size} aspect-square transition-all fill-secondary`} /></Suspense>
   ),
   delete: ({ size }: { size: Size }) => (
-    <DeleteSVG className={`${size} aspect-square transition-all fill-quaternary`} />
+    <Suspense><DeleteSVG className={`${size} aspect-square transition-all fill-quaternary`} /></Suspense>
   ),
   right: ({ size }: { size: Size }) => (
-    <RightArrowSVG className={`${size} aspect-square transition-all fill-terciary`} />
+    <Suspense><RightArrowSVG className={`${size} aspect-square transition-all fill-terciary`} /></Suspense>
   ),
   thinRight: ({ size }: { size: Size }) => (
-    <ThinRightArrowSVG className={`${size} aspect-square transition-all fill-secondary`} />
+    <Suspense><ThinRightArrowSVG className={`${size} aspect-square transition-all fill-secondary`} /></Suspense>
   ),
   filter: ({ size }: { size: Size }) => (
-    <FilterSVG className={`${size} p-0 aspect-square transition-all fill-inheret`} />
+    <Suspense><FilterSVG className={`${size} p-0 aspect-square transition-all fill-inheret`} /></Suspense>
   )
 } as const
 export const Icon = ({ type, isDisabled = false, children, size = 'w-6' }: PropsWithChildren<Props>) => {

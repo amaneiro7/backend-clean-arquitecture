@@ -44,6 +44,30 @@ export const dropdownNavs: DropDown[] = [
         icon: 'icon'
       },
       {
+        title: 'Lista de Monitores',
+        desc: 'Lista de Monitores',
+        path: '/monitor',
+        icon: 'icon'
+      },
+      {
+        title: 'Lista de Impresoras',
+        desc: 'Lista de Impresoras',
+        path: '/printer',
+        icon: 'icon'
+      },
+      {
+        title: 'Lista de Impresoras Financieras',
+        desc: 'Lista de Impresoras Financieras',
+        path: '/finantialprinter',
+        icon: 'icon'
+      },
+      {
+        title: 'Lista de Partes y piezas',
+        desc: 'Lista de Partes y piezas',
+        path: '/parts',
+        icon: 'icon'
+      },
+      {
         title: 'Filtro por Dispositvos',
         desc: 'Filtro por dispositivos',
         path: '/devicefilter',

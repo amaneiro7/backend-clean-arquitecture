@@ -14,6 +14,10 @@ const EquiposTorrePage = lazy(async () => await import('../page/AdministrativeSi
 const AdministrativeSitePerEmployee = lazy(async () => await import('../page/AdministrativeSitePerEmployee/index.tsx'))
 const AgencySitePerEmployee = lazy(async () => await import('../page/AgenciaPerEmployee/index.tsx'))
 const DeviceList = lazy(async () => await import('../page/DeviceList'))
+const ListMonitor = lazy(async () => await import('../page/ListMonitor'))
+const ListFinantialPrinter = lazy(async () => await import('../page/ListFinantialPrinter'))
+const ListPartAndPieces = lazy(async () => await import('../page/ListPartAndPieces'))
+const ListPrinters = lazy(async () => await import('../page/ListPrinters'))
 
 const CreateEmployeeForm = lazy(async () => await import('../page/FormEmployee/CreateEmployeeForm.tsx'))
 const CreateDeviceForm = lazy(async () => await import('../page/FormDevice/CreateDeviceForm.tsx'))
@@ -47,7 +51,11 @@ export const privateRouter = [
   { path: '/processor/add', element: <CreateProcessorForm /> },
   { path: '/processor/edit/:id', element: <CreateProcessorForm /> },
   { path: '/devicefilter', element: <FilterByDevice /> },
-  { path: '/device', element: <DeviceList /> }
+  { path: '/device', element: <DeviceList /> },
+  { path: '/monitor', element: <ListMonitor /> },
+  { path: '/finantialprinter', element: <ListFinantialPrinter /> },
+  { path: '/printer', element: <ListPrinters /> },
+  { path: '/parts', element: <ListPartAndPieces /> },
 ]
 
 export default function AppRoutes() {
