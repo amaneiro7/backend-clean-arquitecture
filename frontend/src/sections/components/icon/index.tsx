@@ -73,7 +73,7 @@ export const Icon = ({ type, isDisabled = false, children, color, size = 'w-6', 
 
   return (
     <i
-      className={`relative ${size} aspect-square flex justify-center items-center  ${isDisabled ? 'cursor-default opacity-50' : 'cursor-pointer hover:[&>svg]:opacity-70'}`}
+      className={`drop-shadow-2xl relative ${size} aspect-square flex justify-center items-center  ${isDisabled ? 'cursor-default opacity-50' : 'cursor-pointer'}`}
     >
       {iconTypes[type]({ size, color, ...props })}
       {children}
