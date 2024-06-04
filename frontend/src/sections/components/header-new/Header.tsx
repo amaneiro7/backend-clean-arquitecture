@@ -26,7 +26,7 @@ export function Header() {
   }, [location.pathname]);
   return (
     <header className="h-24 md:text-sm md:border-none gap-4 flex items-center justify-between fixed z-50 bg-secondary w-full shadow-lg pr-8 py-4">
-      <div className="pl-8 p-1 bg-white rounded-e-full">
+      <div className="pl-8 pr-3 p-2 bg-white rounded-e-full">
         <Link aria-label="Logo" aria-describedby="Logo y un enlace al inicio de la página" to={"/"}>
           <Suspense>
             <Logo />

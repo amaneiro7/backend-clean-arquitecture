@@ -7,7 +7,7 @@ export function InfoBoxTitle({ title, url, state }: { title: string, url?: strin
             className="flex justify-between items-center font-sans font-bold text-secondary text-left text-xl mb-2"
         >
             <span>{title}</span>
-            {url && <ThinRightIcon size="w-12">
+            {url && <ThinRightIcon color="secondary" size="w-12">
                 <Link className="absolute w-full h-full" state={state} to={url}></Link>
             </ThinRightIcon>}
         </h3>

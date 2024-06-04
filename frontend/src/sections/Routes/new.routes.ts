@@ -1,6 +1,10 @@
+import logoImg from '../../assets/inventarybox.jpg'
+
 export const navigation = [
     {
-        label: 'Listado de Categorias',
+        label: 'Listado de Perifericos',
+        desc: 'Aqui se encuentran las rutas por categorias, equipos de computación, monitores, impresoras y partes y piezas',
+        img: '',
         navs: [
             {
                 title: 'Equipos en Torre',

@@ -8,7 +8,6 @@ const TilesBox = lazy(async () => import("../../components/TilesSection/TilesBox
 const TilesInvisible = lazy(async () => import("../../components/TilesSection/TilesInvisible").then((m) => ({ default: m.TilesInvisible })));
 const TilesVisible = lazy(async () => import("../../components/TilesSection/TilesVisible").then((m) => ({ default: m.TilesVisible })));
 const TilesInvisibleInfo = lazy(async () => import("../../components/TilesSection/TilesInvisibleInfo").then((m) => ({ default: m.TilesInvisibleInfo })));
-
 const Banner = lazy(async () => await import("../../components/Banner"));
 const TilesSection = lazy(async () => await import("../../components/TilesSection/TilesSection").then((m) => ({ default: m.TilesSection })));
 const Main = lazy(async () => await import("../../components/Main"));
