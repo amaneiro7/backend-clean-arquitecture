@@ -28,7 +28,7 @@ export default function FilterByDevice() {
                         type='button'
                         actionType='SAVE'
                         text='Export Excel'
-                        handle={() => { import('../../components/button/DownloadTableExcel').then(m => m.exportToExcel(tableRef)) }}
+                        handle={() => { import('../../utils/DownloadTableExcel').then(m => m.exportToExcel(tableRef)) }}
                     />
                 </Suspense>
             </FilterManager>

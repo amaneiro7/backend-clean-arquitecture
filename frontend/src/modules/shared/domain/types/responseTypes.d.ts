@@ -6,53 +6,53 @@ import { type CategoryId } from '../../../devices/category/domain/CategoryId'
 import { type CategoryName } from '../../../devices/category/domain/CategoryName'
 import { type DevicePrimitives } from '../../../devices/devices/devices/domain/Device'
 import { type DeviceActivo } from '../../../devices/devices/devices/domain/DeviceActivo'
-import { type DeviceEmployee } from '../../../devices/devices/devices/domain/DeviceEmployee'
 import { type DeviceId } from '../../../devices/devices/devices/domain/DeviceId'
 import { type DeviceObservation } from '../../../devices/devices/devices/domain/DeviceObservation'
 import { type DeviceSerial } from '../../../devices/devices/devices/domain/DeviceSerial'
 import { type StatusPrimitives } from '../../../devices/devices/status/domain/Status'
 import { type StatusId } from '../../../devices/devices/status/domain/StatusId'
 import { type StatusName } from '../../../devices/devices/status/domain/StatusName'
-import { ComputerPrimitives } from '../../../devices/fetures/computer/domain/Computer'
-import { type ComputerId } from '../../../devices/fetures/computer/domain/ComputerId'
-import { type ComputerName } from '../../../devices/fetures/computer/domain/ComputerName'
-import { type IPAddress } from '../../../devices/fetures/computer/domain/IPAddress'
-import { type MACAddress } from '../../../devices/fetures/computer/domain/MACAddress'
-import { HardDrivePrimitives } from '../../../devices/fetures/hardDrive/hardDrive/domain/HardDrive'
-import { type HardDriveHealth } from '../../../devices/fetures/hardDrive/hardDrive/domain/HardDriveHealth'
+import { type ComputerPrimitives } from '../../../devices/fetures/computer/domain/Computer'
+import { type HardDrivePrimitives } from '../../../devices/fetures/hardDrive/hardDrive/domain/HardDrive'
 import { type HardDriveCapacityPrimitives } from '../../../devices/fetures/hardDrive/hardDriveCapacity/domain/HardDriveCapacity'
-import { type HardDriveCapacityId } from '../../../devices/fetures/hardDrive/hardDriveCapacity/domain/HardDriveCapacityId'
 import { type HardDriveTypePrimitives } from '../../../devices/fetures/hardDrive/hardDriveType/domain/HardDriveType'
-import { type HardDriveTypeId } from '../../../devices/fetures/hardDrive/hardDriveType/domain/HardDriveTypeId'
-import { type MemoryRamCapacity } from '../../../devices/fetures/memoryRam/memoryRamCapacity/domain/MemoryRamCapacity'
 import { type OperatingSystemPrimitives } from '../../../devices/fetures/operatingSystem/operatingSystem/domain/OperatingSystem'
-import { type OperatingSystemId } from '../../../devices/fetures/operatingSystem/operatingSystem/domain/OperatingSystemId'
 import { type OperatingSystemArqPrimitives } from '../../../devices/fetures/operatingSystem/operatingSystemArq/domain/OperatingSystemArq'
-import { type OperatingSystemArqId } from '../../../devices/fetures/operatingSystem/operatingSystemArq/domain/OperatingSystemArqId'
 import { type ProcessorPrimitives } from '../../../devices/fetures/processor/domain/Processor'
-import { type ProcessorId } from '../../../devices/fetures/processor/domain/ProcessorId'
-import { InputTypePrimitives } from '../../../devices/model/InputType/domain/InputType'
-import { ModelPrimitives } from '../../../devices/model/model/domain/Model'
+import { type InputTypePrimitives } from '../../../devices/model/InputType/domain/InputType'
+import { type ModelPrimitives } from '../../../devices/model/model/domain/Model'
 import { type ModelId } from '../../../devices/model/model/domain/ModelId'
 import { type ModelName } from '../../../devices/model/model/domain/ModelName'
-import { ModelComputerPrimitives } from '../../../devices/model/ModelCharacteristics/modelComputer/ModelComputer'
-import { ModelKeyboardPrimitives } from '../../../devices/model/ModelCharacteristics/modelKeyboard/ModelKeyboard'
-import { ModelLaptopPrimitives } from '../../../devices/model/ModelCharacteristics/modelLaptop/ModelLaptop'
-import { ModelMonitorPrimitives } from '../../../devices/model/ModelCharacteristics/modelMonitor/ModelMonitor'
-import { ModelPrinterPrimitives } from '../../../devices/model/ModelCharacteristics/modelPrinter/ModelPrinter'
 import { type EmployeePrimitives } from '../../../employee/employee/domain/Employee'
 import { type EmployeeId } from '../../../employee/employee/domain/EmployeeId'
 import { type EmployeeUserName } from '../../../employee/employee/domain/UserName'
-import { CityPrimitives } from '../../../location/city/domain/city'
+import { type ModelKeyboardPrimitives } from '../../../devices/model/ModelCharacteristics/modelKeyboard/ModelKeyboard'
+import { type ModelLaptopPrimitives } from '../../../devices/model/ModelCharacteristics/modelLaptop/ModelLaptop'
+import { type ModelMonitorPrimitives } from '../../../devices/model/ModelCharacteristics/modelMonitor/ModelMonitor'
+import { type ModelPrinterPrimitives } from '../../../devices/model/ModelCharacteristics/modelPrinter/ModelPrinter'
+import { type ModelComputerPrimitives } from '../../../devices/model/ModelCharacteristics/modelComputer/ModelComputer'
+import { type CityPrimitives } from '../../../location/city/domain/city'
+import { type RegionPrimitives } from '../../../location/region/domain/region'
+import { type SitePrimitives } from '../../../location/site/domain/site'
+import { type StatePrimitives } from '../../../location/state/domain/state'
+import { type TypeOfSitePrimitives } from '../../../location/typeofsites/domain/typeOfSite'
+import { type UserPrimitives } from '../../../user/user/domain/User'
 import { type LocationPrimitives } from '../../../location/locations/domain/location'
 import { type LocationId } from '../../../location/locations/domain/locationId'
-import { RegionPrimitives } from '../../../location/region/domain/region'
-import { SitePrimitives } from '../../../location/site/domain/site'
-import { StatePrimitives } from '../../../location/state/domain/state'
-import { TypeOfSitePrimitives } from '../../../location/typeofsites/domain/typeOfSite'
 import { type Primitives } from '../value-object/Primitives'
 
-export interface DevicesApiResponse extends DevicePrimitives {  
+interface UserApiResponse {
+  user: UserPrimitives
+  message: string
+  refreshToken: string
+  roleId: string
+  role: {
+    id: string
+    name: string
+  }
+}
+
+export interface DevicesApiResponse extends DevicePrimitives {
   createdAt: string
   updatedAt: string
   category: CategoryPrimitives
@@ -65,18 +65,18 @@ export interface DevicesApiResponse extends DevicePrimitives {
   hardDrive: HardDrive | null
 }
 
-export interface EmployeesApiResponse extends EmployeePrimitives {  
+export interface EmployeesApiResponse extends EmployeePrimitives {
   createdAt: string
   updatedAt: string
   devices: DevicesApiResponse[]
 }
 
-export interface EmployeeMappedApiResponse extends EmployeePrimitives {  
+export interface EmployeeMappedApiResponse extends EmployeePrimitives {
   createdAt: string
   updatedAt: string
   devices?: DevicePrimitives[]
 }
-export interface EmployeeDevicesMappedApiResponse extends EmployeePrimitives {  
+export interface EmployeeDevicesMappedApiResponse extends EmployeePrimitives {
   createdAt: string
   updatedAt: string
   computers: DevicesApiResponse[]
@@ -105,14 +105,14 @@ export interface DevicesMappedApiResponse {
   createdAt: string
   updatedAt: string
 }
-export interface BrandApiResponse extends BrandPrimitives {  
+export interface BrandApiResponse extends BrandPrimitives {
   id: Primitives<BrandId>
   createdAt: string
   updatedAt: string
   model: ModelPrimitives[]
 }
 
-export interface ModelApiresponse extends ModelPrimitives {  
+export interface ModelApiresponse extends ModelPrimitives {
   id: Primitives<ModelId>
   createdAt: string
   updatedAt: string
@@ -132,8 +132,8 @@ export interface ModelLaptop extends ModelLaptopPrimitives {
   memoryRamType: MemoryRamTypePrimitives
 }
 
-export interface ModelPrinter extends ModelPrinterPrimitives {}
-export interface ModelMonitor extends ModelMonitorPrimitives {}
+export interface ModelPrinter extends ModelPrinterPrimitives { }
+export interface ModelMonitor extends ModelMonitorPrimitives { }
 export interface ModelKeyboard extends ModelKeyboardPrimitives {
   inputType: InputTypePrimitives
 }
@@ -148,8 +148,8 @@ export interface ModelMappedApiResponse {
   updatedAt: string
 }
 
-export interface Computer extends ComputerPrimitives {  
-  deviceId: Primitives<DeviceId>  
+export interface Computer extends ComputerPrimitives {
+  deviceId: Primitives<DeviceId>
   createdAt: string
   updatedAt: string
   processor: ProcessorApiresponse
@@ -159,7 +159,7 @@ export interface Computer extends ComputerPrimitives {
   operatingSystemArq: OperatingSystemArqPrimitives
 }
 
-export interface BrandApiResponse extends BrandPrimitives {  
+export interface BrandApiResponse extends BrandPrimitives {
   createdAt: string
   updatedAt: string
 }
@@ -178,7 +178,7 @@ export interface SiteApiResponse extends SitePrimitives {
   city: CityApiResponse
 }
 
-export interface CityApiResponse  extends CityPrimitives {
+export interface CityApiResponse extends CityPrimitives {
   state: StateApiResponse
 }
 

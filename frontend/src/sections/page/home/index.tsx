@@ -1,23 +1,29 @@
-import { Suspense, lazy } from 'react'
-import { dropdownNavs } from '../../Routes/routes'
-import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoading'
-import { MainFallback } from '../../components/skeleton/MainFallback'
+import { Suspense, lazy } from "react";
+import { dropdownNavs } from "../../Routes/routes";
+import { InputSkeletonLoading } from "../../components/skeleton/inputSkeletonLoading";
+import { MainFallback } from "../../components/skeleton/MainFallback";
+import { TilesContainer } from "../../components/TilesSection/TilesContainer";
 
-const Banner = lazy(async () => await import('../../components/Banner'))
-const FeaturesCard = lazy(async () => await import('../../components/FeaturesSection/FeaturesCard'))
-const FeaturesContainer = lazy(async () => await import('../../components/FeaturesSection/FeaturesContainer'))
-const Section = lazy(async () => await import('../../components/FeaturesSection/Section'))
-const Main = lazy(async () => await import('../../components/Main'))
+const Banner = lazy(async () => await import("../../components/Banner"));
+const FeaturesCard = lazy(async () => await import("../../components/FeaturesSection/FeaturesCard"));
+const FeaturesContainer = lazy(async () => await import("../../components/FeaturesSection/FeaturesContainer"));
+const Section = lazy(async () => await import("../../components/FeaturesSection/Section"));
+const TilesSection = lazy(async () => await import("../../components/TilesSection/TilesSection").then((m) => ({ default: m.TilesSection })));
+const Main = lazy(async () => await import("../../components/Main"));
 
 export default function Home() {
   return (
     <Suspense fallback={<MainFallback />}>
-      <Main className='flex-none'>
-
+      <Main className="flex-none">
         <Suspense fallback={<InputSkeletonLoading />}>
           <Banner />
         </Suspense>
         <Suspense>
+          <TilesSection>
+            <TilesContainer />
+          </TilesSection>
+        </Suspense>
+        {/* <Suspense>
           <Section>
             <div className='grid gap-y-8 gap-x-12 sm:grid-cols-2 lg:grid-cols-3'>
               {dropdownNavs.map((feature, index) => (
@@ -44,8 +50,8 @@ export default function Home() {
               ))}
             </div>
           </Section>
-        </Suspense>
+        </Suspense> */}
       </Main>
     </Suspense>
-  )
+  );
 }

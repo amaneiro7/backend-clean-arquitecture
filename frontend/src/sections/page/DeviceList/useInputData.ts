@@ -65,6 +65,20 @@ const initialState: State = (() => {
     query
   }
 })()
+
+function createFilter(inputData: InputData) {
+  const { serial, activo, categoryId, ...resParams } = inputData
+
+  const resFilters = createFilterFromQueryParams(resParams)
+
+  return [
+    serial && { field: 'serial', operator: Operator.CONTAINS, value: serial },
+    activo && { field: 'activo', operator: Operator.CONTAINS, value: activo },
+    ...resFilters,
+    ...(categoryId ? [{ field: 'categoryId', operator: Operator.EQUAL, value: categoryId }] : defaultQuery.filters),
+  ].filter(Boolean)
+
+}
 function getInputDataAndQuery() {
   const { serial, activo, categoryId, ...resParams } = getValueFromQueryParams(defaultInputData)
 
@@ -74,7 +88,7 @@ function getInputDataAndQuery() {
     serial && { field: 'serial', operator: Operator.CONTAINS, value: serial },
     activo && { field: 'activo', operator: Operator.CONTAINS, value: activo },
     ...resFilters,
-    ...(!!categoryId ? [{ field: 'categoryId', operator: Operator.EQUAL, value: categoryId }] : defaultQuery.filters),
+    ...(categoryId ? [{ field: 'categoryId', operator: Operator.EQUAL, value: categoryId }] : defaultQuery.filters),
   ].filter(Boolean)
 
   return {
@@ -124,10 +138,10 @@ const reducer = (state: State, action: Action) => {
     }
   }
   if (action.type === 'UPDATE_FILTER') {
-    const { query } = getInputDataAndQuery()
+    const filters = createFilter(state.inputData)
     return {
       ...state,
-      query
+      query: { filters }
     }
   }
   if (action.type === 'UPDATE_INPUTS') {
@@ -154,7 +168,7 @@ export const useInputsData = (): {
   handleClear: () => void
 } => {
   const [{ inputData, query }, dispatch] = useReducer(reducer, initialState)
-  const [_, setSearchParams] = useSearchParams()
+  const {"1": setSearchParams} = useSearchParams()
   const { devices, loading, handleSync } = useDevice(query)
 
 
@@ -173,7 +187,7 @@ export const useInputsData = (): {
     setSearchParams('')
     dispatch({ type: 'CLEAR_FILTER' })
     handleSync()
-  }, [setSearchParams])
+  }, [setSearchParams, handleSync])
 
   const debounceGetDevices = useCallback(
     debounce(() => {
@@ -184,14 +198,14 @@ export const useInputsData = (): {
 
   const handleChange = useCallback((name: string, value: string) => {
     dispatch({ type: 'UPDATE_INPUTS', payload: { name, value } })
-    updateInputData(name, value)
     dispatch({ type: 'UPDATE_FILTER' })
     if (name === 'serial' || name === 'activo') {
       debounceGetDevices()
     } else {
       handleSync()
     }
-  }, [dispatch, updateInputData])
+    updateInputData(name, value)
+  }, [dispatch, updateInputData, handleSync, debounceGetDevices])
 
 
   return {

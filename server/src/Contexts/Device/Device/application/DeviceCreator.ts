@@ -15,7 +15,7 @@ import { DeviceStatus } from '../domain/DeviceStatus'
 export interface DeviceParams extends Omit<DevicePrimitives, 'id'> { }
 
 export class DeviceCreator {
-  constructor(private readonly repository: Repository) { }
+  constructor(private readonly  repository: Repository) { }
 
   async run(params: DeviceParams): Promise<void> {
     const { categoryId } = params

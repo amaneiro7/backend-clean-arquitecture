@@ -25,6 +25,7 @@ export const useLogin = (repository: Repository): UseAuth => {
     return await new Login(repository)
       .run(email, password).then(async (user) => {
         if (await new CheckToken(repository).run()) {
+          
           await new SaveSession(repository).save(user)
           setUser(user)
           setIsSignin(true)

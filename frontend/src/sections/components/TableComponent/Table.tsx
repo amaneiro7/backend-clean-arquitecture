@@ -9,18 +9,20 @@ interface Props extends React.DetailedHTMLProps<React.TableHTMLAttributes<HTMLTa
 }
 
 const Button = lazy(async () => import('../button'))
+const DownloadIcon = lazy(async () => import('../icon/DownloadIcon').then(m => ({ default: m.DownloadIcon })))
 
 const Table = forwardRef(function ({ children, className, tabs }: Props, ref: React.MutableRefObject<any>) {
   return (
     <>
 
       <Suspense>
-        <Button        
+        <Button
           type='button'
           className='my-5'
           actionType='SAVE'
-          text='Exportar a Excel'
-          handle={() => { import('../../components/button/DownloadTableExcel').then(m => m.exportToExcel(ref)) }}
+          text={'Exportar a Excel'}
+          icon={<Suspense><DownloadIcon size='w-6' color='white' /></Suspense>}
+          handle={() => { import('../../utils/DownloadTableExcel').then(m => m.exportToExcel(ref)) }}
         />
       </Suspense>
 

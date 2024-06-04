@@ -2,10 +2,10 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function TableCell({ value, url, state }: { value: string | number, url?: string, state?: Object }) {
-  const className = "w-full max-w-[200px] text-left align-middle whitespace-nowrap text-ellipsis overflow-x-hidden overflow-y-visible break-words cursor-default"
+  const className = "w-full h-full max-w-[200px] text-left align-middle whitespace-nowrap text-ellipsis overflow-x-hidden overflow-y-visible break-words cursor-default"
   return (
     <td
-      className="text-xs text-ellipsis border-b-2 border-b-gray-300 p-2"
+      className="min-h-9 h-9 text-xs text-ellipsis border-b-2 border-b-gray-300 p-2"
       aria-label={`${value}`}
       title={`${value}`}
     >

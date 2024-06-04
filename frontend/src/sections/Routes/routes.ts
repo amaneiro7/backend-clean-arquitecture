@@ -1,29 +1,6 @@
-export const routes = [
-  {
-    id: 1,
-    path: '/',
-    name: 'Inicio'
-  },
-  {
-    id: 2,
-    path: '/device/add',
-    name: 'Agregar Dispositivo'
-  },
-  {
-    id: 3,
-    path: '/employee/add',
-    name: 'Agregar un nuevo usuario'
-  },
-  {
-    id: 4,
-    path: '/dashboard',
-    name: 'Balance'
-  }
-]
-
 export const dropdownNavs: DropDown[] = [
   {
-    label: 'Equipos en uso por dispositivo',
+    label: 'Listado de Categorias',
     navs: [
       {
         title: 'Equipos en Torre',
@@ -72,7 +49,19 @@ export const dropdownNavs: DropDown[] = [
         desc: 'Filtro por dispositivos',
         path: '/devicefilter',
         icon: 'icon'
-      }
+      },
+      {
+        title: 'Listado de Sitios',
+        desc: 'Listado de sitios',
+        path: '/location',
+        icon: 'icon'
+      },
+      {
+        title: 'Listado de Modelos',
+        desc: 'Listado de modelos',
+        path: '/model',
+        icon: 'icon'
+      },
     ]
   },
   {

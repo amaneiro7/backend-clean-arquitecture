@@ -1,13 +1,13 @@
 import { Icon, SIZES } from '.'
 
-export function ThinRightIcon({ 
+export function ArrowBadgeIcon({ 
   isDisabled, children, size, color 
 }: React.PropsWithChildren<{ isDisabled?: boolean, color: 'primary' | 'secondary', size?: typeof SIZES[keyof typeof SIZES] }>) 
 {
   return (
     <Icon
       isDisabled={isDisabled}
-      type='thinRight'
+      type='arrowBadge'
       size={size}
       color={color}
     >

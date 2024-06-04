@@ -26,8 +26,6 @@
     "sonner": "1.4.41"
   },
   "devDependencies": {
-    "@eslint/compat": "^1.0.1",
-    "@eslint/js": "^9.3.0",
     "@rollup/plugin-alias": "5.1.0",
     "@rollup/plugin-node-resolve": "15.2.3",
     "@types/autosuggest-highlight": "3.2.3",
@@ -35,15 +33,20 @@
     "@types/react": "18.3.2",
     "@types/react-dom": "18.3.0",
     "@types/react-router-dom": "5.3.3",
+    "@typescript-eslint/eslint-plugin": "7.0.1",
     "@vitejs/plugin-react-swc": "3.6.0",
     "autoprefixer": "10.4.19",
-    "eslint": "8.x",
-    "eslint-plugin-react": "^7.34.1",
-    "globals": "^15.3.0",
+    "eslint": "8.57.0",
+    "eslint-config-love": "52.0.0",
+    "eslint-plugin-import": "2.25.2",
+    "eslint-plugin-n": "17.7.0",
+    "eslint-plugin-promise": "6.2.0",
+    "eslint-plugin-react-hooks": "4.6.0",
+    "eslint-plugin-react-refresh": "0.4.6",
+    "globals": "15.3.0",
     "postcss": "8.4.38",
     "tailwindcss": "3.4.3",
     "typescript": "5.4.5",
-    "typescript-eslint": "^7.10.0",
     "vite": "5.2.11",
     "vite-plugin-svgr": "4.2.0"
   }

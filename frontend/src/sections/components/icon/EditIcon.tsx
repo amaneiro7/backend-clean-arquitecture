@@ -1,5 +1,6 @@
-import React from 'react'
-import { Icon, SIZES } from '.'
+import React, { lazy } from 'react'
+import { type SIZES } from '.'
+const Icon = lazy(async () => import('.').then(m => ({ default: m.Icon })))
 
 export function EditIcon({ isDisabled, children, size }: React.PropsWithChildren<{ isDisabled?: boolean, size?: typeof SIZES[keyof typeof SIZES] }>) {
   return (
