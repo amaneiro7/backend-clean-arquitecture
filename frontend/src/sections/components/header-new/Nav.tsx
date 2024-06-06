@@ -11,28 +11,30 @@ export function Nav({ isActive }: { isActive: boolean }) {
       }`}
     >
       {navigation.map((nav) => (
-        <>
-          <h3 key={nav.label} className="text-2xl font-medium">
-            {nav.label}
-          </h3>
-          <ul className="mt-4 mb-3">
-            {nav.navs.map((item) => (
-              <li key={item.title} className="list-item">
-                <Link
-                  to={item.path}
-                  className="font-body text-base text-center tracking-wide h-8 px-4 py-2 font-semibold flex items-center hover:text-primary transition-colors"
-                  aria-label={item.title}
-                  aria-description={item.desc}
-                >
-                  <Suspense>
-                    <ArrowBadge size="w-6" color="primary" />
-                  </Suspense>
-                  {item.title}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </>
+        <ul key={nav.label}>
+          <li>
+            <h3 key={nav.label} className="text-2xl font-medium">
+              {nav.label}
+            </h3>
+            <ul className="mt-4 mb-3">
+              {nav.navs.map((item, index) => (
+                <li key={index} className="list-item">
+                  <Link
+                    to={item.path}
+                    className="font-body text-base text-center tracking-wide h-8 px-4 py-2 font-semibold flex items-center hover:text-primary transition-colors"
+                    aria-label={item.title}
+                    aria-description={item.desc}
+                  >
+                    <Suspense>
+                      <ArrowBadge size="w-6" color="primary" />
+                    </Suspense>
+                    {item.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </li>
+        </ul>
       ))}
     </nav>
   );

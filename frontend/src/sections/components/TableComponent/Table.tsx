@@ -16,22 +16,20 @@ const DownloadIcon = lazy(async () => import('../icon/DownloadIcon').then(m => (
 const Table = forwardRef(function ({ children, className, tabs }: Props, ref: React.MutableRefObject<any>) {
   return (
     <>
-      <section role='buttons sections' className='h-40 min-h-10 inline-flex gap-2'>
+      <section className='my-4 min-h-11 flex gap-2'>
         <Suspense>
           <Button
             type='button'
-            className='my-5'
             actionType='SAVE'
             text='Descargar'
-            icon={<Suspense><DownloadIcon size='w-6' color='white' /></Suspense>}
+            icon={<Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}><DownloadIcon size='w-6' color='white' /></Suspense>}
             handle={() => { import('../../utils/DownloadTableExcel').then(m => m.exportToExcel(ref)) }}
           />
         </Suspense>
-
       </section>
 
       {tabs}
-      <section className='min-w-full max-w-max overflow-x-auto overflow-y-auto'>
+      <section className='min-w-full max-w-max overflow-x-auto overflow-y-auto flex-1'>
         <table
           className={`relative min-w-full max-w-max border-collapse table-fixed  ${className}`}
           ref={ref}

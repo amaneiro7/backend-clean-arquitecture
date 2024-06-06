@@ -12,7 +12,7 @@ const TableBody = lazy(async () => import('../../components/TableComponent/Table
 const TableHead = lazy(async () => import('../../components/TableComponent/TableHead'))
 const TableCell = lazy(async () => import('../../components/TableComponent/TableCell'))
 const TableCellEditDeleteIcon = lazy(async () => import('../../components/TableComponent/TableCellEditDeleteIcon'))
-const TypeOfSiteTabNav = lazy(async () => import('../../components/tabs/TypeOfSiteTabNav').then(m => ({ default: m.TypeOfSiteTabNav })))
+const TypeOfSiteTabNav = lazy(async () => import('../../components/TableComponent/tabs/TypeOfSiteTabNav').then(m => ({ default: m.TypeOfSiteTabNav })))
 interface Props {
     devices: DevicePrimitives[]
     onChange: OnHandleChange
