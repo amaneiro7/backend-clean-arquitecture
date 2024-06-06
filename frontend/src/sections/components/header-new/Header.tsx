@@ -25,9 +25,9 @@ export function Header() {
     setIsActive(false);
   }, [location.pathname]);
   return (
-    <header className="h-24 md:text-sm md:border-none gap-4 flex items-center justify-between md:static z-50 bg-secondary w-full shadow-lg pr-8 py-4">
-      <div className="pl-8 pr-3 p-2 bg-white rounded-e-full">
-        <Link aria-label="Logo" aria-describedby="Logo y un enlace al inicio de la página" to={"/"}>
+    <header className='h-24 md:text-sm md:border-none gap-4 flex items-center justify-between md:top-0 md:sticky z-50 bg-secondary w-full shadow-lg pr-8 py-4'>
+      <div className='pl-8 pr-3 p-2 bg-white rounded-e-full'>
+        <Link aria-label='Logo' aria-describedby='Logo y un enlace al inicio de la página' to='/'>
           <Suspense>
             <Logo />
           </Suspense>
@@ -36,8 +36,8 @@ export function Header() {
       <Suspense>
         <WelcomeTitle user={user as unknown as UserApiResponse} />
       </Suspense>
-      <div className="flex flex-1 items-center justify-end">
-        <Button aria-label="Botón para cerrar sesión del usuario" role="logout" actionType="ACTION" text="Cerrar Sesión" handle={logout} type="button" />
+      <div className='flex flex-1 items-center justify-end'>
+        <Button aria-label='Botón para cerrar sesión del usuario' role='logout' actionType='ACTION' text='Cerrar Sesión' handle={logout} type='button' />
       </div>
       <HamburgerMenu onClick={handleState} isActive={isActive} />
       <WrapperBox isActive={isActive} />

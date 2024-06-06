@@ -1,19 +1,24 @@
-export const navigation = [
+import { TypeOFImg } from "../components/TilesSection/TilesBox";
+
+interface Navigation {
+    label: string;
+    desc: string;
+    img: TypeOFImg;
+    navs: Navs[];
+}
+
+interface Navs {
+    title: string;
+    desc: string;
+    path: string;
+}
+
+export const navigation: Navigation[] = [
     {
         label: 'Listado de Perifericos',
         desc: 'Aqui se encuentran las rutas por categorias, equipos de computación, monitores, impresoras y partes y piezas',
         img: 'inventoryBox',
         navs: [
-            {
-                title: 'Equipos en Torre',
-                desc: 'Equipos asignados en torre',
-                path: '/equipos/torre',
-            },
-            {
-                title: 'Equipos en Agencia',
-                desc: 'Equipos asignados en agencia',
-                path: '/equipos/agencia',
-            },
             {
                 title: 'Lista de equipos de computación',
                 desc: 'Equipos asignados en agencia',
@@ -39,11 +44,40 @@ export const navigation = [
                 desc: 'Lista de Partes y piezas',
                 path: '/parts',
             },
+        ]
+    },
+    {
+        label: 'Rutas viejas',
+        desc: 'Rutas viejas de equipos en uso y de almacen',
+        img: 'officeNotebook',
+        navs: [
+            {
+                title: 'Equipos en Torre',
+                desc: 'Equipos asignados en torre',
+                path: '/equipos/torre',
+            },
+            {
+                title: 'Equipos en Agencia',
+                desc: 'Equipos asignados en agencia',
+                path: '/equipos/agencia',
+            },
             {
                 title: 'Filtro por Dispositvos',
                 desc: 'Filtro por dispositivos',
                 path: '/devicefilter',
             },
+            {
+                title: 'Almacén',
+                desc: 'Equipos que se encuentran en el almacen',
+                path: '/almacen',
+            }
+        ]
+    },
+    {
+        label: 'Otras listas',
+        desc: 'Listas de Sitios, y modelos',
+        img: 'officeMac',
+        navs: [
             {
                 title: 'Listado de Sitios',
                 desc: 'Listado de sitios',
@@ -54,12 +88,8 @@ export const navigation = [
                 desc: 'Listado de modelos',
                 path: '/model',
             },
-            {
-                title: 'Almacén',
-                desc: 'Equipos que se encuentran en el almacen',
-                path: '/almacen',
-            }
         ]
+
     },
     {
         label: 'Equipos en uso por usuario',

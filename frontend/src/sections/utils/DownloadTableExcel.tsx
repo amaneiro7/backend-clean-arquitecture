@@ -1,6 +1,6 @@
-// import { utils, writeFileXLSX } from 'xlsx'
 import { utils, writeFileXLSX } from 'xlsx'
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function exportToExcel(tableData: React.MutableRefObject<any>): void {
     const worksheet = utils.table_to_sheet(tableData.current)
     const workbook = utils.book_new()

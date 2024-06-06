@@ -12,20 +12,20 @@ export default function DeviceList() {
     const { inputData, devices, handleChange, handleClear, loading } = useInputsData()
 
     return (
-        <Suspense>
-            <Main>
-                <Suspense>
-                    <PageTitle title="Lista de equipos de computación" />
-                </Suspense>
-                <Suspense>
-                    <FilterSection handleChange={handleChange} handleClear={handleClear} inputData={inputData} />
-                </Suspense>
-                {loading && <SpinnerSKCircle />}
-                {(!loading && devices.length === 0) && <p>No hay resultados que coincidan con el filtro</p>}
-                {<Suspense>
-                    <DeviceTable loading={loading} devices={devices} onChange={handleChange} inputData={inputData} />
-                </Suspense>}
-            </Main>
-        </Suspense>
+      <Suspense>
+        <Main>
+          <Suspense>
+            <PageTitle title={`Lista de equipos de computación ${devices.length} resultados`} />
+          </Suspense>
+          <Suspense>
+            <FilterSection handleChange={handleChange} handleClear={handleClear} inputData={inputData} />
+          </Suspense>
+          {loading && <SpinnerSKCircle />}
+          {(!loading && devices.length === 0) && <p>No hay resultados que coincidan con el filtro</p>}
+          <Suspense>
+            <DeviceTable loading={loading} devices={devices} onChange={handleChange} inputData={inputData} />
+          </Suspense>
+        </Main>
+      </Suspense>
     )
 }

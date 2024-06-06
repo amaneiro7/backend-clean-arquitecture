@@ -29,17 +29,17 @@ export function EmailInput({ value, onChange, isRequired = true }: Props) {
     }
   }, [value])
   return (
-      <FormInput
-        id='email'
-        name="email"
-        type="email"
-        label='Correo Electrónico'
-        placeholder='-- Ingrese el Correo Electrónico --'
-        handle={onChange}
-        value={value}
-        isError={isError}
-        errorMessage={errorMessage}
-        isRequired={isRequired}
-      />
+    <FormInput
+      id='email'
+      name='email'
+      type='email'
+      label='Correo Electrónico'
+      placeholder='-- Ingrese el Correo Electrónico --'
+      handle={onChange}
+      value={value}
+      isError={isError}
+      errorMessage={errorMessage}
+      isRequired={isRequired}
+    />
   )
 }

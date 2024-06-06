@@ -47,7 +47,7 @@ export default function Login({ user }: { user: UserPrimitives | null }) {
     if (formStatus === FormStatus.Error) {
       resetFormStatus()
     }
-  }, [formStatus])
+  }, [formStatus, from, navigate, resetForm, resetFormStatus])
 
   useLayoutEffect(() => {
     if (user !== null) {
@@ -67,17 +67,17 @@ export default function Login({ user }: { user: UserPrimitives | null }) {
   // }
 
   return (
-    <section className="bg-gray-50 dark:bg-gray-900">      
-      <div className="flex flex-col items-center justify-center gap-2 px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <a href="#" >
+    <section className='bg-gray-50 dark:bg-gray-900'>      
+      <div className='flex flex-col items-center justify-center gap-2 px-6 py-8 mx-auto md:h-screen lg:py-0'>
+        <a href='#'>
           <Logo />
         </a>
-        <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-          <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+        <div className='w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700'>
+          <div className='p-6 space-y-4 md:space-y-6 sm:p-8'>
             <Suspense fallback={<InputSkeletonLoading />}>
               <PageTitle title='Iniciar Sesión' />
             </Suspense>
-            <form className="space-y-4 md:space-y-6" action="submit" onSubmit={handleSubmit}>
+            <form className='space-y-4 md:space-y-6' action='submit' onSubmit={handleSubmit}>
               <Suspense fallback={<InputSkeletonLoading />}>
                 <EmailInput
                   onChange={handleChange}
@@ -90,7 +90,7 @@ export default function Login({ user }: { user: UserPrimitives | null }) {
                   value={formData.password}
                 />
               </Suspense>
-              <div className="flex items-center justify-between">
+              <div className='flex items-center justify-between'>
                 <Checkbox
                   handle={(event) => {
                     setRemember(event.target.checked)
@@ -100,7 +100,7 @@ export default function Login({ user }: { user: UserPrimitives | null }) {
                   label='remember'
                   text='Recuerdáme'
                 />
-                <Link to="#" className="text-sm font-medium text-secondary hover:underline dark:text-primary-500" >
+                <Link to='#' className='text-sm font-medium text-secondary hover:underline dark:text-primary-500'>
                   ¿Olvidaste tu contraseña?
                 </Link>
               </div>

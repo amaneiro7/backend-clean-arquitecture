@@ -8,10 +8,10 @@ interface Props {
 }
 export function TilesInvisibleInfo({label, url}: Props) {
   return (
-    <li className="list-item pb-3">
-      <Link style={{ textShadow: "0 1px 2px #00000099" }} className="flex font-light" to={url}>
+    <li className='list-item pb-3'>
+      <Link style={{ textShadow: "0 1px 2px #00000099" }} className='flex font-light' to={url}>
         <Suspense>
-          <ArrowBadgeIcon size="w-6" color="white" />
+          <ArrowBadgeIcon size='w-6' color='white' />
         </Suspense>
         {label}
       </Link>

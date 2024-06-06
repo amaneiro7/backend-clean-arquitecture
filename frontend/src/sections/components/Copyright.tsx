@@ -1,17 +1,9 @@
-import { lazy } from 'react'
-
-const Link = lazy(async () => import('../mui/Link').then(m => ({ default: m.Link })))
-const Typography = lazy(async () => import('../mui/Typography').then(m => ({ default: m.Typography })))
-
-export function Copyright (props: any) {
+export function Copyright ({...props}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLParagraphElement>, HTMLParagraphElement>) {
   return (
-      <Typography variant="body2" color="text.secondary" align="center" {...props}>
-        {'Copyright © '}
-        <Link color="inherit" href="https://mui.com/">
-          InventarioAPP
-        </Link>{' '}
-        {new Date().getFullYear()}
-        {'.'}
-      </Typography>
+    <p {...props} className='font-normal text-sm text-center text-black/60'>
+      Copyright ©
+      <strong> InventarioApp </strong>
+      {`${new Date().getFullYear()}.`}      
+    </p>
   )
 }
