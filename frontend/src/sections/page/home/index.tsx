@@ -15,7 +15,7 @@ const Main = lazy(async () => await import("../../components/Main"));
 export default function Home() {
   return (
     <Suspense fallback={<MainFallback />}>
-      <Main className="flex-none">
+      <Main content="max">
         <Suspense fallback={<InputSkeletonLoading />}>
           <Banner />
         </Suspense>
@@ -26,7 +26,7 @@ export default function Home() {
               <TilesContainer>
                 {navigation.map((nav) => (
                   <Suspense>
-                    <TilesBox key={nav.label}>
+                    <TilesBox img={nav.img} key={nav.label}>
                       <Suspense>
                         <TilesInvisible>
                           {nav.navs.map((info) => (
@@ -37,7 +37,7 @@ export default function Home() {
                         </TilesInvisible>
                       </Suspense>
                       <Suspense>                        
-                        <TilesVisible title={nav.label} />
+                        <TilesVisible desc={nav.desc} title={nav.label} />
                       </Suspense>
                     </TilesBox>
                   </Suspense>

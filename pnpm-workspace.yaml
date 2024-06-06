@@ -1,4 +1,0 @@
-packages:
-  # todos los workspaces
-  - 'frontend/**'
-  - 'server/**'

@@ -1,10 +1,8 @@
-import logoImg from '../../assets/inventarybox.jpg'
-
 export const navigation = [
     {
         label: 'Listado de Perifericos',
         desc: 'Aqui se encuentran las rutas por categorias, equipos de computación, monitores, impresoras y partes y piezas',
-        img: '',
+        img: 'inventoryBox',
         navs: [
             {
                 title: 'Equipos en Torre',
@@ -17,7 +15,7 @@ export const navigation = [
                 path: '/equipos/agencia',
             },
             {
-                title: 'Equipos de computación',
+                title: 'Lista de equipos de computación',
                 desc: 'Equipos asignados en agencia',
                 path: '/device',
             },
@@ -65,6 +63,8 @@ export const navigation = [
     },
     {
         label: 'Equipos en uso por usuario',
+        desc: 'Aqui se encuentran las vistas por usuarios tanto de torre como de agencia',
+        img: 'officeDesk',
         navs: [
             {
                 title: 'Empleados en torre',
@@ -81,6 +81,8 @@ export const navigation = [
     },
     {
         label: 'Gestión',
+        desc: 'Aqui se encuentran las rutas que se utilizan para la gestion de crear actualizar',
+        img: 'codeScreen',
         navs: [
             {
                 title: 'Agregar un nuevo dispositivo',

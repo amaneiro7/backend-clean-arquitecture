@@ -149,15 +149,7 @@ export default function AdministrativeSitePage() {
                 text='Limpiar'
                 handle={handleClear}
               />
-            </Suspense>
-            <Suspense>
-              <Button
-                type='button'
-                actionType='SAVE'
-                text='Export Excel'
-                handle={() => { import('../../utils/DownloadTableExcel').then(m => m.exportToExcel(tableRef)) }}
-              />
-            </Suspense>
+            </Suspense>            
           </HeaderInput>
         </Suspense>
         {loading && <SpinnerSKCircle />}

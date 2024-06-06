@@ -26,23 +26,22 @@ export default function CategoryComboBox({ value, onChange, type = 'search', isA
 
 
     return (
-        <Suspense fallback={<InputSkeletonLoading />}>
-            {(!isAdd && type === 'form') ? <ReadOnlyInputBox label="Categoria" required defaultValue={initialValue?.name} /> :
-                <ComboBox
-                    id='categoryId'
-                    initialValue={initialValue}
-                    label="Categoria"
-                    name='categoryId'
-                    type={type}
-                    onChange={(_, newValue: CategoryPrimitives) => {
+      <Suspense fallback={<InputSkeletonLoading />}>
+        {(!isAdd && type === 'form') ? <ReadOnlyInputBox label='Categoria' required defaultValue={initialValue?.name} /> :
+        <ComboBox
+          id='categoryId'
+          initialValue={initialValue}
+          label='Categoria'
+          name='categoryId'
+          type={type}
+          onChange={(_, newValue: CategoryPrimitives) => {
                         onChange('categoryId', newValue ? newValue.id : '', Operator.EQUAL)
                     }}
-                    options={categories}
-                    isRequired={type === 'form'}
-                    isDisabled={false}
-                    loading={loading}
-                >
-                </ComboBox>}
-        </Suspense>
+          options={categories}
+          isRequired={type === 'form'}
+          isDisabled={false}
+          loading={loading}
+        />}
+      </Suspense>
     )
 }

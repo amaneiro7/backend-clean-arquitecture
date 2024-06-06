@@ -12,8 +12,8 @@ export const useCoordinacion = (): UseCoordinacion => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [data, setData] = useState<CoordinacionPrimitives[]>([])
-  
-  function fetchData () {
+
+  function fetchData() {
     setLoading(true)
     new AllCoordinacionGetter(new ApiCoordinacionRepository())
       .get()

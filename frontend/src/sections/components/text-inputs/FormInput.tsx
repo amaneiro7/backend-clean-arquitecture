@@ -16,24 +16,24 @@ interface Props extends Omit<TextFieldProps, 'variant'> {
 }
 export function FormInput ({ id, name, value, type, placeholder, handle, defaultValue, label, isRequired = false, isDisabled = false, isError = false, errorMessage }: Props) {
   return (
-        <TextField
-            id={id}
-            className='min-w-full min-h-10'
-            required={isRequired}
-            disabled={isDisabled}
-            fullWidth                        
-            size='small'
-            name={name}
-            value={value}
-            label={label}
-            type={type}
-            onChange={handle}
-            placeholder={placeholder}
-            autoComplete={name}
-            defaultValue={defaultValue}
-            color={isError ? 'warning' : 'primary'}
-            error={isError}
-            helperText={errorMessage}
-        />
+    <TextField
+      id={id}
+      className='min-w-full min-h-10'
+      required={isRequired}
+      disabled={isDisabled}
+      fullWidth                        
+      size='small'
+      name={name}
+      value={value}
+      label={label}
+      type={type}
+      onChange={handle}
+      placeholder={placeholder}
+      autoComplete={name}
+      defaultValue={defaultValue}
+      color={isError ? 'warning' : 'primary'}
+      error={isError}
+      helperText={errorMessage}
+    />
   )
 }
