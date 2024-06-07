@@ -1,8 +1,10 @@
-import { Icon, SIZES } from '.'
+import { Icon } from '.'
+import { type Size } from "../../../types/const";
+
 
 export function ThinRightIcon({ 
   isDisabled, children, size, color 
-}: React.PropsWithChildren<{ isDisabled?: boolean, color: 'primary' | 'secondary', size?: typeof SIZES[keyof typeof SIZES] }>) 
+}: React.PropsWithChildren<{ isDisabled?: boolean, color: 'primary' | 'secondary', size?: Size }>) 
 {
   return (
     <Icon

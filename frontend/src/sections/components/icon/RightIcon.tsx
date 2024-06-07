@@ -1,7 +1,8 @@
 import React from 'react'
-import { Icon, SIZES } from '.'
+import { Icon } from '.'
+import { type Size } from "../../../types/const";
 
-export function RightIcon({ isDisabled, children, size }: React.PropsWithChildren<{ isDisabled?: boolean, size?: typeof SIZES[keyof typeof SIZES] }>) {
+export function RightIcon({ isDisabled, children, size }: React.PropsWithChildren<{ isDisabled?: boolean, size?: Size }>) {
   return (
     <Icon
       isDisabled={isDisabled}
