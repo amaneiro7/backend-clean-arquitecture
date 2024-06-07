@@ -40,8 +40,12 @@ export function Header() {
         <Button aria-label='Botón para cerrar sesión del usuario' role='logout' actionType='ACTION' text='Cerrar Sesión' handle={logout} type='button' />
       </div>
       <HamburgerMenu onClick={handleState} isActive={isActive} />
-      <WrapperBox isActive={isActive} />
-      <Nav isActive={isActive} />
+      <Suspense>
+        <WrapperBox isActive={isActive} />
+      </Suspense>
+      <Suspense>
+        <Nav isActive={isActive} />
+      </Suspense>
     </header>
   );
 }
