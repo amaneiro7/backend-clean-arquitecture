@@ -25,7 +25,7 @@ export function Header() {
     setIsActive(false);
   }, [location.pathname]);
   return (
-    <header className='h-24 md:text-sm md:border-none gap-4 flex items-center justify-between md:top-0 md:sticky z-50 bg-secondary w-full shadow-lg pr-8 py-4'>
+    <header className='min-h-24 h-24 md:text-sm md:border-none gap-4 flex items-center justify-between md:top-0 md:sticky z-50 bg-secondary w-full shadow-lg pr-8 py-4 overflow-visible'>
       <div className='pl-8 pr-3 p-2 bg-white rounded-e-full'>
         <Link aria-label='Logo' aria-describedby='Logo y un enlace al inicio de la página' to='/'>
           <Suspense>

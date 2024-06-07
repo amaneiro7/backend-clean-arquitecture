@@ -15,7 +15,7 @@ const Main = lazy(async () => await import("../../components/Main"));
 export default function Home() {
   return (
     <Suspense fallback={<MainFallback />}>
-      <Main content='max'>
+      <Main content='max' overflow={false}>
         <Suspense fallback={<InputSkeletonLoading />}>
           <Banner />
         </Suspense>
