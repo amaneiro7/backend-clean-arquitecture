@@ -1,6 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference types="vite-plugin-svgr/client" />
 import { lazy, PropsWithChildren, Suspense } from 'react'
+import { Size } from '../../../types/const'
 const AddSVG = lazy(async () => import('./add.svg?react'))
 const EditSVG = lazy(async () => import('./edit.svg?react'))
 const DeleteSVG = lazy(async () => import('./delete.svg?react'))
@@ -19,18 +20,6 @@ interface Props extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement
 }
 
 export type Color = 'primary' | 'secondary' | 'white' | 'quaternary' | 'terciary' | 'black'
-
-
-type Size = typeof SIZES[keyof typeof SIZES]
-
-export const SIZES = {
-  extraSmall: 'w-4',
-  small: 'w-6',
-  medium: 'w-8',
-  large: 'w-10',
-  extralarge: 'w-12'
-} as const
-
 export interface IconTypesProps {
   size: Size
   color?: Color
@@ -41,8 +30,8 @@ const iconTypes = {
   add: ({ size, color }: IconTypesProps) => (
     <Suspense><AddSVG className={`${size} aspect-square transition-all fill-${color ? color : 'primary'}`} /></Suspense>
   ),
-  edit: ({ size, color }: IconTypesProps) => (
-    <Suspense><EditSVG className={`${size} aspect-square transition-all fill-${color ? color : 'secondary'}`} /></Suspense>
+  edit: ({ size }: IconTypesProps) => (
+    <Suspense><EditSVG className={`${size} aspect-square transition-all stroke-white fill-white'}`} /></Suspense>
   ),
   delete: ({ size, color }: IconTypesProps) => (
     <Suspense><DeleteSVG className={`${size} aspect-square transition-all fill-${color ? color : 'quaternary'}`} /></Suspense>
@@ -66,7 +55,7 @@ const iconTypes = {
     <Suspense><DownloadIcon className={`${size} aspect-square transition-all text-${color} fill-${color}`} /></Suspense>
   ),
   filter: ({ size }: IconTypesProps) => (
-    <Suspense><FilterSVG className={`${size} aspect-square transition-all fill-inheret`} /></Suspense>
+    <Suspense><FilterSVG className={`${size} aspect-square transition-all text-inherit fill-inherit`} /></Suspense>
   )
 } as const
 export const Icon = ({ type, isDisabled = false, children, color, size = 'w-6', ...props }: PropsWithChildren<Props>) => {

@@ -154,6 +154,7 @@ const reducer = (state: State, action: Action) => {
   }
   if (action.type === 'CLEAR_FILTER') {
     return {
+      ...state,
       inputData: defaultInputData,
       query: defaultQuery
     }
@@ -162,16 +163,15 @@ const reducer = (state: State, action: Action) => {
 
 export const useInputsData = (): {
   inputData: InputData
-  loading: boolean
-  devices: DevicePrimitives[]
+  loading: boolean  
+  devices: DevicePrimitives[]  
   handleChange: (name: string, value: string, operator?: Operator) => void
   handleClear: () => void
 } => {
   const [{ inputData, query }, dispatch] = useReducer(reducer, initialState)
-  const {"1": setSearchParams} = useSearchParams()
+  const { "1": setSearchParams } = useSearchParams()
   const { devices, loading, handleSync } = useDevice(query)
-
-
+  
   const updateInputData = useCallback((name: string, value: string) => {
     setSearchParams(prev => {
       if (value === '') {
@@ -189,12 +189,12 @@ export const useInputsData = (): {
     handleSync()
   }, [setSearchParams, handleSync])
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const debounceGetDevices = useCallback(
     debounce(() => {
       handleSync()
     }, 300)
-    , [handleSync]
-  )
+    , [handleSync])
 
   const handleChange = useCallback((name: string, value: string) => {
     dispatch({ type: 'UPDATE_INPUTS', payload: { name, value } })

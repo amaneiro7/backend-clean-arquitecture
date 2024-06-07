@@ -66,7 +66,7 @@ function getInputDataAndQuery() {
     serial && { field: 'serial', operator: Operator.CONTAINS, value: serial },
     activo && { field: 'activo', operator: Operator.CONTAINS, value: activo },
     ...resFilters,
-    ...(!!categoryId ? [{ field: 'categoryId', operator: Operator.EQUAL, value: categoryId }] : defaultQuery.filters),
+    ...(categoryId ? [{ field: 'categoryId', operator: Operator.EQUAL, value: categoryId }] : defaultQuery.filters),
   ].filter(Boolean)
 
   return {
@@ -141,6 +141,7 @@ export const useInputsData = (): {
   handleClear: () => void
 } => {
   const [{ inputData, query }, dispatch] = useReducer(reducer, initialState)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setSearchParams] = useSearchParams()
   const { devices, loading, handleSync } = useDevice(query)
 
@@ -160,8 +161,9 @@ export const useInputsData = (): {
     setSearchParams('')
     dispatch({ type: 'CLEAR_FILTER' })
     handleSync()
-  }, [setSearchParams])
+  }, [handleSync, setSearchParams])
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const debounceGetDevices = useCallback(
     debounce(() => {
       handleSync()
@@ -178,7 +180,7 @@ export const useInputsData = (): {
     } else {
       handleSync()
     }
-  }, [dispatch, updateInputData])
+  }, [debounceGetDevices, handleSync, updateInputData])
 
 
   return {

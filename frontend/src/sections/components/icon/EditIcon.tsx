@@ -1,15 +1,13 @@
-import React, { lazy } from 'react'
-import { type SIZES } from '.'
-const Icon = lazy(async () => import('.').then(m => ({ default: m.Icon })))
+import React, { lazy } from "react";
+import { type Size } from "../../../types/const";
+const Icon = lazy(async () => import(".").then((m) => ({ default: m.Icon })));
 
-export function EditIcon({ isDisabled, children, size }: React.PropsWithChildren<{ isDisabled?: boolean, size?: typeof SIZES[keyof typeof SIZES] }>) {
+export function EditIcon({ isDisabled, children, size }: React.PropsWithChildren<{ isDisabled?: boolean; size?: Size }>) {
   return (
-    <Icon
-      isDisabled={isDisabled}
-      type='edit'
-      size={size}
-    >
-      {children}
-    </Icon>
-  )
+    <div className={`${size} rounded-full rounded-l-full bg-secondary`}>
+      <Icon isDisabled={isDisabled} type='edit' size={size}>
+        {children}
+      </Icon>
+    </div>
+  );
 }
