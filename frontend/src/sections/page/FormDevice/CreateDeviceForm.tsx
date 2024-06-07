@@ -60,7 +60,7 @@ export default function CreateDeviceForm() {
   }
 
   return (
-    <Main>
+    <Main content='max' overflow={false}>
       <Suspense>
         <FormContainer
           key={location.key}

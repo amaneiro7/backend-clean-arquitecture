@@ -51,7 +51,7 @@ export default function CreateModelForm() {
   }
 
   return (
-    <Main>
+    <Main content='max' overflow={false}>
       <Suspense>
         <FormContainer
           key={location.key}

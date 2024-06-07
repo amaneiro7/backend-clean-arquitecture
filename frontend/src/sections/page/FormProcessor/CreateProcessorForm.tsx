@@ -53,7 +53,7 @@ export default function CreateProcessorForm() {
 
   return (
     <Suspense>
-      <Main>
+      <Main content='max' overflow={false}>
         <Suspense>
           <FormContainer
             title='Agrega un nuevo Dispositivo'

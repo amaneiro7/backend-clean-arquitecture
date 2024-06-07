@@ -196,7 +196,7 @@ export const useInputsData = (): {
     }, 300)
     , [handleSync])
 
-  const handleChange = useCallback((name: string, value: string) => {
+  const handleChange = useCallback(async (name: string, value: string) => {
     dispatch({ type: 'UPDATE_INPUTS', payload: { name, value } })
     dispatch({ type: 'UPDATE_FILTER' })
     if (name === 'serial' || name === 'activo') {
@@ -204,7 +204,7 @@ export const useInputsData = (): {
     } else {
       handleSync()
     }
-    updateInputData(name, value)
+    await updateInputData(name, value)
   }, [dispatch, updateInputData, handleSync, debounceGetDevices])
 
 

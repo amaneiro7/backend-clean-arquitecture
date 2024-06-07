@@ -51,7 +51,7 @@ export default function CreateLocationForm() {
     }
 
     return (
-        <Main>
+        <Main content='max' overflow={false}>
             <Suspense>
                 <FormContainer
                     key={location.key}

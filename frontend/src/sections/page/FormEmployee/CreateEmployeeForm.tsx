@@ -55,7 +55,7 @@ export default function CreateEmployeeForm() {
 
   return (
     <Suspense>
-      <Main>
+      <Main content='max' overflow={false}>
         <FormContainer
           title='Empleado'
           handleSubmit={handleSubmit}

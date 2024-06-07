@@ -12,7 +12,7 @@ interface Props extends React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLB
   
   const ACTIONTYPE = {
     PRIMARY: (color: Color) => `text-white border-${color} bg-${color} hover:brightness-95 active:brightness-90`,
-    SECONDARY: (color: Color) => `text-${color} border border-${color} bg-white hover:text-white hover:bg-${color}`,
+    SECONDARY: (color: Color) => `text-${color} border border-${color} bg-white hover:text-white hover:bg-secondary`,
     TERCIARY: (color: Color) => `text-${color}/90 hover:text-${color}`
   } as const
   
