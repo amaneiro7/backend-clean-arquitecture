@@ -1,4 +1,4 @@
-import { lazy, PropsWithChildren, Suspense, useState } from 'react'
+import { lazy, PropsWithChildren, Suspense } from 'react'
 import { createFilterOptions } from '@mui/material'
 import parse from 'autosuggest-highlight/parse'
 import match from 'autosuggest-highlight/match'
@@ -11,6 +11,7 @@ const CloseIcon = lazy(async () => await import('../../mui/CloseIcon').then(m =>
 
 interface Props<T, Multiple extends boolean, Disable extends boolean, FreeSolo extends boolean> extends Omit<AutocompleteProps<T, Multiple, Disable, FreeSolo>, 'renderInput'>  {
   id: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   initialValue?: any | null
   name: string  
   readonly?: boolean
@@ -47,8 +48,6 @@ export default function ComboBox<T, Multiple extends boolean, Disable extends bo
   type = 'search',
   readonly = false
 }: PropsWithChildren<Props<T, Multiple, Disable, FreeSolo>>) {
-  const [open, setOpen] = useState(false)
-
   return (
     <>
       <Autocomplete
@@ -75,9 +74,6 @@ export default function ComboBox<T, Multiple extends boolean, Disable extends bo
         fullWidth
         disabled={isDisabled}
         size='small'
-        open={open}
-        onOpen={() => { setOpen(true) }}
-        onClose={() => { setOpen(false) }}
         isOptionEqualToValue={(option, value) => option.name === value.name}
         getOptionLabel={(option) => {
           if (typeof option === 'string') {
@@ -111,7 +107,7 @@ export default function ComboBox<T, Multiple extends boolean, Disable extends bo
               ...params.InputProps,
               endAdornment: (
                 <>
-                  {loading && <Suspense><CircularProgress color="inherit" size={20} /></Suspense>}
+                  {loading && <Suspense><CircularProgress color='inherit' size={20} /></Suspense>}
                   {params.InputProps.endAdornment}
                 </>
               ),

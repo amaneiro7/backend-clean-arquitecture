@@ -1,9 +1,16 @@
-import { Icon } from '.'
+import { lazy, Suspense } from "react";
+import { type Size } from "../../../types/const";
+import { type Color } from ".";
+const Icon = lazy(async () => import(".").then((m) => ({ default: m.Icon })));
 
-export function FilterIcon() {
+export function FilterIcon({color, size}: {color?: Color, size?: Size}) {
   return (
-    <Icon
-      type='filter'
-    />
+    <Suspense>      
+      <Icon
+        size={size}
+        color={color}
+        type='filter'
+      />
+    </Suspense>
   )
 }

@@ -15,34 +15,31 @@ const TabsNav = lazy(async () => import('./TabsNav').then(m => ({ default: m.Tab
 const TabNav = lazy(async () => import('./TabNav').then(m => ({ default: m.TabNav })))
 
 export function TypeOfSiteTabNav({ onChange, value }: Props) {
-    const [active, setActive] = useState('0')
+    const [inputValue, setInputValue] = useState(() => value ? value : '0')
     const { typeOfSite, loading } = useTypeOfSite()
     const typeOfSiteTab: TypeOfSitePrimitives[] = useMemo(() => {
         return [{ id: '0', name: 'Todos' }].concat(typeOfSite)
     }, [typeOfSite])
-
-    const initialValue = useMemo(() => {
-        return value === '' ? '0' : value
-    }, [value])
+    
     return (
-        <Suspense>
-            <TabsNav
-            >
-                {!loading && typeOfSiteTab.map(type => (
-                    <TabNav
-                        key={type.id}
-                        displayName={type.name}
-                        handleClick={() => {
-                            if (type.id === initialValue) return
-                            setActive(type.id)
-                            onChange('typeOfSiteId', type.id === '0' ? '' : type.id, Operator.EQUAL)
-                        }}
-                        value={type.id}
-                        active={active === type.id}
-                    />
-                ))
-                }
-            </TabsNav>
-        </Suspense>
+      <Suspense fallback={<div className='min-h-7 h-7' />}>
+        <TabsNav>          
+          {!loading && typeOfSiteTab.map(type => (
+            <Suspense key={type.id} fallback={<div className='p-4 w-20 h-7 will-change-auto rounded-t-md px-4 odd:bg-slate-400 even:bg-slate-300 animate-pulse' />}>
+              <TabNav
+                displayName={type.name}
+                handleClick={() => {
+                              if (type.id === inputValue) return
+                              setInputValue(type.id)
+                              onChange('typeOfSiteId', type.id === '0' ? '' : type.id, Operator.EQUAL)
+                          }}
+                value={inputValue}
+                active={inputValue === type.id}
+              />
+
+            </Suspense>
+                ))}
+        </TabsNav>
+      </Suspense>
     )
 }

@@ -1,10 +1,15 @@
-import debounce from 'just-debounce-it'
-import { useCallback } from 'react'
+import { useEffect, useState } from "react"
 
-export default function useDebounced(callback: Function, delay: number) {
-  const debouncedCallback = useCallback(
-    debounce(callback, delay),
-    [callback, delay]
-  )
-  return debouncedCallback
+export const useDebounce = <T>(value: T, delay = 500) => {
+  const [debounceValue, setDebounceValue] = useState<T>(value)
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setDebounceValue(value)
+    }, delay)
+
+    return () => clearTimeout(timeout)
+  }, [delay, value])
+
+  return debounceValue
 }

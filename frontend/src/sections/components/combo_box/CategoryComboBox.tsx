@@ -7,8 +7,10 @@ import { useCategory } from "../../Hooks/category/useCategory"
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
 import { CategoryPrimitives } from "../../../modules/devices/category/domain/Category"
 
+
 interface Props {
     value: Primitives<CategoryId>
+    filter?: Primitives<CategoryId>[]
     onChange: OnHandleChange
     type?: 'form' | 'search'
     isAdd?: boolean
@@ -17,8 +19,14 @@ interface Props {
 const ComboBox = lazy(async () => import("./combo_box"))
 const ReadOnlyInputBox = lazy(async () => import("../ReadOnlyInputBox").then(m => ({ default: m.ReadOnlyInputBox })))
 
-export default function CategoryComboBox({ value, onChange, type = 'search', isAdd = false }: Props) {
+export default function CategoryComboBox({ value, filter, onChange, type = 'search', isAdd = false }: Props) {
     const { categories, loading } = useCategory()
+
+    const filterCategory = useMemo(() => {
+      if (!filter) return
+      return categories.filter(cat =>  filter.includes(cat.id))
+      
+    },[categories, filter])
 
     const initialValue = useMemo(() => {
         return categories.find(category => category.id === value)
@@ -37,7 +45,7 @@ export default function CategoryComboBox({ value, onChange, type = 'search', isA
           onChange={(_, newValue: CategoryPrimitives) => {
                         onChange('categoryId', newValue ? newValue.id : '', Operator.EQUAL)
                     }}
-          options={categories}
+          options={filterCategory}
           isRequired={type === 'form'}
           isDisabled={false}
           loading={loading}

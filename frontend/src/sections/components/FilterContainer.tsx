@@ -6,7 +6,7 @@ interface Props extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElem
 export function FilterContainer({ open, handleClick, children, ...props }: React.PropsWithChildren<Props>) {
     return (
       <aside
-        className={`z-20 top-11 h-[500px] rounded-md mb-2 max-h-min bg-white float-right pl-10 p-4 overflow-hidden border drop-shadow-md shadow-lg absolute right-0 transition-all duration-500 ease-in-out ${open ? 'inline-flex flex-col gap-4 w-[450px]' : 'opacity-0 w-0'}`}
+        className={`z-20 top-0 h-[520px] w-[450px] flex flex-col gap-4 will-change-transform rounded-md mb-2 max-h-min bg-white pl-10 p-4 overflow-hidden border drop-shadow-md shadow-lg absolute -right-[450px] transition-all duration-75 ease-in-out scroll-smooth  ${open ? '-translate-x-[450px] opacity-100' : 'opacity-0'}`}
         {...props}
       >
         <button

@@ -1,10 +1,13 @@
-import React from 'react'
-import type TableCell from './TableCell'
-import type TableRow from './TableRow'
+import type TableCell from "./TableCell"
+import type TableRow from "./TableRow"
 
-function TableBody({ children }: { children: Array<React.ReactElement<typeof TableRow<typeof TableCell>>> }) {
+interface Props extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLTableSectionElement>, HTMLTableSectionElement> {
+  children: Array<React.ReactElement<typeof TableRow<typeof TableCell>>>
+}
+
+function TableBody({ children, ...props }: Props) {
   return (
-    <tbody className=''>
+    <tbody {...props}>
       {children}
     </tbody>
   )

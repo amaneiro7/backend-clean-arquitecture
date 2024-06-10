@@ -1,14 +1,10 @@
 import { forwardRef } from 'react'
-import type TableBody from './TableBody'
-import type TableHeader from './TableHeader'
 
 interface Props extends React.DetailedHTMLProps<React.TableHTMLAttributes<HTMLTableElement>, HTMLTableElement> {
-  className?: string
-  children: Array<React.ReactElement<typeof TableHeader | typeof TableBody>>  
+  className?: string  
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const Table = forwardRef(function ({ children, className }: Props, ref: React.MutableRefObject<any>) {
+const Table = forwardRef(function ({ children, className }: React.PropsWithChildren<Props>, ref: React.Ref<HTMLTableElement>) {
   return (
     <>
       <section className='min-w-full max-w-max overflow-x-auto overflow-y-auto flex-1'>

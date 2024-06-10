@@ -20,7 +20,7 @@ interface Props extends React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLB
     return (
       <button      
         onClick={handle}      
-        className={`flex gap-2 items-center w-max h-min py-2 px-4 font-medium text-base align-middle text-center rounded-md cursor-pointer border border-solid transition-all duration-150 ease-in disabled:opacity-70 disabled:cursor-not-allowed ${className} ${ACTIONTYPE[actionType](color)}`}
+        className={`flex gap-2 items-center w-max h-min py-2 px-4 font-medium text-base align-middle text-center rounded-md cursor-pointer border border-solid transition-all duration-100 ease-in disabled:opacity-70 disabled:cursor-not-allowed ${className} ${ACTIONTYPE[actionType](color)}`}
         disabled={isDisabled}
         aria-label={`${text}`}
         title={`${text}`}

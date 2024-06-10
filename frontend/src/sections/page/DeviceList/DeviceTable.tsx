@@ -13,75 +13,73 @@ const TableCellEditDeleteIcon = lazy(async () => import("../../components/TableC
 
 interface Props {
   devices: DevicePrimitives[]
-  loading: boolean
 }
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const DeviceTable = forwardRef(({ devices, loading }: Props, ref: React.MutableRefObject<any>) => {
-  return (
-    <>      
-      <Suspense fallback={<TableSkeleton />}>
-        <Table className='' ref={ref}>
-          <Suspense>
-            <TableHeader className='bg-secondary text-white'>
-              <Suspense>
-                <TableRow>
-                  <TableHead name='Acciones' />
-                  <TableHead name='Usuario' />
-                  <TableHead name='Ubicación' />
-                  <TableHead name='Dirección IP' />
-                  <TableHead name='Serial' />
-                  <TableHead name='Estado' />
-                  <TableHead name='Categoria' />
-                  <TableHead name='Marca' />
-                  <TableHead name='Modelo' />
-                  <TableHead name='Nombre de Equipo' />
-                  <TableHead name='Procesador' />
-                  <TableHead name='Memoria Ram Total' />
-                  <TableHead name='Memoria Ram Modulos' />
-                  <TableHead name='Tipo' />
-                  <TableHead name='Disco Duro' />
-                  <TableHead name='Tipo' />
-                  <TableHead name='Sistema Operativo' />
-                  <TableHead name='Arquitectura' />
-                  <TableHead name='Observaciones' />
-                </TableRow>
-              </Suspense>
-            </TableHeader>
-          </Suspense>
-          <Suspense>
-            <TableBody>
-              {(devices as unknown as DevicesApiResponse[]).map((device) => (
-                <Suspense key={device?.id}>
-                  <TableRow totalTd={19} loading={loading}>
-                    <TableCellEditDeleteIcon stateId={device.id} state={device} url={`/device/edit/${device.id}`} />
-                    <TableCell value={device.employee?.userName} url={`/employee/edit/${device.employeeId}`} />
-                    <TableCell value={device.location?.name} />
-                    <TableCell value={device?.computer?.ipAddress} />
-                    <TableCell value={device.serial ?? "Sin Serial"} state={device} url={`/device/edit/${device.id}`} />
-                    <TableCell value={device.status?.name} />
-                    <TableCell value={device.category?.name} />
-                    <TableCell value={device.brand?.name} />
-                    <TableCell value={device.model?.name} />
-                    <TableCell value={device?.computer?.computerName} />
-                    <TableCell value={device?.computer ? `${device?.computer?.processor?.productCollection} ${device?.computer?.processor?.numberModel}` : ""} />
-                    <TableCell value={device?.computer ? `${device?.computer?.memoryRamCapacity} Gb` : ""} />
-                    <TableCell value={device?.computer ? device?.computer?.memoryRam.map((mem) => mem).join(" / ") : ""} />
-                    <TableCell
-                      value={device?.model?.modelComputer ? device?.model?.modelComputer.memoryRamType?.name : device?.model?.modelLaptop ? device?.model?.modelLaptop?.memoryRamType?.name : ""}
-                    />
-                    <TableCell value={device?.computer ? `${device?.computer?.hardDriveCapacity?.name} Gb` : ""} />
-                    <TableCell value={device?.computer?.hardDriveType?.name} />
-                    <TableCell value={device?.computer?.operatingSystem?.name} />
-                    <TableCell value={device?.computer?.operatingSystemArq?.name} />
-                    <TableCell value={device.observation} />
+export const DeviceTable = forwardRef(({ devices}: Props, ref: React.Ref<HTMLTableElement>) => {
+    return (
+      <>
+        <Suspense fallback={<TableSkeleton />}>
+          <Table ref={ref}>
+            <Suspense>
+              <TableHeader className='bg-secondary text-white'>
+                <Suspense fallback={<div className='animate-pulse h-10 odd:bg-slate-300 even:bg-slate-400' />}>
+                  <TableRow>
+                    <TableHead name='Acciones' />
+                    <TableHead name='Usuario' />
+                    <TableHead name='Ubicación' />
+                    <TableHead name='Dirección IP' />
+                    <TableHead name='Serial' />
+                    <TableHead name='Estado' />
+                    <TableHead name='Categoria' />
+                    <TableHead name='Marca' />
+                    <TableHead name='Modelo' />
+                    <TableHead name='Nombre de Equipo' />
+                    <TableHead name='Procesador' />
+                    <TableHead name='Memoria Ram Total' />
+                    <TableHead name='Memoria Ram Modulos' />
+                    <TableHead name='Tipo' />
+                    <TableHead name='Disco Duro' />
+                    <TableHead name='Tipo' />
+                    <TableHead name='Sistema Operativo' />
+                    <TableHead name='Arquitectura' />
+                    <TableHead name='Observaciones' />
                   </TableRow>
                 </Suspense>
+              </TableHeader>
+            </Suspense>
+            <Suspense>
+              <TableBody>
+                {(devices as unknown as DevicesApiResponse[]).map((device) => (
+                  <Suspense key={device?.id}>
+                    <TableRow>
+                      <TableCellEditDeleteIcon stateId={device.id} state={device} url={`/device/edit/${device.id}`} />
+                      <TableCell value={device.employee?.userName} url={`/employee/edit/${device.employeeId}`} />
+                      <TableCell value={device.location?.name} />
+                      <TableCell value={device?.computer?.ipAddress} />
+                      <TableCell value={device.serial ?? "Sin Serial"} state={device} url={`/device/edit/${device.id}`} />
+                      <TableCell value={device.status?.name} />
+                      <TableCell value={device.category?.name} />
+                      <TableCell value={device.brand?.name} />
+                      <TableCell value={device.model?.name} />
+                      <TableCell value={device?.computer?.computerName} />
+                      <TableCell value={device?.computer ? `${device?.computer?.processor?.productCollection} ${device?.computer?.processor?.numberModel}` : ""} />
+                      <TableCell value={device?.computer ? `${device?.computer?.memoryRamCapacity} Gb` : ""} />
+                      <TableCell value={device?.computer ? device?.computer?.memoryRam.map((mem) => mem).join(" / ") : ""} />
+                      <TableCell
+                        value={device?.model?.modelComputer ? device?.model?.modelComputer.memoryRamType?.name : device?.model?.modelLaptop ? device?.model?.modelLaptop?.memoryRamType?.name : ""}
+                      />
+                      <TableCell value={device?.computer ? `${device?.computer?.hardDriveCapacity?.name} Gb` : ""} />
+                      <TableCell value={device?.computer?.hardDriveType?.name} />
+                      <TableCell value={device?.computer?.operatingSystem?.name} />
+                      <TableCell value={device?.computer?.operatingSystemArq?.name} />
+                      <TableCell value={device.observation} />
+                    </TableRow>
+                  </Suspense>
               ))}
-            </TableBody>
-          </Suspense>
-        </Table>
-      </Suspense>
-      {(!loading && devices.length === 0) && <p>No hay resultados que coincidan con el filtro</p>}
-    </>
+              </TableBody>
+            </Suspense>
+          </Table>
+        </Suspense>
+      </>
   )
 })

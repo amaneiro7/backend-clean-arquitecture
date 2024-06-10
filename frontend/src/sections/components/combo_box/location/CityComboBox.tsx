@@ -13,45 +13,44 @@ interface Props {
     state?: Primitives<StateId>
     onChange: OnHandleChange
     isAddForm?: boolean
-    type?: 'form' | 'search'
+    type?: "form" | "search"
 }
 
 const ComboBox = lazy(async () => import("../combo_box"))
-const ReadOnlyInputBox = lazy(async () => import('../../ReadOnlyInputBox').then(m => ({ default: m.ReadOnlyInputBox })))
+const ReadOnlyInputBox = lazy(async () => import("../../ReadOnlyInputBox").then((m) => ({ default: m.ReadOnlyInputBox })))
 
-export function CityComboBox({ value, state, onChange, type = 'search', isAddForm = false }: Props) {
-    const { cities, loading } = useCity()
+export function CityComboBox({ value, state, onChange, type = "search", isAddForm = false }: Props) {
+    const { cities, loading } = useCity()    
 
     const initialValue = useMemo(() => {
-        return cities.find(city => city.id === value)
+        return cities.find((city) => city.id === value)
     }, [cities, value])
 
     const filtered = useMemo(() => {
         if (!state) return cities
-        return cities.filter(city => city.stateId === state)
+        return cities.filter((city) => city.stateId === state)
     }, [cities, state])
 
     return (
-        <Suspense fallback={<InputSkeletonLoading />}>
-            {
-                !isAddForm && type === 'form'
-                    ? <ReadOnlyInputBox label='Ciudad' required defaultValue={initialValue?.name} />
-                    : <ComboBox
-                        id='cityId'
-                        initialValue={initialValue}
-                        label="Ciudad"
-                        name='cityId'
-                        type={type}
-                        onChange={(_, newValue: CityPrimitives) => {
-                            onChange('cityId', newValue ? newValue.id : '', Operator.EQUAL)
-                        }}
-                        options={filtered}
-                        isDisabled={false}
-                        isRequired={type === 'form'}
-                        loading={loading}
-                    >
-                    </ComboBox>
-            }
-        </Suspense>
+      <Suspense fallback={<InputSkeletonLoading />}>
+        {!isAddForm && type === "form" ? (
+          <ReadOnlyInputBox label='Ciudad' required defaultValue={initialValue?.name} />
+            ) : (
+              <ComboBox
+                id='cityId'
+                initialValue={initialValue}                
+                label='Ciudad'
+                name='cityId'
+                type={type}
+                onChange={(_, newValue: CityPrimitives) => {
+                        onChange("cityId", newValue ? newValue.id : "", Operator.EQUAL)
+                    }}
+                options={filtered}
+                isDisabled={false}
+                isRequired={type === "form"}
+                loading={loading}
+              />
+            )}
+      </Suspense>
     )
 }

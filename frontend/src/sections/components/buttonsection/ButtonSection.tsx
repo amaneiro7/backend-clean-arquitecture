@@ -43,7 +43,7 @@ export const ButtonSection = forwardRef(({handleFilter, handleAdd, handleClear}:
       <Suspense fallback={<InputSkeletonLoading />}>
         <Button
           actionType='SECONDARY'
-          color='secondary'
+          color='secondary'          
           type='button'
           text='Limpiar'
           handle={handleClear}
@@ -58,7 +58,7 @@ export const ButtonSection = forwardRef(({handleFilter, handleAdd, handleClear}:
           handle={handleFilter}
           icon={
             <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>
-              <FilterIcon />
+              <FilterIcon size='w-4' />
             </Suspense>
               }
         />

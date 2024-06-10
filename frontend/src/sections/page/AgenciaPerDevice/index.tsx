@@ -52,8 +52,7 @@ export default function AgenciaPage() {
     debounce((query: SearchByCriteriaQuery) => {
       addFilter(query)
     }, 300)
-    , [addFilter]
-  )
+    , [addFilter])
 
   const handleChange = (name: string, value: string, operator?: Operator) => {
     const filters = [{

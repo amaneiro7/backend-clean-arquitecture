@@ -1,10 +1,15 @@
-export function HeaderInput({ className, children }: React.PropsWithChildren<{ className?: string }>) {
+interface Props extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> {
+  className?: string
+}
+
+export function HeaderInput({ className, children, ...props }: React.PropsWithChildren<Props>) {
     return (
-      <header
+      <section
+        {...props}
         className={`relative h-10 min-h-min w-full grid grid-cols-[repeat(auto-fit,_150px)] gap-4 ${className}`}
       >
         {children}
-      </header>
+      </section>
     )
 
 }
