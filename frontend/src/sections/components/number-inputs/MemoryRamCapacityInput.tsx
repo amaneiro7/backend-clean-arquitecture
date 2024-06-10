@@ -19,7 +19,7 @@ const NumberInput = lazy(async () => import('./NumberInput').then(m => ({ defaul
 export function MemoryRamCapacityInput({ value, memoryRam, onChange, type = 'form', status }: Props) {
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
-
+  
   useLayoutEffect(() => {
     if (type !== 'form') return
 
@@ -34,7 +34,7 @@ export function MemoryRamCapacityInput({ value, memoryRam, onChange, type = 'for
     }
   }, [value, status])
 
-  const updateValue = useMemo(() => {
+  const updateValue = useMemo(() => {    
     const value = MemoryRam.totalAmount(memoryRam)
     onChange('memoryRamCapacity', value)
     return value

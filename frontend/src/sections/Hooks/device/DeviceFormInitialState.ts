@@ -146,6 +146,7 @@ export const useDeviceInitialState = (): {
         memoryRamType = ''
       }
       const meRam = memoryRam.length !== memoryRamSlotQuantity ? [...memoryRam, ...Array(memoryRamSlotQuantity - memoryRam.length).fill(0)] : memoryRam
+
       if (memoryRamCapacity > 0 && memoryRam.length !== memoryRamSlotQuantity) {
         meRam[0] = Number(memoryRamCapacity)
       }
