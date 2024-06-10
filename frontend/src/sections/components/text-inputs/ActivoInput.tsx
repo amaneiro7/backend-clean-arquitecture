@@ -15,17 +15,18 @@ const FormInput = lazy(async () => import('./FormInput').then(m => ({ default: m
 
 export default function ActivoInput({ value, onChange, isForm = false }: Props) {
   const [errorMessage, setErrorMessage] = useState('')
+  const [inputValue, setInputValue] = useState(value)
   const [isError, setIsError] = useState(false)
   const isFirstInput = useRef(true)
   useLayoutEffect(() => {
     if (!isForm) return
 
-    if (isFirstInput.current || value === '') {
-      isFirstInput.current = value === ''
+    if (isFirstInput.current || inputValue === '') {
+      isFirstInput.current = inputValue === ''
       return
     }
 
-    const isValid = DeviceActivo.isValid(value)
+    const isValid = DeviceActivo.isValid(inputValue)
 
     setIsError(!isValid)
     setErrorMessage(isValid ? '' : DeviceActivo.invalidMessage())
@@ -34,22 +35,24 @@ export default function ActivoInput({ value, onChange, isForm = false }: Props) 
       setErrorMessage('')
       setIsError(false)
     }
-  }, [value])
+  }, [isForm, inputValue])
   return (
     <Suspense fallback={<InputSkeletonLoading />}>
       <FormInput
         id='activo'
-        name="activo"
-        type="text"
+        name='activo'
+        type='text'
         label='Activo'
         placeholder='-- Ingrese el Activo del equipo'
         isRequired={false}
         handle={(event) => {
+          // eslint-disable-next-line prefer-const
           let { name, value } = event.target
           value = value.trim().toUpperCase()
+          setInputValue(value)
           onChange(name, value, Operator.CONTAINS)
         }}
-        value={value}
+        value={inputValue}
         isError={isError}
         errorMessage={errorMessage}
       />

@@ -55,8 +55,8 @@ export default function SerialInput({ value, onChange, type = "search", isAdd = 
             // eslint-disable-next-line prefer-const
             let { name, value } = event.target
             value = value.trim().toUpperCase()
-            onChange(name, value, Operator.CONTAINS)
             setInputValue(value)
+            onChange(name, value, Operator.CONTAINS)
           }}
           value={inputValue}
           isError={isError}
