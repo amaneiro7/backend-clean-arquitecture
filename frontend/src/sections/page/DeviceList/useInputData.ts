@@ -1,6 +1,6 @@
 import { useCallback, useState, useTransition } from 'react'
 import debounce from 'just-debounce-it'
-
+import { useSearchParams } from 'react-router-dom'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
 import { useDevice } from '../../Hooks/device/useDevice'
 import { type DevicePrimitives } from '../../../modules/devices/devices/devices/domain/Device'
@@ -8,7 +8,6 @@ import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestruct
 import { defaultInitialInputValue, type InputData, defaultInputData } from './defaultParams'
 import { defaultCategoryQuery } from './defaultCategoryQuery'
 import { FiltersPrimitives } from '../../../modules/shared/domain/criteria/Filter'
-import { cleanSearchParams, updateSearchParams } from '../../utils/updateInputQueryParams'
 
 
 export const useInputsData = (): {
@@ -21,14 +20,26 @@ export const useInputsData = (): {
 } => {
   const { inputData: initialInputData, query, } = defaultInitialInputValue(defaultCategoryQuery)
   const [inputData, setInputData] = useState<InputData>(initialInputData)
+  const { "1": setSearchParams } = useSearchParams()
   const { devices, loading, addFilter, cleanFilters } = useDevice(query)
   const [isPending, startTransition] = useTransition()
 
+  const updateInputData = useCallback((name: string, value: string) => {
+    setSearchParams(prev => {
+      if (value === '') {
+        prev.delete(name)
+      } else {
+        prev.set(name, value)
+      }
+      return prev
+    })
+  }, [setSearchParams])
+
   const handleClear = useCallback(() => {
-    cleanSearchParams()
+    setSearchParams('')
     setInputData(defaultInputData)
     cleanFilters(defaultCategoryQuery)
-  }, [cleanFilters, cleanSearchParams])
+  }, [cleanFilters, setSearchParams])
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debounceGetDevices = useCallback(
@@ -58,9 +69,9 @@ export const useInputsData = (): {
       } else {
         addFilter({ filters })
       }
-      updateSearchParams({ name, value })
+      updateInputData(name, value)
     })
-  }, [inputData, updateSearchParams, debounceGetDevices, addFilter])
+  }, [inputData, updateInputData, debounceGetDevices, addFilter])
 
 
   return {
