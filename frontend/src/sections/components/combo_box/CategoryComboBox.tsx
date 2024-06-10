@@ -23,7 +23,7 @@ export default function CategoryComboBox({ value, filter, onChange, type = 'sear
     const { categories, loading } = useCategory()
 
     const filterCategory = useMemo(() => {
-      if (!filter) return
+      if (!filter) return categories
       return categories.filter(cat =>  filter.includes(cat.id))
       
     },[categories, filter])

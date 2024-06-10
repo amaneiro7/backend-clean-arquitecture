@@ -3,6 +3,9 @@ import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoa
 
 import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
 import { InputData } from './defaultParams'
+import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
+import { type CategoryId } from '../../../modules/devices/category/domain/CategoryId'
+
 
 
 const HeaderInput = lazy(async () => import('../../components/HeaderInput').then(m => ({ default: m.HeaderInput })))
@@ -27,9 +30,10 @@ interface Props {
     handleChange: OnHandleChange
     open: boolean
     handleOpenFIlterSidebar: () => void
+    filterCategory?: Primitives<CategoryId>[]
 }
 
-export function FilterSection({ inputData, open, handleChange, handleOpenFIlterSidebar }: Props) {    
+export function FilterSection({ inputData, filterCategory, open, handleChange, handleOpenFIlterSidebar }: Props) {    
     return (
       <Suspense>
         <HeaderInput>
@@ -44,6 +48,7 @@ export function FilterSection({ inputData, open, handleChange, handleOpenFIlterS
             <CategoryComboBox
               value={inputData.categoryId}
               onChange={handleChange}
+              filter={filterCategory}
             />
           </Suspense>
           <Suspense fallback={<InputSkeletonLoading />}>

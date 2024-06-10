@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom"
 import { useInputsData } from "./useInputData"
 import { DeviceTable } from "./DeviceTable"
 import { SpinnerSKCircle } from "../../components/Loading/spinner-sk-circle"
+import { defaultCategoryList } from "./defaultCategoryQuery"
+
 
 const Main = lazy(async () => import('../../components/Main'))
 const PageTitle = lazy(async () => import('../../components/PageTitle'))
@@ -33,7 +35,7 @@ export default function DeviceList() {
           </Suspense>
           
           <Suspense>
-            <FilterSection open={open} handleChange={handleChange} handleOpenFIlterSidebar={handleOpenFIlterSidebar} inputData={inputData} />
+            <FilterSection filterCategory={defaultCategoryList} open={open} handleChange={handleChange} handleOpenFIlterSidebar={handleOpenFIlterSidebar} inputData={inputData} />
           </Suspense>
           
           <Suspense>
