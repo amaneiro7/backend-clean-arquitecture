@@ -9,7 +9,7 @@ interface Props extends React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLB
 
 
 const ACTIONTYPE = {
-  ACTION: 'text-white border-primary bg-primary hover:bg-primary-700 active:bg-primary-800',
+  ACTION: 'text-white fil border-primary bg-primary hover:bg-primary-700 active:bg-primary-800',
   SAVE: 'text-white border-terciary bg-terciary hover:bg-terciary600 active:bg-terciary-800',
   CANCEL: 'text-gray-400 border-gray-500 bg-gray-500 hover:bg-gray-400 active:bg-gray-600',
   DELETE: 'text-white border-quaternary bg-quaternary hover:bg-quaternary-500 active:bg-quaternary-quaternary-700',
