@@ -8,10 +8,10 @@ interface Props<T> extends React.DetailedHTMLProps<React.TdHTMLAttributes<HTMLTa
 }
 
 export default function TableCell<T>({ value, url, state }: Props<T>) {
-  const className = "w-full h-full max-w-[200px] text-left align-middle whitespace-nowrap text-ellipsis overflow-x-hidden overflow-y-visible break-words cursor-default"
+  const className = "text-left align-middle whitespace-nowrap text-ellipsis overflow-x-hidden overflow-y-visible break-words cursor-default"
   return (
     <td
-      className='min-h-9 h-9 text-xs text-ellipsis border-b-2 border-b-gray-300 p-2'
+      className='min-h-11 max-w-11 h-11 text-xs text-ellipsis border-b-2 border-b-gray-300 px-2'
       aria-label={`${value}`}
       title={`${value}`}
     >

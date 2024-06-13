@@ -30,7 +30,7 @@ export default function DeviceList() {
     }
     return (
       
-      <Main>
+      <Main content='max' overflow={false}>
       
         <PageTitle title='Lista de equipos de computación' optionalText={`${devices.length} resultados`} />                
       

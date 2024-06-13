@@ -7,7 +7,7 @@ interface Props extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement
 }
 
 const Main = memo(function({ children, className, content = "full", overflow = true }: React.PropsWithChildren<Props>) {
-  return <main className={`${className ?? "md:flex-1"} max-w-full h-${content} max-h-min flex flex-col px-8 pt-4 pb-0 ${overflow && 'md:overflow-hidden'}`}>{children}</main>
+  return <main className={`${className ?? "md:flex-1"} max-w-full h-${content} max-h-min flex flex-col pl-8 pt-4 pb-0 ${overflow && 'md:overflow-hidden'}`}>{children}</main>
 })
 
 export default Main
