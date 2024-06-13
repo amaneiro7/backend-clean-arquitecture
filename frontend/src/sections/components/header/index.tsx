@@ -46,7 +46,7 @@ export default function Header() {
       <HeaderNav state={state}>
         <Nav>
           <div className='flex items-center justify-center py-3 md:py-5 md:block'>
-            <Link to={'/'}>
+            <Link to='/'>
               <Logo />
             </Link>
             <HamburguerMenu state={state} handleState={handleState} />
@@ -61,8 +61,7 @@ export default function Header() {
         </Nav>
       </HeaderNav>
       {state &&
-        (<div className='z-10 fixed top-0 w-screen h-screen bg-black/20 backdrop-blur-sm md:hidden' onClick={handleState}></div>)
-      }
+        (<div className='z-10 fixed top-0 w-screen h-screen bg-black/20 backdrop-blur-sm md:hidden' onClick={handleState} />)}
     </>
   )
 }

@@ -1,4 +1,4 @@
-import { lazy, Suspense, useMemo, useState } from "react"
+import { lazy, memo, Suspense, useMemo, useState } from "react"
 import { type OnHandleChange } from "../../../modules/shared/domain/types/types"
 import { type TypeOfSitePrimitives } from "../../../modules/location/typeofsites/domain/typeOfSite"
 import { type TypeOfSiteId } from "../../../modules/location/typeofsites/domain/typeOfSiteId"
@@ -14,12 +14,14 @@ interface Props {
 const TabsNav = lazy(async () => import('./TabsNav').then(m => ({ default: m.TabsNav })))
 const TabNav = lazy(async () => import('./TabNav').then(m => ({ default: m.TabNav })))
 
-export function TypeOfSiteTabNav({ onChange, value }: Props) {
+export const TypeOfSiteTabNav = memo(function({ onChange, value }: Props) {
     const [inputValue, setInputValue] = useState(() => value ? value : '0')
     const { typeOfSite, loading } = useTypeOfSite()
     const typeOfSiteTab: TypeOfSitePrimitives[] = useMemo(() => {
         return [{ id: '0', name: 'Todos' }].concat(typeOfSite)
     }, [typeOfSite])
+
+    console.log('TypeOfSiteTabNav: rendered', value)
     
     return (
       <Suspense fallback={<div className='min-h-7 h-7' />}>
@@ -42,4 +44,4 @@ export function TypeOfSiteTabNav({ onChange, value }: Props) {
         </TabsNav>
       </Suspense>
     )
-}
+})

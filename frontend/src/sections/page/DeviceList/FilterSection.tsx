@@ -6,8 +6,6 @@ import { InputData } from './defaultParams'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { type CategoryId } from '../../../modules/devices/category/domain/CategoryId'
 
-
-
 const HeaderInput = lazy(async () => import('../../components/HeaderInput').then(m => ({ default: m.HeaderInput })))
 const FilterContainer = lazy(async () => import('../../components/FilterContainer').then(m => ({ default: m.FilterContainer })))
 const EmployeeComboBox = lazy(async () => await import('../../components/combo_box/EmployeeComboBox'))

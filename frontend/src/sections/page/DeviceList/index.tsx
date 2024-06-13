@@ -4,6 +4,7 @@ import { useInputsData } from "./useInputData"
 import { DeviceTable } from "./DeviceTable"
 import { SpinnerSKCircle } from "../../components/Loading/spinner-sk-circle"
 import { defaultCategoryList } from "./defaultCategoryQuery"
+import { DevicesApiResponse } from "../../../modules/shared/domain/types/responseTypes"
 
 
 const Main = lazy(async () => import('../../components/Main'))
@@ -28,28 +29,23 @@ export default function DeviceList() {
       navigate("/device/add")
     }
     return (
-      <Suspense>
-        <Main>
-          <Suspense>
-            <PageTitle title='Lista de equipos de computación' optionalText={`${devices.length} resultados`} />
-          </Suspense>
+      
+      <Main>
+      
+        <PageTitle title='Lista de equipos de computación' optionalText={`${devices.length} resultados`} />                
+      
+        <FilterSection filterCategory={defaultCategoryList} open={open} handleChange={handleChange} handleOpenFIlterSidebar={handleOpenFIlterSidebar} inputData={inputData} />                
+      
+        <ButtonSection ref={tableRef} handleAdd={handleAdd} handleFilter={handleOpenFIlterSidebar} handleClear={handleClear} />      
           
-          <Suspense>
-            <FilterSection filterCategory={defaultCategoryList} open={open} handleChange={handleChange} handleOpenFIlterSidebar={handleOpenFIlterSidebar} inputData={inputData} />
-          </Suspense>
-          
-          <Suspense>
-            <ButtonSection ref={tableRef} handleAdd={handleAdd} handleFilter={handleOpenFIlterSidebar} handleClear={handleClear} />
-          </Suspense>
-          
-          <Suspense fallback={<div className='min-h-7 h-7' />}>
-            <TypeOfSiteTabNav onChange={handleChange} value={inputData.typeOfSiteId} />
-          </Suspense>
+        <Suspense fallback={<div className='min-h-7 h-7' />}>
+          <TypeOfSiteTabNav onChange={handleChange} value={inputData.typeOfSiteId} />
+        </Suspense>
           
           
-          {loading && <SpinnerSKCircle />}
-          <DeviceTable devices={devices} ref={tableRef as unknown as React.Ref<HTMLTableElement>} />
-        </Main>
-      </Suspense>
+        {loading && <SpinnerSKCircle />}
+        <DeviceTable devices={devices as DevicesApiResponse[]} ref={tableRef as unknown as React.Ref<HTMLTableElement>} />
+      </Main>
+      
     )
 }
