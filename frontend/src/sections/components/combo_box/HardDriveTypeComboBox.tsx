@@ -45,20 +45,20 @@ export default function HardDriveTypeComboBox({ value, hardDriveCapacity, onChan
       setErrorMessage('')
       setIsError(false)
     }
-  }, [value, hardDriveCapacity])
+  }, [value, hardDriveCapacity, type])
 
   useLayoutEffect(() => {
     if (isDisabled) {
       onChange('hardDriveTypeId', '')
     }
-  }, [isDisabled])
+  }, [isDisabled, onChange])
 
   return (
     <Suspense fallback={<InputSkeletonLoading />}>
       <ComboBox
         id='hardDriveTypeId'
         initialValue={initialValue}
-        label="Tipo de Disco Duro"
+        label='Tipo de Disco Duro'
         name='hardDriveTypeId'
         type={type}
         onChange={(_, newValue: HardDriveTypePrimitives) => {
@@ -71,8 +71,7 @@ export default function HardDriveTypeComboBox({ value, hardDriveCapacity, onChan
         loading={loading}
         isError={isError}
         errorMessage={errorMessage}
-      >
-      </ComboBox>
+      />
     </Suspense>
   )
 }
