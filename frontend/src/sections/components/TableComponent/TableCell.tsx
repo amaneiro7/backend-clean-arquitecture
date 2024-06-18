@@ -5,15 +5,19 @@ interface Props<T> extends React.DetailedHTMLProps<React.TdHTMLAttributes<HTMLTa
   value: string | number, 
   url?: string, 
   state?: T
+  size?: Size
 }
 
-export default function TableCell<T>({ value, url, state }: Props<T>) {
-  const className = "text-left align-middle whitespace-nowrap text-ellipsis overflow-x-hidden overflow-y-visible break-words cursor-default"
+type Size = 'w-20' | 'w-24' | 'w-28' | 'w-32' | 'w-36' | 'w-40' | 'w-44' | 'w-48' | 'w-52'
+
+export default function TableCell<T>({ value, url, state, size = 'w-20', ...props }: Props<T>) {
+  const className = `px-2 ${size} text-left align-middle whitespace-nowrap text-ellipsis overflow-hidden break-words cursor-default`
   return (
     <td
-      className='min-h-11 max-w-11 h-11 text-xs text-ellipsis border-b-2 border-b-gray-300 px-2'
+      className={`min-h-11 h-11 ${size} p-0 text-xs overflow-hidden whitespace-nowrap text-ellipsis border-b-2 border-b-gray-300`}
       aria-label={`${value}`}
       title={`${value}`}
+      {...props}
     >
       {url ? <CellWithUrl state={state} value={value} className={className} url={url} /> : <NormalCell value={value} className={className} />}
     </td>

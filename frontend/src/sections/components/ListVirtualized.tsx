@@ -1,28 +1,16 @@
-import { FixedSizeList as List } from 'react-window'
-
-interface Props {
-    itemCount: number
-}
-
-function ListWrapper ({children, itemCount}: React.PropsWithChildren<Props>) {
-    return (
-      <List
-        height={400}
-        itemCount={itemCount}
-        itemSize={46}
-        width='100%'
-        layout='vertical'
-      >
-        {children}
-      </List>
-
-    )
-}
-
-export function Row ({index, style}) {
-    return (
-      <div>
-        {children}
-      </div>
-    )
-}
+import { FixedSizeList as List } from 'react-window';
+ 
+const Row = ({ index, style }) => (
+  <div style={style}>Row {index}</div>
+);
+ 
+export const Example = () => (
+  <List
+    height={150}
+    itemCount={1000}
+    itemSize={35}
+    width={300}
+  >
+    {Row}
+  </List>
+);

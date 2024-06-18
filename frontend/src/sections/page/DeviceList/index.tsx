@@ -30,7 +30,7 @@ export default function DeviceList() {
     }
     return (
       
-      <Main content='max' overflow={false}>
+      <Main>
       
         <PageTitle title='Lista de equipos de computación' optionalText={`${devices.length} resultados`} />                
       
@@ -43,7 +43,7 @@ export default function DeviceList() {
         </Suspense>
           
           
-        {loading && <SpinnerSKCircle />}
+        {loading && <SpinnerSKCircle />}        
         <DeviceTable devices={devices as DevicesApiResponse[]} ref={tableRef as unknown as React.Ref<HTMLTableElement>} />
       </Main>
       

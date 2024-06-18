@@ -13,7 +13,7 @@ export default function TableCellEditDeleteIcon({ state, url, stateId, ...props 
   return (
     <td
       {...props}
-      className='min-h-9 h-9 text-xs text-ellipsis border-b-2 border-b-gray-300 p-2 text-transparent'
+      className='min-h-9 h-9 min-w-20 text-xs text-ellipsis border-b-2 border-b-gray-300 p-2 text-transparent'
     >
       
       <Suspense fallback={<div className='w-6 rounded-full bg-slate-400 aspect-square animate-pulse' />}>

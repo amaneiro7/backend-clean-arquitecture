@@ -7,33 +7,35 @@ const TableCell = lazy(async () => import("../../components/TableComponent/Table
 const TableCellEditDeleteIcon = lazy(async () => import("../../components/TableComponent/TableCellEditDeleteIcon"))
 
 interface Props {
-    devices: DevicesApiResponse[]
+    data: DevicesApiResponse[]
+    style: React.CSSProperties
     index: number
 }
 
-export const DeviteRowTable = memo(({devices, index}: Props) => {
+export const DeviteRowTable = memo(({data: devices, style, index}: Props) => {
     return (
-      <TableRow key={index}>
+      <TableRow style={style} key={index}>
         <TableCellEditDeleteIcon stateId={devices[index].id} state={devices[index]} url={`/device/edit/${devices[index].id}`} />
-        <TableCell value={devices[index].employee?.userName} url={`/employee/edit/${devices[index].employeeId}`} />
-        <TableCell value={devices[index].location?.name} />
-        <TableCell value={devices[index]?.computer?.ipAddress} />
-        <TableCell value={devices[index].serial ?? "Sin Serial"} state={devices[index]} url={`/devices[index]/edit/${devices[index].id}`} />
-        <TableCell value={devices[index].status?.name} />
-        <TableCell value={devices[index].category?.name} />
-        <TableCell value={devices[index].brand?.name} />
-        <TableCell value={devices[index].model?.name} />
-        <TableCell value={devices[index]?.computer?.computerName} />
-        <TableCell value={devices[index]?.computer ? `${devices[index]?.computer?.processor?.productCollection} ${devices[index]?.computer?.processor?.numberModel}` : ""} />
-        <TableCell value={devices[index]?.computer ? `${devices[index]?.computer?.memoryRamCapacity} Gb` : ""} />
-        <TableCell value={devices[index]?.computer ? devices[index]?.computer?.memoryRam.map((mem) => mem).join(" / ") : ""} />
+        <TableCell size='w-28' value={devices[index].employee?.userName} url={`/employee/edit/${devices[index].employeeId}`} />
+        <TableCell size='w-52' value={devices[index].location?.name} />
+        <TableCell size='w-24' value={devices[index]?.computer?.ipAddress} />
+        <TableCell size='w-32' value={devices[index].serial ?? "Sin Serial"} state={devices[index]} url={`/devices[index]/edit/${devices[index].id}`} />
+        <TableCell size='w-20' value={devices[index].status?.name} />
+        <TableCell size='w-28' value={devices[index].category?.name} />
+        <TableCell size='w-32' value={devices[index].brand?.name} />
+        <TableCell size='w-52' value={devices[index].model?.name} />
+        <TableCell size='w-52' value={devices[index]?.computer?.computerName} />
+        <TableCell size='w-52' value={devices[index]?.computer ? `${devices[index]?.computer?.processor?.productCollection} ${devices[index]?.computer?.processor?.numberModel}` : ""} />
+        <TableCell size='w-24' value={devices[index]?.computer ? `${devices[index]?.computer?.memoryRamCapacity} Gb` : ""} />
+        <TableCell size='w-24' value={devices[index]?.computer ? devices[index]?.computer?.memoryRam.map((mem) => mem).join(" / ") : ""} />
         <TableCell
+          size='w-32'
           value={devices[index]?.model?.modelComputer ? devices[index]?.model?.modelComputer.memoryRamType?.name : devices[index]?.model?.modelLaptop ? devices[index]?.model?.modelLaptop?.memoryRamType?.name : ""}
         />
-        <TableCell value={devices[index]?.computer ? `${devices[index]?.computer?.hardDriveCapacity?.name} Gb` : ""} />
-        <TableCell value={devices[index]?.computer?.hardDriveType?.name} />
-        <TableCell value={devices[index]?.computer?.operatingSystem?.name} />
-        <TableCell value={devices[index]?.computer?.operatingSystemArq?.name} />
-        <TableCell value={devices[index].observation} />
+        <TableCell size='w-20' value={devices[index]?.computer ? `${devices[index]?.computer?.hardDriveCapacity?.name} Gb` : ""} />
+        <TableCell size='w-20' value={devices[index]?.computer?.hardDriveType?.name} />
+        <TableCell size='w-32' value={devices[index]?.computer?.operatingSystem?.name} />
+        <TableCell size='w-32' value={devices[index]?.computer?.operatingSystemArq?.name} />
+        <TableCell size='w-52' value={devices[index].observation} />
       </TableRow>
 )}, areEqual)
