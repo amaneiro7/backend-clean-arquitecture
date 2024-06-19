@@ -69,7 +69,7 @@ export default function AddComputerFeatures({ formData, onChange }: Props) {
             }
           </div>
 
-          <div className='flex gap-4'>
+          {/* <div className='flex gap-4'>
             <Suspense fallback={<InputSkeletonLoading />}>
               <MemoryRamCapacityInput
                 onChange={onChange}
@@ -85,7 +85,7 @@ export default function AddComputerFeatures({ formData, onChange }: Props) {
                 value={formData.memoryRamType}
               />
             </Suspense>
-          </div>
+          </div> */}
 
           <div className='flex gap-4'>
             <Suspense fallback={<InputSkeletonLoading />}>
@@ -141,8 +141,7 @@ export default function AddComputerFeatures({ formData, onChange }: Props) {
               />
             </Suspense>
           </div>
-        </>
-      }
+        </>}
     </>
   )
 }

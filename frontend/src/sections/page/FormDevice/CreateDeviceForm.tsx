@@ -70,7 +70,7 @@ export default function CreateDeviceForm() {
           isDisabled={formStatus === FormStatus.Loading}
           lastUpdated={formData.updatedAt}
           url='/device/add'
-          searchInput={<DeviceSearchComboBox />}
+          // searchInput={<DeviceSearchComboBox />}
         >
           <div className='flex gap-4'>
             <Suspense fallback={<InputSkeletonLoading />}>
@@ -125,7 +125,7 @@ export default function CreateDeviceForm() {
               <ActivoInput
                 value={formData.activo}
                 onChange={handleChange}
-                isForm={true}
+                isForm
               />
             </Suspense>
           </div>
@@ -150,7 +150,8 @@ export default function CreateDeviceForm() {
             <Suspense fallback={<InputSkeletonLoading />}>
               <ObservationInput
                 onChange={handleChange}
-                value={formData.observation} />
+                value={formData.observation}
+              />
             </Suspense>
           </div>
           <Suspense>

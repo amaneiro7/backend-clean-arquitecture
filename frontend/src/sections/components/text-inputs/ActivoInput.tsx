@@ -1,4 +1,4 @@
-import { lazy, Suspense, useLayoutEffect, useRef, useState } from 'react'
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import { DeviceActivo } from '../../../modules/devices/devices/devices/domain/DeviceActivo'
 import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
@@ -17,7 +17,7 @@ export default function ActivoInput({ value, onChange, isForm = false }: Props) 
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
   const isFirstInput = useRef(true)
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!isForm) return
 
     if (isFirstInput.current || value === '') {

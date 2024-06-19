@@ -1,8 +1,9 @@
-import { lazy, useEffect, useRef, useState } from "react"
+import { lazy, Suspense, useEffect, useRef, useState } from "react"
 import { DeviceSerial } from "../../../modules/devices/devices/devices/domain/DeviceSerial"
 import { type Primitives } from "../../../modules/shared/domain/value-object/Primitives"
 import { type OnHandleChange } from "../../../modules/shared/domain/types/types"
 import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
+import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
 
 interface Props {
   value: Primitives<DeviceSerial>
@@ -38,7 +39,7 @@ export default function SerialInput({ value, onChange, type = "search", isAdd = 
     }
   }, [type, value])
   return (
-    <>
+    <Suspense fallback={<InputSkeletonLoading />}>
       {!isAdd && type === "form" ? (
         <ReadOnlyInputBox label='Serial' value={value} required />
       ) : (
@@ -60,6 +61,6 @@ export default function SerialInput({ value, onChange, type = "search", isAdd = 
           errorMessage={errorMessage}
         />
       )}
-    </>
+    </Suspense>
   )
 }
