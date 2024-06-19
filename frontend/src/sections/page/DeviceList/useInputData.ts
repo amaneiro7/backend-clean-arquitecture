@@ -35,11 +35,11 @@ export const useInputsData = (): {
     })
   }, [setSearchParams])
 
-  const handleClear = useCallback(() => {
+  const handleClear = () => {
     setSearchParams('')
     setInputData(defaultInputData)
     cleanFilters(defaultCategoryQuery)
-  }, [cleanFilters, setSearchParams])
+  }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debounceGetDevices = useCallback(
@@ -48,7 +48,7 @@ export const useInputsData = (): {
     }, 300)
     , [addFilter])
 
-  const handleChange = useCallback(async (name: string, value: string, operator?: Operator) => {
+  const handleChange = (name: string, value: string, operator?: Operator) => {
     startTransition(() => {
       setInputData({ ...inputData, [name]: value })
 
@@ -71,7 +71,7 @@ export const useInputsData = (): {
       }
       updateInputData(name, value)
     })
-  }, [inputData, updateInputData, debounceGetDevices, addFilter])
+  }
 
 
   return {

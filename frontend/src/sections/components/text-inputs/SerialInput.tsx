@@ -1,9 +1,8 @@
-import { lazy, Suspense, useEffect, useRef, useState } from "react"
+import { lazy, useEffect, useRef, useState } from "react"
 import { DeviceSerial } from "../../../modules/devices/devices/devices/domain/DeviceSerial"
 import { type Primitives } from "../../../modules/shared/domain/value-object/Primitives"
 import { type OnHandleChange } from "../../../modules/shared/domain/types/types"
 import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
-import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
 
 interface Props {
   value: Primitives<DeviceSerial>
@@ -17,19 +16,18 @@ const ReadOnlyInputBox = lazy(async () => import("../ReadOnlyInputBox").then((m)
 
 export default function SerialInput({ value, onChange, type = "search", isAdd = false }: Props) {
   const [errorMessage, setErrorMessage] = useState("")
-  const [inputValue, setInputValue] = useState(value)
   const [isError, setIsError] = useState(false)
   const isFirstInput = useRef(true)
 
   useEffect(() => {
     if (type !== "form") return
 
-    if (isFirstInput.current || inputValue === "") {
-      isFirstInput.current = inputValue.length <= DeviceSerial.NAME_MIN_LENGTH
+    if (isFirstInput.current || value === "") {
+      isFirstInput.current = value.length <= DeviceSerial.NAME_MIN_LENGTH
       return
     }
 
-    const isValid = DeviceSerial.isValid(inputValue)
+    const isValid = DeviceSerial.isValid(value)
 
     setIsError(!isValid)
     setErrorMessage(isValid ? "" : DeviceSerial.invalidMessage())
@@ -38,9 +36,9 @@ export default function SerialInput({ value, onChange, type = "search", isAdd = 
       setErrorMessage("")
       setIsError(false)
     }
-  }, [type, inputValue])
+  }, [type, value])
   return (
-    <Suspense fallback={<InputSkeletonLoading />}>
+    <>
       {!isAdd && type === "form" ? (
         <ReadOnlyInputBox label='Serial' value={value} required />
       ) : (
@@ -54,15 +52,14 @@ export default function SerialInput({ value, onChange, type = "search", isAdd = 
           handle={(event) => {
             // eslint-disable-next-line prefer-const
             let { name, value } = event.target
-            value = value.trim().toUpperCase()
-            setInputValue(value)
+            value = value.trim().toUpperCase()            
             onChange(name, value, Operator.CONTAINS)
           }}
-          value={inputValue}
+          value={value}
           isError={isError}
           errorMessage={errorMessage}
         />
       )}
-    </Suspense>
+    </>
   )
 }
