@@ -34,13 +34,13 @@ export default function EmployeeEmailInput ({ value, onChange, isForm = false }:
       setErrorMessage('')
       setIsError(false)
     }
-  }, [value])
+  }, [isForm, value])
   return (
-  <FormInput
+    <FormInput
       id='email'
       isRequired={isForm}
-      name="email"
-      type="email"
+      name='email'
+      type='email'
       label='Correo Electronico'
       placeholder='-- Ingrese el Correo Eléctronico del usuario'
       handle={(event) => {
@@ -50,6 +50,6 @@ export default function EmployeeEmailInput ({ value, onChange, isForm = false }:
       value={value}
       isError={isError}
       errorMessage={errorMessage}
-  />
+    />
   )
 }
