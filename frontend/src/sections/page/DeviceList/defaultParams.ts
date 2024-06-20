@@ -37,7 +37,7 @@ export interface InputData {
     computerName: Primitives<ComputerName>
     operatingSystemId: Primitives<OperatingSystemId>
     operatingSystemArqId: Primitives<OperatingSystemArqId>
-    processorId: Primitives<ProcessorId>
+    processor: Primitives<ProcessorId>
     ipAddress: Primitives<IPAddress>
 }
 
@@ -57,7 +57,7 @@ export const defaultInputData = {
     computerName: '',
     operatingSystemId: '',
     operatingSystemArqId: '',
-    processorId: '',
+    processor: '',
     ipAddress: '',
 }
 export function defaultInitialInputValue(defaultCategoryQuery: SearchByCriteriaQuery): {
@@ -65,13 +65,14 @@ export function defaultInitialInputValue(defaultCategoryQuery: SearchByCriteriaQ
     query: SearchByCriteriaQuery
 } {
 
-    const { serial, activo, categoryId, ...resParams } = getValueFromQueryParams(defaultInputData)
+    const { serial, activo, processor, categoryId, ...resParams } = getValueFromQueryParams(defaultInputData)
 
     const resFilters = createFilterFromQueryParams(resParams)
 
     const filters = [
         serial && { field: 'serial', operator: Operator.CONTAINS, value: serial },
         activo && { field: 'activo', operator: Operator.CONTAINS, value: activo },
+        activo && { field: 'processor', operator: Operator.CONTAINS, value: processor },
         ...resFilters,
         ...(categoryId ? [{ field: 'categoryId', operator: Operator.EQUAL, value: categoryId }] : defaultCategoryQuery.filters),
     ].filter(Boolean)

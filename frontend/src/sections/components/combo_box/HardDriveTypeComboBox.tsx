@@ -51,7 +51,7 @@ export default function HardDriveTypeComboBox({ value, hardDriveCapacity, onChan
     if (isDisabled) {
       onChange('hardDriveTypeId', '')
     }
-  }, [isDisabled, onChange])
+  }, [isDisabled])
 
   return (
     <Suspense fallback={<InputSkeletonLoading />}>

@@ -24,12 +24,11 @@ const ReadOnlyInputBox = lazy(async () => import('../../components/ReadOnlyInput
 export default function AddComputerFeatures({ formData, onChange }: Props) {
   const isComputerLaptopAllinOneDevice = Computer.isComputerCategory({ categoryId: formData.categoryId })
 
-  const renderInputs = useMemo(() => {
-    let inputs: number[]
+  const renderInputs = useMemo(() => {    
     if (formData.memoryRam && formData.memoryRam?.length === formData.memoryRamSlotQuantity) {
       return formData.memoryRam
     }
-    inputs = new Array(formData.memoryRamSlotQuantity).fill(0)
+    const inputs = new Array(formData.memoryRamSlotQuantity).fill(0)
     formData.memoryRam = inputs
     return inputs
   }, [formData.memoryRamSlotQuantity])
@@ -69,7 +68,7 @@ export default function AddComputerFeatures({ formData, onChange }: Props) {
             }
           </div>
 
-          {/* <div className='flex gap-4'>
+          <div className='flex gap-4'>
             <Suspense fallback={<InputSkeletonLoading />}>
               <MemoryRamCapacityInput
                 onChange={onChange}
@@ -85,7 +84,7 @@ export default function AddComputerFeatures({ formData, onChange }: Props) {
                 value={formData.memoryRamType}
               />
             </Suspense>
-          </div> */}
+          </div>
 
           <div className='flex gap-4'>
             <Suspense fallback={<InputSkeletonLoading />}>

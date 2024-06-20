@@ -116,7 +116,6 @@ export class SequelizeCriteriaConverter {
             [key]: value
         }));
 
-        console.log(finalOutputData);
         return Object.assign({}, ...finalOutputData)
 
     }

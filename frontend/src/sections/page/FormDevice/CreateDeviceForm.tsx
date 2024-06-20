@@ -61,107 +61,104 @@ export default function CreateDeviceForm() {
 
   return (
     <Main content='max' overflow={false}>
-      <Suspense>
-        <FormContainer
-          key={location.key}
-          title='Dispositivo'
-          handleSubmit={handleSubmit}
-          handleClose={handleClose}
-          isDisabled={formStatus === FormStatus.Loading}
-          lastUpdated={formData.updatedAt}
-          url='/device/add'
-          // searchInput={<DeviceSearchComboBox />}
-        >
-          <div className='flex gap-4'>
-            <Suspense fallback={<InputSkeletonLoading />}>
-              <CategoryComboBox
-                value={formData.categoryId}
-                onChange={handleChange}
-                type='form'
-                isAdd={isAddForm}
-              />
-            </Suspense>
-            <Suspense fallback={<InputSkeletonLoading />}>
-              <StatusComboBox
-                value={formData.statusId}
-                onChange={handleChange}
-                type='form'
-              />
-            </Suspense>
-
-          </div>
-          <div className='flex gap-4'>
-            <Suspense fallback={<InputSkeletonLoading />}>
-              <BrandComboBox
-                value={formData.brandId}
-                onChange={handleChange}
-                categoryId={formData.categoryId}
-                type='form'
-                isAdd={isAddForm}
-              />
-            </Suspense>
-            <Suspense fallback={<InputSkeletonLoading />}>
-              <ModelComboBox
-                value={formData.modelId}
-                onChange={handleChange}
-                categoryId={formData.categoryId}
-                brandId={formData.brandId}
-                type='form'
-                isAdd={isAddForm}
-              />
-            </Suspense>
-
-          </div>
-          <div className='flex gap-4'>
-            <Suspense fallback={<InputSkeletonLoading />}>
-              <SerialInput
-                value={formData.serial}
-                onChange={handleChange}
-                type='form'
-                isAdd={isAddForm}
-              />
-            </Suspense>
-            <Suspense fallback={<InputSkeletonLoading />}>
-              <ActivoInput
-                value={formData.activo}
-                onChange={handleChange}
-                isForm
-              />
-            </Suspense>
-          </div>
+      <FormContainer
+        key={location.key}
+        title='Dispositivo'
+        handleSubmit={handleSubmit}
+        handleClose={handleClose}
+        isDisabled={formStatus === FormStatus.Loading}
+        lastUpdated={formData.updatedAt}
+        url='/device/add'
+      >
+        <div className='flex gap-4'>
           <Suspense fallback={<InputSkeletonLoading />}>
-            <LocationComboBox
+            <CategoryComboBox
+              value={formData.categoryId}
               onChange={handleChange}
-              value={formData.locationId}
-              statusId={formData.statusId}
+              type='form'
+              isAdd={isAddForm}
+            />
+          </Suspense>
+          <Suspense fallback={<InputSkeletonLoading />}>
+            <StatusComboBox
+              value={formData.statusId}
+              onChange={handleChange}
               type='form'
             />
           </Suspense>
-          <div className='flex gap-4'>            
-            <Suspense fallback={<InputSkeletonLoading />}>
-              <EmployeeComboBox
-                onChange={handleChange}
-                name='employeeId'
-                type='form'
-                status={formData.statusId}
-                value={formData.employeeId}
-              />
-            </Suspense>
-            <Suspense fallback={<InputSkeletonLoading />}>
-              <ObservationInput
-                onChange={handleChange}
-                value={formData.observation}
-              />
-            </Suspense>
-          </div>
-          <Suspense>
-            <DeviceFeatures
-              formData={formData}
+
+        </div>
+        <div className='flex gap-4'>
+          <Suspense fallback={<InputSkeletonLoading />}>
+            <BrandComboBox
+              value={formData.brandId}
               onChange={handleChange}
+              categoryId={formData.categoryId}
+              type='form'
+              isAdd={isAddForm}
             />
           </Suspense>
-        </FormContainer>
-      </Suspense>
+          <Suspense fallback={<InputSkeletonLoading />}>
+            <ModelComboBox
+              value={formData.modelId}
+              onChange={handleChange}
+              categoryId={formData.categoryId}
+              brandId={formData.brandId}
+              type='form'
+              isAdd={isAddForm}
+            />
+          </Suspense>
+
+        </div>
+        <div className='flex gap-4'>
+          <Suspense fallback={<InputSkeletonLoading />}>
+            <SerialInput
+              value={formData.serial}
+              onChange={handleChange}
+              type='form'
+              isAdd={isAddForm}
+            />
+          </Suspense>
+          <Suspense fallback={<InputSkeletonLoading />}>
+            <ActivoInput
+              value={formData.activo}
+              onChange={handleChange}
+              isForm
+            />
+          </Suspense>
+        </div>
+        <Suspense fallback={<InputSkeletonLoading />}>
+          <LocationComboBox
+            onChange={handleChange}
+            value={formData.locationId}
+            statusId={formData.statusId}
+            type='form'
+          />
+        </Suspense>
+        <div className='flex gap-4'>            
+          <Suspense fallback={<InputSkeletonLoading />}>
+            <EmployeeComboBox
+              onChange={handleChange}
+              name='employeeId'
+              type='form'
+              status={formData.statusId}
+              value={formData.employeeId}
+            />
+          </Suspense>
+          <Suspense fallback={<InputSkeletonLoading />}>
+            <ObservationInput
+              onChange={handleChange}
+              value={formData.observation}
+            />
+          </Suspense>
+        </div>
+          
+        <DeviceFeatures
+          formData={formData}
+          onChange={handleChange}
+        />
+          
+      </FormContainer>
     </Main>
   )
 }

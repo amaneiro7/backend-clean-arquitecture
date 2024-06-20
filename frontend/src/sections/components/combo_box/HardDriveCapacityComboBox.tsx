@@ -47,26 +47,25 @@ export function HardDriveCapacityComboBox ({ value, status, onChange, type = 'se
       }, [value, status])
 
     return (
-        <Suspense fallback={<InputSkeletonLoading />}>
-            <ComboBox
-                id='hardDriveCapacityId'
-                initialValue={initialValue}
-                label="Capacidad de Disco Duro"
-                name='hardDriveCapacityId'
-                type={type}
-                onChange={(_, newValue: HardDrivePrimitives) => {
+      <Suspense fallback={<InputSkeletonLoading />}>
+        <ComboBox
+          id='hardDriveCapacityId'
+          initialValue={initialValue}
+          label='Capacidad de Disco Duro'
+          name='hardDriveCapacityId'
+          type={type}
+          onChange={(_, newValue: HardDrivePrimitives) => {
                     onChange('hardDriveCapacityId', newValue ? newValue.id : '', Operator.EQUAL)
                     
                 }}
-                options={hardDriveCapacity}
-                isRequired={isRequired}
-                placeholder='-- Filtre por Tamaño de Disco --'
-                isDisabled={false}
-                loading={loading}
-                isError={isError}
-                errorMessage={errorMessage}
-            >
-            </ComboBox>
-        </Suspense>
+          options={hardDriveCapacity}
+          isRequired={isRequired}
+          placeholder='-- Filtre por Tamaño de Disco --'
+          isDisabled={false}
+          loading={loading}
+          isError={isError}
+          errorMessage={errorMessage}
+        />
+      </Suspense>
     )
 }

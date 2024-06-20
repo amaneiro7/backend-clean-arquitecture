@@ -22,7 +22,7 @@ export default function AddHardDriveFeatures({ formData, onChange }: Props) {
             <HealthInput
               onChange={onChange}
               value={formData.health}
-              isRequired={true}
+              isRequired
             />
           </Suspense>
           <div className='flex gap-4'>
@@ -43,8 +43,7 @@ export default function AddHardDriveFeatures({ formData, onChange }: Props) {
               />
             </Suspense>
           </div>
-        </>
-      }
+        </>}
     </>
   )
 }

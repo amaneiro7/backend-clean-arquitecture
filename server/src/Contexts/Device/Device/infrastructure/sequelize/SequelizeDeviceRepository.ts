@@ -16,20 +16,34 @@ import { MFP } from '../../../../Features/MFP/domain/MFP'
 
 export class SequelizeDeviceRepository extends SequelizeCriteriaConverter implements DeviceRepository {
   private readonly models = sequelize.models as unknown as Models
-  async matching(criteria: Criteria): Promise<DevicePrimitives[]> {    
+  async matching(criteria: Criteria): Promise<DevicePrimitives[]> {
     const options = this.convert(criteria)
-    
+
     const deviceOptions = new DeviceAssociation().convertFilterLocation(criteria, options)
     const data = await DeviceModel.findAll(deviceOptions)
     let filtered: DevicesApiResponse[] | undefined
-    ['cityId', 'stateId', 'regionId'].forEach(ele => {
+    ['cityId'].forEach(ele => {
       if (criteria.searchValueInArray(ele)) {
         filtered = (data as unknown as DevicesApiResponse[]).filter(res => {
           return res.location !== null
         })
       }
     });
-    
+    ['stateId'].forEach(ele => {
+      if (criteria.searchValueInArray(ele)) {
+        filtered = (data as unknown as DevicesApiResponse[]).filter(res => {
+          return res.location.site !== null
+        })
+      }
+    });
+    ['stateId', 'regionId'].forEach(ele => {
+      if (criteria.searchValueInArray(ele)) {
+        filtered = (data as unknown as DevicesApiResponse[]).filter(res => {
+          return res.location.site.city !== null
+        })
+      }
+    });
+
     ['processor', 'hardDriveCapacity', 'hardDriveType', 'operatingSystem', 'operatingSystemArq'].forEach(ele => {
       if (criteria.searchValueInArray(ele)) {
         filtered = (data as unknown as DevicesApiResponse[]).filter(res => {
@@ -45,7 +59,7 @@ export class SequelizeDeviceRepository extends SequelizeCriteriaConverter implem
     return await DeviceModel.findByPk(id, {
       include: [
         {
-          association:'model',
+          association: 'model',
           include: [
             { association: 'modelComputer', include: ['memoryRamType'] },
             { association: 'modelLaptop', include: ['memoryRamType'] }

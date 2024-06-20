@@ -17,7 +17,10 @@ import { MemoryRamTypePrimitives } from '../../../../Features/MemoryRam/MemoryRa
 import { type OperatingSystemPrimitives } from '../../../../Features/OperatingSystem/OperatingSystem/domain/OperatingSystem'
 import { type OperatingSystemArqPrimitives } from '../../../../Features/OperatingSystem/OperatingSystemArq/domain/OperatingSystemArq'
 import { type ProcessorPrimitives } from '../../../../Features/Processor/Processor/domain/Processor'
+import { CityPrimitives } from '../../../../Location/City/domain/City'
 import { LocationPrimitives } from '../../../../Location/Location/domain/Location'
+import { SitePrimitives } from '../../../../Location/Site/domain/Site'
+import { TypeOfSitePrimitives } from '../../../../Location/TypeOfSite/domain/TypeOfSite'
 import { InputTypePrimitives } from '../../../../ModelSeries/InputType/domain/InputType'
 import { ComputerModelsPrimitives } from '../../../../ModelSeries/ModelCharacteristics/Computers/Computer/domain/ComputerModels'
 import { LaptopsModelsPrimitives } from '../../../../ModelSeries/ModelCharacteristics/Computers/Laptops/domain/LaptopsModels'
@@ -40,13 +43,22 @@ import { type DeviceSerial } from '../../domain/DeviceSerial'
 import { type DeviceStatus } from '../../domain/DeviceStatus'
 
 export interface DevicesApiResponse extends DevicePrimitives {
-  location: LocationPrimitives
+  location: LocationApiResponse
   createdAt: Date
   updatedAt: Date
   model: ModelApiresponse
   status: StatusPrimitives
   computer: Computer | null
   hardDrive: HardDrive | null
+}
+
+export interface LocationApiResponse extends LocationPrimitives {
+  typeOfSite: TypeOfSitePrimitives
+  site: SiteApiResponse
+}
+
+export interface SiteApiResponse extends SitePrimitives {
+  city: CityPrimitives
 }
 
 export interface Computer extends DeviceComputerPrimitives {
