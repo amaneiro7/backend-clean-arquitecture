@@ -42,7 +42,7 @@ export const TableRef = forwardRef(({ devices}: Props, ref: React.Ref<HTMLTableE
         </TableRow>
         
       </TableHeader>            
-      <TableBody style={style}>
+      <TableBody className='relative' style={style}>
         {children}
 
       </TableBody>
@@ -61,9 +61,6 @@ export const TableRef = forwardRef(({ devices}: Props, ref: React.Ref<HTMLTableE
           innerElementType={TableWrapper}
         >
           {DeviteRowTable}
-          {/* {({ index, style }) => (
-            <DeviteRowTable devices={devices} index={index} style={style} />
-          )} */}
         </FixedSizeList>
       </>
   )
