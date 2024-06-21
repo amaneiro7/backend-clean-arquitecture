@@ -19,20 +19,20 @@ export interface UseDevice {
   searchDevices: (filter: SearchByCriteriaQuery) => void
 }
 
-export const useDevice = (defaultQuery?: SearchByCriteriaQuery): UseDevice => {  
+export const useDevice = (defaultQuery?: SearchByCriteriaQuery): UseDevice => {
   const repository = new ApiDeviceRepository()
   const { query, addFilter, cleanFilters } = useSearchByCriteriaQuery(defaultQuery)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [devices, setDevices] = useState<DevicePrimitives[]>([])
-  
-  async function createDevice (formData: DevicePrimitives) {
+
+  async function createDevice(formData: DevicePrimitives) {
     const data = await new DeviceCreator(repository).create(formData)
     searchDevices(query)
     return data
   }
-  
-  function searchDevices (filter: SearchByCriteriaQuery) {
+
+  function searchDevices(filter: SearchByCriteriaQuery) {
     setLoading(true)
     new DeviceGetterByCriteria(repository)
       .get(filter)
@@ -51,7 +51,6 @@ export const useDevice = (defaultQuery?: SearchByCriteriaQuery): UseDevice => {
   const getDevice = new DeviceGetter(repository)
 
   useEffect(() => {
-    console.log('useDevice', query)
     searchDevices(query)
     return () => {
       setDevices([])

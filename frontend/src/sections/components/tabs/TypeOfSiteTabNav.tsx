@@ -20,8 +20,6 @@ export const TypeOfSiteTabNav = memo(function({ onChange, value }: Props) {
     const typeOfSiteTab: TypeOfSitePrimitives[] = useMemo(() => {
         return [{ id: '0', name: 'Todos' }].concat(typeOfSite)
     }, [typeOfSite])
-
-    console.log('TypeOfSiteTabNav: rendered', value)
     
     return (
       <Suspense fallback={<div className='min-h-7 h-7' />}>
