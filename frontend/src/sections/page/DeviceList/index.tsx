@@ -24,6 +24,12 @@ export default function DeviceList() {
     const handleOpenFIlterSidebar = () => {
         setOpen(!open)
     }
+
+    const handleDownload = async () => {
+      const clearDataset = await import('../../utils/clearComputerDataset')
+        .then(m => m.clearComputerDataset({devices: devices as DevicesApiResponse[]}))
+      await import('../../utils/downloadJsonToExcel').then(m => m.jsonToExcel({clearDataset}))
+    }
   
     const handleAdd = () => {
       navigate("/device/add")
@@ -36,7 +42,7 @@ export default function DeviceList() {
       
         <FilterSection filterCategory={defaultCategoryList} open={open} handleChange={handleChange} handleOpenFIlterSidebar={handleOpenFIlterSidebar} inputData={inputData} />                
       
-        <ButtonSection ref={tableRef} handleAdd={handleAdd} handleFilter={handleOpenFIlterSidebar} handleClear={handleClear} />      
+        <ButtonSection handleExportToExcel={handleDownload} ref={tableRef} handleAdd={handleAdd} handleFilter={handleOpenFIlterSidebar} handleClear={handleClear} />      
           
         <Suspense fallback={<div className='min-h-7 h-7' />}>
           <TypeOfSiteTabNav onChange={handleChange} value={inputData.typeOfSiteId} />

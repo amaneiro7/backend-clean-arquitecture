@@ -5,6 +5,7 @@ interface Props {
   handleClear: () => void
   handleAdd: () => void
   handleFilter: () => void
+  handleExportToExcel: () => void
 }
 
 const Button = lazy(async () => import("../button/Button").then((m) => ({ default: m.Button })))
@@ -12,7 +13,7 @@ const DownloadIcon = lazy(async () => import("../icon/DownloadIcon").then((m) =>
 const FilterIcon = lazy(async () => import("../icon/FilterIcon").then((m) => ({ default: m.FilterIcon })))
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const ButtonSection = forwardRef(({handleFilter, handleAdd, handleClear}: Props, ref: React.MutableRefObject<any>) => {
+export const ButtonSection = forwardRef(({handleFilter, handleAdd, handleClear, handleExportToExcel}: Props, ref: React.MutableRefObject<any>) => {
   return (
     <section className='my-4 min-h-11 flex gap-2'>
       <Suspense fallback={<InputSkeletonLoading />}>
@@ -26,9 +27,7 @@ export const ButtonSection = forwardRef(({handleFilter, handleAdd, handleClear}:
               <DownloadIcon size='w-6' color='white' />
             </Suspense>
           }
-          handle={() => {
-            import("../../utils/DownloadTableExcel").then((m) => m.exportToExcel(ref))
-            }}
+          handle={handleExportToExcel}
         />
       </Suspense>
       <Suspense fallback={<InputSkeletonLoading />}>
