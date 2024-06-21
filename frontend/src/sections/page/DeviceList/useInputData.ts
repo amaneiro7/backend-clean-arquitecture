@@ -1,13 +1,13 @@
 import { useCallback, useState, useTransition } from 'react'
 import debounce from 'just-debounce-it'
+import { type DevicePrimitives } from '../../../modules/devices/devices/devices/domain/Device'
+import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
+import { type FiltersPrimitives } from '../../../modules/shared/domain/criteria/Filter'
 import { useSearchParams } from 'react-router-dom'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
 import { useDevice } from '../../Hooks/device/useDevice'
-import { type DevicePrimitives } from '../../../modules/devices/devices/devices/domain/Device'
-import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
 import { defaultInitialInputValue, type InputData, defaultInputData } from './defaultParams'
 import { defaultCategoryQuery } from './defaultCategoryQuery'
-import { FiltersPrimitives } from '../../../modules/shared/domain/criteria/Filter'
 
 
 export const useInputsData = (): {

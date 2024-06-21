@@ -1,54 +1,14 @@
-import React, { forwardRef, lazy, memo, useMemo } from "react"
+import { lazy, memo } from "react"
 import { type DevicesApiResponse } from "../../../modules/shared/domain/types/responseTypes"
 import { FixedSizeList,  } from "react-window"
-import { DeviteRowTable } from "./DeviceTableRow"
 
-const Table = lazy(async () => import("../../components/TableComponent/Table2"))
-const TableHeader = lazy(async () => import("../../components/TableComponent/TableHeader"))
-const TableRow = lazy(async () => import("../../components/TableComponent/TableRow"))
-const TableBody = lazy(async () => import("../../components/TableComponent/TableBody"))
-const TableHead = lazy(async () => import("../../components/TableComponent/TableHead"))
+const TableWrapper = lazy(async () => import('./TableWrapper').then(m => ({default: m.TablerWraper})))
+const DeviteRowTable = lazy(async () => import('./DeviceTableRow').then(m => ({default: m.DeviteRowTable})))
 
 interface Props {
   devices: DevicesApiResponse[]
 }
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const TableRef = forwardRef(({ devices}: Props, ref: React.Ref<HTMLTableElement>) => {
-    const TableWrapper = useMemo(() =>   
-  ({children, style}: {style: React.CSSProperties,children: React.ReactNode}) => (
-    
-    <Table ref={ref}>            
-      <TableHeader>        
-        <TableRow>
-          <TableHead size='min-w-20' name='Acciones' />
-          <TableHead size='min-w-28' name='Usuario' />
-          <TableHead size='min-w-52' name='Ubicación' />
-          <TableHead size='min-w-24' name='Dirección IP' />
-          <TableHead size='min-w-32' name='Serial' />
-          <TableHead size='min-w-20' name='Estado' />
-          <TableHead size='min-w-28' name='Categoria' />
-          <TableHead size='min-w-32' name='Marca' />
-          <TableHead size='min-w-52' name='Modelo' />
-          <TableHead size='min-w-52' name='Nombre de Equipo' />
-          <TableHead size='min-w-52' name='Procesador' />
-          <TableHead size='min-w-24' name='Memoria Ram' />
-          <TableHead size='min-w-24' name='Modulos' />
-          <TableHead size='min-w-32' name='Tipo' />
-          <TableHead size='min-w-20' name='Disco Duro' />
-          <TableHead size='min-w-20' name='Tipo' />
-          <TableHead size='min-w-32' name='Sistema Operativo' />
-          <TableHead size='min-w-32' name='Arquitectura' />
-          <TableHead size='min-w-52' name='Observaciones' />
-        </TableRow>
-        
-      </TableHeader>            
-      <TableBody className='relative' style={style}>
-        {children}
-
-      </TableBody>
-      
-    </Table>    
-  ), [ref])
+export const TableRef = ({ devices }: Props) => {  
     return (
       <>        
         <FixedSizeList 
@@ -64,6 +24,6 @@ export const TableRef = forwardRef(({ devices}: Props, ref: React.Ref<HTMLTableE
         </FixedSizeList>
       </>
   )
-})
+}
 
 export const DeviceTable = memo(TableRef)

@@ -1,4 +1,4 @@
-import { forwardRef, lazy, Suspense } from "react"
+import { lazy, Suspense } from "react"
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
 
 interface Props {
@@ -12,8 +12,7 @@ const Button = lazy(async () => import("../button/Button").then((m) => ({ defaul
 const DownloadIcon = lazy(async () => import("../icon/DownloadIcon").then((m) => ({ default: m.DownloadIcon })))
 const FilterIcon = lazy(async () => import("../icon/FilterIcon").then((m) => ({ default: m.FilterIcon })))
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const ButtonSection = forwardRef(({handleFilter, handleAdd, handleClear, handleExportToExcel}: Props, ref: React.MutableRefObject<any>) => {
+export const ButtonSection = ({handleFilter, handleAdd, handleClear, handleExportToExcel}: Props) => {
   return (
     <section className='my-4 min-h-11 flex gap-2'>
       <Suspense fallback={<InputSkeletonLoading />}>
@@ -64,4 +63,4 @@ export const ButtonSection = forwardRef(({handleFilter, handleAdd, handleClear, 
       </Suspense>
     </section>
   )
-})
+}

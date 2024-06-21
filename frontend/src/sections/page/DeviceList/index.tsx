@@ -1,10 +1,10 @@
-import { lazy, Suspense, useRef, useState } from "react"
+import { lazy, Suspense, useCallback, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useInputsData } from "./useInputData"
 import { DeviceTable } from "./DeviceTable"
 import { SpinnerSKCircle } from "../../components/Loading/spinner-sk-circle"
 import { defaultCategoryList } from "./defaultCategoryQuery"
-import { DevicesApiResponse } from "../../../modules/shared/domain/types/responseTypes"
+import { type DevicesApiResponse } from "../../../modules/shared/domain/types/responseTypes"
 
 
 const Main = lazy(async () => import('../../components/Main'))
@@ -16,33 +16,32 @@ const TypeOfSiteTabNav = lazy(async () => import("../../components/tabs/TypeOfSi
 
 
 export default function DeviceList() {
-    const tableRef = useRef<HTMLInputElement>(null)  
     const navigate = useNavigate()
     const { inputData, devices, handleChange, handleClear, loading } = useInputsData()
     const [open, setOpen] = useState<boolean>(false)
 
-    const handleOpenFIlterSidebar = () => {
-        setOpen(!open)
-    }
+    const handleOpenFIlterSidebar = useCallback(() => {
+          setOpen(!open)
+      },[open])
 
     const handleDownload = async () => {
-      const clearDataset = await import('../../utils/clearComputerDataset')
-        .then(m => m.clearComputerDataset({devices: devices as DevicesApiResponse[]}))
-      await import('../../utils/downloadJsonToExcel').then(m => m.jsonToExcel({clearDataset}))
-    }
+        const clearDataset = await import('../../utils/clearComputerDataset')
+          .then(m => m.clearComputerDataset({devices: devices as DevicesApiResponse[]}))
+        await import('../../utils/downloadJsonToExcel').then(m => m.jsonToExcel({clearDataset}))
+      }
   
-    const handleAdd = () => {
-      navigate("/device/add")
-    }
+    const handleAdd = useCallback(() => {
+        navigate("/device/add")
+      },[navigate])
     return (
       
       <Main>
       
-        <PageTitle title='Lista de equipos de computación' optionalText={`${devices.length} resultados`} />                
+        <PageTitle title='Lista de equipos de computación' optionalText={loading && `${devices.length} resultados`} />
       
         <FilterSection filterCategory={defaultCategoryList} open={open} handleChange={handleChange} handleOpenFIlterSidebar={handleOpenFIlterSidebar} inputData={inputData} />                
       
-        <ButtonSection handleExportToExcel={handleDownload} ref={tableRef} handleAdd={handleAdd} handleFilter={handleOpenFIlterSidebar} handleClear={handleClear} />      
+        <ButtonSection handleExportToExcel={handleDownload} handleAdd={handleAdd} handleFilter={handleOpenFIlterSidebar} handleClear={handleClear} />      
           
         <Suspense fallback={<div className='min-h-7 h-7' />}>
           <TypeOfSiteTabNav onChange={handleChange} value={inputData.typeOfSiteId} />
@@ -50,7 +49,7 @@ export default function DeviceList() {
           
           
         {loading && <SpinnerSKCircle />}        
-        <DeviceTable devices={devices as DevicesApiResponse[]} ref={tableRef as unknown as React.Ref<HTMLTableElement>} />
+        <DeviceTable devices={devices as DevicesApiResponse[]} />
       </Main>
       
     )

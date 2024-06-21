@@ -2,6 +2,7 @@ import { lazy, Suspense, useCallback, useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useInputsData } from "./useInputData"
 import { SpinnerSKCircle } from "../../components/Loading/spinner-sk-circle"
+import { type DevicesApiResponse } from "../../../modules/shared/domain/types/responseTypes"
 
 const Main = lazy(async () => import("../../components/Main"))
 const PageTitle = lazy(async () => import("../../components/PageTitle"))
@@ -24,30 +25,32 @@ export default function ListFinantialPrinter() {
     navigate("/device/add")
   }, [navigate])
 
-  return (
-    <Suspense>
-      <Main>
-        <Suspense>
-          <PageTitle title='Lista de impresoras Financieras' optionalText={`${devices.length} resultados`} />
-        </Suspense>
+  const handleDownload = async () => {
+    const clearDataset = await import('../../utils/clearComputerDataset')
+      .then(m => m.clearComputerDataset({devices: devices as DevicesApiResponse[]}))
+    await import('../../utils/downloadJsonToExcel').then(m => m.jsonToExcel({clearDataset}))
+  }
 
-        <Suspense>
-          <FilterSection handleChange={handleChange} handleOpenFIlterSidebar={handleOpenFIlterSidebar} open={open} inputData={inputData} />
-        </Suspense>
+  return (    
+    <Main>
+        
+      <PageTitle title='Lista de impresoras Financieras' optionalText={`${devices.length} resultados`} />
+        
 
-        <Suspense>
-          <ButtonSection ref={tableRef} handleAdd={handleAdd} handleFilter={handleOpenFIlterSidebar} handleClear={handleClear} />
-        </Suspense>
+      <FilterSection handleChange={handleChange} handleOpenFIlterSidebar={handleOpenFIlterSidebar} open={open} inputData={inputData} />
+        
+      <ButtonSection handleExportToExcel={handleDownload} handleAdd={handleAdd} handleFilter={handleOpenFIlterSidebar} handleClear={handleClear} />
+        
 
-        <Suspense>
-          <TypeOfSiteTabNav onChange={handleChange} value={inputData.typeOfSiteId} />
-        </Suspense>
+      <Suspense fallback={<div className='min-h-7 h-7' />}>
+        <TypeOfSiteTabNav onChange={handleChange} value={inputData.typeOfSiteId} />
+      </Suspense>
 
-        {loading && <SpinnerSKCircle />}
-        <Suspense>
-          <DeviceTable ref={tableRef} loading={loading} devices={devices} />
-        </Suspense>
-      </Main>
-    </Suspense>
+      {loading && <SpinnerSKCircle />}
+        
+      <DeviceTable ref={tableRef} loading={loading} devices={devices} />
+        
+    </Main>
+    
   )
 }
