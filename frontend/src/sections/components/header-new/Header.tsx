@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState, memo } from "react"
+import { lazy,  useEffect, useState, memo } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { useAppContext } from "../../Context/AppContext"
 import { type UserApiResponse } from "../../../modules/shared/domain/types/responseTypes"
@@ -40,25 +40,23 @@ export const Header = memo(function() {
   return (
     <header className='min-h-24 h-24 md:text-sm md:border-none gap-4 flex items-center justify-between md:top-0 md:sticky z-50 bg-secondary w-full shadow-lg pr-8 py-4 overflow-visible'>
       <div className='pl-8 pr-3 p-2 bg-white rounded-e-full'>
-        <Link aria-label='Logo' aria-describedby='Logo y un enlace al inicio de la página' to='/'>
-          <Suspense>
-            <Logo />
-          </Suspense>
+        <Link aria-label='Logo' aria-describedby='Logo y un enlace al inicio de la página' to='/'>          
+          <Logo />          
         </Link>
       </div>
-      <Suspense>
-        <WelcomeTitle user={user as unknown as UserApiResponse} />
-      </Suspense>
+      
+      <WelcomeTitle user={user as unknown as UserApiResponse} />
+      
       <div className='flex flex-1 items-center justify-end'>
         <Button aria-label='Botón para cerrar sesión del usuario' role='logout' actionType='ACTION' text='Cerrar Sesión' handle={logout} type='button' />
       </div>
       <HamburgerMenu onClick={handleState} isActive={isActive} />
-      <Suspense>
-        <WrapperBox isActive={isActive} />
-      </Suspense>
-      <Suspense>
-        <Nav isActive={isActive} />
-      </Suspense>
+      
+      <WrapperBox isActive={isActive} />
+      
+      
+      <Nav isActive={isActive} />
+      
     </header>
   )
 })
