@@ -5,6 +5,7 @@ interface Props extends React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLB
   actionType: keyof typeof ACTIONTYPE
   isDisabled?: boolean
   icon?: JSX.Element
+  size? : 'full' | 'content'
 }
 
 
@@ -16,11 +17,11 @@ const ACTIONTYPE = {
   CLOSE: 'text-white border-secondary bg-secondary-800 hover:bg-secondary-700 active:bg-secondary-950'
 } as const
 
-export default function Button({ text, icon, className, handle, isDisabled = false, actionType = 'ACTION', ...props }: Props) {
+export default function Button({ text, icon, className, handle, isDisabled = false, size = 'content', actionType = 'ACTION', ...props }: Props) {
   return (
     <button      
       onClick={handle}      
-      className={`flex gap-2 items-center w-max h-min py-2 px-4 font-medium text-base align-middle text-center text-white rounded-md  cursor-pointer border border-solid border-transparent transition-all duration-150 ease-in disabled:opacity-70 disabled:cursor-not-allowed ${className} ${ACTIONTYPE[actionType]}`}
+      className={`flex gap-2 justify-center items-center min-h-11 h-11 py-2 px-4 font-medium text-base text-center text-white rounded-md  cursor-pointer border border-solid border-transparent transition-all duration-150 ease-in disabled:opacity-70 disabled:cursor-not-allowed ${className} ${ACTIONTYPE[actionType]} ${size === 'content' ? 'w-max' : size === 'full' && 'w-full'}`}
       disabled={isDisabled}
       aria-label={`${text}`}
       title={`${text}`}
