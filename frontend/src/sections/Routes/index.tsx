@@ -5,7 +5,7 @@ import ProtectedRoute from './ProtectedRoute.tsx'
 import { privateRouter } from './privateRouter.tsx'
 
 
-const Login = lazy(async () => await import('../page/login/index.tsx'))
+const Login = lazy(async () => await import('../page/login/LoginPage.tsx'))
 const NotFound = lazy(async () => await import('../page/404/index.tsx'))
 const Layout = lazy(async () => await import('../components/Layout.tsx'));
 

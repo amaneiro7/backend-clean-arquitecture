@@ -7,11 +7,13 @@ interface Props {
   isRequired?: boolean
 }
 
-const FormInput = lazy(async () => import('../../components/text-inputs/FormInput').then(m => ({ default: m.FormInput })))
+const Input = lazy(async () => import('../../components/text-inputs/Input').then(m => ({ default: m.Input })))
+
 export function EmailInput({ value, onChange, isRequired = true }: Props) {
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
   const isFirstInput = useRef(true)
+  
   useEffect(() => {
     if (isFirstInput.current || value === '') {
       isFirstInput.current = !value.includes('@')
@@ -27,17 +29,16 @@ export function EmailInput({ value, onChange, isRequired = true }: Props) {
       setErrorMessage('')
       setIsError(false)
     }
-  }, [value])
+  }, [value]) 
+
   return (
-    <FormInput
-      id='email'
+    <Input
       name='email'
       type='email'
       label='Correo Electrónico'
-      placeholder='-- Ingrese el Correo Electrónico --'
-      handle={onChange}
+      onChange={onChange}
       value={value}
-      isError={isError}
+      error={isError}
       errorMessage={errorMessage}
       isRequired={isRequired}
     />

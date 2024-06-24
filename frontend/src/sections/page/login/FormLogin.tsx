@@ -1,47 +1,17 @@
-import { lazy, Suspense, useEffect } from 'react'
-import { Link, NavigateFunction, useLocation } from 'react-router-dom'
-import { useGenericFormData } from '../../Hooks/useGenericFormData'
-import { FormStatus, useGenericForm } from '../../Hooks/useGenericForm'
-import { useAppContext } from '../../Context/AppContext'
+import { lazy, Suspense } from 'react'
+import { Link, NavigateFunction } from 'react-router-dom'
+
 import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoading'
+import { useLogin } from './useLogin'
 
 const Logo = lazy(async () => await import('../../components/Logo'))
-const EmailInput = lazy(async () => await import('./EmailInput').then(m => ({ default: m.EmailInput })))
-const PasswordInput = lazy(async () => await import('./PasswordInput').then(m => ({ default: m.PasswordInput })))
+const Input = lazy(async () => import('../../components/text-inputs/Input').then(m => ({ default: m.Input })))
 const PageTitle = lazy(async () => await import('../../components/PageTitle'))
 const Button = lazy(async () => await import('../../components/button'))
 const Copyright = lazy(async () => await import('../../components/Copyright').then(m => ({ default: m.Copyright })))
 
 export function FormLogin ({ navigate }: { navigate: NavigateFunction }) {
-    const { useAuth: { getLogin } } = useAppContext()
-    const { formData, updateForm, resetForm } = useGenericFormData({
-      email: '',
-      password: ''
-    })
-    const { formStatus, resetFormStatus, submitForm } = useGenericForm({ create: getLogin })
-    const location = useLocation()
-  
-    const from = location.state?.from?.pathname ?? '/'
-    const handleSubmit = async (event: React.FormEvent) => {
-      event.preventDefault()
-      await submitForm(formData)
-    }
-  
-    const handleChange = (ev: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      updateForm({ [ev.target.name]: ev.target.value })
-    }
-   
-  
-    useEffect(() => {
-      if (formStatus === FormStatus.Success) {
-        resetFormStatus()
-        resetForm()
-        navigate(from, { replace: true })
-      }
-      if (formStatus === FormStatus.Error) {
-        resetFormStatus()
-      }
-    }, [formStatus, from, navigate, resetForm, resetFormStatus])
+    const { formData, errors, valid, handleChange, handleSubmit } = useLogin({navigate})
     return (
       <main className='bg-gray-300 dark:bg-gray-900'>      
         <section className='flex flex-col items-center justify-center gap-2 px-6 py-8 mx-auto md:h-screen lg:py-0'>
@@ -53,24 +23,41 @@ export function FormLogin ({ navigate }: { navigate: NavigateFunction }) {
               
             <PageTitle title='Iniciar Sesión' />
               
-            <form className='space-y-4 md:space-y-6' action='submit' onSubmit={handleSubmit}>
-              <Suspense fallback={<InputSkeletonLoading />}>
-                <EmailInput
-                  onChange={handleChange}
-                  value={formData.email}
-                />
-              </Suspense>
-              <Suspense fallback={<InputSkeletonLoading />}>
-                <PasswordInput
-                  onChange={handleChange}
-                  value={formData.password}
-                />
-              </Suspense>
+            <form id='login' action='submit' onSubmit={handleSubmit}>
+              <div className='space-y-6 md:space-y-8 mb-20'>
+                <Suspense fallback={<InputSkeletonLoading />}>                  
+                  <Input
+                    label='Correo Electrónico'
+                    type='email'
+                    name='email'
+                    onChange={handleChange}
+                    value={formData.email}
+                    errorMessage={errors.email}
+                    error={errors.email ? true : false}
+                    valid={valid.email}
+                    isRequired
+                  />
+                </Suspense>
+                <Suspense fallback={<InputSkeletonLoading />}>
+                  <Input
+                    label='Contraseña'
+                    type='password'
+                    name='password'
+                    onChange={handleChange}
+                    value={formData.password}
+                    errorMessage={errors.password}
+                    error={errors.password ? true : false}
+                    valid={valid.password}
+                    isRequired
+                  />
+                </Suspense>
+
+              </div>
                 
-              <Button                                
+              <Button
                 actionType='CLOSE'
                 size='full'
-                text='Entrar'
+                text='Ingresar'
                 type='submit'
               />
                 
