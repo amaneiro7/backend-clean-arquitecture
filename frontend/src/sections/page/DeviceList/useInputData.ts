@@ -63,7 +63,6 @@ export const useInputsData = (): {
         }]
       }
 
-
       if (name === 'serial' || name === 'activo') {
         debounceGetDevices({ filters })
       } else {

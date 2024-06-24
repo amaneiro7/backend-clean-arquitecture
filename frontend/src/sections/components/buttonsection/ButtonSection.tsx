@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react"
+import { lazy, memo, Suspense } from "react"
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
 
 interface Props {
@@ -8,18 +8,17 @@ interface Props {
   handleExportToExcel: () => void
 }
 
-const Button = lazy(async () => import("../button/Button").then((m) => ({ default: m.Button })))
+const Button = lazy(async () => import("../button"))
 const DownloadIcon = lazy(async () => import("../icon/DownloadIcon").then((m) => ({ default: m.DownloadIcon })))
 const FilterIcon = lazy(async () => import("../icon/FilterIcon").then((m) => ({ default: m.FilterIcon })))
 
-export const ButtonSection = ({handleFilter, handleAdd, handleClear, handleExportToExcel}: Props) => {
+export const ButtonSection = memo(({handleFilter, handleAdd, handleClear, handleExportToExcel}: Props) => {
   return (
     <section className='my-4 min-h-11 flex gap-2'>
       <Suspense fallback={<InputSkeletonLoading />}>
         <Button
           type='button'
-          actionType='PRIMARY'
-          color='terciary'
+          actionType='SAVE'
           text='Descargar'
           icon={
             <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>
@@ -33,15 +32,13 @@ export const ButtonSection = ({handleFilter, handleAdd, handleClear, handleExpor
         <Button
           type='button'
           text='Añadir'
-          actionType='PRIMARY'
-          color='primary'
+          actionType='ACTION'
           handle={handleAdd}
         />
       </Suspense>
       <Suspense fallback={<InputSkeletonLoading />}>
         <Button
-          actionType='SECONDARY'
-          color='secondary'          
+          actionType='SECONDARY'          
           type='button'
           text='Limpiar'
           handle={handleClear}
@@ -51,7 +48,6 @@ export const ButtonSection = ({handleFilter, handleAdd, handleClear, handleExpor
         <Button 
           type='button'
           actionType='SECONDARY'
-          color='secondary'
           text='Filtros'
           handle={handleFilter}
           icon={
@@ -63,4 +59,4 @@ export const ButtonSection = ({handleFilter, handleAdd, handleClear, handleExpor
       </Suspense>
     </section>
   )
-}
+})

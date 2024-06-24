@@ -4,11 +4,11 @@ import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
 import { InputData } from './defaultParams'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { type CategoryId } from '../../../modules/devices/category/domain/CategoryId'
+import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
 
-const ComputerNameInput = lazy(() => import('../../components/text-inputs/ComputerNameInput').then(m => ({ default: m.ComputerNameInput})))
-const ProcessorInput = lazy(() => import('../../components/text-inputs/ProcessorInput').then(m => ({ default: m.ProcessorInput})))
-const IpAddressInput = lazy(() => import('../../components/text-inputs/IpAddressInput').then(m => ({ default: m.IpAddressInput})))
+
 const HeaderInput = lazy(() => import('../../components/HeaderInput').then(m => ({ default: m.HeaderInput })))
+const Input = lazy(() => import('../../components/text-inputs/Input').then(m => ({ default: m.Input })))
 const FilterContainer = lazy(() => import('../../components/FilterContainer').then(m => ({ default: m.FilterContainer })))
 const EmployeeComboBox = lazy(() => import('../../components/combo_box/EmployeeComboBox'))
 const CategoryComboBox = lazy(() => import('../../components/combo_box/CategoryComboBox'))
@@ -21,8 +21,6 @@ const StateComboBox = lazy(() => import('../../components/combo_box/location/Sta
 const RegionComboBox = lazy(() => import('../../components/combo_box/location/RegionComboBox').then(m => ({ default: m.RegionComboBox })))
 const OperatingSystemComboBox = lazy(() => import('../../components/combo_box/OperatingSystemComboBox').then(m => ({ default: m.OperatingSystemComboBox })))
 const OperatingSystemArqComboBox = lazy(() => import('../../components/combo_box/OperatingSystemArqComboBox').then(m => ({ default: m.OperatingSystemArqComboBox })))
-const SerialInput = lazy(() => import('../../components/text-inputs/SerialInput'))
-const ActivoInput = lazy(() => import('../../components/text-inputs/ActivoInput'))
 
 interface Props {
     inputData: InputData
@@ -45,9 +43,17 @@ export function FilterSection({ inputData, filterCategory, open, handleChange, h
           onChange={handleChange}
           filter={filterCategory}
         />
-        <SerialInput
+        <Input
           value={inputData.serial}
-          onChange={handleChange}
+          name='serial'
+          type='text'
+          label='Serial'
+          onChange={(event) => {
+            let { value } = event.target
+            const { name } = event.target
+            value = value.trim().toUpperCase()            
+            handleChange(name, value, Operator.CONTAINS)
+          }}
         />
         <LocationComboBox
           value={inputData.locationId}
@@ -60,9 +66,17 @@ export function FilterSection({ inputData, filterCategory, open, handleChange, h
           type='search'
         />
         <FilterContainer open={open} handleClick={handleOpenFIlterSidebar}>
-          <ActivoInput
+          <Input
             value={inputData.activo}
-            onChange={handleChange}
+            name='activo'
+            type='text'
+            label='Activo'
+            onChange={(event) => {
+              let { value } = event.target
+              const { name } = event.target
+              value = value.trim().toUpperCase()            
+              handleChange(name, value, Operator.CONTAINS)
+            }}
           />
           <StatusComboBox
             value={inputData.statusId}
@@ -87,10 +101,17 @@ export function FilterSection({ inputData, filterCategory, open, handleChange, h
             onChange={handleChange}
             type='search'
           />
-          <ComputerNameInput 
-            onChange={handleChange}
-            type='search'
+          <Input
             value={inputData.computerName}
+            name='computerName'
+            type='text'
+            label='Nombre del equipo'
+            onChange={(event) => {
+              let { value } = event.target
+              const { name } = event.target
+              value = value.trim().toUpperCase()            
+              handleChange(name, value, Operator.CONTAINS)
+            }}
           />
           <CityComboBox
             value={inputData.cityId}
@@ -108,11 +129,29 @@ export function FilterSection({ inputData, filterCategory, open, handleChange, h
             onChange={handleChange}
             type='search'
           />
-          <ProcessorInput onChange={handleChange} value={inputData.processor} />
-          <IpAddressInput 
-            onChange={handleChange}
+          <Input
+            value={inputData.processor}
+            name='processor'
+            type='text'
+            label='Procesador'
+            onChange={(event) => {
+              let { value } = event.target
+              const { name } = event.target
+              value = value.trim().toUpperCase()            
+              handleChange(name, value, Operator.CONTAINS)
+            }}
+          />
+          <Input
             value={inputData.ipAddress}
-            type='search'
+            name='ipAddress'
+            type='text'
+            label='Dirección IP'
+            onChange={(event) => {
+              let { value } = event.target
+              const { name } = event.target
+              value = value.trim().toUpperCase()            
+              handleChange(name, value, Operator.CONTAINS)
+            }}
           />
         </FilterContainer>
       </HeaderInput>      

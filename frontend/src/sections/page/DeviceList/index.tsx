@@ -24,15 +24,17 @@ export default function DeviceList() {
           setOpen(!open)
       },[open])
 
-    const handleDownload = async () => {
+    const handleDownload = useCallback(async () => {
         const clearDataset = await import('../../utils/clearComputerDataset')
           .then(m => m.clearComputerDataset({devices: devices as DevicesApiResponse[]}))
         await import('../../utils/downloadJsonToExcel').then(m => m.jsonToExcel({clearDataset}))
-      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, [])
   
     const handleAdd = useCallback(() => {
         navigate("/device/add")
       },[navigate])
+      
     return (
       
       <Main>
