@@ -1,6 +1,7 @@
 .inputBox::after {
   content: attr(data-error);
-  display: block;
+  position: absolute;
+  top: 40px;
   padding-left: 12px;
   font-size: 12px;
   height: fit-content;

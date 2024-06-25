@@ -22,7 +22,7 @@ export default function Button({ text, icon, className, handle, isDisabled = fal
   return (
     <button      
       onClick={handle}      
-      className={`flex items-center gap-2 min-h-11 h-11 py-2 px-4 font-medium text-base rounded-md cursor-pointer border border-solid seco transition-all duration-150 ease-in disabled:opacity-70 disabled:cursor-not-allowed ${className} ${ACTIONTYPE[actionType]} ${size === 'content' ? 'w-max' : size === 'full' && 'w-full'}`}
+      className={`flex justify-center items-center gap-2 min-h-11 h-11 py-2 px-4 font-medium text-base rounded-md cursor-pointer border border-solid seco transition-all duration-150 ease-in disabled:opacity-70 disabled:cursor-not-allowed ${className} ${ACTIONTYPE[actionType]} ${size === 'content' ? 'w-max' : size === 'full' && 'w-full'}`}
       disabled={isDisabled}
       aria-label={`${text}`}
       title={`${text}`}
