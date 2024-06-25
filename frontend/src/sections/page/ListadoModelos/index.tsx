@@ -9,7 +9,6 @@ import { Operator } from "../../../modules/shared/domain/criteria/FilterOperator
 import { useModelByCriteria } from "../../Hooks/model/useModelByCriteria"
 import { InputSkeletonLoading } from "../../components/skeleton/inputSkeletonLoading"
 import { SpinnerSKCircle } from "../../components/Loading/spinner-sk-circle"
-import { MainFallback } from "../../components/skeleton/MainFallback"
 import TableSkeleton from "../../components/skeleton/TableSkeleton"
 import { ModelComputer } from "../../../modules/devices/model/ModelCharacteristics/modelComputer/ModelComputer"
 import { ModelLaptop } from "../../../modules/devices/model/ModelCharacteristics/modelLaptop/ModelLaptop"

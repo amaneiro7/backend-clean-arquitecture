@@ -13,6 +13,6 @@ export function clearDefaultDataset({ devices }: { devices: DevicesApiResponse[]
         Marca: device?.brand?.name,
         Modelo: device?.model?.name,
         Observación: device?.observation,
-        "Fecha de Modificación": device?.updatedAt
+        "Fecha de Modificación": new Date(device?.updatedAt).toLocaleDateString()
     }))
 }

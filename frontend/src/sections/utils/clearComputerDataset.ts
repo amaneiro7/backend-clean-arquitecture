@@ -23,6 +23,6 @@ export function clearComputerDataset({ devices }: { devices: DevicesApiResponse[
         "Sistema Operativo": device?.computer?.operatingSystem?.name ?? '',
         "Arquitectura": device?.computer?.operatingSystemArq?.name ?? '',
         Observación: device?.observation,
-        "Fecha de Modificación": device?.updatedAt
+        "Fecha de Modificación": new Date(device?.updatedAt).toLocaleDateString()
     }))
 }
