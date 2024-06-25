@@ -30,7 +30,7 @@ const renderImg = {
 export function TilesBox({ children, img }: Props & { img: TypeOFImg }) {
   const ImgToRender: RenderImg = renderImg[img] ?? LazyDefaultImg;
   return (
-    <div className='overflow-hidden odd:text-white even:text-black group hover:before:-top-3/4 before:will-change-transform before:origin-center before:-rotate-[25deg] before:transition-all before:duration-500 before:ease-in-out before:absolute before:top-[200%] before:-left-3/4 before:w-[250%] before:block before:h-[220%] before:bg-primary relative w-full min-h72 h-72'>
+    <div className='overflow-hidden odd:text-white even:text-black group hover:before:-top-3/4 before:will-change-transform before:origin-center before:-rotate-[25deg] before:transition-all before:duration-700 before:ease-in-out before:absolute before:top-[200%] before:-left-3/4 before:w-[250%] before:block before:h-[220%] before:bg-primary/85 relative w-full min-h72 h-72'>
       
       <Suspense fallback={<div className='w-full h-full animate-pulse bg-slate-400' />}>
         <ImgToRender className='object-cover object-center w-full h-full max-w-full align-middle b-0' />

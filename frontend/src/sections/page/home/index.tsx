@@ -1,52 +1,38 @@
-import { Suspense, lazy } from "react";
-import { navigation } from "../../Routes/new.routes";
-import { InputSkeletonLoading } from "../../components/skeleton/inputSkeletonLoading";
-import { MainFallback } from "../../components/skeleton/MainFallback";
+import {lazy } from "react"
+import { navigation } from "../../Routes/new.routes"
 
-const TilesContainer = lazy(async () => import("../../components/TilesSection/TilesContainer").then((m) => ({ default: m.TilesContainer })));
-const TilesBox = lazy(async () => import("../../components/TilesSection/TilesBox").then((m) => ({ default: m.TilesBox })));
-const TilesInvisible = lazy(async () => import("../../components/TilesSection/TilesInvisible").then((m) => ({ default: m.TilesInvisible })));
-const TilesVisible = lazy(async () => import("../../components/TilesSection/TilesVisible").then((m) => ({ default: m.TilesVisible })));
-const TilesInvisibleInfo = lazy(async () => import("../../components/TilesSection/TilesInvisibleInfo").then((m) => ({ default: m.TilesInvisibleInfo })));
-const Banner = lazy(async () => await import("../../components/Banner"));
-const TilesSection = lazy(async () => await import("../../components/TilesSection/TilesSection").then((m) => ({ default: m.TilesSection })));
-const Main = lazy(async () => await import("../../components/Main"));
+
+const TilesContainer = lazy(() => import("../../components/TilesSection/TilesContainer").then((m) => ({ default: m.TilesContainer })))
+const TilesBox = lazy(() => import("../../components/TilesSection/TilesBox").then((m) => ({ default: m.TilesBox })))
+const TilesInvisible = lazy(() => import("../../components/TilesSection/TilesInvisible").then((m) => ({ default: m.TilesInvisible })))
+const TilesVisible = lazy(() => import("../../components/TilesSection/TilesVisible").then((m) => ({ default: m.TilesVisible })))
+const TilesInvisibleInfo = lazy(() => import("../../components/TilesSection/TilesInvisibleInfo").then((m) => ({ default: m.TilesInvisibleInfo })))
+const Banner = lazy(() => import("../../components/Banner"))
+const TilesSection = lazy(() => import("../../components/TilesSection/TilesSection").then((m) => ({ default: m.TilesSection })))
+const Main = lazy(() => import("../../components/Main"))
 
 export default function Home() {
-  return (
-    <Suspense fallback={<MainFallback />}>
-      <Main content='max' overflow={false}>
-        <Suspense fallback={<InputSkeletonLoading />}>
-          <Banner />
-        </Suspense>
-
-        <Suspense>
-          <TilesSection>
-            <Suspense>
-              <TilesContainer>
-                {navigation.map((nav, index) => (
-                  <Suspense key={nav.label}>
-                    <TilesBox img={nav.img} key={nav.label}>
-                      <Suspense>
-                        <TilesInvisible>
-                          {nav.navs.map((info) => (
-                            <Suspense key={info.path}>                              
-                              <TilesInvisibleInfo key={info.path} label={info.title} url={info.path} />
-                            </Suspense>
-                          ))}
-                        </TilesInvisible>
-                      </Suspense>
-                      <Suspense>                        
-                        <TilesVisible isPar={index} desc={nav.desc} title={nav.label} />
-                      </Suspense>
-                    </TilesBox>
-                  </Suspense>
+  return (    
+    <Main content='max' overflow={false}>      
+      <Banner />
+      <TilesSection>     
+        <TilesContainer>
+          {navigation.map((nav, index) => (            
+            <TilesBox img={nav.img} key={nav.label}>              
+              <TilesInvisible>
+                {nav.navs.map((info) => (
+                  <TilesInvisibleInfo 
+                    key={info.path} 
+                    label={info.title} 
+                    url={info.path} 
+                  />
                 ))}
-              </TilesContainer>
-            </Suspense>
-          </TilesSection>
-        </Suspense>
-      </Main>
-    </Suspense>
-  );
+              </TilesInvisible>              
+              <TilesVisible isPar={index} desc={nav.desc} title={nav.label} />              
+            </TilesBox>            
+            ))}
+        </TilesContainer>     
+      </TilesSection>      
+    </Main>
+  )
 }
