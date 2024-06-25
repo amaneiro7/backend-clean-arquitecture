@@ -2,7 +2,7 @@ import { lazy, memo } from "react"
 import { FixedSizeList,  } from "react-window"
 import { type DevicesApiResponse } from "../../../modules/shared/domain/types/responseTypes"
 
-const TableWrapper = lazy(async () => import('./TableWrapper').then(m => ({default: m.TablerWraper})))
+const TableWrapper = lazy(async () => import('./TableWrapper').then(m => ({default: m.TableWraper})))
 const DeviteRowTable = lazy(async () => import('./DeviceTableRow').then(m => ({default: m.DeviteRowTable})))
 interface Props {
   devices: DevicesApiResponse[]

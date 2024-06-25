@@ -1,9 +1,11 @@
-import { Icon } from '.'
+import Add from './add.svg?react'
 
-export function AddIcon() {
+interface Props extends React.SVGProps<SVGSVGElement> {}
+
+export function AddIcon({...props}:Props) {
   return (
-    <Icon
-      type='add'
-    />
+    <i>
+      <Add {...props} />
+    </i>
   )
 }

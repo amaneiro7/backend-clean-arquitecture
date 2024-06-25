@@ -1,6 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference types="vite-plugin-svgr/client" />
-import { lazy, PropsWithChildren, Suspense } from 'react'
+import { lazy, PropsWithChildren } from 'react'
 import { Size } from '../../../types/const'
 const AddSVG = lazy(async () => import('./add.svg?react'))
 const EditSVG = lazy(async () => import('./edit.svg?react'))
@@ -28,34 +28,34 @@ export interface IconTypesProps {
 
 const iconTypes = {
   add: ({ size, color }: IconTypesProps) => (
-    <Suspense><AddSVG className={`${size} aspect-square transition-all fill-${color ? color : 'primary'}`} /></Suspense>
+    <AddSVG className={`${size} aspect-square transition-all fill-${color ? color : 'primary'}`} />
   ),
   edit: ({ size }: IconTypesProps) => (
-    <Suspense><EditSVG className={`${size} aspect-square transition-all stroke-white fill-white'}`} /></Suspense>
+    <EditSVG className={`${size} aspect-square transition-all stroke-white fill-white'}`} />
   ),
   delete: ({ size, color }: IconTypesProps) => (
-    <Suspense><DeleteSVG className={`${size} aspect-square transition-all fill-${color ? color : 'quaternary'}`} /></Suspense>
+    <DeleteSVG className={`${size} aspect-square transition-all fill-${color ? color : 'quaternary'}`} />
   ),
   right: ({ size, color }: IconTypesProps) => (
-    <Suspense><RightArrowSVG className={`${size} aspect-square transition-all fill-${color ? color : 'terciary'}`} /></Suspense>
+    <RightArrowSVG className={`${size} aspect-square transition-all fill-${color ? color : 'terciary'}`} />
   ),
   thinRight: ({ size, color }: IconTypesProps) => (
-    <Suspense><ThinRightArrowSVG className={`${size} aspect-square transition-all fill-${color}`} /></Suspense>
+    <ThinRightArrowSVG className={`${size} aspect-square transition-all fill-${color}`} />
   ),
   arrowBadge: ({ size, color }: IconTypesProps) => (
-    <Suspense><ArrowBadge className={`${size} aspect-square transition-all text-${color} fill-${color}`} /></Suspense>
+    <ArrowBadge className={`${size} aspect-square transition-all text-${color} fill-${color}`} />
   ),
   downloadIcon: ({ size, color }: IconTypesProps) => (
-    <Suspense><DownloadIcon className={`${size} aspect-square transition-all text-${color} fill-${color}`} /></Suspense>
+    <DownloadIcon className={`${size} aspect-square transition-all text-${color} fill-${color}`} />
   ),
   uploadIcon: ({ size, color }: IconTypesProps) => (
-    <Suspense><UploadIcon className={`${size} aspect-square transition-all text-${color} fill-${color}`} /></Suspense>
+    <UploadIcon className={`${size} aspect-square transition-all text-${color} fill-${color}`} />
   ),
   upIcon: ({ size, color }: IconTypesProps) => (
-    <Suspense><DownloadIcon className={`${size} aspect-square transition-all text-${color} fill-${color}`} /></Suspense>
+    <DownloadIcon className={`${size} aspect-square transition-all text-${color} fill-${color}`} />
   ),
   filter: ({ size }: IconTypesProps) => (
-    <Suspense><FilterSVG className={`${size} aspect-square transition-all text-inherit fill-inherit`} /></Suspense>
+    <FilterSVG className={`${size} aspect-square transition-all text-inherit fill-inherit`} />
   )
 } as const
 export const Icon = ({ type, isDisabled = false, children, color, size = 'w-6', ...props }: PropsWithChildren<Props>) => {

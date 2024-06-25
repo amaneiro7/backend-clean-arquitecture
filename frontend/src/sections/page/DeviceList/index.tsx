@@ -1,19 +1,16 @@
 import { lazy, Suspense, useCallback, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { type DevicesApiResponse } from "../../../modules/shared/domain/types/responseTypes"
 import { useInputsData } from "./useInputData"
-import { DeviceTable } from "./DeviceTable"
 import { SpinnerSKCircle } from "../../components/Loading/spinner-sk-circle"
 import { defaultCategoryList } from "./defaultCategoryQuery"
-import { type DevicesApiResponse } from "../../../modules/shared/domain/types/responseTypes"
-
 
 const Main = lazy(async () => import('../../components/Main'))
 const PageTitle = lazy(async () => import('../../components/PageTitle'))
 const FilterSection = lazy(async () => import('./FilterSection').then(m => ({ default: m.FilterSection })))
-
 const ButtonSection = lazy(async () => import("../../components/buttonsection/ButtonSection").then((m) => ({ default: m.ButtonSection })))
 const TypeOfSiteTabNav = lazy(async () => import("../../components/tabs/TypeOfSiteTabNav").then((m) => ({ default: m.TypeOfSiteTabNav })))
-
+const DeviceTable = lazy(() => import("./DeviceTable").then(m => ({ default: m.DeviceTable})))
 
 export default function DeviceList() {
     const navigate = useNavigate()
@@ -35,11 +32,9 @@ export default function DeviceList() {
         navigate("/device/add")
       },[navigate])
       
-    return (
-      
-      <Main>
-      
-        <PageTitle title='Lista de equipos de computación' optionalText={loading && `${devices.length} resultados`} />
+    return (      
+      <Main>      
+        <PageTitle title='Lista de equipos de computación' optionalText={!loading && `${devices.length} resultados`} />
       
         <FilterSection filterCategory={defaultCategoryList} open={open} handleChange={handleChange} handleOpenFIlterSidebar={handleOpenFIlterSidebar} inputData={inputData} />                
       
@@ -47,12 +42,10 @@ export default function DeviceList() {
           
         <Suspense fallback={<div className='min-h-7 h-7' />}>
           <TypeOfSiteTabNav onChange={handleChange} value={inputData.typeOfSiteId} />
-        </Suspense>
-          
+        </Suspense>          
           
         {loading && <SpinnerSKCircle />}        
         <DeviceTable devices={devices as DevicesApiResponse[]} />
-      </Main>
-      
+      </Main>      
     )
 }

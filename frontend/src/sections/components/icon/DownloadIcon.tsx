@@ -1,19 +1,11 @@
-import { Color, Icon } from '.'
-import { type Size } from "../../../types/const";
+import Download from './download.svg?react'
 
+interface Props extends React.SVGProps<SVGSVGElement> {}
 
-export function DownloadIcon({ 
-  isDisabled, children, size, color 
-}: React.PropsWithChildren<{ isDisabled?: boolean, color: Color, size?: Size }>) 
-{
+export function DownloadIcon({...props}:Props) {
   return (
-    <Icon
-      isDisabled={isDisabled}
-      type='downloadIcon'
-      size={size}
-      color={color}      
-    >
-      {children}
-    </Icon>
+    <i>
+      <Download {...props} />
+    </i>
   )
 }

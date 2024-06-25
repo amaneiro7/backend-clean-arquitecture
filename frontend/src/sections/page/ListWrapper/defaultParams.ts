@@ -50,14 +50,13 @@ export function defaultInitialInputValue(defaultCategoryQuery: SearchByCriteriaQ
     query: SearchByCriteriaQuery
 } {
 
-    const { serial, activo, processor, categoryId, ...resParams } = getValueFromQueryParams(defaultInputData)
+    const { serial, activo, categoryId, ...resParams } = getValueFromQueryParams(defaultInputData)
 
     const resFilters = createFilterFromQueryParams(resParams)
 
     const filters = [
         serial && { field: 'serial', operator: Operator.CONTAINS, value: serial },
         activo && { field: 'activo', operator: Operator.CONTAINS, value: activo },
-        activo && { field: 'processor', operator: Operator.CONTAINS, value: processor },
         ...resFilters,
         ...(categoryId ? [{ field: 'categoryId', operator: Operator.EQUAL, value: categoryId }] : defaultCategoryQuery.filters),
     ].filter(Boolean)

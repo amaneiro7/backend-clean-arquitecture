@@ -63,7 +63,7 @@ export const useInputsData = (): {
         }]
       }
 
-      if (name === 'serial' || name === 'activo') {
+      if (name === 'serial' || name === 'activo' || name === 'computerName' || name === 'processor' || name === 'ipAddress') {
         debounceGetDevices({ filters })
       } else {
         addFilter({ filters })

@@ -1,8 +1,9 @@
-import { lazy,  useEffect, useState, memo } from "react"
+import { lazy,  useEffect, useState, memo, Suspense } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { useAppContext } from "../../Context/AppContext"
 import { type UserApiResponse } from "../../../modules/shared/domain/types/responseTypes"
 
+const LogoutIcon = lazy(() => import("../icon/LogoutIcon").then(m => ({ default: m.LogoutIcon })))
 const Nav = lazy(async () => import("./Nav").then((m) => ({ default: m.Nav })))
 const WelcomeTitle = lazy(async () => import("./WelcomeTitle").then((m) => ({ default: m.WelcomeTitle })))
 const HamburgerMenu = lazy(async () => import("../button/HamburgerMenu/HamburgerMenu").then((m) => ({ default: m.HamburgerMenu })))
@@ -48,7 +49,19 @@ export const Header = memo(function() {
       <WelcomeTitle user={user as unknown as UserApiResponse} />
       
       <div className='flex flex-1 items-center justify-end'>
-        <Button aria-label='Botón para cerrar sesión del usuario' role='logout' actionType='ACTION' text='Cerrar Sesión' handle={logout} type='button' />
+        <Button
+          aria-label='Botón para cerrar sesión del usuario' 
+          role='logout' 
+          actionType='ACTION' 
+          text='Salir' 
+          handle={logout} 
+          type='button'
+          icon={
+            <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>
+              <LogoutIcon width={20} className='aspect-square' />
+            </Suspense>
+                    }
+        />
       </div>
       <HamburgerMenu onClick={handleState} isActive={isActive} />
       

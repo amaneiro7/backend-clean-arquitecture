@@ -1,16 +1,12 @@
-import { lazy, Suspense } from "react";
-import { type Size } from "../../../types/const";
-import { type Color } from ".";
-const Icon = lazy(async () => import(".").then((m) => ({ default: m.Icon })));
+import Filter from './filter.svg?react'
 
-export function FilterIcon({color, size}: {color?: Color, size?: Size}) {
+interface Props extends React.SVGProps<SVGSVGElement> {}
+
+export function FilterIcon({...props}:Props) {
   return (
-    <Suspense>      
-      <Icon
-        size={size}
-        color={color}
-        type='filter'
-      />
-    </Suspense>
+    <i>
+      <Filter {...props} />
+    </i>
   )
 }
+

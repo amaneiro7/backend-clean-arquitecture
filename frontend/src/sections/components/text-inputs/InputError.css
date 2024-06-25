@@ -81,6 +81,7 @@
   pointer-events: none;
 }
 
+.inputBox:focus-within label,
 .inputBox label.transform {
   max-width: calc(133% - 32px);
   -webkit-transform: translate(14px, -9px) scale(0.75);
@@ -152,7 +153,7 @@
   transition: max-width 50ms cubic-bezier(0, 0, 0.2, 1) 0ms;
   white-space: nowrap;
 }
-
+.inputBox:focus-within fieldset legend,
 .inputBox fieldset legend.transform {
   max-width: 100%;
   -webkit-transition: max-width 100ms cubic-bezier(0, 0, 0.2, 1) 50ms;

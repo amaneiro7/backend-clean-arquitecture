@@ -1,16 +1,14 @@
 import { useCallback, useState, useTransition } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import debounce from 'just-debounce-it'
 import { type DevicePrimitives } from '../../../modules/devices/devices/devices/domain/Device'
 import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
 import { type FiltersPrimitives } from '../../../modules/shared/domain/criteria/Filter'
-import { useSearchParams } from 'react-router-dom'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
 import { useDevice } from '../../Hooks/device/useDevice'
-import { defaultInitialInputValue, defaultInputData, InputData } from './defaultParams'
-import { defaultCategoryQuery } from './defaultCategoryQuery'
+import { defaultInitialInputValue, type InputData, defaultInputData } from './defaultParams'
 
-
-export const useInputsData = (): {
+export const useInputsData = (defaultCategoryQuery: SearchByCriteriaQuery): {
   inputData: InputData
   loading: boolean
   devices: DevicePrimitives[]
@@ -23,7 +21,6 @@ export const useInputsData = (): {
   const { "1": setSearchParams } = useSearchParams()
   const { devices, loading, addFilter, cleanFilters } = useDevice(query)
   const [isPending, startTransition] = useTransition()
-
 
   const updateInputData = useCallback((name: string, value: string) => {
     setSearchParams(prev => {
@@ -63,7 +60,6 @@ export const useInputsData = (): {
           value
         }]
       }
-
 
       if (name === 'serial' || name === 'activo') {
         debounceGetDevices({ filters })

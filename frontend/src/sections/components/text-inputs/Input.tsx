@@ -1,4 +1,3 @@
-import {useState } from 'react'
 import './InputError.css'
 
 interface InputProps<T extends string | number | readonly string[]> extends React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
@@ -10,31 +9,32 @@ interface InputProps<T extends string | number | readonly string[]> extends Reac
   errorMessage?: string
 }
 export function Input<T extends string | number | readonly string[]>({ error, valid, value, errorMessage, label, isRequired = false, ...props }: InputProps<T>) {
-    const [isFocused, setIsFocused] = useState(false)
     return (
       <div
         className='inputBox group after:text-error'
         data-error={errorMessage} 
       >
         <label 
-          className={`${(isFocused || value) && 'transform'} ${error && '!text-error'} ${valid && '!text-success'} group-focus-within:text-focus`}
+          className={`
+            ${value && 'transform'} 
+            ${error && '!text-error'} 
+            ${valid && '!text-success'} 
+            group-focus-within:text-focus`}
         >
-          {label}
+          {`${label} ${isRequired ? '*' : ''}`}
         </label>
         <div className='inputArea'>
           <input 
             {...props} 
             value={value}
-            required={isRequired}            
-            onFocus={() => { setIsFocused(true) }}
-            onBlur={() => { setIsFocused(false) }}
+            required={isRequired}
           />
           <fieldset
             aria-hidden
             className={`${error && '!border-2 !border-error'} ${valid && '!border-2 !border-success'} group-focus-within:border-focus group-focus-within:border-2`}
           >
-            <legend className={(isFocused || value) && 'transform'}>
-              <span>{label}</span>
+            <legend className={value && 'transform'}>
+              <span>{`${label} ${isRequired ? '*' : ''}`}</span>
             </legend>
           </fieldset>
         </div>
