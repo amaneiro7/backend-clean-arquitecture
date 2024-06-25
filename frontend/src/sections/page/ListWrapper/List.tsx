@@ -1,4 +1,4 @@
-import { lazy, Suspense, useCallback, useState } from "react"
+import { lazy, Suspense, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { SpinnerSKCircle } from "../../components/Loading/spinner-sk-circle"
 import { type DevicePrimitives } from "../../../modules/devices/devices/devices/domain/Device"
@@ -26,20 +26,20 @@ interface Props {
 export function ListPage({ devices, defaultCategory, title, handleChange, handleClear, inputData, loading }: Props) {
     const navigate = useNavigate()
     const [open, setOpen] = useState<boolean>(false)
-    const handleOpenFIlterSidebar = useCallback(() => {
-        setOpen(!open)
-    }, [open])
 
-    const handleDownload = useCallback(async () => {
-        const clearDataset = await import('../../utils/clearComputerDataset')
-            .then(m => m.clearComputerDataset({ devices: devices as DevicesApiResponse[] }))
-        await import('../../utils/downloadJsonToExcel').then(m => m.jsonToExcel({ clearDataset }))
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    const handleOpenFIlterSidebar = () => {
+      setOpen(!open)
+    }
 
-    const handleAdd = useCallback(() => {
-        navigate("/device/add")
-    }, [navigate])
+    const handleDownload = async () => {
+      const clearDataset = await import('../../utils/clearDefaultDataset')
+        .then(m => m.clearDefaultDataset({devices: devices as DevicesApiResponse[]}))
+      await import('../../utils/downloadJsonToExcel').then(m => m.jsonToExcel({clearDataset}))      
+    }
+
+    const handleAdd = () => {
+      navigate("/device/add")
+    }
 
     return (
       <Main>

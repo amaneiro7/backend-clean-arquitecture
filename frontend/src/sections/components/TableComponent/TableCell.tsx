@@ -8,7 +8,7 @@ interface Props<T> extends React.DetailedHTMLProps<React.TdHTMLAttributes<HTMLTa
   size?: Size
 }
 
-type Size = 'w-20' | 'w-24' | 'w-28' | 'w-32' | 'w-36' | 'w-40' | 'w-44' | 'w-48' | 'w-52'
+type Size = 'w-20' | 'w-24' | 'w-28' | 'w-32' | 'w-36' | 'w-40' | 'w-44' | 'w-48' | 'w-52' | 'w-56' | 'w-60'
 
 export default function TableCell<T>({ value, url, state, size = 'w-20', ...props }: Props<T>) {
   const className = `px-2 ${size} text-left align-middle whitespace-nowrap text-ellipsis overflow-hidden break-words cursor-default`

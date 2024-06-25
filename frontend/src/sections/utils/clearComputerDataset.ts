@@ -1,31 +1,7 @@
 import { type DevicesApiResponse } from "../../modules/shared/domain/types/responseTypes";
-
-export type ClearDataset = {
-    id: string
-    Usuario: string
-    "Ubicación": string
-    "Dirección IP": string
-    Serial: string
-    Activo: string
-    Estatus: string
-    Categoria: string
-    Marca: string
-    Modelo: string
-    "Nombre de Equipo": string
-    Procesador: string
-    "Memoria Ram Total": number
-    "Slot de Memoria Ram": string
-    "Tipo de Memoria Ram": string
-    "Disco Duro Total": string
-    "Tipo de Disco Duro": string
-    "Sistema Operativo": string
-    "Arquitectura": string
-    Observación: string
-    "Fecha de Modificación": string
-}
+import { type ClearDataset } from "../../types/types";
 
 export function clearComputerDataset({ devices }: { devices: DevicesApiResponse[] }): ClearDataset[] {
-    console.log('Entrada', devices)
     return devices.map(device => ({
         id: device?.id,
         Usuario: device?.employee?.userName ?? 'Sin Asignar',

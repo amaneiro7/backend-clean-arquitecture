@@ -1,4 +1,4 @@
-import { lazy, Suspense, useCallback, useState } from "react"
+import { lazy, Suspense, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { type DevicesApiResponse } from "../../../modules/shared/domain/types/responseTypes"
 import { useInputsData } from "./useInputData"
@@ -17,20 +17,19 @@ export default function DeviceList() {
     const { inputData, devices, handleChange, handleClear, loading } = useInputsData()
     const [open, setOpen] = useState<boolean>(false)
 
-    const handleOpenFIlterSidebar = useCallback(() => {
+    const handleOpenFIlterSidebar = () => {
           setOpen(!open)
-      },[open])
+      }
 
-    const handleDownload = useCallback(async () => {
+    const handleDownload = async () => {
         const clearDataset = await import('../../utils/clearComputerDataset')
           .then(m => m.clearComputerDataset({devices: devices as DevicesApiResponse[]}))
-        await import('../../utils/downloadJsonToExcel').then(m => m.jsonToExcel({clearDataset}))
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, [])
+        await import('../../utils/downloadJsonToExcel').then(m => m.jsonToExcel({clearDataset}))      
+      }
   
-    const handleAdd = useCallback(() => {
+    const handleAdd = () => {
         navigate("/device/add")
-      },[navigate])
+      }
       
     return (      
       <Main>      

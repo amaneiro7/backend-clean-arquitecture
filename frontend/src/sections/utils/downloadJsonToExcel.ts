@@ -1,5 +1,5 @@
 import { utils, writeFile } from 'xlsx'
-import { ClearDataset } from './clearComputerDataset'
+import { type ClearDataset } from '../../types/types'
 
 export function jsonToExcel({ clearDataset }: { clearDataset: ClearDataset[] }) {
     const worksheet = utils.json_to_sheet(clearDataset)

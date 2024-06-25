@@ -144,7 +144,31 @@ interface InputFormTypeReturnSelect {
   name: string
   label: string
   placeholder: string
-  options: Brand[] | Category [] | MappedStatus[] | MappedModel[]
+  options: Brand[] | Category[] | MappedStatus[] | MappedModel[]
   value: string
   onChange: OnChangeInputs
+}
+
+export type ClearDataset = {
+  id: string
+  Usuario: string
+  "Ubicación": string
+  "Dirección IP"?: string
+  Serial: string
+  Activo: string
+  Estatus: string
+  Categoria: string
+  Marca: string
+  Modelo: string
+  "Nombre de Equipo"?: string
+  Procesador?: string
+  "Memoria Ram Total"?: number
+  "Slot de Memoria Ram"?: string
+  "Tipo de Memoria Ram"?: string
+  "Disco Duro Total"?: string
+  "Tipo de Disco Duro"?: string
+  "Sistema Operativo"?: string
+  "Arquitectura"?: string
+  Observación: string
+  "Fecha de Modificación": string
 }
