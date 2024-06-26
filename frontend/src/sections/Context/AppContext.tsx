@@ -17,7 +17,8 @@ export const AppContextProvider = ({ children, repository }: PropsWithChildren<{
     <AppContext.Provider value={{
       repository,
       useAuth
-    }}>
+    }}
+    >
       {children}
     </AppContext.Provider>
   )

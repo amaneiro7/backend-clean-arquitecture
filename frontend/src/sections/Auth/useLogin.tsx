@@ -37,7 +37,7 @@ export const useLogin = (repository: Repository): UseAuth => {
   useLayoutEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     checkCookieAndUser()
-  }, [location])
+  }, [location.pathname])
 
   async function checkCookieAndUser() {
     return await new CheckToken(repository).run().then(async () => {
