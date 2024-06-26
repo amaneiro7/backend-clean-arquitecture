@@ -146,9 +146,9 @@ export class SequelizeDeviceRepository extends SequelizeCriteriaConverter implem
   private async creareDeviceHardDriveIfCategoryMatches(id: Primitives<DeviceId>, payload: DevicePrimitives, transaction: Transaction): Promise<void> {
     const hardDrive = await this.models.DeviceHardDrive.findByPk(id) ?? null
     if (hardDrive === null) {
-      await this.models.DeviceComputer.create({ deviceId: id, ...payload }, { transaction })
+      await this.models.DeviceHardDrive.create({ deviceId: id, ...payload }, { transaction })
     } else {
-      await this.models.DeviceComputer.update({ ...payload }, { where: { id }, transaction })
+      await this.models.DeviceHardDrive.update({ ...payload }, { where: { id }, transaction })
     }
   }
   private async creareDeviceMFPIfCategoryMatches(id: Primitives<DeviceId>, payload: DevicePrimitives, transaction: Transaction): Promise<void> {

@@ -15,7 +15,7 @@ import { DeviceStatus } from '../domain/DeviceStatus'
 export interface DeviceParams extends Omit<DevicePrimitives, 'id'> { }
 
 export class DeviceCreator {
-  constructor(private readonly  repository: Repository) { }
+  constructor(private readonly repository: Repository) { }
 
   async run(params: DeviceParams): Promise<void> {
     const { categoryId } = params
@@ -25,9 +25,9 @@ export class DeviceCreator {
       const computerParams = params as DeviceComputerPrimitives
       device = await new ComputerValidation(this.repository).run(computerParams)
     }
-    // Si es Disco DUro
+    // Si es Disco Duro
     else if (DeviceHardDrive.isHardDriveCategory({ categoryId })) {
-      const hddParams= params as DeviceHardDrivePrimitives
+      const hddParams = params as DeviceHardDrivePrimitives
       device = await new HardDriveValidation(this.repository).run(hddParams)
     }
     // Si es Impresora Multifuncional
@@ -45,7 +45,6 @@ export class DeviceCreator {
     await DeviceModelSeries.ensureModelSeriesExit({ repository: this.repository.modelSeries, modelSeries: params.modelId, brand: params.brandId, category: categoryId })
     await DeviceEmployee.ensureEmployeeExit({ repository: this.repository.employee, employee: params.employeeId })
     await DeviceLocation.ensureLocationExit({ repository: this.repository.location, location: params.locationId, status: params.statusId })
-
     await this.repository.device.save(device.toPrimitives())
   }
 }

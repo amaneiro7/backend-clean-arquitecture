@@ -16,13 +16,13 @@ export const DeviteRowTable = memo(({data: devices, style, index}: Props) => {
     return (
       <TableRow style={style} key={index}>
         <TableCellEditDeleteIcon stateId={devices[index].id} state={devices[index]} url={`/device/edit/${devices[index].id}`} />
-        <TableCell size='w-28' value={devices[index].employee?.userName} url={`/employee/edit/${devices[index].employeeId}`} />
-        <TableCell size='w-60' value={devices[index].location?.name} />
-        <TableCell size='w-36' value={devices[index].serial ?? "Sin Serial"} state={devices[index]} url={`/devices[index]/edit/${devices[index].id}`} />
-        <TableCell size='w-28' value={devices[index].status?.name} />
-        <TableCell size='w-36' value={devices[index].category?.name} />
-        <TableCell size='w-36' value={devices[index].brand?.name} />
-        <TableCell size='w-48' value={devices[index].model?.name} />
-        <TableCell size='w-60' value={devices[index].observation} />
+        <TableCell style={{ width: '112px' }} size='w-28' value={devices[index].employee?.userName} url={`/employee/edit/${devices[index].employeeId}`} />
+        <TableCell style={{ width: '240px' }} size='w-60' value={devices[index].location?.name} />
+        <TableCell style={{ width: '144px' }} size='w-36' value={devices[index].serial ?? "Sin Serial"} state={devices[index]} url={`/devices[index]/edit/${devices[index].id}`} />
+        <TableCell style={{ width: '112px' }} size='w-28' value={devices[index].status?.name} />
+        <TableCell style={{ width: '144px' }} size='w-36' value={devices[index].category?.name} />
+        <TableCell style={{ width: '144px' }} size='w-36' value={devices[index].brand?.name} />
+        <TableCell style={{ width: '192px' }} size='w-48' value={devices[index].model?.name} />
+        <TableCell style={{ width: '100%' }} value={devices[index].observation} />
       </TableRow>
 )}, areEqual)

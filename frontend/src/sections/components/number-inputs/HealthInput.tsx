@@ -34,7 +34,7 @@ export function HealthInput({ value, onChange, isForm = false, isRequired }: Pro
       setErrorMessage('')
       setIsError(false)
     }
-  }, [value])
+  }, [isForm, value])
   return (
     <Suspense fallback={<InputSkeletonLoading />}>
       <NumberInput
@@ -42,7 +42,7 @@ export function HealthInput({ value, onChange, isForm = false, isRequired }: Pro
         label='Health'
         onChange={(event) => {
           const { name, value } = event.target
-          onChange(name, value)
+          onChange(name, Number(value))
         }}
         placeholder='--- Ingrese el estado de salud del Disco ---'
         value={value}

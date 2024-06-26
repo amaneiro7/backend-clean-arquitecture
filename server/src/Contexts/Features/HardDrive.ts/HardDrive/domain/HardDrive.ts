@@ -14,6 +14,7 @@ import { LocationId } from '../../../../Location/Location/domain/LocationId'
 import { DeviceObservation } from '../../../../Device/Device/domain/DeviceObservation'
 import { HDDCapacity } from './HDDCapacity'
 import { HDDType } from './HDDType'
+import { InvalidArgumentError } from '../../../../Shared/domain/value-object/InvalidArgumentError'
 
 export interface DeviceHardDrivePrimitives extends DevicePrimitives {
   health: Primitives<HardDriveHealth>
@@ -22,7 +23,7 @@ export interface DeviceHardDrivePrimitives extends DevicePrimitives {
 }
 
 export class DeviceHardDrive extends Device {
-  constructor (
+  constructor(
     id: DeviceId,
     serial: DeviceSerial,
     activo: DeviceActivo,
@@ -38,9 +39,13 @@ export class DeviceHardDrive extends Device {
     private hardDriveTypeId: HDDType
   ) {
     super(id, serial, activo, statusId, categoryId, brandId, modelId, employeeId, locationId, observation)
+
+    if (!DeviceHardDrive.isHardDriveCategory({ categoryId: categoryId.value })) {
+      throw new InvalidArgumentError('No pertenece a la categoria de Disco duro')
+    }
   }
 
-  static create (params: Omit<DeviceHardDrivePrimitives, 'id'>): DeviceHardDrive {
+  static create(params: Omit<DeviceHardDrivePrimitives, 'id'>): DeviceHardDrive {
     const id = DeviceId.random().value
     return new DeviceHardDrive(
       new DeviceId(id),
@@ -59,24 +64,24 @@ export class DeviceHardDrive extends Device {
     )
   }
 
-  static isHardDriveCategory ({ categoryId }: { categoryId: Primitives<CategoryId> }): boolean {
+  static isHardDriveCategory({ categoryId }: { categoryId: Primitives<CategoryId> }): boolean {
     const AcceptedHardDriveCategories: CategoryValues[] = ['Discos Duros']
     return AcceptedHardDriveCategories.includes(CategoryDefaultData[categoryId])
   }
 
-  updateHealth (newHealth: Primitives<HardDriveHealth>): void {
+  updateHealth(newHealth: Primitives<HardDriveHealth>): void {
     this.health = new HardDriveHealth(newHealth)
   }
 
-  updateHardDriveCapacity (newHardDriveCapacityId: Primitives<HDDCapacity>): void {
+  updateHardDriveCapacity(newHardDriveCapacityId: Primitives<HDDCapacity>): void {
     this.hardDriveCapacityId = new HDDCapacity(newHardDriveCapacityId)
   }
 
-  updateHardDriveType (newHardDriveType: Primitives<HDDType>): void {
+  updateHardDriveType(newHardDriveType: Primitives<HDDType>): void {
     this.hardDriveTypeId = new HDDType(newHardDriveType)
   }
 
-  static fromPrimitives (primitives: DeviceHardDrivePrimitives): DeviceHardDrive {
+  static fromPrimitives(primitives: DeviceHardDrivePrimitives): DeviceHardDrive {
     return new DeviceHardDrive(
       new DeviceId(primitives.id),
       new DeviceSerial(primitives.serial),
@@ -94,7 +99,7 @@ export class DeviceHardDrive extends Device {
     )
   }
 
-  toPrimitive (): DeviceHardDrivePrimitives {
+  toPrimitives(): DeviceHardDrivePrimitives {
     return {
       id: this.idValue,
       activo: this.activoValue,
@@ -112,15 +117,15 @@ export class DeviceHardDrive extends Device {
     }
   }
 
-  get healthValue (): Primitives<HardDriveHealth> {
+  get healthValue(): Primitives<HardDriveHealth> {
     return this.health.value
   }
 
-  get hardDriveCapacityValue (): Primitives<HDDCapacity> {
+  get hardDriveCapacityValue(): Primitives<HDDCapacity> {
     return this.hardDriveCapacityId.value
   }
 
-  get hardDriveTypeValue (): Primitives<HDDType> {
+  get hardDriveTypeValue(): Primitives<HDDType> {
     return this.hardDriveTypeId.value
   }
 }
