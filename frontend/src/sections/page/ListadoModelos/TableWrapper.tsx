@@ -25,10 +25,10 @@ export const TableWraper = memo(({
   <Table>            
     <TableHeader>        
       <TableRow>
-        <TableHead style={{ width: '144px' }} size='min-w-36' name='Acciones' />
+        <TableHead style={{ width: '80px' }} size='min-w-20' name='Acciones' />
         <TableHead style={{ width: '144px' }} size='min-w-36' name='Categoria' />
-        <TableHead style={{ width: '192px' }} size='min-w-48' name='Marca' />
-        <TableHead style={{ width: '80px' }} size='min-w-20' name='Modelo' />
+        <TableHead style={{ width: '144px' }} size='min-w-36' name='Marca' />
+        <TableHead style={{ width: '144px' }} size='min-w-36' name='Modelo' />
         {!(isMonitor || isPrinter || isKeyboard) && <TableHead style={{ width: '80px' }} size='min-w-20' name='Tipo de Memoria' />}
         {!(isMonitor || isPrinter || isKeyboard) && <TableHead style={{ width: '80px' }} size='min-w-20' name='Cantidad de Ranuras' />}
         {!(isPrinter || isKeyboard) && <TableHead style={{ width: '80px' }} size='min-w-20' name='Puerto VGA' />}
@@ -41,6 +41,7 @@ export const TableWraper = memo(({
         {!(isComputer || isLaptop || isMonitor || isKeyboard) && <TableHead style={{ width: '80px' }} size='min-w-20' name='Modelo de cartucho' />}
         {!(isComputer || isLaptop || isMonitor || isPrinter) && <TableHead style={{ width: '80px' }} size='min-w-20' name='Tipo de entrada' />}
         {!(isComputer || isLaptop || isMonitor || isPrinter) && <TableHead style={{ width: '80px' }} size='min-w-20' name='Lector de huella' />}
+        <TableHead style={{ width: '100%' }} name='' />
       </TableRow>
           
     </TableHeader>            

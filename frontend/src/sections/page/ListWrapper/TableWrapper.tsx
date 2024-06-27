@@ -18,7 +18,7 @@ export const TableWraper = memo(({children, style}: {style: React.CSSProperties,
         <TableHead style={{ width: '144px' }} size='min-w-36' name='Categoria' />
         <TableHead style={{ width: '144px' }} size='min-w-36' name='Marca' />
         <TableHead style={{ width: '192px' }} size='min-w-48' name='Modelo' />                
-        <TableHead style={{minWidth: '100%'}} name='Observaciones' />
+        <TableHead style={{ minWidth: '100%' }} name='Observaciones' />
       </TableRow>
           
     </TableHeader>            

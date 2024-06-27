@@ -31,7 +31,7 @@ export const ModelTableRow = memo(({
         <TableCellEditDeleteIcon stateId={models[index].id} state={models[index]} url={`/model/edit/${models[index].id}`} />
         <TableCell style={{ width: '144px' }} size='w-36' value={models[index].category?.name} />
         <TableCell style={{ width: '144px' }} size='w-36' value={models[index].brand?.name} />
-        <TableCell style={{ width: '192px' }} size='w-48' value={models[index].name} />
+        <TableCell style={{ width: '144px' }} size='w-36' value={models[index].name} />
       
         {!(isMonitor || isPrinter || isKeyboard) && <TableCell style={{ width: '80px' }} size='w-20' value={models[index]?.modelComputer?.memoryRamType?.name || models[index]?.modelLaptop?.memoryRamType?.name} />}
         {!(isMonitor || isPrinter || isKeyboard) && <TableCell style={{ width: '80px' }} size='w-20' value={models[index]?.modelComputer?.memoryRamSlotQuantity || models[index]?.modelLaptop?.memoryRamSlotQuantity} />}
@@ -45,6 +45,6 @@ export const ModelTableRow = memo(({
         {!(isComputer || isLaptop || isMonitor || isKeyboard) && <TableCell style={{ width: '80px' }} size='w-20' value={models[index]?.modelPrinter?.cartridgeModel} />}
         {!(isComputer || isLaptop || isMonitor || isPrinter) && <TableCell style={{ width: '80px' }} size='w-20' value={models[index]?.modelKeyboard?.inputType?.name} />}
         {!(isComputer || isLaptop || isMonitor || isPrinter) && <TableCell style={{ width: '80px' }} size='w-20' value={models[index]?.modelKeyboard ? (models[index]?.modelKeyboard?.hasFingerPrintReader ? 'Si' : 'No') : ''} />}
-        
+        <TableCell style={{ width: '100%' }} value='' />
       </TableRow>
 )}, areEqual)
