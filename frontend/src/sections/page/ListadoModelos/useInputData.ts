@@ -1,9 +1,9 @@
 import { useSearchParams } from 'react-router-dom'
 import { ModelPrimitives } from '../../../modules/devices/model/model/domain/Model'
+import { useModelByCriteria } from '../../Hooks/model/useModelByCriteria'
+import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
 
 export interface InputData extends Partial<ModelPrimitives> { }
-
-type UpdateInputData = ({ name, value }: inputDataType) => void
 interface inputDataType {
   name: string
   value: string
@@ -11,27 +11,42 @@ interface inputDataType {
 
 export const useInputsData = (): {
   inputData: InputData
-  updateInputData: UpdateInputData
-  clearInputs: () => void
+  loading: boolean
+  models: ModelPrimitives[]
+  handleChange: (name: string, value: string, operator?: Operator) => void
+  handleClear: () => void
 } => {
   const [searchParams, setSearchParams] = useSearchParams()
+  const { models, loading, addFilter, cleanFilters } = useModelByCriteria()
 
   const updateInputData = ({ name, value }: inputDataType) => {
-    if (value === '') {
-      setSearchParams(prev => {
+    setSearchParams(prev => {
+      if (value === '') {
         prev.delete(name)
-        return prev
-      })
-    } else {
-      setSearchParams(prev => {
+      } else {
         prev.set(name, value)
-        return prev
-      })
-    }
+      }
+      return prev
+    })
   }
 
-  const clearInputs = () => {
+
+  const handleChange = (name: string, value: string, operator?: Operator) => {
+    const filters = [{
+      field: name,
+      operator: operator ?? Operator.EQUAL,
+      value
+    }]
+    updateInputData({ name, value })
+    addFilter({ filters })
+  }
+
+
+  const handleClear = () => {
     setSearchParams('')
+    cleanFilters({
+      filters: []
+    })
   }
 
   const inputData = {
@@ -42,7 +57,9 @@ export const useInputsData = (): {
 
   return {
     inputData,
-    updateInputData,
-    clearInputs
+    loading,
+    models,
+    handleChange,
+    handleClear
   }
 }

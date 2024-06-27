@@ -22,7 +22,7 @@ export const useInputsData = (defaultCategoryQuery: SearchByCriteriaQuery): {
   const { devices, loading, addFilter, cleanFilters } = useDevice(query)
   const [isPending, startTransition] = useTransition()
 
-  const updateInputData = useCallback((name: string, value: string) => {
+  const updateInputData = (name: string, value: string) => {
     setSearchParams(prev => {
       if (value === '') {
         prev.delete(name)
@@ -31,7 +31,7 @@ export const useInputsData = (defaultCategoryQuery: SearchByCriteriaQuery): {
       }
       return prev
     })
-  }, [setSearchParams])
+  }
 
   const handleClear = () => {
     setSearchParams('')
