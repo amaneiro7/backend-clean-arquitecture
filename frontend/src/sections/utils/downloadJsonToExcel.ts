@@ -1,7 +1,7 @@
 import { utils, writeFile } from 'xlsx'
-import { type ClearDataset } from '../../types/types'
+import { type ClearModelDataset, type ClearDataset } from '../../types/types'
 
-export function jsonToExcel({ clearDataset }: { clearDataset: ClearDataset[] }) {
+export function jsonToExcel({ clearDataset }: { clearDataset: ClearDataset[] | ClearModelDataset[] }) {
     const worksheet = utils.json_to_sheet(clearDataset)
     worksheet["!cols"] = [{ wch: 20 }]
     const workbook = utils.book_new()

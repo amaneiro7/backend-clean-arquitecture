@@ -172,3 +172,22 @@ export type ClearDataset = {
   Observación: string
   "Fecha de Modificación": string
 }
+export type ClearModelDataset = {
+  id: string
+  Categoria: string
+  Marca: string
+  Modelo: string
+  "Tipo de Memoria"?: string
+  "Cantidad de Ranuras"?: number | string
+  "Puerto VGA"?: string
+  "Puerto HDMI"?: string
+  "Puerto DVI"?: string
+  "Adaptador Bluetooth"?: string
+  "Adaptador Wifi"?: string
+  "Modelo de Bateria"?: string
+  "Tamaño de Pantalla"?: string
+  "Modelo de Cartucho"?: string
+  "Tipo de entrada"?: string
+  "Lector de Huella"?: string
+  "Fecha de Modificación": string
+}

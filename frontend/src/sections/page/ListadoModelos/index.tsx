@@ -16,8 +16,8 @@ export default function ListadoModelos() {
     const { inputData,models, handleChange, handleClear, loading } = useInputsData()
 
     const handleDownload = async () => {
-      const clearDataset = await import('../../utils/clearDefaultDataset')
-        .then(m => m.clearDefaultDataset({models: models as ModelApiresponse[]}))
+      const clearDataset = await import('../../utils/clearModelDataset')
+        .then(m => m.clearModelDataset({models: models as ModelApiresponse[]}))
       await import('../../utils/downloadJsonToExcel').then(m => m.jsonToExcel({clearDataset}))      
     }
 

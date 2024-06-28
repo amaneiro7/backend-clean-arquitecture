@@ -22,26 +22,26 @@ export const TableWraper = memo(({
   style: React.CSSProperties,
   categorySelected: CategorySelected
 }) => (
-  <Table>            
+  <Table className='overflow-hidden'>            
     <TableHeader>        
       <TableRow>
         <TableHead style={{ width: '80px' }} size='min-w-20' name='Acciones' />
-        <TableHead style={{ width: '144px' }} size='min-w-36' name='Categoria' />
-        <TableHead style={{ width: '144px' }} size='min-w-36' name='Marca' />
-        <TableHead style={{ width: '144px' }} size='min-w-36' name='Modelo' />
-        {!(isMonitor || isPrinter || isKeyboard) && <TableHead style={{ width: '80px' }} size='min-w-20' name='Tipo de Memoria' />}
-        {!(isMonitor || isPrinter || isKeyboard) && <TableHead style={{ width: '80px' }} size='min-w-20' name='Cantidad de Ranuras' />}
-        {!(isPrinter || isKeyboard) && <TableHead style={{ width: '80px' }} size='min-w-20' name='Puerto VGA' />}
-        {!(isPrinter || isKeyboard) && <TableHead style={{ width: '80px' }} size='min-w-20' name='Puerto DVI' />}
-        {!(isPrinter || isKeyboard) && <TableHead style={{ width: '80px' }} size='min-w-20' name='Puerto HDMI' />}
-        {!(isMonitor || isPrinter || isKeyboard) && <TableHead style={{ width: '80px' }} size='min-w-20' name='Adaptador Bluetooth' />}
-        {!(isMonitor || isPrinter || isKeyboard) && <TableHead style={{ width: '80px' }} size='min-w-20' name='Adaptador Wifi' />}
-        {!(isComputer || isMonitor || isPrinter || isKeyboard) && <TableHead style={{ width: '80px' }} size='min-w-20' name='Modelo de bateria' />}
-        {!(isComputer || isLaptop || isPrinter || isKeyboard) && <TableHead style={{ width: '80px' }} size='min-w-20' name='Tamaño de Pantalla' />}
-        {!(isComputer || isLaptop || isMonitor || isKeyboard) && <TableHead style={{ width: '80px' }} size='min-w-20' name='Modelo de cartucho' />}
-        {!(isComputer || isLaptop || isMonitor || isPrinter) && <TableHead style={{ width: '80px' }} size='min-w-20' name='Tipo de entrada' />}
-        {!(isComputer || isLaptop || isMonitor || isPrinter) && <TableHead style={{ width: '80px' }} size='min-w-20' name='Lector de huella' />}
-        <TableHead style={{ width: '100%' }} name='' />
+        <TableHead style={{ width: '112px' }} size='min-w-28' name='Categoria' />
+        <TableHead style={{ width: '112px' }} size='min-w-28' name='Marca' />
+        <TableHead style={{ width: '240px' }} size='min-w-60' name='Modelo' />
+        {!(isMonitor || isPrinter || isKeyboard) && <TableHead style={{ width: '128px' }} size='min-w-32' name='Tipo de Memoria' />}
+        {!(isMonitor || isPrinter || isKeyboard) && <TableHead style={{ width: '144px' }} size='min-w-36' name='Cantidad de Ranuras' />}
+        {!(isPrinter || isKeyboard) && <TableHead style={{ width: '128px' }} size='min-w-32' name='Puerto VGA' />}
+        {!(isPrinter || isKeyboard) && <TableHead style={{ width: '128px' }} size='min-w-32' name='Puerto DVI' />}
+        {!(isPrinter || isKeyboard) && <TableHead style={{ width: '128px' }} size='min-w-32' name='Puerto HDMI' />}
+        {!(isMonitor || isPrinter || isKeyboard) && <TableHead style={{ width: '144px' }} size='min-w-36' name='Adaptador Bluetooth' />}
+        {!(isMonitor || isPrinter || isKeyboard) && <TableHead style={{ width: '128px' }} size='min-w-32' name='Adaptador Wifi' />}
+        {!(isComputer || isMonitor || isPrinter || isKeyboard) && <TableHead style={{ width: '128px' }} size='min-w-32' name='Modelo de bateria' />}
+        {!(isComputer || isLaptop || isPrinter || isKeyboard) && <TableHead style={{ width: '144px' }} size='min-w-36' name='Tamaño de Pantalla' />}
+        {!(isComputer || isLaptop || isMonitor || isKeyboard) && <TableHead style={{ width: '144px' }} size='min-w-36' name='Modelo de cartucho' />}
+        {!(isComputer || isLaptop || isMonitor || isPrinter) && <TableHead style={{ width: '128px' }} size='min-w-32' name='Tipo de entrada' />}
+        {!(isComputer || isLaptop || isMonitor || isPrinter) && <TableHead style={{ width: '128px' }} size='min-w-32' name='Lector de huella' />}
+        <TableHead style={{ width: '100%', minWidth: '100%' }} name='' />
       </TableRow>
           
     </TableHeader>            
