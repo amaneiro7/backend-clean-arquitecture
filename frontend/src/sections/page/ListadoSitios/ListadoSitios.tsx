@@ -2,7 +2,7 @@ import { lazy, Suspense, useCallback } from "react"
 import { useNavigate } from "react-router-dom"
 import debounce from "just-debounce-it"
 
-import { LocationApiResponse } from "../../../modules/shared/domain/types/responseTypes"
+import { type LocationApiResponse } from "../../../modules/shared/domain/types/responseTypes"
 import { useInputsData } from "./useInputData"
 import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
 import { useLocationByCriteria } from "../../Hooks/locations/useLocationByCriteria"
@@ -23,12 +23,14 @@ const CityComboBox = lazy(async () => import("../../components/combo_box/locatio
 const HeaderInput = lazy(async () => import('../../components/HeaderInput').then(m => ({ default: m.HeaderInput })))
 const Main = lazy(async () => import('../../components/Main'))
 const PageTitle = lazy(async () => import('../../components/PageTitle'))
+const AddIcon = lazy(() => import("../../components/icon/AddIcon").then((m) => ({ default: m.AddIcon })))
 
 export default function ListadoSitios() {
     const navigate = useNavigate()
     const { locations, loading, addFilter, cleanFilters } = useLocationByCriteria()
     const { inputData, updateInputData, clearInputs } = useInputsData()
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const debounceGetLocations = useCallback(
         debounce((query: SearchByCriteriaQuery) => {
             addFilter(query)
@@ -52,53 +54,67 @@ export default function ListadoSitios() {
         })
     }
     return (
-        <Suspense fallback={<MainFallback />}>
-            <Main>
-                <Suspense>
-                    <PageTitle title='Listado de Sitios' />
-                </Suspense>
-                <Suspense>
-                    <HeaderInput>
-                        <LocationNameInput type="search" onChange={handleChange} value={inputData.name} />
-                        <StateComboBox onChange={handleChange} value={inputData.stateId}  />
-                        <CityComboBox onChange={handleChange} value={inputData.cityId} state={inputData.stateId} />
-                        <TypeOfSiteComboBox onChange={handleChange} value={inputData.typeOfSiteId} />
-                        <Suspense fallback={<InputSkeletonLoading />}>
-                            <Button
-                                type='button'
-                                text='Añadir'
-                                actionType='ACTION'
-                                handle={() => { navigate('/location/add') }}
-                            />
-                        </Suspense>
-                        <Suspense fallback={<InputSkeletonLoading />}>
-                            <Button
-                                actionType='CLOSE'
-                                type='button'
-                                text='Limpiar'
-                                handle={handleClear}
-                            />
-                        </Suspense>
-                    </HeaderInput>
-                </Suspense>
-                <section className="grid md:grid-cols-2 place-content-center">
-                    {loading && <SpinnerSKCircle />}
-                    {(!loading && locations.length === 0) && <p>No hay resultados</p>}
-                    {(!loading && locations.length > 0) &&
-                        (locations as LocationApiResponse[]).map((location) => (
-                            <InfoBox key={location.id}>
-                                <InfoBoxTitle title={location.name} state={location} url={`/location/edit/${location.id}`} />
-                                <InfoBoxText desc="Tipo" text={location.typeOfSite.name} />
-                                <InfoBoxText desc="Dirección" text={location.site.address} />
-                                <InfoBoxText desc="Estado" text={location.site.city.state.name} />
-                                <InfoBoxText desc="Ciudad" text={location.site.city.name} />
-                                <InfoBoxText desc="Subnet" text={location.subnet} />
-                            </InfoBox>
-                        ))
-                    }
+      <Suspense fallback={<MainFallback />}>
+        <Main content='max' overflow={false}>
+          
+          <PageTitle title='Listado de Sitios' />
+          
+          
+          <HeaderInput>
+            <LocationNameInput type='search' onChange={handleChange} value={inputData.name} />
+            <StateComboBox onChange={handleChange} value={inputData.stateId}  />
+            <CityComboBox onChange={handleChange} value={inputData.cityId} state={inputData.stateId} />
+            <TypeOfSiteComboBox onChange={handleChange} value={inputData.typeOfSiteId} />
+          </HeaderInput>
 
-                </section>
-            </Main>
-        </Suspense>
+          <section className='my-4 min-h-11 flex gap-2'>
+
+            <Suspense fallback={<InputSkeletonLoading />}>
+              <Button
+                type='button'
+                text='Añadir'
+                actionType='ACTION'                
+                handle={() => { navigate('/location/add') }}
+                icon={
+                  <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>
+                    <AddIcon width={20} fill='white' className='aspect-square' />
+                  </Suspense>
+          }
+              />              
+            </Suspense>
+            <Suspense fallback={<InputSkeletonLoading />}>
+              <Button
+                actionType='CLOSE'
+                type='button'
+                text='Limpiar'
+                handle={handleClear}
+              />
+            </Suspense>
+          </section>
+          
+          <section style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(255px, 1fr))',
+            gap: '2rem',
+            paddingRight: '2rem'
+          }}
+          >
+            {loading && <SpinnerSKCircle />}
+            {(!loading && locations.length === 0) && <p>No hay resultados</p>}
+            {(!loading && locations.length > 0) &&
+                        (locations as LocationApiResponse[]).map((location) => (
+                          <InfoBox key={location.id}>
+                            <InfoBoxTitle title={location.name} state={location} url={`/location/edit/${location.id}`} />
+                            <InfoBoxText desc='Tipo' text={location.typeOfSite.name} />
+                            <InfoBoxText desc='Dirección' text={location.site.address} />
+                            <InfoBoxText desc='Estado' text={location.site.city.state.name} />
+                            <InfoBoxText desc='Ciudad' text={location.site.city.name} />
+                            <InfoBoxText desc='Subnet' text={location.subnet} />
+                          </InfoBox>
+                        ))}
+
+          </section>
+        </Main>
+      </Suspense>
     )
 }

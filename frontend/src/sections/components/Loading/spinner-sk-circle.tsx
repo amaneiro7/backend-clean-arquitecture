@@ -1,7 +1,7 @@
 import './spinner-sk-circle.css'
 export function SpinnerSKCircle() {
     return (
-      <div className='flex flex-col gap-4 justify-center items-center inset-0 bg-transparent absolute z-50 text-primary'>
+      <div className='bg-black/10 flex flex-col gap-4 justify-center items-center inset-0 absolute z-50 text-black'>
         <div className='sk-circle [&>div]:before:bg-primary'>
           <div className='sk-circle1 sk-child' />
           <div className='sk-circle2 sk-child' />

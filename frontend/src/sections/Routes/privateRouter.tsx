@@ -2,8 +2,8 @@
 import { lazy } from 'react'
 
 const Home = lazy(() => import('../page/home/index.tsx'))
-const ListadoSitios = lazy(() => import('../page/ListadoSitios'))
-const ListadoModelos = lazy(() => import('../page/ListadoModelos'))
+const ListadoSitios = lazy(() => import('../page/ListadoSitios/ListadoSitios.tsx'))
+const ListadoModelos = lazy(() => import('../page/ListadoModelos/ListadoModelos.tsx'))
 const FilterByDevice = lazy(() => import('../page/FiltroPorDevice'))
 const AlmacenPage = lazy(() => import('../page/Almacen/index.tsx'))
 const EquiposAgenciaPage = lazy(() => import('../page/AgenciaPerDevice/index.tsx'))
