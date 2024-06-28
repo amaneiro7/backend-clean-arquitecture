@@ -7,8 +7,7 @@ export const ToasterComponent = () => {
       expand={false}
       position='bottom-right'
       richColors
-      
     />
   )
 }
-export const tostPromise =  toast.promise
+export const tostPromise = toast.promise

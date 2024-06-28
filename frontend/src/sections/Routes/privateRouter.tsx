@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import { lazy } from 'react'
 
-const Home = lazy(() => import('../page/home/index.tsx'))
+const Home = lazy(() => import('../page/home/Home.tsx'))
 const ListadoSitios = lazy(() => import('../page/ListadoSitios/ListadoSitios.tsx'))
 const ListadoModelos = lazy(() => import('../page/ListadoModelos/ListadoModelos.tsx'))
 const FilterByDevice = lazy(() => import('../page/FiltroPorDevice'))
