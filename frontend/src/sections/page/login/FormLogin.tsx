@@ -11,7 +11,7 @@ const Button = lazy(async () => await import('../../components/button'))
 const Copyright = lazy(async () => await import('../../components/Copyright').then(m => ({ default: m.Copyright })))
 
 export function FormLogin ({ navigate }: { navigate: NavigateFunction }) {
-    const { formData, errors, valid, handleChange, handleSubmit } = useLogin({navigate})
+    const { formData, errors, loading, valid, handleChange, handleSubmit } = useLogin({navigate})
     return (
       <main className='bg-gray-300 dark:bg-gray-900'>      
         <section className='flex flex-col items-center justify-center gap-2 px-6 py-8 mx-auto md:h-screen lg:py-0'>
@@ -57,7 +57,8 @@ export function FormLogin ({ navigate }: { navigate: NavigateFunction }) {
               <Button
                 actionType='CLOSE'
                 size='full'
-                text='Ingresar'
+                disabled={loading}
+                text={loading ? 'Cargando...' : 'Ingresar'}
                 type='submit'
               />
                 

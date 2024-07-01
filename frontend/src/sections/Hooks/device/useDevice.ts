@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { type DevicePrimitives } from '../../../modules/devices/devices/devices/domain/Device'
 import { DeviceCreator } from '../../../modules/devices/devices/devices/application/DeviceCreator'
 import { DeviceGetter } from '../../../modules/devices/devices/devices/application/DeviceGetter'
@@ -20,7 +20,7 @@ export interface UseDevice {
 }
 
 export const useDevice = (defaultQuery?: SearchByCriteriaQuery): UseDevice => {
-  const repository = new ApiDeviceRepository()
+  const repository = useMemo(() => { return new ApiDeviceRepository() }, [])
   const { query, addFilter, cleanFilters } = useSearchByCriteriaQuery(defaultQuery)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
@@ -32,7 +32,7 @@ export const useDevice = (defaultQuery?: SearchByCriteriaQuery): UseDevice => {
     return data
   }
 
-  function searchDevices(filter: SearchByCriteriaQuery) {
+  const searchDevices = useCallback((filter: SearchByCriteriaQuery) => {
     setLoading(true)
     new DeviceGetterByCriteria(repository)
       .get(filter)
@@ -46,7 +46,7 @@ export const useDevice = (defaultQuery?: SearchByCriteriaQuery): UseDevice => {
         setError(error)
         setLoading(false)
       })
-  }
+  }, [repository])
 
   const getDevice = new DeviceGetter(repository)
 
@@ -55,7 +55,7 @@ export const useDevice = (defaultQuery?: SearchByCriteriaQuery): UseDevice => {
     return () => {
       setDevices([])
     }
-  }, [query])
+  }, [query, searchDevices])
 
   return {
     devices,

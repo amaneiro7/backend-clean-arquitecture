@@ -10,10 +10,10 @@ export function HamburgerMenu({ isActive, ...pros }: Props) {
         aria-label='Menu de navegación'
         aria-haspopup
         type='button'
-        className={`hamburger hamburger--spin bg-transparent ${isActive && 'is-active [&>span>span]:bg-primary [&>span>span]:before:bg-primary [&>span>span]:after:bg-primary'}`}
+        className={`hamburger hamburger--spin bg-transparent ${isActive && 'is-active [&>span>span]:bg-white [&>span>span]:before:bg-white [&>span>span]:after:bg-white'}`}
       >
         <span className='hamburger-box  '>
-          <span className='hamburger-inner bg-primary before:bg-primary after:bg-primary' />
+          <span className='hamburger-inner bg-white before:bg-white after:bg-white' />
         </span>
       </button>
 

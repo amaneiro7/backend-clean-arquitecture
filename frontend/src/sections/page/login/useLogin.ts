@@ -20,6 +20,7 @@ export function useLogin({ navigate }: { navigate: NavigateFunction }): {
     handleSubmit: (event: React.FormEvent) => Promise<void>
     handleChange: (ev: React.ChangeEvent<HTMLInputElement>) => void
     errors: InitialState
+    loading: boolean
     formData: InitialState
     valid: { email: boolean; password: boolean }
 } {
@@ -28,7 +29,7 @@ export function useLogin({ navigate }: { navigate: NavigateFunction }): {
     const [valid, setValid] = useState({ email: false, password: false })
     const isPasswordFirstInput = useRef(true)
     const isEmailFirstInput = useRef(true)
-    const { useAuth: { getLogin } } = useAppContext()
+    const { useAuth: { getLogin, loading } } = useAppContext()
     const { formData, updateForm, resetForm } = useGenericFormData(initialState)
     const { formStatus, resetFormStatus, submitForm } = useGenericForm({ create: getLogin })
 
@@ -82,6 +83,7 @@ export function useLogin({ navigate }: { navigate: NavigateFunction }): {
         handleSubmit,
         handleChange,
         errors,
+        loading,
         valid,
         formData
     }
