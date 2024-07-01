@@ -9,7 +9,7 @@ const WelcomeTitle = lazy(async () => import("./WelcomeTitle").then((m) => ({ de
 const HamburgerMenu = lazy(async () => import("../button/HamburgerMenu/HamburgerMenu").then((m) => ({ default: m.HamburgerMenu })))
 const WrapperBox = lazy(async () => import("./WrapperBox").then((m) => ({ default: m.WrapperBox })))
 const Logo = lazy(async () => import("../Logo"))
-const Button = lazy(async () => import("../button"))
+const Button = lazy(async () => import("../button/button"))
 
 export const Header = memo(function() {
   const [isActive, setIsActive] = useState(false)

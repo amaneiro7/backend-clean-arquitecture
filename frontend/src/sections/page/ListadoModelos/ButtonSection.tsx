@@ -8,7 +8,7 @@ interface Props {
   handleExportToExcel: () => void
 }
 
-const Button = lazy(() => import("../../components/button"))
+const Button = lazy(() => import("../../components/button/button"))
 const DownloadIcon = lazy(() => import("../../components/icon/DownloadIcon").then((m) => ({ default: m.DownloadIcon })))
 const AddIcon = lazy(() => import("../../components/icon/AddIcon").then((m) => ({ default: m.AddIcon })))
 

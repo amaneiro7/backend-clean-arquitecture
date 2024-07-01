@@ -7,7 +7,7 @@ import { FormStatus, useGenericForm } from '../../Hooks/useGenericForm'
 import { useDevice } from '../../Hooks/device/useDevice'
 
 const Main = lazy(async () => import('../../components/Main'))
-const FormContainer = lazy(async () => await import('../../components/formContainer'))
+const FormContainer = lazy(async () => await import('../../components/formContainer/formContainer'))
 const DeviceSearchComboBox = lazy(async () => import('../../components/combo_box/DeviceSearchComboBox'))
 const SerialInput = lazy(async () => await import('../../components/text-inputs/SerialInput'))
 const ActivoInput = lazy(async () => await import('../../components/text-inputs/ActivoInput'))

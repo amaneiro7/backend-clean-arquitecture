@@ -45,8 +45,8 @@ export const useInputsData = (): {
   const debounceGetDevices = useCallback(
     debounce((query: SearchByCriteriaQuery) => {
       addFilter(query)
-    }, 300)
-    , [addFilter])
+    }, 500)
+    , [])
 
   const handleChange = (name: string, value: string, operator?: Operator) => {
     startTransition(() => {

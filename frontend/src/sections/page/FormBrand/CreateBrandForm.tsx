@@ -6,7 +6,7 @@ import { useGenericForm, FormStatus } from '../../Hooks/useGenericForm'
 import { useBrand } from '../../Hooks/brand/useBrand'
 import { BrandPrimitives } from '../../../modules/devices/brand/domain/Brand'
 
-const FormContainer = lazy(async () => import('../../components/formContainer'))
+const FormContainer = lazy(async () => import('../../components/formContainer/formContainer'))
 
 export default function CreateBrandForm() {
   const { createBrand } = useBrand()

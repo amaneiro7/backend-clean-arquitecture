@@ -7,7 +7,7 @@ import { useModel } from '../../Hooks/model/useModel'
 import { ModelPrimitives } from '../../../modules/devices/model/model/domain/Model'
 
 const Main = lazy(async () => import('../../components/Main'))
-const FormContainer = lazy(async () => import('../../components/formContainer'))
+const FormContainer = lazy(async () => import('../../components/formContainer/formContainer'))
 const ModelInputs = lazy(async () => import('./ModelFeatures').then(m => ({ default: m.ModelInputs })))
 
 export default function CreateModelForm() {

@@ -26,7 +26,7 @@ const TableBody = lazy(async () => import('../../components/TableComponent/Table
 const TableHead = lazy(async () => import('../../components/TableComponent/TableHead'))
 const TableCell = lazy(async () => import('../../components/TableComponent/TableCell'))
 const TableCellEditDeleteIcon = lazy(async () => import('../../components/TableComponent/TableCellEditDeleteIcon'))
-const Button = lazy(async () => await import('../../components/button'))
+const Button = lazy(async () => await import('../../components/button/button'))
 const EmployeeComboBox = lazy(async () => await import('../../components/combo_box/EmployeeComboBox'))
 const BrandComboBox = lazy(async () => await import('../../components/combo_box/BrandComboBox'))
 const CategoryComboBox = lazy(async () => await import('../../components/combo_box/CategoryComboBox'))

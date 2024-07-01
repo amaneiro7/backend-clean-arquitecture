@@ -7,7 +7,7 @@ import { useLogin } from './useLogin'
 const Logo = lazy(async () => await import('../../components/Logo'))
 const Input = lazy(async () => import('../../components/text-inputs/Input').then(m => ({ default: m.Input })))
 const PageTitle = lazy(async () => await import('../../components/PageTitle'))
-const Button = lazy(async () => await import('../../components/button'))
+const Button = lazy(async () => await import('../../components/button/button'))
 const Copyright = lazy(async () => await import('../../components/Copyright').then(m => ({ default: m.Copyright })))
 
 export function FormLogin ({ navigate }: { navigate: NavigateFunction }) {

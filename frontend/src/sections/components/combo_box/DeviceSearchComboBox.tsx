@@ -26,8 +26,7 @@ export default function DeviceSearchComboBox() {
         debounce((query: SearchByCriteriaQuery) => {
             searchDevices(query)
         }, 500)
-        , [searchDevices, inputValue]
-    )
+        , [])
 
     useEffect(() => {        
         if (inputValue === '') {
@@ -41,7 +40,7 @@ export default function DeviceSearchComboBox() {
                 value: inputValue
             }]
         })
-    }, [inputValue])
+    }, [debounceGetDevices, inputValue, value])
 
     useLayoutEffect(() => {
         setInputValue('')
@@ -49,94 +48,91 @@ export default function DeviceSearchComboBox() {
     }, [location.pathname])
 
     return (
-        <div className='w-full flex justify-center items-center'>
-            <Suspense>
-                <Autocomplete
-                    id='combobox-search-devices'
-                    fullWidth
-                    getOptionLabel={(option) => {
+      <div className='w-full flex justify-center items-center'>
+        <Suspense>
+          <Autocomplete
+            id='combobox-search-devices'
+            fullWidth
+            getOptionLabel={(option) => {
                         if (typeof option === 'string') {
                             return option
                         }
                         return option.serial
                     }}
-                    filterOptions={(x) => x}
-                    options={devices}
-                    autoComplete
-                    includeInputInList
-                    filterSelectedOptions
-                    value={value}
-
-                    onChange={(_, newValue) => {
+            filterOptions={(x) => x}
+            options={devices}
+            autoComplete
+            includeInputInList
+            filterSelectedOptions
+            value={value}
+            onChange={(_, newValue) => {
                         setOptions(newValue ? [newValue, ...options] : options)
                         setValue(newValue)
                     }}
-                    onInputChange={(_, newInputValue) => {
+            onInputChange={(_, newInputValue) => {
                         setInputValue(newInputValue)
                     }}
-                    size='small'
-                    open={open}
-                    onOpen={() => { setOpen(true) }}
-                    onClose={() => { setOpen(false) }}
-                    isOptionEqualToValue={(option, value) => option.serial === value.serial}
-                    loading={loading}
-
-                    clearText='Limpiar'
-                    loadingText='Cargando...'
-                    openText='Abrir'
-                    closeText='Cerrar'
-                    noOptionsText='No existe'
-                    selectOnFocus
-                    clearOnEscape
-                    clearOnBlur
-                    handleHomeEndKeys
-                    clearIcon={<Suspense><CloseIcon fontSize='small' /></Suspense>}
-                    renderInput={(params) => (
-                        <TextField
-                            {...params}
-                            label='Busqueda por serial'
-                            InputProps={{
+            size='small'
+            open={open}
+            onOpen={() => { setOpen(true) }}
+            onClose={() => { setOpen(false) }}
+            isOptionEqualToValue={(option, value) => option.serial === value.serial}
+            loading={loading}
+            clearText='Limpiar'
+            loadingText='Cargando...'
+            openText='Abrir'
+            closeText='Cerrar'
+            noOptionsText='No existe'
+            selectOnFocus
+            clearOnEscape
+            clearOnBlur
+            handleHomeEndKeys
+            clearIcon={<CloseIcon fontSize='small' />}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label='Busqueda por serial'
+                InputProps={{
                                 ...params.InputProps,
                                 endAdornment: (
-                                    <>
-                                        {loading && <Suspense><CircularProgress color="inherit" size={20} /></Suspense>}
-                                        {params.InputProps.endAdornment}
-                                    </>
+                                  <>
+                                    {loading && <CircularProgress color='inherit' size={20} />}
+                                    {params.InputProps.endAdornment}
+                                  </>
                                 ),
                             }}
-                            color='primary'
-                        />
+                color='primary'
+              />
                     )}
-                    renderOption={(props, option, { inputValue }) => {
+            renderOption={(props, option, { inputValue }) => {
                         const matches = match(option.serial, inputValue, { insideWords: true });
                         const parts = parse(option.serial, matches)
                         return (
-                            <li {...props}>
-                                <div>
-                                    {parts.map((part, index) => (
-                                        <span
-                                            key={index}
-                                            style={{
+                          <li {...props}>
+                            <div>
+                              {parts.map((part, index) => (
+                                <span
+                                  key={index}
+                                  style={{
                                                 fontWeight: part.highlight ? 700 : 400,
                                             }}
-                                        >
-                                            {part.text}
-                                        </span>
+                                >
+                                  {part.text}
+                                </span>
                                     ))}
-                                </div>
-                            </li>
+                            </div>
+                          </li>
                         )
                     }}
-                />
-            </Suspense>
-            <RightIcon isDisabled={!value}>
-                {value && <Link
-                    to={`/device/edit/${value?.id}`}
-                    state={{ state: value }}
-                    className='absolute w-full h-full'
-                >
-                </Link>}
-            </RightIcon>
-        </div>
+          />
+        </Suspense>
+        <RightIcon isDisabled={!value}>
+          {value && <Link
+            to={`/device/edit/${value?.id}`}
+            state={{ state: value }}
+            className='absolute w-full h-full'
+                    />}
+        </RightIcon>
+      </div>
     )
 }

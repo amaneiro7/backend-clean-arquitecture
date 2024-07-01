@@ -7,7 +7,7 @@ import { useLocationInitialState } from '../../Hooks/locations/useLocationInitia
 
 
 const Main = lazy(async () => import('../../components/Main'))
-const FormContainer = lazy(async () => import('../../components/formContainer'))
+const FormContainer = lazy(async () => import('../../components/formContainer/formContainer'))
 const LocationInputs = lazy(async () => import('./LocationInputs').then(m => ({ default: m.LocationInputs })))
 
 export default function CreateLocationForm() {
@@ -51,22 +51,22 @@ export default function CreateLocationForm() {
     }
 
     return (
-        <Main content='max' overflow={false}>
+      <Main content='max' overflow={false}>
+        <Suspense>
+          <FormContainer
+            key={location.key}
+            title='Ubicación'
+            handleSubmit={handleSubmit}
+            handleClose={handleClose}
+            isDisabled={formStatus === FormStatus.Loading}
+            lastUpdated={formData.updatedAt}
+            url='/location/add'
+          >
             <Suspense>
-                <FormContainer
-                    key={location.key}
-                    title='Ubicación'
-                    handleSubmit={handleSubmit}
-                    handleClose={handleClose}
-                    isDisabled={formStatus === FormStatus.Loading}
-                    lastUpdated={formData.updatedAt}
-                    url='/location/add'
-                >
-                    <Suspense>
-                        <LocationInputs isAddForm={isAddForm} formData={formData} onChange={handleChange} />
-                    </Suspense>
-                </FormContainer>
+              <LocationInputs isAddForm={isAddForm} formData={formData} onChange={handleChange} />
             </Suspense>
-        </Main>
+          </FormContainer>
+        </Suspense>
+      </Main>
     )
 }

@@ -17,7 +17,7 @@ const InfoBoxTitle = lazy(async () => import("../../components/info-box/InfoBoxT
 const InfoBoxText = lazy(async () => import("../../components/info-box/InfoBoxText").then(m => ({ default: m.InfoBoxText })))
 const TypeOfSiteComboBox = lazy(async () => import("../../components/combo_box/TypeOfSiteComboBox").then(m => ({ default: m.TypeOfSiteComboBox })))
 const LocationNameInput = lazy(async () => import("../../components/text-inputs/location/LocationNameInput").then(m => ({ default: m.LocationNameInput })))
-const Button = lazy(async () => import("../../components/button"))
+const Button = lazy(async () => import("../../components/button/button"))
 const StateComboBox = lazy(async () => import("../../components/combo_box/location/StateComboBox").then(m => ({ default: m.StateComboBox })))
 const CityComboBox = lazy(async () => import("../../components/combo_box/location/CityComboBox").then(m => ({ default: m.CityComboBox })))
 const HeaderInput = lazy(async () => import('../../components/HeaderInput').then(m => ({ default: m.HeaderInput })))

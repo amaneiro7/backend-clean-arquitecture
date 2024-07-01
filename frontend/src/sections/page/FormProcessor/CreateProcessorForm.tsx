@@ -6,7 +6,7 @@ import { useProcessor } from '../../Hooks/processor/useProcessor'
 import { useGenericForm, FormStatus } from '../../Hooks/useGenericForm'
 
 const Main = lazy(async () => import('../../components/Main'))
-const FormContainer = lazy(async () => import('../../components/formContainer'))
+const FormContainer = lazy(async () => import('../../components/formContainer/formContainer'))
 const ProcessorCollectionComboBox = lazy(async () => import('../../components/combo_box/ProductCollectionComboBox'))
 const ProcessorNumberModelInput = lazy(async () => import('../../components/text-inputs/ProcessorNumberModelInput'))
 const ProcessorCoresInput = lazy(async () => import('../../components/number-inputs/ProcessorCoresInput'))
@@ -65,23 +65,23 @@ export default function CreateProcessorForm() {
               <ProcessorCollectionComboBox
                 onChange={handleChange}
                 value={formData.productCollection}
-                type="form"
+                type='form'
               />
             </Suspense>
             <Suspense fallback={<InputSkeletonLoading />}>
               <ProcessorNumberModelInput
                 onChange={handleChange}
                 value={formData.numberModel}
-                type="form"
+                type='form'
               />
             </Suspense>
 
-            <div className="flex gap-4">
+            <div className='flex gap-4'>
               <Suspense fallback={<InputSkeletonLoading />}>
                 <ProcessorCoresInput
                   onChange={handleChange}
                   value={formData.cores}
-                  type="form"
+                  type='form'
                 />
               </Suspense>
 
@@ -90,7 +90,7 @@ export default function CreateProcessorForm() {
                 <ProcessorFrequencyInput
                   onChange={handleChange}
                   value={formData.frequency}
-                  type="form"
+                  type='form'
                 />
               </Suspense>
 
