@@ -17,6 +17,7 @@ const LastUpdated = lazy(async () => import('../LastUpdated').then(m => ({ defau
 const PageTitle = lazy(async () => import('../PageTitle'))
 const CancelIcon = lazy(() => import('../icon/CancelIcon').then(m => ({ default: m.CancelIcon })))
 const RightArrowIcon = lazy(() => import('../icon/RighArrowIcon').then(m => ({ default: m.RightArrowIcon })))
+const AddIcon = lazy(() => import('../icon/AddIcon').then(m => ({ default: m.AddIcon })))
 
 export default function FormContainer({ url, title, searchInput, children, isDisabled, handleSubmit, handleClose, lastUpdated }: React.PropsWithChildren<Props>) {
   const location = useLocation()
@@ -68,11 +69,12 @@ export default function FormContainer({ url, title, searchInput, children, isDis
                   actionType='ACTION'
                   text='Añadir un nuevo'
                   url={url}
-                  // icon={
-                  //   <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>
-                  //     <CancelIcon width={20} className='aspect-square' />
-                  //   </Suspense>
-                  // }
+                  hoverTranslate
+                  icon={
+                    <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>
+                      <AddIcon width={20} className='aspect-square fill-white' />
+                    </Suspense>
+                  }
 
                            />}
               </Suspense>

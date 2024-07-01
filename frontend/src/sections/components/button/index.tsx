@@ -11,7 +11,7 @@ interface Props extends React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLB
 
 const ACTIONTYPE = {
   ACTION: 'border-none text-white bg-primary hover:bg-primary-700 active:bg-primary-800',
-  SAVE: 'border-none text-white border-terciary bg-terciary hover:bg-terciary-600 active:bg-terciary-800',
+  SAVE: 'border-none text-white border-terciary bg-terciary hover:bg-terciary-800 active:bg-terciary-900',
   CANCEL: 'text-cancel border-cancel bg-gray-200 hover:text-white hover:bg-cancel active:bg-cancel hover:shadow-md',
   SECONDARY: `text-secondary border border-secondary bg-white hover:text-white hover:bg-secondary`,
   DELETE: 'border-none text-white border-quaternary bg-quaternary hover:bg-quaternary-500 active:bg-quaternary-quaternary-700',
