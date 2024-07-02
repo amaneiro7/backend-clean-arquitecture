@@ -5,7 +5,7 @@ import { DeviceCreator } from '../../../../../Contexts/Device/Device/application
 import { DeviceUpdater } from '../../../../../Contexts/Device/Device/application/DeviceUpdater'
 
 export class DevicePostController {
-  constructor (private readonly repository: Repository) {}
+  constructor(private readonly repository: Repository) { }
 
   create = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
