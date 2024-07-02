@@ -7,25 +7,25 @@ import { type DeviceRepository } from '../domain/DeviceRepository'
 
 export class ApiDeviceRepository implements DeviceRepository {
   private readonly endpoint: string = 'devices'
-  async save ({ device }: { device: Device }): Promise<void> {
+  async save({ device }: { device: Device }): Promise<void> {
     return await makeRequest({ method: 'POST', endpoint: this.endpoint, data: device.toPrimitives() })
   }
 
-  async update ({ id, device }: { id: DeviceId, device: Device }): Promise<void> {
+  async update({ id, device }: { id: DeviceId, device: Device }): Promise<void> {
     return await makeRequest({ method: 'PATCH', endpoint: `${this.endpoint}/${id.value}`, data: device.toPrimitives() })
   }
 
-  async getByCriteria (criteria: Criteria): Promise<DevicePrimitives[]> {
-    const criteriaPrimitives = criteria.toPrimitives()    
+  async getByCriteria(criteria: Criteria): Promise<DevicePrimitives[]> {
+    const criteriaPrimitives = criteria.toPrimitives()
     const queryParams = criteria.buildQuery(criteriaPrimitives)
-    return await makeRequest<DevicesApiResponse[]>({ method: 'GET', endpoint: `${this.endpoint}?${queryParams}` })      
+    return await makeRequest<DevicesApiResponse[]>({ method: 'GET', endpoint: `${this.endpoint}?${queryParams}` })
   }
 
-  async getAll (): Promise<DevicePrimitives[]> {
-    return await makeRequest<DevicesApiResponse[]>({ method: 'GET', endpoint: this.endpoint })      
+  async getAll(): Promise<DevicePrimitives[]> {
+    return await makeRequest<DevicesApiResponse[]>({ method: 'GET', endpoint: this.endpoint })
   }
 
-  async getById ({ id }: { id: DeviceId }): Promise<DevicePrimitives> {    
+  async getById({ id }: { id: DeviceId }): Promise<DevicePrimitives> {
     return await makeRequest<DevicesApiResponse>({ method: 'GET', endpoint: `${this.endpoint}/${id.value}` })
   }
 }

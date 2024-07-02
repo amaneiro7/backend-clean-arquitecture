@@ -10,7 +10,7 @@ export class IPAddress extends AcceptedNullValueObject<string> {
   private readonly IPADRRESS_VALIDATION = /^([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])){3}$/
 
   // Constructor that takes a value and ensures it is a valid IP address
-  constructor (
+  constructor(
     readonly value: string | null,
     private readonly status: Primitives<DeviceStatus>
   ) {
@@ -20,32 +20,32 @@ export class IPAddress extends AcceptedNullValueObject<string> {
   }
 
   // Return the value as a primitive string
-  toPrimitives (): string | null {
+  toPrimitives(): string | null {
     return this.value
   }
 
   // Private method to ensure the provided value is a valid IP address
-  private ensureIsValid (value: string | null): void {
+  private ensureIsValid(value: string | null): void {
     if (!this.isValid(value)) {
       throw new InvalidArgumentError(`<${value}> is not a valid IP Address`) // Throw an error if the value is not a valid IP address
     }
   }
 
-  private ensureIsStatusIsInUseIPAddressIsRequired (status: Primitives<DeviceStatus>, ipAddress: Primitives<IPAddress>): void {
+  private ensureIsStatusIsInUseIPAddressIsRequired(status: Primitives<DeviceStatus>, ipAddress: Primitives<IPAddress>): void {
     if (status === DeviceStatus.StatusOptions.INUSE && ipAddress === null) {
       throw new InvalidArgumentError('IP Address is required when status is in use') // Throw an error if IP Address is null when computer status is in use
     }
   }
 
   // Private method to check if the provided value is a valid IP address using the defined regular expression
-  private isValid (name: string | null): boolean {
+  private isValid(name: string | null): boolean {
     if (name === null) return true
     return this.IPADRRESS_VALIDATION.test(name)
   }
 
-  static async updateIPAddressField ({ ipAddress, entity }: { ipAddress?: Primitives<IPAddress>, entity: DeviceComputer }): Promise<void> {
+  static async updateIPAddressField({ ipAddress, entity }: { ipAddress?: Primitives<IPAddress>, entity: DeviceComputer }): Promise<void> {
     // Si no se ha pasado un nuevo valor de dirección IP no realiza ninguna acción
-    if (ipAddress === undefined || ipAddress === null) {
+    if (ipAddress === undefined) {
       return
     }
     // Verifica que si el valor del campo dirección IP actual y el nuevo valor dirección IP son iguales no realiza un cambio

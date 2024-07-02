@@ -1,4 +1,4 @@
-import { lazy, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { lazy, useEffect, useRef, useState } from 'react'
 import { IPAddress } from '../../../modules/devices/fetures/computer/domain/IPAddress'
 import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
@@ -21,7 +21,12 @@ export function IpAddressInput({ value, status, onChange, type = 'form' }: Props
   const [isDisabled, setIsDisabled] = useState(false)
   useEffect(() => {
     if (type !== 'form') return
-    setIsDisabled(status !== StatusId.StatusOptions.INUSE)
+    if (status !== StatusId.StatusOptions.INUSE) {
+      onChange('ipAddress', '')
+      setIsDisabled(true)
+    } else {
+      setIsDisabled(false)
+    }
 
 
     if (isFirstInput.current) {
@@ -40,11 +45,6 @@ export function IpAddressInput({ value, status, onChange, type = 'form' }: Props
     }
   }, [value, status, type])
 
-  useLayoutEffect(() => {
-    if (isDisabled) {
-      onChange('ipAddress', '')
-    }
-  }, [isDisabled])
 
   return (
     <FormInput
