@@ -18,19 +18,16 @@ const Button = lazy(async () => import("../../components/button/button"))
 export default function FilterByDevice() {
     const tableRef = useRef(null)
     const { devices, loading, searchDevices } = useSearchDevice()
-    console.log(devices)
     return (
       <Main>
         <PageTitle title='Filtrar por Dispositivo' />
-        <FilterManager handleFilter={searchDevices}>
-          <Suspense>
-            <Button
-              type='button'
-              actionType='SAVE'
-              text='Export Excel'
-              handle={() => { import('../../utils/DownloadTableExcel').then(m => m.exportToExcel(tableRef)) }}
-            />
-          </Suspense>
+        <FilterManager handleFilter={searchDevices}>          
+          <Button
+            type='button'
+            actionType='SAVE'
+            text='Export Excel'
+            handle={() => { import('../../utils/DownloadTableExcel').then(m => m.exportToExcel(tableRef)) }}
+          />          
         </FilterManager>
         {loading && <SpinnerSKCircle />}
         {(!loading && devices.length === 0) && <p>No hay resultados</p>}

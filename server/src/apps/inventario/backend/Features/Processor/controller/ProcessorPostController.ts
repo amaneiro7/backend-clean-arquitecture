@@ -5,12 +5,11 @@ import { ProcessorUpdater } from '../../../../../../Contexts/Features/Processor/
 import { type Repository } from '../../../../../../Contexts/Shared/domain/Repository'
 
 export class ProcessorPostController {
-  constructor (private readonly repository: Repository) {}
+  constructor(private readonly repository: Repository) { }
 
   create = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const { productCollection, numberModel, cores, threads, frequency } = req.body
-      console.log(productCollection)
       await new ProcessorCreator(this.repository).run({ productCollection, numberModel, cores, threads, frequency })
       res.status(httpStatus.CREATED).json({ message: 'Procesador creado exitosamente' })
     } catch (error) {

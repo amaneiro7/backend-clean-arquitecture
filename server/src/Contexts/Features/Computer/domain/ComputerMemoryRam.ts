@@ -19,7 +19,6 @@ export class ComputerMemoryRam {
     static totalAmount(value: Primitives<MemoryRamValues>[]): number {
         let number = 0
         for (let totalAmount = 0; totalAmount < value.length; totalAmount++) {
-            console.log(typeof value)
             number += Number(value[totalAmount])
         }
         return number
