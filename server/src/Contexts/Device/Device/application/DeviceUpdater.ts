@@ -29,17 +29,17 @@ import { DeviceStatus } from '../domain/DeviceStatus'
 import { type DevicesApiResponse } from '../infrastructure/sequelize/DeviceResponse'
 import { type DeviceParams } from './DeviceCreator'
 
-export interface PartialDeviceParams extends DeviceParams {}
+export interface PartialDeviceParams extends DeviceParams { }
 
-export class DeviceUpdater {   
+export class DeviceUpdater {
 
-  constructor (private readonly repository: Repository) {}
+  constructor(private readonly repository: Repository) { }
   /**
    * Actualiza el device con los parametros recibidos
    * @param id Id del device
    * @param params Parametros a actualizar
    */
-  async run ({ id, params }: { id: Primitives<DeviceId>, params: PartialDeviceParams }): Promise<void> {
+  async run({ id, params }: { id: Primitives<DeviceId>, params: PartialDeviceParams }): Promise<void> {
     const { categoryId } = params
     // Extraemos el id del device a actualizar
     const deviceId = new DeviceId(id).value
@@ -92,7 +92,7 @@ export class DeviceUpdater {
 
       // Actualizamos los campos de la clase Computer
       await ComputerName.updateComputerNameField({ repository: this.repository.device, computerName, entity: deviceEntity })
-      await ComputerMemoryRam.updateMemoryRam({entity: deviceEntity, memoryRam})      
+      await ComputerMemoryRam.updateMemoryRam({ entity: deviceEntity, memoryRam })
       await ComputerProcessor.updateProcessorField({ repository: this.repository.processor, processor: processorId, entity: deviceEntity })
       await ComputerHardDriveCapacity.updateHardDriveCapacityField({ repository: this.repository.hardDriveCapacity, entity: deviceEntity, hardDriveCapacity: hardDriveCapacityId })
       await ComputerHardDriveType.updateHardDriveTypeField({ repository: this.repository.hardDriveType, hardDriveType: hardDriveTypeId, entity: deviceEntity })
@@ -141,7 +141,6 @@ export class DeviceUpdater {
       // Actualizamos los campos principales del device
       await this.updateMainDevice({ params, deviceEntity })
     }
-
     // Guardamos los cambios en la base de datos    
     await this.repository.device.save(deviceEntity.toPrimitives())
   }
@@ -151,7 +150,7 @@ export class DeviceUpdater {
    * @param params Parametros a actualizar
    * @param deviceEntity Entidad del device
    */
-  private async updateMainDevice ({ params, deviceEntity }: { params: PartialDeviceParams, deviceEntity: Device }): Promise<void> {
+  private async updateMainDevice({ params, deviceEntity }: { params: PartialDeviceParams, deviceEntity: Device }): Promise<void> {
     const { serial, activo, statusId, categoryId, brandId, modelId, employeeId, locationId, observation } = params
     await DeviceActivo.updateActivoField({ repository: this.repository.device, activo, entity: deviceEntity })
     await DeviceSerial.updateSerialField({ repository: this.repository.device, serial, entity: deviceEntity })

@@ -6,7 +6,7 @@ import { type HardDriveCapacityRepository } from '../../HardDrive.ts/HardDriveCa
 import { type DeviceComputer } from './Computer'
 
 export class ComputerHardDriveCapacity extends AcceptedNullValueObject<Primitives<HardDriveCapacityId>> {
-  constructor (
+  constructor(
     readonly value: Primitives<HardDriveCapacityId> | null
   ) {
     super(value)
@@ -14,17 +14,17 @@ export class ComputerHardDriveCapacity extends AcceptedNullValueObject<Primitive
     this.ensureIsValidHardDriveCapacityId(value)
   }
 
-  toPrimitives (): Primitives<HardDriveCapacityId> | null {
+  toPrimitives(): Primitives<HardDriveCapacityId> | null {
     return this.value
   }
 
-  private ensureIsValidHardDriveCapacityId (id: Primitives<HardDriveCapacityId> | null): void {
+  private ensureIsValidHardDriveCapacityId(id: Primitives<HardDriveCapacityId> | null): void {
     if (!this.isValid(id)) {
       throw new InvalidArgumentError('HardDrive is required')
     }
   }
 
-  private isValid (id: Primitives<HardDriveCapacityId> | null): boolean {
+  private isValid(id: Primitives<HardDriveCapacityId> | null): boolean {
     if (id === null) return true
     const hardDriveCapacityId = new HardDriveCapacityId(id)
     if (hardDriveCapacityId instanceof HardDriveCapacityId) {
@@ -34,13 +34,13 @@ export class ComputerHardDriveCapacity extends AcceptedNullValueObject<Primitive
     return false
   }
 
-  static async updateHardDriveCapacityField ({ repository, hardDriveCapacity, entity }: { repository: HardDriveCapacityRepository, hardDriveCapacity?: Primitives<ComputerHardDriveCapacity>, entity: DeviceComputer }): Promise<void> {
+  static async updateHardDriveCapacityField({ repository, hardDriveCapacity, entity }: { repository: HardDriveCapacityRepository, hardDriveCapacity?: Primitives<ComputerHardDriveCapacity>, entity: DeviceComputer }): Promise<void> {
     // Si no se ha pasado un nuevo valor de la capacidad del Disco Duro no realiza ninguna acción
     if (hardDriveCapacity === undefined) {
       return
     }
     // Verifica que si el valor actual y el nuevo valor son iguales no realice ningún cambio
-    if (entity.employeeeValue === hardDriveCapacity) {
+    if (entity.hardDriveCapacityValue === hardDriveCapacity) {
       return
     }
     // Verifica que el valor de la capacidad del Disco Duro exista en la base de datos, si no existe lanza un error {@link EmployeeDoesNotExistError} con el valor de la capacidad del Disco Duro pasado
