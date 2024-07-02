@@ -6,12 +6,14 @@ import { Primitives } from '../../../Shared/domain/value-object/Primitives'
 import { DeviceId } from '../../../Device/Device/domain/DeviceId'
 import { HistoryId } from '../../domain/HistoryId'
 import { UserId } from '../../../User/user/domain/UserId'
+import { HistoryEmployee } from '../../domain/HistoryEmployee'
 
 export class HistoryModel extends Model<HistoryPrimitives> implements HistoryPrimitives {
   readonly id!: Primitives<HistoryId>
   readonly deviceId!: Primitives<DeviceId>
-  readonly action!: ActionType
   readonly userId!: Primitives<UserId>
+  readonly employeeId!: Primitives<HistoryEmployee>
+  readonly action!: ActionType
   readonly oldData!: object
   readonly newData!: object
   readonly createdAt!: Date
@@ -19,6 +21,7 @@ export class HistoryModel extends Model<HistoryPrimitives> implements HistoryPri
   public static associate(models: Models): void {
     this.belongsTo(models.User, { as: 'user' }) // A history belongs to a user
     this.belongsTo(models.Device, { as: 'device' }) // A history belongs to a device
+    this.belongsTo(models.Employee, { as: 'employee' }) // A history belongs to an employee
   }
 }
 
@@ -37,6 +40,10 @@ export function initHistoryModel(sequelize: Sequelize): void {
       userId: {
         type: DataTypes.UUID,
         allowNull: false
+      },
+      employeeId: {
+        type: DataTypes.UUID,
+        allowNull: true
       },
       action: {
         type: DataTypes.ENUM,

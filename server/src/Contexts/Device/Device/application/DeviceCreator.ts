@@ -3,7 +3,11 @@ import { DeviceComputer, type DeviceComputerPrimitives } from '../../../Features
 import { HardDriveValidation } from '../../../Features/HardDrive.ts/HardDrive/application/HardDriveValidation'
 import { DeviceHardDrive, type DeviceHardDrivePrimitives } from '../../../Features/HardDrive.ts/HardDrive/domain/HardDrive'
 import { DeviceMFPPrimitives, MFP } from '../../../Features/MFP/domain/MFP'
+import { HistoryCreator } from '../../../History/application/HistoryCreator'
 import { type Repository } from '../../../Shared/domain/Repository'
+import { InvalidArgumentError } from '../../../Shared/domain/value-object/InvalidArgumentError'
+import { Primitives } from '../../../Shared/domain/value-object/Primitives'
+import { UserId } from '../../../User/user/domain/UserId'
 import { Device, type DevicePrimitives } from '../domain/Device'
 import { DeviceActivo } from '../domain/DeviceActivo'
 import { DeviceEmployee } from '../domain/DeviceEmployee'
@@ -12,7 +16,9 @@ import { DeviceModelSeries } from '../domain/DeviceModelSeries'
 import { DeviceSerial } from '../domain/DeviceSerial'
 import { DeviceStatus } from '../domain/DeviceStatus'
 
-export interface DeviceParams extends Omit<DevicePrimitives, 'id'> { }
+export interface DeviceParams extends Omit<DevicePrimitives, 'id'> {
+  userId?: Primitives<UserId>
+}
 
 export class DeviceCreator {
   constructor(private readonly repository: Repository) { }
@@ -46,5 +52,19 @@ export class DeviceCreator {
     await DeviceEmployee.ensureEmployeeExit({ repository: this.repository.employee, employee: params.employeeId })
     await DeviceLocation.ensureLocationExit({ repository: this.repository.location, location: params.locationId, status: params.statusId })
     await this.repository.device.save(device.toPrimitives())
+      .then(() => {
+        if (!params.userId) {
+          throw new InvalidArgumentError('user is required')
+        }
+        new HistoryCreator(this.repository).run({
+          deviceId: device.idValue,
+          userId: params.userId,
+          employeeId: device.employeeeValue,
+          action: 'CREATE',
+          newData: device.toPrimitives(),
+          oldData: {},
+          createdAt: new Date()
+        })
+      })
   }
 }

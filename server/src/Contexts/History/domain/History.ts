@@ -3,12 +3,14 @@ import { DeviceId } from '../../Device/Device/domain/DeviceId'
 import { UserId } from '../../User/user/domain/UserId'
 import { Action, type ActionType } from './HistoryAction'
 import { CreatedAt } from './CreatedAt'
+import { HistoryEmployee } from './HistoryEmployee'
 import { type Primitives } from '../../Shared/domain/value-object/Primitives'
 
 export interface HistoryPrimitives {
   id: Primitives<HistoryId>
   deviceId: Primitives<DeviceId>
   userId: Primitives<UserId>
+  employeeId: Primitives<HistoryEmployee>
   action: ActionType
   oldData: object
   newData: object
@@ -20,34 +22,37 @@ export class History {
     private readonly id: HistoryId,
     private readonly deviceId: DeviceId,
     private readonly userId: UserId,
+    private readonly employeeId: HistoryEmployee,
     private readonly action: Action,
     private readonly oldData: object,
     private readonly newData: object,
     private readonly createdAt: CreatedAt
   ) { }
 
-  static create({ deviceId, action, userId, oldData, newData, createdAt }: HistoryPrimitives): History {
+  static create(params: Omit<HistoryPrimitives, 'id'>): History {
     const id = HistoryId.random().value
     return new History(
       new HistoryId(id),
-      new DeviceId(deviceId),
-      new UserId(userId),
-      new Action(action),
-      oldData,
-      newData,
-      new CreatedAt(createdAt)
+      new DeviceId(params.deviceId),
+      new UserId(params.userId),
+      new HistoryEmployee(params.employeeId),
+      new Action(params.action),
+      params.oldData,
+      params.newData,
+      new CreatedAt(params.createdAt)
     )
   }
 
-  toPrimitive(): HistoryPrimitives {
+  toPrimitives(): HistoryPrimitives {
     return {
       id: this.id.value,
-      deviceId: this.deviceIdValue,
+      deviceId: this.deviceValue,
+      userId: this.userValue,
+      employeeId: this.employeeValue,
       action: this.actionValue,
-      createdAt: this.createdAtValue,
-      userId: this.userIdValue,
       oldData: this.oldDataValue,
-      newData: this.newDataValue
+      newData: this.newDataValue,
+      createdAt: this.createdAtValue
     }
   }
 
@@ -56,6 +61,7 @@ export class History {
       new HistoryId(primitives.id),
       new DeviceId(primitives.deviceId),
       new UserId(primitives.userId),
+      new HistoryEmployee(primitives.employeeId),
       new Action(primitives.action),
       primitives.oldData,
       primitives.newData,
@@ -63,12 +69,16 @@ export class History {
     )
   }
 
-  get idValue(): string {
+  get idValue(): Primitives<HistoryId> {
     return this.id.value
   }
 
-  get deviceIdValue(): string {
+  get deviceValue(): Primitives<DeviceId> {
     return this.deviceId.value
+  }
+
+  get employeeValue(): Primitives<HistoryEmployee> {
+    return this.employeeId.value
   }
 
   get actionValue(): ActionType {
@@ -79,7 +89,7 @@ export class History {
     return this.createdAt.value
   }
 
-  get userIdValue(): string {
+  get userValue(): Primitives<UserId> {
     return this.userId.value
   }
 
