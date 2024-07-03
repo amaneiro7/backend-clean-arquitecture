@@ -10,13 +10,13 @@ export class UserModel extends Model<UserPrimitives> implements UserPrimitives {
   readonly lastName!: string
   readonly password!: string
 
-  public static associate (models: Models): void {
+  public static associate(models: Models): void {
     this.belongsTo(models.Role, { as: 'role' }) // A user belongs to a role
-    this.hasMany(models.History, { as: 'history' }) // A user can have many history
+    this.hasMany(models.History, { as: 'history', foreignKey: 'userId' }) // A user can have many history
   }
 }
 
-export function initUserModel (sequelize: Sequelize): void {
+export function initUserModel(sequelize: Sequelize): void {
   UserModel.init(
     {
       id: {

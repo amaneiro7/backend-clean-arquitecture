@@ -25,7 +25,7 @@ export class DeviceModel extends Model<DevicePrimitives> implements DevicePrimit
   readonly locationId!: Primitives<DeviceLocation>
   readonly observation!: Primitives<DeviceObservation>
 
-  public static associate (models: Models): void {
+  public static associate(models: Models): void {
     this.belongsTo(models.Category, { as: 'category', foreignKey: 'categoryId' }) // A device belongs to a category
     this.belongsTo(models.Brand, { as: 'brand', foreignKey: 'brandId' }) // A device belongs to a brand
     this.belongsTo(models.Model, { as: 'model', foreignKey: 'modelId' }) // A device belongs to a model series
@@ -35,10 +35,11 @@ export class DeviceModel extends Model<DevicePrimitives> implements DevicePrimit
     this.hasOne(models.DeviceMFP, { as: 'mfp', foreignKey: 'deviceId' }) // A device has one multifuncional printer
     this.belongsTo(models.Employee, { as: 'employee', foreignKey: 'employeeId' }) // A device belongs to an employee
     this.belongsTo(models.Location, { as: 'location', foreignKey: 'locationId' }) // A device belongs to a location
+    this.hasMany(models.History, { as: 'history', foreignKey: 'deviceId' }) // A device can have many history
   }
 }
 
-export function initDeviceModel (sequelize: Sequelize): void {
+export function initDeviceModel(sequelize: Sequelize): void {
   DeviceModel.init(
     {
       id: {

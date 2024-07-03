@@ -33,7 +33,7 @@ export class EmployeeModel extends Model<EmployeePrimitives> implements Employee
   // public gerenciaId!: Primitives<EmployeeGerenciaId>
   // public coordinacionId!: Primitives<EmployeeCoordinacionId>
 
-  public static associate (models: Models): void {
+  public static associate(models: Models): void {
     // this.belongsTo(models.Cargo, { as: 'cargo', foreignKey: 'cargoId' }) // An employee belongs to a cargo
     // this.belongsTo(models.Location, { as: 'location', foreignKey: 'locationId' }) // An employee belongs to a location
     // this.belongsTo(models.VicepresidenciaEjecutiva, { as: 'vicepresidenciaEjecutiva', foreignKey: 'vicepresidenciaEjecutivaId' }) // An employee belongs to a vicepresidencia
@@ -41,10 +41,11 @@ export class EmployeeModel extends Model<EmployeePrimitives> implements Employee
     // this.belongsTo(models.Gerencia, { as: 'gerencia', foreignKey: 'gerenciaId' }) // An employee belongs to a gerencia
     // this.belongsTo(models.Coordinacion, { as: 'coordinacion', foreignKey: 'coordinacionId' }) // An employee belongs to a coordinacion
     this.hasMany(models.Device, { as: 'devices', foreignKey: 'employeeId' }) // An employee has many devices
+    this.hasMany(models.History, { as: 'history', foreignKey: 'employeeId' }) // An employee has many histories
   }
 }
 
-export function initEmployeeModel (sequelize: Sequelize): void {
+export function initEmployeeModel(sequelize: Sequelize): void {
   EmployeeModel.init(
     {
       id: {

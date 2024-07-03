@@ -1,3 +1,4 @@
+import { JwtPayloadUser } from '../../../Auth/domain/GenerateToken'
 import { ComputerValidation } from '../../../Features/Computer/application/ComputerValidation'
 import { DeviceComputer, type DeviceComputerPrimitives } from '../../../Features/Computer/domain/Computer'
 import { HardDriveValidation } from '../../../Features/HardDrive.ts/HardDrive/application/HardDriveValidation'
@@ -16,14 +17,13 @@ import { DeviceModelSeries } from '../domain/DeviceModelSeries'
 import { DeviceSerial } from '../domain/DeviceSerial'
 import { DeviceStatus } from '../domain/DeviceStatus'
 
-export interface DeviceParams extends Omit<DevicePrimitives, 'id'> {
-  userId?: Primitives<UserId>
-}
+export interface DeviceParams extends Omit<DevicePrimitives, 'id'> { }
 
 export class DeviceCreator {
   constructor(private readonly repository: Repository) { }
 
-  async run(params: DeviceParams): Promise<void> {
+  async run({ params, user }: { params: DeviceParams, user?: JwtPayloadUser }): Promise<void> {
+    console.log(user)
     const { categoryId } = params
     let device
     // Si es computadora
@@ -53,12 +53,12 @@ export class DeviceCreator {
     await DeviceLocation.ensureLocationExit({ repository: this.repository.location, location: params.locationId, status: params.statusId })
     await this.repository.device.save(device.toPrimitives())
       .then(() => {
-        if (!params.userId) {
+        if (!user?.sub) {
           throw new InvalidArgumentError('user is required')
         }
         new HistoryCreator(this.repository).run({
           deviceId: device.idValue,
-          userId: params.userId,
+          userId: user?.sub,
           employeeId: device.employeeeValue,
           action: 'CREATE',
           newData: device.toPrimitives(),

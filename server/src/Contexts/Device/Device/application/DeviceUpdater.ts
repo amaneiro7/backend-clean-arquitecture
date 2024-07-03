@@ -1,3 +1,4 @@
+import { JwtPayloadUser } from '../../../Auth/domain/GenerateToken'
 import { DeviceComputer, type DeviceComputerPrimitives } from '../../../Features/Computer/domain/Computer'
 import { ComputerHardDriveCapacity } from '../../../Features/Computer/domain/ComputerHardDriveCapacity'
 import { ComputerHardDriveType } from '../../../Features/Computer/domain/ComputerHardDriveType'
@@ -13,6 +14,7 @@ import { DeviceHardDrive, type DeviceHardDrivePrimitives } from '../../../Featur
 import { HardDriveHealth } from '../../../Features/HardDrive.ts/HardDrive/domain/HardDriveHealth'
 import { HDDCapacity } from '../../../Features/HardDrive.ts/HardDrive/domain/HDDCapacity'
 import { HDDType } from '../../../Features/HardDrive.ts/HardDrive/domain/HDDType'
+import { HistoryCreator } from '../../../History/application/HistoryCreator'
 import { type Repository } from '../../../Shared/domain/Repository'
 import { InvalidArgumentError } from '../../../Shared/domain/value-object/InvalidArgumentError'
 import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
@@ -39,7 +41,7 @@ export class DeviceUpdater {
    * @param id Id del device
    * @param params Parametros a actualizar
    */
-  async run({ id, params }: { id: Primitives<DeviceId>, params: PartialDeviceParams }): Promise<void> {
+  async run({ id, params, user }: { id: Primitives<DeviceId>, params: PartialDeviceParams, user?: JwtPayloadUser }): Promise<void> {
     const { categoryId } = params
     // Extraemos el id del device a actualizar
     const deviceId = new DeviceId(id).value
@@ -54,6 +56,7 @@ export class DeviceUpdater {
 
     // Creamos una instancia de la entidad Device a partir de los datos obtenidos
     let deviceEntity
+    let oldDeviceEntity
     if (DeviceComputer.isComputerCategory({ categoryId })) {
       // Si el device es de tipo computadora, obtenemos los datos de la tabla computer
       const { computer } = device as unknown as DevicesApiResponse
@@ -82,6 +85,7 @@ export class DeviceUpdater {
         macAddress: computer.macAddress,
         ipAddress: computer.ipAddress
       })
+      oldDeviceEntity = structuredClone(deviceEntity.toPrimitives())
       // Actualizamos los campos principales del device
       await this.updateMainDevice({ params, deviceEntity })
 
@@ -122,6 +126,8 @@ export class DeviceUpdater {
         health: hardDrive.health
       })
 
+      oldDeviceEntity = structuredClone(deviceEntity.toPrimitives())
+
       // Extraemos los parametros de la clase HardDrive
       const {
         hardDriveCapacityId, hardDriveTypeId, health
@@ -137,12 +143,31 @@ export class DeviceUpdater {
     } else {
       // Si el device no es de tipo computadora o hard drive, lo creamos como una instancia de la clase Device
       deviceEntity = Device.fromPrimitives(device)
+      oldDeviceEntity = structuredClone(deviceEntity.toPrimitives())
 
       // Actualizamos los campos principales del device
       await this.updateMainDevice({ params, deviceEntity })
     }
     // Guardamos los cambios en la base de datos    
     await this.repository.device.save(deviceEntity.toPrimitives())
+      .then(() => {
+        if (!user?.sub) {
+          throw new InvalidArgumentError('user is required')
+        }
+        console.group()
+        console.log('oldDeviceEntity', oldDeviceEntity)
+        console.log('deviceEntity', deviceEntity)
+        console.groupEnd()
+        new HistoryCreator(this.repository).run({
+          deviceId: deviceEntity.idValue,
+          userId: user?.sub,
+          employeeId: deviceEntity.employeeeValue,
+          action: 'UPDATE',
+          newData: deviceEntity.toPrimitives(),
+          oldData: oldDeviceEntity,
+          createdAt: new Date()
+        })
+      })
   }
 
   /**

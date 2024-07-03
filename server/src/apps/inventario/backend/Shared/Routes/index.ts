@@ -30,6 +30,7 @@ import { createVicepresidenciaRouter } from '../../Employee/routes/vicepresidenc
 import { createVicepresidenciaEjecutivaRouter } from '../../Employee/routes/vicepresidenciaEjecutiva.routes'
 import { createInputTypeRouter } from '../../ModelSeries/routes/inputType.routes'
 import { createEmployeeRouter } from '../../Employee/routes/employee.routes'
+import { createHistoryRouter } from '../../History/routes/history.routes'
 
 // import { createUserRouter } from './user.routes'
 // import { createAuthRouter } from './auth.routes'
@@ -70,6 +71,7 @@ export const routerApi = ({ app, repository }: Props): Router => {
   router.use('/vicepresidencias', authenticate, createVicepresidenciaRouter({ repository }))
   router.use('/vicepresidenciasejecutivas', authenticate, createVicepresidenciaEjecutivaRouter({ repository }))
   router.use('/employees', authenticate, createEmployeeRouter({ repository }))
+  router.use('/histories', authenticate, createHistoryRouter({ repository }))
 
   // router.use('/users', createUserRouter({ router, repository }))
   // router.use('/profiles', createProfileRouter({ router, repository }))
