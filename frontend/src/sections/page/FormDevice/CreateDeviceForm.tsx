@@ -68,6 +68,7 @@ export default function CreateDeviceForm() {
         handleClose={handleClose}
         isDisabled={formStatus === FormStatus.Loading}
         lastUpdated={formData.updatedAt}
+        updatedBy={formData.history}
         url='/device/add'
         searchInput={<DeviceSearchComboBox />}
       >

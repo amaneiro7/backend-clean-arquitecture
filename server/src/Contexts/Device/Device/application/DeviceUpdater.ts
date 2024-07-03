@@ -154,10 +154,6 @@ export class DeviceUpdater {
         if (!user?.sub) {
           throw new InvalidArgumentError('user is required')
         }
-        console.group()
-        console.log('oldDeviceEntity', oldDeviceEntity)
-        console.log('deviceEntity', deviceEntity)
-        console.groupEnd()
         new HistoryCreator(this.repository).run({
           deviceId: deviceEntity.idValue,
           userId: user?.sub,

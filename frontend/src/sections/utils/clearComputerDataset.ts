@@ -1,5 +1,6 @@
 import { type DevicesApiResponse } from "../../modules/shared/domain/types/responseTypes";
 import { type ClearDataset } from "../../types/types";
+import { lastHistoryUpdated } from "./lastHistoryUpdated";
 
 export function clearComputerDataset({ devices }: { devices: DevicesApiResponse[] }): ClearDataset[] {
     return devices.map(device => ({
@@ -23,6 +24,8 @@ export function clearComputerDataset({ devices }: { devices: DevicesApiResponse[
         "Sistema Operativo": device?.computer?.operatingSystem?.name ?? '',
         "Arquitectura": device?.computer?.operatingSystemArq?.name ?? '',
         Observación: device?.observation,
+        "Actualizado por": lastHistoryUpdated(device?.history)?.user?.email ?? 'root',
         "Fecha de Modificación": new Date(device?.updatedAt).toLocaleDateString()
     }))
 }
+

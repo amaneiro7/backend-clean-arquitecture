@@ -1,5 +1,6 @@
 import { Suspense, lazy, useMemo } from 'react'
 import { useLocation } from 'react-router-dom'
+import { type HistoryApiResponse } from '../../../modules/shared/domain/types/responseTypes'
 
 interface Props extends React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFormElement>, HTMLFormElement> {
   handleSubmit: (event: React.FormEvent) => Promise<void>
@@ -8,18 +9,20 @@ interface Props extends React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFor
   isDisabled: boolean
   handleClose: () => void
   lastUpdated?: string
+  updatedBy?: HistoryApiResponse[]
   searchInput?: JSX.Element
 }
 
 const Button = lazy(async () => await import('../button/button'))
 const LinkAsButton = lazy(async () => await import('../button/LinkAsButton').then(m => ({ default: m.LinkAsButton })))
 const LastUpdated = lazy(async () => import('../LastUpdated').then(m => ({ default: m.LastUpdated })))
+const UpdatedBy = lazy(async () => import('../UpdatedBy').then(m => ({ default: m.UpdatedBy })))
 const PageTitle = lazy(async () => import('../PageTitle'))
 const CancelIcon = lazy(() => import('../icon/CancelIcon').then(m => ({ default: m.CancelIcon })))
 const RightArrowIcon = lazy(() => import('../icon/RighArrowIcon').then(m => ({ default: m.RightArrowIcon })))
 const AddIcon = lazy(() => import('../icon/AddIcon').then(m => ({ default: m.AddIcon })))
 
-export default function FormContainer({ url, title, searchInput, children, isDisabled, handleSubmit, handleClose, lastUpdated, ...props }: React.PropsWithChildren<Props>) {
+export default function FormContainer({ url, title, searchInput, children, isDisabled, handleSubmit, handleClose, updatedBy, lastUpdated, ...props }: React.PropsWithChildren<Props>) {
   const location = useLocation()
 
   const isEdit = useMemo(() => location.pathname.includes('edit'), [location])
@@ -76,7 +79,10 @@ export default function FormContainer({ url, title, searchInput, children, isDis
                          />}              
             </div>
             {children}
-            {lastUpdated !== undefined && <LastUpdated updatedAt={lastUpdated} />}
+            <p className='absolute bottom-0 right-0 text-sm text-black/80'>
+              {lastUpdated !== undefined && <LastUpdated updatedAt={lastUpdated} />}
+              <UpdatedBy history={updatedBy} />
+            </p>
           </fieldset>
         </form>
       </section>

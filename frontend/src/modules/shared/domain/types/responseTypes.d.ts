@@ -40,6 +40,7 @@ import { type UserPrimitives } from '../../../user/user/domain/User'
 import { type LocationPrimitives } from '../../../location/locations/domain/location'
 import { type LocationId } from '../../../location/locations/domain/locationId'
 import { type Primitives } from '../value-object/Primitives'
+import { HistoryPrimitives } from '../../../history/domain/history'
 
 interface UserApiResponse {
   user: UserPrimitives
@@ -63,6 +64,14 @@ export interface DevicesApiResponse extends DevicePrimitives {
   status: StatusPrimitives
   computer: Computer | null
   hardDrive: HardDrive | null
+  history: HistoryApiResponse[]
+}
+
+export interface HistoryApiResponse extends HistoryPrimitives {
+  employee: EmployeePrimitives
+  user: Pick<UserPrimitives, 'email' | 'name' | 'lastName'>
+  createdAt: string
+  updatedAt: string
 }
 
 export interface EmployeesApiResponse extends EmployeePrimitives {

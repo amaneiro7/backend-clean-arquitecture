@@ -77,7 +77,18 @@ export class SequelizeDeviceRepository extends SequelizeCriteriaConverter implem
           association: 'hardDrive',
           include: ['hardDriveCapacity', 'hardDriveType']
         },
-        'location'
+        'location',
+        {
+          association: 'history',
+          include: [
+            {
+              association: 'user',
+              attributes: ['email', 'name', 'lastName'],
+            },
+            'employee'
+          ],
+          order: ['createdAt', 'DESC']
+        }
       ]
     }) ?? null
   }

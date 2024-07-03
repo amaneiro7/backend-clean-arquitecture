@@ -44,7 +44,7 @@ export const useInputsData = (defaultCategoryQuery: SearchByCriteriaQuery): {
     debounce((query: SearchByCriteriaQuery) => {
       addFilter(query)
     }, 300)
-    , [addFilter])
+    , [])
 
   const handleChange = (name: string, value: string, operator?: Operator) => {
     startTransition(() => {

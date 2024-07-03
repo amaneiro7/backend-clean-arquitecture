@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useDevice } from './useDevice'
-import { type DevicesApiResponse } from '../../../modules/shared/domain/types/responseTypes'
+import { type HistoryApiResponse, type DevicesApiResponse } from '../../../modules/shared/domain/types/responseTypes'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { type DeviceSerial } from '../../../modules/devices/devices/devices/domain/DeviceSerial'
 import { type DeviceActivo } from '../../../modules/devices/devices/devices/domain/DeviceActivo'
@@ -52,6 +52,7 @@ export interface DefaultProps {
   memoryRam?: Primitives<MemoryRamValues>[]
   memoryRamSlotQuantity?: Primitives<MemoryRamSlotQuantity>
   memoryRamType?: Primitives<MemoryRamTypeName>
+  history: HistoryApiResponse[]
   updatedAt?: string
 }
 
@@ -79,7 +80,8 @@ const defaultInitialState: DefaultProps = {
   updatedAt: undefined,
   memoryRamSlotQuantity: undefined,
   memoryRamType: '',
-  memoryRam: []
+  memoryRam: [],
+  history: []
 }
 export const useDeviceInitialState = (): {
   preloadedDeviceState: DefaultProps
@@ -129,8 +131,8 @@ export const useDeviceInitialState = (): {
   }, [id, location.state?.state, location.pathname])
 
   function processDeviceState(device: DevicePrimitives): void {
-    const { serial, activo, statusId, model, modelId, categoryId, brandId, employeeId, locationId, observation, computer, hardDrive, updatedAt } = device as DevicesApiResponse
-    setPreloadedDeviceState((prev) => ({ ...prev, id, serial, activo: activo ?? '', statusId, modelId, categoryId, brandId, employeeId, locationId, observation, updatedAt }))
+    const { serial, activo, statusId, model, modelId, categoryId, brandId, employeeId, locationId, observation, computer, hardDrive, history, updatedAt } = device as DevicesApiResponse
+    setPreloadedDeviceState((prev) => ({ ...prev, id, serial, activo: activo ?? '', statusId, modelId, categoryId, brandId, employeeId, locationId, observation, history, updatedAt }))
     if (computer !== null) {
       const { computerName, processorId, memoryRamCapacity, hardDriveCapacityId, hardDriveTypeId, operatingSystemArqId, operatingSystemId, macAddress, ipAddress, memoryRam } = computer
       let memoryRamSlotQuantity: undefined | number

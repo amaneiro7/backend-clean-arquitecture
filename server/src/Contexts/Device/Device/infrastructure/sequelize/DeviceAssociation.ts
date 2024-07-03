@@ -62,7 +62,18 @@ export class DeviceAssociation {
                     }
                 ]
             },
-            'mfp' // 8
+            'mfp', // 8
+            {
+                association: 'history',
+                include: [
+                    {
+                        association: 'user',
+                        attributes: ['email', 'name', 'lastName'],
+                    },
+                    'employee'
+                ],
+                order: ['createdAt', 'DESC']
+            }
         ]
         // Poder filtrar por las caracteristicas de computer
         const firstLevelJoin = ['computerName', 'processorId', 'hardDriveCapacityId', 'hardDriveTypeId', 'operatingSystemId', 'operatingSystemArqId', 'memoryRam', 'memoryRamCapacity', 'ipAddress', 'macAddress']
