@@ -80,8 +80,11 @@ export default function FormContainer({ url, title, searchInput, children, isDis
             </div>
             {children}
             <p className='absolute bottom-0 right-0 text-sm text-black/80'>
-              {lastUpdated !== undefined && <LastUpdated updatedAt={lastUpdated} />}
-              <UpdatedBy history={updatedBy} />
+              {lastUpdated !== undefined && 
+                <>
+                  <LastUpdated updatedAt={lastUpdated} />
+                  <UpdatedBy history={updatedBy} />
+                </>}
             </p>
           </fieldset>
         </form>
