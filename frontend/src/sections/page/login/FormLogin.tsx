@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react'
-import { Link, NavigateFunction } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
 
 import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoading'
 import { useLogin } from './useLogin'
@@ -10,7 +10,8 @@ const PageTitle = lazy(async () => await import('../../components/PageTitle'))
 const Button = lazy(async () => await import('../../components/button/button'))
 const Copyright = lazy(async () => await import('../../components/Copyright').then(m => ({ default: m.Copyright })))
 
-export function FormLogin ({ navigate }: { navigate: NavigateFunction }) {
+export function FormLogin () {
+    const navigate = useNavigate()
     const { formData, errors, loading, valid, handleChange, handleSubmit } = useLogin({navigate})
     return (
       <main className='bg-gray-300 dark:bg-gray-900'>      

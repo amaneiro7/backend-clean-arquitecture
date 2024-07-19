@@ -16,10 +16,8 @@ function App() {
         <AppContextProvider repository={repository}>
           <Suspense fallback={<Loading />}>
             <AppRoutes />
-          </Suspense>
-          <Suspense>
-            <ToasterComponent />
-          </Suspense>
+          </Suspense>          
+          <ToasterComponent />          
         </AppContextProvider>
       </BrowserRouter>
     </ErrorBoundary>

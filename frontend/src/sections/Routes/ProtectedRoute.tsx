@@ -1,18 +1,15 @@
-import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useLocation } from 'react-router-dom'
 import { UserPrimitives } from '../../modules/user/user/domain/User'
 
 interface Props {
   user: UserPrimitives | null
 }
-export default function ProtectedRoute({ children, user }: React.PropsWithChildren<Props>) {
-  const navigate = useNavigate()
+export function ProtectedRoute({ children, user }: React.PropsWithChildren<Props>) {
+  const location = useLocation()
 
-  useEffect(() => {
-    if (user === null) {
-      navigate('/login', { replace: true })
-    }
-  }, [navigate, user])
+  if (!user) {
+    return <Navigate to='/login' state={{ from: location }} replace />
+  }
 
-  return user && children
+  return children
 }
