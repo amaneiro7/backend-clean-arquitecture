@@ -3,10 +3,10 @@ import { OnHandleChange } from "../../../modules/shared/domain/types/types"
 import { Primitives } from "../../../modules/shared/domain/value-object/Primitives"
 import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
 import { ProcessorId } from "../../../modules/devices/fetures/processor/domain/ProcessorId"
-import { useProcessor } from "../../Hooks/processor/useProcessor"
 import { ProcessorPrimitives } from "../../../modules/devices/fetures/processor/domain/Processor"
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
 import { defaultInitialProcessorState } from "../../Hooks/processor/ProcessorFormInitialState"
+import { useAppContext } from "../../Context/AppProvider"
 
 interface Props {
     value?: Primitives<ProcessorId>
@@ -22,7 +22,7 @@ const ComboBox = lazy(async () => import("./combo_box"))
 const ProcessorDialog = lazy(async () => import("../Dialog/ProcessorDialog"))
 
 export default function ProcessorComboBox({ value, onChange, type = 'search' }: Props) {
-    const { processors, createProcessor, loading } = useProcessor()
+    const { useProcessor: { processors, createProcessor, loading } } = useAppContext()
     const [open, toggleOpen] = useState(false)
     const [dialogValue, setDialogValue] = useState<ProcessorPrimitives>(defaultInitialProcessorState)
 
@@ -36,14 +36,14 @@ export default function ProcessorComboBox({ value, onChange, type = 'search' }: 
     })), [processors])
 
     return (
-        <Suspense fallback={<InputSkeletonLoading />}>
-            <ComboBox
-                id='processorId'
-                initialValue={initialValue}
-                label="Procesador"
-                name='processorId'
-                type={type}
-                onChange={(_, newValue: NewValue) => {
+      <Suspense fallback={<InputSkeletonLoading />}>
+        <ComboBox
+          id='processorId'
+          initialValue={initialValue}
+          label='Procesador'
+          name='processorId'
+          type={type}
+          onChange={(_, newValue: NewValue) => {
                     if (typeof newValue === 'string') {
                         // timeout to avoid instant validation of the dialog's form.
                         setTimeout(() => {
@@ -63,23 +63,22 @@ export default function ProcessorComboBox({ value, onChange, type = 'search' }: 
                         onChange('processorId', newValue ? newValue.id : '', Operator.EQUAL)
                     }
                 }}
-                options={processorOptions}
-                isDisabled={false}
-                isRequired={type === 'form'}
-                loading={loading}
-
-            >
-                {type === 'form' && (
-                    <Suspense>
-                        <ProcessorDialog
-                            dialogValue={dialogValue}
-                            open={open}
-                            toggleOpen={toggleOpen}
-                            createProcessor={createProcessor}
-                        />
-                    </Suspense>
+          options={processorOptions}
+          isDisabled={false}
+          isRequired={type === 'form'}
+          loading={loading}
+        >
+          {type === 'form' && (
+            <Suspense>
+              <ProcessorDialog
+                dialogValue={dialogValue}
+                open={open}
+                toggleOpen={toggleOpen}
+                createProcessor={createProcessor}
+              />
+            </Suspense>
                 )}
-            </ComboBox>
-        </Suspense>
+        </ComboBox>
+      </Suspense>
     )
 }

@@ -5,13 +5,13 @@ import { OnHandleChange } from "../../../modules/shared/domain/types/types"
 import { Primitives } from "../../../modules/shared/domain/value-object/Primitives"
 import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
 import { LocationId } from "../../../modules/location/locations/domain/locationId"
-import { useSiteLocation } from "../../Hooks/locations/useLocation"
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
 import { TypeOfSiteId } from "../../../modules/location/typeofsites/domain/typeOfSiteId"
 import { DeviceLocation } from "../../../modules/devices/devices/devices/domain/DeviceLocation"
 import { LocationApiResponse } from "../../../modules/shared/domain/types/responseTypes"
 import { LocationPrimitives } from "../../../modules/location/locations/domain/location"
-import { defaultInitialLocationState, DefaultLocationProps } from "../../Hooks/locations/useLocationInitialState"
+import { defaultInitialLocationState, type DefaultLocationProps } from "../../Hooks/locations/useLocationInitialState"
+import { useAppContext } from "../../Context/AppProvider"
 
 interface Props {
   value?: Primitives<LocationId>
@@ -29,7 +29,7 @@ const ComboBox = lazy(async () => import("./combo_box"))
 const LocationDialog = lazy(async () => import("../Dialog/LocationDialog").then(m => ({ default: m.LocationDialog })))
 
 export default function LocationComboBox({ value, statusId, typeOfSiteId, onChange, type = 'search' }: Props) {
-  const { locations, loading, createLocation } = useSiteLocation()
+  const { useSiteLocation: { locations, loading, createLocation } } = useAppContext()
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
   const [open, toggleOpen] = useState(false)
@@ -71,7 +71,7 @@ export default function LocationComboBox({ value, statusId, typeOfSiteId, onChan
       <ComboBox
         id='locationId'
         initialValue={initialValue}
-        label="Ubicación"
+        label='Ubicación'
         name='locationId'
         type={type}
         onChange={(_, newValue: NewValue) => {
@@ -98,7 +98,7 @@ export default function LocationComboBox({ value, statusId, typeOfSiteId, onChan
       >
         {type === 'form' && (
           <Suspense>
-            <LocationDialog createLocation={createLocation}  dialogValue={dialogValue} open={open} toggleOpen={toggleOpen} />
+            <LocationDialog createLocation={createLocation} dialogValue={dialogValue} open={open} toggleOpen={toggleOpen} />
           </Suspense>
         )}
       </ComboBox>

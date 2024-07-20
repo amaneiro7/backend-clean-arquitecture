@@ -5,7 +5,14 @@ import { type BrandPrimitives } from '../../../modules/devices/brand/domain/Bran
 import { BrandGetter } from '../../../modules/devices/brand/application/BrandGetter'
 import { ApiBrandRepository } from '../../../modules/devices/brand/infraestructure/ApiBrandRepository'
 
-export const useBrand = () => {
+export interface UseBrand {
+  brands: BrandPrimitives[]
+  loading: boolean
+  error: null | string
+  getBrand: BrandGetter
+  createBrand: (formData: BrandPrimitives) => Promise<void>
+}
+export const useBrand = (): UseBrand => {
   const repository = new ApiBrandRepository()
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)

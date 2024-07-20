@@ -4,8 +4,8 @@ import { Primitives } from "../../../modules/shared/domain/value-object/Primitiv
 import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
 import { StatusId } from "../../../modules/devices/devices/status/domain/StatusId"
-import { useStatus } from "../../Hooks/status/useStatus"
-import { StatusPrimitives } from "../../../modules/devices/devices/status/domain/Status"
+import { useAppContext } from "../../Context/AppProvider"
+import { type StatusPrimitives } from "../../../modules/devices/devices/status/domain/Status"
 
 interface Props {
     value: Primitives<StatusId>
@@ -16,32 +16,31 @@ interface Props {
 const ComboBox = lazy(async () => import("./combo_box"))
 
 export default function StatusComboBox({ value, onChange, type = 'search' }: Props) {
-    const { status, loading } = useStatus()
+    const { useStatus: { status, loading }} = useAppContext()
 
     const initialValue = useMemo(() => {
         return status.find(status => status.id === value)
     }, [status, value])
 
     return (
-        <Suspense fallback={<InputSkeletonLoading />}>
-            <ComboBox
-                id='statusId'
-                initialValue={initialValue}
-                label="Estado"
-                name='statusId'
-                type={type}
-                onChange={(_, newValue: StatusPrimitives) => {
+      <Suspense fallback={<InputSkeletonLoading />}>
+        <ComboBox
+          id='statusId'
+          initialValue={initialValue}
+          label='Estado'
+          name='statusId'
+          type={type}
+          onChange={(_, newValue: StatusPrimitives) => {
                     onChange('statusId', newValue ? newValue.id : '', Operator.EQUAL)
                     if (type === 'form') {
                         onChange('locationId', '')
                     }
                 }}
-                options={status}
-                isRequired={type === 'form'}
-                isDisabled={false}
-                loading={loading}
-            >
-            </ComboBox>
-        </Suspense>
+          options={status}
+          isRequired={type === 'form'}
+          isDisabled={false}
+          loading={loading}
+        />
+      </Suspense>
     )
 }

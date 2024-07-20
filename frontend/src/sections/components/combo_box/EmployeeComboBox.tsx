@@ -3,10 +3,10 @@ import { DeviceEmployee } from "../../../modules/devices/devices/devices/domain/
 import { StatusId } from "../../../modules/devices/devices/status/domain/StatusId"
 import { OnHandleChange } from "../../../modules/shared/domain/types/types"
 import { Primitives } from "../../../modules/shared/domain/value-object/Primitives"
-import { useEmployee } from "../../Hooks/employee/useEmployee"
 import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
 import { EmployeePrimitives } from "../../../modules/employee/employee/domain/Employee"
 import { defaultInitialEmployeeState } from "../../Hooks/employee/EmployeeFormInitialState"
+import { useAppContext } from "../../Context/AppProvider"
 
 interface Props {
   value: Primitives<DeviceEmployee>
@@ -23,10 +23,10 @@ interface NewValue extends EmployeePrimitives {
 const EmployeeDialog = lazy(async () => import("../Dialog/EmployeeDialog"))
 const ComboBox = lazy(async () => import("./combo_box"))
 export default function EmployeeComboBox({ value, name, onChange, status, type = 'search' }: Props) {
-  const { employees, loading, createEmployee } = useEmployee()
+  const { useEmployee: { employees, loading, createEmployee } } = useAppContext()
   const employeeOptions = useMemo(() => (
     employees.map(employee => ({ id: employee.id, name: employee.userName }))
-  ), [employees, loading])
+  ), [employees])
 
   const initialValue = useMemo(() => (
     employeeOptions.find(employee => employee.id === value)
@@ -69,7 +69,7 @@ export default function EmployeeComboBox({ value, name, onChange, status, type =
       <ComboBox
         id={name}
         initialValue={initialValue}
-        label="Usuarios"
+        label='Usuarios'
         name={name}
         type={type}
         onChange={(_, newValue: NewValue) => {

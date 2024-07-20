@@ -5,7 +5,14 @@ import { ProcessorCreator } from '../../../modules/devices/fetures/processor/app
 import { ProcessorGetter } from '../../../modules/devices/fetures/processor/application/ProcessorGetter'
 import { ApiProcessorRepository } from '../../../modules/devices/fetures/processor/infrastructure/ApiProcessorRepository'
 
-export const useProcessor = () => {
+export interface UseProcessor {
+  processors: ProcessorPrimitives[]
+  loading: boolean
+  error: null | string
+  getProcessor: ProcessorGetter
+  createProcessor: (formData: ProcessorPrimitives) => Promise<void>
+}
+export const useProcessor = (): UseProcessor => {
   const repository = new ApiProcessorRepository()
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)

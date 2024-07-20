@@ -3,9 +3,9 @@ import { OnHandleChange } from "../../../modules/shared/domain/types/types"
 import { Primitives } from "../../../modules/shared/domain/value-object/Primitives"
 import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
 import { CategoryId } from "../../../modules/devices/category/domain/CategoryId"
-import { useCategory } from "../../Hooks/category/useCategory"
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
 import { CategoryPrimitives } from "../../../modules/devices/category/domain/Category"
+import { useAppContext } from "../../Context/AppProvider"
 
 
 interface Props {
@@ -20,7 +20,7 @@ const ComboBox = lazy(async () => import("./combo_box"))
 const ReadOnlyInputBox = lazy(async () => import("../ReadOnlyInputBox").then(m => ({ default: m.ReadOnlyInputBox })))
 
 export default function CategoryComboBox({ value, filter, onChange, type = 'search', isAdd = false }: Props) {
-    const { categories, loading } = useCategory()
+    const { useCategory: { categories, loading } } = useAppContext()
 
     const filterCategory = useMemo(() => {
       if (!filter) return categories

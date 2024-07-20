@@ -4,11 +4,11 @@ import { Primitives } from "../../../modules/shared/domain/value-object/Primitiv
 import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
 import { BrandId } from "../../../modules/devices/brand/domain/BrandId"
 import { CategoryId } from "../../../modules/devices/category/domain/CategoryId"
-import { useBrand } from "../../Hooks/brand/useBrand"
 import { BrandPrimitives } from "../../../modules/devices/brand/domain/Brand"
 import { BrandApiResponse } from "../../../modules/shared/domain/types/responseTypes"
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
 import { defaultInitialBrandState } from "../../Hooks/brand/BrandFormInitialState"
+import { useAppContext } from "../../Context/AppProvider"
 
 
 interface Props {
@@ -24,7 +24,8 @@ const BrandDialog = lazy(async () => import("../Dialog/BrandDialog").then(m => (
 const ReadOnlyInputBox = lazy(async () => import("../ReadOnlyInputBox").then(m => ({ default: m.ReadOnlyInputBox })))
 
 export default function BrandComboBox({ value, onChange, categoryId, type = 'search', isAdd = false }: Props) {
-    const { brands, createBrand, loading } = useBrand()
+    // const { brands, createBrand, loading } = useBrand()
+    const { useBrand: { brands, loading, createBrand } } = useAppContext()
     const [open, toggleOpen] = useState(false)
     const [dialogValue, setDialogValue] = useState<BrandPrimitives>(defaultInitialBrandState)
 
@@ -45,13 +46,13 @@ export default function BrandComboBox({ value, onChange, categoryId, type = 'sea
     }, [brands, categoryId])
 
     return (
-        <Suspense fallback={<InputSkeletonLoading />}>
-            {(!isAdd && type === 'form') ?
-                <ReadOnlyInputBox label="Marca" required defaultValue={initialValue?.name} />
+      <Suspense fallback={<InputSkeletonLoading />}>
+        {(!isAdd && type === 'form') ?
+          <ReadOnlyInputBox label='Marca' required defaultValue={initialValue?.name} />
                 : <ComboBox
                     id='brandId'
                     initialValue={initialValue}
-                    label="Marca"
+                    label='Marca'
                     name='brandId'
                     type={type}                                        
                     onChange={(_, newValue: any) => {
@@ -76,19 +77,18 @@ export default function BrandComboBox({ value, onChange, categoryId, type = 'sea
                     isDisabled={false}
                     isRequired={type === 'form'}
                     loading={loading}
-
-                >
-                    {type === 'form' && (
-                        <Suspense>
-                            <BrandDialog
-                                dialogValue={dialogValue}
-                                open={open}
-                                toggleOpen={toggleOpen}
-                                createBrand={createBrand}
-                            />
-                        </Suspense>
+                  >
+                  {type === 'form' && (
+                    <Suspense>
+                      <BrandDialog
+                        dialogValue={dialogValue}
+                        open={open}
+                        toggleOpen={toggleOpen}
+                        createBrand={createBrand}
+                      />
+                    </Suspense>
                     )}
                 </ComboBox>}
-        </Suspense>
+      </Suspense>
     )
 }

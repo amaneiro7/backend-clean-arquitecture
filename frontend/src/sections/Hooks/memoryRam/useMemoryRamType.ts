@@ -3,7 +3,12 @@ import { AllMemoryRamTypeGetter } from '../../../modules/devices/fetures/memoryR
 import { type MemoryRamTypePrimitives } from '../../../modules/devices/fetures/memoryRam/memoryRamType/domain/MemoryRamType'
 import { ApiMemoryRamTypeRepository } from '../../../modules/devices/fetures/memoryRam/memoryRamType/infrastructure/ApiMemoryRamTypeRepository'
 
-export const useMemoryRamType = () => {
+export interface UseMemoryRamType {
+  memoryRamTypes: MemoryRamTypePrimitives[]
+  loading: boolean
+  error: null | string
+}
+export const useMemoryRamType = (): UseMemoryRamType => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [data, setData] = useState<MemoryRamTypePrimitives[]>([])

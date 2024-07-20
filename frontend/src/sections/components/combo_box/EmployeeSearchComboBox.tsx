@@ -49,95 +49,93 @@ export const EmployeeSearchComboBox = () => {
     }, [location.pathname])
 
     return (
-        <div className='w-full flex justify-center items-center'>
-            <Suspense>
-                <Autocomplete
-                    id='combobox-search-devices'
-                    fullWidth
-                    getOptionLabel={(option) => {
+      <div className='w-full flex justify-center items-center'>
+        <Suspense>
+          <Autocomplete
+            id='combobox-search-devices'
+            fullWidth
+            getOptionLabel={(option) => {
                         if (typeof option === 'string') {
                             return option
                         }
                         return option.userName
                     }}
-                    filterOptions={(x) => x}
-                    options={employees}
-                    autoComplete
-                    includeInputInList
-                    filterSelectedOptions
-                    value={value}
+            filterOptions={(x) => x}
+            options={employees}
+            autoComplete
+            includeInputInList
+            filterSelectedOptions
+            value={value}
 
-                    onChange={(_, newValue) => {
+            onChange={(_, newValue) => {
                         setOptions(newValue ? [newValue, ...options] : options)
                         setValue(newValue)
                     }}
-                    onInputChange={(_, newInputValue) => {
+            onInputChange={(_, newInputValue) => {
                         setInputValue(newInputValue)
                     }}
-                    size='small'
-                    open={open}
-                    onOpen={() => { setOpen(true) }}
-                    onClose={() => { setOpen(false) }}
-                    isOptionEqualToValue={(option, value) => option.userName === value.userName}
-                    loading={loading}
+            size='small'
+            open={open}
+            onOpen={() => { setOpen(true) }}
+            onClose={() => { setOpen(false) }}
+            isOptionEqualToValue={(option, value) => option.userName === value.userName}
+            loading={loading}
 
-                    clearText='Limpiar'
-                    loadingText='Cargando...'
-                    openText='Abrir'
-                    closeText='Cerrar'
-                    noOptionsText='No existe'
-                    selectOnFocus
-                    clearOnEscape
-                    clearOnBlur
-                    handleHomeEndKeys
-                    clearIcon={<Suspense><CloseIcon fontSize='small' /></Suspense>}
-                    renderInput={(params) => (
-                        <TextField
-                            {...params}
-                            label='Busqueda por Usuario'
-                            InputProps={{
+            clearText='Limpiar'
+            loadingText='Cargando...'
+            openText='Abrir'
+            closeText='Cerrar'
+            noOptionsText='No existe'
+            selectOnFocus
+            clearOnEscape
+            clearOnBlur
+            handleHomeEndKeys
+            clearIcon={<Suspense><CloseIcon fontSize='small' /></Suspense>}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label='Busqueda por Usuario'
+                InputProps={{
                                 ...params.InputProps,
                                 endAdornment: (
-                                    <>
-                                        {loading && <Suspense><CircularProgress color="inherit" size={20} /></Suspense>}
-                                        {params.InputProps.endAdornment}
-                                    </>
+                                  <>
+                                    {loading && <Suspense><CircularProgress color='inherit' size={20} /></Suspense>}
+                                    {params.InputProps.endAdornment}
+                                  </>
                                 ),
                             }}
-                            color='primary'
-                        
-                        />
+                color='primary'
+              />
                     )}
-                    renderOption={(props, option, { inputValue }) => {
+            renderOption={(props, option, { inputValue }) => {
                         const matches = match(option.userName, inputValue, { insideWords: true });
                         const parts = parse(option.userName, matches)
                         return (
-                            <li {...props}>
-                                <div>
-                                    {parts.map((part, index) => (
-                                        <span
-                                            key={index}
-                                            style={{
+                          <li {...props}>
+                            <div>
+                              {parts.map((part, index) => (
+                                <span
+                                  key={index}
+                                  style={{
                                                 fontWeight: part.highlight ? 700 : 400,
                                             }}
-                                        >
-                                            {part.text}
-                                        </span>
+                                >
+                                  {part.text}
+                                </span>
                                     ))}
-                                </div>
-                            </li>
+                            </div>
+                          </li>
                         )
                     }}
-                />
-            </Suspense>
-            <RightIcon isDisabled={!value}>
-                {value && <Link
-                    to={`/employee/edit/${value?.id}`}
-                    state={{ state: value }}
-                    className='absolute w-full h-full'
-                >
-                </Link>}
-            </RightIcon>
-        </div>
+          />
+        </Suspense>
+        <RightIcon isDisabled={!value}>
+          {value && <Link
+            to={`/employee/edit/${value?.id}`}
+            state={{ state: value }}
+            className='absolute w-full h-full'
+                    />}
+        </RightIcon>
+      </div>
     )
 }
