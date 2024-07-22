@@ -1,4 +1,4 @@
-import { lazy, Suspense, useLayoutEffect, useRef, useState } from 'react'
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
 import { EmployeeUserName } from '../../../modules/employee/employee/domain/UserName'
@@ -17,7 +17,7 @@ export function EmployeeUserNameInput ({ value, onChange, type = 'search'}: Prop
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
   const isFirstInput = useRef(true)
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (isFirstInput.current) {
       isFirstInput.current = value.length < UserName.NAME_MIN_LENGTH
       return
@@ -37,19 +37,19 @@ export function EmployeeUserNameInput ({ value, onChange, type = 'search'}: Prop
   return (
     <Suspense fallback={<InputSkeletonLoading />}>
       <FormInput
-          id='userName'
-          isRequired={type === 'form'}
-          name="userName"
-          type="text"
-          label='Nombre de Usuario'
-          placeholder='-- Ingrese el usuario --'
-          handle={(event) => {
+        id='userName'
+        isRequired={type === 'form'}
+        name='userName'
+        type='text'
+        label='Nombre de Usuario'
+        placeholder='-- Ingrese el usuario --'
+        handle={(event) => {
             const { name, value } = event.target
             onChange(name, value)
           }}
-          value={value}
-          isError={isError}
-          errorMessage={errorMessage}
+        value={value}
+        isError={isError}
+        errorMessage={errorMessage}
       />
     </Suspense>
   )

@@ -40,27 +40,25 @@ export default function SerialInput({ value, onChange, type = "search", isAdd = 
   }, [type, value])
   return (
     <Suspense fallback={<InputSkeletonLoading />}>
-      {!isAdd && type === "form" ? (
-        <ReadOnlyInputBox label='Serial' value={value} required />
-      ) : (
-        <FormInput
-          id='serial'
-          isRequired={type === "form"}
-          name='serial'
-          type='text'
-          label='Serial'
-          placeholder='-- Ingrese el Serial del equipo'
-          handle={(event) => {
+      {!isAdd && type === "form" 
+       ? <ReadOnlyInputBox label='Serial' value={value} required />
+       : <FormInput
+           id='serial'
+           isRequired={type === "form"}
+           name='serial'
+           type='text'
+           label='Serial'
+           placeholder='-- Ingrese el Serial del equipo'
+           handle={(event) => {
             // eslint-disable-next-line prefer-const
             let { name, value } = event.target
             value = value.trim().toUpperCase()            
             onChange(name, value, Operator.CONTAINS)
           }}
-          value={value}
-          isError={isError}
-          errorMessage={errorMessage}
-        />
-      )}
+           value={value}
+           isError={isError}
+           errorMessage={errorMessage}
+         />}
     </Suspense>
   )
 }

@@ -1,13 +1,13 @@
-import { lazy, Suspense, useEffect, useLayoutEffect, useMemo, useState } from "react"
+import { lazy, Suspense, useEffect, useMemo, useState } from "react"
 import { OnHandleChange } from "../../../modules/shared/domain/types/types"
 import { Primitives } from "../../../modules/shared/domain/value-object/Primitives"
 import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
 import { CategoryId } from "../../../modules/devices/category/domain/CategoryId"
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
-import { useHardDriveType } from "../../Hooks/hardDrive/useHardDriveType"
 import { ComputerHDDType } from "../../../modules/devices/fetures/computer/domain/ComputerHDDtype"
 import { ComputerHDDCapacity } from "../../../modules/devices/fetures/computer/domain/ComputerHHDCapacity"
 import { type HardDriveTypePrimitives } from "../../../modules/devices/fetures/hardDrive/hardDriveType/domain/HardDriveType"
+import { useAppContext } from "../../Context/AppProvider"
 
 interface Props {
   value: Primitives<CategoryId>
@@ -19,7 +19,7 @@ interface Props {
 const ComboBox = lazy(async () => import("./combo_box"))
 
 export default function HardDriveTypeComboBox({ value, hardDriveCapacity, onChange, type = 'search' }: Props) {
-  const { hardDriveType, loading } = useHardDriveType()
+  const { useHardDriveType: { hardDriveType, loading } } = useAppContext()
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
   const [isDisabled, setIsDisabled] = useState(false)
@@ -30,7 +30,12 @@ export default function HardDriveTypeComboBox({ value, hardDriveCapacity, onChan
 
   useEffect(() => {
     if (type !== 'form') return
-    setIsDisabled(!hardDriveCapacity)
+    if (!hardDriveCapacity) {
+      setIsDisabled(true)
+      onChange('hardDriveTypeId', '')
+    } else {
+      setIsDisabled(false)
+    }
 
     if (value === undefined) {
       return
@@ -46,12 +51,6 @@ export default function HardDriveTypeComboBox({ value, hardDriveCapacity, onChan
       setIsError(false)
     }
   }, [value, hardDriveCapacity, type])
-
-  useLayoutEffect(() => {
-    if (isDisabled) {
-      onChange('hardDriveTypeId', '')
-    }
-  }, [isDisabled])
 
   return (
     <Suspense fallback={<InputSkeletonLoading />}>

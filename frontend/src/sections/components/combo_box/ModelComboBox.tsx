@@ -5,10 +5,10 @@ import { Operator } from "../../../modules/shared/domain/criteria/FilterOperator
 import { BrandId } from "../../../modules/devices/brand/domain/BrandId"
 import { CategoryId } from "../../../modules/devices/category/domain/CategoryId"
 import { ModelApiresponse } from "../../../modules/shared/domain/types/responseTypes"
-import { useModel } from "../../Hooks/model/useModel"
 import { ModelId } from "../../../modules/devices/model/model/domain/ModelId"
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
 import { DefaultModelProps, defaultInitialModelState } from "../../Hooks/model/ModelFormInitialState"
+import { useAppContext } from "../../Context/AppProvider"
 
 interface Props {
     value: Primitives<ModelId>
@@ -29,14 +29,11 @@ const ModelDialog = lazy(async () => import("../Dialog/ModelDialog"))
 const ReadOnlyInputBox = lazy(async () => import("../ReadOnlyInputBox").then(m => ({ default: m.ReadOnlyInputBox })))
 
 export default function ModelComboBox({ value, onChange, categoryId, brandId, type = 'search', name = 'modelId', isAdd = false }: Props) {
-    const { models, loading, createModel } = useModel()
+    const { useModel: { models, loading, createModel } } = useAppContext()
     const [open, toggleOpen] = useState(false)
     const [dialogValue, setDialogValue] = useState<DefaultModelProps>(defaultInitialModelState)
 
-    const initialValue = useMemo(() => {
-        return models.find(model => model.id === value)
-    }, [models, value])
-
+    
     const filterdModel = useMemo(() => {
         return (models as unknown as ModelApiresponse[]).filter(model => {
             const category = model.categoryId === categoryId || !categoryId
@@ -44,18 +41,23 @@ export default function ModelComboBox({ value, onChange, categoryId, brandId, ty
             return category && brand
         })
     }, [models, categoryId, brandId])
+    
+    const initialValue = useMemo(() => {
+        return filterdModel.find(model => model.id === value)
+    }, [filterdModel, value])
 
     return (
-        <Suspense fallback={<InputSkeletonLoading />}>
-            {(!isAdd && type === 'form') ?
-                <ReadOnlyInputBox label="Modelo" defaultValue={initialValue?.name} />
-                : <ComboBox
-                    id='modelId'
-                    initialValue={initialValue}
-                    label="Modelo"
-                    name={name}
-                    type={type}
-                    onChange={(_, newValue: NewValue) => {
+      <Suspense fallback={<InputSkeletonLoading />}>
+        {(!isAdd && type === 'form') 
+            ? <ReadOnlyInputBox label='Modelo' defaultValue={initialValue?.name} />
+            : <ComboBox
+                id='modelId'
+                initialValue={initialValue}
+                label='Modelo'
+                name={name}
+                readOnly={!isAdd && type === 'form'}
+                type={type}
+                onChange={(_, newValue: NewValue) => {
                         if (typeof newValue === 'string') {
                             // timeout to avoid instant validation of the dialog's form.
                             setTimeout(() => {
@@ -79,22 +81,18 @@ export default function ModelComboBox({ value, onChange, categoryId, brandId, ty
                             }
                         }
                     }}
-                    options={filterdModel}
-                    isDisabled={false}
-                    isRequired={type === 'form'}
-                    loading={loading}
-                >
-                    {type === 'form' && (
-                        <Suspense>
-                            <ModelDialog
-                                dialogValue={dialogValue}
-                                open={open}
-                                toggleOpen={toggleOpen}
-                                createModel={createModel}
-                            />
-                        </Suspense>
-                    )}
-                </ComboBox>}
-        </Suspense>
+                options={filterdModel}
+                isDisabled={false}
+                isRequired={type === 'form'}
+                loading={loading}
+              />}
+        {type === 'form' && (                    
+          <ModelDialog
+            dialogValue={dialogValue}
+            open={open}
+            toggleOpen={toggleOpen}
+            createModel={createModel}
+          />)}
+      </Suspense>
     )
 }

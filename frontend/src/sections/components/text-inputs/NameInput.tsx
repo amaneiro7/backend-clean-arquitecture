@@ -34,13 +34,13 @@ export default function EmployeeNameInput ({ value, onChange, isForm = false }: 
       setErrorMessage('')
       setIsError(false)
     }
-  }, [value])
+  }, [isForm, value])
   return (
-  <FormInput
+    <FormInput
       id='name'
       isRequired={isForm}
-      name="name"
-      type="text"
+      name='name'
+      type='text'
       label='Nombre'
       placeholder='-- Ingrese el Nombre del usuario'
       handle={(event) => {
@@ -50,6 +50,6 @@ export default function EmployeeNameInput ({ value, onChange, isForm = false }: 
       value={value}
       isError={isError}
       errorMessage={errorMessage}
-  />
+    />
   )
 }

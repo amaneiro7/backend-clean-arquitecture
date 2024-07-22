@@ -2,13 +2,17 @@ import { useEffect, useState } from 'react'
 import { AllOperatingSystemArqGetter } from '../../../modules/devices/fetures/operatingSystem/operatingSystemArq/application/AllOperatingSystemArqGetter'
 import { type OperatingSystemArqPrimitives } from '../../../modules/devices/fetures/operatingSystem/operatingSystemArq/domain/OperatingSystemArq'
 import { ApiOperatingSystemArqRepository } from '../../../modules/devices/fetures/operatingSystem/operatingSystemArq/infrastructure/ApiOperatingSystemArqRepository'
-
-export const useOperatingSystemArq = () => {
+export interface UseOperatingSystemArq {
+  operatingSystemArq: OperatingSystemArqPrimitives[]
+  loading: boolean
+  error: string | null
+}
+export const useOperatingSystemArq = (): UseOperatingSystemArq => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [data, setData] = useState<OperatingSystemArqPrimitives[]>([])
-  
-  function fetchData () {
+
+  function fetchData() {
     setLoading(true)
     new AllOperatingSystemArqGetter(new ApiOperatingSystemArqRepository())
       .get()

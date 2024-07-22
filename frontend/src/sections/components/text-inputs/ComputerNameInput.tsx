@@ -1,4 +1,4 @@
-import { lazy, Suspense, useLayoutEffect, useRef, useState } from 'react'
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
 import { ComputerName } from '../../../modules/devices/fetures/computer/domain/ComputerName'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
@@ -21,9 +21,14 @@ export function ComputerNameInput({ value, status, onChange, type = 'form' }: Pr
   const isFirstInput = useRef(true)
   const [isDisabled, setIsDisabled] = useState(false)
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (type !== 'form') return    
-    setIsDisabled(status !== StatusId.StatusOptions.INUSE)
+    if (status !== StatusId.StatusOptions.INUSE) {
+      onChange('computerName', '')
+      setIsDisabled(true)
+    } else {
+      setIsDisabled(false)
+    }
 
     if (isFirstInput.current || value === '') {
       isFirstInput.current = value === ''
@@ -39,13 +44,7 @@ export function ComputerNameInput({ value, status, onChange, type = 'form' }: Pr
       setErrorMessage('')
       setIsError(false)
     }
-  }, [value, status])
-
-  useLayoutEffect(() => {
-    if (isDisabled) {
-      onChange('computerName', '')
-    }
-  }, [isDisabled])
+  }, [value, status, type])
 
   return (
     <Suspense fallback={<InputSkeletonLoading />}>
@@ -53,8 +52,8 @@ export function ComputerNameInput({ value, status, onChange, type = 'form' }: Pr
         id='computerName'
         isRequired={!isDisabled && type === 'form'}
         isDisabled={isDisabled}
-        name="computerName"
-        type="text"
+        name='computerName'
+        type='text'
         label='Nombre del equipo'
         placeholder='-- Ingrese el Nombre del equipo'
         handle={(event) => {

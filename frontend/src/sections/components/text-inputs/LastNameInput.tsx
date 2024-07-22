@@ -34,13 +34,13 @@ export default function EmployeeLastNameInput ({ value, onChange, isForm = false
       setErrorMessage('')
       setIsError(false)
     }
-  }, [value])
+  }, [isForm, value])
   return (
-  <FormInput
+    <FormInput
       id='lastName'
       isRequired={isForm}
-      name="lastName"
-      type="text"
+      name='lastName'
+      type='text'
       label='Apellido'
       placeholder='-- Ingrese el Apellido del usuario'
       handle={(event) => {
@@ -50,6 +50,6 @@ export default function EmployeeLastNameInput ({ value, onChange, isForm = false
       value={value}
       isError={isError}
       errorMessage={errorMessage}
-  />
+    />
   )
 }

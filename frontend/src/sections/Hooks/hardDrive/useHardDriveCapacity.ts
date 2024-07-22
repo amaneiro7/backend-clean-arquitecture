@@ -3,7 +3,14 @@ import { AllHardDriveCapacityGetter } from '../../../modules/devices/fetures/har
 import { ApiHardDriveCapacityRepository } from '../../../modules/devices/fetures/hardDrive/hardDriveCapacity/infrastructure/ApiHardDriveCapacityRepository'
 import { type HardDriveCapacityPrimitives } from '../../../modules/devices/fetures/hardDrive/hardDriveCapacity/domain/HardDriveCapacity'
 
-export const useHardDriveCapacity = () => {
+
+export interface UseHardDriveCapacity {
+  hardDriveCapacity: HardDriveCapacityPrimitives[]
+  loading: boolean
+  error: null | string
+}
+
+export const useHardDriveCapacity = (): UseHardDriveCapacity => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [data, setData] = useState<HardDriveCapacityPrimitives[]>([])

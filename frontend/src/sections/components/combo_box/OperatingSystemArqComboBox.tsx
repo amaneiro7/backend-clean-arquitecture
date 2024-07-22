@@ -1,12 +1,12 @@
-import { lazy, Suspense, useLayoutEffect, useMemo, useState } from "react"
+import { lazy, Suspense, useEffect, useMemo, useState } from "react"
 import { OnHandleChange } from "../../../modules/shared/domain/types/types"
 import { Primitives } from "../../../modules/shared/domain/value-object/Primitives"
 import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
 import { ComputerOs } from "../../../modules/devices/fetures/computer/domain/ComputerOS"
-import { useOperatingSystemArq } from "../../Hooks/operatingSystem/useOperatingSystemArq"
 import { ComputerOsArq } from "../../../modules/devices/fetures/computer/domain/ComputerOSArq"
 import { OperatingSystemArqPrimitives } from "../../../modules/devices/fetures/operatingSystem/operatingSystemArq/domain/OperatingSystemArq"
+import { useAppContext } from "../../Context/AppProvider"
 
 interface Props {
   value: Primitives<ComputerOsArq>
@@ -18,7 +18,7 @@ interface Props {
 const ComboBox = lazy(async () => import("./combo_box"))
 
 export function OperatingSystemArqComboBox({ value, operatingSystem, onChange, type = 'search' }: Props) {
-  const { operatingSystemArq, loading } = useOperatingSystemArq()
+  const { useOperatingSystemArq: { operatingSystemArq, loading }} = useAppContext()
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
   const [isDisabled, setIsDisabled] = useState(false)
@@ -28,9 +28,14 @@ export function OperatingSystemArqComboBox({ value, operatingSystem, onChange, t
     return operatingSystemArq.find(os => os.id === value)
   }, [operatingSystemArq, value])
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (type !== 'form') return
-    setIsDisabled(!operatingSystem)
+    if (!operatingSystem) {
+      onChange('operatingSystemArqId', '')
+      setIsDisabled(true)
+    } else {
+      setIsDisabled(false)
+    }
 
     if (value === undefined) {
       return
@@ -47,20 +52,14 @@ export function OperatingSystemArqComboBox({ value, operatingSystem, onChange, t
       setErrorMessage('')
       setIsError(false)
     }
-  }, [value, operatingSystem])
-
-  useLayoutEffect(() => {
-    if (isDisabled) {
-      onChange('operatingSystemArqId', '')
-    }
-  }, [isDisabled])
+  }, [value, operatingSystem, type])
 
   return (
     <Suspense fallback={<InputSkeletonLoading />}>
       <ComboBox
         id='operatingSystemArqId'
         initialValue={initialValue}
-        label="Arquitectura del Sistema Operativo"
+        label='Arquitectura del Sistema Operativo'
         name='operatingSystemArqId'
         type={type}
         onChange={(_, newValue: OperatingSystemArqPrimitives) => {
@@ -74,8 +73,7 @@ export function OperatingSystemArqComboBox({ value, operatingSystem, onChange, t
         loading={loading}
         isError={isError}
         errorMessage={errorMessage}
-      >
-      </ComboBox>
+      />
     </Suspense>
   )
 }

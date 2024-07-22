@@ -4,8 +4,8 @@ import { Primitives } from "../../../modules/shared/domain/value-object/Primitiv
 import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
 import { BrandId } from "../../../modules/devices/brand/domain/BrandId"
 import { CategoryId } from "../../../modules/devices/category/domain/CategoryId"
-import { BrandPrimitives } from "../../../modules/devices/brand/domain/Brand"
-import { BrandApiResponse } from "../../../modules/shared/domain/types/responseTypes"
+import { type BrandPrimitives } from "../../../modules/devices/brand/domain/Brand"
+import { type BrandApiResponse } from "../../../modules/shared/domain/types/responseTypes"
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
 import { defaultInitialBrandState } from "../../Hooks/brand/BrandFormInitialState"
 import { useAppContext } from "../../Context/AppProvider"
@@ -19,20 +19,18 @@ interface Props {
     isAdd?: boolean
 }
 
+interface NewValue extends BrandPrimitives {
+    inputValue: string
+}
+
 const ComboBox = lazy(async () => import("./combo_box"))
 const BrandDialog = lazy(async () => import("../Dialog/BrandDialog").then(m => ({ default: m.BrandDialog })))
 const ReadOnlyInputBox = lazy(async () => import("../ReadOnlyInputBox").then(m => ({ default: m.ReadOnlyInputBox })))
 
 export default function BrandComboBox({ value, onChange, categoryId, type = 'search', isAdd = false }: Props) {
-    // const { brands, createBrand, loading } = useBrand()
     const { useBrand: { brands, loading, createBrand } } = useAppContext()
     const [open, toggleOpen] = useState(false)
     const [dialogValue, setDialogValue] = useState<BrandPrimitives>(defaultInitialBrandState)
-
-    const initialValue = useMemo(() => {
-        return brands.find(brand => brand.id === value)
-    }, [brands, value])
-
 
     const filterdBrand = useMemo(() => {
         if (!categoryId) {
@@ -42,20 +40,23 @@ export default function BrandComboBox({ value, onChange, categoryId, type = 'sea
         return brands.filter(brand =>
             (brand as BrandApiResponse).model?.some(model =>
                 model.categoryId === categoryId)
-        )
-    }, [brands, categoryId])
+            )
+        }, [brands, categoryId])
+    const initialValue = useMemo(() => {
+        return filterdBrand.find(brand => brand.id === value)
+    }, [filterdBrand, value])
 
     return (
       <Suspense fallback={<InputSkeletonLoading />}>
-        {(!isAdd && type === 'form') ?
-          <ReadOnlyInputBox label='Marca' required defaultValue={initialValue?.name} />
-                : <ComboBox
-                    id='brandId'
-                    initialValue={initialValue}
-                    label='Marca'
-                    name='brandId'
-                    type={type}                                        
-                    onChange={(_, newValue: any) => {
+        {(!isAdd && type === 'form') 
+            ? <ReadOnlyInputBox label='Marca' required defaultValue={initialValue?.name} />
+        : <ComboBox
+            id='brandId'
+            initialValue={initialValue}
+            label='Marca'
+            name='brandId'
+            type={type}                                        
+            onChange={(_, newValue: NewValue) => {
                         if (typeof newValue === 'string') {
                             // timeout to avoid instant validation of the dialog's form.
                             setTimeout(() => {
@@ -73,22 +74,18 @@ export default function BrandComboBox({ value, onChange, categoryId, type = 'sea
                             onChange('brandId', newValue ? newValue.id : '', Operator.EQUAL)
                         }
                     }}
-                    options={filterdBrand as BrandApiResponse[]}
-                    isDisabled={false}
-                    isRequired={type === 'form'}
-                    loading={loading}
-                  >
-                  {type === 'form' && (
-                    <Suspense>
-                      <BrandDialog
-                        dialogValue={dialogValue}
-                        open={open}
-                        toggleOpen={toggleOpen}
-                        createBrand={createBrand}
-                      />
-                    </Suspense>
-                    )}
-                </ComboBox>}
+            options={filterdBrand as BrandApiResponse[]}
+            isDisabled={false}
+            isRequired={type === 'form'}
+            loading={loading}
+          />}
+        {type === 'form' && 
+          <BrandDialog
+            dialogValue={dialogValue}
+            open={open}
+            toggleOpen={toggleOpen}
+            createBrand={createBrand}
+          />}
       </Suspense>
     )
 }

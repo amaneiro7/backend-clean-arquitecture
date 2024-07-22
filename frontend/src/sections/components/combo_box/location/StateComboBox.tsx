@@ -1,12 +1,12 @@
 import { lazy, Suspense, useMemo } from "react"
 import { OnHandleChange } from "../../../../modules/shared/domain/types/types"
-import { useCountryStates } from "../../../Hooks/locations/useCountryStates"
 import { InputSkeletonLoading } from "../../skeleton/inputSkeletonLoading"
 import { Operator } from "../../../../modules/shared/domain/criteria/FilterOperators"
 import { type StatePrimitives } from "../../../../modules/location/state/domain/state"
 import { type Primitives } from "../../../../modules/shared/domain/value-object/Primitives"
 import { type StateId } from "../../../../modules/location/state/domain/StateId"
 import { type RegionId } from "../../../../modules/location/region/domain/RegionId"
+import { useAppContext } from "../../../Context/AppProvider"
 
 
 interface Props {
@@ -21,38 +21,35 @@ const ReadOnlyInputBox = lazy(async () => import('../../ReadOnlyInputBox').then(
 const ComboBox = lazy(async () => import("./../combo_box"))
 
 export function StateComboBox({ value, region, onChange, type = 'search', isAddForm = false }: Props) {
-    const { state, loading } = useCountryStates()
-
-    const initialValue = useMemo(() => {
-        return state.find(sta => sta.id === value)
-    }, [state, value])
-
+    const { useCountryStates: { state, loading }} = useAppContext()
+    
     const filtered = useMemo(() => {
         if (!region) return state
         return state.filter(sta => sta.regionId === region)
     }, [state, region])
 
+    const initialValue = useMemo(() => {
+        return filtered.find(sta => sta.id === value)
+    }, [filtered, value])
+
     return (
-        <Suspense fallback={<InputSkeletonLoading />}>
-            {
-                !isAddForm && type == 'form'
-                    ? <ReadOnlyInputBox label='Estado' required defaultValue={initialValue?.name} />
-                    : <ComboBox
-                        id='stateId'
-                        initialValue={initialValue}
-                        label="Estado"
-                        name='stateId'
-                        type={type}
-                        onChange={(_, newValue: StatePrimitives) => {
-                            onChange('stateId', newValue ? newValue.id : '', Operator.EQUAL)
-                        }}
-                        options={filtered}
-                        isDisabled={false}
-                        isRequired={type === 'form'}
-                        loading={loading}
-                    >
-                    </ComboBox>
-            }
-        </Suspense>
+      <Suspense fallback={<InputSkeletonLoading />}>
+        {!isAddForm && type == 'form'
+            ? <ReadOnlyInputBox label='Estado' required defaultValue={initialValue?.name} />
+            : <ComboBox
+                id='stateId'
+                initialValue={initialValue}
+                label='Estado'
+                name='stateId'
+                type={type}
+                onChange={(_, newValue: StatePrimitives) => {
+                    onChange('stateId', newValue ? newValue.id : '', Operator.EQUAL)
+                }}
+                options={filtered}
+                isDisabled={false}
+                isRequired={type === 'form'}
+                loading={loading}
+              />}
+      </Suspense>
     )
 }

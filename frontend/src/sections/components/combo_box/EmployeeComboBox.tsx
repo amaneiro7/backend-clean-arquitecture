@@ -1,12 +1,13 @@
-import { lazy, Suspense, useLayoutEffect, useMemo, useState } from "react"
+import { lazy, Suspense, useEffect, useMemo, useState } from "react"
 import { DeviceEmployee } from "../../../modules/devices/devices/devices/domain/DeviceEmployee"
+import { type EmployeePrimitives } from "../../../modules/employee/employee/domain/Employee"
+import { type Primitives } from "../../../modules/shared/domain/value-object/Primitives"
 import { StatusId } from "../../../modules/devices/devices/status/domain/StatusId"
 import { OnHandleChange } from "../../../modules/shared/domain/types/types"
-import { Primitives } from "../../../modules/shared/domain/value-object/Primitives"
 import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
-import { EmployeePrimitives } from "../../../modules/employee/employee/domain/Employee"
 import { defaultInitialEmployeeState } from "../../Hooks/employee/EmployeeFormInitialState"
 import { useAppContext } from "../../Context/AppProvider"
+import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
 
 interface Props {
   value: Primitives<DeviceEmployee>
@@ -38,16 +39,20 @@ export default function EmployeeComboBox({ value, name, onChange, status, type =
   const [open, toggleOpen] = useState(false)
   const [dialogValue, setDialogValue] = useState<EmployeePrimitives>(defaultInitialEmployeeState)
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (type !== 'form') return
 
     if (value === undefined) {
       return
     }
 
-
     const isValid = DeviceEmployee.isValid(value, status)
-    setIsDisabled(StatusId.StatusOptions.INUSE !== status)
+    if (StatusId.StatusOptions.INUSE !== status) {
+      setIsDisabled(true)
+      onChange(name, '')
+    } else {
+      setIsDisabled(false)
+    }
 
     setIsError(!isValid)
     setErrorMessage(isValid ? '' : DeviceEmployee.invalidMessage())
@@ -56,16 +61,12 @@ export default function EmployeeComboBox({ value, name, onChange, status, type =
       setErrorMessage('')
       setIsError(false)
     }
-  }, [value, status])
-
-  useLayoutEffect(() => {
-    if (isDisabled) {
-      onChange(name, '')
-    }
-  }, [isDisabled])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value, status, type])
+  
 
   return (
-    <Suspense>
+    <Suspense fallback={<InputSkeletonLoading />}>
       <ComboBox
         id={name}
         initialValue={initialValue}
@@ -98,10 +99,8 @@ export default function EmployeeComboBox({ value, name, onChange, status, type =
         loading={loading}
         errorMessage={errorMessage}
       >
-        {type === 'form' &&
-          <Suspense>
-            <EmployeeDialog createEmployee={createEmployee} dialogValue={dialogValue} open={open} toggleOpen={toggleOpen} />
-          </Suspense>}
+        {type === 'form' &&          
+          <EmployeeDialog createEmployee={createEmployee} dialogValue={dialogValue} open={open} toggleOpen={toggleOpen} />}
       </ComboBox>
     </Suspense>
   )

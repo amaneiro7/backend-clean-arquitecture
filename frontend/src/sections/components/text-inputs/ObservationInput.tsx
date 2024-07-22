@@ -17,17 +17,17 @@ export default function ObservationInput ({ value, onChange }: Props) {
   return (
     <Suspense fallback={<InputSkeletonLoading />}>
       <FormInput
-          id='observation'
-          isRequired={false}
-          name="observation"
-          type="textarea"
-          label='Observacion'
-          placeholder=''
-          handle={(event) => {
+        id='observation'
+        isRequired={false}
+        name='observation'
+        type='textarea'
+        label='Observacion'
+        placeholder=''
+        handle={(event) => {
             const { name, value } = event.target
             onChange(name, value, Operator.CONTAINS)
           }}
-          value={value}
+        value={value}
       />
     </Suspense>
   )

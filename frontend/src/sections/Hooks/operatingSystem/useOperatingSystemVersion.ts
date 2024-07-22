@@ -2,7 +2,11 @@ import { useEffect, useState } from 'react'
 import { type OperatingSystemPrimitives } from '../../../modules/devices/fetures/operatingSystem/operatingSystem/domain/OperatingSystem'
 import { AllOperatingSystemGetter } from '../../../modules/devices/fetures/operatingSystem/operatingSystem/application/AllOperatingSystemGetter'
 import { ApiOperatingSystemRepository } from '../../../modules/devices/fetures/operatingSystem/operatingSystem/infrastructure/ApiOperatingSystemRepository'
-
+export interface UseOperatingSystemVersions {
+  operatingSystem: OperatingSystemPrimitives[]
+  loading: boolean
+  error: string | null
+}
 export const useOperatingSystemVersions = () => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)

@@ -1,10 +1,10 @@
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react"
 import { OnHandleChange } from "../../../modules/shared/domain/types/types"
-import { Primitives } from "../../../modules/shared/domain/value-object/Primitives"
-import { useProcessor } from "../../Hooks/processor/useProcessor"
+import { type Primitives } from "../../../modules/shared/domain/value-object/Primitives"
+import { type ProcessorPrimitives } from "../../../modules/devices/fetures/processor/domain/Processor"
 import { ProcessorProductCollection } from "../../../modules/devices/fetures/processor/domain/ProcessorCollection"
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
-import { ProcessorPrimitives } from "../../../modules/devices/fetures/processor/domain/Processor"
+import { useAppContext } from "../../Context/AppProvider"
 
 
 interface Props {
@@ -16,7 +16,7 @@ interface Props {
 const ComboBox = lazy(async () => import("./combo_box"))
 
 export default function ProcessorCollectionComboBox({ value, onChange, type = 'search' }: Props) {
-    const { processors, loading } = useProcessor()
+    const { useProcessor: { processors, loading } } = useAppContext()
 
     const [errorMessage, setErrorMessage] = useState('')
     const [isError, setIsError] = useState(false)
@@ -53,26 +53,25 @@ export default function ProcessorCollectionComboBox({ value, onChange, type = 's
 
 
     return (
-        <Suspense fallback={<InputSkeletonLoading />}>
-            <ComboBox
-                id='productCollection'
-                initialValue={initialValue}
-                label="Collección de Productos"
-                name='productCollection'
-                freeSolo
-                type='search'
-                onChange={(_, newValue: ProcessorPrimitives) => {
+      <Suspense fallback={<InputSkeletonLoading />}>
+        <ComboBox
+          id='productCollection'
+          initialValue={initialValue}
+          label='Collección de Productos'
+          name='productCollection'
+          freeSolo
+          type='search'
+          onChange={(_, newValue: ProcessorPrimitives) => {
                     onChange('productCollection', newValue ? newValue.name : '')
 
                 }}
-                options={processorOptions}
-                isRequired={type === 'form'}
-                isDisabled={false}
-                loading={loading}
-                isError={isError}
-                errorMessage={errorMessage}
-            >
-            </ComboBox>
-        </Suspense>
+          options={processorOptions}
+          isRequired={type === 'form'}
+          isDisabled={false}
+          loading={loading}
+          isError={isError}
+          errorMessage={errorMessage}
+        />
+      </Suspense>
     )
 }

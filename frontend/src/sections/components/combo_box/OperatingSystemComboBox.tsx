@@ -1,13 +1,13 @@
-import { lazy, Suspense, useLayoutEffect, useMemo, useState } from "react"
+import { lazy, Suspense, useEffect, useMemo, useState } from "react"
 import { OnHandleChange } from "../../../modules/shared/domain/types/types"
-import { Primitives } from "../../../modules/shared/domain/value-object/Primitives"
+import { type Primitives } from "../../../modules/shared/domain/value-object/Primitives"
 import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
 import { StatusId } from "../../../modules/devices/devices/status/domain/StatusId"
 import { ComputerHDDCapacity } from "../../../modules/devices/fetures/computer/domain/ComputerHHDCapacity"
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
 import { ComputerOs } from "../../../modules/devices/fetures/computer/domain/ComputerOS"
-import { useOperatingSystemVersions } from "../../Hooks/operatingSystem/useOperatingSystemVersion"
-import { OperatingSystemPrimitives } from "../../../modules/devices/fetures/operatingSystem/operatingSystem/domain/OperatingSystem"
+import { type OperatingSystemPrimitives } from "../../../modules/devices/fetures/operatingSystem/operatingSystem/domain/OperatingSystem"
+import { useAppContext } from "../../Context/AppProvider"
 
 interface Props {
   value: Primitives<ComputerOs>
@@ -20,7 +20,7 @@ interface Props {
 const ComboBox = lazy(async () => import("./combo_box"))
 
 export function OperatingSystemComboBox({ value, status, hardDriveCapacity, onChange, type = 'search' }: Props) {
-  const { operatingSystem, loading } = useOperatingSystemVersions()
+  const { useOperatingSystemVersions: { operatingSystem, loading } } = useAppContext()
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
   const [isDisabled, setIsDisabled] = useState(false)
@@ -30,7 +30,7 @@ export function OperatingSystemComboBox({ value, status, hardDriveCapacity, onCh
     return operatingSystem.find(os => os.id === value)
   }, [operatingSystem, value])
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (type !== 'form') return
 
     if (value === undefined) {
@@ -38,7 +38,14 @@ export function OperatingSystemComboBox({ value, status, hardDriveCapacity, onCh
     }
 
     const isValid = ComputerOs.isValid(value, status, hardDriveCapacity)
-    setIsDisabled(StatusId.StatusOptions.INUSE !== status || hardDriveCapacity === '')
+    // Se valida si el dispositivo no esta en uso o si la capcidad del disco duro esta vacio
+    // si alguna de las conficiones es verdadera, el campo se deshabilita y el valor del campo queda en blanco
+    if (StatusId.StatusOptions.INUSE !== status || hardDriveCapacity === '') {
+      onChange('operatingSystemId', '')
+      setIsDisabled(true)
+    } else {
+      setIsDisabled(false)
+    }
     setIsRequired(type === 'form' && StatusId.StatusOptions.INUSE === status)
 
     setIsError(!isValid)
@@ -48,20 +55,14 @@ export function OperatingSystemComboBox({ value, status, hardDriveCapacity, onCh
       setErrorMessage('')
       setIsError(false)
     }
-  }, [value, status, hardDriveCapacity])
-
-  useLayoutEffect(() => {
-    if (isDisabled) {
-      onChange('operatingSystemId', '')
-    }
-  }, [isDisabled])
+  }, [value, status, hardDriveCapacity, type])
 
   return (
     <Suspense fallback={<InputSkeletonLoading />}>
       <ComboBox
         id='operatingSystemId'
         initialValue={initialValue}
-        label="Sistemas Operativo"
+        label='Sistemas Operativo'
         name='operatingSystemId'
         type={type}
         onChange={(_, newValue: OperatingSystemPrimitives) => {
@@ -75,8 +76,7 @@ export function OperatingSystemComboBox({ value, status, hardDriveCapacity, onCh
         loading={loading}
         isError={isError}
         errorMessage={errorMessage}
-      >
-      </ComboBox>
+      />
     </Suspense>
   )
 }

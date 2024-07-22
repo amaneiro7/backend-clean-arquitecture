@@ -1,12 +1,12 @@
-import { lazy, Suspense, useLayoutEffect, useMemo, useState } from "react"
+import { lazy, Suspense, useEffect, useMemo, useState } from "react"
 import { type OnHandleChange } from "../../../modules/shared/domain/types/types"
 import { type Primitives } from "../../../modules/shared/domain/value-object/Primitives"
 import { type HardDrivePrimitives } from "../../../modules/devices/fetures/hardDrive/hardDrive/domain/HardDrive"
 import { StatusId } from "../../../modules/devices/devices/status/domain/StatusId"
 import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
-import { useHardDriveCapacity } from "../../Hooks/hardDrive/useHardDriveCapacity"
 import { ComputerHDDCapacity } from "../../../modules/devices/fetures/computer/domain/ComputerHHDCapacity"
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
+import { useAppContext } from "../../Context/AppProvider"
 
 interface Props {
     value: Primitives<ComputerHDDCapacity>    
@@ -18,7 +18,7 @@ interface Props {
   const ComboBox = lazy(async() => import("./combo_box"))  
 
 export function HardDriveCapacityComboBox ({ value, status, onChange, type = 'search' }: Props) {
-    const { hardDriveCapacity, loading } = useHardDriveCapacity()
+    const { useHardDriveCapacity: { hardDriveCapacity, loading } } = useAppContext()
     const [errorMessage, setErrorMessage] = useState('')
     const [isError, setIsError] = useState(false)    
     const [isRequired, setIsRequired] = useState(false)
@@ -27,7 +27,7 @@ export function HardDriveCapacityComboBox ({ value, status, onChange, type = 'se
         return hardDriveCapacity.find(hddtype => hddtype.id === value)
     }, [hardDriveCapacity, value])
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         if (type !== 'form') return
 
         if (value === undefined) {      
@@ -44,7 +44,7 @@ export function HardDriveCapacityComboBox ({ value, status, onChange, type = 'se
           setErrorMessage('')
           setIsError(false)
         }
-      }, [value, status])
+      }, [value, status, type])
 
     return (
       <Suspense fallback={<InputSkeletonLoading />}>

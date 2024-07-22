@@ -1,15 +1,14 @@
-import { lazy, Suspense, useLayoutEffect, useMemo, useState } from "react"
-
+import { lazy, Suspense, useEffect, useMemo, useState } from "react"
 import { StatusId } from "../../../modules/devices/devices/status/domain/StatusId"
 import { OnHandleChange } from "../../../modules/shared/domain/types/types"
-import { Primitives } from "../../../modules/shared/domain/value-object/Primitives"
+import { type Primitives } from "../../../modules/shared/domain/value-object/Primitives"
 import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
 import { LocationId } from "../../../modules/location/locations/domain/locationId"
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
 import { TypeOfSiteId } from "../../../modules/location/typeofsites/domain/typeOfSiteId"
 import { DeviceLocation } from "../../../modules/devices/devices/devices/domain/DeviceLocation"
-import { LocationApiResponse } from "../../../modules/shared/domain/types/responseTypes"
-import { LocationPrimitives } from "../../../modules/location/locations/domain/location"
+import { type LocationApiResponse } from "../../../modules/shared/domain/types/responseTypes"
+import { type LocationPrimitives } from "../../../modules/location/locations/domain/location"
 import { defaultInitialLocationState, type DefaultLocationProps } from "../../Hooks/locations/useLocationInitialState"
 import { useAppContext } from "../../Context/AppProvider"
 
@@ -35,10 +34,7 @@ export default function LocationComboBox({ value, statusId, typeOfSiteId, onChan
   const [open, toggleOpen] = useState(false)
   const [dialogValue, setDialogValue] = useState<DefaultLocationProps>(defaultInitialLocationState)
 
-  const initialValue = useMemo(() => {
-    return locations.find(location => location.id === value)
-  }, [locations, value])
-
+  
   const filterLocation = useMemo(() => {
     return locations.filter(location => {
       const typeOfSite = location.typeOfSiteId === typeOfSiteId || !typeOfSiteId
@@ -46,10 +42,13 @@ export default function LocationComboBox({ value, statusId, typeOfSiteId, onChan
       return typeOfSite && status
     })
   }, [locations, typeOfSiteId, statusId])
-
-  useLayoutEffect(() => {
+  
+  const initialValue = useMemo(() => {
+    return filterLocation.find(location => location.id === value)
+  }, [filterLocation, value])
+  
+  useEffect(() => {
     if (type !== 'form') return
-
 
     if (!value || !initialValue) {
       return
@@ -64,7 +63,7 @@ export default function LocationComboBox({ value, statusId, typeOfSiteId, onChan
       setErrorMessage('')
       setIsError(false)
     }
-  }, [value, statusId, typeOfSiteId])
+  }, [value, statusId, typeOfSiteId, type, initialValue])
 
   return (
     <Suspense fallback={<InputSkeletonLoading />}>

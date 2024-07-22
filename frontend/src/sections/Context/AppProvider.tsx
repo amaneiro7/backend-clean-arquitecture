@@ -1,12 +1,22 @@
-import { createContext, useContext } from "react";
-import { type UseBrand, useBrand } from "../Hooks/brand/useBrand";
-import { type UseEmployee, useEmployee } from "../Hooks/employee/useEmployee";
-import { type UseCategory, useCategory } from "../Hooks/category/useCategory";
-import { type UseStatus, useStatus } from "../Hooks/status/useStatus";
-import { type UseModel, useModel } from "../Hooks/model/useModel";
-import { useSiteLocation, type UseSiteLocation } from "../Hooks/locations/useLocation";
-import { useProcessor, type UseProcessor } from "../Hooks/processor/useProcessor";
-import { useMemoryRamType, type UseMemoryRamType } from "../Hooks/memoryRam/useMemoryRamType";
+import { createContext, useContext } from "react"
+import { type UseBrand, useBrand } from "../Hooks/brand/useBrand"
+import { type UseEmployee, useEmployee } from "../Hooks/employee/useEmployee"
+import { type UseCategory, useCategory } from "../Hooks/category/useCategory"
+import { type UseStatus, useStatus } from "../Hooks/status/useStatus"
+import { type UseModel, useModel } from "../Hooks/model/useModel"
+import { type UseSiteLocation, useSiteLocation } from "../Hooks/locations/useLocation"
+import { type UseProcessor, useProcessor } from "../Hooks/processor/useProcessor"
+import { type UseMemoryRamType, useMemoryRamType } from "../Hooks/memoryRam/useMemoryRamType"
+import { type UseHardDriveCapacity, useHardDriveCapacity } from "../Hooks/hardDrive/useHardDriveCapacity"
+import { type UseHardDriveType, useHardDriveType } from "../Hooks/hardDrive/useHardDriveType"
+import { type UseTypeOfSite, useTypeOfSite } from "../Hooks/locations/useTypeOfSite"
+import { type UseOperatingSystemVersions, useOperatingSystemVersions,  } from "../Hooks/operatingSystem/useOperatingSystemVersion"
+import { type UseOperatingSystemArq, useOperatingSystemArq } from "../Hooks/operatingSystem/useOperatingSystemArq"
+import { type UseInputType, useInputType } from "../Hooks/inputType/useInputType"
+import { type UseRegion, useRegion } from "../Hooks/locations/useRegion"
+import { type UseCities, useCity } from "../Hooks/locations/useCity"
+import { type UseStates,useCountryStates } from "../Hooks/locations/useCountryStates"
+import { type UseSites, useSite } from "../Hooks/locations/useSite"
 
 export interface AppContextState {
     useCategory: UseCategory
@@ -17,6 +27,16 @@ export interface AppContextState {
     useSiteLocation: UseSiteLocation
     useProcessor: UseProcessor,
     useMemoryRamType: UseMemoryRamType
+    useHardDriveCapacity: UseHardDriveCapacity
+    useHardDriveType: UseHardDriveType
+    useTypeOfSite: UseTypeOfSite
+    useOperatingSystemVersions: UseOperatingSystemVersions
+    useOperatingSystemArq: UseOperatingSystemArq
+    useInputType: UseInputType
+    useRegion: UseRegion
+    useCity: UseCities
+    useCountryStates: UseStates,
+    useSite: UseSites
 }
 
 export const AppContext = createContext({} as AppContextState)
@@ -31,7 +51,17 @@ export const AppContextProvider = ({ children }: React.PropsWithChildren) => {
             useEmployee: useEmployee(),
             useSiteLocation: useSiteLocation(),
             useProcessor: useProcessor(),
-            useMemoryRamType: useMemoryRamType()
+            useMemoryRamType: useMemoryRamType(),
+            useHardDriveCapacity: useHardDriveCapacity(),
+            useHardDriveType: useHardDriveType(),
+            useTypeOfSite: useTypeOfSite(),
+            useOperatingSystemVersions: useOperatingSystemVersions(),
+            useOperatingSystemArq: useOperatingSystemArq(),
+            useInputType: useInputType(),
+            useRegion: useRegion(),
+            useCity: useCity(),
+            useCountryStates: useCountryStates(),
+            useSite: useSite()
         }}
       >
         {children}
