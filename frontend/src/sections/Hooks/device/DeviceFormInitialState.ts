@@ -109,6 +109,7 @@ export const useDeviceInitialState = (): {
     return location.pathname.includes('add')
   }, [location.pathname])
 
+  console.log('DeviveForm', location)
   useEffect(() => {
     if (isAddForm) {
       setPreloadedDeviceState(defaultInitialState)
@@ -116,7 +117,6 @@ export const useDeviceInitialState = (): {
     }
     if (location.state?.state !== undefined) {
       const { state } = location.state
-      console.log('DeviveForm', state)
       processDeviceState(state)
     } else if (id === undefined) {
       navigate('/error')
