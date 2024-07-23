@@ -106,10 +106,9 @@ export const useDeviceInitialState = (): {
   }
 
   const isAddForm = useMemo(() => {
-    return location.pathname.includes('add')
-  }, [location.pathname])
-  console.log('isAddForm', isAddForm)
-  console.log('DeviveForm', location)
+    return !location.state
+  }, [location])
+
   useEffect(() => {
     if (isAddForm) {
       setPreloadedDeviceState(defaultInitialState)
