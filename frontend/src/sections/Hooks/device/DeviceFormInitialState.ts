@@ -116,6 +116,7 @@ export const useDeviceInitialState = (): {
     }
     if (location.state?.state !== undefined) {
       const { state } = location.state
+      console.log('DeviveForm', state)
       processDeviceState(state)
     } else if (id === undefined) {
       navigate('/error')
