@@ -22,24 +22,24 @@ export class SequelizeDeviceRepository extends SequelizeCriteriaConverter implem
     const deviceOptions = new DeviceAssociation().convertFilterLocation(criteria, options)
     const data = await DeviceModel.findAll(deviceOptions)
     let filtered: DevicesApiResponse[] | undefined
-    ['cityId'].forEach(ele => {
+    ['regionId'].forEach(ele => {
       if (criteria.searchValueInArray(ele)) {
         filtered = (data as unknown as DevicesApiResponse[]).filter(res => {
-          return res.location !== null
+          return res?.location?.site?.city !== null
         })
       }
     });
     ['stateId'].forEach(ele => {
       if (criteria.searchValueInArray(ele)) {
         filtered = (data as unknown as DevicesApiResponse[]).filter(res => {
-          return res.location.site !== null
+          return res.location?.site !== null
         })
       }
     });
-    ['stateId', 'regionId'].forEach(ele => {
+    ['cityId'].forEach(ele => {
       if (criteria.searchValueInArray(ele)) {
         filtered = (data as unknown as DevicesApiResponse[]).filter(res => {
-          return res.location.site.city !== null
+          return res.location !== null
         })
       }
     });
