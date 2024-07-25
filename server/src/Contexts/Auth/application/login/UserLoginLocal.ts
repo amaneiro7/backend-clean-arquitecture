@@ -6,9 +6,9 @@ import { UserEmail } from '../../../User/user/domain/UserEmail'
 // import { type Tokens, generateTokens } from '../../domain/GenerateToken'
 
 export class UserLoginLocal {
-  constructor (private readonly repository: Repository) {}
+  constructor(private readonly repository: Repository) { }
 
-  async run ({ email, intoPassword }: { email: string, intoPassword: string }): Promise<UserPrimitives> {
+  async run({ email, intoPassword }: { email: string, intoPassword: string }): Promise<UserPrimitives> {
     const user = await this.repository.user.searchByEmail(new UserEmail(email).toPrimitives())
 
     if (user === null) {

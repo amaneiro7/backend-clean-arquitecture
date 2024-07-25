@@ -3,9 +3,10 @@ import { Route, Routes } from 'react-router-dom'
 import { useAppContext } from '../Context/AppContext.tsx'
 import { ProtectedRoute } from './ProtectedRoute.tsx'
 
-const Login = lazy(async () => await import('../page/login/LoginPage.tsx'))
-const NotFound = lazy(async () => await import('../page/404/index.tsx'))
-const Layout = lazy(async () => await import('../components/Layout.tsx'))
+const Login = lazy(async () => import('../page/login/LoginPage.tsx'))
+const ProfilePage = lazy(async () => import('../page/profile/ProfilePage.tsx'))
+const NotFound = lazy(async () => import('../page/404/index.tsx'))
+const Layout = lazy(async () => import('../components/Layout.tsx'))
 const Home = lazy(() => import('../page/home/Home.tsx'))
 const ListadoSitios = lazy(() => import('../page/ListadoSitios/ListadoSitios.tsx'))
 const ListadoModelos = lazy(() => import('../page/ListadoModelos/ListadoModelos.tsx'))
@@ -37,6 +38,7 @@ export default function AppRoutes() {
         element={<ProtectedRoute user={user}><Layout /></ProtectedRoute>}
       >
         <Route path='/' element={<Home />} />
+        <Route path='/profile' element={<ProfilePage />} />
         <Route path='/location' element={<ListadoSitios />} />
         <Route path='/location/add' element={<CreateLocationForm />} />
         <Route path='/location/edit/:id' element={<CreateLocationForm />} />

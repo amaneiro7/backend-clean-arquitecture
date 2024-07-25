@@ -3,7 +3,7 @@ import { type UserPrimitives } from '../../user/domain/User'
 import { type AuthRepository } from '../domain/AuthRepository'
 
 export class ApiAuthRepository implements AuthRepository {
-  async loginLocal ({ email, password }: Pick<UserPrimitives, 'email' | 'password'>): Promise<UserPrimitives> {
+  async loginLocal({ email, password }: Pick<UserPrimitives, 'email' | 'password'>): Promise<UserPrimitives> {
     return await makeRequest<UserPrimitives>({
       method: 'POST',
       endpoint: 'auth/login/local',
@@ -11,11 +11,15 @@ export class ApiAuthRepository implements AuthRepository {
     })
   }
 
-  async checkToken (): Promise<boolean> {
+  async checkToken(): Promise<boolean> {
     return await makeRequest({ endpoint: 'check-token', method: 'GET' }).then(() => { return true })
   }
 
-  async clearToken (): Promise<void> {
+  async clearToken(): Promise<void> {
     await makeRequest({ endpoint: 'auth/logout', method: 'DELETE' })
+  }
+
+  async changePassword({ password, newPassword, reTypePassword }: { password: string, newPassword: string, reTypePassword: string }): Promise<void> {
+    return await makeRequest({ endpoint: 'users/change-password', method: 'PATCH', data: { password, newPassword, reTypePassword } })
   }
 }

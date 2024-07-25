@@ -43,10 +43,17 @@ import { type Primitives } from '../value-object/Primitives'
 import { HistoryPrimitives } from '../../../history/domain/history'
 
 interface UserApiResponse {
-  user: UserPrimitives
+  user: UserApiResponsePrimitives
   message: string
   refreshToken: string
   roleId: string
+  role: {
+    id: string
+    name: string
+  }
+}
+
+export interface UserApiResponsePrimitives extends UserPrimitives {
   role: {
     id: string
     name: string

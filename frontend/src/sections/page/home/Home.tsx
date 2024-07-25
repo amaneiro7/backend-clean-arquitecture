@@ -13,7 +13,7 @@ const Main = lazy(() => import("../../components/Main"))
 
 export default function Home() {
   return (    
-    <Main content='max' overflow={false}>      
+    <Main content='max' overflow={false}>
       <Banner />
       <TilesSection>     
         <TilesContainer>

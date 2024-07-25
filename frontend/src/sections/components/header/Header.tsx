@@ -1,8 +1,10 @@
-import { lazy,  useEffect, useState, memo, Suspense } from "react"
+import { lazy,  useEffect, useState, memo, Suspense, useRef } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { useAppContext } from "../../Context/AppContext"
 import { type UserApiResponse } from "../../../modules/shared/domain/types/responseTypes"
+import { type DialogRef } from "../Dialog/Modal"
 
+import { ConfirmationModal } from "../Dialog/ConfirmationModal"
 const LogoutIcon = lazy(() => import("../icon/LogoutIcon").then(m => ({ default: m.LogoutIcon })))
 const Nav = lazy(async () => import("./Nav").then((m) => ({ default: m.Nav })))
 const WelcomeTitle = lazy(async () => import("./WelcomeTitle").then((m) => ({ default: m.WelcomeTitle })))
@@ -10,10 +12,12 @@ const HamburgerMenu = lazy(async () => import("../button/HamburgerMenu/Hamburger
 const WrapperBox = lazy(async () => import("./WrapperBox").then((m) => ({ default: m.WrapperBox })))
 const Logo = lazy(async () => import("../Logo"))
 const Button = lazy(async () => import("../button/button"))
+const ConfirmationDialog = lazy(async () => import('../Dialog/Modal').then(m => ({default: m.ConfirmationDialog })))
 
 export const Header = memo(function() {
   const [isActive, setIsActive] = useState(false)
   const location = useLocation()
+  const dialogExitRef = useRef<DialogRef>(null)
 
   const {
     useAuth: { user, logout },
@@ -26,50 +30,47 @@ export const Header = memo(function() {
     setIsActive(false)
     
   }, [location.pathname])
-  // useEffect(() => {    
-  //   const handleClick = (e: MouseEvent) => {
-  //     const target = e.target as Element | null
-  //     if (target != null && !target.closest('.nav-menu')) {
-  //       return setIsActive(false)
-  //     }
-  //   }
-  //   document.addEventListener('click', handleClick)
-  //   return () => {
-  //     document.removeEventListener('click', handleClick)
-  //   }
-  // }, [])
+  
   return (
-    <header className='min-h-24 h-24 md:text-sm md:border-none gap-4 flex items-center justify-between md:top-0 md:sticky z-50 bg-secondary w-full shadow-lg pr-8 py-4 overflow-visible'>
-      <div className='pl-8 pr-3 p-2 bg-white rounded-e-full'>
-        <Link aria-label='Logo' aria-describedby='Logo y un enlace al inicio de la página' to='/'>          
-          <Logo />          
-        </Link>
-      </div>
+    <>
+    
+      <header className='min-h-24 h-24 md:text-sm md:border-none gap-4 flex items-center justify-between md:top-0 md:sticky z-50 bg-secondary w-full shadow-lg pr-8 py-4 overflow-visible'>
+        <div className='pl-8 pr-3 p-2 bg-white rounded-e-full'>
+          <Link aria-label='Logo' aria-describedby='Logo y un enlace al inicio de la página' to='/'>          
+            <Logo />          
+          </Link>
+        </div>
       
-      <WelcomeTitle user={user as unknown as UserApiResponse} />
+        <WelcomeTitle user={user as unknown as UserApiResponse} />
       
-      <div className='flex flex-1 items-center justify-end'>
-        <Button
-          aria-label='Botón para cerrar sesión del usuario' 
-          role='logout' 
-          actionType='ACTION' 
-          text='Salir' 
-          handle={logout} 
-          type='button'
-          icon={
-            <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>
-              <LogoutIcon width={20} className='aspect-square' />
-            </Suspense>
+        <div className='flex flex-1 items-center justify-end'>
+          <Link to='/profile' className='text-white p-2'>Perfil</Link>
+          <Button
+            aria-label='Botón para cerrar sesión del usuario' 
+            role='logout' 
+            actionType='ACTION' 
+            text='Salir' 
+            handle={() => dialogExitRef.current?.handleOpen()} 
+            type='button'
+            icon={
+              <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>
+                <LogoutIcon width={20} className='aspect-square' />
+              </Suspense>
                     }
-        />
-      </div>
-      <HamburgerMenu onClick={handleState} isActive={isActive} />
+          />
+        </div>
+        <HamburgerMenu onClick={handleState} isActive={isActive} />
       
-      <WrapperBox isActive={isActive} />
+        <WrapperBox isActive={isActive} />
       
       
-      <Nav isActive={isActive} />
+        <Nav isActive={isActive} />
+
       
-    </header>
+      </header>
+      <ConfirmationDialog key='exit-modal' ref={dialogExitRef}>
+        <ConfirmationModal handleClose={() => dialogExitRef.current?.handleClose()} handle={logout} text='¿Está seguro que desea ' strongText='Cerrar la Sesión?' />
+      </ConfirmationDialog>
+    </>
   )
 })

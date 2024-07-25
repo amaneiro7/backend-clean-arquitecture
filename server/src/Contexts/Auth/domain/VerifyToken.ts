@@ -2,13 +2,13 @@ import { JsonWebTokenError, type JwtPayload, NotBeforeError, verify, TokenExpire
 import { config } from '../../Shared/infrastructure/config'
 import { InvalidArgumentError } from '../../Shared/domain/value-object/InvalidArgumentError'
 
-export function validateRefreshToken (refreshToken: string): JwtPayload {
+export function validateToken(token: string): JwtPayload {
   try {
     // Get the secret from the config
     const secret = config.accessTokenSecret
 
     // Verify the refresh token using the secret
-    const decoded = verify(refreshToken, secret) as JwtPayload
+    const decoded = verify(token, secret) as JwtPayload
 
     // Return the decoded token
     return decoded

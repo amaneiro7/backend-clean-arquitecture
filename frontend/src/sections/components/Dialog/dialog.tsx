@@ -41,7 +41,7 @@ export default function DialogAdd ({
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
-            <Button type="submit">Añadir</Button>
+            <Button type='submit'>Añadir</Button>
           </DialogActions>
         </form>
       </Dialog>

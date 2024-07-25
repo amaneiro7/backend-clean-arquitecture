@@ -5,6 +5,7 @@ import { type UserPrimitives } from '../../../../../Contexts/User/user/domain/Us
 import { generateTokens } from '../../../../../Contexts/Auth/domain/GenerateToken'
 import { SendUserWithoutPassowrd } from '../../../../../Contexts/Auth/domain/SendUserWithoutPassword'
 
+
 export class AuthPostController {
   loginLocal = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
@@ -15,7 +16,7 @@ export class AuthPostController {
       res
         .status(httpStatus.OK)
         .cookie('accessToken', accessToken, { httpOnly: true })
-        .json({...infoUser, message: 'Usuario logeado exitosamente'})
+        .json({ ...infoUser, message: 'Usuario logeado exitosamente' })
     } catch (error) {
       next(error)
     }

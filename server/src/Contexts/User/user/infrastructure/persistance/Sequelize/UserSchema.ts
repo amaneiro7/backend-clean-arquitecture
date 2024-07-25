@@ -47,10 +47,10 @@ export function initUserModel(sequelize: Sequelize): void {
       password: {
         allowNull: false,
         type: DataTypes.STRING(64),
-        validate: {
-          min: 8,
-          is: /^(?=.*[a-z])(?=.*[-Z])(?=.*d)(?=.*[@#$%^&*]).{8,}$/
-        }
+        // validate: {
+        //   min: 8,
+        //   is: /^(?=.*[a-z])(?=.*[-Z])(?=.*d)(?=.*[@#$%^&*]).{8,}$/
+        // }
       }
     },
     {
