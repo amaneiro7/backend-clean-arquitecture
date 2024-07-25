@@ -26,21 +26,21 @@ export default function ProfilePage () {
           <p className='p-4 bg-white shadow'>A continuación le indicamos los datos de contacto</p>
           <div className='p-4 flex justify-center bg-white rounded shadow'>
             <div className='w-1/2 h-full rounded shadow-lg shadow-slate-400'>
-              <p className='w-full rounded-t p-2 bg-secondary text-white'>Datos de Contacto</p>
+              <p className='w-full rounded-t px-4 py-2 bg-secondary text-white'>Datos de Contacto</p>
               <dl className='divide-y divide-gray-300'>
-                <div className='p-2 grid grid-cols-3 gap-4'>
+                <div className='px-4 py-2 grid grid-cols-3 gap-4'>
                   <dt className='text-sm font-medium leading-6 text-gray-900'>Nombre</dt>
                   <dd className='mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0'>{userInfo?.name}</dd>
                 </div>
-                <div className='p-2 grid grid-cols-3 gap-4'>
+                <div className='px-4 py-2 grid grid-cols-3 gap-4'>
                   <dt className='text-sm font-medium leading-6 text-gray-900'>Apellido</dt>
                   <dd className='mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0'>{userInfo?.lastName}</dd>
                 </div>
-                <div className='p-2 grid grid-cols-3 gap-4'>
+                <div className='px-4 py-2 grid grid-cols-3 gap-4'>
                   <dt className='text-sm font-medium leading-6 text-gray-900'>Correo Electrónico</dt>
                   <dd className='mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0'>{userInfo?.email}</dd>
                 </div>
-                <div className='p-2 grid grid-cols-3 gap-4'>
+                <div className='px-4 py-2 grid grid-cols-3 gap-4'>
                   <dt className='text-sm font-medium leading-6 text-gray-900'>Cargo</dt>
                   <dd className='mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0'>{userInfo?.role?.name}</dd>
                 </div>

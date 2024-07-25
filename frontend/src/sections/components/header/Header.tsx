@@ -43,8 +43,10 @@ export const Header = memo(function() {
       
         <WelcomeTitle user={user as unknown as UserApiResponse} />
       
-        <div className='flex flex-1 items-center justify-end'>
-          <Link to='/profile' className='text-white p-2'>Perfil</Link>
+        <div className='flex flex-1 gap-8 items-center justify-end'>
+
+          <Link to='/profile' className='text-white text-lg font-medium p-2 border-b hover:text-primary hover:border-primary transition-colors duration-200'>Perfil</Link>
+
           <Button
             aria-label='Botón para cerrar sesión del usuario' 
             role='logout' 
@@ -68,7 +70,7 @@ export const Header = memo(function() {
 
       
       </header>
-      <ConfirmationDialog key='exit-modal' ref={dialogExitRef}>
+      <ConfirmationDialog ref={dialogExitRef}>
         <ConfirmationModal handleClose={() => dialogExitRef.current?.handleClose()} handle={logout} text='¿Está seguro que desea ' strongText='Cerrar la Sesión?' />
       </ConfirmationDialog>
     </>

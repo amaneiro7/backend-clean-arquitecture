@@ -19,7 +19,7 @@ function Dialog({ children }: React.PropsWithChildren, ref: React.Ref<DialogRef>
      }))
 
     return (
-      <dialog ref={modalRef} className='w-1/2 shadow-lg shadow-slate-500 rounded transition translate-y-24'>
+      <dialog ref={modalRef} className='w-1/2 shadow-lg shadow-slate-500 rounded transition duration-300 -translate-y-24 open:translate-y-24'>
         {children}
       </dialog>
     )
