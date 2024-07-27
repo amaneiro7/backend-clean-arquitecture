@@ -19,7 +19,7 @@ export class Server {
   private readonly port: string
   private httpServer?: http.Server
 
-  constructor ({ port, repository }: { port: string, repository: Repository }) {
+  constructor({ port, repository }: { port: string, repository: Repository }) {
     this.port = port
     this.app = express()
 
@@ -52,12 +52,12 @@ export class Server {
     routerApi({ app: this.app, repository })
 
     router.use((err: Error, req: Request, res: Response, _next: () => void) => {
-      console.log(err)
+      console.error(err)
       res.status(httpStatus.INTERNAL_SERVER_ERROR).send(err.message)
     })
   }
 
-  async listen (): Promise<void> {
+  async listen(): Promise<void> {
     await new Promise<void>(resolve => {
       const env = this.app.get('env') as string
       this.httpServer = this.app.listen(this.port, () => {
@@ -68,11 +68,11 @@ export class Server {
     })
   }
 
-  getHTTPServer (): Server['httpServer'] {
+  getHTTPServer(): Server['httpServer'] {
     return this.httpServer
   }
 
-  async stop (): Promise<void> {
+  async stop(): Promise<void> {
     await new Promise<void>((resolve, reject) => {
       if (this.httpServer != null) {
         this.httpServer.close(error => {

@@ -13,7 +13,6 @@ export class ChangePassword {
             throw new Error('La nueva contraseña debe ser diferente a la actual')
         }
         const updatePassword = new UserPassword(newPassword).value
-        console.log('App-Change-Password', password)
         return await this.repository.changePassword({ password, newPassword: updatePassword, reTypePassword })
     }
 }

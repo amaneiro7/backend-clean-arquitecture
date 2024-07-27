@@ -23,7 +23,6 @@ export class DeviceCreator {
   constructor(private readonly repository: Repository) { }
 
   async run({ params, user }: { params: DeviceParams, user?: JwtPayloadUser }): Promise<void> {
-    console.log(user)
     const { categoryId } = params
     let device
     // Si es computadora

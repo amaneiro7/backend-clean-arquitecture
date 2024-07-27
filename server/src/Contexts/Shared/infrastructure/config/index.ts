@@ -40,4 +40,4 @@ export const config = {
   smtpEmail: process.env.SMTP_EMAIL ?? 'jaasnavas0811@gmail.com',
   smtpPassword: process.env.SMTP_PASSWORD ?? 'vldpmrrvdvcnrjdx'
 }
-// console.log('[CONFIG]', config);
+

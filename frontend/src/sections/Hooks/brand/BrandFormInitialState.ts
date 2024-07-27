@@ -39,7 +39,7 @@ export const useBrandInitialState = () => {
           setPreloadedBrandState({ name })
         })
         .catch(error => {
-          console.log('useBrandInitialState', error)
+          console.error('useBrandInitialState', error)
         })
     }
   }, [id, location.state?.brand])

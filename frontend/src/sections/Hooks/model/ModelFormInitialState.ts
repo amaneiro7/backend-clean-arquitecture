@@ -84,7 +84,7 @@ export const useModelInitialState = () => {
           processModelState(model)
         })
         .catch(error => {
-          console.log('useModelInitialState', error)
+          console.error('useModelInitialState', error)
         })
     }
   }, [id, location.state?.state])
@@ -92,10 +92,10 @@ export const useModelInitialState = () => {
   function processModelState(model: ModelPrimitives): void {
     const { brandId, categoryId, name, updatedAt, modelComputer, modelLaptop, modelMonitor, modelPrinter } = model as ModelApiresponse
     setPreloadedModelState((prev) => ({ ...prev, id, brandId, categoryId, name, updatedAt }))
-    if (modelComputer !== null) {      
+    if (modelComputer !== null) {
       setPreloadedModelState((prev) => ({ ...prev, ...modelComputer }))
     }
-    if (modelLaptop !== null) {      
+    if (modelLaptop !== null) {
       setPreloadedModelState((prev) => ({ ...prev, ...modelLaptop }))
     }
     if (modelPrinter !== null) {
@@ -105,7 +105,7 @@ export const useModelInitialState = () => {
       setPreloadedModelState((prev) => ({ ...prev, ...modelMonitor }))
     }
   }
-  
+
   return {
     preloadedModelState,
     isAddForm

@@ -43,7 +43,7 @@ export const useProcessorInitialState = () => {
           setPreloadedProcessorState(processor)
         })
         .catch(error => {
-          console.log(error)
+          console.error(error)
         })
     }
   }, [id, location.state?.brand])

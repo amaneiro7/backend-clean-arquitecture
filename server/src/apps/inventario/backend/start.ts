@@ -8,11 +8,11 @@ const repository: Repository = sequelizeRepository
 try {
   void new InventarioBackendApp({ repository }).start()
 } catch (e) {
-  console.log(e)
+  console.error(e)
   process.exit(1)
 }
 
 process.on('uncaughtException', err => {
-  console.log('uncaughtException', err)
+  console.error('uncaughtException', err)
   process.exit(1)
 })
