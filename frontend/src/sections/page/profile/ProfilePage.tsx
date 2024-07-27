@@ -15,7 +15,7 @@ const CancelIcon = lazy(() => import('../../components/icon/CancelIcon').then(m 
 const RightArrowIcon = lazy(() => import('../../components/icon/RighArrowIcon').then(m => ({ default: m.RightArrowIcon })))
 
 export default function ProfilePage () {
-    const {useAuth: {user}} = useAppContext()
+    const { useAuth: { user }} = useAppContext()
     const { user: userInfo } = user as unknown as UserApiResponse
     
     const { errors, formData, handleChange, handleSubmit, handleClose, valid, dialogRef, handleCloseModal, handleOpenModal, isDisabled } = useChangePassword()

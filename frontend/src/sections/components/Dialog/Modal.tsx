@@ -1,4 +1,4 @@
-import { forwardRef, useImperativeHandle, useRef} from "react"
+import { forwardRef, useImperativeHandle, useRef, useState} from "react"
 
 export type DialogRef = {
     handleClose: () => void
@@ -6,11 +6,16 @@ export type DialogRef = {
 } 
 function Dialog({ children }: React.PropsWithChildren, ref: React.Ref<DialogRef>) {
     const modalRef = useRef(null)
+    const [open, setOpen] = useState(false)
     const handleClose = () => {
-        modalRef.current?.close()
+        setOpen(false)
+        setTimeout(() => {
+            modalRef.current?.close()            
+        }, 150);
     }
     const handleOpen = () => {
         modalRef.current?.showModal()
+        setOpen(true)
     }
 
     useImperativeHandle(ref, () => ({
@@ -19,7 +24,7 @@ function Dialog({ children }: React.PropsWithChildren, ref: React.Ref<DialogRef>
      }))
 
     return (
-      <dialog ref={modalRef} className='w-1/2 shadow-lg shadow-slate-500 rounded transition duration-300 -translate-y-24 open:translate-y-24'>
+      <dialog ref={modalRef} className={`w-1/2 shadow-lg shadow-slate-500 rounded transition ease-out duration-300 ${open ? 'translate-y-0' : '-translate-y-96'} backdrop:bg-black/35`}>
         {children}
       </dialog>
     )

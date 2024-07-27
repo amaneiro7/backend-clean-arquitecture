@@ -1,7 +1,7 @@
-import { UserApiResponse } from "../../../modules/shared/domain/types/responseTypes";
+import { type UserApiResponsePrimitives } from "../../../modules/shared/domain/types/responseTypes";
 
 interface Props extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLParagraphElement>, HTMLParagraphElement> {
-  user: UserApiResponse;
+  user: UserApiResponsePrimitives;
 }
 
 export function WelcomeTitle({ user, ...props }: Props) {
@@ -9,7 +9,7 @@ export function WelcomeTitle({ user, ...props }: Props) {
     <>
       <p {...props} className='flex flex-col text-white'>
         <span>Bienvenido, </span>
-        <span>{`${user?.user?.name} ${user?.user?.lastName}`}</span>
+        <span>{`${user?.name} ${user?.lastName}`}</span>
       </p>
     </>
   );

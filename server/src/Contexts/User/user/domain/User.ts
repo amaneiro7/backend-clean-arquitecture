@@ -1,3 +1,4 @@
+import { Primitives } from '../../../Shared/domain/value-object/Primitives'
 import { RoleId } from '../../Role/domain/RoleId'
 import { UserEmail } from './UserEmail'
 import { UserId } from './UserId'
@@ -6,25 +7,25 @@ import { UserName } from './UserName'
 import { UserPassword } from './UserPassword'
 
 export interface UserPrimitives {
-  id: string
-  email: string
-  name: string
-  roleId: number
-  lastName: string
-  password: string
+  id: Primitives<UserId>
+  email: Primitives<UserEmail>
+  name: Primitives<UserName>
+  roleId: Primitives<RoleId>
+  lastName: Primitives<UserLastName>
+  password: Primitives<UserPassword>
 }
 
 export class User {
-  constructor (
+  constructor(
     private readonly id: UserId,
     private email: UserEmail,
     private name: UserName,
     private roleId: RoleId,
     private lastName: UserLastName,
     private password: UserPassword
-  ) {}
+  ) { }
 
-  static create ({ email, name, lastName, roleId, password }: Omit<UserPrimitives, 'id'>): User {
+  static create({ email, name, lastName, roleId, password }: Omit<UserPrimitives, 'id'>): User {
     const id = UserId.random().toString()
     return new User(
       new UserId(id),
@@ -36,7 +37,7 @@ export class User {
     )
   }
 
-  static fromPrimitives (primitives: UserPrimitives): User {
+  static fromPrimitives(primitives: UserPrimitives): User {
     return new User(
       new UserId(primitives.id),
       new UserEmail(primitives.email),
@@ -47,7 +48,7 @@ export class User {
     )
   }
 
-  toPrimitives (): UserPrimitives {
+  toPrimitives(): UserPrimitives {
     return {
       id: this.idValue,
       name: this.nameValue,
@@ -58,47 +59,47 @@ export class User {
     }
   }
 
-  updateEmail (newEmail: string): void {
+  updateEmail(newEmail: Primitives<UserEmail>): void {
     this.email = new UserEmail(newEmail)
   }
 
-  updateName (newName: string): void {
+  updateName(newName: Primitives<UserName>): void {
     this.name = new UserName(newName)
   }
 
-  updateLastName (newLastName: string): void {
+  updateLastName(newLastName: Primitives<UserLastName>): void {
     this.lastName = new UserLastName(newLastName)
   }
 
-  updateRole (newRole: number): void {
+  updateRole(newRole: Primitives<RoleId>): void {
     this.roleId = new RoleId(newRole)
   }
 
-  updatePassword (newPassword: string): void {
+  updatePassword(newPassword: Primitives<UserPassword>): void {
     this.password = new UserPassword(newPassword)
   }
 
-  get idValue (): string {
+  get idValue(): Primitives<UserId> {
     return this.id.value
   }
 
-  get emailValue (): string {
+  get emailValue(): Primitives<UserEmail> {
     return this.email.value
   }
 
-  get nameValue (): string {
+  get nameValue(): Primitives<UserName> {
     return this.name.value
   }
 
-  get lastNameValue (): string {
+  get lastNameValue(): Primitives<UserLastName> {
     return this.lastName.value
   }
 
-  get roleValue (): number {
+  get roleValue(): Primitives<RoleId> {
     return this.roleId.value
   }
 
-  get passwordValue (): string {
+  get passwordValue(): Primitives<UserPassword> {
     return this.password.value
   }
 }

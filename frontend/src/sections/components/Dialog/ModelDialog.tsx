@@ -47,8 +47,8 @@ export default function ModelDialog({ dialogValue, open, toggleOpen, createModel
 
   return (
     <DialogAdd
-      title="Agregar un nuevo modelo"
-      contextText="¿No existe el modelo en la lista? Por favor, añada uno nuevo."
+      title='Agregar un nuevo modelo'
+      contextText='¿No existe el modelo en la lista? Por favor, añada uno nuevo.'
       open={open}
       toggleOpen={toggleOpen}
       handleSubmit={handleSubmit}

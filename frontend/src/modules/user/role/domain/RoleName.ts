@@ -4,19 +4,19 @@ export class RoleName {
     SPECIALIST: 'Especialista',
     COORD: 'Coordinador',
     GERENTE: 'Gerente'
-  }
+  } as const
 
-  constructor (readonly value: string) {
+  constructor(readonly value: string) {
     if (!RoleName.isValid(value)) {
       throw new Error(RoleName.invalidMessage(value))
     }
   }
 
-  public static isValid (value: string): boolean {
+  public static isValid(value: string): boolean {
     return Object.values(this.ACCEPTED_VALUES).includes(value)
   }
 
-  public static invalidMessage (value: string): string {
+  public static invalidMessage(value: string): string {
     return `${value} no es un role válido`
   }
 }

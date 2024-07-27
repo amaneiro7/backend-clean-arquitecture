@@ -41,21 +41,22 @@ import { type LocationPrimitives } from '../../../location/locations/domain/loca
 import { type LocationId } from '../../../location/locations/domain/locationId'
 import { type Primitives } from '../value-object/Primitives'
 import { HistoryPrimitives } from '../../../history/domain/history'
+import { RoleId } from '../../../user/role/domain/RoleId'
 
 interface UserApiResponse {
   user: UserApiResponsePrimitives
   message: string
   refreshToken: string
-  roleId: string
+  roleId: Primitives<RoleId>
   role: {
-    id: string
+    id: Primitives<RoleId>
     name: string
   }
 }
 
 export interface UserApiResponsePrimitives extends UserPrimitives {
   role: {
-    id: string
+    id: Primitives<RoleId>
     name: string
   }
 }

@@ -1,26 +1,27 @@
+import { Primitives } from '../../../Shared/domain/value-object/Primitives'
 import { type RoleId } from './RoleId'
 import { type RoleName } from './RoleName'
 
 export interface RolePrimitives {
-  id: number
-  name: string
+  id: Primitives<RoleId>
+  name: Primitives<RoleName>
 }
 
 export class Role {
-  constructor (
+  constructor(
     private readonly id: RoleId,
     private readonly name: RoleName
-  ) {}
+  ) { }
 
-  idValue (): number {
+  idValue(): Primitives<RoleId> {
     return this.id.value
   }
 
-  nameValue (): string {
+  nameValue(): Primitives<RoleName> {
     return this.name.value
   }
 
-  toPrimitives (): RolePrimitives {
+  toPrimitives(): RolePrimitives {
     return {
       id: this.idValue(),
       name: this.nameValue()

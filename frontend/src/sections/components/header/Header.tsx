@@ -3,8 +3,9 @@ import { Link, useLocation } from "react-router-dom"
 import { useAppContext } from "../../Context/AppContext"
 import { type UserApiResponse } from "../../../modules/shared/domain/types/responseTypes"
 import { type DialogRef } from "../Dialog/Modal"
+import { RoleId } from "../../../modules/user/role/domain/RoleId"
 
-import { ConfirmationModal } from "../Dialog/ConfirmationModal"
+const ConfirmationModal = lazy(async () => import("../Dialog/ConfirmationModal").then(m => ({ default: m.ConfirmationModal })))
 const LogoutIcon = lazy(() => import("../icon/LogoutIcon").then(m => ({ default: m.LogoutIcon })))
 const Nav = lazy(async () => import("./Nav").then((m) => ({ default: m.Nav })))
 const WelcomeTitle = lazy(async () => import("./WelcomeTitle").then((m) => ({ default: m.WelcomeTitle })))
@@ -19,9 +20,8 @@ export const Header = memo(function() {
   const location = useLocation()
   const dialogExitRef = useRef<DialogRef>(null)
 
-  const {
-    useAuth: { user, logout },
-  } = useAppContext()
+  const { useAuth: { logout, user: userDefault }} = useAppContext()
+  const { user } = userDefault as unknown as UserApiResponse
 
   const handleState = () => {
     setIsActive(!isActive)
@@ -32,8 +32,7 @@ export const Header = memo(function() {
   }, [location.pathname])
   
   return (
-    <>
-    
+    <>    
       <header className='min-h-24 h-24 md:text-sm md:border-none gap-4 flex items-center justify-between md:top-0 md:sticky z-50 bg-secondary w-full shadow-lg pr-8 py-4 overflow-visible'>
         <div className='pl-8 pr-3 p-2 bg-white rounded-e-full'>
           <Link aria-label='Logo' aria-describedby='Logo y un enlace al inicio de la página' to='/'>          
@@ -41,10 +40,11 @@ export const Header = memo(function() {
           </Link>
         </div>
       
-        <WelcomeTitle user={user as unknown as UserApiResponse} />
+        <WelcomeTitle user={user} />
       
         <div className='flex flex-1 gap-8 items-center justify-end'>
-
+          {(user.roleId === RoleId.Options.ADMIN || user.roleId === RoleId.Options.COORD) &&
+            <Link to='/config' className='text-white text-lg font-medium p-2 border-b hover:text-primary hover:border-primary transition-colors duration-200'>Configuración</Link>}
           <Link to='/profile' className='text-white text-lg font-medium p-2 border-b hover:text-primary hover:border-primary transition-colors duration-200'>Perfil</Link>
 
           <Button

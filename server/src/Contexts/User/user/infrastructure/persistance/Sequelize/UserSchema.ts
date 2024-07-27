@@ -1,14 +1,21 @@
 import { DataTypes, Model, type Sequelize } from 'sequelize'
 import { type UserPrimitives } from '../../../domain/User'
 import { type Models } from '../../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
+import { Primitives } from '../../../../../Shared/domain/value-object/Primitives'
+import { UserId } from '../../../domain/UserId'
+import { UserEmail } from '../../../domain/UserEmail'
+import { UserName } from '../../../domain/UserName'
+import { RoleId } from '../../../../Role/domain/RoleId'
+import { UserLastName } from '../../../domain/UserLastName'
+import { UserPassword } from '../../../domain/UserPassword'
 
 export class UserModel extends Model<UserPrimitives> implements UserPrimitives {
-  readonly id!: string
-  readonly email!: string
-  readonly name!: string
-  readonly roleId!: number
-  readonly lastName!: string
-  readonly password!: string
+  readonly id!: Primitives<UserId>
+  readonly email!: Primitives<UserEmail>
+  readonly name!: Primitives<UserName>
+  readonly roleId!: Primitives<RoleId>
+  readonly lastName!: Primitives<UserLastName>
+  readonly password!: Primitives<UserPassword>
 
   public static associate(models: Models): void {
     this.belongsTo(models.Role, { as: 'role' }) // A user belongs to a role
