@@ -7,6 +7,9 @@ export default {
   darkMode: 'class',
   theme: {
     extend: {
+      screens: {
+        'mdlg': '800px'
+      },
       colors: {
         primary: {
           50: 'hsl(32, 100%, 96%)',
