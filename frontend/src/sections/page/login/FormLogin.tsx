@@ -4,7 +4,7 @@ import { Link,useNavigate } from 'react-router-dom'
 import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoading'
 import { useLogin } from './useLogin'
 
-const Logo = lazy(async () => await import('../../components/Logo'))
+const Logo = lazy(async () => await import('../../components/Logo/Logo'))
 const Input = lazy(async () => import('../../components/text-inputs/Input').then(m => ({ default: m.Input })))
 const PageTitle = lazy(async () => await import('../../components/PageTitle'))
 const Button = lazy(async () => await import('../../components/button/button'))

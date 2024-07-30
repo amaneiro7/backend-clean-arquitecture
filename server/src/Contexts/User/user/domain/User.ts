@@ -37,6 +37,12 @@ export class User {
     )
   }
 
+
+  static isSuperAdmin({ roleId }: { roleId: Primitives<RoleId> }): boolean {
+    const acceptedAdminRoles = [RoleId.Options.ADMIN, RoleId.Options.COORD]
+    return acceptedAdminRoles.includes(roleId)
+  }
+
   static fromPrimitives(primitives: UserPrimitives): User {
     return new User(
       new UserId(primitives.id),

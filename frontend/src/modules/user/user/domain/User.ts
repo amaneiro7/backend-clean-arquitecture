@@ -15,15 +15,15 @@ export interface UserPrimitives {
   password: Primitives<UserPassword>
 }
 export class User {
-  constructor (
+  constructor(
     private readonly name: UserName,
     private readonly lastName: UserLastName,
     private readonly email: UserEmail,
     private readonly roleId: RoleId,
     private readonly password: UserPassword
-  ) {}
+  ) { }
 
-  public static create ({ name, lastName, email, roleId, password }: UserPrimitives): User {
+  public static create({ name, lastName, email, roleId, password }: UserPrimitives): User {
     return new User(
       new UserName(name),
       new UserLastName(lastName),
@@ -33,27 +33,32 @@ export class User {
     )
   }
 
-  nameValue (): Primitives<UserName> {
+  static isSuperAdmin({ roleId }: { roleId: Primitives<RoleId> }): boolean {
+    const acceptedAdminRoles = [RoleId.Options.ADMIN, RoleId.Options.COORD]
+    return acceptedAdminRoles.includes(roleId)
+  }
+
+  nameValue(): Primitives<UserName> {
     return this.name.value
   }
 
-  lastNameValue (): Primitives<UserLastName> {
+  lastNameValue(): Primitives<UserLastName> {
     return this.lastName.value
   }
 
-  emailValue (): Primitives<UserEmail> {
+  emailValue(): Primitives<UserEmail> {
     return this.email.value
   }
 
-  roleIdValue (): Primitives<RoleId> {
+  roleIdValue(): Primitives<RoleId> {
     return this.roleId.value
   }
 
-  passwordValue (): Primitives<UserPassword> {
+  passwordValue(): Primitives<UserPassword> {
     return this.password.value
   }
 
-  toPrimitives (): UserPrimitives {
+  toPrimitives(): UserPrimitives {
     return {
       name: this.nameValue(),
       lastName: this.lastNameValue(),

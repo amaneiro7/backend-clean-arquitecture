@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom"
 import { useAppContext } from "../../Context/AppContext"
 import { type UserApiResponse } from "../../../modules/shared/domain/types/responseTypes"
 import { type DialogRef } from "../Dialog/Modal"
-import { RoleId } from "../../../modules/user/role/domain/RoleId"
+import { User } from "../../../modules/user/user/domain/User"
 
 const ConfirmationModal = lazy(async () => import("../Dialog/ConfirmationModal").then(m => ({ default: m.ConfirmationModal })))
 const LogoutIcon = lazy(() => import("../icon/LogoutIcon").then(m => ({ default: m.LogoutIcon })))
@@ -11,7 +11,7 @@ const Nav = lazy(async () => import("./Nav").then((m) => ({ default: m.Nav })))
 const WelcomeTitle = lazy(async () => import("./WelcomeTitle").then((m) => ({ default: m.WelcomeTitle })))
 const HamburgerMenu = lazy(async () => import("../button/HamburgerMenu/HamburgerMenu").then((m) => ({ default: m.HamburgerMenu })))
 const WrapperBox = lazy(async () => import("./WrapperBox").then((m) => ({ default: m.WrapperBox })))
-const Logo = lazy(async () => import("../Logo"))
+const Logo = lazy(async () => import("../Logo/Logo"))
 const Button = lazy(async () => import("../button/button"))
 const ConfirmationDialog = lazy(async () => import('../Dialog/Modal').then(m => ({default: m.ConfirmationDialog })))
 
@@ -43,7 +43,7 @@ export const Header = memo(function() {
         <WelcomeTitle user={user} />
       
         <div className='flex flex-1 gap-8 items-center justify-end'>
-          {(user.roleId === RoleId.Options.ADMIN || user.roleId === RoleId.Options.COORD) &&
+          {User.isSuperAdmin({roleId: user?.roleId}) &&
             <Link to='/config' className='text-white text-lg font-medium p-2 border-b hover:text-primary hover:border-primary transition-colors duration-200'>Configuración</Link>}
           <Link to='/profile' className='text-white text-lg font-medium p-2 border-b hover:text-primary hover:border-primary transition-colors duration-200'>Perfil</Link>
 
