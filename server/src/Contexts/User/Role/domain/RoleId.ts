@@ -1,4 +1,5 @@
 import { NumberValueObject } from '../../../Shared/domain/value-object/NumberValueObject';
+import { Primitives } from '../../../Shared/domain/value-object/Primitives';
 
 export class RoleId extends NumberValueObject {
     static readonly Options: Record<string, number> = {
@@ -7,4 +8,10 @@ export class RoleId extends NumberValueObject {
         COORD: 3,
         GERENTE: 4
     } as const
+    constructor(value: Primitives<NumberValueObject>) {
+        super(value)
+        if (value === RoleId.Options.ADMIN) {
+            throw new Error('No se puede asignar un rol de administrador')
+        }
+    }
 }

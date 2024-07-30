@@ -7,9 +7,11 @@ export class UserPassword extends StringValueObject {
   private readonly hasUppercase = /[A-Z]/
   private readonly hasLowercase = /[a-z]/
   private readonly hasNumber = /\d/
-  private readonly hasSpecialCharacter = /[!@#$%^&*]/
+  private readonly hasSpecialCharacter = /[!@#$%^&*.]/
 
-  constructor (
+  static readonly defaultPassword = 'Avion01.'
+
+  constructor(
     readonly value: string
   ) {
     super(value)
@@ -19,7 +21,7 @@ export class UserPassword extends StringValueObject {
     this.value = PasswordService.hash(this.value)
   }
 
-  toPrimitives (): string {
+  toPrimitives(): string {
     return this.value
   }
 
@@ -29,8 +31,8 @@ export class UserPassword extends StringValueObject {
  * @param {string} value - The password value to be validated.
  * @throws {InvalidArgumentError} If the password is invalid, an error is thrown.
  */
-  private ensureIsValidPassword (value: string): void {
-  // Create an empty array to store any validation errors
+  private ensureIsValidPassword(value: string): void {
+    // Create an empty array to store any validation errors
     const errors = []
 
     // Check if the password length is less than the minimum required length

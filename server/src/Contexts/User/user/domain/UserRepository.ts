@@ -8,4 +8,6 @@ export abstract class UserRepository {
   abstract searchById(id: Primitives<UserId>): Promise<UserPrimitives | null>
 
   abstract searchByEmail(userEmail: string): Promise<UserPrimitives | null>
+
+  abstract delete(id: Primitives<UserId>): Promise<void>
 }

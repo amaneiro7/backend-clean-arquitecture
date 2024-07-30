@@ -26,4 +26,8 @@ export class SequelizeUserRepository implements UserRepository {
       await user.save()
     }
   }
+
+  async delete(id: Primitives<UserId>): Promise<void> {
+    await UserModel.destroy({ where: { id } })
+  }
 }

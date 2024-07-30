@@ -40,6 +40,7 @@ export class DeviceUpdater {
    * Actualiza el device con los parametros recibidos
    * @param id Id del device
    * @param params Parametros a actualizar
+   * @param user Usuario que esta realizando la accion
    */
   async run({ id, params, user }: { id: Primitives<DeviceId>, params: PartialDeviceParams, user?: JwtPayloadUser }): Promise<void> {
     const { categoryId } = params

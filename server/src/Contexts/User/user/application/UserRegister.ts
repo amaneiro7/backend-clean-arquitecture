@@ -1,25 +1,26 @@
 import { User, type UserPrimitives } from '../domain/User'
 import { UserEmail } from '../domain/UserEmail'
-import { UserAlreadyExistError } from '../domain/UserAlreadyExistError'
 import { type Repository } from '../../../Shared/domain/Repository'
-import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
 import { JwtPayloadUser } from '../../../Auth/domain/GenerateToken'
 import { isSuperAdmin } from '../../Role/application/isSuperAdmin'
+import { UserRole } from '../domain/UserRole'
 
 export class UserRegister {
   constructor(private readonly repository: Repository) { }
 
   async register({ params, user }: { params: UserPrimitives, user?: JwtPayloadUser }): Promise<void> {
+    // Primero se valida si el usuario que esta realizando esta accion tiene permisos
     isSuperAdmin({ user })
-    this.ensureUserDoesNotExist(params.email)
+
+    // se valida que el correo no exista
+    await UserEmail.ensureEmailDoesNotExit({ repository: this.repository.user, email: params.email })
+    // se valida que el roleId exista
+    await UserRole.ensureRoleExit({ repository: this.repository.role, role: params.roleId })
+
+    // se instancia el usuario
     const userEntity = User.create(params)
 
+    // se persiste el usuario en el repositorio
     await this.repository.user.save(userEntity.toPrimitives())
-  }
-
-  private ensureUserDoesNotExist(email: Primitives<UserEmail>): void {
-    if (this.repository.user.searchByEmail(new UserEmail(email).toString()) !== null) {
-      throw new UserAlreadyExistError(email)
-    }
   }
 }

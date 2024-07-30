@@ -3,25 +3,25 @@ export class UserPassword {
   static readonly hasUppercase = /[A-Z]/
   static readonly hasLowercase = /[a-z]/
   static readonly hasNumber = /\d/
-  static readonly hasSpecialCharacter = /[!@#$%^&*]/
+  static readonly hasSpecialCharacter = /[!@#$%^&*.]/
 
   private static errors: string = ''
 
-  constructor (readonly value: string) {
+  constructor(readonly value: string) {
     if (!UserPassword.isValid(value)) {
       throw new Error(UserPassword.invalidMessage())
     }
   }
 
-  private static updateErrors (value: string): void {
+  private static updateErrors(value: string): void {
     UserPassword.errors = value
   }
 
-  static get errorsValue (): string {
+  static get errorsValue(): string {
     return UserPassword.errors
   }
 
-  public static isValid (value: string): boolean {
+  public static isValid(value: string): boolean {
     // Create an empty array to store any validation errors
     const errors: string[] = []
 
@@ -60,7 +60,7 @@ export class UserPassword {
     }
   }
 
-  public static invalidMessage (): string {
+  public static invalidMessage(): string {
     return UserPassword.errorsValue
   }
 }

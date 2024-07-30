@@ -4,9 +4,9 @@ import httpStatus from 'http-status'
 import { DeviceRemover } from '../../../../../Contexts/Device/Device/application/DeviceRemover'
 
 export class DeviceDeleteController {
-  constructor (private readonly repository: Repository) {}
+  constructor(private readonly repository: Repository) { }
 
-  create = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  remove = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const { id } = req.params
       await new DeviceRemover(this.repository).run({ id })
