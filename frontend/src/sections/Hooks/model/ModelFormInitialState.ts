@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useModel } from './useModel'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
@@ -62,8 +62,25 @@ export const useModelInitialState = () => {
   const [preloadedModelState, setPreloadedModelState] = useState(defaultInitialModelState)
 
   const isAddForm = useMemo(() => {
-    return location.pathname.includes('add')
-  }, [location.pathname])
+    return !location.state
+  }, [location.state])
+
+  const processModelState = useCallback((model: ModelPrimitives): void => {
+    const { brandId, categoryId, name, updatedAt, modelComputer, modelLaptop, modelMonitor, modelPrinter } = model as ModelApiresponse
+    setPreloadedModelState((prev) => ({ ...prev, id, brandId, categoryId, name, updatedAt }))
+    if (modelComputer !== null) {
+      setPreloadedModelState((prev) => ({ ...prev, ...modelComputer }))
+    }
+    if (modelLaptop !== null) {
+      setPreloadedModelState((prev) => ({ ...prev, ...modelLaptop }))
+    }
+    if (modelPrinter !== null) {
+      setPreloadedModelState((prev) => ({ ...prev, ...modelPrinter }))
+    }
+    if (modelMonitor !== null) {
+      setPreloadedModelState((prev) => ({ ...prev, ...modelMonitor }))
+    }
+  }, [id])
 
   useEffect(() => {
     if (isAddForm) {
@@ -87,24 +104,7 @@ export const useModelInitialState = () => {
           console.error('useModelInitialState', error)
         })
     }
-  }, [id, location.state?.state])
-
-  function processModelState(model: ModelPrimitives): void {
-    const { brandId, categoryId, name, updatedAt, modelComputer, modelLaptop, modelMonitor, modelPrinter } = model as ModelApiresponse
-    setPreloadedModelState((prev) => ({ ...prev, id, brandId, categoryId, name, updatedAt }))
-    if (modelComputer !== null) {
-      setPreloadedModelState((prev) => ({ ...prev, ...modelComputer }))
-    }
-    if (modelLaptop !== null) {
-      setPreloadedModelState((prev) => ({ ...prev, ...modelLaptop }))
-    }
-    if (modelPrinter !== null) {
-      setPreloadedModelState((prev) => ({ ...prev, ...modelPrinter }))
-    }
-    if (modelMonitor !== null) {
-      setPreloadedModelState((prev) => ({ ...prev, ...modelMonitor }))
-    }
-  }
+  }, [getModel, id, isAddForm, location.state, location.state?.state, navigate, processModelState])
 
   return {
     preloadedModelState,

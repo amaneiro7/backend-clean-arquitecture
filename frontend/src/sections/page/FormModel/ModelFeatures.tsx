@@ -18,37 +18,37 @@ const AddModelKeyboard = lazy(async () => import('./AddModelKeyboard').then(m =>
 
 export function ModelInputs({ onChange, formData, isAddForm }: Props) {
     return (
-        <>
-            <Suspense fallback={<InputSkeletonLoading />}>
-                <CategoryComboBox
-                    value={formData.categoryId}
-                    onChange={onChange}
-                    type='form'
-                    isAdd={isAddForm}
-                />
-            </Suspense>
-            <Suspense fallback={<InputSkeletonLoading />}>
-                <BrandComboBox
-                    value={formData.brandId}
-                    onChange={onChange}
-                    type='form'
-                    isAdd={isAddForm}
-                />
+      <>
+        <Suspense fallback={<InputSkeletonLoading />}>
+          <CategoryComboBox
+            value={formData.categoryId}
+            onChange={onChange}
+            type='form'
+            isAdd={isAddForm}
+          />
+        </Suspense>
+        <Suspense fallback={<InputSkeletonLoading />}>
+          <BrandComboBox
+            value={formData.brandId}
+            onChange={onChange}
+            type='form'
+            isAdd={isAddForm}
+          />
 
-            </Suspense>
-            <Suspense fallback={<InputSkeletonLoading />}>
-                <ModelNameInput
-                    value={formData.name}
-                    onChange={onChange}
-                />
+        </Suspense>
+        <Suspense fallback={<InputSkeletonLoading />}>
+          <ModelNameInput
+            value={formData.name}
+            onChange={onChange}
+          />
 
-            </Suspense>
-            <Suspense>
-                <AddModelComputer formData={formData} onChange={onChange} />
-                <AddModelMonitor formData={formData} onChange={onChange} />
-                <AddModelPrinter formData={formData} onChange={onChange} />
-                <AddModelKeyboard formData={formData} onChange={onChange} />
-            </Suspense>
-        </>
+        </Suspense>
+        <Suspense>
+          <AddModelComputer formData={formData} onChange={onChange} />
+          <AddModelMonitor formData={formData} onChange={onChange} />
+          <AddModelPrinter formData={formData} onChange={onChange} />
+          <AddModelKeyboard formData={formData} onChange={onChange} />
+        </Suspense>
+      </>
     )
 }

@@ -10,10 +10,10 @@ export class UserDeleteController {
     remove = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
         try {
             const user = req.user as JwtPayloadUser
-            const { email } = req.body
+            const { id } = req.body
             await new UserRemover(this.repository).run({
                 user,
-                email
+                id
             })
             res.status(httpStatus.CREATED).json({ message: 'Usuario eliminado exitosamente' })
         } catch (error) {

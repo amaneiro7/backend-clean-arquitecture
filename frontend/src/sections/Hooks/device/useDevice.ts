@@ -48,7 +48,7 @@ export const useDevice = (defaultQuery?: SearchByCriteriaQuery): UseDevice => {
       })
   }, [repository])
 
-  const getDevice = new DeviceGetter(repository)
+  const getDevice = useMemo(() => { return new DeviceGetter(repository) }, [repository])
 
   useEffect(() => {
     searchDevices(query)

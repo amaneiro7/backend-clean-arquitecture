@@ -27,7 +27,7 @@ export default function StatusComboBox({ value, onChange, type = 'search' }: Pro
         <ComboBox
           id='statusId'
           initialValue={initialValue}
-          label='Estado'
+          label='Estatus'
           name='statusId'
           type={type}
           onChange={(_, newValue: StatusPrimitives) => {

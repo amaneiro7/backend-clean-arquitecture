@@ -23,7 +23,7 @@ export default function CreateModelForm() {
     return () => {
       resetForm()
     }
-  }, [preloadedModelState])
+  }, [preloadedModelState, resetForm, updateForm])
 
   useEffect(() => {
     if (formStatus === FormStatus.Success) {
@@ -34,7 +34,7 @@ export default function CreateModelForm() {
     if (formStatus === FormStatus.Error) {
       resetFormStatus()
     }
-  }, [formStatus])
+  }, [formStatus, resetForm, resetFormStatus])
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
@@ -52,21 +52,21 @@ export default function CreateModelForm() {
 
   return (
     <Main content='max' overflow={false}>
-      <Suspense>
-        <FormContainer
-          key={location.key}
-          title='Modelo'
-          handleSubmit={handleSubmit}
-          handleClose={handleClose}
-          isDisabled={formStatus === FormStatus.Loading}
-          lastUpdated={formData.updatedAt}
-          url='/model/add'
-        >
-          <Suspense>
-            <ModelInputs isAddForm={isAddForm} formData={formData} onChange={handleChange} />
-          </Suspense>
-        </FormContainer>
-      </Suspense>
+    
+      <FormContainer
+        key={location.key}
+        title='Modelo'
+        handleSubmit={handleSubmit}
+        handleClose={handleClose}
+        isDisabled={formStatus === FormStatus.Loading}
+        lastUpdated={formData.updatedAt}
+        url='/model/add'
+      >
+        <Suspense>
+          <ModelInputs isAddForm={isAddForm} formData={formData} onChange={handleChange} />
+        </Suspense>
+      </FormContainer>      
+    
     </Main>
   )
 }

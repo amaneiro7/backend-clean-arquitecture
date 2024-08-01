@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react'
+import { useEffect, useState, useMemo, useCallback } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useDevice } from './useDevice'
 import { type HistoryApiResponse, type DevicesApiResponse } from '../../../modules/shared/domain/types/responseTypes'
@@ -107,30 +107,9 @@ export const useDeviceInitialState = (): {
 
   const isAddForm = useMemo(() => {
     return !location.state
-  }, [location])
+  }, [location.state])
 
-  useEffect(() => {
-    if (isAddForm) {
-      setPreloadedDeviceState(defaultInitialState)
-      return
-    }
-    if (location.state?.state) {
-      const { state } = location.state
-      processDeviceState(state)
-    } else if (id === undefined) {
-      navigate('/error')
-    } else {
-      getDevice.getById(id)
-        .then(device => {
-          processDeviceState(device)
-        })
-        .catch(error => {
-          console.error('useDeviceInitialState', error)
-        })
-    }
-  }, [id, location.state?.state, location.pathname])
-
-  function processDeviceState(device: DevicePrimitives): void {
+  const processDeviceState = useCallback((device: DevicePrimitives): void => {
     const { serial, activo, statusId, model, modelId, categoryId, brandId, employeeId, locationId, observation, computer, hardDrive, history, updatedAt } = device as DevicesApiResponse
     setPreloadedDeviceState((prev) => ({ ...prev, id, serial, activo: activo ?? '', statusId, modelId, categoryId, brandId, employeeId, locationId, observation, history, updatedAt }))
     if (computer !== null) {
@@ -158,7 +137,30 @@ export const useDeviceInitialState = (): {
       const { health, hardDriveCapacityId, hardDriveTypeId } = hardDrive
       setPreloadedDeviceState(prev => ({ ...prev, health, hardDriveCapacityId, hardDriveTypeId }))
     }
-  }
+  }, [id])
+
+  useEffect(() => {
+    if (isAddForm) {
+      setPreloadedDeviceState(defaultInitialState)
+      return
+    }
+    if (location.state?.state) {
+      const { state } = location.state
+      processDeviceState(state)
+    } else if (id === undefined) {
+      navigate('/error')
+    } else {
+      getDevice.getById(id)
+        .then(device => {
+          processDeviceState(device)
+        })
+        .catch(error => {
+          console.error('useDeviceInitialState', error)
+        })
+    }
+  }, [id, location.state?.state, location.pathname, isAddForm, location.state, processDeviceState, navigate, getDevice])
+
+
 
   return {
     preloadedDeviceState,

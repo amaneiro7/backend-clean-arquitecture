@@ -15,6 +15,9 @@ export interface UserPrimitives {
   password: Primitives<UserPassword>
 }
 
+export interface UserPrimitivesOptional extends Partial<UserPrimitives> {
+}
+
 export class User {
   constructor(
     private readonly id: UserId,

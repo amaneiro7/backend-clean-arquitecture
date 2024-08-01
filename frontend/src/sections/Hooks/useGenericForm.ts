@@ -1,6 +1,5 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { tostPromise } from '../utils/toaster'
-
 
 export const enum FormStatus {
     Loading,
@@ -9,18 +8,18 @@ export const enum FormStatus {
     Initial
 }
 
-export function useGenericForm<T>({ create }: { create: (formData: T) => Promise<any> }): {
+export function useGenericForm<T>({ create }: { create: (formData: T) => Promise<unknown> }): {
     formStatus: FormStatus
     submitForm: (formData: T) => Promise<void>
     resetFormStatus: () => void
 } {
     const [formStatus, setFormStatus] = useState(FormStatus.Initial)
 
-    async function submitForm(formData: T) {
+    const submitForm = useCallback(async (formData: T) => {
         setFormStatus(FormStatus.Loading)
         tostPromise(create(formData), {
             loading: 'Procesando...',
-            success: () => {                
+            success: () => {
                 setFormStatus(FormStatus.Success)
                 return 'Operacion exitosa'
             },
@@ -28,8 +27,8 @@ export function useGenericForm<T>({ create }: { create: (formData: T) => Promise
                 setFormStatus(FormStatus.Error)
                 return `Ha ocurrido un error`
             },
-            description(data: any) {
-                return `${data?.message}`                
+            description(data) {
+                return `${data?.message}`
             },
             duration: 5000,
             onAutoClose: () => {
@@ -39,12 +38,12 @@ export function useGenericForm<T>({ create }: { create: (formData: T) => Promise
 
             },
         })
-    }
+    }, [create])
 
 
-    function resetFormStatus() {
+    const resetFormStatus = useCallback(() => {
         setFormStatus(FormStatus.Initial)
-    }
+    }, [])
 
     return {
         formStatus,

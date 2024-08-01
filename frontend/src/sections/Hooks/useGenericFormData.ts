@@ -1,23 +1,23 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 
 export const useGenericFormData = <T>(
   initialState: T
 ): {
-    formData: T
-    updateForm: (value: Partial<T>) => void
-    resetForm: () => void
-  } => {
-  const [formData, setFormData] = useState(initialState)  
+  formData: T
+  updateForm: (value: Partial<T>) => void
+  resetForm: () => void
+} => {
+  const [formData, setFormData] = useState(initialState)
 
-  const updateForm = (value: Partial<typeof initialState>) => {
+  const updateForm = useCallback((value: Partial<typeof initialState>) => {
     setFormData(oldState => {
       return { ...oldState, ...value }
     })
-  }
+  }, [])
 
-  const resetForm = () => {
+  const resetForm = useCallback(() => {
     setFormData(initialState)
-  }
+  }, [initialState])
 
   return {
     formData,

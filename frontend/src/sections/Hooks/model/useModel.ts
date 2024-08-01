@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { AllModelGetter } from '../../../modules/devices/model/model/application/AllModelGetter'
 import { ModelCreator } from '../../../modules/devices/model/model/application/ModelCreator'
 import { ModelGetter } from '../../../modules/devices/model/model/application/ModelGetter'
@@ -13,18 +13,12 @@ export interface UseModel {
   getModel: ModelGetter
 }
 export const useModel = (): UseModel => {
-  const repository = new ApiModelRepository()
+  const repository = useMemo(() => { return new ApiModelRepository() }, [])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [models, setModels] = useState<ModelPrimitives[]>([])
 
-  async function createModel(formData: ModelPrimitives) {
-    const data = await new ModelCreator(repository).create(formData)
-    getModels()
-    return data
-  }
-
-  function getModels() {
+  const getModels = useCallback(() => {
     setLoading(true)
     new AllModelGetter(repository)
       .get()
@@ -36,9 +30,15 @@ export const useModel = (): UseModel => {
         setError(error)
         setLoading(false)
       })
-  }
+  }, [repository])
 
-  const getModel = new ModelGetter(repository)
+  const getModel = useMemo(() => { return new ModelGetter(repository) }, [repository])
+
+  const createModel = useCallback(async (formData: ModelPrimitives) => {
+    const data = await new ModelCreator(repository).create(formData)
+    getModels()
+    return data
+  }, [getModels, repository])
 
   useEffect(() => {
     getModels()
@@ -46,7 +46,7 @@ export const useModel = (): UseModel => {
     return () => {
       setModels([])
     }
-  }, [])
+  }, [getModels])
 
   return {
     models,

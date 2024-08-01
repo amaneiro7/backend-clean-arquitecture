@@ -1,5 +1,5 @@
-import { lazy, Suspense, useCallback, useEffect, useLayoutEffect, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { lazy, Suspense, useCallback, useEffect, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import parse from 'autosuggest-highlight/parse'
 import match from 'autosuggest-highlight/match'
 import debounce from 'just-debounce-it'
@@ -8,14 +8,16 @@ import { Autocomplete } from '../../mui/Autocomplete'
 import { useSearchDevice } from '../../Hooks/device/useSearchDevice'
 import { SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
+import { InputSkeletonLoading } from '../skeleton/inputSkeletonLoading'
 
 const TextField = lazy(async () => await import("../../mui/TextField").then(m => ({ default: m.TextField })))
 const CircularProgress = lazy(async () => await import('../../mui/CircularProgress').then(m => ({ default: m.CircularProgress })))
 const CloseIcon = lazy(async () => await import('../../mui/CloseIcon').then(m => ({ default: m.CloseIcon })))
-const RightIcon = lazy(async () => import('../icon/RightIcon').then(m => ({ default: m.RightIcon })))
+const SearchLink = lazy(async() => import('../button/SearchLink').then(m => ({ default: m.SearchLink })))
 
 export default function DeviceSearchComboBox() {
     const { devices, loading, searchDevices } = useSearchDevice()
+    const navigate = useNavigate()
     const location = useLocation()
     const [value, setValue] = useState(null);
     const [inputValue, setInputValue] = useState('');
@@ -25,8 +27,7 @@ export default function DeviceSearchComboBox() {
     const debounceGetDevices = useCallback(
         debounce((query: SearchByCriteriaQuery) => {
             searchDevices(query)
-        }, 500)
-        , [])
+        }, 500), [])
 
     useEffect(() => {        
         if (inputValue === '') {
@@ -42,15 +43,12 @@ export default function DeviceSearchComboBox() {
         })
     }, [debounceGetDevices, inputValue, value])
 
-    useLayoutEffect(() => {
-        setInputValue('')
-        setValue(null)
-    }, [location.pathname])
-
     return (
-      <div className='w-full flex justify-center items-center'>
-        <Suspense>
+      <div className='md:max-w-xl lg:max-w-2xl w-full gap-2 flex justify-center items-center'>
+        <p className='text-black/75'>Buscar: </p>
+        <Suspense fallback={<InputSkeletonLoading />}>
           <Autocomplete
+            key={location.key}
             id='combobox-search-devices'
             fullWidth
             getOptionLabel={(option) => {
@@ -102,8 +100,17 @@ export default function DeviceSearchComboBox() {
                                 ),
                             }}
                 color='primary'
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault()
+                    if (!value) return
+                    navigate(`/device/edit/${value?.id}`, {
+                      state: { state: value }
+                    })
+                  }
+                }}
               />
-                    )}
+            )}
             renderOption={(props, option, { inputValue }) => {
                         const matches = match(option.serial, inputValue, { insideWords: true });
                         const parts = parse(option.serial, matches)
@@ -126,13 +133,12 @@ export default function DeviceSearchComboBox() {
                     }}
           />
         </Suspense>
-        <RightIcon isDisabled={!value}>
-          {value && <Link
-            to={`/device/edit/${value?.id}`}
-            state={{ state: value }}
-            className='absolute w-full h-full'
-                    />}
-        </RightIcon>
+        <SearchLink 
+          state={{state: value}}
+          isDisabled={!value}
+          to={`/device/edit/${value?.id}`} 
+          title='Búsqueda por serial' 
+        />
       </div>
     )
 }

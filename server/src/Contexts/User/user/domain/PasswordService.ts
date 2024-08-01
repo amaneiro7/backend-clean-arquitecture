@@ -21,7 +21,7 @@ export class PasswordService {
     // Return the result of the comparison
     const isMatch = bcrypt.compareSync(password, hash)
     if (!isMatch) {
-      throw new InvalidArgumentError('Invalid Password')
+      throw new InvalidArgumentError('Contraseña incorrecta')
     }
   }
 }

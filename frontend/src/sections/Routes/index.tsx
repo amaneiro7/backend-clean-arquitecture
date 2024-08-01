@@ -27,6 +27,7 @@ const CreateBrandForm = lazy(() => import('../page/FormBrand/CreateBrandForm.tsx
 const CreateModelForm = lazy(() => import('../page/FormModel/CreateModelForm.tsx'))
 const CreateLocationForm = lazy(() => import('../page/FormLocation/CreateLocationForm.tsx'))
 const CreateProcessorForm = lazy(() => import('../page/FormProcessor/CreateProcessorForm.tsx'))
+const RegisterPage = lazy(() => import('../page/register/RegisterPage.tsx'))
 
 export default function AppRoutes() {
   const { useAuth: { user } } = useAppContext()
@@ -64,6 +65,9 @@ export default function AppRoutes() {
         <Route path='/finantialprinter' element={<ListFinantialPrinter />} />
         <Route path='/printer' element={<ListPrinters />} />
         <Route path='/parts' element={<ListPartAndPieces />} />        
+        <Route path='/user-management' element={<RegisterPage />} />        
+        <Route path='/user-management/register' element={<RegisterPage />} />        
+        <Route path='/user-management/edit/:id' element={<RegisterPage />} />        
       </Route>
       <Route path='*' element={<NotFound />} />
     </Routes>

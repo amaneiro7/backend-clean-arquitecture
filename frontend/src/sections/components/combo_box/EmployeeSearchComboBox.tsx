@@ -1,5 +1,5 @@
-import { lazy, Suspense, useCallback, useEffect, useLayoutEffect, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { lazy, Suspense, useCallback, useEffect, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import parse from 'autosuggest-highlight/parse'
 import match from 'autosuggest-highlight/match'
 import debounce from 'just-debounce-it'
@@ -12,10 +12,11 @@ import { useSearchEmployee } from '../../Hooks/employee/useSearchEmployee'
 const TextField = lazy(async () => await import("../../mui/TextField").then(m => ({ default: m.TextField })))
 const CircularProgress = lazy(async () => await import('../../mui/CircularProgress').then(m => ({ default: m.CircularProgress })))
 const CloseIcon = lazy(async () => await import('../../mui/CloseIcon').then(m => ({ default: m.CloseIcon })))
-const RightIcon = lazy(async () => import('../icon/RightIcon').then(m => ({ default: m.RightIcon })))
+const SearchLink = lazy(async() => import('../button/SearchLink').then(m => ({ default: m.SearchLink })))
 
 export const EmployeeSearchComboBox = () => {
     const { employees, loading, searchEmployees } = useSearchEmployee()
+    const navigate = useNavigate()
     const location = useLocation()
     const [value, setValue] = useState(null);
     const [inputValue, setInputValue] = useState('');
@@ -41,17 +42,14 @@ export const EmployeeSearchComboBox = () => {
                 value: inputValue
             }]
         })
-    }, [inputValue])
-
-    useLayoutEffect(() => {
-        setInputValue('')
-        setValue(null)
-    }, [location.pathname])
+    }, [debounceGetDevices, inputValue, value])
 
     return (
-      <div className='w-full flex justify-center items-center'>
+      <div className='md:max-w-xl lg:max-w-2xl w-full gap-2 flex justify-center items-center'>
+        <p className='text-black/75'>Buscar: </p>
         <Suspense>
           <Autocomplete
+            key={location.pathname}
             id='combobox-search-devices'
             fullWidth
             getOptionLabel={(option) => {
@@ -66,7 +64,6 @@ export const EmployeeSearchComboBox = () => {
             includeInputInList
             filterSelectedOptions
             value={value}
-
             onChange={(_, newValue) => {
                         setOptions(newValue ? [newValue, ...options] : options)
                         setValue(newValue)
@@ -80,7 +77,6 @@ export const EmployeeSearchComboBox = () => {
             onClose={() => { setOpen(false) }}
             isOptionEqualToValue={(option, value) => option.userName === value.userName}
             loading={loading}
-
             clearText='Limpiar'
             loadingText='Cargando...'
             openText='Abrir'
@@ -90,7 +86,7 @@ export const EmployeeSearchComboBox = () => {
             clearOnEscape
             clearOnBlur
             handleHomeEndKeys
-            clearIcon={<Suspense><CloseIcon fontSize='small' /></Suspense>}
+            clearIcon={<CloseIcon fontSize='small' />}
             renderInput={(params) => (
               <TextField
                 {...params}
@@ -99,12 +95,21 @@ export const EmployeeSearchComboBox = () => {
                                 ...params.InputProps,
                                 endAdornment: (
                                   <>
-                                    {loading && <Suspense><CircularProgress color='inherit' size={20} /></Suspense>}
+                                    {loading && <CircularProgress color='inherit' size={20} />}
                                     {params.InputProps.endAdornment}
                                   </>
                                 ),
                             }}
                 color='primary'
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault()
+                    if (!value) return
+                    navigate(`/employee/edit/${value?.id}`, {
+                      state: value
+                    })
+                  }
+                }}
               />
                     )}
             renderOption={(props, option, { inputValue }) => {
@@ -129,13 +134,12 @@ export const EmployeeSearchComboBox = () => {
                     }}
           />
         </Suspense>
-        <RightIcon isDisabled={!value}>
-          {value && <Link
-            to={`/employee/edit/${value?.id}`}
-            state={{ state: value }}
-            className='absolute w-full h-full'
-                    />}
-        </RightIcon>
+        <SearchLink 
+          state={value}
+          isDisabled={!value}          
+          to={`/employee/edit/${value?.id}`}
+          title='Búsqueda por usuario de empleado' 
+        />
       </div>
     )
 }

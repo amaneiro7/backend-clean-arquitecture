@@ -1,10 +1,15 @@
 import { UserPassword } from '../../user/domain/UserPassword'
-import { type AuthRepository } from '../domain/AuthRepository'
+import { type UserRepository } from '../domain/UserRepository'
+
+export interface ChangePasswordParams {
+    password: string
+    newPassword: string
+    reTypePassword: string
+}
 
 export class ChangePassword {
-    constructor(private readonly repository: AuthRepository) { }
-
-    async run({ password, newPassword, reTypePassword }: { password: string, newPassword: string, reTypePassword: string }): Promise<void> {
+    constructor(private readonly repository: UserRepository) { }
+    async run({ password, newPassword, reTypePassword }: ChangePasswordParams): Promise<void> {
         if (newPassword !== reTypePassword) {
             throw new Error('Las contraseñas no coinciden')
         }

@@ -1,9 +1,9 @@
 import { type UserPrimitives } from '../domain/User'
-import { type UserRepository } from '../domain/UserRepository'
+import { type UserStorageRepository } from '../domain/UserStorageRepository'
 
-export class SessionStorageRepository implements UserRepository {
+export class SessionStorageRepository implements UserStorageRepository {
   private readonly storeName: string = 'sessionData'
-  async getSession (): Promise<UserPrimitives> {
+  async getSession(): Promise<UserPrimitives> {
     const storedSessionData = sessionStorage.getItem(this.storeName)
     if (storedSessionData != null) {
       return JSON.parse(storedSessionData)
@@ -11,12 +11,12 @@ export class SessionStorageRepository implements UserRepository {
     return JSON.parse(localStorage.getItem(this.storeName) ?? '{}')
   }
 
-  async saveSession ({ user }: { user: UserPrimitives }): Promise<void> {
+  async saveSession({ user }: { user: UserPrimitives }): Promise<void> {
     localStorage.setItem(this.storeName, JSON.stringify(user))
     sessionStorage.setItem(this.storeName, JSON.stringify(user))
   }
 
-  async logOutSession (): Promise<void> {
+  async logOutSession(): Promise<void> {
     localStorage.removeItem(this.storeName)
     sessionStorage.removeItem(this.storeName)
   }

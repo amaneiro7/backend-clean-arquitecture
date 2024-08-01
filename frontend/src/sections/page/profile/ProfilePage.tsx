@@ -12,7 +12,7 @@ const Input = lazy(async () => import('../../components/text-inputs/Input').then
 const Button = lazy(async () => await import('../../components/button/button'))
 const ConfirmationDialog = lazy(async () => import('../../components/Dialog/Modal').then(m => ({default: m.ConfirmationDialog })))
 const CancelIcon = lazy(() => import('../../components/icon/CancelIcon').then(m => ({ default: m.CancelIcon })))
-const RightArrowIcon = lazy(() => import('../../components/icon/RighArrowIcon').then(m => ({ default: m.RightArrowIcon })))
+const RightArrowIcon = lazy(() => import('../../components/icon/RightArrowIcon').then(m => ({ default: m.RightArrowIcon })))
 
 export default function ProfilePage () {
     const { useAuth: { user }} = useAppContext()

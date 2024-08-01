@@ -5,6 +5,7 @@ import { isSuperAdmin } from '../../Role/application/isSuperAdmin'
 import { User, UserPrimitives } from '../domain/User'
 import { UserDoesNotExistError } from '../domain/UserDoesNotExistError'
 import { UserEmail } from '../domain/UserEmail'
+import { UserId } from '../domain/UserId'
 import { UserLastName } from '../domain/UserLastName'
 import { UserName } from '../domain/UserName'
 import { UserRole } from '../domain/UserRole'
@@ -13,17 +14,17 @@ interface Payload extends Omit<UserPrimitives, 'id' | 'password'> { }
 export class UserUpdater {
   constructor(private readonly repository: Repository) { }
 
-  async run({ user, email, payload }: { user?: JwtPayloadUser, email: Primitives<UserEmail>, payload: Partial<Payload> }): Promise<void> {
+  async run({ user, id, payload }: { user?: JwtPayloadUser, id: Primitives<UserId>, payload: Partial<Payload> }): Promise<void> {
     // se valida que el usuario que esta realizando esta operacion tiene privilegios    
     isSuperAdmin({ user })
 
     // se busca el usuario al cual se le va a actualizar la contraseña
-    const emailToFind = new UserEmail(email).value
-    const userToUpdated = await this.repository.user.searchByEmail(emailToFind)
+    const userId = new UserId(id).value
+    const userToUpdated = await this.repository.user.searchById(userId)
 
     // Si no existe, arroja un error
     if (userToUpdated === null) {
-      throw new UserDoesNotExistError(email)
+      throw new UserDoesNotExistError(id)
     }
     // se instancia el usuario, se aplica la contraseña por defecto y se actualiza la contraseña
     const userEntity = User.fromPrimitives(userToUpdated)

@@ -10,6 +10,7 @@ export class SequelizeRolesRepository implements RoleRepository {
   }
 
   async searchAll(): Promise<RolePrimitives[]> {
-    return await RolesModel.findAll()
+    const data = await RolesModel.findAll()
+    return data
   }
 }

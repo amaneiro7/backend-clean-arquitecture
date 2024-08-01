@@ -32,6 +32,7 @@ import { createInputTypeRouter } from '../../ModelSeries/routes/inputType.routes
 import { createEmployeeRouter } from '../../Employee/routes/employee.routes'
 import { createHistoryRouter } from '../../History/routes/history.routes'
 import { createUserRouter } from '../../User/routes/user.routes'
+import { createRolesRouter } from '../../Roles/routes/roles.routes'
 
 // import { createUserRouter } from './user.routes'
 // import { createAuthRouter } from './auth.routes'
@@ -47,6 +48,7 @@ export const routerApi = ({ app, repository }: Props): Router => {
   app.use('/api/v1/', router)
   router.use('/auth', createAuthRouter())
   router.use('/users', authenticate, createUserRouter({ repository }))
+  router.use('/roles', authenticate, createRolesRouter({ repository }))
   router.use('/check-token', authenticate, validateToken) //
   router.use('/categories', authenticate, createCategoryRouter({ repository }))
   router.use('/brands', authenticate, createBrandRouter({ repository })) //

@@ -1,18 +1,48 @@
 export class UserLastName {
-  static readonly NAME_MIN_LENGTH = 3
-  static readonly NAME_MAX_LENGTH = 15
+  static readonly NAME_MIN_LENGTH = 2
+  static readonly NAME_MAX_LENGTH = 30
 
-  constructor (readonly value: string) {
+  static readonly Regex = /^[A-ZÑñÁÉÍÓÚ][a-zñáéíóú]*(?: [A-ZÑñÁÉÍÓÚ][a-zñáéíóú]*)*$/
+
+  private static errors: string = ''
+
+  constructor(readonly value: string) {
     if (!UserLastName.isValid(value)) {
-      throw new Error(UserLastName.invalidMessage(value))
+      throw new Error(UserLastName.invalidMessage())
     }
   }
 
-  public static isValid (value: string): boolean {
-    return value.length >= UserLastName.NAME_MIN_LENGTH && value.length <= UserLastName.NAME_MAX_LENGTH
+  private static updateErrors(value: string): void {
+    UserLastName.errors = value
   }
 
-  public static invalidMessage (value: string): string {
-    return `El nombre ${value} no es válido. Debe tener entre ${UserLastName.NAME_MIN_LENGTH} y ${UserLastName.NAME_MAX_LENGTH} caracteres`
+  static get errorsValue(): string {
+    return UserLastName.errors
+  }
+
+  public static isValid(value: string): boolean {
+    const errors: string[] = []
+    if (value.length < UserLastName.NAME_MIN_LENGTH) {
+      errors.push(`El apellido del usuario debe ser mayor a ${UserLastName.NAME_MIN_LENGTH} caracteres`)
+    }
+    if (value.length > UserLastName.NAME_MAX_LENGTH) {
+      errors.push(`El apellido del usuario debe ser menor a ${UserLastName.NAME_MAX_LENGTH} caracteres`)
+    }
+
+    if (!UserLastName.Regex.test(value)) {
+      errors.push(`La primera letra debe ser en mayúsculas, el resto en minúsculas, y no puede tener espacios al final al menos que sea un nombre compuesto`)
+    }
+
+    if (errors.length > 0) {
+      UserLastName.updateErrors(errors.join(', '))
+      UserLastName.invalidMessage()
+      return false
+    } else {
+      return true
+    }
+  }
+
+  public static invalidMessage(): string {
+    return UserLastName.errorsValue
   }
 }

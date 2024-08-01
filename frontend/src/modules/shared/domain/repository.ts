@@ -1,5 +1,5 @@
 import { type AuthRepository } from '../../user/auth/domain/AuthRepository'
-import { type UserRepository } from '../../user/user/domain/UserRepository'
+import { type UserRepository } from '../../user/user/domain/UserStorageRepository'
 export interface Repository {
   // brand: BrandRepository
   // category: CategoryRepository

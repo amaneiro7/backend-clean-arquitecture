@@ -2,10 +2,11 @@ import { useEffect, useMemo, useRef, useState } from "react"
 import { FormStatus, useGenericForm } from "../../Hooks/useGenericForm"
 import { useGenericFormData } from "../../Hooks/useGenericFormData"
 import { UserPassword } from "../../../modules/user/user/domain/UserPassword"
-import { ChangePasswordFormData, useUser } from "../../Hooks/user/useUser"
+import { useUserChangePassword } from "../../Hooks/user/useUserChangePassword"
 import { DialogRef } from "../../components/Dialog/Modal"
+import { type ChangePasswordParams } from "../../../modules/user/user/application/changePassoword"
 
-const initialState: ChangePasswordFormData = {
+const initialState: ChangePasswordParams = {
     password: '',
     newPassword: '',
     reTypePassword: ''
@@ -18,8 +19,8 @@ export function useChangePassword(): {
     handleOpenModal: () => void
     handleCloseModal: () => void
     isDisabled: boolean
-    errors: ChangePasswordFormData
-    formData: ChangePasswordFormData
+    errors: ChangePasswordParams
+    formData: ChangePasswordParams
     dialogRef: React.Ref<DialogRef>
     valid: {
         password: boolean
@@ -34,7 +35,7 @@ export function useChangePassword(): {
     const isReTypePasswordFirstInput = useRef(true)
     const dialogRef = useRef<DialogRef>(null)
 
-    const { changePassword } = useUser()
+    const { changePassword } = useUserChangePassword()
     const { formData, updateForm, resetForm } = useGenericFormData(initialState)
     const { formStatus, resetFormStatus, submitForm } = useGenericForm({ create: changePassword })
 

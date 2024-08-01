@@ -10,7 +10,7 @@ export class RolesModel extends Model<RolePrimitives> implements RolePrimitives 
   readonly name!: Primitives<RoleName>
 
   public static associate(models: Models): void {
-    this.hasMany(models.User, { as: 'user' }) // A role can have many users
+    this.hasMany(models.User, { as: 'user', foreignKey: 'roleId' }) // A role can have many users
   }
 }
 

@@ -7,7 +7,7 @@ export function isSuperAdmin({ user }: { user?: JwtPayloadUser }): void {
         throw new InvalidArgumentError('Esta operación requiere de un usuario')
     }
 
-    if (user?.roleId) {
+    if (!user?.roleId) {
         throw new InvalidArgumentError('Error con el payload del usuario')
     }
     if (!User.isSuperAdmin({ roleId: user?.roleId })) {

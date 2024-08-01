@@ -18,7 +18,7 @@ export class UserModel extends Model<UserPrimitives> implements UserPrimitives {
   readonly password!: Primitives<UserPassword>
 
   public static associate(models: Models): void {
-    this.belongsTo(models.Role, { as: 'role' }) // A user belongs to a role
+    this.belongsTo(models.Role, { as: 'role', foreignKey: 'roleId' }) // A user belongs to a role
     this.hasMany(models.History, { as: 'history', foreignKey: 'userId' }) // A user can have many history
   }
 }

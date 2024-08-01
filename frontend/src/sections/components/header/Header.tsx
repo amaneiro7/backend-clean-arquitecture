@@ -44,7 +44,8 @@ export const Header = memo(function() {
       
         <div className='flex flex-1 gap-8 items-center justify-end'>
           {User.isSuperAdmin({roleId: user?.roleId}) &&
-            <Link to='/config' className='text-white text-lg font-medium p-2 border-b hover:text-primary hover:border-primary transition-colors duration-200'>Configuración</Link>}
+            <Link to='/user-management' className='text-white text-lg font-medium p-2 border-b hover:text-primary hover:border-primary transition-colors duration-200'>Configuración</Link>}
+          
           <Link to='/profile' className='text-white text-lg font-medium p-2 border-b hover:text-primary hover:border-primary transition-colors duration-200'>Perfil</Link>
 
           <Button

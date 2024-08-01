@@ -1,8 +1,8 @@
 import { RoleId } from '../../role/domain/RoleId'
 import { UserEmail } from './UserEmail'
 import { UserName } from './UserName'
-import { UserPassword } from './UserPassword'
 import { UserLastName } from './UserLastName'
+import { type UserPassword } from './UserPassword'
 import { type Primitives } from '../../../shared/domain/value-object/Primitives'
 import { type UserId } from './UserId'
 
@@ -12,7 +12,7 @@ export interface UserPrimitives {
   lastName: Primitives<UserLastName>
   email: Primitives<UserEmail>
   roleId: Primitives<RoleId>
-  password: Primitives<UserPassword>
+  password?: Primitives<UserPassword>
 }
 export class User {
   constructor(
@@ -20,16 +20,14 @@ export class User {
     private readonly lastName: UserLastName,
     private readonly email: UserEmail,
     private readonly roleId: RoleId,
-    private readonly password: UserPassword
   ) { }
 
-  public static create({ name, lastName, email, roleId, password }: UserPrimitives): User {
+  public static create({ name, lastName, email, roleId }: UserPrimitives): User {
     return new User(
       new UserName(name),
       new UserLastName(lastName),
       new UserEmail(email),
       new RoleId(roleId),
-      new UserPassword(password)
     )
   }
 
@@ -54,9 +52,6 @@ export class User {
     return this.roleId.value
   }
 
-  passwordValue(): Primitives<UserPassword> {
-    return this.password.value
-  }
 
   toPrimitives(): UserPrimitives {
     return {
@@ -64,7 +59,6 @@ export class User {
       lastName: this.lastNameValue(),
       email: this.emailValue(),
       roleId: this.roleIdValue(),
-      password: this.passwordValue()
     }
   }
 }

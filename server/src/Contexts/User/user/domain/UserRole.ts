@@ -1,11 +1,18 @@
 import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
-import { RolePrimitives } from '../../Role/domain/Role'
+import { type RolePrimitives } from '../../Role/domain/Role'
 import { RoleDoesNotExistError } from '../../Role/domain/RoleDoesNotExistError'
-import { RoleId } from '../../Role/domain/RoleId'
-import { RoleRepository } from '../../Role/domain/RoleRepository'
 import { User } from './User'
+import { RoleRepository } from '../../Role/domain/RoleRepository'
+import { RoleId } from '../../Role/domain/RoleId'
+import { InvalidArgumentError } from '../../../Shared/domain/value-object/InvalidArgumentError'
 
 export class UserRole extends RoleId {
+  constructor(value: Primitives<RoleId>) {
+    super(value)
+    if (value === RoleId.Options.ADMIN) {
+      throw new InvalidArgumentError('No se puede asignar un rol de administrador')
+    }
+  }
   static async updateStatusField({ repository, role, entity }: { repository: RoleRepository, role?: Primitives<RoleId>, entity: User }): Promise<void> {
     // Si no se ha pasado un nuevo role no realiza ninguna acción
     if (role === undefined) {

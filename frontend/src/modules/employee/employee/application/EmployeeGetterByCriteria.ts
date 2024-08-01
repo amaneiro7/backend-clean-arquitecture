@@ -8,11 +8,11 @@ import { Limit } from '../../../shared/domain/criteria/Limit'
 import { Order } from '../../../shared/domain/criteria/Order'
 import { type SearchByCriteriaQuery } from '../../../shared/infraestructure/criteria/SearchByCriteriaQuery'
 import { type EmployeePrimitives } from '../domain/Employee'
-import { EmployeeRepository } from '../domain/EmployeeRepository'
+import { type EmployeeRepository } from '../domain/EmployeeRepository'
 
 export class EmployeeGetterByCriteria {
-  constructor (private readonly repository: EmployeeRepository) { }
-  async get (query: SearchByCriteriaQuery): Promise<EmployeePrimitives[]> {
+  constructor(private readonly repository: EmployeeRepository) { }
+  async get(query: SearchByCriteriaQuery): Promise<EmployeePrimitives[]> {
     const filters = query.filters.length > 0 && query.filters.map((filter) => {
       return new Filter(
         new FilterField(filter.field),

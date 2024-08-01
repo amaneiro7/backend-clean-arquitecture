@@ -14,8 +14,8 @@ export class UserPostController {
   register = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const user = req.user as JwtPayloadUser
-      const params = req.body
-      await new UserRegister(this.repository).register({ params, user })
+      const payload = req.body
+      await new UserRegister(this.repository).register({ payload, user })
       res.status(httpStatus.CREATED).json({ message: 'Usuario registrado exitosamente' })
     } catch (error) {
       next(error)
@@ -25,10 +25,10 @@ export class UserPostController {
   update = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const user = req.user as JwtPayloadUser
-      const { email, payload } = req.body
+      const { id, payload } = req.body
       await new UserUpdater(this.repository).run({
         user,
-        email,
+        id,
         payload
       })
       res.status(httpStatus.CREATED).json({ message: 'Usuario actualizado exitosamente' })
@@ -56,10 +56,10 @@ export class UserPostController {
   resetPassword = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const user = req.user as JwtPayloadUser
-      const { email } = req.body
+      const { id } = req.body
       await new UserResetPassword(this.repository).reset({
         user,
-        email
+        id
       })
       res.status(httpStatus.CREATED).json({ message: 'Se ha restablecido la contraseña con éxito' })
     } catch (error) {
