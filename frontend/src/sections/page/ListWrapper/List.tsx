@@ -7,7 +7,7 @@ import { type Operator } from "../../../modules/shared/domain/criteria/FilterOpe
 import { type InputData } from "./defaultParams"
 
 const Main = lazy(async () => import("../../components/Main"))
-const PageTitle = lazy(async () => import("../../components/PageTitle"))
+const PageTitle = lazy(async () => import("../../components/Typography/PageTitle"))
 const DeviceTable = lazy(() => import("./DeviceTable").then(m => ({ default: m.DeviceTable })))
 const FilterSection = lazy(async () => import("./FilterSection").then((m) => ({ default: m.FilterSection })))
 const ButtonSection = lazy(async () => import("../../components/buttonsection/ButtonSection").then((m) => ({ default: m.ButtonSection })))

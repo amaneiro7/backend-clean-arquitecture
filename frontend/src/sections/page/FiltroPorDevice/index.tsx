@@ -1,5 +1,5 @@
 import Main from "../../components/Main"
-import PageTitle from "../../components/PageTitle"
+import PageTitle from "../../components/Typography/PageTitle"
 import { FilterManager } from "../../components/Filter/FilterManager"
 import { useSearchDevice } from "../../Hooks/device/useSearchDevice"
 import { SpinnerSKCircle } from "../../components/Loading/spinner-sk-circle"

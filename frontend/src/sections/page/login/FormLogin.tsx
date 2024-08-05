@@ -6,7 +6,7 @@ import { useLogin } from './useLogin'
 
 const Logo = lazy(async () => await import('../../components/Logo/Logo'))
 const Input = lazy(async () => import('../../components/text-inputs/Input').then(m => ({ default: m.Input })))
-const PageTitle = lazy(async () => await import('../../components/PageTitle'))
+const PageTitle = lazy(async () => await import('../../components/Typography/PageTitle'))
 const Button = lazy(async () => await import('../../components/button/button'))
 const CircleSpinningIcon = lazy(() => import('../../components/icon/CircleSpinning').then(m => ({ default: m.CircleSpinningIcon })))
 const Copyright = lazy(async () => await import('../../components/Copyright').then(m => ({ default: m.Copyright })))

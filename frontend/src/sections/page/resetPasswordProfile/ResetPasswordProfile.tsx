@@ -8,7 +8,7 @@ const ConfirmationModal = lazy(async () => import("../../components/Dialog/Confi
 const DetailsWrapper = lazy(async () => import("../../components/DetailsWrapper/DetailsWrapper").then(m => ({ default: m.DetailsWrapper })))
 const DetailsInfo = lazy(async () => import("../../components/DetailsWrapper/DetailsInfo").then(m => ({ default: m.DetailsInfo })))
 const Main = lazy(async () => import("../../components/Main"))
-const PageTitle = lazy(async () => import("../../components/PageTitle"))
+const PageTitle = lazy(async () => import("../../components/Typography/PageTitle"))
 const Input = lazy(async () => import('../../components/text-inputs/Input').then(m => ({ default: m.Input })))
 const Button = lazy(async () => await import('../../components/button/button'))
 const ConfirmationDialog = lazy(async () => import('../../components/Dialog/Modal').then(m => ({default: m.ConfirmationDialog })))

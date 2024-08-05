@@ -6,7 +6,7 @@ import { SpinnerSKCircle } from "../../components/Loading/spinner-sk-circle"
 import { defaultCategoryList } from "./defaultCategoryQuery"
 
 const Main = lazy(async () => import('../../components/Main'))
-const PageTitle = lazy(async () => import('../../components/PageTitle'))
+const PageTitle = lazy(async () => import('../../components/Typography/PageTitle'))
 const FilterSection = lazy(async () => import('./FilterSection').then(m => ({ default: m.FilterSection })))
 const ButtonSection = lazy(async () => import("../../components/buttonsection/ButtonSection").then((m) => ({ default: m.ButtonSection })))
 const TypeOfSiteTabNav = lazy(async () => import("../../components/tabs/TypeOfSiteTabNav").then((m) => ({ default: m.TypeOfSiteTabNav })))

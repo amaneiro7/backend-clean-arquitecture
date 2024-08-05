@@ -5,7 +5,7 @@ import { SpinnerSKCircle } from "../../components/Loading/spinner-sk-circle"
 import { type ModelApiresponse } from "../../../modules/shared/domain/types/responseTypes"
 
 const Main = lazy(async () => import('../../components/Main'))
-const PageTitle = lazy(async () => import('../../components/PageTitle'))
+const PageTitle = lazy(async () => import('../../components/Typography/PageTitle'))
 const FilterSection = lazy(() => import('./FilterSection').then(m => ({ default: m.FilterSection })))
 const ButtonSection = lazy(async () => import("./ButtonSection").then((m) => ({ default: m.ButtonSection })))
 const ModelTable = lazy(async () => import('./ModelTable').then(m => ({ default: m.ModelTable })))

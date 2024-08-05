@@ -22,7 +22,7 @@ const StateComboBox = lazy(async () => import("../../components/combo_box/locati
 const CityComboBox = lazy(async () => import("../../components/combo_box/location/CityComboBox").then(m => ({ default: m.CityComboBox })))
 const HeaderInput = lazy(async () => import('../../components/HeaderInput').then(m => ({ default: m.HeaderInput })))
 const Main = lazy(async () => import('../../components/Main'))
-const PageTitle = lazy(async () => import('../../components/PageTitle'))
+const PageTitle = lazy(async () => import('../../components/Typography/PageTitle'))
 const AddIcon = lazy(() => import("../../components/icon/AddIcon").then((m) => ({ default: m.AddIcon })))
 
 export default function ListadoSitios() {

@@ -18,7 +18,7 @@ import { MainFallback } from '../../components/skeleton/MainFallback'
 
 const Main = lazy(async () => import('../../components/Main'))
 const HeaderInput = lazy(async () => import('../../components/HeaderInput').then(m => ({ default: m.HeaderInput })))
-const PageTitle = lazy(async () => import('../../components/PageTitle'))
+const PageTitle = lazy(async () => import('../../components/Typography/PageTitle'))
 const Table = lazy(async () => import('../../components/TableComponent/Table'))
 const TableHeader = lazy(async () => import('../../components/TableComponent/TableHeader'))
 const TableRow = lazy(async () => import('../../components/TableComponent/TableRow'))

@@ -31,7 +31,7 @@ export default function ManagementProfile() {
   
   return (
     <>
-      <DetailsBoxWrapper>
+      <DetailsBoxWrapper position='center'>
         <DetailsInfo title='Información del usuario'>
           <DescriptionListElement title='Nombre'><DescriptionDesc desc={formData.name} /></DescriptionListElement>
           <DescriptionListElement title='Apellido'><DescriptionDesc desc={formData.lastName} /></DescriptionListElement>

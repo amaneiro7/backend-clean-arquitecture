@@ -11,7 +11,7 @@ const DetailsInfo = lazy(async () => import("../../components/DetailsWrapper/Det
 const DescriptionListElement = lazy(async () => import('../../components/DetailsWrapper/DescriptionListElement').then(m => ({ default: m.DescriptionListElement })))
 const DescriptionDesc = lazy(async () => import('../../components/DetailsWrapper/DescriptionDesc').then(m => ({ default: m.DescriptionDesc })))
 const Main = lazy(async () => import("../../components/Main"))
-const PageTitle = lazy(async () => import("../../components/PageTitle"))
+const PageTitle = lazy(async () => import("../../components/Typography/PageTitle"))
 const Input = lazy(async () => import('../../components/text-inputs/Input').then(m => ({ default: m.Input })))
 const Button = lazy(async () => await import('../../components/button/button'))
 const ConfirmationDialog = lazy(async () => import('../../components/Dialog/Modal').then(m => ({default: m.ConfirmationDialog })))
