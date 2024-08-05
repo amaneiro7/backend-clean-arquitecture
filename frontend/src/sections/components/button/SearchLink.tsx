@@ -9,7 +9,7 @@ interface Props extends LinkProps {
 const SearchIcon = lazy(async () => import('../icon/SearchIcon').then(m => ({ default: m.SearchIcon })))
 export function SearchLink ({ to, title, isDisabled, ...props }: Props) {
     return (
-      <span className='relative'>
+      <span className='grid place-content-center bg-secondary relative px-4 py-2 rounded-e-full'>
         <Link 
           className={`absolute w-full h-full ${isDisabled ? 'cursor-not-allowed' : 'cursor-pointer'}`} 
           to={isDisabled ? '#' : to} 
@@ -17,7 +17,7 @@ export function SearchLink ({ to, title, isDisabled, ...props }: Props) {
           aria-disabled={isDisabled}
           {...props}
         />
-        <SearchIcon width={24} className={`aspect-square ${isDisabled ? 'stroke-secondary/5' : 'stroke-secondary'} stroke-[3px]`} />
+        <SearchIcon width={24} className={`aspect-square ${isDisabled ? 'stroke-white' : 'stroke-white'} stroke-[3px]`} />
 
       </span>
     )

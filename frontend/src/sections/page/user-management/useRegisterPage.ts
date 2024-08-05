@@ -5,10 +5,11 @@ import { UserEmail } from "../../../modules/user/user/domain/UserEmail"
 import { UserName } from "../../../modules/user/user/domain/UserName"
 import { UserLastName } from "../../../modules/user/user/domain/UserLastName"
 import { type OnHandleChange } from "../../../modules/shared/domain/types/types"
+import { type UserApiResponsePrimitives } from "../../../modules/shared/domain/types/responseTypes"
 import { useUser } from "../../Hooks/user/useUser"
 import { UserRole } from "../../../modules/user/user/domain/UserRole"
 import { useNavigate } from "react-router-dom"
-import { type InitialUserState, useUserInitialState } from "./useUserInitialState"
+import { useUserInitialState } from "./useUserInitialState"
 
 export function useRegisterPage(): {
     handleSubmit: (event: React.FormEvent) => Promise<void>
@@ -16,7 +17,7 @@ export function useRegisterPage(): {
     handleClose: () => void
     formStatus: FormStatus
     errors: { name: string, lastName: string, email: string, roleId: string }
-    formData: InitialUserState
+    formData: UserApiResponsePrimitives
 } {
 
     const [errors, setErrors] = useState({
@@ -46,7 +47,7 @@ export function useRegisterPage(): {
     }
 
     const handleClose = () => {
-        navigate('/')
+        navigate('/user-management')
     }
 
     useEffect(() => {

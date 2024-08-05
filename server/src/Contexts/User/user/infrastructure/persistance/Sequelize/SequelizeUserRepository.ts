@@ -5,6 +5,7 @@ import { type UserId } from '../../../domain/UserId'
 import { type Criteria } from '../../../../../Shared/domain/criteria/Criteria'
 import { UserModel } from './UserSchema'
 import { CriteriaToSequelizeConverter } from '../../../../../Shared/infrastructure/criteria/CriteriaToSequelizeConverter'
+import { UsersAssociation } from './UsersAssociation'
 
 export class SequelizeUserRepository extends CriteriaToSequelizeConverter implements UserRepository {
 
@@ -16,7 +17,8 @@ export class SequelizeUserRepository extends CriteriaToSequelizeConverter implem
 
   async matching(criteria: Criteria): Promise<UserPrimitivesOptional[]> {
     const options = this.convert(criteria)
-    return await UserModel.findAll(options).then(user => JSON.parse(JSON.stringify(user)))
+    const opt = new UsersAssociation().convertFilterLocation(criteria, options)
+    return await UserModel.findAll(opt).then(user => JSON.parse(JSON.stringify(user)))
   }
 
   async searchByEmail(userEmail: string): Promise<UserPrimitives | null> {

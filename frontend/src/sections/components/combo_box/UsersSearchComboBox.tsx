@@ -45,8 +45,8 @@ export const UsersSearchComboBox = () => {
     }, [debounceGetUsers, inputValue, value])
 
     return (
-      <div className='md:max-w-xl lg:max-w-2xl w-full gap-2 flex justify-center items-center'>
-        <p className='text-black/75'>Buscar: </p>
+      <div className='md:max-w-xl lg:max-w-2xl w-full flex justify-center items-center'>
+        <p className='text-black/75 mr-2'>Buscar: </p>
         <Suspense>
           <Autocomplete
             key={location.key}
@@ -105,7 +105,7 @@ export const UsersSearchComboBox = () => {
                   if (e.key === 'Enter') {
                     e.preventDefault()
                     if (!value) return
-                    navigate(`/user-management/edit/${value?.id}`, {
+                    navigate(`/user-management/profile/${value?.id}`, {
                       state: { state: value }
                     })
                   }
@@ -137,7 +137,7 @@ export const UsersSearchComboBox = () => {
         <SearchLink 
           state={{state: value}}
           isDisabled={!value}          
-          to={`/user-management/edit/${value?.id}`}
+          to={`/user-management/profile/${value?.id}`}
           title='Búsqueda por correo' 
         />
       </div>

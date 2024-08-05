@@ -1,14 +1,13 @@
 import { lazy, Suspense } from 'react'
-import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoading'
-import { useRegisterPage } from './useRegisterPage'
-import { FormStatus } from '../../Hooks/useGenericForm'
 import { useLocation } from 'react-router-dom'
+import { useRegisterPage } from '../useRegisterPage'
+import { FormStatus } from '../../../Hooks/useGenericForm'
+import { InputSkeletonLoading } from '../../../components/skeleton/inputSkeletonLoading'
 
-const Main = lazy(async () => import('../../components/Main'))
-const Input = lazy(() => import('../../components/text-inputs/Input').then(m => ({ default: m.Input })))
-const FormContainer = lazy(async () => import('../../components/formContainer/formContainer'))
-const RoleComboBox = lazy(async () => import('../../components/combo_box/RolesComboBox'))
-const UsersSearchComboBox = lazy(async () => import('../../components/combo_box/UsersSearchComboBox').then(m => ({default: m.UsersSearchComboBox})))
+const Input = lazy(() => import('../../../components/text-inputs/Input').then(m => ({ default: m.Input })))
+const FormComponent = lazy(async () => import('../../../components/formContainer/FormComponent').then(m => ({ default: m.FormComponent })))
+const RoleComboBox = lazy(async () => import('../../../components/combo_box/RolesComboBox'))
+const DetailsBoxWrapper = lazy(async () => import('../../../components/DetailsWrapper/DetailsBoxWrapper'))
 export default function RegisterPage() {
  const { formData, errors, handleChange, handleSubmit, handleClose, formStatus } = useRegisterPage()
   const location = useLocation()
@@ -18,16 +17,13 @@ export default function RegisterPage() {
  }
 
   return (
-    <Main content='max' overflow={false}>
-    
-      <FormContainer
+    <DetailsBoxWrapper position='center'>
+      <FormComponent
         key={location.key}
         title='Usuario'
         handleSubmit={handleSubmit}
         handleClose={handleClose}
-        isDisabled={formStatus === FormStatus.Loading}        
-        url='/user-management/register'
-        searchInput={<UsersSearchComboBox />}
+        isDisabled={formStatus === FormStatus.Loading}
       >
         <div className='flex flex-col md:flex-row md:gap-8'>
           <Suspense fallback={<InputSkeletonLoading />}>                  
@@ -72,10 +68,10 @@ export default function RegisterPage() {
           <RoleComboBox 
             onChange={handleChange}
             value={formData.roleId}
-            type='form'            
+            type='form'
           />
         </Suspense>
-      </FormContainer>
-    </Main>
+      </FormComponent>
+    </DetailsBoxWrapper>
   )
 }
