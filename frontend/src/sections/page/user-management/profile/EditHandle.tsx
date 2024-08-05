@@ -1,11 +1,18 @@
-import { LinkAsButton } from "../../../components/button/LinkAsButton";
+import { lazy, Suspense } from "react"
 
-export function EditHandle ({id}: {id: string}) {
+const LinkAsButton = lazy(async () => import("../../../components/button/LinkAsButton").then(m => ({ default: m.LinkAsButton })))
+const EditIcon = lazy(async () => import("../../../components/icon/EditIcon").then(m => ({ default: m.EditIcon })))
+export function EditHandle ({ id }: {id: string}) {
     return (
       <LinkAsButton
         actionType='CLOSE'
         text='Editar'
         url={`/user-management/edit/${id}`}
+        icon={
+          <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>                      
+            <EditIcon width={20} className='aspect-square ' />                      
+          </Suspense>
+        }
       />
     )
 }

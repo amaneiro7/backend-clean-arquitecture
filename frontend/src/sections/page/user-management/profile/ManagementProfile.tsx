@@ -44,7 +44,7 @@ export default function ManagementProfile() {
             action === 'delete' ? <DeleteHandle id={formData.id} /> : null}
           </DescriptionListElement>
         </DetailsInfo>
-      </DetailsBoxWrapper>      
+      </DetailsBoxWrapper>
     </>
   )
 }

@@ -16,6 +16,6 @@ const COLOR = {
 export function Subtitle({ variant, color = 'black', text }: Props) {
     const Tag = variant || 'h2'
     return (
-      <Tag className={`text-sm md:text-base lg:text-lg font-semibold ${COLOR[color]}`}>{text}</Tag>
+      <Tag className={`uppercase text-sm md:text-base lg:text-lg font-semibold ${COLOR[color]}`}>{text}</Tag>
     )
 }
