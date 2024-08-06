@@ -9,7 +9,7 @@ export function StepsToFollow ({children}: React.PropsWithChildren) {
       <DetailsWrapper borderColor='orange'>
         <DetailsBoxWrapper>            
           <Paragraph color='black' variant='p' className='font-semibold' text='Pasos a Seguir:' />
-          <div className='flex'>
+          <div className='flex flex-col gap-3'>
             {children}
           </div>
         </DetailsBoxWrapper>

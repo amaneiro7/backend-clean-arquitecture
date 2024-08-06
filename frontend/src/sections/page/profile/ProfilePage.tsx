@@ -4,6 +4,8 @@ import { useChangePassword } from "./useChangePassword"
 import { InputSkeletonLoading } from "../../components/skeleton/inputSkeletonLoading"
 import { UserPassword } from "../../../modules/user/user/domain/UserPassword"
 import { type UserApiResponse } from "../../../modules/shared/domain/types/responseTypes"
+import { StepsToFollow } from "../../components/stepsToFollow/StepsToFollow"
+import { ChangePasswordStepsToFollow } from "./ChangePasswordStepsToFollow"
 
 const ConfirmationModal = lazy(async () => import("../../components/Dialog/ConfirmationModal").then(m => ({ default: m.ConfirmationModal })))
 const DetailsWrapper = lazy(async () => import("../../components/DetailsWrapper/DetailsWrapper").then(m => ({ default: m.DetailsWrapper })))
@@ -24,7 +26,7 @@ export default function ProfilePage () {
     
     const { errors, formData, handleChange, handleSubmit, handleClose, dialogRef, handleCloseModal, handleOpenModal, isDisabled } = useChangePassword()
     return (
-      <Main content='max' overflow={false}>
+      <Main content='max' overflow={false} className='pr-8'>
         <PageTitle title='Perfil de usuario' />
         <DetailsWrapper title='A continuación le indicamos los datos de contacto'>          
           <DetailsInfo title='Datos de Contacto'>
@@ -79,7 +81,7 @@ export default function ProfilePage () {
               <ol className='ml-2'>
                 <li>1. Debe ser de mínimo {UserPassword.HAS_MIN_LENGTH} carácteres.</li>
                 <li>2. Debe incluir caracteres alfabéticos (sensitivos a mayúsculas y minúsculas), numéricos y especiales.</li>
-                <li>3. Los caracteres especiales válidos son ! @ # $ % ^ & *</li>
+                <li>3. Los caracteres especiales válidos son ! . @ # $ % ^ & *</li>
               </ol>
             </div>
             <div />
@@ -91,6 +93,7 @@ export default function ProfilePage () {
                 handle={handleOpenModal}
                 text='Continuar'
                 hoverTranslate
+                buttonSize='large'
                 icon={
                   <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>                      
                     <RightArrowIcon width={20} className='aspect-square fill-white' />                      
@@ -103,6 +106,7 @@ export default function ProfilePage () {
                 text='Cancelar'
                 handle={handleClose}
                 hoverTranslate
+                buttonSize='large'
                 icon={
                   <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>
                     <CancelIcon width={20} className='aspect-square' />
@@ -116,6 +120,9 @@ export default function ProfilePage () {
             </ConfirmationDialog>
           </form>        
         </DetailsWrapper>
+        <StepsToFollow>
+          <ChangePasswordStepsToFollow />
+        </StepsToFollow>
       </Main>
 
     )

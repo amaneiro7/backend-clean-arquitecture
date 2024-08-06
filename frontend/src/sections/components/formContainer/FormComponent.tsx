@@ -33,16 +33,17 @@ export function FormComponent ({ handleSubmit, lastUpdated, updatedBy, handleClo
               actionType='SAVE'                
               type='submit'
               text={isDisabled ? 'Procesando...' : 'Continuar'}
+              buttonSize='large'
               isDisabled={isDisabled}
               hoverTranslate
               size='full'
               icon={
                   isDisabled ? 
-                    <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>                      
+                    <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>
                       <CircleSpinningIcon width={20} />
                     </Suspense>
                   : 
-                    <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>                      
+                    <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>
                       <RightArrowIcon width={20} className='aspect-square fill-white' />                      
                     </Suspense>
                   }
@@ -51,6 +52,7 @@ export function FormComponent ({ handleSubmit, lastUpdated, updatedBy, handleClo
               type='button'
               actionType='CANCEL'
               size='full'
+              buttonSize='large'
               text='Cancelar'                
               handle={handleClose}
               isDisabled={isDisabled}

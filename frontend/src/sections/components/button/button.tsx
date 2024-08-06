@@ -13,12 +13,12 @@ interface Props extends React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLB
 const SIZE = {
   full: 'w-full',
   content: 'w-max',  
-}
+} as const
 const BUTTONSIZE = {  
-  small: 'min-h-6 h-6 py-1 px-2 text-sx',
+  small: 'min-h-6 h-6 py-1 px-2 text-xs',
   medium: 'min-h-8 h-8 py-2 px-2 text-sm',
   large: 'min-h-11 h-11 py-2 px-4 text-base'
-}
+} as const
 
 const ACTIONTYPE = {
   ACTION: 'border-none text-white bg-primary hover:bg-primary-700 disabled:bg-primary-700 active:bg-primary-800',

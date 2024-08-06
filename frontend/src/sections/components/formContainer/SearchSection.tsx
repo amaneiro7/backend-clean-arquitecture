@@ -18,6 +18,7 @@ export default function SearchSection ({ isEdit, searchInput, url }: Props) {
           url={url}
           hoverTranslate                
           size='content'
+          buttonSize='large'
           icon={
             <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>
               <AddIcon width={20} className='aspect-square fill-white stroke-[3px]' />

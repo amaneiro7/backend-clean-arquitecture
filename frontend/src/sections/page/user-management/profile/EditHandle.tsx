@@ -8,9 +8,10 @@ export function EditHandle ({ id }: {id: string}) {
         actionType='CLOSE'
         text='Editar'
         url={`/user-management/edit/${id}`}
+        buttonSize='medium'
         icon={
           <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>                      
-            <EditIcon width={20} className='aspect-square ' />                      
+            <EditIcon width={16} className='aspect-square ' />                      
           </Suspense>
         }
       />

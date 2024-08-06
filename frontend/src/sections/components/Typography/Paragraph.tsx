@@ -17,8 +17,9 @@ const COLOR = {
     white: 'text-white',
   } as const
 
-  const BGCOLOR = {
-    orange: 'bg-primary-700',
+  // eslint-disable-next-line react-refresh/only-export-components
+  export const BGCOLOR = {
+    orange: 'bg-primary-600',
     blue: 'bg-secondary-800',
     green: 'bg-terciary',
     red: 'bg-error',
@@ -31,6 +32,6 @@ const COLOR = {
 export function Paragraph({ variant, icon, color = 'black', backgroundColor = 'none', text, className }: Props) {
     const Tag = variant || 'p'
     return (
-      <Tag className={`${icon === undefined ? 'text-xs md:text-sm lg:text-base' : `w-fit text-xs md:text-xs lg:text-sm inline-flex items-center gap-1 rounded-md px-2 py-1 ${BGCOLOR[backgroundColor]}`} ${COLOR[color]} ${className}`}>{icon}{text}</Tag>
+      <Tag className={`${icon === undefined ? 'text-xs md:text-sm lg:text-base' : `w-fit text-xs md:text-xs lg:text-sm inline-flex items-center gap-1 rounded-2xl px-2 py-1 ${BGCOLOR[backgroundColor]}`} ${COLOR[color]} ${className}`}>{icon}{text}</Tag>
     )
 }

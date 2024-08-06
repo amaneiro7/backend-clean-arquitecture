@@ -48,9 +48,10 @@ export function ResetHandle ({id}: {id: string}) {
           actionType='SAVE' 
           text='Restablecer Contraseña' 
           handle={handleOpen}
+          buttonSize='medium'
           icon={
             <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>                      
-              <ResetIcon width={20} className='aspect-square' />                      
+              <ResetIcon width={16} className='aspect-square' />                      
             </Suspense>
             }
         />
