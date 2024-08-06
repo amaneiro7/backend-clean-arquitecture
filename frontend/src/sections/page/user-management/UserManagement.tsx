@@ -8,7 +8,7 @@ const StepsToFollow =lazy (async () => import("../../components/stepsToFollow/St
 const AddIcon =lazy (async () => import("../../components/icon/AddIcon").then(m => ({ default: m.AddIcon })))
 const Main = lazy(async () => import("../../components/Main"))
 const PageTitle = lazy(async () => import("../../components/Typography/PageTitle"))
-const SearchSection = lazy(async () => import("../../components/formContainer/SearchSection"))
+const SearchSection = lazy(async () => import("../../components/formContainer/SearchSection").then(m => ({ default: m.SearchSection })))
 const DetailsWrapper = lazy(async () => import("../../components/DetailsWrapper/DetailsWrapper").then(m => ({ default: m.DetailsWrapper })))
 const DetailsBoxWrapper = lazy(async () => import("../../components/DetailsWrapper/DetailsBoxWrapper"))
 const Paragraph = lazy(async () => import("../../components/Typography/Paragraph").then(m => ({ default: m.Paragraph })))

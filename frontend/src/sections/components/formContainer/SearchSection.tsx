@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy, memo, Suspense } from "react";
 
 interface Props {
     searchInput?: JSX.Element
@@ -8,7 +8,8 @@ interface Props {
 
 const LinkAsButton = lazy(async () => await import('../button/LinkAsButton').then(m => ({ default: m.LinkAsButton })))
 const AddIcon = lazy(() => import('../icon/AddIcon').then(m => ({ default: m.AddIcon })))
-export default function SearchSection ({ isEdit, searchInput, url }: Props) {
+
+function Component ({ isEdit, searchInput, url }: Props) {  
     return (
       <div className='w-full flex flex-col justify-end items-end md:flex-row md:justify-between gap-3'>
         {searchInput}
@@ -29,3 +30,5 @@ export default function SearchSection ({ isEdit, searchInput, url }: Props) {
       </div>
     )
 }
+
+export const SearchSection = memo(Component)

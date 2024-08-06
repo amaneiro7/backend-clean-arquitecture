@@ -1,4 +1,4 @@
-import { lazy, Suspense, useCallback, useEffect, useState } from 'react'
+import { lazy, Suspense, useCallback, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import parse from 'autosuggest-highlight/parse'
 import match from 'autosuggest-highlight/match'
@@ -19,33 +19,25 @@ export default function DeviceSearchComboBox() {
     const { devices, loading, searchDevices } = useSearchDevice()
     const navigate = useNavigate()
     const location = useLocation()
-    const [value, setValue] = useState(null);
-    const [inputValue, setInputValue] = useState('');
-    const [options, setOptions] = useState([]);
-    const [open, setOpen] = useState(false)
+    const [value, setValue] = useState(null)
+    const [inputValue, setInputValue] = useState('')
+    const [options, setOptions] = useState([])    
 
-    const debounceGetDevices = useCallback(
-        debounce((query: SearchByCriteriaQuery) => {
-            searchDevices(query)
-        }, 500), [])
-
-    useEffect(() => {        
-        if (inputValue === '') {
-            setOptions(value ? [value] : [])
-            return undefined
-        }
-        debounceGetDevices({
-            filters: [{
-                field: 'serial',
-                operator: Operator.CONTAINS,
-                value: inputValue
-            }]
-        })
-    }, [debounceGetDevices, inputValue, value])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const searchApi = useCallback(
+      debounce((query: SearchByCriteriaQuery) => {
+        searchDevices(query)
+      }, 500), [])
+  
+    const handleSearch = useCallback((_: React.SyntheticEvent, value: string)  => {
+        setInputValue(value)
+        if (value === '') return
+        searchApi({ filters: [{ field: 'serial', operator: Operator.CONTAINS, value }] }) 
+      }, [searchApi])
 
     return (
-      <div className='md:max-w-xl lg:max-w-2xl w-full gap-2 flex justify-center items-center'>
-        <p className='text-black/75'>Buscar: </p>
+      <div className='md:max-w-xl lg:max-w-2xl w-full flex justify-center items-center'>
+        <p className='text-black/75 mr-2'>Buscar: </p>
         <Suspense fallback={<InputSkeletonLoading />}>
           <Autocomplete
             key={location.key}
@@ -63,17 +55,13 @@ export default function DeviceSearchComboBox() {
             includeInputInList
             filterSelectedOptions
             value={value}
+            inputValue={inputValue}
             onChange={(_, newValue) => {
                         setOptions(newValue ? [newValue, ...options] : options)
                         setValue(newValue)
                     }}
-            onInputChange={(_, newInputValue) => {
-                        setInputValue(newInputValue)
-                    }}
+            onInputChange={handleSearch}
             size='small'
-            open={open}
-            onOpen={() => { setOpen(true) }}
-            onClose={() => { setOpen(false) }}
             isOptionEqualToValue={(option, value) => option.serial === value.serial}
             loading={loading}
             clearText='Limpiar'
@@ -112,10 +100,10 @@ export default function DeviceSearchComboBox() {
               />
             )}
             renderOption={(props, option, { inputValue }) => {
-                        const matches = match(option.serial, inputValue, { insideWords: true });
+                        const matches = match(option.serial, inputValue, { insideWords: true })
                         const parts = parse(option.serial, matches)
                         return (
-                          <li {...props}>
+                          <li key={props.id} {...props}>
                             <div>
                               {parts.map((part, index) => (
                                 <span

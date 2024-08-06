@@ -1,13 +1,14 @@
-import { lazy, Suspense, useCallback, useEffect, useState } from 'react'
+import { lazy, Suspense, useCallback, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import parse from 'autosuggest-highlight/parse'
 import match from 'autosuggest-highlight/match'
 import debounce from 'just-debounce-it'
+import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
 
-import { Autocomplete } from '../../mui/Autocomplete'
-import { SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
 import { useSearchEmployee } from '../../Hooks/employee/useSearchEmployee'
+import { InputSkeletonLoading } from '../skeleton/inputSkeletonLoading'
+import { Autocomplete } from '../../mui/Autocomplete'
 
 const TextField = lazy(async () => await import("../../mui/TextField").then(m => ({ default: m.TextField })))
 const CircularProgress = lazy(async () => await import('../../mui/CircularProgress').then(m => ({ default: m.CircularProgress })))
@@ -23,33 +24,24 @@ export const EmployeeSearchComboBox = () => {
     const [options, setOptions] = useState([]);
     const [open, setOpen] = useState(false)
 
-    const debounceGetDevices = useCallback(
-        debounce((query: SearchByCriteriaQuery) => {
-            searchEmployees(query)
-        }, 500)
-        , [searchEmployees, inputValue]
-    )    
-
-    useEffect(() => {
-        if (inputValue === '') {
-            setOptions(value ? [value] : [])
-            return undefined
-        }
-        debounceGetDevices({
-            filters: [{
-                field: 'userName',
-                operator: Operator.CONTAINS,
-                value: inputValue
-            }]
-        })
-    }, [debounceGetDevices, inputValue, value])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const searchApi = useCallback(
+      debounce((query: SearchByCriteriaQuery) => {
+        searchEmployees(query)
+      }, 500), [])
+  
+    const handleSearch = useCallback((_: React.SyntheticEvent, value: string)  => {
+        setInputValue(value)
+        if (value === '') return
+        searchApi({ filters: [{ field: 'userName', operator: Operator.CONTAINS, value }] }) 
+      }, [searchApi])
 
     return (
-      <div className='md:max-w-xl lg:max-w-2xl w-full gap-2 flex justify-center items-center'>
-        <p className='text-black/75'>Buscar: </p>
-        <Suspense>
+      <div className='md:max-w-xl lg:max-w-2xl w-full flex justify-center items-center'>
+        <p className='text-black/75 mr-2'>Buscar: </p>
+        <Suspense fallback={<InputSkeletonLoading />}>
           <Autocomplete
-            key={location.pathname}
+            key={location.key}
             id='combobox-search-devices'
             fullWidth
             getOptionLabel={(option) => {
@@ -64,13 +56,12 @@ export const EmployeeSearchComboBox = () => {
             includeInputInList
             filterSelectedOptions
             value={value}
+            inputValue={inputValue}
             onChange={(_, newValue) => {
                         setOptions(newValue ? [newValue, ...options] : options)
                         setValue(newValue)
                     }}
-            onInputChange={(_, newInputValue) => {
-                        setInputValue(newInputValue)
-                    }}
+            onInputChange={handleSearch}
             size='small'
             open={open}
             onOpen={() => { setOpen(true) }}
@@ -116,7 +107,7 @@ export const EmployeeSearchComboBox = () => {
                         const matches = match(option.userName, inputValue, { insideWords: true });
                         const parts = parse(option.userName, matches)
                         return (
-                          <li {...props}>
+                          <li key={props.id} {...props}>
                             <div>
                               {parts.map((part, index) => (
                                 <span
