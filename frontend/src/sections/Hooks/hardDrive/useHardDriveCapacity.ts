@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { AllHardDriveCapacityGetter } from '../../../modules/devices/fetures/hardDrive/hardDriveCapacity/application/AllHardDriveCapacityGetter'
 import { ApiHardDriveCapacityRepository } from '../../../modules/devices/fetures/hardDrive/hardDriveCapacity/infrastructure/ApiHardDriveCapacityRepository'
 import { type HardDriveCapacityPrimitives } from '../../../modules/devices/fetures/hardDrive/hardDriveCapacity/domain/HardDriveCapacity'
@@ -15,7 +15,7 @@ export const useHardDriveCapacity = (): UseHardDriveCapacity => {
   const [error, setError] = useState(null)
   const [data, setData] = useState<HardDriveCapacityPrimitives[]>([])
 
-  function fetchData() {
+  const fetchData = useCallback(() => {
     setLoading(true)
     new AllHardDriveCapacityGetter(new ApiHardDriveCapacityRepository())
       .get()
@@ -27,7 +27,7 @@ export const useHardDriveCapacity = (): UseHardDriveCapacity => {
         setError(error)
         setLoading(false)
       })
-  }
+  }, [])
 
   useEffect(() => {
     fetchData()
@@ -35,7 +35,7 @@ export const useHardDriveCapacity = (): UseHardDriveCapacity => {
     return () => {
       setData([])
     }
-  }, [])
+  }, [fetchData])
 
   return {
     hardDriveCapacity: data,

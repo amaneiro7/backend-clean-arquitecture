@@ -85,7 +85,7 @@ const defaultInitialState: DefaultProps = {
 }
 export const useDeviceInitialState = (): {
   preloadedDeviceState: DefaultProps
-  setResetState: (currentState?: DefaultProps) => void
+  setResetState: () => void
   isAddForm: boolean
 } => {
   const { id } = useParams()
@@ -94,20 +94,9 @@ export const useDeviceInitialState = (): {
   const { getDevice } = useDevice()
   const [preloadedDeviceState, setPreloadedDeviceState] = useState(defaultInitialState)
 
-  const setResetState = (currentState?: DefaultProps) => {
-    if (location.pathname.includes('add')) {
-      setPreloadedDeviceState({ id: undefined, ...defaultInitialState })
-    } else if (currentState === undefined) {
-      setPreloadedDeviceState({ id: undefined, ...defaultInitialState })
-    } else {
-      const updatedAt = new Date().toISOString()
-      setPreloadedDeviceState(prev => ({ ...prev, ...currentState, updatedAt }))
-    }
-  }
-
   const isAddForm = useMemo(() => {
-    return !location.state
-  }, [location.state])
+    return !location.pathname.includes('edit')
+  }, [location.pathname])
 
   const processDeviceState = useCallback((device: DevicePrimitives): void => {
     const { serial, activo, statusId, model, modelId, categoryId, brandId, employeeId, locationId, observation, computer, hardDrive, history, updatedAt } = device as DevicesApiResponse
@@ -139,28 +128,41 @@ export const useDeviceInitialState = (): {
     }
   }, [id])
 
+  const fetchDevice = useCallback(() => {
+    getDevice.getById(id)
+      .then(device => {
+        processDeviceState(device)
+      })
+      .catch(error => {
+        console.error('useDeviceInitialState', error)
+      })
+  }, [getDevice, id, processDeviceState])
+
+  const setResetState = useCallback(() => {
+    if (isAddForm) {
+      setPreloadedDeviceState({ id: undefined, ...defaultInitialState })
+    } else {
+      fetchDevice()
+    }
+  }, [fetchDevice, isAddForm])
+
   useEffect(() => {
     if (isAddForm) {
       setPreloadedDeviceState(defaultInitialState)
       return
     }
     if (location.state?.state) {
-      const { state } = location.state
-      processDeviceState(state)
-    } else if (id === undefined) {
-      navigate('/error')
+      const device = location.state?.state
+      processDeviceState(device)
     } else {
-      getDevice.getById(id)
-        .then(device => {
-          processDeviceState(device)
-        })
-        .catch(error => {
-          console.error('useDeviceInitialState', error)
-        })
+      if (!id) {
+        navigate('/error')
+        return
+      }
+      fetchDevice()
     }
-  }, [id, location.state?.state, location.pathname, isAddForm, location.state, processDeviceState, navigate, getDevice])
 
-
+  }, [fetchDevice, id, isAddForm, location.state?.state, navigate, processDeviceState])
 
   return {
     preloadedDeviceState,

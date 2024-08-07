@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { AllBrandGetter } from '../../../modules/devices/brand/application/AllBrandGetter'
 import { BrandCreator } from '../../../modules/devices/brand/application/BrandCreator'
 import { type BrandPrimitives } from '../../../modules/devices/brand/domain/Brand'
@@ -13,18 +13,14 @@ export interface UseBrand {
   createBrand: (formData: BrandPrimitives) => Promise<void>
 }
 export const useBrand = (): UseBrand => {
-  const repository = new ApiBrandRepository()
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [brands, setBrands] = useState<BrandPrimitives[]>([])
 
-  async function createBrand(formData: BrandPrimitives) {
-    const data = await new BrandCreator(repository).create(formData)
-    getBrands()
-    return data
-  }
+  const repository = useMemo(() => { return new ApiBrandRepository() }, [])
+  const getBrand = useMemo(() => { return new BrandGetter(repository) }, [repository])
 
-  function getBrands() {
+  const getBrands = useCallback(() => {
     setLoading(true)
     new AllBrandGetter(repository)
       .get()
@@ -36,9 +32,13 @@ export const useBrand = (): UseBrand => {
         setError(error)
         setLoading(false)
       })
-  }
+  }, [repository])
 
-  const getBrand = new BrandGetter(repository)
+  const createBrand = useCallback(async (formData: BrandPrimitives) => {
+    const data = await new BrandCreator(repository).create(formData)
+    getBrands()
+    return data
+  }, [repository, getBrands])
 
   useEffect(() => {
     getBrands()
@@ -46,7 +46,7 @@ export const useBrand = (): UseBrand => {
     return () => {
       setBrands([])
     }
-  }, [])
+  }, [getBrands])
 
   return {
     brands,

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useSiteLocation } from './useLocation'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
@@ -47,43 +47,56 @@ export const useLocationInitialState = () => {
   const [preloadedLocationState, setPreloadedLocationState] = useState(defaultInitialLocationState)
 
   const isAddForm = useMemo(() => {
-    return location.pathname.includes('add')
+    return !location.pathname.includes('edit')
   }, [location.pathname])
 
-  useEffect(() => {
-    if (location.pathname.includes('add')) {
-      setPreloadedLocationState(defaultInitialLocationState)
-      return
-    }
-
-    if (location.state?.state2 !== undefined) {
-      const { state } = location.state      
-      processLocationState(state)
-    } else if (id === undefined) {
-      navidate('/error')
-    } else {
-      getLocation.getById(id)
-        .then(location => {          
-          processLocationState(location)
-        })
-        .catch(error => {
-          console.error('useLocationInitialState', error)
-        })
-    }
-  }, [id, location.state?.state])
-
-  function processLocationState(location: LocationPrimitives): void {    
+  const processLocationState = useCallback((location: LocationPrimitives): void => {
     const { id, name, site, siteId, subnet, typeOfSiteId } = location as LocationApiResponse
     const { name: siteName, cityId, city } = site
     const { state, stateId } = city
     const { regionId } = state
     setPreloadedLocationState(prev => ({ ...prev, id, name, siteId, subnet: subnet ?? '', typeOfSiteId, siteName, cityId, stateId, regionId }))
+  }, [])
+
+  const fetchLocation = useCallback(() => {
+    getLocation.getById(id)
+      .then(location => {
+        processLocationState(location)
+      })
+      .catch(error => {
+        console.error('useLocationInitialState', error)
+      })
+  }, [getLocation, id, processLocationState])
+
+  const setResetState = () => {
+    if (isAddForm) {
+      processLocationState({ id: undefined, ...defaultInitialLocationState })
+    } else {
+      fetchLocation()
+    }
   }
 
+  useEffect(() => {
+    if (isAddForm) {
+      setPreloadedLocationState(defaultInitialLocationState)
+      return
+    }
+    if (location.state?.state) {
+      const state = location.state?.state
+      processLocationState(state)
+    } else {
+      if (!id) {
+        navidate('/error')
+        return
+      }
+      fetchLocation()
+    }
+  }, [fetchLocation, id, isAddForm, location.state?.state, navidate, processLocationState])
 
   return {
     preloadedLocationState,
-    isAddForm
+    isAddForm,
+    setResetState
   }
 }
 

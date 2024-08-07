@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { DeviceGetterByCriteria } from '../../../modules/devices/devices/devices/application/DeviceGetterByCriteria'
 import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
 import { DevicesMappedApiResponse } from '../../../modules/shared/domain/types/responseTypes'
@@ -17,7 +17,7 @@ export const useSearchDevice = (): UseDevice => {
   const [error, setError] = useState(null)
   const [devices, setDevices] = useState<DevicesMappedApiResponse[]>([])
 
-  function searchDevices(filter: SearchByCriteriaQuery) {
+  const searchDevices = useCallback((filter: SearchByCriteriaQuery) => {
     setLoading(true)
     new DeviceGetterByCriteria(new ApiDeviceRepository())
       .get(filter)
@@ -31,7 +31,7 @@ export const useSearchDevice = (): UseDevice => {
         setError(error)
         setLoading(false)
       })
-  }
+  }, [])
 
   return {
     devices,

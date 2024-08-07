@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { AllCargoGetter } from '../../../modules/employee/cargo/application/AllCargoGetter'
 import { type CargoPrimitives } from '../../../modules/employee/cargo/domain/cargo'
 import { ApiCargoRepository } from '../../../modules/employee/cargo/infraestructure/ApiCargoRepository'
@@ -12,8 +12,8 @@ export const useCargo = () => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [data, setData] = useState<CargoPrimitives[]>([])
-  
-  function fetchData () {
+
+  const fetchData = useCallback(() => {
     setLoading(true)
     new AllCargoGetter(new ApiCargoRepository())
       .get()
@@ -25,7 +25,7 @@ export const useCargo = () => {
         setError(error)
         setLoading(false)
       })
-  }
+  }, [])
 
   useEffect(() => {
     fetchData()
@@ -33,7 +33,7 @@ export const useCargo = () => {
     return () => {
       setData([])
     }
-  }, [])
+  }, [fetchData])
 
   return {
     cargo: data,

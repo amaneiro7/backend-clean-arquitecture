@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { AllCityGetter } from '../../../modules/location/city/application/AllCityGetter'
 import { CityPrimitives } from '../../../modules/location/city/domain/city'
 import { ApiCityRepository } from '../../../modules/location/city/infraestructure/ApiCityRepository'
@@ -14,7 +14,7 @@ export const useCity = (): UseCities => {
   const [error, setError] = useState(null)
   const [cities, setCities] = useState<CityPrimitives[]>([])
 
-  function gefetchData() {
+  const fetchData = useCallback(() => {
     setLoading(true)
     new AllCityGetter(new ApiCityRepository())
       .get()
@@ -26,15 +26,15 @@ export const useCity = (): UseCities => {
         setError(error)
         setLoading(false)
       })
-  }
+  }, [])
 
   useEffect(() => {
-    gefetchData()
+    fetchData()
 
     return () => {
       setCities([])
     }
-  }, [])
+  }, [fetchData])
 
   return {
     cities,

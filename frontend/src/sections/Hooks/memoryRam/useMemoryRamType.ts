@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { AllMemoryRamTypeGetter } from '../../../modules/devices/fetures/memoryRam/memoryRamType/application/AllMemoryRamTypeGetter'
 import { type MemoryRamTypePrimitives } from '../../../modules/devices/fetures/memoryRam/memoryRamType/domain/MemoryRamType'
 import { ApiMemoryRamTypeRepository } from '../../../modules/devices/fetures/memoryRam/memoryRamType/infrastructure/ApiMemoryRamTypeRepository'
@@ -13,7 +13,7 @@ export const useMemoryRamType = (): UseMemoryRamType => {
   const [error, setError] = useState(null)
   const [data, setData] = useState<MemoryRamTypePrimitives[]>([])
 
-  function fetchData() {
+  const fetchData = useCallback(() => {
     setLoading(true)
     new AllMemoryRamTypeGetter(new ApiMemoryRamTypeRepository())
       .get()
@@ -25,7 +25,7 @@ export const useMemoryRamType = (): UseMemoryRamType => {
         setError(error)
         setLoading(false)
       })
-  }
+  }, [])
 
   useEffect(() => {
     fetchData()
@@ -33,7 +33,7 @@ export const useMemoryRamType = (): UseMemoryRamType => {
     return () => {
       setData([])
     }
-  }, [])
+  }, [fetchData])
 
   return {
     memoryRamTypes: data,

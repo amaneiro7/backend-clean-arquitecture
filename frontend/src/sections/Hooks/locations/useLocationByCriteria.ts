@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
 import { useSearchByCriteriaQuery } from '../useQueryUpdate'
 import { LocationPrimitives } from '../../../modules/location/locations/domain/location'
@@ -19,7 +19,7 @@ export const useLocationByCriteria = (defaultQuery?: SearchByCriteriaQuery): Use
   const [error, setError] = useState<string | null>(null)
   const [locations, setLocations] = useState<LocationPrimitives[]>([])
 
-  function searchLocationsByCriteria() {
+  const searchLocationsByCriteria = useCallback(() => {
     setLoading(true)
     new LocationGetterByCriteria(new ApiLocationRepository())
       .get(query)
@@ -32,14 +32,14 @@ export const useLocationByCriteria = (defaultQuery?: SearchByCriteriaQuery): Use
         setError('An unexpected error occurred while trying to search Locations')
         setLoading(false)
       })
-  }
+  }, [query])
 
   useEffect(() => {
     searchLocationsByCriteria()
     return () => {
       setLocations([])
     }
-  }, [query])
+  }, [searchLocationsByCriteria])
 
   return {
     locations,

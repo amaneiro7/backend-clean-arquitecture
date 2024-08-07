@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { type LocationPrimitives } from '../../../modules/location/locations/domain/location'
 import { AllLocationGetter } from '../../../modules/location/locations/application/AllLocationGetter'
 import { ApiLocationRepository } from '../../../modules/location/locations/infraestructure/ApiLocationRepository'
@@ -18,17 +18,10 @@ export const useSiteLocation = (): UseSiteLocation => {
   const [error, setError] = useState(null)
   const [locations, setLocation] = useState<LocationPrimitives[]>([])
 
-  const repository = new ApiLocationRepository()
+  const repository = useMemo(() => { return new ApiLocationRepository() }, [])
+  const getLocation = useMemo(() => { return new LocationGetter(repository) }, [repository])
 
-  async function createLocation (formData: LocationPrimitives) {
-    const data = await new LocationCreator(repository).create(formData)
-    getLocations()
-    return data
-  }
-
-  const getLocation = new LocationGetter(repository)
-
-  function getLocations() {
+  const getLocations = useCallback(() => {
     setLoading(true)
     new AllLocationGetter(repository)
       .get()
@@ -40,7 +33,15 @@ export const useSiteLocation = (): UseSiteLocation => {
         setError(error)
         setLoading(false)
       })
-  }
+  }, [repository])
+  
+  const createLocation = useCallback(async (formData: LocationPrimitives) => {
+    const data = await new LocationCreator(repository).create(formData)
+    getLocations()
+    return data
+  }, [getLocations, repository])
+
+
 
   useEffect(() => {
     getLocations()
@@ -48,7 +49,7 @@ export const useSiteLocation = (): UseSiteLocation => {
     return () => {
       setLocation([])
     }
-  }, [])
+  }, [getLocations])
 
   return {
     locations,

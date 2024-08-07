@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { InputTypePrimitives } from '../../../modules/devices/model/InputType/domain/InputType'
 import { AllInputTypeGetter } from '../../../modules/devices/model/InputType/application/AllInputTypeGetter'
 import { ApiInputTypeRepository } from '../../../modules/devices/model/InputType/infra/ApiInputTypeRepository'
@@ -15,7 +15,7 @@ export const useInputType = () => {
   const [error, setError] = useState(null)
   const [inputType, setInputType] = useState<InputTypePrimitives[]>([])
 
-  function getInputType() {
+  const getInputType = useCallback(() => {
     setLoading(true)
     new AllInputTypeGetter(new ApiInputTypeRepository())
       .get()
@@ -27,7 +27,7 @@ export const useInputType = () => {
         setError(error)
         setLoading(false)
       })
-  }
+  }, [])
 
   useEffect(() => {
     getInputType()
@@ -35,7 +35,7 @@ export const useInputType = () => {
     return () => {
       setInputType([])
     }
-  }, [])
+  }, [getInputType])
 
   return {
     inputType,

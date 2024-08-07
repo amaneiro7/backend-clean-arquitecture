@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { AllTypeOfSiteGetter } from '../../../modules/location/typeofsites/application/AllTypeOfSiteGetter'
 import { TypeOfSitePrimitives } from '../../../modules/location/typeofsites/domain/typeOfSite'
 import { ApiTypeOfSiteRepository } from '../../../modules/location/typeofsites/infraestructure/ApiTypeOfSiteRepository'
@@ -14,7 +14,7 @@ export const useTypeOfSite = (): UseTypeOfSite => {
   const [error, setError] = useState(null)
   const [typeOfSite, setTypeOfSite] = useState<TypeOfSitePrimitives[]>([])
 
-  function gefetchData() {
+  const fetchData = useCallback(() => {
     setLoading(true)
     new AllTypeOfSiteGetter(new ApiTypeOfSiteRepository())
       .get()
@@ -26,15 +26,15 @@ export const useTypeOfSite = (): UseTypeOfSite => {
         setError(error)
         setLoading(false)
       })
-  }
+  }, [])
 
   useEffect(() => {
-    gefetchData()
+    fetchData()
 
     return () => {
       setTypeOfSite([])
     }
-  }, [])
+  }, [fetchData])
 
   return {
     typeOfSite,

@@ -1,50 +1,69 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useBrand } from './useBrand'
 import { type BrandApiResponse } from '../../../modules/shared/domain/types/responseTypes'
-import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
-import { type BrandName } from '../../../modules/devices/brand/domain/BrandName'
+import { type BrandPrimitives } from '../../../modules/devices/brand/domain/Brand'
 
-interface DefaultProps {
-  name: Primitives<BrandName>
+export const defaultInitialBrandState: BrandPrimitives = {
+  id: undefined,
+  name: '',
 }
 
-export const defaultInitialBrandState: DefaultProps = {
-  name: ''
-}
-export const useBrandInitialState = () => {
+export const useBrandInitialState = (): {
+  preloadedBrandState: BrandPrimitives
+  setResetState: () => void
+  isAddForm: boolean
+} => {
   const { id } = useParams()
   const location = useLocation()
   const navigate = useNavigate()
   const { getBrand } = useBrand()
   const [preloadedBrandState, setPreloadedBrandState] = useState(defaultInitialBrandState)
 
+  const isAddForm = useMemo(() => {
+    return !location.pathname.includes('edit')
+  }, [location.pathname])
+
+  const fetchBrand = useCallback(() => {
+    getBrand.getById({ id })
+      .then(brand => {
+        const { name } = brand as BrandApiResponse
+        setPreloadedBrandState({ name })
+      })
+      .catch(error => {
+        console.error('useBrandInitialState', error)
+      })
+  }, [getBrand, id])
+
+  const setResetState = () => {
+    if (isAddForm) {
+      setPreloadedBrandState({ id: undefined, ...defaultInitialBrandState })
+    } else {
+      fetchBrand()
+    }
+  }
+
   useEffect(() => {
-    if (location.pathname.includes('add')) {
+    if (isAddForm) {
       setPreloadedBrandState(defaultInitialBrandState)
       return
     }
 
     if (location.state?.state !== undefined) {
-      const { state: brand } = location.state
+      const brand = location.state?.state
       setPreloadedBrandState(brand)
     } else {
-      if (id === undefined) {
+      if (!id) {
         navigate('/error')
         return
       }
-      getBrand.getById({ id })
-        .then(brand => {
-          const { name } = brand as BrandApiResponse
-          setPreloadedBrandState({ name })
-        })
-        .catch(error => {
-          console.error('useBrandInitialState', error)
-        })
+      fetchBrand()
     }
-  }, [id, location.state?.brand])
+  }, [fetchBrand, id, isAddForm, location.state?.state, navigate])
 
   return {
-    preloadedBrandState
+    preloadedBrandState,
+    isAddForm,
+    setResetState
   }
 }

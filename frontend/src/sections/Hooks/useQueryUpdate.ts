@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { type SearchByCriteriaQuery } from '../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
 
 export const useSearchByCriteriaQuery = (defaultQuery?: SearchByCriteriaQuery) => {
@@ -6,7 +6,7 @@ export const useSearchByCriteriaQuery = (defaultQuery?: SearchByCriteriaQuery) =
     filters: []
   })
 
-  const addFilter = (payload: SearchByCriteriaQuery) => {
+  const addFilter = useCallback((payload: SearchByCriteriaQuery) => {
     const filterIndex = query.filters.findIndex(filter => filter.field === payload.filters[0].field)
     const newFilter = [...query.filters]
     if (filterIndex >= 0) {
@@ -16,11 +16,12 @@ export const useSearchByCriteriaQuery = (defaultQuery?: SearchByCriteriaQuery) =
     }
     const filterWithoutEmptyValues = newFilter.filter(filter => filter.value !== '')
     setQuery(prev => ({ ...prev, filters: filterWithoutEmptyValues }))
-  }
+  }, [query.filters])
 
-  const cleanFilters = (initialFiltier?: SearchByCriteriaQuery) => {
+
+  const cleanFilters = useCallback((initialFiltier?: SearchByCriteriaQuery) => {
     setQuery(prev => ({ ...prev, filters: initialFiltier.filters ?? [] }))
-  }
+  }, [])
 
   return {
     query,

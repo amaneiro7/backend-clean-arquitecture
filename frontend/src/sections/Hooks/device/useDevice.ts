@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { type DevicePrimitives } from '../../../modules/devices/devices/devices/domain/Device'
+import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
 import { DeviceCreator } from '../../../modules/devices/devices/devices/application/DeviceCreator'
 import { DeviceGetter } from '../../../modules/devices/devices/devices/application/DeviceGetter'
 import { DeviceGetterByCriteria } from '../../../modules/devices/devices/devices/application/DeviceGetterByCriteria'
-import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
 import { useSearchByCriteriaQuery } from '../useQueryUpdate'
 import { ApiDeviceRepository } from '../../../modules/devices/devices/devices/infraestructure/ApiDeviceRepository'
 
@@ -20,17 +20,13 @@ export interface UseDevice {
 }
 
 export const useDevice = (defaultQuery?: SearchByCriteriaQuery): UseDevice => {
-  const repository = useMemo(() => { return new ApiDeviceRepository() }, [])
   const { query, addFilter, cleanFilters } = useSearchByCriteriaQuery(defaultQuery)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [devices, setDevices] = useState<DevicePrimitives[]>([])
 
-  async function createDevice(formData: DevicePrimitives) {
-    const data = await new DeviceCreator(repository).create(formData)
-    searchDevices(query)
-    return data
-  }
+  const repository = useMemo(() => { return new ApiDeviceRepository() }, [])
+  const getDevice = useMemo(() => { return new DeviceGetter(repository) }, [repository])
 
   const searchDevices = useCallback((filter: SearchByCriteriaQuery) => {
     setLoading(true)
@@ -48,7 +44,11 @@ export const useDevice = (defaultQuery?: SearchByCriteriaQuery): UseDevice => {
       })
   }, [repository])
 
-  const getDevice = useMemo(() => { return new DeviceGetter(repository) }, [repository])
+  const createDevice = useCallback(async (formData: DevicePrimitives) => {
+    const data = await new DeviceCreator(repository).create(formData)
+    searchDevices(query)
+    return data
+  }, [query, repository, searchDevices])
 
   useEffect(() => {
     searchDevices(query)

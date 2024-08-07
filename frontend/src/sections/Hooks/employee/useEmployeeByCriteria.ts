@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { EmployeeGetterByCriteria } from '../../../modules/employee/employee/application/EmployeeGetterByCriteria'
 import { type EmployeePrimitives } from '../../../modules/employee/employee/domain/Employee'
 import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
@@ -8,18 +8,18 @@ import { ApiEmployeeRepository } from '../../../modules/employee/employee/infras
 export interface UseEmployee {
   employeeWithDevives: EmployeePrimitives[]
   loading: boolean
-  error: string | null  
+  error: string | null
   addFilter: (payload: SearchByCriteriaQuery) => void
   cleanFilters: (payload?: SearchByCriteriaQuery) => void
 }
 
 export const useEmployeeByCriteria = (defaultQuery?: SearchByCriteriaQuery): UseEmployee => {
   const { query, addFilter, cleanFilters } = useSearchByCriteriaQuery(defaultQuery)
-  const [loading, setLoading] = useState<boolean>(true)  
-  const [error, setError] = useState<string | null>(null)  
-  const [employeeWithDevives, setEmployeeWithDevives] = useState<EmployeePrimitives[]>([])  
-  
-  function searchEmployeesByCriteria () {
+  const [loading, setLoading] = useState<boolean>(true)
+  const [error, setError] = useState<string | null>(null)
+  const [employeeWithDevives, setEmployeeWithDevives] = useState<EmployeePrimitives[]>([])
+
+  const searchEmployeesByCriteria = useCallback(() => {
     setLoading(true)
     new EmployeeGetterByCriteria(new ApiEmployeeRepository())
       .get(query)
@@ -32,14 +32,14 @@ export const useEmployeeByCriteria = (defaultQuery?: SearchByCriteriaQuery): Use
         setError('An unexpected error occurred while trying to search employees')
         setLoading(false)
       })
-  }
+  }, [query])
 
   useEffect(() => {
     searchEmployeesByCriteria()
     return () => {
       setEmployeeWithDevives([])
     }
-  }, [query])
+  }, [searchEmployeesByCriteria])
 
   return {
     employeeWithDevives,

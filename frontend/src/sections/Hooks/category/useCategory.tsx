@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { AllCategoryGetter } from '../../../modules/devices/category/application/AllCategoryGetter'
 import { type CategoryPrimitives } from '../../../modules/devices/category/domain/Category'
 import { ApiCategoryRepository } from '../../../modules/devices/category/infraestructure/ApiCategoryRepository'
@@ -14,7 +14,7 @@ export const useCategory = (): UseCategory => {
   const [error, setError] = useState(null)
   const [categories, setCategory] = useState<CategoryPrimitives[]>([])
   
-  function getCategory () {
+  const getCategory = useCallback(() => {
     setLoading(true)    
     new AllCategoryGetter(new ApiCategoryRepository())
       .get()
@@ -26,15 +26,15 @@ export const useCategory = (): UseCategory => {
         setError(error)
         setLoading(false)
       })
-  }
-
+  }, [])
+  
   useEffect(() => {
     getCategory()
 
     return () => {
       setCategory([])
     }
-  }, [])
+  }, [getCategory])
 
   return {
     categories,

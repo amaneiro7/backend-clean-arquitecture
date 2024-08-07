@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { type CoordinacionPrimitives } from '../../../modules/employee/area/coordinacion/domain/Coordinacion'
 import { AllCoordinacionGetter } from '../../../modules/employee/area/coordinacion/application/AllCoordinacionGetter'
 import { ApiCoordinacionRepository } from '../../../modules/employee/area/coordinacion/infraestructure/ApiCoordinacionRepository'
@@ -13,7 +13,7 @@ export const useCoordinacion = (): UseCoordinacion => {
   const [error, setError] = useState(null)
   const [data, setData] = useState<CoordinacionPrimitives[]>([])
 
-  function fetchData() {
+  const fetchData = useCallback(() => {
     setLoading(true)
     new AllCoordinacionGetter(new ApiCoordinacionRepository())
       .get()
@@ -25,7 +25,7 @@ export const useCoordinacion = (): UseCoordinacion => {
         setError(error)
         setLoading(false)
       })
-  }
+  }, [])
 
   useEffect(() => {
     fetchData()
@@ -33,7 +33,7 @@ export const useCoordinacion = (): UseCoordinacion => {
     return () => {
       setData([])
     }
-  }, [])
+  }, [fetchData])
 
   return {
     coordinacion: data,

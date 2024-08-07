@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { type GerenciaPrimitives } from '../../../modules/employee/area/gerencia/domain/gerencia'
 import { AllGerenciaGetter } from '../../../modules/employee/area/gerencia/application/AllGerenciaGetter'
 import { ApiGerenciaRepository } from '../../../modules/employee/area/gerencia/infraestructure/ApiGerenciaRepository'
@@ -12,8 +12,8 @@ export const useGerencia = () => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [data, setData] = useState<GerenciaPrimitives[]>([])
-  
-  function fetchData () {
+
+  const fetchData = useCallback(() => {
     setLoading(true)
     new AllGerenciaGetter(new ApiGerenciaRepository())
       .get()
@@ -25,7 +25,7 @@ export const useGerencia = () => {
         setError(error)
         setLoading(false)
       })
-  }
+  }, [])
 
   useEffect(() => {
     fetchData()
@@ -33,7 +33,7 @@ export const useGerencia = () => {
     return () => {
       setData([])
     }
-  }, [])
+  }, [fetchData])
 
   return {
     gerencia: data,

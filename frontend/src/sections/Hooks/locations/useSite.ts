@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { SitePrimitives } from '../../../modules/location/site/domain/site'
 import { ApiSiteRepository } from '../../../modules/location/site/infraestructure/ApiSiteRepository'
 import { AllSiteGetter } from '../../../modules/location/site/application/AllSiteGetter'
@@ -14,11 +14,10 @@ export const useSite = (): UseSites => {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
     const [sites, setSites] = useState<SitePrimitives[]>([])
-    const repository = new ApiSiteRepository()
 
-    function gefetchData() {
+    const fetchData = useCallback(() => {
         setLoading(true)
-        new AllSiteGetter(repository)
+        new AllSiteGetter(new ApiSiteRepository())
             .get()
             .then((res) => {
                 setSites(res)
@@ -28,15 +27,15 @@ export const useSite = (): UseSites => {
                 setError(error)
                 setLoading(false)
             })
-    }
+    }, [])
 
     useEffect(() => {
-        gefetchData()
+        fetchData()
 
         return () => {
             setSites([])
         }
-    }, [])
+    }, [fetchData])
 
     return {
         sites,

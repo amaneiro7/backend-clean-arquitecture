@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { ApiRegionRepository } from '../../../modules/location/region/infraestructure/ApiRegionRepository'
 import { RegionPrimitives } from '../../../modules/location/region/domain/region'
 import { AllRegionGetter } from '../../../modules/location/region/application/AllRegionGetter'
@@ -15,11 +15,10 @@ export const useRegion = (): UseRegion => {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
     const [regions, setRegion] = useState<RegionPrimitives[]>([])
-    const repository = new ApiRegionRepository()
 
-    function gefetchData() {
+    const gefetchData = useCallback(() => {
         setLoading(true)
-        new AllRegionGetter(repository)
+        new AllRegionGetter(new ApiRegionRepository())
             .get()
             .then((res) => {
                 setRegion(res)
@@ -29,7 +28,7 @@ export const useRegion = (): UseRegion => {
                 setError(error)
                 setLoading(false)
             })
-    }
+    }, [])
 
     useEffect(() => {
         gefetchData()
@@ -37,7 +36,7 @@ export const useRegion = (): UseRegion => {
         return () => {
             setRegion([])
         }
-    }, [])
+    }, [gefetchData])
 
     return {
         regions,

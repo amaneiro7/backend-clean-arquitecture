@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { type VicepresidenciaEjecutivaPrimitives } from '../../../modules/employee/area/vicepresidenciaejecutiva/domain/VicepresidenciaEjecutiva'
 import { AllVicepresidenciaEjecutivaGetter } from '../../../modules/employee/area/vicepresidenciaejecutiva/application/AllVicepresidenciaEjecutivaGetter'
 import { ApiVicepresidenciaEjecutivaRepository } from '../../../modules/employee/area/vicepresidenciaejecutiva/infraestructure/ApiVicepresidenciaEjecutivaRepository'
@@ -12,8 +12,8 @@ export const useVicepresidenciaEjecutiva = () => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [data, setData] = useState<VicepresidenciaEjecutivaPrimitives[]>([])
-  
-  function fetchData () {
+
+  const fetchData = useCallback(() => {
     setLoading(true)
     new AllVicepresidenciaEjecutivaGetter(new ApiVicepresidenciaEjecutivaRepository())
       .get()
@@ -25,7 +25,7 @@ export const useVicepresidenciaEjecutiva = () => {
         setError(error)
         setLoading(false)
       })
-  }
+  }, [])
 
   useEffect(() => {
     fetchData()
@@ -33,7 +33,7 @@ export const useVicepresidenciaEjecutiva = () => {
     return () => {
       setData([])
     }
-  }, [])
+  }, [fetchData])
 
   return {
     vicepresidenciaEjecutiva: data,

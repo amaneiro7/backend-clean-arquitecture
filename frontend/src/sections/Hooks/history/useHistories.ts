@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { HistoryPrimitives } from '../../../modules/history/domain/history'
 import { AllHistoryGetter } from '../../../modules/history/application/AllHistoryGetter'
 import { ApiHistoryRepository } from '../../../modules/history/infraestructure/ApiHistoryRepository'
@@ -14,7 +14,7 @@ export const useHistory = (): UseHistory => {
     const [error, setError] = useState(null)
     const [histories, setHistory] = useState<HistoryPrimitives[]>([])
 
-    function getHistory() {
+    const getHistory = useCallback(() => {
         setLoading(true)
         new AllHistoryGetter(new ApiHistoryRepository())
             .get()
@@ -26,7 +26,7 @@ export const useHistory = (): UseHistory => {
                 setError(error)
                 setLoading(false)
             })
-    }
+    }, [])
 
     useEffect(() => {
         getHistory()
@@ -34,7 +34,7 @@ export const useHistory = (): UseHistory => {
         return () => {
             setHistory([])
         }
-    }, [])
+    }, [getHistory])
 
     return {
         histories,

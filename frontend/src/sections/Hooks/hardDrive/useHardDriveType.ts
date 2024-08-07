@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { type HardDriveTypePrimitives } from '../../../modules/devices/fetures/hardDrive/hardDriveType/domain/HardDriveType'
 import { AllHardDriveTypeGetter } from '../../../modules/devices/fetures/hardDrive/hardDriveType/application/AllHardDriveTypeGetter'
 import { ApiHardDriveTypeRepository } from '../../../modules/devices/fetures/hardDrive/hardDriveType/infrastructure/ApiHardDriveTypeRepository'
@@ -14,7 +14,7 @@ export const useHardDriveType = () => {
   const [error, setError] = useState(null)
   const [data, setData] = useState<HardDriveTypePrimitives[]>([])
 
-  function fetchData() {
+  const fetchData = useCallback(() => {
     setLoading(true)
     new AllHardDriveTypeGetter(new ApiHardDriveTypeRepository())
       .get()
@@ -26,7 +26,7 @@ export const useHardDriveType = () => {
         setError(error)
         setLoading(false)
       })
-  }
+  }, [])
 
   useEffect(() => {
     fetchData()
@@ -34,7 +34,7 @@ export const useHardDriveType = () => {
     return () => {
       setData([])
     }
-  }, [])
+  }, [fetchData])
 
   return {
     hardDriveType: data,

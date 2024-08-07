@@ -1,7 +1,7 @@
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { type EmployeeUserName } from '../../../modules/employee/employee/domain/UserName'
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useEmployee } from './useEmployee'
 import { DevicesApiResponse } from '../../../modules/shared/domain/types/responseTypes'
 import { EmployeeId } from '../../../modules/employee/employee/domain/EmployeeId'
@@ -28,33 +28,49 @@ export const useEmployeeInitialState = () => {
   const [preloadedEmployeeState, setPreloadedEmployeeState] = useState(defaultInitialEmployeeState)
 
   const isAddForm = useMemo(() => {
-    return location.pathname.includes('add')
+    return !location.pathname.includes('edit')
   }, [location.pathname])
 
+  const fetchEmployee = useCallback(() => {
+    getEmployee.getById(id)
+      .then(employee => {
+        setPreloadedEmployeeState(employee as DefaultProps)
+      })
+      .catch(error => {
+        console.error('useEmployeeInitialState', error)
+      })
+  }, [getEmployee, id])
+
+  const setResetState = () => {
+    if (isAddForm) {
+      setPreloadedEmployeeState({ id: undefined, ...defaultInitialEmployeeState })
+    } else {
+      fetchEmployee()
+    }
+  }
+
   useEffect(() => {
-    if (location.pathname.includes('add')) {
+    if (isAddForm) {
       setPreloadedEmployeeState(defaultInitialEmployeeState)
       return
     }
 
     if (location.state?.state2 !== undefined) {
-      const { state } = location.state
-      setPreloadedEmployeeState(state)
-    } else if (id === undefined) {
-      navidate('/error')
+      const employee = location.state?.state
+      setPreloadedEmployeeState(employee)
     } else {
-      getEmployee.getById(id)
-        .then(employee => {
-          setPreloadedEmployeeState(employee as DefaultProps)
-        })
-        .catch(error => {
-          console.error('useEmployeeInitialState', error)
-        })
+      if (!id) {
+        navidate('/error')
+        return
+      }
+      fetchEmployee()
     }
-  }, [id, location.state?.state])
+
+  }, [fetchEmployee, id, isAddForm, location.state?.state, location.state?.state2, navidate])
 
   return {
     preloadedEmployeeState,
+    setResetState,
     isAddForm
   }
 }

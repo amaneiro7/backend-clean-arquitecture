@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
 import { EmployeeGetterByCriteria } from '../../../modules/employee/employee/application/EmployeeGetterByCriteria'
 import { EmployeePrimitives } from '../../../modules/employee/employee/domain/Employee'
@@ -11,12 +11,12 @@ export interface UseSearchEmployee {
   searchEmployees: (filter: SearchByCriteriaQuery) => Promise<void>
 }
 
-export const useSearchEmployee = (): UseSearchEmployee => {  
+export const useSearchEmployee = (): UseSearchEmployee => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [employees, setEmployees] = useState<EmployeePrimitives[]>([])
-  
-  async function searchEmployees (filter: SearchByCriteriaQuery): Promise<void> {
+
+  const searchEmployees = useCallback(async (filter: SearchByCriteriaQuery): Promise<void> => {
     setLoading(true)
     new EmployeeGetterByCriteria(new ApiEmployeeRepository())
       .get(filter)
@@ -30,12 +30,12 @@ export const useSearchEmployee = (): UseSearchEmployee => {
         setError(error)
         setLoading(false)
       })
-  }
+  }, [])
 
   return {
     employees,
     loading,
-    error,    
+    error,
     searchEmployees
   }
 }
