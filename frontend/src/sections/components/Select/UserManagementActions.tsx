@@ -1,4 +1,4 @@
-import { MenuItem, Select, SelectChangeEvent } from "@mui/material"
+import { MenuItem, Select, type SelectChangeEvent } from "@mui/material"
 
 interface Props {
   value: string
@@ -16,17 +16,17 @@ export function UserManagementAction({ value, onChange }: Props) {
     <div className='h-max items-center overflow-hidden px-4 py-2 grid grid-cols-3 gap-4'>
       <label id='action-label-select' className='text-sm font-semibold' htmlFor='selectAction'>Acciones</label>
       <Select
-        labelId='action-label-select'
+        labelId='action-label-select'        
         onChange={onChange}
         value={value}        
         name='action'
-        autoWidth
+        autoWidth        
         size='small'
         aria-label='Selecciona una acción a realizar para gestionar el usuario'
         title='Selecciona una accion a realizar para gestionar un usuario'        
       >        
         {actions.map(action => (
-          <MenuItem color='white' key={action.id} value={action.id} selected={value === action.id}>
+          <MenuItem key={action.id} value={action.id}>
             {action.name}
           </MenuItem>
       ))}

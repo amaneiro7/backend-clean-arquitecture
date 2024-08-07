@@ -1,8 +1,8 @@
 import { lazy } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { useAppContext } from '../Context/AppContext.tsx'
-import { ProtectedRoute } from './ProtectedRoute.tsx'
 
+const ProtectedRoute = lazy(async () => import('./ProtectedRoute.tsx').then(m => ({ default: m.ProtectedRoute })))
 const Login = lazy(async () => import('../page/login/LoginPage.tsx'))
 const ProfilePage = lazy(async () => import('../page/profile/ProfilePage.tsx'))
 const NotFound = lazy(async () => import('../page/404/index.tsx'))
@@ -68,9 +68,9 @@ export default function AppRoutes() {
         <Route path='/printer' element={<ListPrinters />} />
         <Route path='/parts' element={<ListPartAndPieces />} />
         <Route path='/user-management' element={<UserManagement />}>
-          <Route path='/user-management/register' element={<RegisterPage />} />        
-          <Route path='/user-management/edit/:id' element={<RegisterPage />} />
-          <Route path='/user-management/profile/:id' element={<ManagementProfile />} />
+          <Route path='register' element={<RegisterPage />} />        
+          <Route path='edit/:id' element={<RegisterPage />} />
+          <Route path='profile/:id' element={<ManagementProfile />} />
         </Route>
       </Route>
       <Route path='*' element={<NotFound />} />

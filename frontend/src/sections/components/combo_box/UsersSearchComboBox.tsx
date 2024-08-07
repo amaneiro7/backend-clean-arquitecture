@@ -5,7 +5,7 @@ import match from 'autosuggest-highlight/match'
 import debounce from 'just-debounce-it'
 
 import { Autocomplete } from '../../mui/Autocomplete'
-import { SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
+import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
 import { useSearchUsers } from '../../Hooks/user/useSearchUsers'
 import { InputSkeletonLoading } from '../skeleton/inputSkeletonLoading'

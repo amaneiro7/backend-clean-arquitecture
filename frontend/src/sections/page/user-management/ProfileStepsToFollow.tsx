@@ -14,7 +14,7 @@ export function ProfileStepsToFollow() {
         iconText='Editar' 
         icon={
           <Suspense fallback={<div className='w-4 h-4 rounded-full bg-slate-200 animate-pulse' />}>
-            <EditIcon width={16} className='fill-whit' />
+            <EditIcon width={16} />
           </Suspense>
         } 
         backgroundColor='blue'

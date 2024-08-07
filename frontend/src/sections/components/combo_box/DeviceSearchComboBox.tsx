@@ -3,11 +3,11 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import parse from 'autosuggest-highlight/parse'
 import match from 'autosuggest-highlight/match'
 import debounce from 'just-debounce-it'
+import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
 
-import { Autocomplete } from '../../mui/Autocomplete'
 import { useSearchDevice } from '../../Hooks/device/useSearchDevice'
-import { SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
+import { Autocomplete } from '../../mui/Autocomplete'
 import { InputSkeletonLoading } from '../skeleton/inputSkeletonLoading'
 
 const TextField = lazy(async () => await import("../../mui/TextField").then(m => ({ default: m.TextField })))
