@@ -13,10 +13,12 @@ export interface UseModel {
   getModel: ModelGetter
 }
 export const useModel = (): UseModel => {
-  const repository = useMemo(() => { return new ApiModelRepository() }, [])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [models, setModels] = useState<ModelPrimitives[]>([])
+
+  const repository = useMemo(() => { return new ApiModelRepository() }, [])
+  const getModel = useMemo(() => { return new ModelGetter(repository) }, [repository])
 
   const getModels = useCallback(() => {
     setLoading(true)
@@ -32,7 +34,6 @@ export const useModel = (): UseModel => {
       })
   }, [repository])
 
-  const getModel = useMemo(() => { return new ModelGetter(repository) }, [repository])
 
   const createModel = useCallback(async (formData: ModelPrimitives) => {
     const data = await new ModelCreator(repository).create(formData)

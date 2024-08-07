@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { AllProcessorGetter } from '../../../modules/devices/fetures/processor/application/AllProcessorGetter'
 import { type ProcessorPrimitives } from '../../../modules/devices/fetures/processor/domain/Processor'
 import { ProcessorCreator } from '../../../modules/devices/fetures/processor/application/ProcessorCreator'
@@ -13,17 +13,14 @@ export interface UseProcessor {
   createProcessor: (formData: ProcessorPrimitives) => Promise<void>
 }
 export const useProcessor = (): UseProcessor => {
-  const repository = new ApiProcessorRepository()
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [data, setData] = useState<ProcessorPrimitives[]>([])
 
-  async function createProcessor(payload: ProcessorPrimitives) {
-    await new ProcessorCreator(repository).create(payload)
-    await getProcessors()
-  }
+  const repository = useMemo(() => { return new ApiProcessorRepository() }, [])
+  const getProcessor = useMemo(() => { return new ProcessorGetter(repository) }, [repository])
 
-  async function getProcessors() {
+  const getProcessors = useCallback(async () => {
     setLoading(true)
     new AllProcessorGetter(repository)
       .get()
@@ -35,9 +32,14 @@ export const useProcessor = (): UseProcessor => {
         setError(error)
         setLoading(false)
       })
-  }
+  }, [repository])
 
-  const getProcessor = new ProcessorGetter(repository)
+  const createProcessor = useCallback(async (payload: ProcessorPrimitives) => {
+    const data = await new ProcessorCreator(repository).create(payload)
+    await getProcessors()
+    return data
+  }, [getProcessors, repository])
+
 
   useEffect(() => {
     getProcessors()
@@ -45,7 +47,7 @@ export const useProcessor = (): UseProcessor => {
     return () => {
       setData([])
     }
-  }, [])
+  }, [getProcessors])
 
   return {
     processors: data,

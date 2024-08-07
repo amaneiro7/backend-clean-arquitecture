@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { type OperatingSystemPrimitives } from '../../../modules/devices/fetures/operatingSystem/operatingSystem/domain/OperatingSystem'
 import { AllOperatingSystemGetter } from '../../../modules/devices/fetures/operatingSystem/operatingSystem/application/AllOperatingSystemGetter'
 import { ApiOperatingSystemRepository } from '../../../modules/devices/fetures/operatingSystem/operatingSystem/infrastructure/ApiOperatingSystemRepository'
@@ -12,7 +12,7 @@ export const useOperatingSystemVersions = () => {
   const [error, setError] = useState(null)
   const [data, setData] = useState<OperatingSystemPrimitives[]>([])
 
-  function fetchData() {
+  const fetchData = useCallback(() => {
     setLoading(true)
     new AllOperatingSystemGetter(new ApiOperatingSystemRepository())
       .get()
@@ -24,7 +24,7 @@ export const useOperatingSystemVersions = () => {
         setError(error)
         setLoading(false)
       })
-  }
+  }, [])
 
   useEffect(() => {
     fetchData()
@@ -32,7 +32,7 @@ export const useOperatingSystemVersions = () => {
     return () => {
       setData([])
     }
-  }, [])
+  }, [fetchData])
 
   return {
     operatingSystem: data,

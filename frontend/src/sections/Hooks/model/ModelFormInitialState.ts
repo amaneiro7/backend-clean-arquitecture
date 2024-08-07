@@ -82,6 +82,24 @@ export const useModelInitialState = () => {
     }
   }, [id])
 
+  const fetchModel = useCallback(() => {
+    getModel.getById({ id })
+      .then(model => {
+        processModelState(model)
+      })
+      .catch(error => {
+        console.error('useModelInitialState', error)
+      })
+  }, [getModel, id, processModelState])
+
+  const setResetState = () => {
+    if (isAddForm) {
+      setPreloadedModelState({ id: undefined, ...defaultInitialModelState })
+    } else {
+      fetchModel()
+    }
+  }
+
   useEffect(() => {
     if (isAddForm) {
       setPreloadedModelState(defaultInitialModelState)
@@ -89,25 +107,21 @@ export const useModelInitialState = () => {
     }
 
     if (location.state?.state !== undefined) {
-      const { state: model } = location.state
+      const model = location.state?.state
       processModelState(model)
     } else {
       if (id === undefined) {
         navigate('/error')
         return
       }
-      getModel.getById({ id })
-        .then(model => {
-          processModelState(model)
-        })
-        .catch(error => {
-          console.error('useModelInitialState', error)
-        })
+      fetchModel()
+
     }
-  }, [getModel, id, isAddForm, location.state, location.state?.state, navigate, processModelState])
+  }, [fetchModel, id, isAddForm, location.state?.state, navigate, processModelState])
 
   return {
     preloadedModelState,
+    setResetState,
     isAddForm
   }
 }

@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
+import { type ModelPrimitives } from '../../../modules/devices/model/model/domain/Model'
 import { useSearchByCriteriaQuery } from '../useQueryUpdate'
-import { ModelPrimitives } from '../../../modules/devices/model/model/domain/Model'
 import { ModelGetterByCriteria } from '../../../modules/devices/model/model/application/ModelGetterByCriteria'
 import { ApiModelRepository } from '../../../modules/devices/model/model/infraestructure/ApiModelRepository'
 
@@ -19,7 +19,7 @@ export const useModelByCriteria = (defaultQuery?: SearchByCriteriaQuery): UseMod
   const [error, setError] = useState<string | null>(null)
   const [models, setModels] = useState<ModelPrimitives[]>([])
 
-  function searchModelsByCriteria() {
+  const searchModelsByCriteria = useCallback(() => {
     setLoading(true)
     new ModelGetterByCriteria(new ApiModelRepository())
       .get(query)
@@ -27,19 +27,19 @@ export const useModelByCriteria = (defaultQuery?: SearchByCriteriaQuery): UseMod
         setModels(model)
         setLoading(false)
       })
-      .catch((error: any) => {
+      .catch((error: Error) => {
         console.error('searchModels', error)
         setError('An unexpected error occurred while trying to search models')
         setLoading(false)
       })
-  }
+  }, [query])
 
   useEffect(() => {
     searchModelsByCriteria()
     return () => {
       setModels([])
     }
-  }, [query])
+  }, [searchModelsByCriteria])
 
   return {
     models,

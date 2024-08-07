@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { AllStatusGetter } from '../../../modules/devices/devices/status/application/AllStatusGetter'
 import { ApiStatusRepository } from '../../../modules/devices/devices/status/infraestructure/ApiStatusRepository'
 import { type StatusPrimitives } from '../../../modules/devices/devices/status/domain/Status'
@@ -14,7 +14,7 @@ export const useStatus = (): UseStatus => {
   const [error, setError] = useState(null)
   const [status, setStatus] = useState<StatusPrimitives[]>([])
 
-  function getStatus() {
+  const getStatus = useCallback(() => {
     setLoading(true)
     new AllStatusGetter(new ApiStatusRepository())
       .get()
@@ -26,7 +26,7 @@ export const useStatus = (): UseStatus => {
         setError(error)
         setLoading(false)
       })
-  }
+  }, [])
 
   useEffect(() => {
     getStatus()
@@ -34,7 +34,7 @@ export const useStatus = (): UseStatus => {
     return () => {
       setStatus([])
     }
-  }, [])
+  }, [getStatus])
 
   return {
     status,

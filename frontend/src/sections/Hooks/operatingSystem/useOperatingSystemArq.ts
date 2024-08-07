@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { AllOperatingSystemArqGetter } from '../../../modules/devices/fetures/operatingSystem/operatingSystemArq/application/AllOperatingSystemArqGetter'
 import { type OperatingSystemArqPrimitives } from '../../../modules/devices/fetures/operatingSystem/operatingSystemArq/domain/OperatingSystemArq'
 import { ApiOperatingSystemArqRepository } from '../../../modules/devices/fetures/operatingSystem/operatingSystemArq/infrastructure/ApiOperatingSystemArqRepository'
@@ -12,7 +12,7 @@ export const useOperatingSystemArq = (): UseOperatingSystemArq => {
   const [error, setError] = useState(null)
   const [data, setData] = useState<OperatingSystemArqPrimitives[]>([])
 
-  function fetchData() {
+  const fetchData = useCallback(() => {
     setLoading(true)
     new AllOperatingSystemArqGetter(new ApiOperatingSystemArqRepository())
       .get()
@@ -24,7 +24,7 @@ export const useOperatingSystemArq = (): UseOperatingSystemArq => {
         setError(error)
         setLoading(false)
       })
-  }
+  }, [])
 
   useEffect(() => {
     fetchData()
@@ -32,7 +32,7 @@ export const useOperatingSystemArq = (): UseOperatingSystemArq => {
     return () => {
       setData([])
     }
-  }, [])
+  }, [fetchData])
 
   return {
     operatingSystemArq: data,

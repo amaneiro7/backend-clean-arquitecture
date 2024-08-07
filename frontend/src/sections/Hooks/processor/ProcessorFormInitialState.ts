@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useProcessor } from './useProcessor'
 import { ProcessorPrimitives } from '../../../modules/devices/fetures/processor/domain/Processor'
@@ -20,17 +20,35 @@ export const useProcessorInitialState = () => {
   const [preloadedProcessorState, setPreloadedProcessorState] = useState(defaultInitialProcessorState)
 
   const isAddForm = useMemo(() => {
-    return location.pathname.includes('add')
+    return !location.pathname.includes('edit')
   }, [location.pathname])
 
+  const fetchUser = useCallback(() => {
+    getProcessor.getById({ id })
+      .then(processor => {
+        setPreloadedProcessorState(processor)
+      })
+      .catch(error => {
+        console.error(error)
+      })
+  }, [getProcessor, id])
+
+  const setResetState = () => {
+    if (isAddForm) {
+      setPreloadedProcessorState({ id: undefined, ...defaultInitialProcessorState })
+    } else {
+      fetchUser()
+    }
+  }
+
   useEffect(() => {
-    if (location.pathname.includes('add')) {
+    if (isAddForm) {
       setPreloadedProcessorState(defaultInitialProcessorState)
       return
     }
 
-    if (location.state?.brand !== undefined) {
-      const { processor } = location.state
+    if (location.state?.state !== undefined) {
+      const processor = location.state?.state
 
       setPreloadedProcessorState(processor)
     } else {
@@ -38,18 +56,13 @@ export const useProcessorInitialState = () => {
         navigate('/error')
         return
       }
-      getProcessor.getById({ id })
-        .then(processor => {
-          setPreloadedProcessorState(processor)
-        })
-        .catch(error => {
-          console.error(error)
-        })
+      fetchUser()
     }
-  }, [id, location.state?.brand])
+  }, [fetchUser, id, isAddForm, location.state?.state, navigate])
 
   return {
     preloadedProcessorState,
-    isAddForm
+    isAddForm,
+    setResetState
   }
 }

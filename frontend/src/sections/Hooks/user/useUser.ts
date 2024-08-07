@@ -1,7 +1,6 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useMemo } from 'react'
+import { type UserPrimitives } from '../../../modules/user/user/domain/User'
 import { ApiUserRepository } from '../../../modules/user/user/infrastructure/UserApiRepository'
-import { UserPrimitives } from '../../../modules/user/user/domain/User'
-import { AllUserGetter } from '../../../modules/user/user/application/AllUserGetter'
 import { UserGetter } from '../../../modules/user/user/application/UserGetter'
 import { UserCreator } from '../../../modules/user/user/application/UserCreator'
 import { UserRemover } from '../../../modules/user/user/application/UserRemover'
@@ -9,9 +8,6 @@ import { UserResetPassword } from '../../../modules/user/user/application/UserRe
 
 
 export interface UseUser {
-    user: UserPrimitives[]
-    loading: boolean
-    error: Error | null
     getUser: UserGetter
     createUser: (formData: UserPrimitives) => Promise<void>
     resetPassword: UserResetPassword
@@ -19,51 +15,19 @@ export interface UseUser {
 }
 
 export const useUser = (): UseUser => {
-    const [user, setUser] = useState<UserPrimitives[]>([])
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState(null)
     const repository = useMemo(() => { return new ApiUserRepository() }, [])
+    const getUser = useMemo(() => { return new UserGetter(repository) }, [repository])
+    const deleteUser = useMemo(() => { return new UserRemover(repository) }, [repository])
+    const resetPassword = useMemo(() => { return new UserResetPassword(repository) }, [repository])
 
-    async function createUser(formData: UserPrimitives) {
+    const createUser = useCallback(async (formData: UserPrimitives) => {
         return await new UserCreator(repository).create(formData)
-    }
-
-    const getUsers = useCallback(() => {
-        setLoading(true)
-        new AllUserGetter(repository)
-            .get()
-            .then((res) => {
-                setUser(res)
-                setLoading(false)
-            })
-            .catch((error) => {
-                setError(error)
-                setLoading(false)
-            })
     }, [repository])
 
-
-    useEffect(() => {
-        getUsers()
-        return () => {
-            setUser([])
-        }
-    }, [getUsers])
-
-    const getUser = useMemo(() => { return new UserGetter(repository) }, [repository])
-
-    const deleteUser = new UserRemover(repository)
-
-    const resetPassword = new UserResetPassword(repository)
-
     return {
-        user,
-        loading,
-        error,
         getUser,
         deleteUser,
         resetPassword,
-        createUser,
-
+        createUser
     }
 }
