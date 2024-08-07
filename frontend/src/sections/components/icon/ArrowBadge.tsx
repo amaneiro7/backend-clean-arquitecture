@@ -1,15 +1,11 @@
-import { lazy, Suspense } from "react";
-import { type Size } from "../../../types/const";
-import { type Color } from ".";
+import ArrowBadge from './arrow-badge.svg?react'
 
-const Icon = lazy(async () => import(".").then((m) => ({ default: m.Icon })));
+interface Props extends React.SVGProps<SVGSVGElement> {}
 
-export function ArrowBadgeIcon({ isDisabled, children, size, color }: React.PropsWithChildren<{ isDisabled?: boolean, color: Color, size?: Size }>) {
+export function ArrowBadgeIcon({...props}:Props) {
   return (
-    <Suspense>
-      <Icon isDisabled={isDisabled} type='arrowBadge' size={size} color={color}>
-        {children}
-      </Icon>
-    </Suspense>
-  );
+    <i>
+      <ArrowBadge {...props} />
+    </i>
+  )
 }

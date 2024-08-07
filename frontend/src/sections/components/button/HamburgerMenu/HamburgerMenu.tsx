@@ -12,7 +12,7 @@ export function HamburgerMenu({ isActive, ...pros }: Props) {
         type='button'
         className={`hamburger hamburger--spin bg-transparent ${isActive && 'is-active [&>span>span]:bg-white [&>span>span]:before:bg-white [&>span>span]:after:bg-white'}`}
       >
-        <span className='hamburger-box  '>
+        <span className='hamburger-box'>
           <span className='hamburger-inner bg-white before:bg-white after:bg-white' />
         </span>
       </button>

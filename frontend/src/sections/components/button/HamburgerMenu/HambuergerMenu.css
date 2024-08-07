@@ -7,14 +7,14 @@
  */
 .hamburger {
   padding: 15px 15px;
-  display: inline-block;
+  display: inline-flex;
   cursor: pointer;
   transition-property: opacity, filter;
   transition-duration: 0.15s;
   transition-timing-function: linear;
   font: inherit;
   color: inherit;
-  text-transform: none;  
+  text-transform: none;
   border: 0;
   margin: 0;
   overflow: visible;
@@ -29,7 +29,9 @@
 .hamburger-box {
   width: 40px;
   height: 24px;
-  display: inline-block;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
 }
 
@@ -41,8 +43,8 @@
 .hamburger-inner,
 .hamburger-inner::before,
 .hamburger-inner::after {
-  width: 40px;
-  height: 4px;  
+  width: 36px;
+  height: 2px;
   border-radius: 4px;
   position: absolute;
   transition-property: transform;

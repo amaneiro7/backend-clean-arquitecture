@@ -29,12 +29,12 @@ export const Header = memo(function() {
   useEffect(() => {
     setIsActive(false)
     
-  }, [location.pathname])
+  }, [location.key])
   
   return (
     <>    
-      <header className='min-h-24 h-24 md:text-sm md:border-none gap-4 flex items-center justify-between md:top-0 md:sticky z-50 bg-secondary w-full shadow-lg pr-8 py-4 overflow-visible'>
-        <div className='pl-8 pr-3 p-2 bg-white rounded-e-full'>
+      <header className='min-h-16 h-16 md:text-sm md:border-none gap-4 flex items-center justify-between md:top-0 md:sticky z-50 bg-secondary w-full shadow-lg pr-8 py-4 overflow-visible'>
+        <div className='pl-8 pr-4 p-1 bg-white rounded-e-full'>
           <Link aria-label='Logo' aria-describedby='Logo y un enlace al inicio de la página' to='/'>          
             <Logo />          
           </Link>
@@ -44,9 +44,9 @@ export const Header = memo(function() {
       
         <div className='flex flex-1 gap-8 items-center justify-end'>
           {User.isSuperAdmin({roleId: user?.roleId}) &&
-            <Link to='/user-management' className='text-white text-lg font-medium p-2 border-b hover:text-primary hover:border-primary transition-colors duration-200'>Configuración</Link>}
+            <Link to='/user-management' className='text-white text-xs md:text-sm lg:text-base font-medium p-1 border-b hover:text-primary hover:border-primary transition-colors duration-200'>Configuración</Link>}
           
-          <Link to='/profile' className='text-white text-lg font-medium p-2 border-b hover:text-primary hover:border-primary transition-colors duration-200'>Perfil</Link>
+          <Link to='/profile' className='text-white text-xs md:text-sm lg:text-base font-medium p-1 border-b hover:text-primary hover:border-primary transition-colors duration-200'>Perfil</Link>
 
           <Button
             aria-label='Botón para cerrar sesión del usuario' 
@@ -55,6 +55,7 @@ export const Header = memo(function() {
             text='Salir' 
             handle={() => dialogExitRef.current?.handleOpen()} 
             type='button'
+            buttonSize='medium'
             icon={
               <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>
                 <LogoutIcon width={20} className='aspect-square' />
@@ -67,7 +68,7 @@ export const Header = memo(function() {
         <WrapperBox isActive={isActive} />
       
       
-        <Nav isActive={isActive} />
+        <Nav key={location.key} isActive={isActive} />
 
       
       </header>
