@@ -1,19 +1,11 @@
-import { Icon } from '.'
-import { type Size } from "../../../types/const";
+import ThinRight from './thinRight.svg?react'
 
+interface Props extends React.SVGProps<SVGSVGElement> {}
 
-export function ThinRightIcon({ 
-  isDisabled, children, size, color 
-}: React.PropsWithChildren<{ isDisabled?: boolean, color: 'primary' | 'secondary', size?: Size }>) 
-{
+export function ThinRightIcon({...props}:Props) {
   return (
-    <Icon
-      isDisabled={isDisabled}
-      type='thinRight'
-      size={size}
-      color={color}
-    >
-      {children}
-    </Icon>
+    <i>
+      <ThinRight {...props} />
+    </i>
   )
 }

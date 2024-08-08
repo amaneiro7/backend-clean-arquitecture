@@ -6,6 +6,6 @@ export class UserRemover {
     constructor(readonly repository: UserRepository) { }
     async run({ id }: { id: Primitives<UserId> }): Promise<void> {
         const userId = new UserId(id).value
-        return await this.repository.deleteUser({ id: userId }) ?? null
+        return await this.repository.deleteUser({ id: userId })
     }
 }

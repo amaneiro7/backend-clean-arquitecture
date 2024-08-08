@@ -1,15 +1,11 @@
-import React from 'react'
-import { Icon } from '.'
-import { type Size } from "../../../types/const";
+import Right from './Right.svg?react'
 
-export function RightIcon({ isDisabled, children, size }: React.PropsWithChildren<{ isDisabled?: boolean, size?: Size }>) {
+interface Props extends React.SVGProps<SVGSVGElement> {}
+
+export function RightIcon({...props}:Props) {
   return (
-    <Icon
-      isDisabled={isDisabled}
-      type='right'
-      size={size}
-    >
-      {children}
-    </Icon>
+    <i>
+      <Right {...props} />
+    </i>
   )
 }

@@ -10,12 +10,6 @@ const Layout = lazy(async () => import('../components/Layout.tsx'))
 const Home = lazy(() => import('../page/home/Home.tsx'))
 const ListadoSitios = lazy(() => import('../page/ListadoSitios/ListadoSitios.tsx'))
 const ListadoModelos = lazy(() => import('../page/ListadoModelos/ListadoModelos.tsx'))
-const FilterByDevice = lazy(() => import('../page/FiltroPorDevice'))
-const AlmacenPage = lazy(() => import('../page/Almacen/index.tsx'))
-const EquiposAgenciaPage = lazy(() => import('../page/AgenciaPerDevice/index.tsx'))
-const EquiposTorrePage = lazy(() => import('../page/AdministrativeSitePerDevice/index.tsx'))
-const AdministrativeSitePerEmployee = lazy(() => import('../page/AdministrativeSitePerEmployee/index.tsx'))
-const AgencySitePerEmployee = lazy(() => import('../page/AgenciaPerEmployee/index.tsx'))
 const DeviceList = lazy(() => import('../page/DeviceList'))
 const ListMonitor = lazy(() => import('../page/ListWrapper/ListMonitor/ListMonitor.tsx'))
 const ListFinantialPrinter = lazy(() => import('../page/ListWrapper/ListFinantialPrinterPrinter/ListFinantialPrinter.tsx'))
@@ -44,12 +38,7 @@ export default function AppRoutes() {
         <Route path='/profile' element={<ProfilePage />} />
         <Route path='/location' element={<ListadoSitios />} />
         <Route path='/location/add' element={<CreateLocationForm />} />
-        <Route path='/location/edit/:id' element={<CreateLocationForm />} />
-        <Route path='/almacen' element={<AlmacenPage />} />
-        <Route path='/equipos/agencia' element={<EquiposAgenciaPage />} />
-        <Route path='/equipos/torre' element={<EquiposTorrePage />} />
-        <Route path='/employees/torre' element={<AdministrativeSitePerEmployee />} />
-        <Route path='/employees/agencia' element={<AgencySitePerEmployee />} />
+        <Route path='/location/edit/:id' element={<CreateLocationForm />} />  
         <Route path='/employee/add' element={<CreateEmployeeForm />} />
         <Route path='/employee/edit/:id' element={<CreateEmployeeForm />} />
         <Route path='/device/add' element={<CreateDeviceForm />} />
@@ -60,8 +49,7 @@ export default function AppRoutes() {
         <Route path='/model/add' element={<CreateModelForm />} />
         <Route path='/model/edit/:id' element={<CreateModelForm />} />
         <Route path='/processor/add' element={<CreateProcessorForm />} />
-        <Route path='/processor/edit/:id' element={<CreateProcessorForm />} />
-        <Route path='/devicefilter' element={<FilterByDevice />} />
+        <Route path='/processor/edit/:id' element={<CreateProcessorForm />} />        
         <Route path='/device' element={<DeviceList />} />
         <Route path='/monitor' element={<ListMonitor />} />
         <Route path='/finantialprinter' element={<ListFinantialPrinter />} />

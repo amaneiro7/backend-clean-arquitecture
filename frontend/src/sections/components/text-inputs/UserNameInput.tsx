@@ -26,7 +26,7 @@ export function EmployeeUserNameInput ({ value, onChange, type = 'search'}: Prop
     const isValid = UserName.isValid(value)
 
     setIsError(!isValid)
-    setErrorMessage(isValid ? '' : UserName.invalidMessage(value))
+    setErrorMessage(isValid ? '' : UserName.invalidMessage())
 
     return () => {
       setErrorMessage('')

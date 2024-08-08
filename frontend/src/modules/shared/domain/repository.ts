@@ -1,5 +1,5 @@
 import { type AuthRepository } from '../../user/auth/domain/AuthRepository'
-import { type UserRepository } from '../../user/user/domain/UserStorageRepository'
+import { type UserStorageRepository } from '../../user/user/domain/UserStorageRepository'
 export interface Repository {
   // brand: BrandRepository
   // category: CategoryRepository
@@ -16,7 +16,7 @@ export interface Repository {
   // // computer: ComputerRepository
   // memoryRamType: MemoryRamTypeRepository
   // role: RoleRepository
-  user: UserRepository
+  user: UserStorageRepository
   auth: AuthRepository
   // area
   // vicepresidenciaEjecutiva: VicepresidenciaEjecutivaRepository

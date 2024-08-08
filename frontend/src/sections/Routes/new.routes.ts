@@ -47,33 +47,6 @@ export const navigation: Navigation[] = [
         ]
     },
     {
-        label: 'Rutas viejas',
-        desc: 'Rutas viejas de equipos en uso y de almacen',
-        img: 'officeNotebook',
-        navs: [
-            {
-                title: 'Equipos en Torre',
-                desc: 'Equipos asignados en torre',
-                path: '/equipos/torre',
-            },
-            {
-                title: 'Equipos en Agencia',
-                desc: 'Equipos asignados en agencia',
-                path: '/equipos/agencia',
-            },
-            {
-                title: 'Filtro por Dispositvos',
-                desc: 'Filtro por dispositivos',
-                path: '/devicefilter',
-            },
-            {
-                title: 'Almacén',
-                desc: 'Equipos que se encuentran en el almacen',
-                path: '/almacen',
-            }
-        ]
-    },
-    {
         label: 'Otras listas',
         desc: 'Listas de Sitios, y modelos',
         img: 'officeMac',

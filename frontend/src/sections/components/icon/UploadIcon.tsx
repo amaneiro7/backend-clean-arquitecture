@@ -1,18 +1,11 @@
-import { Color, Icon } from '.'
-import { type Size } from "../../../types/const";
+import Upload from './upload.svg?react'
 
-export function UploadIcon({ 
-  isDisabled, children, size, color 
-}: React.PropsWithChildren<{ isDisabled?: boolean, color: Color, size?: Size }>) 
-{
+interface Props extends React.SVGProps<SVGSVGElement> {}
+
+export function UploadIcon({...props}:Props) {
   return (
-    <Icon
-      isDisabled={isDisabled}
-      type='uploadIcon'
-      size={size}
-      color={color}      
-    >
-      {children}
-    </Icon>
+    <i>
+      <Upload {...props} />
+    </i>
   )
 }

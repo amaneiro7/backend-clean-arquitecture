@@ -9,9 +9,9 @@ interface Props {
 export function TilesInvisibleInfo({label, url}: Props) {
   return (
     <li className='list-item pb-3'>
-      <Link style={{ textShadow: "0 1px 2px #00000099" }} className='flex font-light' to={url}>
+      <Link style={{ textShadow: "0 1px 2px #00000099" }} className='flex items-center font-light' to={url}>
         <Suspense>
-          <ArrowBadgeIcon size='w-6' color='white' />
+          <ArrowBadgeIcon className='w-6 text-center aspect-square text-white' />
         </Suspense>
         {label}
       </Link>
