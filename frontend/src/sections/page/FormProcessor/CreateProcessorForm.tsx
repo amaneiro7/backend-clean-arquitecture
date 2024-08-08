@@ -1,11 +1,11 @@
-import { type FormEvent, lazy, Suspense, useEffect } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import { useGenericFormData } from '../../Hooks/useGenericFormData'
 import { useProcessorInitialState } from '../../Hooks/processor/ProcessorFormInitialState'
 import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoading'
 import { useProcessor } from '../../Hooks/processor/useProcessor'
 import { useGenericForm, FormStatus } from '../../Hooks/useGenericForm'
+import { useLocation } from 'react-router-dom'
 
-const Main = lazy(async () => import('../../components/Main'))
 const FormContainer = lazy(async () => import('../../components/formContainer/formContainer'))
 const ProcessorCollectionComboBox = lazy(async () => import('../../components/combo_box/ProductCollectionComboBox'))
 const ProcessorNumberModelInput = lazy(async () => import('../../components/text-inputs/ProcessorNumberModelInput'))
@@ -15,6 +15,7 @@ const ProcessorThreadsCheckbox = lazy(async () => import('../../components/check
 
 export default function CreateProcessorForm() {
   const { createProcessor } = useProcessor()
+  const location = useLocation()
   const { preloadedProcessorState } = useProcessorInitialState()
   const { formData, updateForm, resetForm } = useGenericFormData(preloadedProcessorState)
   const { formStatus, submitForm, resetFormStatus } = useGenericForm({ create: createProcessor })
@@ -37,7 +38,7 @@ export default function CreateProcessorForm() {
       resetFormStatus()
     }
   }, [formStatus])
-  const handleSubmit = async (event: FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
     event.stopPropagation()
     await submitForm(formData)
@@ -52,58 +53,55 @@ export default function CreateProcessorForm() {
   }
 
   return (
-    <Suspense>
-      <Main content='max' overflow={false}>
-        <Suspense>
-          <FormContainer
-            title='Agrega un nuevo Dispositivo'
-            handleSubmit={handleSubmit}
-            handleClose={handleClose}
-            isDisabled={formStatus === FormStatus.Loading}
-          >
-            <Suspense fallback={<InputSkeletonLoading />}>
-              <ProcessorCollectionComboBox
-                onChange={handleChange}
-                value={formData.productCollection}
-                type='form'
-              />
-            </Suspense>
-            <Suspense fallback={<InputSkeletonLoading />}>
-              <ProcessorNumberModelInput
-                onChange={handleChange}
-                value={formData.numberModel}
-                type='form'
-              />
-            </Suspense>
+    <FormContainer
+      key={location.key}
+      title='Processador'
+      description='Ingrese los datos del modelo el cual desea registar, la categoria y la marca la cual va ser relacionada.'
+      isAddForm
+      handleSubmit={handleSubmit}
+      handleClose={handleClose}
+      isDisabled={formStatus === FormStatus.Loading}
+    >
+      <Suspense fallback={<InputSkeletonLoading />}>
+        <ProcessorCollectionComboBox
+          onChange={handleChange}
+          value={formData.productCollection}
+          type='form'
+        />
+      </Suspense>
+      <Suspense fallback={<InputSkeletonLoading />}>
+        <ProcessorNumberModelInput
+          onChange={handleChange}
+          value={formData.numberModel}
+          type='form'
+        />
+      </Suspense>
 
-            <div className='flex gap-4'>
-              <Suspense fallback={<InputSkeletonLoading />}>
-                <ProcessorCoresInput
-                  onChange={handleChange}
-                  value={formData.cores}
-                  type='form'
-                />
-              </Suspense>
-
-
-              <Suspense fallback={<InputSkeletonLoading />}>
-                <ProcessorFrequencyInput
-                  onChange={handleChange}
-                  value={formData.frequency}
-                  type='form'
-                />
-              </Suspense>
-
-              <Suspense>
-                <ProcessorThreadsCheckbox
-                  onChange={handleChange}
-                  value={formData.threads}
-                />
-              </Suspense>
-            </div>
-          </FormContainer>
+      <div className='flex gap-4'>
+        <Suspense fallback={<InputSkeletonLoading />}>
+          <ProcessorCoresInput
+            onChange={handleChange}
+            value={formData.cores}
+            type='form'
+          />
         </Suspense>
-      </Main>
-    </Suspense>
+
+
+        <Suspense fallback={<InputSkeletonLoading />}>
+          <ProcessorFrequencyInput
+            onChange={handleChange}
+            value={formData.frequency}
+            type='form'
+          />
+        </Suspense>
+
+        <Suspense>
+          <ProcessorThreadsCheckbox
+            onChange={handleChange}
+            value={formData.threads}
+          />
+        </Suspense>
+      </div>
+    </FormContainer>
   )
 }

@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom"
 import debounce from "just-debounce-it"
 
 import { type LocationApiResponse } from "../../../modules/shared/domain/types/responseTypes"
+import { type SearchByCriteriaQuery } from "../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery"
 import { useInputsData } from "./useInputData"
 import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
 import { useLocationByCriteria } from "../../Hooks/locations/useLocationByCriteria"
-import { SearchByCriteriaQuery } from "../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery"
 
 import { InputSkeletonLoading } from "../../components/skeleton/inputSkeletonLoading"
 import { SpinnerSKCircle } from "../../components/Loading/spinner-sk-circle"
@@ -34,8 +34,7 @@ export default function ListadoSitios() {
     const debounceGetLocations = useCallback(
         debounce((query: SearchByCriteriaQuery) => {
             addFilter(query)
-        }, 300)
-        , [addFilter]
+        }, 300), []
     )
     const handleChange = (name: string, value: string, operator?: Operator) => {
         const filters = [{
@@ -56,10 +55,7 @@ export default function ListadoSitios() {
     return (
       <Suspense fallback={<MainFallback />}>
         <Main content='max' overflow={false}>
-          
           <PageTitle title='Listado de Sitios' />
-          
-          
           <HeaderInput>
             <LocationNameInput type='search' onChange={handleChange} value={inputData.name} />
             <StateComboBox onChange={handleChange} value={inputData.stateId}  />
@@ -73,8 +69,10 @@ export default function ListadoSitios() {
               <Button
                 type='button'
                 text='Añadir'
-                actionType='ACTION'                
-                handle={() => { navigate('/location/add') }}
+                color='orange'                
+                buttonSize='large'
+                size='content'
+                onClick={() => { navigate('/location/add') }}
                 icon={
                   <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>
                     <AddIcon width={20} fill='white' className='aspect-square' />
@@ -84,10 +82,12 @@ export default function ListadoSitios() {
             </Suspense>
             <Suspense fallback={<InputSkeletonLoading />}>
               <Button
-                actionType='CLOSE'
+                color='secondary'
+                buttonSize='large'
+                size='content'
                 type='button'
                 text='Limpiar'
-                handle={handleClear}
+                onClick={handleClear}
               />
             </Suspense>
           </section>
@@ -106,7 +106,7 @@ export default function ListadoSitios() {
                           <InfoBox key={location.id}>
                             <InfoBoxTitle title={location.name} state={location} url={`/location/edit/${location.id}`} />
                             <InfoBoxText desc='Tipo' text={location.typeOfSite.name} />
-                            <InfoBoxText desc='Dirección' text={location.site.address} />
+                            <InfoBoxText className='flex-1' desc='Dirección' text={location.site.address} />
                             <InfoBoxText desc='Estado' text={location.site.city.state.name} />
                             <InfoBoxText desc='Ciudad' text={location.site.city.name} />
                             <InfoBoxText desc='Subnet' text={location.subnet} />

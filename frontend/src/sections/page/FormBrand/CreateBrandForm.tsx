@@ -1,14 +1,16 @@
-import { type FormEvent, lazy, Suspense, useEffect } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
+import { type BrandPrimitives } from '../../../modules/devices/brand/domain/Brand'
 import { useGenericFormData } from '../../Hooks/useGenericFormData'
-import BrandNameInput from '../../components/text-inputs/BrandNameInput'
 import { useBrandInitialState } from '../../Hooks/brand/BrandFormInitialState'
 import { useGenericForm, FormStatus } from '../../Hooks/useGenericForm'
 import { useBrand } from '../../Hooks/brand/useBrand'
-import { BrandPrimitives } from '../../../modules/devices/brand/domain/Brand'
+import { useLocation } from 'react-router-dom'
 
+const BrandNameInput = lazy(async () => import('../../components/text-inputs/BrandNameInput'))
 const FormContainer = lazy(async () => import('../../components/formContainer/formContainer'))
 
 export default function CreateBrandForm() {
+  const location = useLocation()
   const { createBrand } = useBrand()
   const { preloadedBrandState } = useBrandInitialState()
   const { formData, updateForm, resetForm } = useGenericFormData(preloadedBrandState)
@@ -33,7 +35,7 @@ export default function CreateBrandForm() {
     }
   }, [formStatus])
 
-  const handleSubmit = async (event: FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
     await submitForm(formData)
   }
@@ -49,7 +51,10 @@ export default function CreateBrandForm() {
   return (
     <Suspense>
       <FormContainer
-        title='Agrega una nueva Marca'
+        key={location.key}
+        title='marca'
+        description='Ingrese los datos de la marca el cual desea registar.'
+        isAddForm
         handleSubmit={handleSubmit}
         handleClose={handleClose}
         isDisabled={formStatus === FormStatus.Loading}

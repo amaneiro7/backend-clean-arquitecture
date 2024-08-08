@@ -57,7 +57,8 @@ export function FormLogin () {
               </div>
                 
               <Button
-                actionType='CLOSE'
+                buttonSize='large'
+                color='blue'
                 size='full'
                 disabled={loading}
                 text={loading ? 'Cargando...' : 'Ingresar'}

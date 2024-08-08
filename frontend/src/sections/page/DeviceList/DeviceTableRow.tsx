@@ -15,7 +15,7 @@ interface Props {
 export const DeviteRowTable = memo(({data: devices, style, index}: Props) => {
     return (
       <TableRow style={style} key={index}>
-        <TableCellEditDeleteIcon stateId={devices[index].id} state={devices[index]} url={`/device/edit/${devices[index].id}`} />
+        <TableCellEditDeleteIcon typeOfSiteId={devices[index].location.typeOfSiteId} stateId={devices[index].id} state={devices[index]} url={`/device/edit/${devices[index].id}`} />
         <TableCell size='w-28' value={devices[index].employee?.userName} url={`/employee/edit/${devices[index].employeeId}`} />
         <TableCell size='w-52' value={devices[index].location?.name} />
         <TableCell size='w-24' value={devices[index]?.computer?.ipAddress} />

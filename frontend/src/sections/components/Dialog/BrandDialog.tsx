@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect } from "react";
+import { type BrandPrimitives } from "../../../modules/devices/brand/domain/Brand";
 import { useGenericFormData } from "../../Hooks/useGenericFormData";
-import { BrandPrimitives } from "../../../modules/devices/brand/domain/Brand";
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading";
 import { useGenericForm, FormStatus } from "../../Hooks/useGenericForm";
 
@@ -22,7 +22,7 @@ export function BrandDialog({ dialogValue, open, toggleOpen, createBrand }: Prop
     return () => {
       resetForm()
     }
-  }, [dialogValue])
+  }, [dialogValue, resetForm, updateForm])
 
   useEffect(() => {
     if (formStatus === FormStatus.Success) {
@@ -33,7 +33,7 @@ export function BrandDialog({ dialogValue, open, toggleOpen, createBrand }: Prop
     if (formStatus === FormStatus.Error) {
       resetFormStatus()
     }
-  }, [formStatus])
+  }, [formStatus, resetForm, resetFormStatus, toggleOpen])
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
@@ -47,23 +47,21 @@ export function BrandDialog({ dialogValue, open, toggleOpen, createBrand }: Prop
   }
 
   return (
-    <Suspense>
-      <DialogAdd
-        title="Agregar una nueva marca"
-        contextText="¿No existe la marca en la lista? Por favor, añada uno nuevo."
-        open={open}
-        toggleOpen={toggleOpen}
-        handleSubmit={handleSubmit}
-        resetForm={resetForm}
-      >
-        <Suspense fallback={<InputSkeletonLoading />}>
-          <BrandNameInput
-            value={formData.name}
-            type="dialog"
-            onChange={handleChange}
-          />
-        </Suspense>
-      </DialogAdd>
-    </Suspense>
+    <DialogAdd
+      title='Agregar una nueva marca'
+      contextText='¿No existe la marca en la lista? Por favor, añada uno nuevo.'
+      open={open}
+      toggleOpen={toggleOpen}
+      handleSubmit={handleSubmit}
+      resetForm={resetForm}
+    >
+      <Suspense fallback={<InputSkeletonLoading />}>
+        <BrandNameInput
+          value={formData.name}
+          type='dialog'
+          onChange={handleChange}
+        />
+      </Suspense>
+    </DialogAdd>
   )
 }

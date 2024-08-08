@@ -6,7 +6,10 @@ const ArrowBadge = lazy(async () => import("../icon/ArrowBadge").then((m) => ({ 
 export function Nav({ isActive }: { isActive: boolean }) {
   return (
     <nav
-      className={`-right-2/3 fixed top-16 h-5/6 p-8 max-w-2/3 md:w-1/2 z-40 text-white bg-secondary-950/95 transition-transform transform-gpu will-change-transform duration-300 ease-in-out overflow-auto ${
+      style={{
+        height: "calc(100vh - 64px)",
+      }}
+      className={`-right-2/3 fixed top-16 p-8 max-w-2/3 md:w-1/2 z-40 text-white bg-secondary-950/95 transition-transform transform-gpu will-change-transform duration-300 ease-in-out overflow-auto ${
         isActive && "-translate-x-full"
       }`}
     >

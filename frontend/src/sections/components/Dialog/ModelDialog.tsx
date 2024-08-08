@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect } from "react"
 import { useGenericFormData } from "../../Hooks/useGenericFormData"
-import { ModelPrimitives } from "../../../modules/devices/model/model/domain/Model"
+import { type ModelPrimitives } from "../../../modules/devices/model/model/domain/Model"
 import { FormStatus, useGenericForm } from "../../Hooks/useGenericForm"
 
 interface Props {
@@ -22,7 +22,7 @@ export default function ModelDialog({ dialogValue, open, toggleOpen, createModel
     return () => {
       resetForm()
     }
-  }, [dialogValue])
+  }, [dialogValue, resetForm, updateForm])
 
   useEffect(() => {
     if (formStatus === FormStatus.Success) {
@@ -33,7 +33,7 @@ export default function ModelDialog({ dialogValue, open, toggleOpen, createModel
     if (formStatus === FormStatus.Error) {
       resetFormStatus()
     }
-  }, [formStatus])
+  }, [formStatus, resetForm, resetFormStatus, toggleOpen])
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()

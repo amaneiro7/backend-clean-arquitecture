@@ -20,11 +20,13 @@ export function ConfirmationModal ({ text, strongText, handle, handleClose }: Pr
           <p>{text}<strong>{strongText}</strong></p>
           <div className='mt-6 flex gap-4 justify-end'>
             <Button
-              actionType='CLOSE'
+              color='blue'
               type={!handle ? 'submit' : 'button'}
-              handle={handle}
+              onClick={handle}
               text='Si'
-              hoverTranslate
+              buttonSize='large'
+              size='content'
+              hoverTranslation
               icon={
                 <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>                      
                   <CheckIcon width={20} className='aspect-square stroke-[3]' />
@@ -33,10 +35,12 @@ export function ConfirmationModal ({ text, strongText, handle, handleClose }: Pr
             />
             <Button
               type='button'
-              actionType='DELETE'
+              color='red'
               text='No'
-              handle={handleClose}
-              hoverTranslate
+              buttonSize='large'
+              size='content'
+              onClick={handleClose}
+              hoverTranslation
               icon={
                 <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>
                   <CancelIcon width={20} className='aspect-square' />

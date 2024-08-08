@@ -1,8 +1,8 @@
 import { lazy, Suspense } from "react"
 
-const RightArrowIcon = lazy(async () => import("../../components/icon/RightArrowIcon").then(m => ({ default: m.RightArrowIcon })))
-const CancelIcon = lazy(async () => import("../../components/icon/CancelIcon").then(m => ({ default: m.CancelIcon })))
-const StepsText = lazy(async () => import("../../components/stepsToFollow/StepsText").then(m => ({ default: m.StepsText })))
+const RightArrowIcon = lazy(async () => import("../icon/RightArrowIcon").then(m => ({ default: m.RightArrowIcon })))
+const CancelIcon = lazy(async () => import("../icon/CancelIcon").then(m => ({ default: m.CancelIcon })))
+const StepsText = lazy(async () => import("./StepsText").then(m => ({ default: m.StepsText })))
 
 export function RegisterEditStepsToFollow() {
   return (

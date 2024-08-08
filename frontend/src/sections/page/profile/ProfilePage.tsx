@@ -87,12 +87,13 @@ export default function ProfilePage () {
             <div />
             <div className='flex gap-4 justify-center'>
               <Button
-                actionType='SAVE'
+                color='green'
                 type='button'
-                isDisabled={isDisabled}
-                handle={handleOpenModal}
+                disabled={isDisabled}
+                onClick={handleOpenModal}
+                size='content'                
                 text='Continuar'
-                hoverTranslate
+                hoverTranslation
                 buttonSize='large'
                 icon={
                   <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>                      
@@ -102,10 +103,11 @@ export default function ProfilePage () {
               />
               <Button
                 type='button'
-                actionType='CANCEL'
+                color='gray'
                 text='Cancelar'
-                handle={handleClose}
-                hoverTranslate
+                onClick={handleClose}
+                size='content'                
+                hoverTranslation
                 buttonSize='large'
                 icon={
                   <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>

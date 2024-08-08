@@ -44,16 +44,17 @@ export const Header = memo(function() {
       
         <div className='flex flex-1 gap-8 items-center justify-end'>
           {User.isSuperAdmin({roleId: user?.roleId}) &&
-            <Link to='/user-management' className='text-white text-xs md:text-sm lg:text-base font-medium p-1 border-b hover:text-primary hover:border-primary transition-colors duration-200'>Configuración</Link>}
+            <Link to='/user-management' className='text-white text-xs md:text-sm lg:text-base font-medium p-1 border-b hover:text-primary hover:border-primary transition-colors duration-200'>Gestión de Usuarios</Link>}
           
           <Link to='/profile' className='text-white text-xs md:text-sm lg:text-base font-medium p-1 border-b hover:text-primary hover:border-primary transition-colors duration-200'>Perfil</Link>
 
           <Button
             aria-label='Botón para cerrar sesión del usuario' 
             role='logout' 
-            actionType='ACTION' 
+            color='orange' 
+            size='content'
             text='Salir' 
-            handle={() => dialogExitRef.current?.handleOpen()} 
+            onClick={() => dialogExitRef.current?.handleOpen()} 
             type='button'
             buttonSize='medium'
             icon={

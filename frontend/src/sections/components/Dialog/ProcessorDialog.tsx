@@ -1,7 +1,7 @@
 import { lazy, Suspense, useEffect } from "react";
 import { useGenericFormData } from "../../Hooks/useGenericFormData"
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
-import { ProcessorPrimitives } from "../../../modules/devices/fetures/processor/domain/Processor"
+import { type ProcessorPrimitives } from "../../../modules/devices/fetures/processor/domain/Processor"
 import { FormStatus, useGenericForm } from "../../Hooks/useGenericForm";
 
 
@@ -28,7 +28,7 @@ export default function ProcessorDialog({ dialogValue, open, toggleOpen, createP
         return () => {
             resetForm()
         }
-    }, [dialogValue])
+    }, [dialogValue, resetForm, updateForm])
 
     useEffect(() => {
         if (formStatus === FormStatus.Success) {
@@ -39,7 +39,7 @@ export default function ProcessorDialog({ dialogValue, open, toggleOpen, createP
         if (formStatus === FormStatus.Error) {
             resetFormStatus()
         }
-    }, [formStatus])
+    }, [formStatus, resetForm, resetFormStatus, toggleOpen])
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault()
@@ -52,56 +52,56 @@ export default function ProcessorDialog({ dialogValue, open, toggleOpen, createP
     }
 
     return (
-        <DialogAdd
-            title="Agregar una nuevo procesador"
-            contextText="¿No existe el procesador en la lista? Por favor, añada uno nuevo."
-            open={open}
-            toggleOpen={toggleOpen}
-            handleSubmit={handleSubmit}
-            resetForm={resetForm}
-        >
+      <DialogAdd
+        title='Agregar una nuevo procesador'
+        contextText='¿No existe el procesador en la lista? Por favor, añada uno nuevo.'
+        open={open}
+        toggleOpen={toggleOpen}
+        handleSubmit={handleSubmit}
+        resetForm={resetForm}
+      >
 
-            <Suspense fallback={<InputSkeletonLoading />}>
-                <ProcessorCollectionComboBox
-                    onChange={handleChange}
-                    value={formData.productCollection}
-                    type="form"
-                />
-            </Suspense>
-            <Suspense fallback={<InputSkeletonLoading />}>
-                <ProcessorNumberModelInput
-                    onChange={handleChange}
-                    value={formData.numberModel}
-                    type="form"
-                />
-            </Suspense>
+        <Suspense fallback={<InputSkeletonLoading />}>
+          <ProcessorCollectionComboBox
+            onChange={handleChange}
+            value={formData.productCollection}
+            type='form'
+          />
+        </Suspense>
+        <Suspense fallback={<InputSkeletonLoading />}>
+          <ProcessorNumberModelInput
+            onChange={handleChange}
+            value={formData.numberModel}
+            type='form'
+          />
+        </Suspense>
 
-            <div className="flex gap-4">
-                <Suspense fallback={<InputSkeletonLoading />}>
-                    <ProcessorCoresInput
-                        onChange={handleChange}
-                        value={formData.cores}
-                        type="form"
-                    />
-                </Suspense>
+        <div className='flex gap-4'>
+          <Suspense fallback={<InputSkeletonLoading />}>
+            <ProcessorCoresInput
+              onChange={handleChange}
+              value={formData.cores}
+              type='form'
+            />
+          </Suspense>
 
 
-                <Suspense fallback={<InputSkeletonLoading />}>
-                    <ProcessorFrequencyInput
-                        onChange={handleChange}
-                        value={formData.frequency}
-                        type="form"
-                    />
-                </Suspense>
+          <Suspense fallback={<InputSkeletonLoading />}>
+            <ProcessorFrequencyInput
+              onChange={handleChange}
+              value={formData.frequency}
+              type='form'
+            />
+          </Suspense>
 
-                <Suspense>
-                    <ProcessorThreadsCheckbox
-                        onChange={handleChange}
-                        value={formData.threads}
-                    />
-                </Suspense>
-            </div>
+          <Suspense>
+            <ProcessorThreadsCheckbox
+              onChange={handleChange}
+              value={formData.threads}
+            />
+          </Suspense>
+        </div>
 
-        </DialogAdd>
+      </DialogAdd>
     )
 }

@@ -47,10 +47,11 @@ export function DeleteHandle ({id}: {id: string}) {
     return (
       <>
         <Button 
-          actionType='DELETE' 
+          color='red' 
           text='Eliminar Usuario' 
-          handle={handleOpen}
+          onClick={handleOpen}
           buttonSize='medium'
+          size='content'
           icon={
             <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>                      
               <ThrashIcon width={16} className='aspect-square' />

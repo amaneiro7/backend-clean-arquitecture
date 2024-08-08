@@ -6,7 +6,6 @@ import { useGenericFormData } from '../../Hooks/useGenericFormData'
 import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoading'
 import { FormStatus, useGenericForm } from '../../Hooks/useGenericForm'
 
-const Main = lazy(async () => import('../../components/Main'))
 const InfoBox = lazy(async () => import('../../components/info-box/InfoBox').then(m => ({ default: m.InfoBox })))
 const InfoBoxTitle = lazy(async () => import('../../components/info-box/InfoBoxTitle').then(m => ({ default: m.InfoBoxTitle })))
 const InfoBoxText = lazy(async () => import('../../components/info-box/InfoBoxText').then(m => ({ default: m.InfoBoxText })))
@@ -18,7 +17,7 @@ export default function CreateEmployeeForm() {
   const navigate = useNavigate()
   const location = useLocation()
   const { createEmployee } = useEmployee()
-  const { preloadedEmployeeState } = useEmployeeInitialState()
+  const { preloadedEmployeeState, isAddForm } = useEmployeeInitialState()
   const { formData, resetForm, updateForm } = useGenericFormData(preloadedEmployeeState)
   const { formStatus, resetFormStatus, submitForm } = useGenericForm({ create: createEmployee })
 
@@ -27,7 +26,7 @@ export default function CreateEmployeeForm() {
     return () => {
       resetForm()
     }
-  }, [preloadedEmployeeState])
+  }, [preloadedEmployeeState, resetForm, updateForm])
 
   useEffect(() => {
     if (formStatus === FormStatus.Success) {
@@ -37,7 +36,7 @@ export default function CreateEmployeeForm() {
     if (formStatus === FormStatus.Error) {
       resetFormStatus()
     }
-  }, [formStatus])
+  }, [formStatus, resetForm, resetFormStatus])
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
@@ -54,26 +53,27 @@ export default function CreateEmployeeForm() {
   }
 
   return (
-    <Suspense>
-      <Main content='max' overflow={false}>
-        <FormContainer
-          title='Empleado'
-          handleSubmit={handleSubmit}
-          handleClose={handleClose}
-          isDisabled={formStatus === FormStatus.Loading}
-          lastUpdated={formData.updatedAt}
-          url='/employee/add'
-          searchInput={<EmployeeSearchComboBox />}
-        >
-          <Suspense fallback={<InputSkeletonLoading />}>
-            <EmployeeUserNameInput
-              key={location.key}
-              value={formData.userName}
-              type='form'
-              onChange={handleChange}
-            />
-          </Suspense>
-          {formData.devices.length > 0 &&
+    <FormContainer
+      key={location.key}
+      title='Empleado'
+      description='Ingrese los datos del usuario el cual desea registar.'
+      isAddForm={isAddForm}
+      handleSubmit={handleSubmit}
+      handleClose={handleClose}
+      isDisabled={formStatus === FormStatus.Loading}
+      lastUpdated={formData.updatedAt}
+      url='/employee/add'
+      searchInput={<EmployeeSearchComboBox />}
+    >
+      <Suspense fallback={<InputSkeletonLoading />}>
+        <EmployeeUserNameInput
+          key={location.key}
+          value={formData.userName}
+          type='form'
+          onChange={handleChange}
+        />
+      </Suspense>
+      {formData.devices.length > 0 &&
             formData.devices.map(({ id, category, brand, model, serial, location, computer }) =>
             (
               <Suspense key={id}>
@@ -88,8 +88,6 @@ export default function CreateEmployeeForm() {
               </Suspense>
             )
             )}
-        </FormContainer>
-      </Main>
-    </Suspense>
+    </FormContainer>
   )
 }

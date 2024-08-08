@@ -18,22 +18,26 @@ export const ButtonSection = memo(({handleAdd, handleClear, handleExportToExcel}
       <Suspense fallback={<InputSkeletonLoading />}>
         <Button
           type='button'
-          actionType='SAVE'
+          color='green'
+          buttonSize='large'
+          size='content'
           text='Descargar'
           icon={
             <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>
               <DownloadIcon width={20} className='aspect-square' />
             </Suspense>
           }
-          handle={handleExportToExcel}
+          onClick={handleExportToExcel}
         />
       </Suspense>
       <Suspense fallback={<InputSkeletonLoading />}>
         <Button
           type='button'
           text='Añadir'
-          actionType='ACTION'
-          handle={handleAdd}
+          color='orange'
+          buttonSize='large'
+          size='content'
+          onClick={handleAdd}
           icon={
             <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>
               <AddIcon width={20} fill='white' className='aspect-square' />
@@ -43,10 +47,12 @@ export const ButtonSection = memo(({handleAdd, handleClear, handleExportToExcel}
       </Suspense>
       <Suspense fallback={<InputSkeletonLoading />}>
         <Button
-          actionType='SECONDARY'          
+          color='secondary'          
+          buttonSize='large'
+          size='content'
           type='button'
           text='Limpiar'
-          handle={handleClear}
+          onClick={handleClear}
         />
       </Suspense>
     </section>

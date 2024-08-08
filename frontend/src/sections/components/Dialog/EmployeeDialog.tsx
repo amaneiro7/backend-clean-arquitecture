@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect } from "react"
 import { useGenericFormData } from "../../Hooks/useGenericFormData"
-import { EmployeePrimitives } from "../../../modules/employee/employee/domain/Employee"
+import { type EmployeePrimitives } from "../../../modules/employee/employee/domain/Employee"
 import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
 import { FormStatus, useGenericForm } from "../../Hooks/useGenericForm"
 
@@ -23,7 +23,7 @@ export default function EmployeeDialog({ createEmployee, dialogValue, open, togg
     return () => {
       resetForm()
     }
-  }, [dialogValue])
+  }, [dialogValue, resetForm, updateForm])
 
   useEffect(() => {
     if (formStatus === FormStatus.Success) {
@@ -34,7 +34,7 @@ export default function EmployeeDialog({ createEmployee, dialogValue, open, togg
     if (formStatus === FormStatus.Error) {
       resetFormStatus()
     }
-  }, [formStatus])
+  }, [formStatus, resetForm, resetFormStatus, toggleOpen])
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
@@ -49,8 +49,8 @@ export default function EmployeeDialog({ createEmployee, dialogValue, open, togg
   return (
     <Suspense>
       <DialogAdd
-        title="Agregar un nuevo Usuario"
-        contextText="¿No existe el usuario en la lista? Por favor, añada uno nuevo."
+        title='Agregar un nuevo Usuario'
+        contextText='¿No existe el usuario en la lista? Por favor, añada uno nuevo.'
         open={open}
         toggleOpen={toggleOpen}
         handleSubmit={handleSubmit}
@@ -59,7 +59,7 @@ export default function EmployeeDialog({ createEmployee, dialogValue, open, togg
         <Suspense fallback={<InputSkeletonLoading />}>
           <EmployeeUserNameInput
             value={formData.userName}
-            type="dialog"
+            type='dialog'
             onChange={handleChange}
           />
         </Suspense>

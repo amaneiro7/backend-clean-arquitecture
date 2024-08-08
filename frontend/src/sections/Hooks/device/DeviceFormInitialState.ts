@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo, useCallback } from 'react'
+import { useLayoutEffect, useState, useMemo, useCallback } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useDevice } from './useDevice'
 import { type HistoryApiResponse, type DevicesApiResponse } from '../../../modules/shared/domain/types/responseTypes'
@@ -146,7 +146,7 @@ export const useDeviceInitialState = (): {
     }
   }, [fetchDevice, isAddForm])
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (isAddForm) {
       setPreloadedDeviceState(defaultInitialState)
       return

@@ -1,12 +1,10 @@
-import { lazy, Suspense, useEffect } from 'react'
+import { lazy, useEffect } from 'react'
 import { useGenericFormData } from '../../Hooks/useGenericFormData'
 import { useLocation } from 'react-router-dom'
 import { useGenericForm, FormStatus } from '../../Hooks/useGenericForm'
 import { useSiteLocation } from '../../Hooks/locations/useLocation'
 import { useLocationInitialState } from '../../Hooks/locations/useLocationInitialState'
 
-
-const Main = lazy(async () => import('../../components/Main'))
 const FormContainer = lazy(async () => import('../../components/formContainer/formContainer'))
 const LocationInputs = lazy(async () => import('./LocationInputs').then(m => ({ default: m.LocationInputs })))
 
@@ -23,7 +21,7 @@ export default function CreateLocationForm() {
         return () => {
             resetForm()
         }
-    }, [preloadedLocationState])
+    }, [preloadedLocationState, resetForm, updateForm])
 
     useEffect(() => {
         if (formStatus === FormStatus.Success) {
@@ -34,7 +32,7 @@ export default function CreateLocationForm() {
         if (formStatus === FormStatus.Error) {
             resetFormStatus()
         }
-    }, [formStatus])
+    }, [formStatus, resetForm, resetFormStatus])
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault()
@@ -50,23 +48,19 @@ export default function CreateLocationForm() {
         updateForm({ [name]: value })
     }
 
-    return (
-      <Main content='max' overflow={false}>
-        <Suspense>
-          <FormContainer
-            key={location.key}
-            title='Ubicación'
-            handleSubmit={handleSubmit}
-            handleClose={handleClose}
-            isDisabled={formStatus === FormStatus.Loading}
-            lastUpdated={formData.updatedAt}
-            url='/location/add'
-          >
-            <Suspense>
-              <LocationInputs isAddForm={isAddForm} formData={formData} onChange={handleChange} />
-            </Suspense>
-          </FormContainer>
-        </Suspense>
-      </Main>
+    return (      
+      <FormContainer
+        key={location.key}
+        title='Ubicación'
+        description='Ingrese los datos de la nueva ubicación a registrar.'
+        isAddForm={isAddForm}
+        handleSubmit={handleSubmit}
+        handleClose={handleClose}
+        isDisabled={formStatus === FormStatus.Loading}
+        lastUpdated={formData.updatedAt}
+        url='/location/add'
+      >        
+        <LocationInputs isAddForm={isAddForm} formData={formData} onChange={handleChange} />        
+      </FormContainer>   
     )
 }

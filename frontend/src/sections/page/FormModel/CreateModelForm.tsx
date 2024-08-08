@@ -1,12 +1,11 @@
-import { lazy, Suspense, useEffect } from 'react'
+import { lazy, useEffect } from 'react'
+import { type ModelPrimitives } from '../../../modules/devices/model/model/domain/Model'
 import { useGenericFormData } from '../../Hooks/useGenericFormData'
 import { useModelInitialState } from '../../Hooks/model/ModelFormInitialState'
 import { useLocation } from 'react-router-dom'
 import { useGenericForm, FormStatus } from '../../Hooks/useGenericForm'
 import { useModel } from '../../Hooks/model/useModel'
-import { ModelPrimitives } from '../../../modules/devices/model/model/domain/Model'
 
-const Main = lazy(async () => import('../../components/Main'))
 const FormContainer = lazy(async () => import('../../components/formContainer/formContainer'))
 const ModelInputs = lazy(async () => import('./ModelFeatures').then(m => ({ default: m.ModelInputs })))
 
@@ -51,22 +50,18 @@ export default function CreateModelForm() {
   }
 
   return (
-    <Main content='max' overflow={false}>
-    
-      <FormContainer
-        key={location.key}
-        title='Modelo'
-        handleSubmit={handleSubmit}
-        handleClose={handleClose}
-        isDisabled={formStatus === FormStatus.Loading}
-        lastUpdated={formData.updatedAt}
-        url='/model/add'
-      >
-        <Suspense>
-          <ModelInputs isAddForm={isAddForm} formData={formData} onChange={handleChange} />
-        </Suspense>
-      </FormContainer>      
-    
-    </Main>
+    <FormContainer
+      key={location.key}
+      title='Modelo'
+      description='Ingrese los datos del modelo el cual desea registar, la categoria y la marca la cual va ser relacionada.'
+      isAddForm={isAddForm}
+      handleSubmit={handleSubmit}
+      handleClose={handleClose}
+      isDisabled={formStatus === FormStatus.Loading}
+      lastUpdated={formData.updatedAt}
+      url='/model/add'
+    >
+      <ModelInputs isAddForm={isAddForm} formData={formData} onChange={handleChange} />        
+    </FormContainer>    
   )
 }

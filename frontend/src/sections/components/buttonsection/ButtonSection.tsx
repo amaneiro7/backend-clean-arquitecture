@@ -19,22 +19,26 @@ export const ButtonSection = memo(({handleFilter, handleAdd, handleClear, handle
       <Suspense fallback={<InputSkeletonLoading />}>
         <Button
           type='button'
-          actionType='SAVE'
+          color='green'
+          size='content'
           text='Descargar'
+          buttonSize='large'
           icon={
             <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>
               <DownloadIcon width={20} className='aspect-square' />
             </Suspense>
           }
-          handle={handleExportToExcel}
+          onClick={handleExportToExcel}
         />
       </Suspense>
       <Suspense fallback={<InputSkeletonLoading />}>
         <Button
           type='button'
           text='Añadir'
-          actionType='ACTION'
-          handle={handleAdd}
+          color='orange'
+          size='content'
+          onClick={handleAdd}
+          buttonSize='large'
           icon={
             <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>
               <AddIcon width={20} fill='white' className='aspect-square' />
@@ -44,18 +48,22 @@ export const ButtonSection = memo(({handleFilter, handleAdd, handleClear, handle
       </Suspense>
       <Suspense fallback={<InputSkeletonLoading />}>
         <Button
-          actionType='SECONDARY'          
+          color='secondary'          
+          size='content'
           type='button'
+          buttonSize='large'
           text='Limpiar'
-          handle={handleClear}
+          onClick={handleClear}
         />
       </Suspense>
       <Suspense fallback={<InputSkeletonLoading />}>
         <Button 
           type='button'
-          actionType='SECONDARY'
+          color='secondary'
+          size='content'
           text='Filtros'
-          handle={handleFilter}
+          buttonSize='large'
+          onClick={handleFilter}
           icon={
             <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>
               <FilterIcon width={14} className='aspect-square' />

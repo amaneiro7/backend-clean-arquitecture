@@ -13,8 +13,10 @@ function Component ({ isEdit, searchInput, url }: Props) {
     return (
       <div className='w-full flex flex-col justify-end items-end md:flex-row md:justify-between gap-3'>
         {searchInput}
-        {isEdit && <LinkAsButton
+        {isEdit 
+        && <LinkAsButton
           actionType='ACTION'
+          className='justify-self-end'
           text='Agregar nuevo'
           url={url}
           hoverTranslate                
@@ -25,7 +27,7 @@ function Component ({ isEdit, searchInput, url }: Props) {
               <AddIcon width={20} className='aspect-square fill-white stroke-[3px]' />
             </Suspense>
                   }
-                   />}  
+           />}  
 
       </div>
     )

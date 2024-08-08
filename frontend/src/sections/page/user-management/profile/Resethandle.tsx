@@ -45,10 +45,11 @@ export function ResetHandle ({id}: {id: string}) {
     return (
       <>
         <Button 
-          actionType='SAVE' 
+          color='orange' 
           text='Restablecer Contraseña' 
-          handle={handleOpen}
+          onClick={handleOpen}
           buttonSize='medium'
+          size='content'
           icon={
             <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>                      
               <ResetIcon width={16} className='aspect-square' />                      
