@@ -64,24 +64,24 @@ export const navigation: Navigation[] = [
         ]
 
     },
-    {
-        label: 'Equipos en uso por usuario',
-        desc: 'Aqui se encuentran las vistas por usuarios tanto de torre como de agencia',
-        img: 'officeDesk',
-        navs: [
-            {
-                title: 'Empleados en torre',
-                desc: 'Usuarios asignados en torre',
-                path: '/employees/torre',
+    // {
+    //     label: 'Equipos en uso por usuario',
+    //     desc: 'Aqui se encuentran las vistas por usuarios tanto de torre como de agencia',
+    //     img: 'officeDesk',
+    //     navs: [
+    //         {
+    //             title: 'Empleados en torre',
+    //             desc: 'Usuarios asignados en torre',
+    //             path: '/employees/torre',
 
-            },
-            {
-                title: 'Empleados en agencia',
-                desc: 'Usuarios asignados en agencia',
-                path: '/employees/agencia',
-            }
-        ]
-    },
+    //         },
+    //         {
+    //             title: 'Empleados en agencia',
+    //             desc: 'Usuarios asignados en agencia',
+    //             path: '/employees/agencia',
+    //         }
+    //     ]
+    // },
     {
         label: 'Gestión',
         desc: 'Aqui se encuentran las rutas que se utilizan para la gestion de crear actualizar',

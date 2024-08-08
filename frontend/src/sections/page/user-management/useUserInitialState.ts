@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useNavigate, useLocation, useParams } from 'react-router-dom'
-import { useUser } from '../../Hooks/user/useUser'
+import { useGetUser } from '../../Hooks/user/useGetUser'
 import { UserApiResponsePrimitives } from '../../../modules/shared/domain/types/responseTypes'
 
 const initialState: UserApiResponsePrimitives = {
@@ -22,7 +22,7 @@ export const useUserInitialState = (): {
     const { id } = useParams()
     const location = useLocation()
     const navigate = useNavigate()
-    const { getUser } = useUser()
+    const { getUser } = useGetUser()
     const [preloadedState, setPreloadedState] = useState(initialState)
 
 
@@ -31,7 +31,7 @@ export const useUserInitialState = (): {
     }, [location.pathname])
 
     const fetchUser = useCallback(() => {
-        getUser.getById({ id })
+        getUser({ id })
             .then((user) => {
                 const state = user as unknown as UserApiResponsePrimitives
                 setPreloadedState(state)

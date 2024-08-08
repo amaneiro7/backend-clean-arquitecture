@@ -6,7 +6,7 @@ import { UserName } from "../../../modules/user/user/domain/UserName"
 import { UserLastName } from "../../../modules/user/user/domain/UserLastName"
 import { type OnHandleChange } from "../../../modules/shared/domain/types/types"
 import { type UserApiResponsePrimitives } from "../../../modules/shared/domain/types/responseTypes"
-import { useUser } from "../../Hooks/user/useUser"
+import { useCreateUser } from "../../Hooks/user/useCreateUser"
 import { UserRole } from "../../../modules/user/user/domain/UserRole"
 import { useNavigate } from "react-router-dom"
 import { useUserInitialState } from "./useUserInitialState"
@@ -30,7 +30,7 @@ export function useRegisterPage(): {
     const isLastNameFirstInput = useRef(true)
     const isEmailFirstInput = useRef(true)
 
-    const { createUser } = useUser()
+    const { createUser } = useCreateUser()
     const { preloadedState, setResetState } = useUserInitialState()
     const { formData, updateForm, resetForm } = useGenericFormData(preloadedState)
     const { formStatus, resetFormStatus, submitForm } = useGenericForm({ create: createUser })

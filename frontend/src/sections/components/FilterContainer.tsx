@@ -1,4 +1,6 @@
-import { CloseIcon } from "./icon/CloseIcon"
+import { lazy } from "react"
+
+const CloseIcon = lazy(async () => import("./icon/CloseIcon").then(m => ({ default: m.CloseIcon })))
 
 interface Props extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
     open: boolean

@@ -1,5 +1,5 @@
 import { lazy, Suspense, useRef } from "react"
-import { useUser } from "../../../Hooks/user/useUser"
+import { useResetUserPassword } from "../../../Hooks/user/useResetPassword"
 import { type DialogRef } from "../../../components/Dialog/Modal"
 import { tostPromise } from "../../../utils/toaster"
 
@@ -11,7 +11,7 @@ const ResetIcon = lazy(async () => import("../../../components/icon/ResetIcon").
 
 export function ResetHandle ({id}: {id: string}) {
     const dialogResetRef = useRef<DialogRef>(null)
-    const { resetPassword } = useUser()    
+    const { resetUserPassword } = useResetUserPassword()    
     const handleClose = () => {
         dialogResetRef.current?.handleClose()
     }
@@ -21,7 +21,7 @@ export function ResetHandle ({id}: {id: string}) {
     }
 
     const hanleReset = () => {
-        tostPromise(resetPassword.reset({id}), {
+        tostPromise(resetUserPassword({id}), {
             loading: 'Procesando...',
             success: () => {
                 return 'Operacion exitosa'

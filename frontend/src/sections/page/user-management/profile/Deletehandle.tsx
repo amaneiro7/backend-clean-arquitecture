@@ -1,6 +1,6 @@
 import { lazy, Suspense, useRef } from "react"
 import { useNavigate } from "react-router-dom"
-import { useUser } from "../../../Hooks/user/useUser"
+import { useDeleteUser } from "../../../Hooks/user/useDeleteUser"
 import { tostPromise } from "../../../utils/toaster"
 import { type DialogRef } from "../../../components/Dialog/Modal"
 
@@ -11,7 +11,7 @@ const ThrashIcon = lazy(async () => import("../../../components/icon/ThrashIcon"
 
 export function DeleteHandle ({id}: {id: string}) {
     const dialogDeleteRef = useRef<DialogRef>(null)
-    const { deleteUser } = useUser()
+    const { deleteUser } = useDeleteUser()
     const navigate = useNavigate()
     const handleClose = () => {
         dialogDeleteRef.current?.handleClose()
@@ -22,7 +22,7 @@ export function DeleteHandle ({id}: {id: string}) {
     }
 
     const hanleDelete = () => {
-      tostPromise(deleteUser.run({id}), {
+      tostPromise(deleteUser({id}), {
         loading: 'Procesando...',
         success: () => {
           navigate('/user-management')
