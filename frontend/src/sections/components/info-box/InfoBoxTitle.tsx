@@ -10,9 +10,9 @@ export function InfoBoxTitle({ title, url, state }: { title: string, url?: strin
       >
         <span>{title}</span>
         {url && 
-          <span className='relative w-12 h-12'>
-            <Link className='absolute w-full h-full' state={state} to={url} />
-            <ThinRightIcon className='w-12 fill-secondary' />
+          <span className='relative w-10 h-10 group'>
+            <Link className='absolute w-10 h-10 z-10' state={state} to={url} />
+            <ThinRightIcon className='w-10 fill-secondary group-hover:translate-x-2 transition-transform duration-300' />
           </span>}
       </h3>
     )
