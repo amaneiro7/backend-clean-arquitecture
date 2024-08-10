@@ -1,11 +1,12 @@
 import { useEffect } from "react"
 import { useDeviceInitialState } from "../../Hooks/device/DeviceFormInitialState"
-import { useDevice } from "../../Hooks/device/useDevice"
 import { FormStatus, useGenericForm } from "../../Hooks/useGenericForm"
 import { useGenericFormData } from "../../Hooks/useGenericFormData"
+import { useDeviceContext } from "../../Context/DeviceProvider"
 
 export const useFormDevice = () => {
-    const { createDevice } = useDevice()
+    const { createDevice } = useDeviceContext()
+
     const { preloadedDeviceState, setResetState, isAddForm } = useDeviceInitialState()
     const { formData, updateForm, resetForm } = useGenericFormData(preloadedDeviceState)
     const { formStatus, submitForm, resetFormStatus } = useGenericForm({ create: createDevice })

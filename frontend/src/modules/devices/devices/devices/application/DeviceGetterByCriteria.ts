@@ -11,8 +11,8 @@ import { type DevicePrimitives } from '../domain/Device'
 import { DeviceRepository } from '../domain/DeviceRepository'
 
 export class DeviceGetterByCriteria {
-  constructor (private readonly repository: DeviceRepository) {}
-  async get (query: SearchByCriteriaQuery): Promise<DevicePrimitives[]> {
+  constructor(private readonly repository: DeviceRepository) { }
+  async get(query: SearchByCriteriaQuery): Promise<DevicePrimitives[]> {
     const filters = query.filters.length > 0 && query.filters.map((filter) => {
       return new Filter(
         new FilterField(filter.field),

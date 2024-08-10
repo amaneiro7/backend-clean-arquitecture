@@ -7,6 +7,7 @@ const Login = lazy(async () => import('../page/login/LoginPage.tsx'))
 const ProfilePage = lazy(async () => import('../page/profile/ProfilePage.tsx'))
 const NotFound = lazy(async () => import('../page/404/index.tsx'))
 const Layout = lazy(async () => import('../components/Layout.tsx'))
+const DeviceConsumer = lazy(async () => import('../components/DeviceConsumer.tsx'))
 const Home = lazy(() => import('../page/home/Home.tsx'))
 const ListadoSitios = lazy(() => import('../page/ListadoSitios/ListadoSitios.tsx'))
 const ListadoModelos = lazy(() => import('../page/ListadoModelos/ListadoModelos.tsx'))
@@ -41,8 +42,6 @@ export default function AppRoutes() {
         <Route path='/location/edit/:id' element={<CreateLocationForm />} />  
         <Route path='/employee/add' element={<CreateEmployeeForm />} />
         <Route path='/employee/edit/:id' element={<CreateEmployeeForm />} />
-        <Route path='/device/add' element={<CreateDeviceForm />} />
-        <Route path='/device/edit/:id' element={<CreateDeviceForm />} />
         <Route path='/brand/add' element={<CreateBrandForm />} />
         <Route path='/brand/edit/:id' element={<CreateBrandForm />} />
         <Route path='/model' element={<ListadoModelos />} />
@@ -50,11 +49,17 @@ export default function AppRoutes() {
         <Route path='/model/edit/:id' element={<CreateModelForm />} />
         <Route path='/processor/add' element={<CreateProcessorForm />} />
         <Route path='/processor/edit/:id' element={<CreateProcessorForm />} />        
-        <Route path='/device' element={<DeviceList />} />
-        <Route path='/monitor' element={<ListMonitor />} />
-        <Route path='/finantialprinter' element={<ListFinantialPrinter />} />
-        <Route path='/printer' element={<ListPrinters />} />
-        <Route path='/parts' element={<ListPartAndPieces />} />
+        {/* Rutas para el manejo de listados de dispositivos  */}
+                      
+        <Route path='/computer' element={<DeviceConsumer location='computer'><DeviceList /></DeviceConsumer>} />
+        <Route path='/device/add' element={<DeviceConsumer><CreateDeviceForm /></DeviceConsumer>} />
+        <Route path='/device/edit/:id' element={<DeviceConsumer><CreateDeviceForm /></DeviceConsumer>} />
+        <Route path='/monitor' element={<DeviceConsumer><ListMonitor /></DeviceConsumer>} />
+        <Route path='/finantialprinter' element={<DeviceConsumer><ListFinantialPrinter /></DeviceConsumer>} />
+        <Route path='/printer' element={<DeviceConsumer><ListPrinters /></DeviceConsumer>} />
+        <Route path='/parts' element={<DeviceConsumer><ListPartAndPieces /></DeviceConsumer>} />
+        
+        {/* Rutas para la gestion de usuario */}
         <Route path='/user-management' element={<UserManagement />}>
           <Route path='register' element={<RegisterPage />} />        
           <Route path='edit/:id' element={<RegisterPage />} />

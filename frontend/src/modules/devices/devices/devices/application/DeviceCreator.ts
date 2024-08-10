@@ -9,6 +9,7 @@ export class DeviceCreator {
   constructor(private readonly repository: DeviceRepository) { }
 
   async create(params: DevicePrimitives): Promise<void> {
+
     let device: Device | Computer | HardDrive
     // Logica cuando es computadora, laptop, servidor o all in one
     if (Computer.isComputerCategory({ categoryId: params.categoryId })) {

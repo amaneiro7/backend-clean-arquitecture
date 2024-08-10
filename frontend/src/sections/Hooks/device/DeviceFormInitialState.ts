@@ -1,6 +1,5 @@
 import { useLayoutEffect, useState, useMemo, useCallback } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
-import { useDevice } from './useDevice'
 import { type HistoryApiResponse, type DevicesApiResponse } from '../../../modules/shared/domain/types/responseTypes'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { type DeviceSerial } from '../../../modules/devices/devices/devices/domain/DeviceSerial'
@@ -27,6 +26,7 @@ import { type DeviceId } from '../../../modules/devices/devices/devices/domain/D
 import { type MemoryRamValues } from '../../../modules/devices/fetures/memoryRam/memoryRamCapacity/domain/MemoryRamValue'
 import { MemoryRamSlotQuantity } from '../../../modules/devices/model/ModelCharacteristics/modelComputer/MemoryRamSlotQuantity'
 import { MemoryRamTypeName } from '../../../modules/devices/fetures/memoryRam/memoryRamType/domain/MemoryRamTypeName'
+import { useGetDevice } from './useGetDevice'
 
 export interface DefaultProps {
   id?: Primitives<DeviceId>
@@ -91,7 +91,7 @@ export const useDeviceInitialState = (): {
   const { id } = useParams()
   const location = useLocation()
   const navigate = useNavigate()
-  const { getDevice } = useDevice()
+  const { getDevice } = useGetDevice()
   const [preloadedDeviceState, setPreloadedDeviceState] = useState(defaultInitialState)
 
   const isAddForm = useMemo(() => {
@@ -129,7 +129,7 @@ export const useDeviceInitialState = (): {
   }, [id])
 
   const fetchDevice = useCallback(() => {
-    getDevice.getById(id)
+    getDevice({ id })
       .then(device => {
         processDeviceState(device)
       })

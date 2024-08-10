@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { getValueFromQueryParams } from '../../utils/getValueFromQueryParams'
 import { createFilterFromQueryParams } from '../../utils/createFilterFromQueryParams'
 import { CategoryId } from '../../../modules/devices/category/domain/CategoryId'
@@ -41,31 +42,37 @@ export interface InputData {
     ipAddress: Primitives<IPAddress>
 }
 
-export const defaultInputData = {
-    categoryId: '',
-    brandId: '',
-    statusId: '',
-    activo: '',
-    serial: '',
-    modelId: '',
-    employeeId: '',
-    locationId: '',
-    typeOfSiteId: '',
-    cityId: '',
-    stateId: '',
-    regionId: '',
-    computerName: '',
-    operatingSystemId: '',
-    operatingSystemArqId: '',
-    processor: '',
-    ipAddress: '',
-}
-export function defaultInitialInputValue(defaultCategoryQuery: SearchByCriteriaQuery): {
+export function useDefaultInitialInputValue(defaultCategoryQuery: SearchByCriteriaQuery): {
     inputData: InputData,
+    defaultInputData: InputData,
     query: SearchByCriteriaQuery
 } {
 
-    const { serial, activo, processor, categoryId, computerName, ...resParams } = getValueFromQueryParams(defaultInputData)
+    const defaultInputData = useMemo(() => {
+        return {
+            categoryId: '',
+            brandId: '',
+            statusId: '',
+            activo: '',
+            serial: '',
+            modelId: '',
+            employeeId: '',
+            locationId: '',
+            typeOfSiteId: '',
+            cityId: '',
+            stateId: '',
+            regionId: '',
+            computerName: '',
+            operatingSystemId: '',
+            operatingSystemArqId: '',
+            processor: '',
+            ipAddress: '',
+        }
+    }, [])
+
+    const { serial, activo, processor, categoryId, computerName, ...resParams } = useMemo(() => {
+        return getValueFromQueryParams(defaultInputData)
+    }, [defaultInputData])
 
     const resFilters = createFilterFromQueryParams(resParams)
 
@@ -78,7 +85,10 @@ export function defaultInitialInputValue(defaultCategoryQuery: SearchByCriteriaQ
         ...(categoryId ? [{ field: 'categoryId', operator: Operator.EQUAL, value: categoryId }] : defaultCategoryQuery.filters),
     ].filter(Boolean)
 
+
+
     return {
+        defaultInputData,
         inputData: { ...defaultInputData, serial, activo, categoryId, ...resParams },
         query: { filters },
     }

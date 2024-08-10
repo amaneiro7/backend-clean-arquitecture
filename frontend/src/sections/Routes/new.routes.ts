@@ -22,7 +22,7 @@ export const navigation: Navigation[] = [
             {
                 title: 'Lista de equipos de computación',
                 desc: 'Equipos asignados en agencia',
-                path: '/device',
+                path: '/computer',
             },
             {
                 title: 'Lista de Monitores',

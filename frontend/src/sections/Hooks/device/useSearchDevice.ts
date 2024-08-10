@@ -26,9 +26,10 @@ export const useSearchDevice = (): UseDevice => {
         setLoading(false)
       })
       .catch((error) => {
-        console.error('searchDevices', error)
-
         setError(error)
+        console.error('searchDevices', error)
+      })
+      .finally(() => {
         setLoading(false)
       })
   }, [])

@@ -1,28 +1,27 @@
-import { useCallback, useState, useTransition } from 'react'
+import { useCallback, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import debounce from 'just-debounce-it'
+
 import { type DevicePrimitives } from '../../../modules/devices/devices/devices/domain/Device'
 import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
 import { type FiltersPrimitives } from '../../../modules/shared/domain/criteria/Filter'
+import { type InputData, useDefaultInitialInputValue } from './defaultParams'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
-import { useDevice } from '../../Hooks/device/useDevice'
-import { defaultInitialInputValue, type InputData, defaultInputData } from './defaultParams'
-import { defaultCategoryQuery } from './defaultCategoryQuery'
+import { useDeviceContext } from '../../Context/DeviceProvider'
+
 
 
 export const useInputsData = (): {
   inputData: InputData
   loading: boolean
   devices: DevicePrimitives[]
-  isPending: boolean
   handleChange: (name: string, value: string, operator?: Operator) => void
   handleClear: () => void
 } => {
-  const { inputData: initialInputData, query, } = defaultInitialInputValue(defaultCategoryQuery)
+  const { devices, loading, addFilter, cleanFilters, defaultCategoryQuery } = useDeviceContext()
+  const { inputData: initialInputData, defaultInputData } = useDefaultInitialInputValue(defaultCategoryQuery)
   const [inputData, setInputData] = useState<InputData>(initialInputData)
   const { "1": setSearchParams } = useSearchParams()
-  const { devices, loading, addFilter, cleanFilters } = useDevice(query)
-  const [isPending, startTransition] = useTransition()
 
   const updateInputData = useCallback((name: string, value: string) => {
     setSearchParams(prev => {
@@ -38,7 +37,7 @@ export const useInputsData = (): {
   const handleClear = () => {
     setSearchParams('')
     setInputData(defaultInputData)
-    cleanFilters(defaultCategoryQuery)
+    cleanFilters()
   }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -48,35 +47,23 @@ export const useInputsData = (): {
     }, 500), [])
 
   const handleChange = useCallback((name: string, value: string, operator?: Operator) => {
-    startTransition(() => {
-      setInputData({ ...inputData, [name]: value })
+    setInputData({ ...inputData, [name]: value })
 
-      let filters: FiltersPrimitives[]
-      if (name === 'categoryId') {
-        filters = value ? [{ field: name, operator: Operator.EQUAL, value }] : defaultCategoryQuery.filters
-      } else {
-        filters = [{
-          field: name,
-          operator: operator ?? Operator.EQUAL,
-          value
-        }]
-      }
+    const filters: FiltersPrimitives[] = [{
+      field: name,
+      operator: operator ?? Operator.EQUAL,
+      value
+    }]
+    debounceGetDevices({ filters })
 
-      if (name === 'serial' || name === 'activo' || name === 'computerName' || name === 'processor' || name === 'ipAddress') {
-        debounceGetDevices({ filters })
-      } else {
-        addFilter({ filters })
-      }
-      updateInputData(name, value)
-    })
-  }, [addFilter, debounceGetDevices, updateInputData])
+    updateInputData(name, value)
+  }, [debounceGetDevices, inputData, updateInputData])
 
 
   return {
     inputData,
     devices,
     loading,
-    isPending,
     handleChange,
     handleClear
   }

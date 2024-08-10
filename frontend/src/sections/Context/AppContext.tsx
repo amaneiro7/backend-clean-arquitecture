@@ -24,6 +24,7 @@ export const AppContextProvider = ({ children, repository }: PropsWithChildren<{
   )
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAppContext = () => {
   const context = useContext(AppContext)
   if (context === undefined) {
