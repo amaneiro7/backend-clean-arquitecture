@@ -1,54 +1,45 @@
-import { lazy, useEffect, useImperativeHandle, forwardRef, useRef, useState } from "react"
+import { lazy, useEffect, useImperativeHandle, forwardRef, useRef, useState, useCallback } from "react"
 import './filterContainer.css'
 
-const CloseIcon = lazy(async () => import("../icon/CloseIcon").then(m => ({ default: m.CloseIcon })))
+const CloseIcon = lazy(async () => import("../../icon/CloseIcon").then(m => ({ default: m.CloseIcon })))
 
 interface Props extends React.PropsWithChildren<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>> { }
 
 export type FilterContainerRef = {
-  handleClose: () => void
   handleOpen: () => void
 } 
 
 const Component = ({ children, ...props }: Props, ref: React.Ref<FilterContainerRef>) => {
   const filterContainerRef = useRef(null)
   const [open, setOpen] = useState(false)
-
-  const handleClose = () => {
-    setOpen(false)
-  }
-
-  const handleOpen = () => {
-    setOpen(true)
-  }
+  
+  const handleOpen = useCallback(() => {
+    setOpen(!open)
+  }, [open])
 
   useImperativeHandle(ref, () => ({
-    handleClose,
     handleOpen
   }))
   
   useEffect(() => {
+    if (!open) return
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
-        handleClose()
+        closeAndRemoveListener()
       }
     }
-    // const handleClickOutside = (event: MouseEvent) => {
-    //   event.stopPropagation()
-    //   if (open && !event.target.closest('.filterContainerAside')) {
-    //     console.log('close')
-    //     handleClick()
-    //   }
-    // }
+    
+    function closeAndRemoveListener () {
+      document.removeEventListener('keydown', handleKeyDown)
+      handleOpen()
+    }
 
     document.addEventListener('keydown', handleKeyDown)
-    // document.addEventListener('click', handleClickOutside)
 
     return () => {
-      document.removeEventListener('keydown', handleKeyDown)
-      // document.removeEventListener('click', handleClickOutside)
+      document.removeEventListener('keydown', handleKeyDown)      
     }
-  }, [])
+  }, [handleOpen, open])
   
     return (
       <aside
@@ -61,7 +52,7 @@ const Component = ({ children, ...props }: Props, ref: React.Ref<FilterContainer
       >
         <button
           className='block top-0 left-0 z-30 self-start p-1'
-          onClick={handleClose}
+          onClick={handleOpen}
           title='Cerrar panel de filtros'
           tabIndex={1}
           aria-label='Cerrar Filtros'

@@ -7,6 +7,7 @@ import { type DevicesApiResponse } from "../../../../modules/shared/domain/types
 
 const DeviceTable = lazy(() => import("./DeviceTable").then(m => ({ default: m.DeviceTable})))
 const ListWrapper = lazy(() => import("../../../components/ListComponent/ListWrapper").then(m => ({ default: m.ListWrapper})))
+const OtherComputerFilter = lazy(() => import("../../../components/ListComponent/OtherComputerFilter").then(m => ({ default: m.OtherComputerFilter})))
 
 export default function ListComputer() {        
     const { inputData: initialInputData, defaultInputData } = useDefaultInitialInputValue()
@@ -20,6 +21,16 @@ export default function ListComputer() {
         handleChange={handleChange}
         handleClear={handleClear}
         inputData={inputData}
+        otherFilter={
+          <OtherComputerFilter
+            handleChange={handleChange}
+            computerName={inputData.computerName}
+            operatingSystemId={inputData.operatingSystemId}
+            operatingSystemArqId={inputData.operatingSystemArqId}
+            processor={inputData.processor}
+            ipAddress={inputData.ipAddress}
+          />
+      }
         table={<DeviceTable devices={devices as DevicesApiResponse[]} />}
       />            
     )
