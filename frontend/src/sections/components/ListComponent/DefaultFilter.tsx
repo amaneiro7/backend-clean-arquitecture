@@ -77,6 +77,7 @@ export function DefaultFilterSection ({
         <CityComboBox
           value={cityId}
           state={stateId}
+          region={regionId}
           onChange={handleChange}
           type='search'
         />

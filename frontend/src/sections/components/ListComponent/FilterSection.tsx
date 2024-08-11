@@ -7,7 +7,7 @@ import { type InputData } from '../../page/ListWrapper/ListComputer/defaultParam
 
 const HeaderInput = lazy(() => import('../HeaderInput').then(m => ({ default: m.HeaderInput })))
 const Input = lazy(() => import('../text-inputs/Input').then(m => ({ default: m.Input })))
-const FilterContainer = lazy(() => import('../FilterContainer/FilterContainer').then(m => ({ default: m.FilterContainer })))
+const FilterContainer = lazy(() => import('./FilterContainer/FilterContainer').then(m => ({ default: m.FilterContainer })))
 const EmployeeComboBox = lazy(() => import('../combo_box/EmployeeComboBox'))
 const CategoryComboBox = lazy(() => import('../combo_box/CategoryComboBox'))
 const LocationComboBox = lazy(() => import('../combo_box/LocationComboBox'))
@@ -48,6 +48,7 @@ export function FilterSection({ inputData, handleChange, children }: Props) {
         <LocationComboBox
           value={inputData.locationId}
           onChange={handleChange}
+          typeOfSiteId={inputData.typeOfSiteId}
           type='search'
         />
         <RegionComboBox

@@ -6,11 +6,13 @@ import { type CityPrimitives } from "../../../../modules/location/city/domain/ci
 import { type Primitives } from "../../../../modules/shared/domain/value-object/Primitives"
 import { type StateId } from "../../../../modules/location/state/domain/StateId"
 import { type CityId } from "../../../../modules/location/city/domain/CityId"
+import { type RegionId } from "../../../../modules/location/region/domain/RegionId"
 import { useAppContext } from "../../../Context/AppProvider"
 
 interface Props {
     value?: Primitives<CityId>
     state?: Primitives<StateId>
+    region?: Primitives<RegionId>
     onChange: OnHandleChange
     isAddForm?: boolean
     type?: "form" | "search"
@@ -19,13 +21,13 @@ interface Props {
 const ComboBox = lazy(async () => import("../combo_box"))
 const ReadOnlyInputBox = lazy(async () => import("../../ReadOnlyInputBox").then((m) => ({ default: m.ReadOnlyInputBox })))
 
-export function CityComboBox({ value, state, onChange, type = "search", isAddForm = false }: Props) {
+export function CityComboBox({ value, state, region, onChange, type = "search", isAddForm = false }: Props) {
     const { useCity: { cities, loading }} = useAppContext()
     
     const filtered = useMemo(() => {
-      if (!state) return cities
-      return cities.filter((city) => city.stateId === state)
-    }, [cities, state])
+      const regionFilter = cities.filter((reg) => reg.state.regionId === region || !region)
+      return regionFilter.filter((city) => city.stateId === state || !state)
+    }, [cities, state, region])
     
     const initialValue = useMemo(() => {
         return filtered.find((city) => city.id === value)

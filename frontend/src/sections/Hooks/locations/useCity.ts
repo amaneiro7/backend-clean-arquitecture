@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from 'react'
 import { AllCityGetter } from '../../../modules/location/city/application/AllCityGetter'
-import { CityPrimitives } from '../../../modules/location/city/domain/city'
 import { ApiCityRepository } from '../../../modules/location/city/infraestructure/ApiCityRepository'
+import { CityApiResponse } from '../../../modules/shared/domain/types/responseTypes'
 
 export interface UseCities {
-  cities: CityPrimitives[]
+  cities: CityApiResponse[]
   loading: boolean
   error: Error | null
 }
@@ -12,18 +12,19 @@ export interface UseCities {
 export const useCity = (): UseCities => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  const [cities, setCities] = useState<CityPrimitives[]>([])
+  const [cities, setCities] = useState<CityApiResponse[]>([])
 
   const fetchData = useCallback(() => {
     setLoading(true)
     new AllCityGetter(new ApiCityRepository())
       .get()
       .then((res) => {
-        setCities(res)
-        setLoading(false)
+        setCities(res as unknown as CityApiResponse[])
       })
       .catch((error) => {
         setError(error)
+      })
+      .finally(() => {
         setLoading(false)
       })
   }, [])

@@ -49,7 +49,6 @@ export const useInputsData = <T>({
 
   const handleChange = useCallback((name: string, value: string, operator?: Operator) => {
     setInputData({ ...inputData, [name]: value })
-
     const filters: FiltersPrimitives[] = [{
       field: name,
       operator: operator ?? Operator.EQUAL,
