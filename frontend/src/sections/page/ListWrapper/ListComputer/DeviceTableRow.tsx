@@ -1,10 +1,10 @@
 import { lazy, memo } from "react";
 import { areEqual } from "react-window";
-import { DevicesApiResponse } from "../../../modules/shared/domain/types/responseTypes";
+import { DevicesApiResponse } from "../../../../modules/shared/domain/types/responseTypes";
 
-const TableRow = lazy(async () => import("../../components/TableComponent/TableRow"))
-const TableCell = lazy(async () => import("../../components/TableComponent/TableCell"))
-const TableCellEditDeleteIcon = lazy(async () => import("../../components/TableComponent/TableCellEditDeleteIcon"))
+const TableRow = lazy(async () => import("../../../components/TableComponent/TableRow"))
+const TableCell = lazy(async () => import("../../../components/TableComponent/TableCell"))
+const TableCellEditDeleteIcon = lazy(async () => import("../../../components/TableComponent/TableCellEditDeleteIcon"))
 
 interface Props {
     data: DevicesApiResponse[]

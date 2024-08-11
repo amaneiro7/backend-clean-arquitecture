@@ -1,10 +1,10 @@
 import { lazy, memo } from "react"
 
-const Table = lazy(async () => import("../../components/TableComponent/Table2"))
-const TableHeader = lazy(async () => import("../../components/TableComponent/TableHeader"))
-const TableRow = lazy(async () => import("../../components/TableComponent/TableRow"))
-const TableBody = lazy(async () => import("../../components/TableComponent/TableBody"))
-const TableHead = lazy(async () => import("../../components/TableComponent/TableHead"))
+const Table = lazy(async () => import("../../../components/TableComponent/Table2"))
+const TableHeader = lazy(async () => import("../../../components/TableComponent/TableHeader"))
+const TableRow = lazy(async () => import("../../../components/TableComponent/TableRow"))
+const TableBody = lazy(async () => import("../../../components/TableComponent/TableBody"))
+const TableHead = lazy(async () => import("../../../components/TableComponent/TableHead"))
 
 export const TablerWraper = memo(({children, style}: {style: React.CSSProperties,children: React.ReactNode}) => (      
   <Table>            

@@ -3,7 +3,7 @@ import { InputSkeletonLoading } from '../skeleton/inputSkeletonLoading'
 import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
 
 const HeaderInput = lazy(async () => import('../HeaderInput').then(m => ({ default: m.HeaderInput })))
-const FilterContainer = lazy(async () => import('../FilterContainer').then(m => ({ default: m.FilterContainer })))
+const FilterContainer = lazy(async () => import('../FilterContainer/FilterContainer').then(m => ({ default: m.FilterContainer })))
 const EmployeeComboBox = lazy(async () => await import('../combo_box/EmployeeComboBox'))
 const CategoryComboBox = lazy(async () => await import('../combo_box/CategoryComboBox'))
 const LocationComboBox = lazy(async () => await import('../combo_box/LocationComboBox'))

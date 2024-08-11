@@ -11,7 +11,7 @@ const DeviceConsumer = lazy(async () => import('../components/DeviceConsumer.tsx
 const Home = lazy(() => import('../page/home/Home.tsx'))
 const ListadoSitios = lazy(() => import('../page/ListadoSitios/ListadoSitios.tsx'))
 const ListadoModelos = lazy(() => import('../page/ListadoModelos/ListadoModelos.tsx'))
-const DeviceList = lazy(() => import('../page/DeviceList'))
+const ListComputer = lazy(() => import('../page/ListWrapper/ListComputer/ListComputer.tsx'))
 const ListMonitor = lazy(() => import('../page/ListWrapper/ListMonitor/ListMonitor.tsx'))
 const ListFinantialPrinter = lazy(() => import('../page/ListWrapper/ListFinantialPrinterPrinter/ListFinantialPrinter.tsx'))
 const ListPartAndPieces = lazy(() => import('../page/ListWrapper/ListPartAndPieces/ListPartsAndPieces.tsx'))
@@ -51,13 +51,13 @@ export default function AppRoutes() {
         <Route path='/processor/edit/:id' element={<CreateProcessorForm />} />        
         {/* Rutas para el manejo de listados de dispositivos  */}
                       
-        <Route path='/computer' element={<DeviceConsumer location='computer'><DeviceList /></DeviceConsumer>} />
+        <Route path='/computer' element={<DeviceConsumer location='computer'><ListComputer /></DeviceConsumer>} />
+        <Route path='/monitor' element={<DeviceConsumer location='monitor'><ListMonitor /></DeviceConsumer>} />
+        <Route path='/finantialprinter' element={<DeviceConsumer location='finantialPrinter'><ListFinantialPrinter /></DeviceConsumer>} />
+        <Route path='/printer' element={<DeviceConsumer location='printer'><ListPrinters /></DeviceConsumer>} />
+        <Route path='/parts' element={<DeviceConsumer location='parts'><ListPartAndPieces /></DeviceConsumer>} />
         <Route path='/device/add' element={<DeviceConsumer><CreateDeviceForm /></DeviceConsumer>} />
         <Route path='/device/edit/:id' element={<DeviceConsumer><CreateDeviceForm /></DeviceConsumer>} />
-        <Route path='/monitor' element={<DeviceConsumer><ListMonitor /></DeviceConsumer>} />
-        <Route path='/finantialprinter' element={<DeviceConsumer><ListFinantialPrinter /></DeviceConsumer>} />
-        <Route path='/printer' element={<DeviceConsumer><ListPrinters /></DeviceConsumer>} />
-        <Route path='/parts' element={<DeviceConsumer><ListPartAndPieces /></DeviceConsumer>} />
         
         {/* Rutas para la gestion de usuario */}
         <Route path='/user-management' element={<UserManagement />}>

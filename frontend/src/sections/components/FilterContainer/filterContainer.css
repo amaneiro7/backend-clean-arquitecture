@@ -1,0 +1,14 @@
+.filterContainerAside {
+  max-height: 80vh;
+}
+
+.filterContainerAside.none {
+  animation: fade-out 5s forwards;
+}
+
+@keyframes fade-out {
+  to {
+    display: none;
+    opacity: 0;
+  }
+}

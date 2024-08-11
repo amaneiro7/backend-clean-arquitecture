@@ -9,9 +9,9 @@ interface Props extends React.PropsWithChildren<React.DetailedHTMLProps<React.HT
    red: 'border-quaternary',
  } as const
 
-export function DetailsWrapper ({ borderColor = 'blue', children, ...props }: Props) {
+export function DetailsWrapper ({ borderColor = 'blue', className, children, ...props }: Props) {
     return (
-      <section className={`w-full flex flex-col gap-4 p-4 mb-5 border-t-2 rounded bg-gray-200 ${COLOR[borderColor]}`} {...props}>
+      <section className={`w-full flex flex-col gap-4 p-4 mb-5 border-t-2 rounded bg-gray-200 ${COLOR[borderColor]} ${className}`} {...props}>
         {children}
       </section>
     )

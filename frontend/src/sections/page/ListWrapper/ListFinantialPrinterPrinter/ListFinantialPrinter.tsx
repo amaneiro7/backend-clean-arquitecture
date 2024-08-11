@@ -1,18 +1,25 @@
-import { ListPage } from "../List"
-import { useInputsData } from "../useInputData"
-import { defaultCategoryQuery, defaultCategoryList } from "./defaultCategoryQuery"
+import { lazy } from "react"
 
-export default function ListFinantialPrinter() {
-    const { devices, handleChange, handleClear, inputData, loading } = useInputsData(defaultCategoryQuery)
-    return (
-      <ListPage
-        defaultCategory={defaultCategoryList}
+import { useInputsData } from "../../../components/ListComponent/useInputData"
+import { useDefaultInitialInputValue } from "./defaultParams"
+import { type DevicesApiResponse } from "../../../../modules/shared/domain/types/responseTypes"
+
+
+const DeviceTable = lazy(() => import("../DeviceTable").then(m => ({ default: m.DeviceTable })))
+const ListWrapper = lazy(() => import("../../../components/ListComponent/ListWrapper").then(m => ({ default: m.ListWrapper})))
+
+export default function ListFinantialPrinter() {        
+    const { inputData: initialInputData, defaultInputData } = useDefaultInitialInputValue()
+    const { inputData, devices, handleChange, handleClear, loading } = useInputsData({ initialInputData, defaultInputData })
+
+    return (      
+      <ListWrapper
         devices={devices}
+        title='Lista de impresoras Financieras'
+        loading={loading}
         handleChange={handleChange}
         handleClear={handleClear}
         inputData={inputData}
-        loading={loading}
-        title='Lista de impresoras Financieras'
-      />
-    )
-}
+        table={<DeviceTable devices={devices as DevicesApiResponse[]} />}
+      />            
+    )}

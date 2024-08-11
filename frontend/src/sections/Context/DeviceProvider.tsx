@@ -67,6 +67,10 @@ export const DeviceContextProvider = ({ children, location }: React.PropsWithChi
       searchDevices(query)
       return res
     }
+
+    // useEffect(() => {      
+    //   cleanFilters()
+    // }, [cleanFilters, defaultCategoryQuery])
     
 
   useEffect(() => {
@@ -75,16 +79,16 @@ export const DeviceContextProvider = ({ children, location }: React.PropsWithChi
 
         return(
           <DeviceContext.Provider value={{
-          devices,
-          error,
-          loading,
-          createDevice: handleCreate,
-          addFilter,
-          cleanFilters, 
-          query,
-          defaultCategoryList,
-          defaultCategoryQuery
-        }}
+              devices,
+              error,
+              loading,
+              createDevice: handleCreate,
+              addFilter,
+              cleanFilters, 
+              query,
+              defaultCategoryList,
+              defaultCategoryQuery
+            }}
           >
             {children}
           </DeviceContext.Provider>

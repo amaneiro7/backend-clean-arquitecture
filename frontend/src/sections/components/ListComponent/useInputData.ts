@@ -5,22 +5,23 @@ import debounce from 'just-debounce-it'
 import { type DevicePrimitives } from '../../../modules/devices/devices/devices/domain/Device'
 import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
 import { type FiltersPrimitives } from '../../../modules/shared/domain/criteria/Filter'
-import { type InputData, useDefaultInitialInputValue } from './defaultParams'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
 import { useDeviceContext } from '../../Context/DeviceProvider'
 
-
-
-export const useInputsData = (): {
-  inputData: InputData
+export const useInputsData = <T>({
+  initialInputData, defaultInputData
+}: {
+  initialInputData: T,
+  defaultInputData: T
+}): {
+  inputData: T
   loading: boolean
   devices: DevicePrimitives[]
   handleChange: (name: string, value: string, operator?: Operator) => void
   handleClear: () => void
 } => {
-  const { devices, loading, addFilter, cleanFilters, defaultCategoryQuery } = useDeviceContext()
-  const { inputData: initialInputData, defaultInputData } = useDefaultInitialInputValue(defaultCategoryQuery)
-  const [inputData, setInputData] = useState<InputData>(initialInputData)
+  const { devices, loading, addFilter, cleanFilters } = useDeviceContext()
+  const [inputData, setInputData] = useState<T>(initialInputData)
   const { "1": setSearchParams } = useSearchParams()
 
   const updateInputData = useCallback((name: string, value: string) => {

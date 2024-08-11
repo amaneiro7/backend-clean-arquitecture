@@ -15,14 +15,14 @@ const FilterIcon = lazy(async () => import("../icon/FilterIcon").then((m) => ({ 
 
 export const ButtonSection = memo(({handleFilter, handleAdd, handleClear, handleExportToExcel}: Props) => {
   return (
-    <section className='my-4 min-h-11 flex gap-2'>
+    <section className='my-4 min-h-8 flex gap-2'>
       <Suspense fallback={<InputSkeletonLoading />}>
         <Button
           type='button'
           color='green'
           size='content'
           text='Descargar'
-          buttonSize='large'
+          buttonSize='medium'
           icon={
             <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>
               <DownloadIcon width={20} className='aspect-square' />
@@ -38,7 +38,7 @@ export const ButtonSection = memo(({handleFilter, handleAdd, handleClear, handle
           color='orange'
           size='content'
           onClick={handleAdd}
-          buttonSize='large'
+          buttonSize='medium'
           icon={
             <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>
               <AddIcon width={20} fill='white' className='aspect-square' />
@@ -51,7 +51,7 @@ export const ButtonSection = memo(({handleFilter, handleAdd, handleClear, handle
           color='secondary'          
           size='content'
           type='button'
-          buttonSize='large'
+          buttonSize='medium'
           text='Limpiar'
           onClick={handleClear}
         />
@@ -62,7 +62,7 @@ export const ButtonSection = memo(({handleFilter, handleAdd, handleClear, handle
           color='secondary'
           size='content'
           text='Filtros'
-          buttonSize='large'
+          buttonSize='medium'
           onClick={handleFilter}
           icon={
             <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>
