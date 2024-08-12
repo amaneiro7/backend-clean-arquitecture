@@ -2,7 +2,7 @@
     import { useNavigate } from "react-router-dom"
     import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
     import { SpinnerSKCircle } from "../Loading/spinner-sk-circle"
-    import { type FilterContainerRef } from "../FilterContainer/FilterContainer"
+    import { type FilterContainerRef } from "./FilterContainer/FilterContainer"
     import { type TypeOfSiteId } from "../../../modules/location/typeofsites/domain/typeOfSiteId"
     import { type Primitives } from "../../../modules/shared/domain/value-object/Primitives"
     
