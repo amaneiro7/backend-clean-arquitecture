@@ -6,7 +6,7 @@ const ThinRightIcon = lazy(async () => import("../icon/ThinRightIcon").then(m =>
 export function InfoBoxTitle({ title, url, state }: { title: string, url?: string, state?: object }) {
     return (
       <h3
-        className='inline-flex justify-between items-center font-sans font-bold text-secondary text-left text-xl mb-2'
+        className='inline-flex justify-between items-center font-sans font-bold text-secondary text-left text-sm md:text-base lg:text-lg mb-2'
       >
         <span>{title}</span>
         {url && 

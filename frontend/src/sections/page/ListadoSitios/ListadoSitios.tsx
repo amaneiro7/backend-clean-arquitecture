@@ -28,7 +28,7 @@ export default function ListadoSitios() {
     const { inputData: initialInputData, defaultInputData } = useDefaultInitialInputValue()
     const { locations, loading, addFilter, cleanFilters } = useLocationContext()
     const { handleChange, handleClear, inputData } = useInputsData({ addFilter, cleanFilters, initialInputData, defaultInputData })
-    console.log(locations)
+    
         return (      
           <Main content='max' overflow={false} className='pr-8'>
             <PageTitle title='Listado de Sitios' />
@@ -47,7 +47,7 @@ export default function ListadoSitios() {
                       type='button'
                       text='Añadir'
                       color='orange'                
-                      buttonSize='large'
+                      buttonSize='medium'
                       size='content'
                       onClick={() => { navigate('/location/add') }}
                       icon={
@@ -60,7 +60,7 @@ export default function ListadoSitios() {
                   <Suspense fallback={<InputSkeletonLoading />}>
                     <Button
                       color='secondary'
-                      buttonSize='large'
+                      buttonSize='medium'
                       size='content'
                       type='button'
                       text='Limpiar'
@@ -73,7 +73,6 @@ export default function ListadoSitios() {
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(255px, 1fr))',
             gap: '2rem',
-            paddingRight: '2rem'
           }}
               >
                 {loading && <SpinnerSKCircle />}
