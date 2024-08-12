@@ -22,7 +22,7 @@ export default function ListComputer() {
       .then(m => m.clearComputerDataset({devices: devices as DevicesApiResponse[]}))
       await import('../../../utils/downloadJsonToExcel').then(m => m.jsonToExcel({clearDataset}))      
   }
-
+  console.log('listComputer', devices)
     return (      
       <ListWrapper
         data={devices}

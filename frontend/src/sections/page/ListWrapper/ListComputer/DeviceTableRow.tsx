@@ -27,7 +27,7 @@ export const DeviteRowTable = memo(({data: devices, style, index}: Props) => {
         <TableCell size='w-52' value={devices[index]?.computer?.computerName} />
         <TableCell size='w-52' value={devices[index]?.computer ? `${devices[index]?.computer?.processor?.productCollection} ${devices[index]?.computer?.processor?.numberModel}` : ""} />
         <TableCell size='w-24' value={devices[index]?.computer ? `${devices[index]?.computer?.memoryRamCapacity} Gb` : ""} />
-        <TableCell size='w-24' value={devices[index]?.computer ? devices[index]?.computer?.memoryRam.map((mem) => mem).join(" / ") : ""} />
+        <TableCell size='w-24' value={devices[index]?.computer ? devices[index]?.computer?.memoryRam?.map((mem) => mem).join(" / ") : ""} />
         <TableCell
           size='w-32'
           value={devices[index]?.model?.modelComputer ? devices[index]?.model?.modelComputer.memoryRamType?.name : devices[index]?.model?.modelLaptop ? devices[index]?.model?.modelLaptop?.memoryRamType?.name : ""}

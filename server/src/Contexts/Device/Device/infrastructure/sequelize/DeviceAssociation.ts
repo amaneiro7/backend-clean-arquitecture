@@ -1,5 +1,6 @@
-import { FindOptions } from "sequelize";
+import { FindOptions, Op, Sequelize } from "sequelize";
 import { Criteria } from "../../../../Shared/domain/criteria/Criteria";
+import { sequelize } from "../../../../Shared/infrastructure/persistance/Sequelize/SequelizeConfig";
 
 export class DeviceAssociation {
     convertFilterLocation(criteria: Criteria, options: FindOptions): FindOptions {
@@ -76,7 +77,7 @@ export class DeviceAssociation {
             }
         ]
         // Poder filtrar por las caracteristicas de computer
-        const firstLevelJoin = ['computerName', 'processorId', 'hardDriveCapacityId', 'hardDriveTypeId', 'operatingSystemId', 'operatingSystemArqId', 'memoryRam', 'memoryRamCapacity', 'ipAddress', 'macAddress']
+        const firstLevelJoin = ['computerName', 'processorId', 'hardDriveCapacityId', 'hardDriveTypeId', 'operatingSystemId', 'operatingSystemArqId', 'memoryRam', 'memoryRamCapacity', 'macAddress']
         firstLevelJoin.forEach(ele => {
             if (criteria.searchValueInArray(ele)) {
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -87,6 +88,21 @@ export class DeviceAssociation {
                 delete options.where[ele]
             }
         })
+
+        if (criteria.searchValueInArray('ipAddress')) {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error            
+            const ipAddress = options.where.ipAddress
+            const symbol = Object.getOwnPropertySymbols(ipAddress)[0]
+            const value = ipAddress[symbol]
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
+            options.include[5].where = { ...options.include[5].where, ipAddress: sequelize.literal(`ip_address::text ILIKE '%${value}%'`) }
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
+            delete options.where.ipAddress
+        }
+
         // Poder filtrar por ubicacion - Tipo de sitio y sitio
         const locationFilter = ['typeOfSiteId', 'siteId']
         locationFilter.forEach(ele => {
