@@ -5,6 +5,7 @@ import { type CityId } from '../../../modules/location/city/domain/CityId'
 import { type TypeOfSiteId } from '../../../modules/location/typeofsites/domain/typeOfSiteId'
 import { type RegionId } from '../../../modules/location/region/domain/RegionId'
 import { type LocationName } from '../../../modules/location/locations/domain/LocationName'
+import { getValueFromQueryParams } from '../../utils/getValueFromQueryParams'
 
 export interface InputData {
     name: Primitives<LocationName>
@@ -29,8 +30,8 @@ export function useDefaultInitialInputValue(): {
         }
     }, [])
 
-    const getValuesFromQueryParams = useMemo(async () => {
-        return await import('../../utils/getValueFromQueryParams').then(m => m.getValueFromQueryParams(defaultInputData))
+    const getValuesFromQueryParams = useMemo(() => {
+        return getValueFromQueryParams(defaultInputData)
     }, [defaultInputData])
 
     return {

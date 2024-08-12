@@ -3,6 +3,7 @@ import { type CategoryId } from '../../../modules/devices/category/domain/Catego
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { type BrandId } from '../../../modules/devices/brand/domain/BrandId'
 import { type ModelId } from '../../../modules/devices/model/model/domain/ModelId'
+import { getValueFromQueryParams } from '../../utils/getValueFromQueryParams'
 
 
 export interface InputData {
@@ -24,8 +25,8 @@ export function useDefaultInitialInputValue(): {
         }
     }, [])
 
-    const getValuesFromQueryParams = useMemo(async () => {
-        return await import('../../utils/getValueFromQueryParams').then(m => m.getValueFromQueryParams(defaultInputData))
+    const getValuesFromQueryParams = useMemo(() => {
+        return getValueFromQueryParams(defaultInputData)
     }, [defaultInputData])
 
     return {
