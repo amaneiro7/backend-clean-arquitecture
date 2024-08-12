@@ -4,13 +4,13 @@ import { useGenericFormData } from '../../Hooks/useGenericFormData'
 import { useModelInitialState } from '../../Hooks/model/ModelFormInitialState'
 import { useLocation } from 'react-router-dom'
 import { useGenericForm, FormStatus } from '../../Hooks/useGenericForm'
-import { useModel } from '../../Hooks/model/useModel'
+import { useModelContext } from '../../Context/ModelProvider'
 
 const FormContainer = lazy(async () => import('../../components/formContainer/formContainer'))
 const ModelInputs = lazy(async () => import('./ModelFeatures').then(m => ({ default: m.ModelInputs })))
 
 export default function CreateModelForm() {
-  const { createModel } = useModel()
+  const { createModel } = useModelContext()
   const location = useLocation()
   const { preloadedModelState, isAddForm } = useModelInitialState()
   const { formData, updateForm, resetForm } = useGenericFormData(preloadedModelState)

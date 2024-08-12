@@ -4,8 +4,8 @@ import { InputSkeletonLoading } from "../../skeleton/inputSkeletonLoading"
 interface Props {
   handleClear: () => void
   handleAdd: () => void
-  handleFilter: () => void
-  handleExportToExcel: () => void
+  handleExportToExcel: () => void  
+  handleFilter?: () => void
 }
 
 const Button = lazy(async () => import("../../button/button"))
@@ -56,21 +56,23 @@ export const ButtonSection = memo(({handleFilter, handleAdd, handleClear, handle
           onClick={handleClear}
         />
       </Suspense>
-      <Suspense fallback={<InputSkeletonLoading />}>
-        <Button 
-          type='button'
-          color='secondary'
-          size='content'
-          text='Filtros'
-          buttonSize='medium'
-          onClick={handleFilter}
-          icon={
-            <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>
-              <FilterIcon width={14} className='aspect-square' />
-            </Suspense>
-              }
-        />
-      </Suspense>
+      {handleFilter ? 
+        <Suspense fallback={<InputSkeletonLoading />}>
+          <Button 
+            type='button'
+            color='secondary'
+            size='content'
+            text='Filtros'
+            buttonSize='medium'
+            onClick={handleFilter}
+            icon={
+              <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>
+                <FilterIcon width={14} className='aspect-square' />
+              </Suspense>
+                  }
+          />
+        </Suspense>
+      : null}
     </section>
   )
 })

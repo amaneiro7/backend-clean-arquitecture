@@ -21,8 +21,8 @@ export const useSearchByCriteriaQuery = (defaultQuery?: SearchByCriteriaQuery) =
       const filterToAdd = payload.filters[0]
 
       // Check if the new filter is a default filter
-      const isDefaultFilter = defaultQuery?.filters.some(df => df.field === filterToAdd.field) ?? false
 
+      const isDefaultFilter = defaultQuery ? defaultQuery?.filters?.some(df => df.field === filterToAdd.field) : false
       // Find the index of the existing filter with the same field, if any
       const filterIndex = prevQuery.filters.findIndex(filter => filter.field === filterToAdd.field)
 
@@ -58,12 +58,12 @@ export const useSearchByCriteriaQuery = (defaultQuery?: SearchByCriteriaQuery) =
       // Update the query state with the new filters
       return { ...prevQuery, filters: filterWithoutEmptyValues }
     })
-  }, [defaultQuery?.filters])
+  }, [defaultQuery])
 
 
   const cleanFilters = useCallback(() => {
-    setQuery(prev => ({ ...prev, filters: defaultQuery.filters ?? [] }))
-  }, [defaultQuery.filters])
+    setQuery(prev => ({ ...prev, filters: defaultQuery?.filters ?? [] }))
+  }, [defaultQuery?.filters])
 
   return {
     query,

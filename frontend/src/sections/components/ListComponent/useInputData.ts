@@ -1,26 +1,23 @@
 import { useCallback, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import debounce from 'just-debounce-it'
-
-import { type DevicePrimitives } from '../../../modules/devices/devices/devices/domain/Device'
 import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
 import { type FiltersPrimitives } from '../../../modules/shared/domain/criteria/Filter'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
-import { useDeviceContext } from '../../Context/DeviceProvider'
+
 
 export const useInputsData = <T>({
-  initialInputData, defaultInputData
+  initialInputData, defaultInputData, addFilter, cleanFilters
 }: {
   initialInputData: T,
   defaultInputData: T
+  addFilter: (payload: SearchByCriteriaQuery) => void
+  cleanFilters: () => void
 }): {
   inputData: T
-  loading: boolean
-  devices: DevicePrimitives[]
   handleChange: (name: string, value: string, operator?: Operator) => void
   handleClear: () => void
 } => {
-  const { devices, loading, addFilter, cleanFilters } = useDeviceContext()
   const [inputData, setInputData] = useState<T>(initialInputData)
   const { "1": setSearchParams } = useSearchParams()
 
@@ -62,8 +59,6 @@ export const useInputsData = <T>({
 
   return {
     inputData,
-    devices,
-    loading,
     handleChange,
     handleClear
   }

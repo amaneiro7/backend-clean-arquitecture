@@ -31,8 +31,25 @@ export class SequelizeLocationRepository extends CriteriaToSequelizeConverter im
   async matching(criteria: Criteria): Promise<LocationPrimitives[]> {
     const options = this.convert(criteria)
     const locationOption = new LocationAssociation().convertFilterLocation(criteria, options)
-   
-    return await LocationModel.findAll(locationOption).then(res => (res as unknown as LocationApiResponse[]).filter(r => r.site !== null))
+    const data = await LocationModel.findAll(locationOption)
+    let filtered: LocationApiResponse[] | undefined
+    ['regionId'].forEach(ele => {
+      if (criteria.searchValueInArray(ele)) {
+        filtered = (data as unknown as LocationApiResponse[]).filter(res => {
+          return res?.site?.city !== null
+        })
+      }
+    });
+
+    ['stateId'].forEach(ele => {
+      if (criteria.searchValueInArray(ele)) {
+        filtered = (data as unknown as LocationApiResponse[]).filter(res => {
+          return res?.site !== null
+        })
+      }
+    });
+
+    return filtered ?? data
   }
 
   async searchById(id: Primitives<LocationId>): Promise<LocationPrimitives | null> {
@@ -53,11 +70,11 @@ export class SequelizeLocationRepository extends CriteriaToSequelizeConverter im
     }) ?? null
   }
 
-  async searchByName (name: Primitives<LocationName>): Promise<LocationPrimitives | null> {
+  async searchByName(name: Primitives<LocationName>): Promise<LocationPrimitives | null> {
     return await LocationModel.findOne({ where: { name } }) ?? null
   }
 
-  async save (payload: LocationPrimitives): Promise<void> {
+  async save(payload: LocationPrimitives): Promise<void> {
     const { id } = payload
     const employee = await LocationModel.findByPk(id) ?? null
     if (employee === null) {

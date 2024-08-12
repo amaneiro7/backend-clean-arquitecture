@@ -17,7 +17,6 @@ import { type OperatingSystemArqId } from '../../../../modules/devices/fetures/o
 import { type ProcessorId } from '../../../../modules/devices/fetures/processor/domain/ProcessorId'
 import { type IPAddress } from '../../../../modules/devices/fetures/computer/domain/IPAddress'
 import { type DeviceEmployee } from '../../../../modules/devices/devices/devices/domain/DeviceEmployee'
-import { getValueFromQueryParams } from '../../../utils/getValueFromQueryParams'
 
 export interface InputData {
     categoryId: Primitives<CategoryId>
@@ -66,8 +65,8 @@ export function useDefaultInitialInputValue(): {
         }
     }, [])
 
-    const getValuesFromQueryParams = useMemo(() => {
-        return getValueFromQueryParams(defaultInputData)
+    const getValuesFromQueryParams = useMemo(async () => {
+        return await import('../../../utils/getValueFromQueryParams').then(m => m.getValueFromQueryParams(defaultInputData))
     }, [defaultInputData])
 
     return {

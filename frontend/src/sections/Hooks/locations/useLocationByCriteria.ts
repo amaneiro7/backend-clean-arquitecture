@@ -1,6 +1,5 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
-import { useSearchByCriteriaQuery } from '../useQueryUpdate'
 import { LocationPrimitives } from '../../../modules/location/locations/domain/location'
 import { LocationGetterByCriteria } from '../../../modules/location/locations/application/LocationGetterByCriteria'
 import { ApiLocationRepository } from '../../../modules/location/locations/infraestructure/ApiLocationRepository'
@@ -9,43 +8,34 @@ export interface UseLocationByCriteria {
   locations: LocationPrimitives[]
   loading: boolean
   error: string | null
-  addFilter: (payload: SearchByCriteriaQuery) => void
-  cleanFilters: (payload?: SearchByCriteriaQuery) => void
+  searchLocationsByCriteria: (filter?: SearchByCriteriaQuery) => void
 }
 
-export const useLocationByCriteria = (defaultQuery?: SearchByCriteriaQuery): UseLocationByCriteria => {
-  const { query, addFilter, cleanFilters } = useSearchByCriteriaQuery(defaultQuery)
+export const useLocationByCriteria = (): UseLocationByCriteria => {
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<string | null>(null)
   const [locations, setLocations] = useState<LocationPrimitives[]>([])
 
-  const searchLocationsByCriteria = useCallback(() => {
+  const searchLocationsByCriteria = useCallback((filter?: SearchByCriteriaQuery) => {
     setLoading(true)
     new LocationGetterByCriteria(new ApiLocationRepository())
-      .get(query)
+      .get(filter)
       .then((location) => {
         setLocations(location)
-        setLoading(false)
       })
       .catch((error) => {
         console.error('searchLocations', error)
         setError('An unexpected error occurred while trying to search Locations')
+      })
+      .finally(() => {
         setLoading(false)
       })
-  }, [query])
-
-  useEffect(() => {
-    searchLocationsByCriteria()
-    return () => {
-      setLocations([])
-    }
-  }, [searchLocationsByCriteria])
+  }, [])
 
   return {
     locations,
     loading,
     error,
-    addFilter,
-    cleanFilters
+    searchLocationsByCriteria
   }
 }

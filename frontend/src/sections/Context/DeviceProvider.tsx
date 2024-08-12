@@ -58,7 +58,7 @@ export const DeviceContextProvider = ({ children, location }: React.PropsWithChi
     return { filters: [...defaultCategoryList.map(id => ({ field: 'categoryId', operator: Operator.EQUAL, value: id }))] }
   }, [defaultCategoryList])
 
-    const { devices, error, loading, searchDevices } = useSearchDevice()
+    const { devices, error, loading, searchDevices, resetDevices } = useSearchDevice()
     const { addFilter, cleanFilters, query } = useSearchByCriteriaQuery(defaultCategoryQuery)
     const { createDevice } = useCreateDevice()
 
@@ -68,14 +68,12 @@ export const DeviceContextProvider = ({ children, location }: React.PropsWithChi
       return res
     }
 
-    // useEffect(() => {      
-    //   cleanFilters()
-    // }, [cleanFilters, defaultCategoryQuery])
-    
-
   useEffect(() => {
     searchDevices(query)
-  }, [query, searchDevices])
+    return () => {
+      resetDevices()
+    }
+  }, [query, resetDevices, searchDevices])
 
         return(
           <DeviceContext.Provider value={{

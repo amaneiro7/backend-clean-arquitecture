@@ -10,6 +10,7 @@ export interface UseDevice {
   loading: boolean
   error: string | null
   searchDevices: (filter: SearchByCriteriaQuery) => void
+  resetDevices: () => void
 }
 
 export const useSearchDevice = (): UseDevice => {
@@ -34,10 +35,15 @@ export const useSearchDevice = (): UseDevice => {
       })
   }, [])
 
+  const resetDevices = useCallback(() => {
+    setDevices([])
+  }, [])
+
   return {
     devices,
     loading,
     error,
-    searchDevices
+    searchDevices,
+    resetDevices
   }
 }

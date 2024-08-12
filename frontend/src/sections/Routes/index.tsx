@@ -7,7 +7,9 @@ const Login = lazy(async () => import('../page/login/LoginPage.tsx'))
 const ProfilePage = lazy(async () => import('../page/profile/ProfilePage.tsx'))
 const NotFound = lazy(async () => import('../page/404/index.tsx'))
 const Layout = lazy(async () => import('../components/Layout.tsx'))
-const DeviceConsumer = lazy(async () => import('../components/DeviceConsumer.tsx'))
+const DeviceConsumer = lazy(async () => import('../Context/Consumer/DeviceConsumer.tsx'))
+const ModelConsumer = lazy(async () => import('../Context/Consumer/ModelConsumer.tsx'))
+const LocationConsumer = lazy(async () => import('../Context/Consumer/LocationConsumer.tsx'))
 const Home = lazy(() => import('../page/home/Home.tsx'))
 const ListadoSitios = lazy(() => import('../page/ListadoSitios/ListadoSitios.tsx'))
 const ListadoModelos = lazy(() => import('../page/ListadoModelos/ListadoModelos.tsx'))
@@ -37,20 +39,25 @@ export default function AppRoutes() {
       >
         <Route path='/' element={<Home />} />
         <Route path='/profile' element={<ProfilePage />} />
-        <Route path='/location' element={<ListadoSitios />} />
-        <Route path='/location/add' element={<CreateLocationForm />} />
-        <Route path='/location/edit/:id' element={<CreateLocationForm />} />  
         <Route path='/employee/add' element={<CreateEmployeeForm />} />
         <Route path='/employee/edit/:id' element={<CreateEmployeeForm />} />
         <Route path='/brand/add' element={<CreateBrandForm />} />
         <Route path='/brand/edit/:id' element={<CreateBrandForm />} />
-        <Route path='/model' element={<ListadoModelos />} />
-        <Route path='/model/add' element={<CreateModelForm />} />
-        <Route path='/model/edit/:id' element={<CreateModelForm />} />
+
         <Route path='/processor/add' element={<CreateProcessorForm />} />
-        <Route path='/processor/edit/:id' element={<CreateProcessorForm />} />        
+        <Route path='/processor/edit/:id' element={<CreateProcessorForm />} />
+        
+        {/* Rutas para el manejo de listados de ubicaciones  */}
+        <Route path='/location' element={<LocationConsumer><ListadoSitios /></LocationConsumer>} />
+        <Route path='/location/add' element={<LocationConsumer><CreateLocationForm /></LocationConsumer>} />
+        <Route path='/location/edit/:id' element={<LocationConsumer><CreateLocationForm /></LocationConsumer>} />
+        
+        {/* Rutas para el manejo de listados de modelos  */}
+        <Route path='/model' element={<ModelConsumer><ListadoModelos /></ModelConsumer>} />
+        <Route path='/model/add' element={<ModelConsumer><CreateModelForm /></ModelConsumer>} />
+        <Route path='/model/edit/:id' element={<ModelConsumer><CreateModelForm /></ModelConsumer>} />
+        
         {/* Rutas para el manejo de listados de dispositivos  */}
-                      
         <Route path='/computer' element={<DeviceConsumer location='computer'><ListComputer /></DeviceConsumer>} />
         <Route path='/monitor' element={<DeviceConsumer location='monitor'><ListMonitor /></DeviceConsumer>} />
         <Route path='/finantialprinter' element={<DeviceConsumer location='finantialPrinter'><ListFinantialPrinter /></DeviceConsumer>} />
