@@ -20,10 +20,10 @@ export const useCategory = (): UseCategory => {
       .get()
       .then((res) => {
         setCategory(res)
-        setLoading(false)
       })
       .catch((error) => {
         setError(error)
+      }).finally(() => {
         setLoading(false)
       })
   }, [])
