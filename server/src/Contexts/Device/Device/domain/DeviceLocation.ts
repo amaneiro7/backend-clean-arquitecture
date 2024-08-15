@@ -1,15 +1,15 @@
-import { type LocationPrimitives } from '../../../Location/Location/domain/Location'
-import { LocationDoesNotExistError } from '../../../Location/Location/domain/LocationDoesNotExistError'
 import { LocationId } from '../../../Location/Location/domain/LocationId'
-import { type LocationRepository } from '../../../Location/Location/domain/LocationRepository'
+import { DeviceStatus } from './DeviceStatus'
 import { TypeOfSiteId } from '../../../Location/TypeOfSite/domain/TypeOfSiteId'
+import { LocationDoesNotExistError } from '../../../Location/Location/domain/LocationDoesNotExistError'
 import { InvalidArgumentError } from '../../../Shared/domain/value-object/InvalidArgumentError'
+import { type LocationRepository } from '../../../Location/Location/domain/LocationRepository'
+import { type LocationPrimitives } from '../../../Location/Location/domain/Location'
 import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
 import { type Device } from './Device'
-import { DeviceStatus } from './DeviceStatus'
 
 export class DeviceLocation extends LocationId {
-  static ensureDeviceBelongsToAppropiateLocationDependsOfStatus (typeOfSite: Primitives<TypeOfSiteId>, status: Primitives<DeviceStatus>): void {
+  static ensureDeviceBelongsToAppropiateLocationDependsOfStatus(typeOfSite: Primitives<TypeOfSiteId>, status: Primitives<DeviceStatus>): void {
     if (status === DeviceStatus.StatusOptions.INUSE && typeOfSite === TypeOfSiteId.TypeOfSiteOptions.ALMACEN) {
       throw new InvalidArgumentError('The device is in use and cannot be in the warehouse')
     }
@@ -18,7 +18,7 @@ export class DeviceLocation extends LocationId {
     }
   }
 
-  static async updateLocationField ({ repository, location, entity }: { repository: LocationRepository, location?: Primitives<LocationId>, entity: Device }): Promise<void> {
+  static async updateLocationField({ repository, location, entity }: { repository: LocationRepository, location?: Primitives<LocationId>, entity: Device }): Promise<void> {
     // Si no se ha pasado un nuevo location no realiza ninguna acción
     if (location === undefined) {
       return
@@ -34,7 +34,7 @@ export class DeviceLocation extends LocationId {
     entity.updateLocation(location)
   }
 
-  static async ensureLocationExit ({ repository, location, status }: { repository: LocationRepository, location: Primitives<LocationId>, status: Primitives<DeviceStatus> }): Promise<void> {
+  static async ensureLocationExit({ repository, location, status }: { repository: LocationRepository, location: Primitives<LocationId>, status: Primitives<DeviceStatus> }): Promise<void> {
     // Searches for a device with the given location in the database
     const deviceWithLocation: LocationPrimitives | null = await repository.searchById(new LocationId(location).toString())
     // If a device with the given location exists, it means that it already exists in the database,

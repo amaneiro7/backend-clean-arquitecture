@@ -1,5 +1,6 @@
 import { useLayoutEffect, useState, useMemo, useCallback } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { useGetDevice } from './useGetDevice'
 import { type HistoryApiResponse, type DevicesApiResponse } from '../../../modules/shared/domain/types/responseTypes'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { type DeviceSerial } from '../../../modules/devices/devices/devices/domain/DeviceSerial'
@@ -24,9 +25,9 @@ import { type DevicePrimitives } from '../../../modules/devices/devices/devices/
 import { type ComputerName } from '../../../modules/devices/fetures/computer/domain/ComputerName'
 import { type DeviceId } from '../../../modules/devices/devices/devices/domain/DeviceId'
 import { type MemoryRamValues } from '../../../modules/devices/fetures/memoryRam/memoryRamCapacity/domain/MemoryRamValue'
-import { MemoryRamSlotQuantity } from '../../../modules/devices/model/ModelCharacteristics/modelComputer/MemoryRamSlotQuantity'
-import { MemoryRamTypeName } from '../../../modules/devices/fetures/memoryRam/memoryRamType/domain/MemoryRamTypeName'
-import { useGetDevice } from './useGetDevice'
+import { type MemoryRamSlotQuantity } from '../../../modules/devices/model/ModelCharacteristics/modelComputer/MemoryRamSlotQuantity'
+import { type MemoryRamTypeName } from '../../../modules/devices/fetures/memoryRam/memoryRamType/domain/MemoryRamTypeName'
+import { type DeviceStockNumber } from '../../../modules/devices/devices/devices/domain/DeviceStockNumber'
 
 export interface DefaultProps {
   id?: Primitives<DeviceId>
@@ -39,6 +40,7 @@ export interface DefaultProps {
   employeeId: Primitives<EmployeeId>
   locationId: Primitives<LocationId>
   observation: Primitives<DeviceObservation>
+  stockNumber: Primitives<DeviceStockNumber>
   computerName?: Primitives<ComputerName>
   processorId?: Primitives<ProcessorId>
   memoryRamCapacity?: Primitives<MemoryRamCapacity>
@@ -67,6 +69,7 @@ const defaultInitialState: DefaultProps = {
   employeeId: '',
   locationId: '',
   observation: '',
+  stockNumber: '',
   computerName: '',
   processorId: '',
   memoryRamCapacity: 0,
@@ -99,8 +102,8 @@ export const useDeviceInitialState = (): {
   }, [location.pathname])
 
   const processDeviceState = useCallback((device: DevicePrimitives): void => {
-    const { serial, activo, statusId, model, modelId, categoryId, brandId, employeeId, locationId, observation, computer, hardDrive, history, updatedAt } = device as DevicesApiResponse
-    setPreloadedDeviceState((prev) => ({ ...prev, id, serial, activo: activo ?? '', statusId, modelId, categoryId, brandId, employeeId, locationId, observation, history, updatedAt }))
+    const { serial, activo, statusId, model, modelId, categoryId, brandId, employeeId, locationId, observation, stockNumber, computer, hardDrive, history, updatedAt } = device as DevicesApiResponse
+    setPreloadedDeviceState((prev) => ({ ...prev, id, serial, activo: activo ?? '', statusId, modelId, categoryId, brandId, employeeId, locationId, observation, stockNumber, history, updatedAt }))
     if (computer !== null) {
       const { computerName, processorId, memoryRamCapacity, hardDriveCapacityId, hardDriveTypeId, operatingSystemArqId, operatingSystemId, macAddress, ipAddress, memoryRam } = computer
       let memoryRamSlotQuantity: undefined | number

@@ -63,6 +63,7 @@ export function initUserModel(sequelize: Sequelize): void {
     {
       modelName: 'User',
       deletedAt: true,
+      paranoid: true,
       timestamps: true,
       underscored: true,
       sequelize

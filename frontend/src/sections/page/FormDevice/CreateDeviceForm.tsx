@@ -5,6 +5,7 @@ import { FormStatus } from '../../Hooks/useGenericForm'
 import { useFormDevice } from './useFormDevice'
 
 
+import { StockNumberInput } from '../../components/text-inputs/StockNumberInput'
 const FormContainer = lazy(async () => await import('../../components/formContainer/formContainer'))
 const DeviceSearchComboBox = lazy(async () => import('../../components/combo_box/DeviceSearchComboBox'))
 const SerialInput = lazy(async () => await import('../../components/text-inputs/SerialInput'))
@@ -93,14 +94,24 @@ export default function CreateDeviceForm() {
           />
         </Suspense>
       </div>
-      <Suspense fallback={<InputSkeletonLoading />}>
-        <LocationComboBox
-          onChange={handleChange}
-          value={formData.locationId}
-          statusId={formData.statusId}
-          type='form'
-        />
-      </Suspense>
+      <div className='flex gap-4'>
+        <Suspense fallback={<InputSkeletonLoading />}>
+          <LocationComboBox
+            onChange={handleChange}
+            value={formData.locationId}
+            statusId={formData.statusId}
+            type='form'
+          />
+        </Suspense>
+        <Suspense fallback={<InputSkeletonLoading />}>
+          <StockNumberInput
+            onChange={handleChange}
+            value={formData.stockNumber}
+            status={formData.statusId}
+            type='form'
+          />
+        </Suspense>
+      </div>
       <div className='flex gap-4'>            
         <Suspense fallback={<InputSkeletonLoading />}>
           <EmployeeComboBox

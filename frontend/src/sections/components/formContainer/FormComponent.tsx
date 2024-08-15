@@ -38,15 +38,15 @@ export function FormComponent ({ handleSubmit, lastUpdated, updatedBy, handleClo
             hoverTranslation
             size='full'
             icon={
-                  isDisabled ? 
-                    <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>
-                      <CircleSpinningIcon width={20} />
-                    </Suspense>
-                  : 
-                    <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>
-                      <RightArrowIcon width={20} className='aspect-square fill-white' />                      
-                    </Suspense>
-                  }
+                    isDisabled ? 
+                      <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>
+                        <CircleSpinningIcon width={20} />
+                      </Suspense>
+                    : 
+                      <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>
+                        <RightArrowIcon width={20} className='aspect-square fill-white' />                      
+                      </Suspense>
+                    }
           />
           <Button
             type='button'
@@ -61,14 +61,14 @@ export function FormComponent ({ handleSubmit, lastUpdated, updatedBy, handleClo
               <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>
                 <CancelIcon width={20} className='aspect-square' />
               </Suspense>
-                  }
+                    }
           />
-                         
-        </div>          
+                          
+        </div>
         <p className='justify-self-end text-sm text-black/80'>
           {lastUpdated !== undefined && <LastUpdated updatedAt={lastUpdated} />}              
           {(updatedBy !== undefined && updatedBy.length > 0) && <UpdatedBy history={updatedBy} />}              
-        </p>          
+        </p>        
       </fieldset>
     </form>
   )

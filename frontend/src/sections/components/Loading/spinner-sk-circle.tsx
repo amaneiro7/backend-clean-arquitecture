@@ -16,7 +16,7 @@ export function SpinnerSKCircle() {
           <div className='sk-circle11 sk-child' />
           <div className='sk-circle12 sk-child' />
         </div>
-        <p>Procesando...</p>
+        <p className='sk-text text-white'>Procesando...</p>
       </div>
     )
 }

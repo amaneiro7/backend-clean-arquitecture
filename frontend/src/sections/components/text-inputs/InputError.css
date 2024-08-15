@@ -144,8 +144,16 @@
   border-color: rgba(0, 0, 0, 0.23);
 }
 
+.inputBox .inputArea input:disabled + fieldset {
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
 .inputBox:hover fieldset {
   border-color: rgba(0, 0, 0, 0.87);
+}
+
+.inputBox:hover .inputArea input:disabled + fieldset {
+  border-color: rgba(0, 0, 0, 0.1);
 }
 
 .inputBox fieldset legend {

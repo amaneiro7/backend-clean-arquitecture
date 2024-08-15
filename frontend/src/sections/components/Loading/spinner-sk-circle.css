@@ -1,4 +1,8 @@
-.sk-circle {  
+.sk-text {
+  text-shadow: 2px 2px 7px #1a0b07;
+}
+
+.sk-circle {
   width: 40px;
   height: 40px;
   position: relative;
@@ -15,7 +19,7 @@
   display: block;
   margin: 0 auto;
   width: 15%;
-  height: 15%;  
+  height: 15%;
   border-radius: 100%;
   -webkit-animation: sk-circleBounceDelay 1.2s infinite ease-in-out both;
   animation: sk-circleBounceDelay 1.2s infinite ease-in-out both;

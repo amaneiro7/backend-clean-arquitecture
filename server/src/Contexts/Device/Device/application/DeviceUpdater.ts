@@ -3,7 +3,6 @@ import { DeviceComputer, type DeviceComputerPrimitives } from '../../../Features
 import { ComputerHardDriveCapacity } from '../../../Features/Computer/domain/ComputerHardDriveCapacity'
 import { ComputerHardDriveType } from '../../../Features/Computer/domain/ComputerHardDriveType'
 import { ComputerMemoryRam } from '../../../Features/Computer/domain/ComputerMemoryRam'
-import { ComputerMemoryRamCapacity } from '../../../Features/Computer/domain/ComputerMemoryRamCapacity'
 import { ComputerName } from '../../../Features/Computer/domain/ComputerName'
 import { ComputerOperatingSystem } from '../../../Features/Computer/domain/ComputerOperatingSystem'
 import { ComputerOperatingSystemArq } from '../../../Features/Computer/domain/ComputerOperatingSystemArq'
@@ -28,6 +27,7 @@ import { DeviceModelSeries } from '../domain/DeviceModelSeries'
 import { DeviceObservation } from '../domain/DeviceObservation'
 import { DeviceSerial } from '../domain/DeviceSerial'
 import { DeviceStatus } from '../domain/DeviceStatus'
+import { DeviceStocknumber } from '../domain/DeviceStock'
 import { type DevicesApiResponse } from '../infrastructure/sequelize/DeviceResponse'
 import { type DeviceParams } from './DeviceCreator'
 
@@ -72,6 +72,7 @@ export class DeviceUpdater {
         categoryId: device.categoryId,
         brandId: device.brandId,
         modelId: device.modelId,
+        stockNumber: device.stockNumber,
         employeeId: device.employeeId,
         locationId: device.locationId,
         observation: device.observation,
@@ -84,7 +85,7 @@ export class DeviceUpdater {
         operatingSystemId: computer.operatingSystemId,
         operatingSystemArqId: computer.operatingSystemArqId,
         macAddress: computer.macAddress,
-        ipAddress: computer.ipAddress
+        ipAddress: computer.ipAddress,
       })
       oldDeviceEntity = structuredClone(deviceEntity.toPrimitives())
       // Actualizamos los campos principales del device
@@ -122,9 +123,10 @@ export class DeviceUpdater {
         employeeId: device.employeeId,
         locationId: device.locationId,
         observation: device.observation,
+        stockNumber: device.stockNumber,
         hardDriveCapacityId: hardDrive.hardDriveCapacityId,
         hardDriveTypeId: hardDrive.hardDriveTypeId,
-        health: hardDrive.health
+        health: hardDrive.health,
       })
 
       oldDeviceEntity = structuredClone(deviceEntity.toPrimitives())
@@ -173,12 +175,13 @@ export class DeviceUpdater {
    * @param deviceEntity Entidad del device
    */
   private async updateMainDevice({ params, deviceEntity }: { params: PartialDeviceParams, deviceEntity: Device }): Promise<void> {
-    const { serial, activo, statusId, categoryId, brandId, modelId, employeeId, locationId, observation } = params
+    const { serial, activo, statusId, categoryId, brandId, modelId, employeeId, locationId, observation, stockNumber } = params
     await DeviceActivo.updateActivoField({ repository: this.repository.device, activo, entity: deviceEntity })
     await DeviceSerial.updateSerialField({ repository: this.repository.device, serial, entity: deviceEntity })
     await DeviceStatus.updateStatusField({ repository: this.repository.status, status: statusId, entity: deviceEntity })
     await DeviceLocation.updateLocationField({ repository: this.repository.location, location: locationId, entity: deviceEntity })
     await DeviceObservation.updateObservationField({ observation, entity: deviceEntity })
+    await DeviceStocknumber.updateStockNumberField({ stockNumber, entity: deviceEntity })
     await DeviceEmployee.updateEmployeeField({ repository: this.repository.employee, employee: employeeId, entity: deviceEntity })
     await DeviceModelSeries.updateModelField({ repository: this.repository.modelSeries, modelSeries: modelId, category: categoryId, brand: brandId, entity: deviceEntity })
   }

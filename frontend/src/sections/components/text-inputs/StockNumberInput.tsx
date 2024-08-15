@@ -1,43 +1,42 @@
 import { lazy, useEffect, useRef, useState } from 'react'
-import { IPAddress } from '../../../modules/devices/fetures/computer/domain/IPAddress'
 import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { StatusId } from '../../../modules/devices/devices/status/domain/StatusId'
+import { DeviceStockNumber } from '../../../modules/devices/devices/devices/domain/DeviceStockNumber'
 import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
 
 interface Props {
-  value: Primitives<IPAddress>
+  value: Primitives<DeviceStockNumber>
   status?: Primitives<StatusId>
   onChange: OnHandleChange
   type?: 'form' | 'search' | 'dialog'
 }
 
-const Input = lazy(async () => import('./Input').then(m => ({default: m.Input})))
+const FormInput = lazy(async () => import('./Input').then(m => ({default: m.Input})))
 
-export function IpAddressInput({ value, status, onChange, type = 'form' }: Props) {
+export function StockNumberInput({ value, status, onChange, type = 'form' }: Props) {
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
   const isFirstInput = useRef(true)
   const [isDisabled, setIsDisabled] = useState(false)
+  
   useEffect(() => {
     if (type !== 'form') return
-    if (status !== StatusId.StatusOptions.INUSE) {
-      onChange('ipAddress', '')
+    if (!(status === StatusId.StatusOptions.INALMACEN || status === StatusId.StatusOptions.PORDESINCORPORAR)) {
+      onChange('stockNumber', '')
       setIsDisabled(true)
     } else {
       setIsDisabled(false)
     }
-
-
+    
     if (isFirstInput.current) {
       isFirstInput.current = value === ''
       return
     }
-
-    const isValid = IPAddress.isValid(value, status)
-
+    const isValid = DeviceStockNumber.isValid(value, status)
+    
     setIsError(!isValid)
-    setErrorMessage(isValid ? '' : IPAddress.invalidMessage())
+    setErrorMessage(isValid ? '' : DeviceStockNumber.invalidMessage())
 
     return () => {
       setErrorMessage('')
@@ -47,12 +46,12 @@ export function IpAddressInput({ value, status, onChange, type = 'form' }: Props
 
 
   return (
-    <Input
-      id='ipAddress'
-      name='ipAddress'
+    <FormInput
+      id='stockNumber'
+      name='stockNumber'
       type='text'
-      label='Direccion IP'
-      isRequired={type === 'form' && !isDisabled}
+      label='N° Stock'
+      isRequired={false}
       disabled={isDisabled}
       onChange={(event) => {
           const { name, value } = event.target

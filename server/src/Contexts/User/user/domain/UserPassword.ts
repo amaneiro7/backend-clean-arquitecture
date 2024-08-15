@@ -7,7 +7,7 @@ export class UserPassword extends StringValueObject {
   private readonly hasUppercase = /[A-Z]/
   private readonly hasLowercase = /[a-z]/
   private readonly hasNumber = /\d/
-  private readonly hasSpecialCharacter = /[!@#$%^&*.]/
+  private readonly hasSpecialCharacter = /[!@#$%^&()*.]/
 
   static readonly defaultPassword = 'Avion01.'
 

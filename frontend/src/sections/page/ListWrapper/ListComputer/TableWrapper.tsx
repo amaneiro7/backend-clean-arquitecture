@@ -13,7 +13,7 @@ export const TablerWraper = memo(({children, style}: {style: React.CSSProperties
         <TableHead size='min-w-20' name='Acciones' />
         <TableHead size='min-w-28' name='Usuario' />
         <TableHead size='min-w-52' name='Ubicación' />
-        <TableHead size='min-w-24' name='Dirección IP' />
+        <TableHead size='min-w-28' name='Dirección IP' />
         <TableHead size='min-w-32' name='Serial' />
         <TableHead size='min-w-20' name='Estado' />
         <TableHead size='min-w-28' name='Categoria' />

@@ -12,6 +12,7 @@ import { type DeviceObservation } from '../../domain/DeviceObservation'
 import { type DeviceLocation } from '../../domain/DeviceLocation'
 import { type DeviceModelSeries } from '../../domain/DeviceModelSeries'
 import { type DeviceStatus } from '../../domain/DeviceStatus'
+import { type DeviceStocknumber } from '../../domain/DeviceStock'
 
 export class DeviceModel extends Model<DevicePrimitives> implements DevicePrimitives {
   readonly id!: Primitives<DeviceId>
@@ -24,6 +25,7 @@ export class DeviceModel extends Model<DevicePrimitives> implements DevicePrimit
   readonly employeeId!: Primitives<DeviceEmployee>
   readonly locationId!: Primitives<DeviceLocation>
   readonly observation!: Primitives<DeviceObservation>
+  readonly stockNumber!: Primitives<DeviceStocknumber>
 
   public static associate(models: Models): void {
     this.belongsTo(models.Category, { as: 'category', foreignKey: 'categoryId' }) // A device belongs to a category
@@ -83,6 +85,10 @@ export function initDeviceModel(sequelize: Sequelize): void {
       },
       observation: {
         type: DataTypes.TEXT,
+        allowNull: true
+      },
+      stockNumber: {
+        type: DataTypes.STRING,
         allowNull: true
       }
     },

@@ -3,7 +3,7 @@ export class UserPassword {
   static readonly hasUppercase = /[A-Z]/
   static readonly hasLowercase = /[a-z]/
   static readonly hasNumber = /\d/
-  static readonly hasSpecialCharacter = /[!@#$%^&*.]/
+  static readonly hasSpecialCharacter = /[!@#$%^&()*.]/
 
   private static errors: string = ''
 

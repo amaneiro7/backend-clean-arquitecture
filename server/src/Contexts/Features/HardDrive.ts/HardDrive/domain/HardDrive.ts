@@ -15,6 +15,7 @@ import { DeviceObservation } from '../../../../Device/Device/domain/DeviceObserv
 import { HDDCapacity } from './HDDCapacity'
 import { HDDType } from './HDDType'
 import { InvalidArgumentError } from '../../../../Shared/domain/value-object/InvalidArgumentError'
+import { DeviceStocknumber } from '../../../../Device/Device/domain/DeviceStock'
 
 export interface DeviceHardDrivePrimitives extends DevicePrimitives {
   health: Primitives<HardDriveHealth>
@@ -34,11 +35,12 @@ export class DeviceHardDrive extends Device {
     employeeId: DeviceEmployee,
     locationId: LocationId,
     observation: DeviceObservation,
+    stockNumber: DeviceStocknumber,
     private health: HardDriveHealth,
     private hardDriveCapacityId: HDDCapacity,
     private hardDriveTypeId: HDDType
   ) {
-    super(id, serial, activo, statusId, categoryId, brandId, modelId, employeeId, locationId, observation)
+    super(id, serial, activo, statusId, categoryId, brandId, modelId, employeeId, locationId, observation, stockNumber)
 
     if (!DeviceHardDrive.isHardDriveCategory({ categoryId: categoryId.value })) {
       throw new InvalidArgumentError('No pertenece a la categoria de Disco duro')
@@ -58,6 +60,7 @@ export class DeviceHardDrive extends Device {
       new DeviceEmployee(params.employeeId, params.statusId),
       new LocationId(params.locationId),
       new DeviceObservation(params.observation),
+      new DeviceStocknumber(params.stockNumber, params.statusId),
       new HardDriveHealth(params.health),
       new HDDCapacity(params.hardDriveCapacityId),
       new HDDType(params.hardDriveTypeId)
@@ -93,6 +96,7 @@ export class DeviceHardDrive extends Device {
       new DeviceEmployee(primitives.employeeId, primitives.statusId),
       new LocationId(primitives.locationId),
       new DeviceObservation(primitives.observation),
+      new DeviceStocknumber(primitives.stockNumber, primitives.statusId),
       new HardDriveHealth(primitives.health),
       new HDDCapacity(primitives.hardDriveCapacityId),
       new HDDType(primitives.hardDriveTypeId)
@@ -111,6 +115,7 @@ export class DeviceHardDrive extends Device {
       employeeId: this.employeeeValue,
       locationId: this.locationValue,
       observation: this.observationValue,
+      stockNumber: this.stockNumberValue,
       health: this.healthValue,
       hardDriveCapacityId: this.hardDriveCapacityValue,
       hardDriveTypeId: this.hardDriveTypeValue

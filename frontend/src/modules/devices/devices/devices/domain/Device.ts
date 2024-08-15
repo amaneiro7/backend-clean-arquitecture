@@ -1,14 +1,15 @@
-import { LocationId } from '../../../../location/locations/domain/locationId'
 import { type Primitives } from '../../../../shared/domain/value-object/Primitives'
+import { type DeviceId } from './DeviceId'
+import { LocationId } from '../../../../location/locations/domain/locationId'
 import { BrandId } from '../../../brand/domain/BrandId'
 import { CategoryId } from '../../../category/domain/CategoryId'
 import { ModelId } from '../../../model/model/domain/ModelId'
 import { StatusId } from '../../status/domain/StatusId'
 import { DeviceActivo } from './DeviceActivo'
 import { DeviceEmployee } from './DeviceEmployee'
-import { type DeviceId } from './DeviceId'
 import { DeviceObservation } from './DeviceObservation'
 import { DeviceSerial } from './DeviceSerial'
+import { DeviceStockNumber } from './DeviceStockNumber'
 
 export interface DevicePrimitives {
   id?: Primitives<DeviceId>
@@ -21,9 +22,10 @@ export interface DevicePrimitives {
   employeeId: Primitives<DeviceEmployee>
   locationId: Primitives<LocationId>
   observation: Primitives<DeviceObservation>
+  stockNumber: Primitives<DeviceStockNumber>
 }
 export class Device {
-  constructor (
+  constructor(
     private readonly serial: DeviceSerial,
     private readonly activo: DeviceActivo,
     private readonly statusId: StatusId,
@@ -32,10 +34,11 @@ export class Device {
     private readonly modelId: ModelId,
     private readonly employeeId: DeviceEmployee,
     private readonly locationId: LocationId,
-    private readonly observation: DeviceObservation
-  ) {}
+    private readonly observation: DeviceObservation,
+    private readonly stockNumber: DeviceStockNumber
+  ) { }
 
-  public static create (params: DevicePrimitives): Device {
+  public static create(params: DevicePrimitives): Device {
     return new Device(
       new DeviceSerial(params.serial),
       new DeviceActivo(params.activo),
@@ -45,47 +48,52 @@ export class Device {
       new ModelId(params.modelId),
       new DeviceEmployee(params.employeeId, params.statusId),
       new LocationId(params.locationId),
-      new DeviceObservation(params.observation)
+      new DeviceObservation(params.observation),
+      new DeviceStockNumber(params.stockNumber, params.statusId)
     )
   }
 
-  serialValue (): Primitives<DeviceSerial> {
+  serialValue(): Primitives<DeviceSerial> {
     return this.serial.value
   }
 
-  activoValue (): Primitives<DeviceActivo> | null {
+  activoValue(): Primitives<DeviceActivo> | null {
     return this.activo.value
   }
 
-  statusValue (): Primitives<StatusId> {
+  statusValue(): Primitives<StatusId> {
     return this.statusId.value
   }
 
-  categoryValue (): Primitives<CategoryId> {
+  categoryValue(): Primitives<CategoryId> {
     return this.categoryId.value
   }
 
-  brandValue (): Primitives<BrandId> {
+  brandValue(): Primitives<BrandId> {
     return this.brandId.value
   }
 
-  modelValue (): Primitives<ModelId> {
+  modelValue(): Primitives<ModelId> {
     return this.modelId.value
   }
 
-  employeeValue (): Primitives<DeviceEmployee> {
+  employeeValue(): Primitives<DeviceEmployee> {
     return this.employeeId.value
   }
 
-  locationValue (): Primitives<LocationId> {
+  locationValue(): Primitives<LocationId> {
     return this.locationId.value
   }
 
-  observationValue (): Primitives<DeviceObservation> {
+  observationValue(): Primitives<DeviceObservation> {
     return this.observation.value
   }
 
-  toPrimitives (): DevicePrimitives {
+  stockNumberValue(): Primitives<DeviceStockNumber> {
+    return this.stockNumber.value
+  }
+
+  toPrimitives(): DevicePrimitives {
     return {
       serial: this.serialValue(),
       activo: this.activoValue(),
@@ -95,7 +103,8 @@ export class Device {
       brandId: this.brandValue(),
       employeeId: this.employeeValue(),
       locationId: this.locationValue(),
-      observation: this.observationValue()
+      observation: this.observationValue(),
+      stockNumber: this.stockNumberValue()
     }
   }
 }
