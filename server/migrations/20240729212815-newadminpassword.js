@@ -1,14 +1,11 @@
 'use strict';
 
+const bcrypt = require('bcrypt');
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    /**
-     * Add altering commands here.
-     *
-     * Example:
-     * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
-     */
+    const password = await bcrypt.hash('2Tec2024BNC(app)', 10)
+    await queryInterface.bulkUpdate('users', { password }, { email: 'admin@bnc.com.ve' })
   },
 
   async down (queryInterface, Sequelize) {
