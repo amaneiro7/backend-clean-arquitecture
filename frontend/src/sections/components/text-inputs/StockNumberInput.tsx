@@ -59,7 +59,7 @@ export function StockNumberInput({ value, status, onChange, type = 'form' }: Pro
           // value = value.replace(/\D/g, '').trim() // Remove non-numeric characters from input
           // value = value.replace(/(\d{3})(?=\d)/g, '$1.') // Add dots every 3 digits          
           const newValue = isDisabled ? '' : value
-          onChange(name, newValue, Operator.CONTAINS)
+          onChange(name, newValue.toUpperCase(), Operator.CONTAINS)
         }}
       value={value ?? ''}
       error={isError}
