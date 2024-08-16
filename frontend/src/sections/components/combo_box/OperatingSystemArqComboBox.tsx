@@ -59,7 +59,7 @@ export function OperatingSystemArqComboBox({ value, operatingSystem, onChange, t
       <ComboBox
         id='operatingSystemArqId'
         initialValue={initialValue}
-        label='Arquitectura del Sistema Operativo'
+        label='Arquitectura'
         name='operatingSystemArqId'
         type={type}
         onChange={(_, newValue: OperatingSystemArqPrimitives) => {
@@ -68,7 +68,6 @@ export function OperatingSystemArqComboBox({ value, operatingSystem, onChange, t
         }}
         options={operatingSystemArq}
         isRequired={isRequired}
-        placeholder='-- Filtre Arquitectura del Sistema Operativo --'
         isDisabled={isDisabled}
         loading={loading}
         isError={isError}

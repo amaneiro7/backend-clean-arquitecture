@@ -13,7 +13,7 @@ export function ProfileStepsToFollow() {
         text='Para modificar un usuario, oprima '
         iconText='Editar' 
         icon={
-          <Suspense fallback={<div className='w-4 h-4 rounded-full bg-slate-200 animate-pulse' />}>
+          <Suspense fallback={<span className='w-4 h-4 rounded-full bg-slate-200 animate-pulse' />}>
             <EditIcon width={16} />
           </Suspense>
         } 
@@ -24,7 +24,7 @@ export function ProfileStepsToFollow() {
         text='Para restablecer la contraseña de un usuario (La contraseña por defecto es Avion01.), oprima ' 
         iconText='Restablecer Contraseña' 
         icon={
-          <Suspense fallback={<div className='w-4 h-4 rounded-full bg-slate-200 animate-pulse' />}>
+          <Suspense fallback={<span className='w-4 h-4 rounded-full bg-slate-200 animate-pulse' />}>
             <ResetIcon width={16} />
           </Suspense>
         } 
@@ -35,7 +35,7 @@ export function ProfileStepsToFollow() {
         text='Para eliminar un usuario, oprima ' 
         iconText='Eliminar usuario' 
         icon={
-          <Suspense fallback={<div className='w-4 h-4 rounded-full bg-slate-200 animate-pulse' />}>
+          <Suspense fallback={<span className='w-4 h-4 rounded-full bg-slate-200 animate-pulse' />}>
             <ThrashIcon width={16} />
           </Suspense>
         } 

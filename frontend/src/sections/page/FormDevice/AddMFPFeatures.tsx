@@ -23,8 +23,7 @@ export default function AddMFPFeatures({ formData, onChange }: Props) {
               type='form'
             />
           </Suspense>          
-        </>
-      }
+        </>}
     </>
   )
 }

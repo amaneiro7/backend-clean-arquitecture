@@ -12,7 +12,7 @@ interface Props {
   type?: 'form' | 'search' | 'dialog'
 }
 
-const FormInput = lazy(async () => import('./Input').then(m => ({default: m.Input})))
+const Input = lazy(async () => import('./Input').then(m => ({default: m.Input})))
 
 export function StockNumberInput({ value, status, onChange, type = 'form' }: Props) {
   const [errorMessage, setErrorMessage] = useState('')
@@ -46,13 +46,14 @@ export function StockNumberInput({ value, status, onChange, type = 'form' }: Pro
 
 
   return (
-    <FormInput
+    <Input
       id='stockNumber'
       name='stockNumber'
       type='text'
       label='N° Stock'
       isRequired={false}
       disabled={isDisabled}
+      classNameCon='max-w-40'
       onChange={(event) => {
           const { name, value } = event.target
           // value = value.replace(/\D/g, '').trim() // Remove non-numeric characters from input

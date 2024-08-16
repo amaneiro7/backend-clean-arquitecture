@@ -57,7 +57,7 @@ export default function HardDriveTypeComboBox({ value, hardDriveCapacity, onChan
       <ComboBox
         id='hardDriveTypeId'
         initialValue={initialValue}
-        label='Tipo de Disco Duro'
+        label='Tipo'
         name='hardDriveTypeId'
         type={type}
         onChange={(_, newValue: HardDriveTypePrimitives) => {

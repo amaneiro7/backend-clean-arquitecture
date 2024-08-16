@@ -51,7 +51,7 @@ export function HardDriveCapacityComboBox ({ value, status, onChange, type = 'se
         <ComboBox
           id='hardDriveCapacityId'
           initialValue={initialValue}
-          label='Capacidad de Disco Duro'
+          label='Disco Duro'
           name='hardDriveCapacityId'
           type={type}
           onChange={(_, newValue: HardDrivePrimitives) => {
@@ -60,7 +60,6 @@ export function HardDriveCapacityComboBox ({ value, status, onChange, type = 'se
                 }}
           options={hardDriveCapacity}
           isRequired={isRequired}
-          placeholder='-- Filtre por Tamaño de Disco --'
           isDisabled={false}
           loading={loading}
           isError={isError}

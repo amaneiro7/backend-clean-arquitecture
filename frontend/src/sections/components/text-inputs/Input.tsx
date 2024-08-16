@@ -7,11 +7,12 @@ interface InputProps<T extends string | number | readonly string[]> extends Reac
   error?: boolean
   valid?: boolean
   errorMessage?: string
+  classNameCon?:string
 }
-export function Input<T extends string | number | readonly string[]>({ error, valid, value, errorMessage, label, isRequired = false, ...props }: InputProps<T>) {
+export function Input<T extends string | number | readonly string[]>({ error, valid, value, errorMessage, label, classNameCon, isRequired = false, ...props }: InputProps<T>) {
     return (
       <div
-        className={`inputBox group after:text-error ${error ? 'error' : null}`}
+        className={`inputBox group after:text-error ${error ? 'error' : null} ${classNameCon}`}
         data-error={errorMessage} 
       >
         <label 

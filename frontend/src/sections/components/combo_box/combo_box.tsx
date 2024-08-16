@@ -1,4 +1,4 @@
-import { lazy, PropsWithChildren, Suspense } from 'react'
+import { lazy, PropsWithChildren } from 'react'
 import { createFilterOptions } from '@mui/material'
 import parse from 'autosuggest-highlight/parse'
 import match from 'autosuggest-highlight/match'
@@ -96,18 +96,18 @@ export default function ComboBox<T, Multiple extends boolean, Disable extends bo
         clearOnEscape
         clearOnBlur        
         handleHomeEndKeys        
-        clearIcon={<Suspense><CloseIcon fontSize='small' /></Suspense>}
+        clearIcon={<CloseIcon fontSize='small' />}
         renderInput={(params) => (
           <TextField
             {...params}
             label={label}
-            name={name}
+            name={name}                  
             required={isRequired}
             InputProps={{
               ...params.InputProps,
               endAdornment: (
                 <>
-                  {loading && <Suspense><CircularProgress color='inherit' size={20} /></Suspense>}
+                  {loading && <CircularProgress color='inherit' size={20} />}
                   {params.InputProps.endAdornment}
                 </>
               ),

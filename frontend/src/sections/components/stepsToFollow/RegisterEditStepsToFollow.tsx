@@ -12,7 +12,7 @@ export function RegisterEditStepsToFollow() {
         text='Ingrese el Nombre, el Apellido, el correo electrónico y el cargo del usuario, si es correcto, oprima ' 
         iconText='Continuar' 
         icon={
-          <Suspense fallback={<div className='w-4 h-4 rounded-full bg-slate-200 animate-pulse' />}>
+          <Suspense fallback={<span className='w-4 h-4 rounded-full bg-slate-200 animate-pulse' />}>
             <RightArrowIcon width={16} className='fill-white' />
           </Suspense>
         } 
@@ -23,7 +23,7 @@ export function RegisterEditStepsToFollow() {
         text='Si desea abortar la operación, oprima ' 
         iconText='Cancelar' 
         icon={
-          <Suspense fallback={<div className='w-4 h-4 rounded-full bg-slate-200 animate-pulse' />}>
+          <Suspense fallback={<span className='w-4 h-4 rounded-full bg-slate-200 animate-pulse' />}>
             <CancelIcon width={16} />
           </Suspense>
         } 

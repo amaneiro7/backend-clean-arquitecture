@@ -2,6 +2,7 @@ import { lazy } from 'react'
 import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
 
 interface Props {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   formData: any
   onChange: OnHandleChange
 }

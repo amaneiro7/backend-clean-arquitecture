@@ -1,11 +1,10 @@
-import {lazy, Suspense } from 'react'
+import { lazy, Suspense } from 'react'
 import { useLocation } from 'react-router-dom'
 import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoading'
 import { FormStatus } from '../../Hooks/useGenericForm'
 import { useFormDevice } from './useFormDevice'
 
 
-import { StockNumberInput } from '../../components/text-inputs/StockNumberInput'
 const FormContainer = lazy(async () => await import('../../components/formContainer/formContainer'))
 const DeviceSearchComboBox = lazy(async () => import('../../components/combo_box/DeviceSearchComboBox'))
 const SerialInput = lazy(async () => await import('../../components/text-inputs/SerialInput'))
@@ -17,6 +16,7 @@ const BrandComboBox = lazy(async () => await import('../../components/combo_box/
 const CategoryComboBox = lazy(async () => await import('../../components/combo_box/CategoryComboBox'))
 const LocationComboBox = lazy(async () => await import('../../components/combo_box/LocationComboBox'))
 const ModelComboBox = lazy(async () => await import('../../components/combo_box/ModelComboBox'))
+const StockNumberInput = lazy(async () => import('../../components/text-inputs/StockNumberInput').then(m => ({ default: m.StockNumberInput})))
 const DeviceFeatures = lazy(async () => await import('./DeviceFeatures'))
 
 export default function CreateDeviceForm() {
@@ -37,7 +37,14 @@ export default function CreateDeviceForm() {
       url='/device/add'
       searchInput={<DeviceSearchComboBox />}
     >
-      <div className='flex gap-4'>
+      <div className='grid grid-cols-[repeat(auto-fit,minmax(450px,1fr))] gap-4'>
+        <Suspense fallback={<InputSkeletonLoading />}>
+          <StatusComboBox
+            value={formData.statusId}
+            onChange={handleChange}
+            type='form'
+          />
+        </Suspense>        
         <Suspense fallback={<InputSkeletonLoading />}>
           <CategoryComboBox
             value={formData.categoryId}
@@ -46,16 +53,6 @@ export default function CreateDeviceForm() {
             isAdd={isAddForm}
           />
         </Suspense>
-        <Suspense fallback={<InputSkeletonLoading />}>
-          <StatusComboBox
-            value={formData.statusId}
-            onChange={handleChange}
-            type='form'
-          />
-        </Suspense>
-
-      </div>
-      <div className='flex gap-4'>
         <Suspense fallback={<InputSkeletonLoading />}>
           <BrandComboBox
             value={formData.brandId}
@@ -75,9 +72,6 @@ export default function CreateDeviceForm() {
             isAdd={isAddForm}
           />
         </Suspense>
-
-      </div>
-      <div className='flex gap-4'>
         <Suspense fallback={<InputSkeletonLoading />}>
           <SerialInput
             value={formData.serial}
@@ -92,27 +86,7 @@ export default function CreateDeviceForm() {
             onChange={handleChange}
             isForm
           />
-        </Suspense>
-      </div>
-      <div className='flex gap-4'>
-        <Suspense fallback={<InputSkeletonLoading />}>
-          <LocationComboBox
-            onChange={handleChange}
-            value={formData.locationId}
-            statusId={formData.statusId}
-            type='form'
-          />
-        </Suspense>
-        <Suspense fallback={<InputSkeletonLoading />}>
-          <StockNumberInput
-            onChange={handleChange}
-            value={formData.stockNumber}
-            status={formData.statusId}
-            type='form'
-          />
-        </Suspense>
-      </div>
-      <div className='flex gap-4'>            
+        </Suspense>        
         <Suspense fallback={<InputSkeletonLoading />}>
           <EmployeeComboBox
             onChange={handleChange}
@@ -122,6 +96,24 @@ export default function CreateDeviceForm() {
             value={formData.employeeId}
           />
         </Suspense>
+        <div className='flex gap-5 col-span-2'>
+          <Suspense fallback={<InputSkeletonLoading />}>
+            <LocationComboBox
+              onChange={handleChange}
+              value={formData.locationId}
+              statusId={formData.statusId}
+              type='form'
+            />
+          </Suspense>
+          <Suspense fallback={<InputSkeletonLoading />}>
+            <StockNumberInput
+              onChange={handleChange}
+              value={formData.stockNumber}
+              status={formData.statusId}
+              type='form'
+            />
+          </Suspense>
+        </div>        
         <Suspense fallback={<InputSkeletonLoading />}>
           <ObservationInput
             onChange={handleChange}
@@ -129,11 +121,13 @@ export default function CreateDeviceForm() {
           />
         </Suspense>
       </div>
+      <div className='grid grid-cols-[repeat(auto-fit,minmax(450px,1fr))] gap-4'>
+        <DeviceFeatures
+          formData={formData}
+          onChange={handleChange}
+        />
+      </div>
           
-      <DeviceFeatures
-        formData={formData}
-        onChange={handleChange}
-      />
           
     </FormContainer>
   )

@@ -25,24 +25,24 @@ export default function AddHardDriveFeatures({ formData, onChange }: Props) {
               isRequired
             />
           </Suspense>
-          <div className='flex gap-4'>
-            <Suspense fallback={<InputSkeletonLoading />}>
-              <HardDriveCapacityComboBox
-                onChange={onChange}
-                value={formData.hardDriveCapacityId}
-                type='form'
-                status={formData.statusId}
-              />
-            </Suspense>
-            <Suspense fallback={<InputSkeletonLoading />}>
-              <HardDriveTypeComboBox
-                onChange={onChange}
-                value={formData.hardDriveTypeId}
-                type='form'
-                hardDriveCapacity={formData.hardDriveCapacityId}
-              />
-            </Suspense>
-          </div>
+          
+          <Suspense fallback={<InputSkeletonLoading />}>
+            <HardDriveCapacityComboBox
+              onChange={onChange}
+              value={formData.hardDriveCapacityId}
+              type='form'
+              status={formData.statusId}
+            />
+          </Suspense>
+          <Suspense fallback={<InputSkeletonLoading />}>
+            <HardDriveTypeComboBox
+              onChange={onChange}
+              value={formData.hardDriveTypeId}
+              type='form'
+              hardDriveCapacity={formData.hardDriveCapacityId}
+            />
+          </Suspense>
+          
         </>}
     </>
   )
