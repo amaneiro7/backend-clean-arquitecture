@@ -4,21 +4,22 @@ export class DeviceSerial {
   static readonly notLowerCase = /^[^a-z]*$/
   static readonly notSpecialCharacterOnlyGuiones = /^[^\W_]*-?[^\W_]*$/
   static errors: string = ''
-  constructor (readonly value: string) {
+  constructor(readonly value: string) {
     if (!DeviceSerial.isValid(value)) {
       throw new Error(DeviceSerial.invalidMessage())
     }
   }
 
-  private static updateError (error: string): void {
+  private static updateError(error: string): void {
     DeviceSerial.errors = error
   }
 
-  private static get errorsValue (): string {
+  private static get errorsValue(): string {
     return DeviceSerial.errors
   }
 
-  public static isValid (value: string): boolean {
+  public static isValid(value: string): boolean {
+    if (value === null || value === '') return true
     const errorMesagge: string[] = []
     const isHasNotSpecialCharacterOnlyGuiones = this.notSpecialCharacterOnlyGuiones.test(value)
     if (!isHasNotSpecialCharacterOnlyGuiones) {
@@ -28,7 +29,7 @@ export class DeviceSerial {
     if (!isNotHasLowerCharacter) {
       errorMesagge.push("El Serial debe estar en mayúsculas")
     }
-    const isNameValidLength = value.length >= this.NAME_MIN_LENGTH && value.length <= this.NAME_MAX_LENGTH
+    const isNameValidLength = value?.length >= this.NAME_MIN_LENGTH && value?.length <= this.NAME_MAX_LENGTH
     if (!isNameValidLength) {
       errorMesagge.push(`El Serial debe tener entre ${this.NAME_MIN_LENGTH} y ${this.NAME_MAX_LENGTH} caracteres`)
     }
@@ -36,7 +37,7 @@ export class DeviceSerial {
     return isHasNotSpecialCharacterOnlyGuiones && isNotHasLowerCharacter && isNameValidLength
   }
 
-  public static invalidMessage (): string {
+  public static invalidMessage(): string {
     return this.errorsValue
   }
 }
