@@ -8,6 +8,7 @@ import { DeviceActivo } from '../../../../devices/devices/domain/DeviceActivo'
 import { DeviceEmployee } from '../../../../devices/devices/domain/DeviceEmployee'
 import { DeviceObservation } from '../../../../devices/devices/domain/DeviceObservation'
 import { DeviceSerial } from '../../../../devices/devices/domain/DeviceSerial'
+import { DeviceStockNumber } from '../../../../devices/devices/domain/DeviceStockNumber'
 import { StatusId } from '../../../../devices/status/domain/StatusId'
 import { ModelId } from '../../../../model/model/domain/ModelId'
 import { HardDriveCapacityId } from '../../hardDriveCapacity/domain/HardDriveCapacityId'
@@ -21,7 +22,7 @@ export interface HardDrivePrimitives extends DevicePrimitives {
 }
 
 export class HardDrive extends Device {
-  constructor (
+  constructor(
     serial: DeviceSerial,
     activo: DeviceActivo,
     statusId: StatusId,
@@ -31,19 +32,20 @@ export class HardDrive extends Device {
     employeeId: DeviceEmployee,
     locationId: LocationId,
     observation: DeviceObservation,
+    stockNumber: DeviceStockNumber,
     private readonly health: HardDriveHealth,
     private readonly hardDriveCapacityId: HardDriveCapacityId,
     private readonly hardDriveTypeId: HardDriveTypeId
   ) {
-    super(serial, activo, statusId, categoryId, brandId, modelId, employeeId, locationId, observation)
+    super(serial, activo, statusId, categoryId, brandId, modelId, employeeId, locationId, observation, stockNumber)
   }
 
-  static isHardDriveCategory ({ categoryId }: { categoryId: Primitives<CategoryId> }): boolean {
+  static isHardDriveCategory({ categoryId }: { categoryId: Primitives<CategoryId> }): boolean {
     const AcceptedHardDriveCategories: CategoryValues[] = ['Discos Duros']
     return AcceptedHardDriveCategories.includes(CategoryDefaultData[categoryId])
   }
 
-  public static create (params: HardDrivePrimitives) {
+  public static create(params: HardDrivePrimitives) {
     return new HardDrive(
       new DeviceSerial(params.serial),
       new DeviceActivo(params.activo),
@@ -54,25 +56,26 @@ export class HardDrive extends Device {
       new DeviceEmployee(params.employeeId, params.statusId),
       new LocationId(params.locationId),
       new DeviceObservation(params.observation),
+      new DeviceStockNumber(params.stockNumber, params.statusId),
       new HardDriveHealth(params.health),
       new HardDriveCapacityId(params.hardDriveCapacityId),
       new HardDriveTypeId(params.hardDriveTypeId)
     )
   }
 
-  healthValue (): Primitives<HardDriveHealth> {
+  healthValue(): Primitives<HardDriveHealth> {
     return this.health.value
   }
 
-  hardDriveCapacityValue (): Primitives<HardDriveCapacityId> {
+  hardDriveCapacityValue(): Primitives<HardDriveCapacityId> {
     return this.hardDriveCapacityId.value
   }
 
-  hardDriveTypeValue (): Primitives<HardDriveTypeId> {
+  hardDriveTypeValue(): Primitives<HardDriveTypeId> {
     return this.hardDriveTypeId.value
   }
 
-  toPrimitives (): HardDrivePrimitives {
+  toPrimitives(): HardDrivePrimitives {
     return {
       serial: this.serialValue(),
       activo: this.activoValue(),
@@ -83,6 +86,7 @@ export class HardDrive extends Device {
       employeeId: this.employeeValue(),
       locationId: this.locationValue(),
       observation: this.observationValue(),
+      stockNumber: this.stockNumberValue(),
       health: this.healthValue(),
       hardDriveCapacityId: this.hardDriveCapacityValue(),
       hardDriveTypeId: this.hardDriveTypeValue()

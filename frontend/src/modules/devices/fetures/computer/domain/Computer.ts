@@ -8,6 +8,7 @@ import { DeviceActivo } from '../../../devices/devices/domain/DeviceActivo'
 import { DeviceEmployee } from '../../../devices/devices/domain/DeviceEmployee'
 import { DeviceObservation } from '../../../devices/devices/domain/DeviceObservation'
 import { DeviceSerial } from '../../../devices/devices/domain/DeviceSerial'
+import { DeviceStockNumber } from '../../../devices/devices/domain/DeviceStockNumber'
 import { StatusId } from '../../../devices/status/domain/StatusId'
 import { ModelId } from '../../../model/model/domain/ModelId'
 import { MemoryRamCapacity } from '../../memoryRam/memoryRamCapacity/domain/MemoryRamCapacity'
@@ -46,6 +47,7 @@ export class Computer extends Device {
     employeeId: DeviceEmployee,
     locationId: LocationId,
     observation: DeviceObservation,
+    stockNumber: DeviceStockNumber,
     private readonly computerName: ComputerName,
     private readonly processorId: ComputerProcessor,
     private readonly memoryRamCapacity: MemoryRamCapacity,
@@ -57,7 +59,7 @@ export class Computer extends Device {
     private readonly macAddress: MACAddress,
     private readonly ipAddress: IPAddress
   ) {
-    super(serial, activo, statusId, categoryId, brandId, modelId, employeeId, locationId, observation)
+    super(serial, activo, statusId, categoryId, brandId, modelId, employeeId, locationId, observation, stockNumber)
 
     if (!Computer.isComputerCategory({ categoryId: categoryId.value })) {
       throw new Error('No pertenece a esta categoria')
@@ -80,6 +82,7 @@ export class Computer extends Device {
       new DeviceEmployee(params.employeeId, params.statusId),
       new LocationId(params.locationId),
       new DeviceObservation(params.observation),
+      new DeviceStockNumber(params.stockNumber, params.statusId),
       new ComputerName(params.computerName, params.statusId),
       new ComputerProcessor(params.processorId, params.statusId),
       new MemoryRamCapacity(params.memoryRamCapacity, params.statusId),
@@ -136,6 +139,7 @@ export class Computer extends Device {
       employeeId: this.employeeValue(),
       locationId: this.locationValue(),
       observation: this.observationValue(),
+      stockNumber: this.stockNumberValue(),
       computerName: this.computerNameValue(),
       memoryRamCapacity: this.memoryRamCapacityValue(),
       memoryRam: this.memoryRamValue(),

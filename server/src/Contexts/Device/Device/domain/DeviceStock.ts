@@ -23,7 +23,7 @@ export class DeviceStocknumber extends AcceptedNullValueObject<string> {
 
   private ensureIsValid(value: Primitives<DeviceStocknumber>, status: Primitives<DeviceStatus>): void {
     if (value === null) return
-    if (!(value.length >= this.NAME_MIN_LENGTH && value.length <= this.NAME_MAX_LENGTH)) {
+    if (!(value?.length >= this.NAME_MIN_LENGTH && value?.length <= this.NAME_MAX_LENGTH)) {
       throw new InvalidArgumentError(`<${value}> exceeded the maximum length`)
     }
     if (status === DeviceStatus.StatusOptions.INUSE) {

@@ -8,6 +8,7 @@ import { DeviceActivo } from "../../devices/devices/domain/DeviceActivo"
 import { DeviceEmployee } from "../../devices/devices/domain/DeviceEmployee"
 import { DeviceObservation } from "../../devices/devices/domain/DeviceObservation"
 import { DeviceSerial } from "../../devices/devices/domain/DeviceSerial"
+import { DeviceStockNumber } from "../../devices/devices/domain/DeviceStockNumber"
 import { StatusId } from "../../devices/status/domain/StatusId"
 import { ModelId } from "../../model/model/domain/ModelId"
 import { IPAddress } from "../computer/domain/IPAddress"
@@ -17,7 +18,7 @@ export interface MFPPrimitives extends DevicePrimitives {
 }
 
 export class MFP extends Device {
-  constructor (
+  constructor(
     serial: DeviceSerial,
     activo: DeviceActivo,
     statusId: StatusId,
@@ -27,18 +28,19 @@ export class MFP extends Device {
     employeeId: DeviceEmployee,
     locationId: LocationId,
     observation: DeviceObservation,
+    stockNumber: DeviceStockNumber,
     private readonly ipAddress: IPAddress,
-    
+
   ) {
-    super(serial, activo, statusId, categoryId, brandId, modelId, employeeId, locationId, observation)
+    super(serial, activo, statusId, categoryId, brandId, modelId, employeeId, locationId, observation, stockNumber)
   }
 
-  static isMFPCategory ({ categoryId }: { categoryId: Primitives<CategoryId> }): boolean {
+  static isMFPCategory({ categoryId }: { categoryId: Primitives<CategoryId> }): boolean {
     const AcceptedMFPCategories: CategoryValues[] = [CategoryNames.MFP]
     return AcceptedMFPCategories.includes(CategoryDefaultData[categoryId])
   }
 
-  public static create (params: MFPPrimitives) {
+  public static create(params: MFPPrimitives) {
     return new MFP(
       new DeviceSerial(params.serial),
       new DeviceActivo(params.activo),
@@ -49,15 +51,16 @@ export class MFP extends Device {
       new DeviceEmployee(params.employeeId, params.statusId),
       new LocationId(params.locationId),
       new DeviceObservation(params.observation),
+      new DeviceStockNumber(params.stockNumber, params.statusId),
       new IPAddress(params.ipAddress, params.statusId)
 
     )
   }
 
-  ipAddressValue (): Primitives<IPAddress> {
+  ipAddressValue(): Primitives<IPAddress> {
     return this.ipAddress.value
   }
-  toPrimitives (): MFPPrimitives {
+  toPrimitives(): MFPPrimitives {
     return {
       serial: this.serialValue(),
       activo: this.activoValue(),
@@ -68,6 +71,7 @@ export class MFP extends Device {
       employeeId: this.employeeValue(),
       locationId: this.locationValue(),
       observation: this.observationValue(),
+      stockNumber: this.stockNumberValue(),
       ipAddress: this.ipAddressValue()
     }
   }
