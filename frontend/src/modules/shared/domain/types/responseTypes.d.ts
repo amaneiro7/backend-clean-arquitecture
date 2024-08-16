@@ -40,8 +40,9 @@ import { type UserPrimitives } from '../../../user/user/domain/User'
 import { type LocationPrimitives } from '../../../location/locations/domain/location'
 import { type LocationId } from '../../../location/locations/domain/locationId'
 import { type Primitives } from '../value-object/Primitives'
-import { HistoryPrimitives } from '../../../history/domain/history'
-import { RoleId } from '../../../user/role/domain/RoleId'
+import { type HistoryPrimitives } from '../../../history/domain/history'
+import { type RoleId } from '../../../user/role/domain/RoleId'
+import { type DeviceStockNumber } from '../../../devices/devices/devices/domain/DeviceStockNumber'
 
 interface UserApiResponse {
   user: UserApiResponsePrimitives
@@ -113,6 +114,7 @@ export interface DevicesMappedApiResponse {
   modelId: Primitives<ModelId>
   modelName: Primitives<ModelName>
   observation: Primitives<DeviceObservation>
+  stockNumber: Primitives<DeviceStockNumber>
   locationId: Primitives<LocationId>
   locationName: string
   employeeId: Primitives<EmployeeId> | null

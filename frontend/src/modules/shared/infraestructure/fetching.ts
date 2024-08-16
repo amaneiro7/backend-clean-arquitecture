@@ -5,7 +5,7 @@ interface RequestParams {
   endpoint: string
   data?: object
 }
-export async function makeRequest<T> ({
+export async function makeRequest<T>({
   method,
   endpoint,
   data
@@ -24,11 +24,11 @@ export async function makeRequest<T> ({
   }
 
   return await fetch(apiURL, requestInit).then(async res => {
-    if (!res.ok) {      
+    if (!res.ok) {
       throw new Error(await res.text())
     }
     return await (res.json() as Promise<T>)
-  }).catch((error: any) => {
+  }).catch((error: Error) => {
     if (error.message !== 'Unauthorized') {
       console.error('makeRequest', error)
     }
