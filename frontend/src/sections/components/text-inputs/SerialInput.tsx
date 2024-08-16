@@ -24,7 +24,7 @@ export default function SerialInput({ value, onChange, type = "search", isAdd = 
     if (type !== "form") return
 
     if (isFirstInput.current || value === "") {
-      isFirstInput.current = value.length <= DeviceSerial.NAME_MIN_LENGTH
+      isFirstInput.current = value?.length <= DeviceSerial.NAME_MIN_LENGTH
       return
     }
 
