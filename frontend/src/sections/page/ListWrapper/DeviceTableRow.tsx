@@ -18,7 +18,7 @@ export const DeviteRowTable = memo(({data: devices, style, index}: Props) => {
         <TableCellEditDeleteIcon stateId={devices[index].id} state={devices[index]} url={`/device/edit/${devices[index].id}`} />
         <TableCell style={{ width: '112px' }} size='w-28' value={devices[index].employee?.userName} url={`/employee/edit/${devices[index].employeeId}`} />
         <TableCell style={{ width: '240px' }} size='w-60' value={devices[index].location?.name} />
-        <TableCell style={{ width: '144px' }} size='w-36' value={devices[index].serial ?? "Sin Serial"} state={devices[index]} url={`/device/edit/${devices[index].id}`} />
+        <TableCell style={{ width: '144px' }} size='w-36' value={devices[index]?.serial ?? "Sin Serial"} state={devices[index]} url={`/device/edit/${devices[index].id}`} />
         <TableCell style={{ width: '112px' }} size='w-28' value={devices[index].status?.name} />
         <TableCell style={{ width: '144px' }} size='w-36' value={devices[index].category?.name} />
         <TableCell style={{ width: '144px' }} size='w-36' value={devices[index].brand?.name} />
