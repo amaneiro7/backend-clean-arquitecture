@@ -1,9 +1,8 @@
-import { lazy, Suspense, useEffect, useRef, useState } from "react"
+import { lazy, useEffect, useRef, useState } from "react"
 import { DeviceSerial } from "../../../modules/devices/devices/devices/domain/DeviceSerial"
 import { type Primitives } from "../../../modules/shared/domain/value-object/Primitives"
 import { type OnHandleChange } from "../../../modules/shared/domain/types/types"
 import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
-import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
 
 interface Props {
   value: Primitives<DeviceSerial>
@@ -12,7 +11,7 @@ interface Props {
   isAdd?: boolean
 }
 
-const FormInput = lazy(async () => import("./FormInput").then((m) => ({ default: m.FormInput })))
+const Input = lazy(async () => import("./Input").then((m) => ({ default: m.Input })))
 const ReadOnlyInputBox = lazy(async () => import("../ReadOnlyInputBox").then((m) => ({ default: m.ReadOnlyInputBox })))
 
 export default function SerialInput({ value, onChange, type = "search", isAdd = false }: Props) {
@@ -39,26 +38,25 @@ export default function SerialInput({ value, onChange, type = "search", isAdd = 
     }
   }, [type, value])
   return (
-    <Suspense fallback={<InputSkeletonLoading />}>
+    <>
       {!isAdd && type === "form" 
        ? <ReadOnlyInputBox label='Serial' value={value} required />
-       : <FormInput
+       : <Input
            id='serial'
            isRequired={type === "form"}
            name='serial'
            type='text'
            label='Serial'
-           placeholder='-- Ingrese el Serial del equipo'
-           handle={(event) => {
+           onChange={(event) => {
             // eslint-disable-next-line prefer-const
             let { name, value } = event.target
             value = value.trim().toUpperCase()            
             onChange(name, value, Operator.CONTAINS)
           }}
            value={value}
-           isError={isError}
+           error={isError}
            errorMessage={errorMessage}
          />}
-    </Suspense>
+    </>
   )
 }

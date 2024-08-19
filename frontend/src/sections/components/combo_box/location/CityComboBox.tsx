@@ -25,7 +25,6 @@ export function CityComboBox({ value, state, region, onChange, type = "search", 
     const { useCity: { cities, loading }} = useAppContext()
     
     const filtered = useMemo(() => {
-      console.log(cities)
       const regionFilter = cities.filter((reg) => reg?.state?.regionId === region || !region)
       return regionFilter.filter((city) => city.stateId === state || !state)
     }, [cities, state, region])

@@ -1,15 +1,13 @@
-import { lazy, Suspense, useMemo, useState } from "react"
-import { OnHandleChange } from "../../../modules/shared/domain/types/types"
-import { Primitives } from "../../../modules/shared/domain/value-object/Primitives"
-import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
-import { BrandId } from "../../../modules/devices/brand/domain/BrandId"
-import { CategoryId } from "../../../modules/devices/category/domain/CategoryId"
+import { lazy, useMemo, useState } from "react"
+import { useAppContext } from "../../Context/AppProvider"
+import { type OnHandleChange } from "../../../modules/shared/domain/types/types"
+import { type Primitives } from "../../../modules/shared/domain/value-object/Primitives"
+import { type BrandId } from "../../../modules/devices/brand/domain/BrandId"
+import { type CategoryId } from "../../../modules/devices/category/domain/CategoryId"
 import { type BrandPrimitives } from "../../../modules/devices/brand/domain/Brand"
 import { type BrandApiResponse } from "../../../modules/shared/domain/types/responseTypes"
-import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
+import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
 import { defaultInitialBrandState } from "../../Hooks/brand/BrandFormInitialState"
-import { useAppContext } from "../../Context/AppProvider"
-
 
 interface Props {
     value?: Primitives<BrandId>
@@ -47,7 +45,7 @@ export default function BrandComboBox({ value, onChange, categoryId, type = 'sea
     }, [filterdBrand, value])
 
     return (
-      <Suspense fallback={<InputSkeletonLoading />}>
+      <>
         {(!isAdd && type === 'form') 
             ? <ReadOnlyInputBox label='Marca' required defaultValue={initialValue?.name} />
         : <ComboBox
@@ -86,6 +84,6 @@ export default function BrandComboBox({ value, onChange, categoryId, type = 'sea
             toggleOpen={toggleOpen}
             createBrand={createBrand}
           />}
-      </Suspense>
+      </>
     )
 }

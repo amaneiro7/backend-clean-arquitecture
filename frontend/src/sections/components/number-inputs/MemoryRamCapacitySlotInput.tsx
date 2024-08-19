@@ -34,7 +34,7 @@ export function MemoryRamCapacitySlotInput({ value: memRam, index, onChange, typ
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
-    let parsedValue = parseFloat(value)
+    const parsedValue = parseFloat(value)
 
     if (isNaN(parsedValue)) {
       console.error('El valor nos un número válido')

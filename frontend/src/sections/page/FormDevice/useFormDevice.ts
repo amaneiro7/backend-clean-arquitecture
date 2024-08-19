@@ -1,52 +1,44 @@
-import { useEffect } from "react"
+import { useCallback, useLayoutEffect } from "react"
 import { useDeviceInitialState } from "../../Hooks/device/DeviceFormInitialState"
-import { FormStatus, useGenericForm } from "../../Hooks/useGenericForm"
 import { useGenericFormData } from "../../Hooks/useGenericFormData"
 import { useDeviceContext } from "../../Context/DeviceProvider"
+import { useGenericForm2 } from "../../Hooks/useGenericForm2"
 
 export const useFormDevice = () => {
     const { createDevice } = useDeviceContext()
 
     const { preloadedDeviceState, setResetState, isAddForm } = useDeviceInitialState()
     const { formData, updateForm, resetForm } = useGenericFormData(preloadedDeviceState)
-    const { formStatus, submitForm, resetFormStatus } = useGenericForm({ create: createDevice })
+    const { processing, submitForm } = useGenericForm2({ create: createDevice })
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         updateForm(preloadedDeviceState)
-        return () => {
-            resetForm()
-        }
-    }, [preloadedDeviceState, resetForm, updateForm])
+    }, [preloadedDeviceState, updateForm])
 
-    useEffect(() => {
-        if (formStatus === FormStatus.Success) {
-            setResetState()
-            resetFormStatus()
-            resetForm()
-        }
-        if (formStatus === FormStatus.Error) {
-            resetFormStatus()
-        }
-    }, [formStatus, resetForm, resetFormStatus, setResetState])
 
-    const handleSubmit = async (event: React.FormEvent) => {
+    const handleSubmit = useCallback(async (event: React.FormEvent) => {
         event.preventDefault()
         event.stopPropagation()
         await submitForm(formData)
-    }
+            .then(() => {
+                setResetState()
+                resetForm()
+            })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [resetForm, setResetState, submitForm])
 
-    const handleClose = () => {
+    const handleClose = useCallback(() => {
         window.history.back()
-    }
+    }, [])
 
-    const handleChange = (name: string, value: string) => {
+    const handleChange = useCallback((name: string, value: string) => {
         updateForm({ [name]: value })
-    }
+    }, [updateForm])
 
     return {
         isAddForm,
         formData,
-        formStatus,
+        processing,
         handleSubmit,
         handleClose,
         handleChange

@@ -1,8 +1,7 @@
-import { lazy, Suspense, useLayoutEffect, useMemo, useState } from 'react'
+import { lazy, useEffect, useMemo, useState } from 'react'
 import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { type StatusId } from '../../../modules/devices/devices/status/domain/StatusId'
-import { InputSkeletonLoading } from '../skeleton/inputSkeletonLoading'
 import { MemoryRamValues } from '../../../modules/devices/fetures/memoryRam/memoryRamCapacity/domain/MemoryRamValue'
 import { MemoryRam } from '../../../modules/devices/fetures/computer/domain/MemoryRam'
 
@@ -14,13 +13,13 @@ interface Props {
   type?: 'form' | 'search'
 }
 
-const NumberInput = lazy(async () => import('./NumberInput').then(m => ({ default: m.NumberInput })))
+const Input = lazy(async () => import('../text-inputs/Input').then(m => ({ default: m.Input })))
 
 export function MemoryRamCapacityInput({ value, memoryRam, onChange, type = 'form', status }: Props) {
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
   
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (type !== 'form') return
 
     const isValid = MemoryRam.isValid(memoryRam, status)
@@ -41,20 +40,20 @@ export function MemoryRamCapacityInput({ value, memoryRam, onChange, type = 'for
   }, [memoryRam])
 
 
-  return (
-    <Suspense fallback={<InputSkeletonLoading />}>
-      <NumberInput
-        name='memoryRamCapacity'
-        label='Capacidad Total de Memoria Ram'
-        isRequired={type === 'form'}
-        value={updateValue}
-        error={isError}
-        errorMessage={errorMessage}
-        readOnly
-        aria-readonly
-        tabIndex={-1}
-        onMouseDown={(e) => { e.preventDefault() }}
-      />
-    </Suspense>
+  return (    
+    <Input
+      name='memoryRamCapacity'
+      label='Total Memoria Ram'
+      isRequired={type === 'form'}
+      value={updateValue}
+      error={isError}
+      errorMessage={errorMessage}
+      type='number'
+      readOnly
+      aria-readonly
+      tabIndex={-1}
+      onMouseDown={(e) => { e.preventDefault() }}
+    />
+    
   )
 }

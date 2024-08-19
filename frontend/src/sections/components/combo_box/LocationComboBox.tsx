@@ -1,16 +1,15 @@
-import { lazy, Suspense, useEffect, useMemo, useState } from "react"
-import { StatusId } from "../../../modules/devices/devices/status/domain/StatusId"
-import { OnHandleChange } from "../../../modules/shared/domain/types/types"
-import { type Primitives } from "../../../modules/shared/domain/value-object/Primitives"
-import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
-import { LocationId } from "../../../modules/location/locations/domain/locationId"
-import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
-import { TypeOfSiteId } from "../../../modules/location/typeofsites/domain/typeOfSiteId"
+import { lazy, useEffect, useMemo, useState } from "react"
+import { useAppContext } from "../../Context/AppProvider"
+import { defaultInitialLocationState, type DefaultLocationProps } from "../../Hooks/locations/useLocationInitialState"
 import { DeviceLocation } from "../../../modules/devices/devices/devices/domain/DeviceLocation"
+import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
+import { StatusId } from "../../../modules/devices/devices/status/domain/StatusId"
+import { TypeOfSiteId } from "../../../modules/location/typeofsites/domain/typeOfSiteId"
+import { type OnHandleChange } from "../../../modules/shared/domain/types/types"
+import { type Primitives } from "../../../modules/shared/domain/value-object/Primitives"
+import { type LocationId } from "../../../modules/location/locations/domain/locationId"
 import { type LocationApiResponse } from "../../../modules/shared/domain/types/responseTypes"
 import { type LocationPrimitives } from "../../../modules/location/locations/domain/location"
-import { defaultInitialLocationState, type DefaultLocationProps } from "../../Hooks/locations/useLocationInitialState"
-import { useAppContext } from "../../Context/AppProvider"
 
 interface Props {
   value?: Primitives<LocationId>
@@ -66,7 +65,7 @@ export default function LocationComboBox({ value, statusId, typeOfSiteId, onChan
   }, [value, statusId, typeOfSiteId, type, initialValue])
 
   return (
-    <Suspense fallback={<InputSkeletonLoading />}>
+    <>
       <ComboBox
         id='locationId'
         initialValue={initialValue}
@@ -95,12 +94,10 @@ export default function LocationComboBox({ value, statusId, typeOfSiteId, onChan
         isError={isError}
         errorMessage={errorMessage}
       >
-        {type === 'form' && (
-          <Suspense>
-            <LocationDialog createLocation={createLocation} dialogValue={dialogValue} open={open} toggleOpen={toggleOpen} />
-          </Suspense>
+        {type === 'form' && (          
+          <LocationDialog createLocation={createLocation} dialogValue={dialogValue} open={open} toggleOpen={toggleOpen} />
         )}
       </ComboBox>
-    </Suspense>
+    </>
   )
 }

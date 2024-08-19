@@ -1,14 +1,13 @@
-import { lazy, Suspense, useMemo, useState } from "react"
-import { OnHandleChange } from "../../../modules/shared/domain/types/types"
-import { Primitives } from "../../../modules/shared/domain/value-object/Primitives"
-import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
-import { BrandId } from "../../../modules/devices/brand/domain/BrandId"
-import { CategoryId } from "../../../modules/devices/category/domain/CategoryId"
-import { ModelApiresponse } from "../../../modules/shared/domain/types/responseTypes"
-import { ModelId } from "../../../modules/devices/model/model/domain/ModelId"
-import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
-import { DefaultModelProps, defaultInitialModelState } from "../../Hooks/model/ModelFormInitialState"
+import { lazy, useMemo, useState } from "react"
 import { useAppContext } from "../../Context/AppProvider"
+import { type OnHandleChange } from "../../../modules/shared/domain/types/types"
+import { type Primitives } from "../../../modules/shared/domain/value-object/Primitives"
+import { type BrandId } from "../../../modules/devices/brand/domain/BrandId"
+import { type CategoryId } from "../../../modules/devices/category/domain/CategoryId"
+import { type ModelApiresponse } from "../../../modules/shared/domain/types/responseTypes"
+import { type ModelId } from "../../../modules/devices/model/model/domain/ModelId"
+import { type DefaultModelProps, defaultInitialModelState } from "../../Hooks/model/ModelFormInitialState"
+import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
 
 interface Props {
     value: Primitives<ModelId>
@@ -47,7 +46,7 @@ export default function ModelComboBox({ value, onChange, categoryId, brandId, ty
     }, [filterdModel, value])
 
     return (
-      <Suspense fallback={<InputSkeletonLoading />}>
+      <>
         {(!isAdd && type === 'form') 
             ? <ReadOnlyInputBox label='Modelo' defaultValue={initialValue?.name} />
             : <ComboBox
@@ -93,6 +92,6 @@ export default function ModelComboBox({ value, onChange, categoryId, brandId, ty
             toggleOpen={toggleOpen}
             createModel={createModel}
           />)}
-      </Suspense>
+      </>
     )
 }

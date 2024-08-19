@@ -37,7 +37,7 @@ export default function AddComputerFeatures({ formData, onChange }: Props) {
   return (
     <>
       {(isComputerLaptopAllinOneDevice && renderInputs) &&
-        <>
+        <>          
           <Suspense fallback={<InputSkeletonLoading />}>
             <ComputerNameInput
               type='form'
@@ -61,7 +61,7 @@ export default function AddComputerFeatures({ formData, onChange }: Props) {
               value={formData.processorId}
             />
           </Suspense>
-          <div className='flex gap-5 md:col-span-2 lg:col-span-3'>
+          <div className='flex gap-4 md:col-span-2 row-span-2'>
             {
               renderInputs.map((_, index) => (
                 <MemoryRamCapacitySlotInput
@@ -90,7 +90,7 @@ export default function AddComputerFeatures({ formData, onChange }: Props) {
               />
             </Suspense>
           </div>
-          <div className='grid md:grid-cols-3 gap-5'>
+          <div className='grid md:grid-cols-3 gap-4'>
             <div className='col-span-2'>
               <Suspense fallback={<InputSkeletonLoading />}>
                 <HardDriveCapacityComboBox
@@ -112,7 +112,7 @@ export default function AddComputerFeatures({ formData, onChange }: Props) {
               </Suspense>
             </div>
           </div>
-          <div className='grid md:grid-cols-3 gap-5'>
+          <div className='grid md:grid-cols-3 gap-4'>
             <div className='col-span-2'>
               <Suspense fallback={<InputSkeletonLoading />}>
                 <OperatingSystemComboBox

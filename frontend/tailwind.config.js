@@ -11,7 +11,6 @@ export default {
         'mdlg': '800px'
       },
       colors: {
-        white: '#FAF9F6',
         primary: {
           50: 'hsl(32, 100%, 96%)',
           100: 'hsl(34, 100%, 91%)',

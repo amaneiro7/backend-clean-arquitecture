@@ -1,8 +1,7 @@
-import { lazy, Suspense, useMemo } from "react"
+import { lazy, useMemo } from "react"
 import { OnHandleChange } from "../../../modules/shared/domain/types/types"
 import { Primitives } from "../../../modules/shared/domain/value-object/Primitives"
 import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
-import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
 import { StatusId } from "../../../modules/devices/devices/status/domain/StatusId"
 import { useAppContext } from "../../Context/AppProvider"
 import { type StatusPrimitives } from "../../../modules/devices/devices/status/domain/Status"
@@ -23,24 +22,22 @@ export default function StatusComboBox({ value, onChange, type = 'search' }: Pro
     }, [status, value])
 
     return (
-      <Suspense fallback={<InputSkeletonLoading />}>
-        <ComboBox
-          id='statusId'
-          initialValue={initialValue}
-          label='Estatus'
-          name='statusId'
-          type={type}
-          onChange={(_, newValue: StatusPrimitives) => {
+      <ComboBox
+        id='statusId'
+        initialValue={initialValue}
+        label='Estatus'
+        name='statusId'
+        type={type}
+        onChange={(_, newValue: StatusPrimitives) => {
                     onChange('statusId', newValue ? newValue.id : '', Operator.EQUAL)
                     if (type === 'form') {
                         onChange('locationId', '')
                     }
                 }}
-          options={status}
-          isRequired={type === 'form'}
-          isDisabled={false}
-          loading={loading}
-        />
-      </Suspense>
+        options={status}
+        isRequired={type === 'form'}
+        isDisabled={false}
+        loading={loading}
+      />
     )
 }
