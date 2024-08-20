@@ -1,27 +1,27 @@
-import { lazy, Suspense, useLayoutEffect, useState } from 'react'
-import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
+import { lazy, useEffect, useState } from 'react'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { type StatusId } from '../../../modules/devices/devices/status/domain/StatusId'
-import { InputSkeletonLoading } from '../skeleton/inputSkeletonLoading'
+import { type Event } from '../../../modules/shared/domain/types/types'
 import { MemoryRamValues } from '../../../modules/devices/fetures/memoryRam/memoryRamCapacity/domain/MemoryRamValue'
 
 interface Props {
-  value: Primitives<MemoryRamValues>[]
+  value: Primitives<MemoryRamValues>
   index: number
   status?: Primitives<StatusId>
-  onChange: OnHandleChange
   type?: 'form' | 'search'
+  onChange: (value: string, index: number) => void
 }
 
-const NumberInput = lazy(async () => import('./NumberInput').then(m => ({ default: m.NumberInput })))
+const Input = lazy(async () => import('./NumberInput').then(m => ({ default: m.NumberInput })))
 
-export function MemoryRamCapacitySlotInput({ value: memRam, index, onChange, type = 'form', status }: Props) {
+export function MemoryRamCapacitySlotInput({ value, index, onChange, type = 'form', status }: Props) {
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (type !== 'form') return
-    const isValid = MemoryRamValues.isValid(memRam[index])
+    console.log(`memRam${[index]}`)
+    const isValid = MemoryRamValues.isValid(value)
 
     setIsError(!isValid)
     setErrorMessage(isValid ? '' : MemoryRamValues.invalidMessage())
@@ -30,37 +30,23 @@ export function MemoryRamCapacitySlotInput({ value: memRam, index, onChange, typ
       setErrorMessage('')
       setIsError(false)
     }
-  }, [memRam, status])
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target
-    const parsedValue = parseFloat(value)
-
-    if (isNaN(parsedValue)) {
-      console.error('El valor nos un número válido')
-      return
-    }
-
-    const updatedMemoryRamSlot = [...memRam]
-    updatedMemoryRamSlot[index] = parsedValue
-    onChange(name, updatedMemoryRamSlot)
-  }
+  }, [index, value, status, type])
 
   return (
-    <Suspense fallback={<InputSkeletonLoading />}>
-      <NumberInput
-        name='memoryRam'
-        label={`Memoria Ram Slot ${index}`}
-        onChange={handleChange}
-        placeholder={`--- Ingrese la Capcacidad de Memoria del slot ${index} ---`}
-        value={memRam[index]}
-        max={MemoryRamValues.max}
-        min={MemoryRamValues.min}
-        step={MemoryRamValues.minStep * 2}
-        error={isError}
-        errorMessage={errorMessage}
-      />
-
-    </Suspense>
+    <Input
+      name='memoryRam'
+      label={`Memoria Ram Slot ${index}`}
+      type='number'
+      value={value}
+      onChange={(event: Event) => {
+        const { value } = event.target
+        onChange(value, index)
+      }}
+      max={MemoryRamValues.max}
+      min={MemoryRamValues.min}
+      step={MemoryRamValues.minStep * 2}
+      error={isError}
+      errorMessage={errorMessage}
+    />
   )
 }

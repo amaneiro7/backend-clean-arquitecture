@@ -1,9 +1,9 @@
-import { lazy, useEffect, useMemo, useState } from 'react'
+import { lazy, useEffect, useState } from 'react'
+import { MemoryRamValues } from '../../../modules/devices/fetures/memoryRam/memoryRamCapacity/domain/MemoryRamValue'
+import { MemoryRam } from '../../../modules/devices/fetures/computer/domain/MemoryRam'
 import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { type StatusId } from '../../../modules/devices/devices/status/domain/StatusId'
-import { MemoryRamValues } from '../../../modules/devices/fetures/memoryRam/memoryRamCapacity/domain/MemoryRamValue'
-import { MemoryRam } from '../../../modules/devices/fetures/computer/domain/MemoryRam'
 
 interface Props {
   value: Primitives<MemoryRamValues>
@@ -15,7 +15,7 @@ interface Props {
 
 const Input = lazy(async () => import('../text-inputs/Input').then(m => ({ default: m.Input })))
 
-export function MemoryRamCapacityInput({ value, memoryRam, onChange, type = 'form', status }: Props) {
+export function MemoryRamCapacityInput({ value, memoryRam,  type = 'form', status }: Props) {
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
   
@@ -31,21 +31,14 @@ export function MemoryRamCapacityInput({ value, memoryRam, onChange, type = 'for
       setErrorMessage('')
       setIsError(false)
     }
-  }, [value, status])
-
-  const updateValue = useMemo(() => {    
-    const value = MemoryRam.totalAmount(memoryRam)
-    onChange('memoryRamCapacity', value)
-    return value
-  }, [memoryRam])
-
+  }, [value, status, type, memoryRam])
 
   return (    
     <Input
       name='memoryRamCapacity'
       label='Total Memoria Ram'
       isRequired={type === 'form'}
-      value={updateValue}
+      value={value}
       error={isError}
       errorMessage={errorMessage}
       type='number'

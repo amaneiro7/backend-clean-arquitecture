@@ -1,12 +1,37 @@
 import { lazy, Suspense, useMemo } from 'react'
-import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
-import { Computer } from '../../../modules/devices/fetures/computer/domain/Computer'
 import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoading'
-import { DefaultProps } from '../../Hooks/device/DeviceFormInitialState'
+import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
+import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
+import { type StatusId } from '../../../modules/devices/devices/status/domain/StatusId'
+import { type ComputerName } from '../../../modules/devices/fetures/computer/domain/ComputerName'
+import { type IPAddress } from '../../../modules/devices/fetures/computer/domain/IPAddress'
+import { type ProcessorId } from '../../../modules/devices/fetures/processor/domain/ProcessorId'
+import { type MemoryRamValues } from '../../../modules/devices/fetures/memoryRam/memoryRamCapacity/domain/MemoryRamValue'
+import { type MemoryRamCapacity } from '../../../modules/devices/fetures/memoryRam/memoryRamCapacity/domain/MemoryRamCapacity'
+import { type MACAddress } from '../../../modules/devices/fetures/computer/domain/MACAddress'
+import { type OperatingSystemId } from '../../../modules/devices/fetures/operatingSystem/operatingSystem/domain/OperatingSystemId'
+import { type OperatingSystemArqId } from '../../../modules/devices/fetures/operatingSystem/operatingSystemArq/domain/OperatingSystemArqId'
+import { type HardDriveTypeId } from '../../../modules/devices/fetures/hardDrive/hardDriveType/domain/HardDriveTypeId'
+import { type HardDriveCapacityId } from '../../../modules/devices/fetures/hardDrive/hardDriveCapacity/domain/HardDriveCapacityId'
+import { type MemoryRamTypeName } from '../../../modules/devices/fetures/memoryRam/memoryRamType/domain/MemoryRamTypeName'
+import { type MemoryRamSlotQuantity } from '../../../modules/devices/model/ModelCharacteristics/modelComputer/MemoryRamSlotQuantity'
 
 interface Props {
   onChange: OnHandleChange
-  formData: DefaultProps
+  handleMemory: (value: string, index: number) => void
+  statusId: Primitives<StatusId>
+  computerName: Primitives<ComputerName>
+  processorId: Primitives<ProcessorId>
+  memoryRam?: Primitives<MemoryRamValues>[]
+  memoryRamCapacity: Primitives<MemoryRamCapacity>  
+  memoryRamSlotQuantity?: Primitives<MemoryRamSlotQuantity>
+  memoryRamType?: Primitives<MemoryRamTypeName>
+  hardDriveCapacityId?: Primitives<HardDriveCapacityId>
+  hardDriveTypeId?: Primitives<HardDriveTypeId>
+  operatingSystemArqId?: Primitives<OperatingSystemArqId>
+  operatingSystemId?: Primitives<OperatingSystemId>
+  ipAddress: Primitives<IPAddress>
+  macAddress?: Primitives<MACAddress>
 }
 
 const ComputerNameInput = lazy(async () => import('../../components/text-inputs/ComputerNameInput').then(m => ({ default: m.ComputerNameInput })))
@@ -21,129 +46,145 @@ const IpAddressInput = lazy(async () => import('../../components/text-inputs/IpA
 const MemoryRamCapacitySlotInput = lazy(async () => import('../../components/number-inputs/MemoryRamCapacitySlotInput').then(m => ({ default: m.MemoryRamCapacitySlotInput })))
 const ReadOnlyInputBox = lazy(async () => import('../../components/ReadOnlyInputBox').then(m => ({ default: m.ReadOnlyInputBox })))
 
-export default function AddComputerFeatures({ formData, onChange }: Props) {
-  const isComputerLaptopAllinOneDevice = Computer.isComputerCategory({ categoryId: formData.categoryId })
-
+export default function AddComputerFeatures({ 
+  statusId,
+  computerName,
+  ipAddress,
+  processorId,
+  memoryRam,
+  memoryRamCapacity,  
+  memoryRamType,
+  hardDriveCapacityId,
+  hardDriveTypeId,
+  memoryRamSlotQuantity,
+  operatingSystemId,
+  operatingSystemArqId,
+  macAddress,
+  onChange, 
+  handleMemory 
+}: Props) {
+  
   const renderInputs = useMemo(() => {    
-    if (formData.memoryRam && formData.memoryRam?.length === formData.memoryRamSlotQuantity) {
-      return formData.memoryRam
+    if (memoryRam && memoryRam?.length === memoryRamSlotQuantity) {
+      return memoryRam
     }
-    const inputs = new Array(formData.memoryRamSlotQuantity).fill(0)
-    formData.memoryRam = inputs
+    const inputs = new Array(memoryRamSlotQuantity).fill(0)
+    memoryRam = inputs
     return inputs
-  }, [formData.memoryRamSlotQuantity])
+  }, [memoryRamSlotQuantity])
 
 
   return (
     <>
-      {(isComputerLaptopAllinOneDevice && renderInputs) &&
-        <>          
-          <Suspense fallback={<InputSkeletonLoading />}>
-            <ComputerNameInput
+      <Suspense fallback={<InputSkeletonLoading />}>
+        <ComputerNameInput
+          type='form'
+          onChange={onChange}
+          status={statusId}
+          value={computerName}
+        />
+      </Suspense>
+      <Suspense fallback={<InputSkeletonLoading />}>
+        <IpAddressInput
+          onChange={onChange}
+          value={ipAddress}
+          status={statusId}
+          type='form'
+        />
+      </Suspense>
+      <Suspense fallback={<InputSkeletonLoading />}>
+        <ProcessorComboBox
+          type='form'
+          onChange={onChange}
+          value={processorId}
+        />
+      </Suspense>
+      <div className='grid grid-cols-2 gap-4 md:col-span-2'>
+        <div className='grid grid-cols-2 gap-4'>
+          {renderInputs.length > 0 ?
+          renderInputs?.map((_, index) => (
+            <MemoryRamCapacitySlotInput
+              key={`memRam-${index}`}
+              index={index}
               type='form'
-              onChange={onChange}
-              status={formData.statusId}
-              value={formData.computerName}
+              onChange={handleMemory}
+              value={memoryRam[index]}
+              status={statusId}
             />
-          </Suspense>
+        )) : null}
+
+        </div>
+        <div className='flex gap-4'>
           <Suspense fallback={<InputSkeletonLoading />}>
-            <IpAddressInput
+            <MemoryRamCapacityInput
               onChange={onChange}
-              value={formData.ipAddress}
-              status={formData.statusId}
+              value={memoryRamCapacity}
+              memoryRam={memoryRam}
+              status={statusId}
               type='form'
             />
           </Suspense>
+          <Suspense>
+            <ReadOnlyInputBox
+              label='Tipo de Memoria'
+              value={memoryRamType}
+            />
+          </Suspense>
+
+        </div>
+      </div>
+      <div className='grid md:grid-cols-3 gap-4'>
+        <div className='col-span-2'>
           <Suspense fallback={<InputSkeletonLoading />}>
-            <ProcessorComboBox
+            <HardDriveCapacityComboBox
+              onChange={onChange}
+              value={hardDriveCapacityId}
+              status={statusId}
               type='form'
-              onChange={onChange}
-              value={formData.processorId}
             />
           </Suspense>
-          <div className='flex gap-4 md:col-span-2 row-span-2'>
-            {
-              renderInputs.map((_, index) => (
-                <MemoryRamCapacitySlotInput
-                  key={index}
-                  index={index}
-                  type='form'
-                  onChange={onChange}
-                  value={formData.memoryRam}
-                  status={formData.statusId}
-                />
-              ))
-            }
-            <Suspense fallback={<InputSkeletonLoading />}>
-              <MemoryRamCapacityInput
-                onChange={onChange}
-                value={formData.memoryRamCapacity}
-                memoryRam={formData.memoryRam}
-                status={formData.statusId}
-                type='form'
-              />
-            </Suspense>
-            <Suspense>
-              <ReadOnlyInputBox
-                label='Tipo de Memoria'
-                value={formData.memoryRamType}
-              />
-            </Suspense>
-          </div>
-          <div className='grid md:grid-cols-3 gap-4'>
-            <div className='col-span-2'>
-              <Suspense fallback={<InputSkeletonLoading />}>
-                <HardDriveCapacityComboBox
-                  onChange={onChange}
-                  value={formData.hardDriveCapacityId}
-                  status={formData.statusId}
-                  type='form'
-                />
-              </Suspense>
-            </div>
-            <div>
-              <Suspense fallback={<InputSkeletonLoading />}>
-                <HardDriveTypeComboBox
-                  onChange={onChange}
-                  value={formData.hardDriveTypeId}
-                  hardDriveCapacity={formData.hardDriveCapacityId}
-                  type='form'
-                />
-              </Suspense>
-            </div>
-          </div>
-          <div className='grid md:grid-cols-3 gap-4'>
-            <div className='col-span-2'>
-              <Suspense fallback={<InputSkeletonLoading />}>
-                <OperatingSystemComboBox
-                  onChange={onChange}
-                  value={formData.operatingSystemId}
-                  status={formData.statusId}
-                  hardDriveCapacity={formData.hardDriveCapacityId}
-                  type='form'
-                />
-              </Suspense>
-            </div>
-            <div>
-              <Suspense fallback={<InputSkeletonLoading />}>
-                <OperatingSystemArqComboBox
-                  onChange={onChange}
-                  value={formData.operatingSystemArqId}
-                  operatingSystem={formData.operatingSystemId}
-                  type='form'
-                />
-              </Suspense>
-            </div>
-          </div>
+        </div>
+        <div>
           <Suspense fallback={<InputSkeletonLoading />}>
-            <MacAddressInput
+            <HardDriveTypeComboBox
               onChange={onChange}
-              value={formData.macAddress}
-              isRequired={false}
+              value={hardDriveTypeId}
+              hardDriveCapacity={hardDriveCapacityId}
+              type='form'
             />
           </Suspense>
-          
-        </>}
+        </div>
+      </div>
+      <div className='grid md:grid-cols-3 gap-4'>
+        <div className='col-span-2'>
+          <Suspense fallback={<InputSkeletonLoading />}>
+            <OperatingSystemComboBox
+              onChange={onChange}
+              value={operatingSystemId}
+              status={statusId}
+              hardDriveCapacity={hardDriveCapacityId}
+              type='form'
+            />
+          </Suspense>
+        </div>
+        <div>
+          <Suspense fallback={<InputSkeletonLoading />}>
+            <OperatingSystemArqComboBox
+              onChange={onChange}
+              value={operatingSystemArqId}
+              operatingSystem={operatingSystemId}
+              type='form'
+            />
+          </Suspense>
+        </div>
+      </div>
+      <Suspense fallback={<InputSkeletonLoading />}>
+        <MacAddressInput
+          onChange={onChange}
+          value={macAddress}
+          isRequired={false}
+        />
+      </Suspense>
     </>
   )
 }

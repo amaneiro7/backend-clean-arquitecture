@@ -1,8 +1,7 @@
-import { lazy, Suspense, useMemo } from "react"
-import { OnHandleChange } from "../../../modules/shared/domain/types/types"
-import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
-import { MemoryRamTypePrimitives } from "../../../modules/devices/fetures/memoryRam/memoryRamType/domain/MemoryRamType"
+import { lazy, useMemo } from "react"
 import { useAppContext } from "../../Context/AppProvider"
+import { type OnHandleChange } from "../../../modules/shared/domain/types/types"
+import { type MemoryRamTypePrimitives } from "../../../modules/devices/fetures/memoryRam/memoryRamType/domain/MemoryRamType"
 
 interface Props {
     value?: string
@@ -20,7 +19,7 @@ export function MemoryRamTypeComboBox({ value, onChange, type = 'search' }: Prop
     }, [memoryRamTypes, value])
 
     return (
-      <Suspense fallback={<InputSkeletonLoading />}>
+      <>
         <ComboBox
           id='memoryRamTypeId'
           initialValue={initialValue}
@@ -35,6 +34,6 @@ export function MemoryRamTypeComboBox({ value, onChange, type = 'search' }: Prop
           isRequired={type === 'form'}
           loading={loading}
         />
-      </Suspense>
+      </>
     )
 }

@@ -1,17 +1,27 @@
-import { lazy } from 'react'
+import { lazy, useMemo } from 'react'
 import { useLocation } from 'react-router-dom'
-import { useFormDevice } from './useFormDevice'
+import { useFormDevice } from './useGenericFormData'
+import { Computer } from '../../../modules/devices/fetures/computer/domain/Computer'
+import { HardDrive } from '../../../modules/devices/fetures/hardDrive/hardDrive/domain/HardDrive'
+import { MFP } from '../../../modules/devices/fetures/multiFunctionalPrinter/MFP'
 
 const FormContainer = lazy(async () => await import('../../components/formContainer/formContainer'))
 const DeviceSearchComboBox = lazy(async () => import('../../components/combo_box/DeviceSearchComboBox'))
-
-const DeviceFeatures = lazy(async () => await import('./DeviceFeatures'))
 const MainFormInputs = lazy(async () => await import('./MainFormInputs').then(m => ({ default: m.MainFormInputs})))
+const AddComputerFeatures = lazy(async () => await import('./AddComputerFeatures'))
+const AddHardDriveFeatures = lazy(async () => await import('./AddHardDriveFeatures'))
+const AddMFPFeatures = lazy(async () => await import('./AddMFPFeatures'))
 
 export default function CreateDeviceForm() {
   const location = useLocation()
-  const { handleChange, handleClose, handleSubmit, isAddForm, formData, processing } = useFormDevice()
+  const { handleChange, handleMemory, handleModel, handleClose, handleSubmit, isAddForm, formData, processing } = useFormDevice()
+  const categoryType = useMemo(() => {
+    return Computer.isComputerCategory({ categoryId: formData.categoryId }) ? 'computer' :
+    HardDrive.isHardDriveCategory({ categoryId: formData.categoryId }) ? 'hardDrive' :
+    MFP.isMFPCategory({ categoryId: formData.categoryId }) ? 'mfp' : null
+  }, [formData.categoryId])
 
+  
   return (
     <FormContainer
       key={location.key}
@@ -28,6 +38,7 @@ export default function CreateDeviceForm() {
     >
       <MainFormInputs 
         handleChange={handleChange}
+        handleModel={handleModel}
         isAddForm={isAddForm}
         statusId={formData.statusId}
         categoryId={formData.categoryId}
@@ -41,10 +52,40 @@ export default function CreateDeviceForm() {
         observation={formData.observation}
       />
       <div className='grid grid-cols-[repeat(auto-fit,minmax(450px,1fr))] gap-4'>
-        <DeviceFeatures
-          formData={formData}
-          onChange={handleChange}
-        />
+        {(categoryType === 'computer' && formData.modelId) ? 
+          <AddComputerFeatures
+            handleMemory={handleMemory} onChange={handleChange}
+            statusId={formData.statusId}
+            computerName={formData.computerName}
+            processorId={formData.processorId}
+            memoryRam={formData.memoryRam}
+            memoryRamCapacity={formData.memoryRamCapacity}
+            memoryRamSlotQuantity={formData.memoryRamSlotQuantity}
+            memoryRamType={formData.memoryRamType}
+            hardDriveCapacityId={formData.hardDriveCapacityId}
+            hardDriveTypeId={formData.hardDriveTypeId}
+            operatingSystemArqId={formData.operatingSystemArqId}
+            operatingSystemId={formData.operatingSystemId}
+            ipAddress={formData.ipAddress}
+            macAddress={formData.macAddress}
+          /> 
+        : null}
+        {categoryType === 'hardDrive' ? 
+          <AddHardDriveFeatures
+            onChange={handleChange}
+            statusId={formData.statusId}
+            hardDriveCapacityId={formData.hardDriveCapacityId}
+            hardDriveTypeId={formData.hardDriveTypeId}
+            health={formData.health}
+          /> 
+        : null}
+        {categoryType === 'mfp' ? 
+          <AddMFPFeatures
+            onChange={handleChange}
+            statusId={formData.statusId}
+            ipAddress={formData.ipAddress}
+          /> 
+        : null}
       </div>
     </FormContainer>
   )

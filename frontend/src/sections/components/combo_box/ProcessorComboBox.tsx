@@ -1,12 +1,11 @@
-import { lazy, Suspense, useMemo, useState } from "react"
-import { OnHandleChange } from "../../../modules/shared/domain/types/types"
-import { Primitives } from "../../../modules/shared/domain/value-object/Primitives"
-import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
-import { ProcessorId } from "../../../modules/devices/fetures/processor/domain/ProcessorId"
-import { ProcessorPrimitives } from "../../../modules/devices/fetures/processor/domain/Processor"
-import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
-import { defaultInitialProcessorState } from "../../Hooks/processor/ProcessorFormInitialState"
+import { lazy, useMemo, useState } from "react"
 import { useAppContext } from "../../Context/AppProvider"
+import { defaultInitialProcessorState } from "../../Hooks/processor/ProcessorFormInitialState"
+import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
+import { type ProcessorPrimitives } from "../../../modules/devices/fetures/processor/domain/Processor"
+import { type ProcessorId } from "../../../modules/devices/fetures/processor/domain/ProcessorId"
+import { type Primitives } from "../../../modules/shared/domain/value-object/Primitives"
+import { type OnHandleChange } from "../../../modules/shared/domain/types/types"
 
 interface Props {
     value?: Primitives<ProcessorId>
@@ -36,7 +35,7 @@ export default function ProcessorComboBox({ value, onChange, type = 'search' }: 
     })), [processors])
 
     return (
-      <Suspense fallback={<InputSkeletonLoading />}>
+      <>
         <ComboBox
           id='processorId'
           initialValue={initialValue}
@@ -68,17 +67,14 @@ export default function ProcessorComboBox({ value, onChange, type = 'search' }: 
           isRequired={type === 'form'}
           loading={loading}
         >
-          {type === 'form' && (
-            <Suspense>
-              <ProcessorDialog
-                dialogValue={dialogValue}
-                open={open}
-                toggleOpen={toggleOpen}
-                createProcessor={createProcessor}
-              />
-            </Suspense>
-                )}
+          {type === 'form' && (            
+            <ProcessorDialog
+              dialogValue={dialogValue}
+              open={open}
+              toggleOpen={toggleOpen}
+              createProcessor={createProcessor}
+            />)}
         </ComboBox>
-      </Suspense>
+      </>
     )
 }

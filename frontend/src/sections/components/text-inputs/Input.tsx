@@ -9,7 +9,7 @@ interface InputProps<T extends string | number | readonly string[]> extends Reac
   errorMessage?: string
   classNameCon?:string
 }
-export function Input<T extends string | number | readonly string[]>({ error, valid, value, errorMessage, label, classNameCon, isRequired = false, ...props }: InputProps<T>) {
+export function Input<T extends string | number | readonly string[]>({ error, valid, value, errorMessage, type, label, classNameCon, isRequired = false, ...props }: InputProps<T>) {
     return (
       <div
         className={`inputBox group after:text-error ${error ? 'error' : null} ${classNameCon}`}
@@ -17,7 +17,7 @@ export function Input<T extends string | number | readonly string[]>({ error, va
       >
         <label 
           className={`
-            ${value && 'transform'} 
+            ${(value || type === 'number') && 'transform'} 
             ${error && '!text-error'} 
             ${valid && '!text-success'} 
             group-focus-within:text-focus`}
@@ -34,7 +34,7 @@ export function Input<T extends string | number | readonly string[]>({ error, va
             aria-hidden
             className={`${error && '!border-2 !border-error'} ${valid && '!border-2 !border-success'} group-focus-within:border-focus group-focus-within:border-2`}
           >
-            <legend className={value && 'transform'}>
+            <legend className={(value || type === 'number') && 'transform'}>
               <span>{`${label} ${isRequired ? '*' : ''}`}</span>
             </legend>
           </fieldset>

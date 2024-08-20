@@ -44,8 +44,8 @@ export interface DefaultProps {
     hardDriveTypeId?: Primitives<HardDriveTypeId>
     operatingSystemArqId?: Primitives<OperatingSystemArqId>
     operatingSystemId?: Primitives<OperatingSystemId>
-    macAddress?: Primitives<MACAddress>
     ipAddress?: Primitives<IPAddress>
+    macAddress?: Primitives<MACAddress>
     health?: Primitives<HardDriveHealth>
     memoryRam?: Primitives<MemoryRamValues>[]
     memoryRamSlotQuantity?: Primitives<MemoryRamSlotQuantity>

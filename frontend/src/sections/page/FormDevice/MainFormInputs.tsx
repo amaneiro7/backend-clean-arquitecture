@@ -35,7 +35,8 @@ export function MainFormInputs({
     stockNumber,    
     observation,
     isAddForm,
-    handleChange
+    handleChange,
+    handleModel
 }: {
     statusId: Primitives<StatusId>
     categoryId: Primitives<CategoryId>
@@ -48,6 +49,7 @@ export function MainFormInputs({
     stockNumber: Primitives<DeviceStockNumber>
     observation: Primitives<DeviceObservation>
     handleChange: (name: string, value: string) => void
+    handleModel: ({ value, memoryRamSlotQuantity, memoryRamType }: { value: string; memoryRamSlotQuantity?: number; memoryRamType?: string }) => void
     isAddForm: boolean
 }) {
   return (
@@ -79,7 +81,7 @@ export function MainFormInputs({
       <Suspense fallback={<InputSkeletonLoading />}>
         <ModelComboBox
           value={modelId}
-          onChange={handleChange}
+          handleModel={handleModel}
           categoryId={categoryId}
           brandId={brandId}
           type='form'

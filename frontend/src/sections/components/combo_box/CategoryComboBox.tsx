@@ -1,12 +1,11 @@
-import { lazy, Suspense, useMemo } from "react"
-import { OnHandleChange } from "../../../modules/shared/domain/types/types"
-import { Primitives } from "../../../modules/shared/domain/value-object/Primitives"
-import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
-import { CategoryId } from "../../../modules/devices/category/domain/CategoryId"
-import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
-import { CategoryPrimitives } from "../../../modules/devices/category/domain/Category"
+import { lazy, useMemo } from "react"
 import { useAppContext } from "../../Context/AppProvider"
+import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
 
+import { type OnHandleChange } from "../../../modules/shared/domain/types/types"
+import { type Primitives } from "../../../modules/shared/domain/value-object/Primitives"
+import { type CategoryPrimitives } from "../../../modules/devices/category/domain/Category"
+import { type CategoryId } from "../../../modules/devices/category/domain/CategoryId"
 
 interface Props {
     value: Primitives<CategoryId>
@@ -34,7 +33,7 @@ export default function CategoryComboBox({ value, filter, onChange, type = 'sear
 
 
     return (
-      <Suspense fallback={<InputSkeletonLoading />}>
+      <>
         {(!isAdd && type === 'form') 
           ? <ReadOnlyInputBox label='Categoria' required defaultValue={initialValue?.name} /> 
           : <ComboBox
@@ -51,6 +50,6 @@ export default function CategoryComboBox({ value, filter, onChange, type = 'sear
               isDisabled={false}
               loading={loading}
             />}
-      </Suspense>
+      </>
     )
 }

@@ -1,12 +1,12 @@
-import { lazy, Suspense, useEffect, useMemo, useState } from "react"
+import { lazy, useEffect, useMemo, useState } from "react"
+import { useAppContext } from "../../Context/AppProvider"
+import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
+import { StatusId } from "../../../modules/devices/devices/status/domain/StatusId"
+import { ComputerHDDCapacity } from "../../../modules/devices/fetures/computer/domain/ComputerHHDCapacity"
+
+import { type HardDrivePrimitives } from "../../../modules/devices/fetures/hardDrive/hardDrive/domain/HardDrive"
 import { type OnHandleChange } from "../../../modules/shared/domain/types/types"
 import { type Primitives } from "../../../modules/shared/domain/value-object/Primitives"
-import { type HardDrivePrimitives } from "../../../modules/devices/fetures/hardDrive/hardDrive/domain/HardDrive"
-import { StatusId } from "../../../modules/devices/devices/status/domain/StatusId"
-import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
-import { ComputerHDDCapacity } from "../../../modules/devices/fetures/computer/domain/ComputerHHDCapacity"
-import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
-import { useAppContext } from "../../Context/AppProvider"
 
 interface Props {
     value: Primitives<ComputerHDDCapacity>    
@@ -47,7 +47,7 @@ export function HardDriveCapacityComboBox ({ value, status, onChange, type = 'se
       }, [value, status, type])
 
     return (
-      <Suspense fallback={<InputSkeletonLoading />}>
+      <>
         <ComboBox
           id='hardDriveCapacityId'
           initialValue={initialValue}
@@ -65,6 +65,6 @@ export function HardDriveCapacityComboBox ({ value, status, onChange, type = 'se
           isError={isError}
           errorMessage={errorMessage}
         />
-      </Suspense>
+      </>
     )
 }

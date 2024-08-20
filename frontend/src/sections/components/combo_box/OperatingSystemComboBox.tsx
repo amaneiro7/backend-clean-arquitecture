@@ -32,6 +32,12 @@ export function OperatingSystemComboBox({ value, status, hardDriveCapacity, onCh
 
   useEffect(() => {
     if (type !== 'form') return
+    
+    if (StatusId.StatusOptions.INUSE !== status || hardDriveCapacity === '') {      
+      setIsDisabled(true)
+    } else {
+      setIsDisabled(false)
+    }
 
     if (value === undefined) {
       return
@@ -40,12 +46,6 @@ export function OperatingSystemComboBox({ value, status, hardDriveCapacity, onCh
     const isValid = ComputerOs.isValid(value, status, hardDriveCapacity)
     // Se valida si el dispositivo no esta en uso o si la capcidad del disco duro esta vacio
     // si alguna de las conficiones es verdadera, el campo se deshabilita y el valor del campo queda en blanco
-    if (StatusId.StatusOptions.INUSE !== status || hardDriveCapacity === '') {
-      onChange('operatingSystemId', '')
-      setIsDisabled(true)
-    } else {
-      setIsDisabled(false)
-    }
     setIsRequired(type === 'form' && StatusId.StatusOptions.INUSE === status)
 
     setIsError(!isValid)
@@ -71,7 +71,6 @@ export function OperatingSystemComboBox({ value, status, hardDriveCapacity, onCh
         }}
         options={operatingSystem}
         isRequired={isRequired}
-        placeholder='-- Filtre por Sistema Operativo --'
         isDisabled={isDisabled}
         loading={loading}
         isError={isError}

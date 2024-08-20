@@ -1,12 +1,11 @@
-import { lazy, Suspense, useEffect, useMemo, useState } from "react"
-import { OnHandleChange } from "../../../modules/shared/domain/types/types"
-import { Primitives } from "../../../modules/shared/domain/value-object/Primitives"
+import { lazy, useEffect, useMemo, useState } from "react"
+import { useAppContext } from "../../Context/AppProvider"
 import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
-import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
 import { ComputerOs } from "../../../modules/devices/fetures/computer/domain/ComputerOS"
 import { ComputerOsArq } from "../../../modules/devices/fetures/computer/domain/ComputerOSArq"
-import { OperatingSystemArqPrimitives } from "../../../modules/devices/fetures/operatingSystem/operatingSystemArq/domain/OperatingSystemArq"
-import { useAppContext } from "../../Context/AppProvider"
+import { type OperatingSystemArqPrimitives } from "../../../modules/devices/fetures/operatingSystem/operatingSystemArq/domain/OperatingSystemArq"
+import { type OnHandleChange } from "../../../modules/shared/domain/types/types"
+import { type Primitives } from "../../../modules/shared/domain/value-object/Primitives"
 
 interface Props {
   value: Primitives<ComputerOsArq>
@@ -31,7 +30,6 @@ export function OperatingSystemArqComboBox({ value, operatingSystem, onChange, t
   useEffect(() => {
     if (type !== 'form') return
     if (!operatingSystem) {
-      onChange('operatingSystemArqId', '')
       setIsDisabled(true)
     } else {
       setIsDisabled(false)
@@ -55,7 +53,7 @@ export function OperatingSystemArqComboBox({ value, operatingSystem, onChange, t
   }, [value, operatingSystem, type])
 
   return (
-    <Suspense fallback={<InputSkeletonLoading />}>
+    <>
       <ComboBox
         id='operatingSystemArqId'
         initialValue={initialValue}
@@ -73,6 +71,6 @@ export function OperatingSystemArqComboBox({ value, operatingSystem, onChange, t
         isError={isError}
         errorMessage={errorMessage}
       />
-    </Suspense>
+    </>
   )
 }

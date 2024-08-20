@@ -1,13 +1,12 @@
-import { lazy, Suspense, useEffect, useMemo, useState } from "react"
-import { OnHandleChange } from "../../../modules/shared/domain/types/types"
-import { Primitives } from "../../../modules/shared/domain/value-object/Primitives"
-import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
-import { CategoryId } from "../../../modules/devices/category/domain/CategoryId"
-import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
-import { ComputerHDDType } from "../../../modules/devices/fetures/computer/domain/ComputerHDDtype"
-import { ComputerHDDCapacity } from "../../../modules/devices/fetures/computer/domain/ComputerHHDCapacity"
-import { type HardDriveTypePrimitives } from "../../../modules/devices/fetures/hardDrive/hardDriveType/domain/HardDriveType"
+import { lazy, useEffect, useMemo, useState } from "react"
 import { useAppContext } from "../../Context/AppProvider"
+import { ComputerHDDType } from "../../../modules/devices/fetures/computer/domain/ComputerHDDtype"
+import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
+import { type ComputerHDDCapacity } from "../../../modules/devices/fetures/computer/domain/ComputerHHDCapacity"
+import { type CategoryId } from "../../../modules/devices/category/domain/CategoryId"
+import { type Primitives } from "../../../modules/shared/domain/value-object/Primitives"
+import { type OnHandleChange } from "../../../modules/shared/domain/types/types"
+import { type HardDriveTypePrimitives } from "../../../modules/devices/fetures/hardDrive/hardDriveType/domain/HardDriveType"
 
 interface Props {
   value: Primitives<CategoryId>
@@ -30,9 +29,9 @@ export default function HardDriveTypeComboBox({ value, hardDriveCapacity, onChan
 
   useEffect(() => {
     if (type !== 'form') return
+    
     if (!hardDriveCapacity) {
       setIsDisabled(true)
-      onChange('hardDriveTypeId', '')
     } else {
       setIsDisabled(false)
     }
@@ -53,7 +52,7 @@ export default function HardDriveTypeComboBox({ value, hardDriveCapacity, onChan
   }, [value, hardDriveCapacity, type])
 
   return (
-    <Suspense fallback={<InputSkeletonLoading />}>
+    <>
       <ComboBox
         id='hardDriveTypeId'
         initialValue={initialValue}
@@ -71,6 +70,6 @@ export default function HardDriveTypeComboBox({ value, hardDriveCapacity, onChan
         isError={isError}
         errorMessage={errorMessage}
       />
-    </Suspense>
+    </>
   )
 }

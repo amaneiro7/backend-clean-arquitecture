@@ -1,12 +1,12 @@
 import { lazy, useMemo, useState } from "react"
 import { useAppContext } from "../../Context/AppProvider"
-import { type OnHandleChange } from "../../../modules/shared/domain/types/types"
 import { type Primitives } from "../../../modules/shared/domain/value-object/Primitives"
 import { type BrandId } from "../../../modules/devices/brand/domain/BrandId"
 import { type CategoryId } from "../../../modules/devices/category/domain/CategoryId"
 import { type ModelApiresponse } from "../../../modules/shared/domain/types/responseTypes"
 import { type ModelId } from "../../../modules/devices/model/model/domain/ModelId"
 import { type DefaultModelProps, defaultInitialModelState } from "../../Hooks/model/ModelFormInitialState"
+import { type OnHandleChange } from "../../../modules/shared/domain/types/types"
 import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
 
 interface Props {
@@ -14,7 +14,8 @@ interface Props {
     name?: string
     categoryId: Primitives<CategoryId>
     brandId: Primitives<BrandId>
-    onChange: OnHandleChange
+    onChange?: OnHandleChange
+    handleModel?: ({value, memoryRamSlotQuantity, memoryRamType }: {value: string, memoryRamSlotQuantity?: number, memoryRamType?: string}) => void
     type?: 'form' | 'search'
     isAdd?: boolean
 }
@@ -27,7 +28,7 @@ const ComboBox = lazy(async () => import("./combo_box"))
 const ModelDialog = lazy(async () => import("../Dialog/ModelDialog"))
 const ReadOnlyInputBox = lazy(async () => import("../ReadOnlyInputBox").then(m => ({ default: m.ReadOnlyInputBox })))
 
-export default function ModelComboBox({ value, onChange, categoryId, brandId, type = 'search', name = 'modelId', isAdd = false }: Props) {
+export default function ModelComboBox({ value, onChange, handleModel, categoryId, brandId, type = 'search', name = 'modelId', isAdd = false }: Props) {
     const { useModel: { models, loading, createModel } } = useAppContext()
     const [open, toggleOpen] = useState(false)
     const [dialogValue, setDialogValue] = useState<DefaultModelProps>(defaultInitialModelState)
@@ -67,16 +68,21 @@ export default function ModelComboBox({ value, onChange, categoryId, brandId, ty
                             toggleOpen(true)
                             setDialogValue(prev => ({ ...prev, name: newValue.inputValue }))
                         } else {
-                            onChange(name, newValue ? newValue.id : '', Operator.EQUAL)
+                            const value = newValue ? newValue.id : ''
                             if (type === 'form') {
                                 if (newValue?.modelComputer !== null) {
-                                    onChange('memoryRamSlotQuantity', newValue ? newValue?.modelComputer.memoryRamSlotQuantity : undefined)
-                                    onChange('memoryRamType', newValue ? newValue?.modelComputer.memoryRamType.name : '')
+                                    const memoryRamSlotQuantity = newValue ? newValue?.modelComputer.memoryRamSlotQuantity : undefined
+                                    const memoryRamType = newValue ? newValue?.modelComputer.memoryRamType.name : ''
+                                    handleModel({ value, memoryRamSlotQuantity, memoryRamType })
                                 }
                                 if (newValue?.modelLaptop !== null) {
-                                    onChange('memoryRamSlotQuantity', newValue ? newValue?.modelComputer.memoryRamSlotQuantity : undefined)
-                                    onChange('memoryRamType', newValue ? newValue?.modelComputer.memoryRamType.name : '')
+                                    const memoryRamSlotQuantity = newValue ? newValue?.modelLaptop.memoryRamSlotQuantity : undefined
+                                    const memoryRamType = newValue ? newValue?.modelLaptop.memoryRamType.name : ''
+                                    handleModel({ value, memoryRamSlotQuantity, memoryRamType })
                                 }
+                            }
+                            else {
+                                onChange(name, value, Operator.EQUAL)
                             }
                         }
                     }}

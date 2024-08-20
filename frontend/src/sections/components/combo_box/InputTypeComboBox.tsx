@@ -1,9 +1,8 @@
-import { lazy, Suspense, useMemo } from "react"
-import { OnHandleChange } from "../../../modules/shared/domain/types/types"
-import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
-import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
-import { InputTypePrimitives } from "../../../modules/devices/model/InputType/domain/InputType"
+import { lazy, useMemo } from "react"
 import { useAppContext } from "../../Context/AppProvider"
+import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
+import { type OnHandleChange } from "../../../modules/shared/domain/types/types"
+import { type InputTypePrimitives } from "../../../modules/devices/model/InputType/domain/InputType"
 
 interface Props {
     value?: string
@@ -21,7 +20,7 @@ export function InputTypeComboBox({ value, onChange, type = 'search' }: Props) {
     }, [inputType, value])
 
     return (
-      <Suspense fallback={<InputSkeletonLoading />}>
+      <>
         <ComboBox
           id='inputTypeId'
           initialValue={initialValue}
@@ -36,6 +35,6 @@ export function InputTypeComboBox({ value, onChange, type = 'search' }: Props) {
           isRequired={type === 'form'}
           loading={loading}
         />
-      </Suspense>
+      </>
     )
 }

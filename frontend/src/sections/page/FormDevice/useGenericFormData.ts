@@ -1,26 +1,72 @@
 import { useCallback, useEffect, useReducer } from "react"
 import { useDeviceInitialState } from "../../Hooks/device/DeviceFormInitialState"
-import { type DefaultProps } from "../../Hooks/device/DefaultInitialState"
-import { MemoryRam } from "../../../modules/devices/fetures/computer/domain/MemoryRam"
 import { useGenericForm2 } from "../../Hooks/useGenericForm2"
 import { useDeviceContext } from "../../Context/DeviceProvider"
+import { type DefaultProps } from "../../Hooks/device/DefaultInitialState"
+import { MemoryRam } from "../../../modules/devices/fetures/computer/domain/MemoryRam"
 
 interface InitialState {
     formData: DefaultProps
-    errors: Pick<DefaultProps, 'activo'
-        | 'serial'
-        | 'employeeId'
-        | 'locationId'
-        | 'stockNumber'
-        | 'computerName'
-        | 'processorId'
-        | 'memoryRamCapacity'
-        | 'hardDriveCapacityId'
-        | 'hardDriveTypeId'
-        | 'operatingSystemArqId'
-        | 'operatingSystemId'
-        | 'ipAddress'
-        | 'macAddress'>
+    // errors: Pick<DefaultProps, 'activo'
+    //     | 'serial'
+    //     | 'employeeId'
+    //     | 'locationId'
+    //     | 'stockNumber'
+    //     | 'computerName'
+    //     | 'processorId'
+    //     | 'memoryRamCapacity'
+    //     | 'hardDriveCapacityId'
+    //     | 'hardDriveTypeId'
+    //     | 'operatingSystemArqId'
+    //     | 'operatingSystemId'
+    //     | 'ipAddress'
+    //     | 'macAddress'>
+    // required: {
+    //     statusId: boolean
+    //     categoryId: boolean
+    //     brandId: boolean
+    //     modelId: boolean
+    //     serial: boolean
+    //     activo: boolean
+    //     employeeId: boolean
+    //     locationId: boolean
+    //     stockNumber: boolean
+    //     observation: boolean
+    //     computerName: boolean
+    //     processorId: boolean
+    //     memoryRamCapacity: boolean
+    //     memoryRam: boolean
+    //     hardDriveCapacityId: boolean
+    //     hardDriveTypeId: boolean
+    //     operatingSystemArqId: boolean
+    //     operatingSystemId: boolean
+    //     ipAddress: boolean
+    //     macAddress: boolean
+    //     health: boolean
+    // },
+    // disabled: {
+    //     statusId: boolean
+    //     categoryId: boolean
+    //     brandId: boolean
+    //     modelId: boolean
+    //     serial: boolean
+    //     activo: boolean
+    //     employeeId: boolean
+    //     locationId: boolean
+    //     stockNumber: boolean
+    //     observation: boolean
+    //     computerName: boolean
+    //     processorId: boolean
+    //     memoryRamCapacity: boolean
+    //     memoryRam: boolean
+    //     hardDriveCapacityId: boolean
+    //     hardDriveTypeId: boolean
+    //     operatingSystemArqId: boolean
+    //     operatingSystemId: boolean
+    //     ipAddress: boolean
+    //     macAddress: boolean
+    //     health: boolean
+    // }
 }
 
 const initialState: InitialState = {
@@ -51,13 +97,6 @@ const initialState: InitialState = {
         health: 100,
         updatedAt: undefined,
         history: []
-    },
-    errors: {
-        serial: '',
-        activo: '',
-        employeeId: '',
-        locationId: '',
-        stockNumber: ''
     }
 }
 
@@ -259,9 +298,8 @@ const reducer = (state: InitialState, action: Action): InitialState => {
             return
         }
 
-        const updatedMemoryRamSlot = [...initialState.formData.memoryRam]
+        const updatedMemoryRamSlot = initialState.formData.memoryRam
         updatedMemoryRamSlot[index] = parsedValue
-
         const memoryRamCapacity = MemoryRam.totalAmount(updatedMemoryRamSlot)
 
         return {
@@ -351,13 +389,13 @@ const reducer = (state: InitialState, action: Action): InitialState => {
             }
         }
     }
-
+    return state
 }
 
-export function useDeviceReducer() {
+export function useFormDevice() {
     const { createDevice } = useDeviceContext()
     const { isAddForm, preloadedDeviceState, setResetState } = useDeviceInitialState()
-    const [{ formData, errors }, dispatch] = useReducer(reducer, initialState)
+    const [{ formData }, dispatch] = useReducer(reducer, initialState)
     const { processing, submitForm } = useGenericForm2({ create: createDevice })
 
     useEffect(() => {
@@ -378,17 +416,29 @@ export function useDeviceReducer() {
             })
     }, [formData, resetForm, submitForm])
 
-    const handleClose = useCallback(() => {
-        window.history.back()
-    }, [])
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const handleChange = (name: Action['type'], value: any) => {
+        if (name === 'INIT_STATE' || name === 'reset' || name === 'modelId' || name === 'memoryRam') return
+        dispatch({ type: name, payload: { value } })
+    }
+
+    const handleModel = ({ value, memoryRamSlotQuantity, memoryRamType }: { value: string, memoryRamSlotQuantity?: number, memoryRamType?: string }) => {
+        dispatch({ type: 'modelId', payload: { value, memoryRamSlotQuantity, memoryRamType } })
+    }
+    const handleMemory = (value: string, index: number) => {
+        dispatch({ type: 'memoryRam', payload: { value, index } })
+    }
+
+    const handleClose = () => { window.history.back() }
 
     return {
         formData,
-        errors,
         isAddForm,
         processing,
         handleSubmit,
         handleClose,
-        dispatch
+        handleChange,
+        handleMemory,
+        handleModel,
     }
 }

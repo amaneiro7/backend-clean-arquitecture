@@ -1,13 +1,13 @@
-import { lazy, Suspense, useEffect, useMemo, useState } from "react"
+import { lazy, useEffect, useMemo, useState } from "react"
+import { useAppContext } from "../../Context/AppProvider"
+import { defaultInitialEmployeeState } from "../../Hooks/employee/EmployeeFormInitialState"
 import { DeviceEmployee } from "../../../modules/devices/devices/devices/domain/DeviceEmployee"
+import { StatusId } from "../../../modules/devices/devices/status/domain/StatusId"
+import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
+
 import { type EmployeePrimitives } from "../../../modules/employee/employee/domain/Employee"
 import { type Primitives } from "../../../modules/shared/domain/value-object/Primitives"
-import { StatusId } from "../../../modules/devices/devices/status/domain/StatusId"
-import { OnHandleChange } from "../../../modules/shared/domain/types/types"
-import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
-import { defaultInitialEmployeeState } from "../../Hooks/employee/EmployeeFormInitialState"
-import { useAppContext } from "../../Context/AppProvider"
-import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
+import { type OnHandleChange } from "../../../modules/shared/domain/types/types"
 
 interface Props {
   value: Primitives<DeviceEmployee>
@@ -49,7 +49,6 @@ export default function EmployeeComboBox({ value, name, onChange, status, type =
     const isValid = DeviceEmployee.isValid(value, status)
     if (StatusId.StatusOptions.INUSE !== status) {
       setIsDisabled(true)
-      onChange(name, '')
     } else {
       setIsDisabled(false)
     }
@@ -66,7 +65,7 @@ export default function EmployeeComboBox({ value, name, onChange, status, type =
   
 
   return (
-    <Suspense fallback={<InputSkeletonLoading />}>
+    <>
       <ComboBox
         id={name}
         initialValue={initialValue}
@@ -102,6 +101,6 @@ export default function EmployeeComboBox({ value, name, onChange, status, type =
         {type === 'form' &&          
           <EmployeeDialog createEmployee={createEmployee} dialogValue={dialogValue} open={open} toggleOpen={toggleOpen} />}
       </ComboBox>
-    </Suspense>
+    </>
   )
 }

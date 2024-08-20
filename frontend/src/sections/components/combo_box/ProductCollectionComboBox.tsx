@@ -1,10 +1,9 @@
-import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react"
-import { OnHandleChange } from "../../../modules/shared/domain/types/types"
+import { lazy,useEffect, useMemo, useRef, useState } from "react"
+import { useAppContext } from "../../Context/AppProvider"
+import { ProcessorProductCollection } from "../../../modules/devices/fetures/processor/domain/ProcessorCollection"
+import { type OnHandleChange } from "../../../modules/shared/domain/types/types"
 import { type Primitives } from "../../../modules/shared/domain/value-object/Primitives"
 import { type ProcessorPrimitives } from "../../../modules/devices/fetures/processor/domain/Processor"
-import { ProcessorProductCollection } from "../../../modules/devices/fetures/processor/domain/ProcessorCollection"
-import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
-import { useAppContext } from "../../Context/AppProvider"
 
 
 interface Props {
@@ -53,7 +52,7 @@ export default function ProcessorCollectionComboBox({ value, onChange, type = 's
 
 
     return (
-      <Suspense fallback={<InputSkeletonLoading />}>
+      <>
         <ComboBox
           id='productCollection'
           initialValue={initialValue}
@@ -63,7 +62,6 @@ export default function ProcessorCollectionComboBox({ value, onChange, type = 's
           type='search'
           onChange={(_, newValue: ProcessorPrimitives) => {
                     onChange('productCollection', newValue ? newValue.name : '')
-
                 }}
           options={processorOptions}
           isRequired={type === 'form'}
@@ -72,6 +70,6 @@ export default function ProcessorCollectionComboBox({ value, onChange, type = 's
           isError={isError}
           errorMessage={errorMessage}
         />
-      </Suspense>
+      </>
     )
 }
