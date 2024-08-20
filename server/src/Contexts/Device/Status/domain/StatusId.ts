@@ -5,6 +5,11 @@ export class StatusId extends StringValueObject {
     INUSE: '1',
     INALMACEN: '2',
     PORDESINCORPORAR: '3',
-    DESINCORPORADO: '4'
+    DESINCORPORADO: '4',
+    PRESTAMO: '5',
+    CONTINGENCIA: '6',
+    GUARDIA: '7',
+    ASIGNADO: '8',
+    VACANTE: '9',
   } as const
 }

@@ -293,13 +293,8 @@ const reducer = (state: InitialState, action: Action): InitialState => {
         const { value, index } = action.payload
         const parsedValue = parseFloat(value)
 
-        if (isNaN(parsedValue)) {
-            console.error('El valor nos un número válido')
-            return
-        }
-
         const updatedMemoryRamSlot = initialState.formData.memoryRam
-        updatedMemoryRamSlot[index] = parsedValue
+        updatedMemoryRamSlot[index] = isNaN(parsedValue) ? 0 : parsedValue
         const memoryRamCapacity = MemoryRam.totalAmount(updatedMemoryRamSlot)
 
         return {

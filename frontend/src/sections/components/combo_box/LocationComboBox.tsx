@@ -85,7 +85,6 @@ export default function LocationComboBox({ value, statusId, typeOfSiteId, onChan
           } else {
             onChange('locationId', newValue ? newValue.id : '', Operator.EQUAL)
           }
-          // onChange('locationId', newValue ? newValue.id : '', Operator.EQUAL)
         }}
         options={filterLocation as LocationApiResponse[]}
         isDisabled={false}
@@ -94,9 +93,7 @@ export default function LocationComboBox({ value, statusId, typeOfSiteId, onChan
         isError={isError}
         errorMessage={errorMessage}
       >
-        {type === 'form' && (          
-          <LocationDialog createLocation={createLocation} dialogValue={dialogValue} open={open} toggleOpen={toggleOpen} />
-        )}
+        {type === 'form' ? <LocationDialog createLocation={createLocation} dialogValue={dialogValue} open={open} toggleOpen={toggleOpen} /> : null}
       </ComboBox>
     </>
   )

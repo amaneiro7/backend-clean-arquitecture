@@ -65,8 +65,8 @@ export function FormLogin () {
                 type='submit'
                 icon={
                   loading 
-                  ? <CircleSpinningIcon width={20} />                    
-                  : null
+                    ? <CircleSpinningIcon width={20} />                    
+                    : null
                   }
               />
                 
