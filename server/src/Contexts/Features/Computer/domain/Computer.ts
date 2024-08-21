@@ -89,7 +89,7 @@ export class DeviceComputer extends Device {
       new ComputerProcessor(params.processorId),
       ComputerMemoryRam.fromPrimitives(params.memoryRam),
       new ComputerMemoryRamCapacity(ComputerMemoryRam.totalAmount(params.memoryRam), params.statusId),
-      new ComputerHardDriveCapacity(params.hardDriveCapacityId),
+      new ComputerHardDriveCapacity(params.hardDriveCapacityId, params.statusId),
       new ComputerHardDriveType(params.hardDriveTypeId, params.hardDriveCapacityId),
       new ComputerOperatingSystem(params.operatingSystemId, params.hardDriveCapacityId, params.statusId),
       new ComputerOperatingSystemArq(params.operatingSystemArqId, params.operatingSystemId),
@@ -146,7 +146,7 @@ export class DeviceComputer extends Device {
       new ComputerProcessor(primitives.processorId),
       ComputerMemoryRam.fromPrimitives(primitives.memoryRam),
       new ComputerMemoryRamCapacity(primitives.memoryRamCapacity, primitives.statusId),
-      new ComputerHardDriveCapacity(primitives.hardDriveCapacityId),
+      new ComputerHardDriveCapacity(primitives.hardDriveCapacityId, primitives.statusId),
       new ComputerHardDriveType(primitives.hardDriveTypeId, primitives.hardDriveCapacityId),
       new ComputerOperatingSystem(primitives.operatingSystemId, primitives.hardDriveCapacityId, primitives.statusId),
       new ComputerOperatingSystemArq(primitives.operatingSystemArqId, primitives.operatingSystemId),
@@ -178,8 +178,8 @@ export class DeviceComputer extends Device {
     this.operatingSystemArqId = new ComputerOperatingSystemArq(newOperatingSystemArq, opertaingSystem)
   }
 
-  updateHardDriveCapacity(newHDDCapacity: Primitives<ComputerHardDriveCapacity>): void {
-    this.hardDriveCapacityId = new ComputerHardDriveCapacity(newHDDCapacity)
+  updateHardDriveCapacity(newHDDCapacity: Primitives<ComputerHardDriveCapacity>, status: Primitives<DeviceStatus>): void {
+    this.hardDriveCapacityId = new ComputerHardDriveCapacity(newHDDCapacity, status)
   }
 
   updateHardDriveType(newHDDType: Primitives<ComputerHardDriveType>, hardDriveCapacity: Primitives<ComputerHardDriveCapacity>): void {

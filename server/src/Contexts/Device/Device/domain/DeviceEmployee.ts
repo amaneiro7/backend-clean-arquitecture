@@ -1,34 +1,35 @@
 import { AcceptedNullValueObject } from '../../../Shared/domain/value-object/AcceptedNullValueObjects'
-import { InvalidArgumentError } from '../../../Shared/domain/value-object/InvalidArgumentError'
-import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
-import { EmployeeId } from '../../../Employee/Employee/domain/EmployeeId'
-import { type EmployeeRepository } from '../../../employee/Employee/domain/EmployeeRepository'
-import { EmployeeDoesNotExistError } from '../../../Employee/Employee/domain/EmployeeDoesNotExistError'
-import { type EmployeePrimitives } from '../../../employee/Employee/domain/Employee'
-import { type Device } from './Device'
 import { DeviceStatus } from './DeviceStatus'
+import { EmployeeId } from '../../../Employee/Employee/domain/EmployeeId'
+import { InvalidArgumentError } from '../../../Shared/domain/value-object/InvalidArgumentError'
+import { EmployeeDoesNotExistError } from '../../../Employee/Employee/domain/EmployeeDoesNotExistError'
+import { type Device } from './Device'
+import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
+import { type EmployeeRepository } from '../../../employee/Employee/domain/EmployeeRepository'
+import { type EmployeePrimitives } from '../../../employee/Employee/domain/Employee'
+
 
 export class DeviceEmployee extends AcceptedNullValueObject<Primitives<EmployeeId>> {
-  constructor (
+  constructor(
     readonly value: Primitives<EmployeeId> | null,
     private readonly status: Primitives<DeviceStatus>
   ) {
     super(value)
-    this.ensureIfStatusIsNotInUseEmployeeMustBeNull({ employee: this.value, status: this.status })
+    this.ensureEmployeeConditionDependsOfStatus({ employee: this.value, status: this.status })
     this.ensureIsValidEmployeeId(value)
   }
 
-  toPrimitives (): Primitives<EmployeeId> | null {
+  toPrimitives(): Primitives<EmployeeId> | null {
     return this.value
   }
 
-  private ensureIsValidEmployeeId (id: Primitives<EmployeeId> | null): void {
+  private ensureIsValidEmployeeId(id: Primitives<EmployeeId> | null): void {
     if (!this.isValid(id)) {
       throw new InvalidArgumentError('EmployeeId is required')
     }
   }
 
-  private isValid (id: Primitives<EmployeeId> | null): boolean {
+  private isValid(id: Primitives<EmployeeId> | null): boolean {
     if (id === null) return true
     const employeeId = new EmployeeId(id)
     if (employeeId instanceof EmployeeId) {
@@ -38,13 +39,25 @@ export class DeviceEmployee extends AcceptedNullValueObject<Primitives<EmployeeI
     return false
   }
 
-  ensureIfStatusIsNotInUseEmployeeMustBeNull ({ employee, status }: { employee: Primitives<EmployeeId> | null, status: Primitives<DeviceStatus> }): void {
+  ensureEmployeeConditionDependsOfStatus({ employee, status }: { employee: Primitives<EmployeeId> | null, status: Primitives<DeviceStatus> }): void {
+    if (status === DeviceStatus.StatusOptions.PRESTAMO && employee === null) {
+      throw new InvalidArgumentError('El dispositivo debe estar asignado a un usuario si el estatus es en préstamo')
+    }
+    if (status === DeviceStatus.StatusOptions.CONTINGENCIA && employee === null) {
+      throw new InvalidArgumentError('El dispositivo debe estar asignado a un usuario si el estatus es en contingencia')
+    }
+    if (status === DeviceStatus.StatusOptions.GUARDIA && employee === null) {
+      throw new InvalidArgumentError('El dispositivo debe estar asignado a un usuario si el estatus es en guardia')
+    }
+    if (status === DeviceStatus.StatusOptions.VACANTE && employee !== null) {
+      throw new InvalidArgumentError('The device cannot have an employee if it is in Available status')
+    }
     if (status !== DeviceStatus.StatusOptions.INUSE && employee !== null) {
       throw new InvalidArgumentError('The device cannot have an employee if it is not in use')
     }
   }
 
-  static async updateEmployeeField ({ repository, employee, entity }: { repository: EmployeeRepository, employee?: Primitives<DeviceEmployee>, entity: Device }): Promise<void> {
+  static async updateEmployeeField({ repository, employee, entity }: { repository: EmployeeRepository, employee?: Primitives<DeviceEmployee>, entity: Device }): Promise<void> {
     // Si no se ha pasado un nuevo empleado no realiza ninguna acción
     if (employee === undefined) {
       return
@@ -60,7 +73,7 @@ export class DeviceEmployee extends AcceptedNullValueObject<Primitives<EmployeeI
     entity.updateEmployee(employee, status)
   }
 
-  static async ensureEmployeeExit ({ repository, employee }: { repository: EmployeeRepository, employee: Primitives<DeviceEmployee> }): Promise<void> {
+  static async ensureEmployeeExit({ repository, employee }: { repository: EmployeeRepository, employee: Primitives<DeviceEmployee> }): Promise<void> {
     // If the empleado is null, it does not exist, so we don't need to do any verification
     if (employee === null) {
       return

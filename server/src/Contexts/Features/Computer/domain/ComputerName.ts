@@ -12,12 +12,12 @@ export class ComputerName extends AcceptedNullValueObject<string> {
   private readonly notSpecialCharacterOnlyGuiones = /^[^\W_]*-?[^\W_]*$/
   private errors: string[] = []
 
-  constructor (
+  constructor(
     readonly value: string | null,
     private readonly statusId: Primitives<DeviceStatus>
   ) {
     super(value)
-    
+
     // Convertir el valor a mayúsculas si no es nulo
     if (value !== null) {
       this.value = value.toUpperCase().trim()
@@ -27,23 +27,26 @@ export class ComputerName extends AcceptedNullValueObject<string> {
     this.ensureIsValid(value)
   }
 
-  toPrimitives (): string | null {
+  toPrimitives(): string | null {
     return this.value
   }
 
-  private ensureIfStatusIsInUse (value: Primitives<ComputerName>, statusId: Primitives<DeviceStatus>): void {
-    if (statusId !== DeviceStatus.StatusOptions.INUSE && value !== null) {
+  private ensureIfStatusIsInUse(value: Primitives<ComputerName>, statusId: Primitives<DeviceStatus>): void {
+    if ([DeviceStatus.StatusOptions.INALMACEN, DeviceStatus.StatusOptions.DESINCORPORADO, DeviceStatus.StatusOptions.PORDESINCORPORAR].includes(statusId) && value !== null) {
       throw new InvalidArgumentError('Computer name can only be stablished when the device is in use')
+    }
+    if ([DeviceStatus.StatusOptions.INUSE, DeviceStatus.StatusOptions.PRESTAMO, DeviceStatus.StatusOptions.CONTINGENCIA, DeviceStatus.StatusOptions.GUARDIA].includes(statusId) && value !== null) {
+      throw new InvalidArgumentError('Computer must have a computer name')
     }
   }
 
-  private ensureIsValid (value: string | null): void {
+  private ensureIsValid(value: string | null): void {
     if (!this.isValid(value)) {
       throw new InvalidArgumentError(`<${value}> exceeded the maximum length`)
     }
   }
 
-  private isValid (name: string | null): boolean {
+  private isValid(name: string | null): boolean {
     if (name === null) return true
     const isHasNotSpecialCharacterOnlyGuiones = this.notSpecialCharacterOnlyGuiones.test(name)
     if (!isHasNotSpecialCharacterOnlyGuiones) {
@@ -60,7 +63,7 @@ export class ComputerName extends AcceptedNullValueObject<string> {
     return isHasNotSpecialCharacterOnlyGuiones && isNotHasLowerCharacter && isNameValidLength
   }
 
-  static async updateComputerNameField ({ repository, computerName, entity }: { repository: DeviceRepository, computerName?: Primitives<ComputerName>, entity: DeviceComputer }): Promise<void> {
+  static async updateComputerNameField({ repository, computerName, entity }: { repository: DeviceRepository, computerName?: Primitives<ComputerName>, entity: DeviceComputer }): Promise<void> {
     // Si no se ha pasado un nuevo nombre de equipo no realiza ninguna acción
     if (computerName === undefined) {
       return
@@ -76,7 +79,7 @@ export class ComputerName extends AcceptedNullValueObject<string> {
     entity.updateComputerName(computerName, status)
   }
 
-  static async ensuerComputerNameDoesNotExit ({ repository, computerName }: { repository: DeviceRepository, computerName: Primitives<ComputerName> }): Promise<void> {
+  static async ensuerComputerNameDoesNotExit({ repository, computerName }: { repository: DeviceRepository, computerName: Primitives<ComputerName> }): Promise<void> {
     // If the nombre de equipo is null, it does not exist, so we don't need to do any verification
     if (computerName === null) {
       return

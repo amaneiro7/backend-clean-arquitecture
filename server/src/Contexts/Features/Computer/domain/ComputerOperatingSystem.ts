@@ -10,7 +10,7 @@ import { type DeviceComputer } from './Computer'
 import { type ComputerHardDriveCapacity } from './ComputerHardDriveCapacity'
 
 export class ComputerOperatingSystem extends AcceptedNullValueObject<Primitives<OperatingSystemId>> {
-  constructor (
+  constructor(
     readonly value: Primitives<OperatingSystemId> | null,
     readonly hardDriveCapacity: Primitives<ComputerHardDriveCapacity>,
     readonly status: Primitives<DeviceStatus>
@@ -22,29 +22,42 @@ export class ComputerOperatingSystem extends AcceptedNullValueObject<Primitives<
     this.ensureIsValidOperatingSystemId(value)
   }
 
-  toPrimitives (): Primitives<ComputerOperatingSystem> {
+  toPrimitives(): Primitives<ComputerOperatingSystem> {
     return this.value
   }
 
-  private ensureIsValidOperatingSystemId (id: Primitives<ComputerOperatingSystem>): void {
+  private ensureIsValidOperatingSystemId(id: Primitives<ComputerOperatingSystem>): void {
     if (!this.isValid(id)) {
       throw new InvalidArgumentError('Operating System is required')
     }
   }
 
-  private ensureIfHardDriveisNullOperatingSystemIsNullAsWell (operatingSystem: Primitives<ComputerOperatingSystem>, hardDriveCapacity: Primitives<ComputerHardDriveCapacity>): void {
+  private ensureIfHardDriveisNullOperatingSystemIsNullAsWell(operatingSystem: Primitives<ComputerOperatingSystem>, hardDriveCapacity: Primitives<ComputerHardDriveCapacity>): void {
     if (hardDriveCapacity === null && operatingSystem !== null) {
       throw new InvalidArgumentError('You cannot have operating system if you dont have hard drive')
     }
   }
 
-  private ensureIfStatusIsInUseOperatingSystemMustHaveAValue (operatingSystem: Primitives<ComputerOperatingSystem>, status: Primitives<DeviceStatus>): void {
-    if (status === DeviceStatus.StatusOptions.INUSE && operatingSystem === null) {
-      throw new InvalidArgumentError('If computer is in use, cannot have an operaing system')
+  private ensureIfStatusIsInUseOperatingSystemMustHaveAValue(operatingSystem: Primitives<ComputerOperatingSystem>, status: Primitives<DeviceStatus>): void {
+    if ([
+      DeviceStatus.StatusOptions.INUSE,
+      DeviceStatus.StatusOptions.PRESTAMO,
+      DeviceStatus.StatusOptions.CONTINGENCIA,
+      DeviceStatus.StatusOptions.GUARDIA
+    ].includes(status) && operatingSystem === null) {
+      throw new InvalidArgumentError('If computer is in use, required an operaing system')
+    }
+
+    if ([
+      DeviceStatus.StatusOptions.INALMACEN,
+      DeviceStatus.StatusOptions.PORDESINCORPORAR,
+      DeviceStatus.StatusOptions.DESINCORPORADO,
+    ].includes(status) && operatingSystem !== null) {
+      throw new InvalidArgumentError('If computer is not use, cannot have an operaing system')
     }
   }
 
-  private isValid (id: Primitives<ComputerOperatingSystem>): boolean {
+  private isValid(id: Primitives<ComputerOperatingSystem>): boolean {
     if (id === null) return true
     const operatingSystemId = new OperatingSystemId(id)
     if (operatingSystemId instanceof OperatingSystemId) {
@@ -54,7 +67,7 @@ export class ComputerOperatingSystem extends AcceptedNullValueObject<Primitives<
     return false
   }
 
-  static async updateOperatingSystemField ({ repository, operatingSystem, entity }: { repository: OperatingSystemRepository, operatingSystem?: Primitives<ComputerOperatingSystem>, entity: DeviceComputer }): Promise<void> {
+  static async updateOperatingSystemField({ repository, operatingSystem, entity }: { repository: OperatingSystemRepository, operatingSystem?: Primitives<ComputerOperatingSystem>, entity: DeviceComputer }): Promise<void> {
     // Si no se ha pasado un nuevo valor del Sistema Operativo no realiza ninguna acción
     if (operatingSystem === undefined) {
       return
@@ -71,7 +84,7 @@ export class ComputerOperatingSystem extends AcceptedNullValueObject<Primitives<
     entity.updateOperatingSystem(operatingSystem, hardDriveCapacity, status)
   }
 
-  static async ensureOperatingSystemExit ({ repository, operatingSystem }: { repository: OperatingSystemRepository, operatingSystem: Primitives<ComputerOperatingSystem> }): Promise<void> {
+  static async ensureOperatingSystemExit({ repository, operatingSystem }: { repository: OperatingSystemRepository, operatingSystem: Primitives<ComputerOperatingSystem> }): Promise<void> {
     // If the valor del Sistema Operativo is null, it does not exist, so we don't need to do any verification
     if (operatingSystem === null) {
       return

@@ -26,7 +26,7 @@ export class DeviceStocknumber extends AcceptedNullValueObject<string> {
     if (!(value?.length >= this.NAME_MIN_LENGTH && value?.length <= this.NAME_MAX_LENGTH)) {
       throw new InvalidArgumentError(`<${value}> exceeded the maximum length`)
     }
-    if (status === DeviceStatus.StatusOptions.INUSE) {
+    if (![DeviceStatus.StatusOptions.INALMACEN, DeviceStatus.StatusOptions.PORDESINCORPORAR].includes(status)) {
       throw new InvalidArgumentError('The device cannot have a stock number if it is not in the warehouse')
     }
   }
