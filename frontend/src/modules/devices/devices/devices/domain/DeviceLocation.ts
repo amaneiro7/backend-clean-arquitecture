@@ -11,7 +11,7 @@ export class DeviceLocation extends LocationId {
         private readonly typeOfSite: Primitives<TypeOfSiteId>,
     ) {
         super(locationId)
-        if (!DeviceLocation.isValid({status: this.status, typeOfSite: this.typeOfSite})){
+        if (!DeviceLocation.isValid({ status: this.status, typeOfSite: this.typeOfSite })) {
             throw new Error(DeviceLocation.invalidMessage())
         }
     }
@@ -25,12 +25,22 @@ export class DeviceLocation extends LocationId {
         return DeviceLocation.errors
     }
 
-    public static isValid({status, typeOfSite}:{typeOfSite: Primitives<TypeOfSiteId>, status: Primitives<StatusId>}): boolean {
-        if (status === StatusId.StatusOptions.INUSE && typeOfSite === TypeOfSiteId.SitesOptions.ALMACEN) {
+    public static isValid({ status, typeOfSite }: { typeOfSite: Primitives<TypeOfSiteId>, status: Primitives<StatusId> }): boolean {
+        if ([
+            StatusId.StatusOptions.INUSE,
+            StatusId.StatusOptions.PRESTAMO,
+            StatusId.StatusOptions.CONTINGENCIA,
+            StatusId.StatusOptions.GUARDIA,
+            StatusId.StatusOptions.VACANTE,
+            StatusId.StatusOptions.ASIGNADO,
+        ].includes(status) && typeOfSite === TypeOfSiteId.SitesOptions.ALMACEN) {
             this.updateError('Si esta en uso, la ubicación no puede estar en almacen')
             return false
         }
-        if (status !== StatusId.StatusOptions.INUSE && typeOfSite !== TypeOfSiteId.SitesOptions.ALMACEN) {
+        if ([
+            StatusId.StatusOptions.INALMACEN,
+            StatusId.StatusOptions.PORDESINCORPORAR,
+        ].includes(status) && typeOfSite !== TypeOfSiteId.SitesOptions.ALMACEN) {
             this.updateError('Si no esta en uso, solo puede estar ubicado en el almacen')
             return false
         }

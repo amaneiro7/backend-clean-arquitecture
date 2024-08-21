@@ -6,7 +6,7 @@ import { type DeviceId } from './DeviceId'
 
 export class DeviceEmployee extends AcceptedNullValueObject<Primitives<EmployeeId>> {
   private static errors: string = ''
-  constructor (
+  constructor(
     readonly value: Primitives<DeviceId> | null,
     private readonly status: Primitives<StatusId>
   ) {
@@ -22,29 +22,41 @@ export class DeviceEmployee extends AcceptedNullValueObject<Primitives<EmployeeI
     }
   }
 
-  private static updateError (error: string): void {
+  private static updateError(error: string): void {
     DeviceEmployee.errors = error
   }
 
-  private static get errorsValue (): string {
+  private static get errorsValue(): string {
     return DeviceEmployee.errors
   }
 
-  public static isValid (value: Primitives<DeviceEmployee>, status: Primitives<StatusId>): boolean {
-    if (value === null || value === '') return true
-    if (status !== StatusId.StatusOptions.INUSE) {
-      DeviceEmployee.errors = 'Si no está en uso no se le puede asignar a un usuario'
+  public static isValid(value: Primitives<DeviceEmployee>, status: Primitives<StatusId>): boolean {
+    if ([
+      StatusId.StatusOptions.PRESTAMO,
+      StatusId.StatusOptions.CONTINGENCIA,
+      StatusId.StatusOptions.GUARDIA,
+    ].includes(status) && !value) {
+      DeviceEmployee.errors = 'Debe estar asignado a un usuario'
+      return false
+    }
+    if ([
+      StatusId.StatusOptions.DESINCORPORADO,
+      StatusId.StatusOptions.INALMACEN,
+      StatusId.StatusOptions.PORDESINCORPORAR,
+      StatusId.StatusOptions.VACANTE,
+    ].includes(status) && value) {
+      DeviceEmployee.errors = 'No se le puede asignar un usuario si el estatus es ese'
       return false
     }
     const employeeId = new EmployeeId(value)
-    if (employeeId instanceof EmployeeId) {
-      return true
+    if (!(employeeId instanceof EmployeeId)) {
+      DeviceEmployee.updateError('El id del empleado proporcionado no es válido')
+      return false
     }
-    DeviceEmployee.updateError('El id del empleado proporcionado no es válido')
-    return false
+    return true
   }
 
-  public static invalidMessage (): string {
+  public static invalidMessage(): string {
     return DeviceEmployee.errorsValue
   }
 }
