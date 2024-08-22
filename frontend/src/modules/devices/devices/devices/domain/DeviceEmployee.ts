@@ -48,6 +48,7 @@ export class DeviceEmployee extends AcceptedNullValueObject<Primitives<EmployeeI
       DeviceEmployee.errors = 'No se le puede asignar un usuario si el estatus es ese'
       return false
     }
+    if (!value) return true
     const employeeId = new EmployeeId(value)
     if (!(employeeId instanceof EmployeeId)) {
       DeviceEmployee.updateError('El id del empleado proporcionado no es válido')

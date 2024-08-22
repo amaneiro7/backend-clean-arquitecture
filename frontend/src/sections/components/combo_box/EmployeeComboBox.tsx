@@ -47,7 +47,12 @@ export default function EmployeeComboBox({ value, name, onChange, status, type =
     }
 
     const isValid = DeviceEmployee.isValid(value, status)
-    if (StatusId.StatusOptions.INUSE !== status) {
+    if ([
+      StatusId.StatusOptions.INALMACEN,
+      StatusId.StatusOptions.PORDESINCORPORAR,
+      StatusId.StatusOptions.DESINCORPORADO,
+      StatusId.StatusOptions.VACANTE,
+    ].includes(status)) {
       setIsDisabled(true)
     } else {
       setIsDisabled(false)
@@ -60,7 +65,6 @@ export default function EmployeeComboBox({ value, name, onChange, status, type =
       setErrorMessage('')
       setIsError(false)
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value, status, type])
   
 

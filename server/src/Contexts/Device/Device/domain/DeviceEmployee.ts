@@ -52,7 +52,11 @@ export class DeviceEmployee extends AcceptedNullValueObject<Primitives<EmployeeI
     if (status === DeviceStatus.StatusOptions.VACANTE && employee !== null) {
       throw new InvalidArgumentError('The device cannot have an employee if it is in Available status')
     }
-    if (status !== DeviceStatus.StatusOptions.INUSE && employee !== null) {
+    if ([
+      DeviceStatus.StatusOptions.INALMACEN,
+      DeviceStatus.StatusOptions.DESINCORPORADO,
+      DeviceStatus.StatusOptions.PORDESINCORPORAR
+    ].includes(status) && employee !== null) {
       throw new InvalidArgumentError('The device cannot have an employee if it is not in use')
     }
   }

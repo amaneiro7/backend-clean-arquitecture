@@ -25,7 +25,7 @@ export class DeviceLocation extends LocationId {
         return DeviceLocation.errors
     }
 
-    public static isValid({ status, typeOfSite }: { typeOfSite: Primitives<TypeOfSiteId>, status: Primitives<StatusId> }): boolean {
+    public static isValid({ status, typeOfSite }: { typeOfSite?: Primitives<TypeOfSiteId>, status: Primitives<StatusId> }): boolean {
         if ([
             StatusId.StatusOptions.INUSE,
             StatusId.StatusOptions.PRESTAMO,
@@ -42,6 +42,10 @@ export class DeviceLocation extends LocationId {
             StatusId.StatusOptions.PORDESINCORPORAR,
         ].includes(status) && typeOfSite !== TypeOfSiteId.SitesOptions.ALMACEN) {
             this.updateError('Si no esta en uso, solo puede estar ubicado en el almacen')
+            return false
+        }
+        if (status !== StatusId.StatusOptions.DESINCORPORADO && !typeOfSite) {
+            this.updateError('La ubicación es requerida')
             return false
         }
         return true

@@ -1,4 +1,4 @@
-import { lazy, useEffect, useMemo, useState } from "react"
+import { lazy, useEffect, useMemo, useRef, useState } from "react"
 import { useAppContext } from "../../Context/AppProvider"
 import { defaultInitialLocationState, type DefaultLocationProps } from "../../Hooks/locations/useLocationInitialState"
 import { DeviceLocation } from "../../../modules/devices/devices/devices/domain/DeviceLocation"
@@ -28,6 +28,7 @@ const LocationDialog = lazy(async () => import("../Dialog/LocationDialog").then(
 
 export default function LocationComboBox({ value, statusId, typeOfSiteId, onChange, type = 'search' }: Props) {
   const { useSiteLocation: { locations, loading, createLocation } } = useAppContext()
+  const firstRender = useRef(true)
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
   const [open, toggleOpen] = useState(false)
@@ -49,10 +50,13 @@ export default function LocationComboBox({ value, statusId, typeOfSiteId, onChan
   useEffect(() => {
     if (type !== 'form') return
 
-    if (!value || !initialValue) {
+    // if (initialValue === undefined) return
+
+    if (firstRender.current) {
+      firstRender.current = false
       return
     }
-    const isValid = DeviceLocation.isValid({ typeOfSite: initialValue.typeOfSiteId, status: statusId })
+    const isValid = DeviceLocation.isValid({ typeOfSite: initialValue?.typeOfSiteId, status: statusId })
 
 
     setIsError(!isValid)

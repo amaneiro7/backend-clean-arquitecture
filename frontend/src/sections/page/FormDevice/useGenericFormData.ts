@@ -409,6 +409,9 @@ export function useFormDevice() {
             .then(() => {
                 resetForm()
             })
+            .catch((error: Error) => {
+                console.error(error)
+            })
     }, [formData, resetForm, submitForm])
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

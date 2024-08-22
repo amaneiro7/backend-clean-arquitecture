@@ -13,6 +13,7 @@ import { type DeviceLocation } from '../../domain/DeviceLocation'
 import { type DeviceModelSeries } from '../../domain/DeviceModelSeries'
 import { type DeviceStatus } from '../../domain/DeviceStatus'
 import { type DeviceStocknumber } from '../../domain/DeviceStock'
+import { StatusId } from '../../../Status/domain/StatusId'
 
 export class DeviceModel extends Model<DevicePrimitives> implements DevicePrimitives {
   readonly id!: Primitives<DeviceId>
@@ -81,7 +82,14 @@ export function initDeviceModel(sequelize: Sequelize): void {
       },
       locationId: {
         type: DataTypes.UUID,
-        allowNull: false
+        allowNull: true,
+        validate: {
+          onlyNullIf(value: Primitives<DeviceLocation>) {
+            if (this.statusId !== StatusId.StatusOptions.DESINCORPORADO && value === null) {
+              throw new Error('Solo puede estar vacío si el estatus esta marcado como desincoporado')
+            }
+          }
+        }
       },
       observation: {
         type: DataTypes.TEXT,
