@@ -6,7 +6,7 @@ import { type OperatingSystemId } from '../../operatingSystem/operatingSystem/do
 
 export class ComputerOs extends AcceptedNullValueObject<Primitives<OperatingSystemId>> {
   private static errors: string = ''
-  constructor (
+  constructor(
     readonly value: Primitives<OperatingSystemId>,
     private readonly status: Primitives<StatusId>,
     private readonly hardDriveCapacity: Primitives<HardDriveCapacityId>
@@ -23,17 +23,30 @@ export class ComputerOs extends AcceptedNullValueObject<Primitives<OperatingSyst
     }
   }
 
-  private static updateError (error: string): void {
+  private static updateError(error: string): void {
     ComputerOs.errors = error
   }
 
-  private static get errorsValue (): string {
+  private static get errorsValue(): string {
     return ComputerOs.errors
   }
 
-  public static isValid (value: Primitives<ComputerOs>, status: Primitives<StatusId>, hardDriveCapacity: Primitives<HardDriveCapacityId>): boolean {
-    if (status === StatusId.StatusOptions.INUSE && !value) {
+  public static isValid(value: Primitives<ComputerOs>, status: Primitives<StatusId>, hardDriveCapacity: Primitives<HardDriveCapacityId>): boolean {
+    if ([
+      StatusId.StatusOptions.INUSE,
+      StatusId.StatusOptions.PRESTAMO,
+      StatusId.StatusOptions.CONTINGENCIA,
+      StatusId.StatusOptions.GUARDIA,
+    ].includes(status) && !value) {
       ComputerOs.updateError('Si el equipo está en uso, el sistema operativo es requerido')
+      return false
+    }
+    if ([
+      StatusId.StatusOptions.INALMACEN,
+      StatusId.StatusOptions.PORDESINCORPORAR,
+      StatusId.StatusOptions.DESINCORPORADO,
+    ].includes(status) && value) {
+      ComputerOs.updateError('Si el equipo no está en uso, el sistema operativo no es requerido')
       return false
     }
     if (!hardDriveCapacity && value) {
@@ -43,7 +56,7 @@ export class ComputerOs extends AcceptedNullValueObject<Primitives<OperatingSyst
     return true
   }
 
-  public static invalidMessage (): string {
+  public static invalidMessage(): string {
     return ComputerOs.errorsValue
   }
 }

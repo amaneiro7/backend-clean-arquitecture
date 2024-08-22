@@ -10,10 +10,18 @@ import { type Device } from './Device'
 
 export class DeviceLocation extends LocationId {
   static ensureDeviceBelongsToAppropiateLocationDependsOfStatus(typeOfSite: Primitives<TypeOfSiteId>, status: Primitives<DeviceStatus>): void {
-    if ([DeviceStatus.StatusOptions.INUSE, DeviceStatus.StatusOptions.PRESTAMO, DeviceStatus.StatusOptions.CONTINGENCIA, DeviceStatus.StatusOptions.GUARDIA, DeviceStatus.StatusOptions.VACANTE, DeviceStatus.StatusOptions.ASIGNADO].includes(status) && typeOfSite === TypeOfSiteId.TypeOfSiteOptions.ALMACEN) {
+    if ([
+      DeviceStatus.StatusOptions.INUSE,
+      DeviceStatus.StatusOptions.PRESTAMO,
+      DeviceStatus.StatusOptions.CONTINGENCIA,
+      DeviceStatus.StatusOptions.GUARDIA,
+      DeviceStatus.StatusOptions.VACANTE,
+      DeviceStatus.StatusOptions.ASIGNADO].includes(status) && typeOfSite === TypeOfSiteId.TypeOfSiteOptions.ALMACEN) {
       throw new InvalidArgumentError('The device is in use and cannot be in the warehouse')
     }
-    if (!([DeviceStatus.StatusOptions.INALMACEN, DeviceStatus.StatusOptions.PORDESINCORPORAR].includes(status) && typeOfSite === TypeOfSiteId.TypeOfSiteOptions.ALMACEN)) {
+    if (([
+      DeviceStatus.StatusOptions.INALMACEN,
+      DeviceStatus.StatusOptions.PORDESINCORPORAR].includes(status) && typeOfSite !== TypeOfSiteId.TypeOfSiteOptions.ALMACEN)) {
       throw new InvalidArgumentError('The device is not in use can only be located in the warehouse')
     }
   }

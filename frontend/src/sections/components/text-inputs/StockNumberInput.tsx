@@ -22,12 +22,12 @@ export function StockNumberInput({ value, status, onChange, type = 'form' }: Pro
   
   useEffect(() => {
     if (type !== 'form') return
-    if (!(status === StatusId.StatusOptions.INALMACEN || status === StatusId.StatusOptions.PORDESINCORPORAR)) {
-      onChange('stockNumber', '')
-      setIsDisabled(true)
-    } else {
-      setIsDisabled(false)
-    }
+    
+    setIsDisabled(![
+      StatusId.StatusOptions.INALMACEN,
+      StatusId.StatusOptions.PORDESINCORPORAR
+    ].includes(status))
+    
     
     if (isFirstInput.current) {
       isFirstInput.current = value === ''
@@ -53,7 +53,7 @@ export function StockNumberInput({ value, status, onChange, type = 'form' }: Pro
       label='N° Stock'
       isRequired={false}
       disabled={isDisabled}
-      classNameCon='max-w-40'
+      className='max-w-40'
       onChange={(event) => {
           const { name, value } = event.target
           // value = value.replace(/\D/g, '').trim() // Remove non-numeric characters from input

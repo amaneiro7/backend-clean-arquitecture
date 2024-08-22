@@ -32,10 +32,20 @@ export class ComputerName extends AcceptedNullValueObject<string> {
   }
 
   private ensureIfStatusIsInUse(value: Primitives<ComputerName>, statusId: Primitives<DeviceStatus>): void {
-    if ([DeviceStatus.StatusOptions.INALMACEN, DeviceStatus.StatusOptions.DESINCORPORADO, DeviceStatus.StatusOptions.PORDESINCORPORAR].includes(statusId) && value !== null) {
+    // Si el estatus pertenece a que esta en almace, desincorporado por desincorporar, no puede tener nombre de equipo
+    if ([
+      DeviceStatus.StatusOptions.INALMACEN,
+      DeviceStatus.StatusOptions.DESINCORPORADO,
+      DeviceStatus.StatusOptions.PORDESINCORPORAR
+    ].includes(statusId) && value !== null) {
       throw new InvalidArgumentError('Computer name can only be stablished when the device is in use')
     }
-    if ([DeviceStatus.StatusOptions.INUSE, DeviceStatus.StatusOptions.PRESTAMO, DeviceStatus.StatusOptions.CONTINGENCIA, DeviceStatus.StatusOptions.GUARDIA].includes(statusId) && value !== null) {
+    // Si el estatus pertenece a que esta en uso, a prestamo, contigencia o en guardia, debe tener nombre de equipo
+    if ([
+      DeviceStatus.StatusOptions.INUSE,
+      DeviceStatus.StatusOptions.PRESTAMO,
+      DeviceStatus.StatusOptions.CONTINGENCIA,
+      DeviceStatus.StatusOptions.GUARDIA].includes(statusId) && value === null) {
       throw new InvalidArgumentError('Computer must have a computer name')
     }
   }
@@ -76,6 +86,7 @@ export class ComputerName extends AcceptedNullValueObject<string> {
     await ComputerName.ensuerComputerNameDoesNotExit({ repository, computerName })
     // Actualiza el campo nombre de equipo de la entidad {@link Device} con el nuevo nombre de equipo
     const status = entity.statusValue
+    console.log('updateComputerNameField', status)
     entity.updateComputerName(computerName, status)
   }
 

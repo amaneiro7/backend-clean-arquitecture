@@ -106,10 +106,8 @@ export default function AddComputerFeatures({
             <MemoryRamCapacitySlotInput
               key={`memRam-${index}`}
               index={index}
-              type='form'
               onChange={handleMemory}
-              value={memoryRam[index]}
-              status={statusId}
+              value={memoryRam[index]}              
             />
         )) : null}
 

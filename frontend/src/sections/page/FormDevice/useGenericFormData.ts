@@ -405,14 +405,9 @@ export function useFormDevice() {
     const handleSubmit = useCallback(async (event: React.FormEvent) => {
         event.preventDefault()
         event.stopPropagation()
-        await submitForm(formData)
-            .then(() => {
-                resetForm()
-            })
-            .catch((error: Error) => {
-                console.error(error)
-            })
-    }, [formData, resetForm, submitForm])
+        await submitForm(formData, resetForm)
+
+    }, [formData, submitForm, resetForm])
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleChange = (name: Action['type'], value: any) => {

@@ -8,7 +8,7 @@ export class ComputerName {
   private static readonly notLowerCase = /^[^a-z]*$/
   private static readonly notSpecialCharacterOnlyGuiones = /^[^\W_]*-?[^\W_]*$/
 
-  constructor (
+  constructor(
     readonly value: string,
     readonly status: Primitives<StatusId>
   ) {
@@ -22,25 +22,34 @@ export class ComputerName {
     }
   }
 
-  private static updateError (error: string): void {
+  private static updateError(error: string): void {
     this.errors = error
   }
 
-  private static get errorsValue (): string {
+  private static get errorsValue(): string {
     return this.errors
   }
 
-  public static isValid (value: Primitives<ComputerName>, status: Primitives<StatusId>): boolean {
-    if (!value) return true
-    if (StatusId.StatusOptions.INUSE === status && !value) {
+  public static isValid(value: Primitives<ComputerName>, status: Primitives<StatusId>): boolean {
+    if ([
+      StatusId.StatusOptions.INUSE,
+      StatusId.StatusOptions.PRESTAMO,
+      StatusId.StatusOptions.CONTIGENCIA,
+      StatusId.StatusOptions.GUARDIA,
+    ].includes(status)
+      && !value) {
       this.updateError('El nombre de equipo no puede estar en blanco si el equipo esta en uso')
       return false
     }
-    if (StatusId.StatusOptions.INUSE !== status && value) {
+    if ([
+      StatusId.StatusOptions.INALMACEN,
+      StatusId.StatusOptions.PORDESINCORPORAR,
+      StatusId.StatusOptions.DESINCORPORADO,
+      StatusId.StatusOptions.ASIGNADO,
+    ].includes(status) && value) {
       this.updateError('Si el equipo no está en uso, el nombre de equipo debe quedar en blanco')
       return false
     }
-    if (!value) return true
     const errorMesagge: string[] = []
     const isHasNotSpecialCharacterOnlyGuiones = this.notSpecialCharacterOnlyGuiones.test(value)
     if (!isHasNotSpecialCharacterOnlyGuiones) {
@@ -58,7 +67,7 @@ export class ComputerName {
     return isHasNotSpecialCharacterOnlyGuiones && isNotHasLowerCharacter && isNameValidLength
   }
 
-  public static invalidMessage (): string {
+  public static invalidMessage(): string {
     return this.errorsValue
   }
 }

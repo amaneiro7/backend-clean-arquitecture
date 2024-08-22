@@ -35,7 +35,12 @@ export function HardDriveCapacityComboBox ({ value, status, onChange, type = 'se
         }
     
         const isValid = ComputerHDDCapacity.isValid(value, status)
-        setIsRequired(status === StatusId.StatusOptions.INUSE && type === 'form')
+        setIsRequired([
+          StatusId.StatusOptions.INUSE,
+          StatusId.StatusOptions.PRESTAMO,
+          StatusId.StatusOptions.CONTINGENCIA,
+          StatusId.StatusOptions.GUARDIA,
+        ].includes(status) && type === 'form')
     
         setIsError(!isValid)
         setErrorMessage(isValid ? '' : ComputerHDDCapacity.invalidMessage())

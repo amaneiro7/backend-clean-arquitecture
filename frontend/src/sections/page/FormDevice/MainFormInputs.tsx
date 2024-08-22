@@ -53,7 +53,7 @@ export function MainFormInputs({
     isAddForm: boolean
 }) {
   return (
-    <div className='grid grid-cols-[repeat(auto-fit,minmax(450px,1fr))] gap-4'>
+    <div className='grid grid-cols-[repeat(auto-fit,minmax(450px,1fr))] gap-x-5 gap-y-6'>
       <Suspense fallback={<InputSkeletonLoading />}>
         <StatusComboBox
           value={statusId}

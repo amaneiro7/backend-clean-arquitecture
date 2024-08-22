@@ -19,11 +19,12 @@ export const useFormDevice = () => {
     const handleSubmit = useCallback(async (event: React.FormEvent) => {
         event.preventDefault()
         event.stopPropagation()
-        await submitForm(formData)
-            .then(() => {
-                setResetState()
-                resetForm()
-            })
+        const reset = () => {
+            setResetState()
+            resetForm()
+        }
+        await submitForm(formData, reset)
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [resetForm, setResetState, submitForm])
 

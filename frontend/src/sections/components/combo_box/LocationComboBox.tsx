@@ -33,12 +33,21 @@ export default function LocationComboBox({ value, statusId, typeOfSiteId, onChan
   const [isError, setIsError] = useState(false)
   const [open, toggleOpen] = useState(false)
   const [dialogValue, setDialogValue] = useState<DefaultLocationProps>(defaultInitialLocationState)
+  const [isDisabled, setIsDisabled] = useState(false)
+  const [isRequired, setIsRequired] = useState(true)
 
   
   const filterLocation = useMemo(() => {
     return locations.filter(location => {
       const typeOfSite = location.typeOfSiteId === typeOfSiteId || !typeOfSiteId
-      const status = !statusId ? true : statusId === StatusId.StatusOptions.INUSE ? (location.typeOfSiteId === TypeOfSiteId.SitesOptions.ADMINISTRATIVE || location.typeOfSiteId === TypeOfSiteId.SitesOptions.AGENCY) : location.typeOfSiteId === TypeOfSiteId.SitesOptions.ALMACEN
+      const status = !statusId ? true : [
+        StatusId.StatusOptions.INUSE,
+        StatusId.StatusOptions.PRESTAMO,
+        StatusId.StatusOptions.CONTINGENCIA,
+        StatusId.StatusOptions.GUARDIA,
+        StatusId.StatusOptions.ASIGNADO,
+        StatusId.StatusOptions.VACANTE,
+      ].includes(statusId) ? ([TypeOfSiteId.SitesOptions.ADMINISTRATIVE, TypeOfSiteId.SitesOptions.AGENCY].includes(location.typeOfSiteId)) : [TypeOfSiteId.SitesOptions.ALMACEN].includes(location.typeOfSiteId)
       return typeOfSite && status
     })
   }, [locations, typeOfSiteId, statusId])
@@ -50,6 +59,8 @@ export default function LocationComboBox({ value, statusId, typeOfSiteId, onChan
   useEffect(() => {
     if (type !== 'form') return
 
+    setIsDisabled([StatusId.StatusOptions.DESINCORPORADO].includes(statusId))
+    setIsRequired(![StatusId.StatusOptions.DESINCORPORADO].includes(statusId) && type === 'form')
     // if (initialValue === undefined) return
 
     if (firstRender.current) {
@@ -91,8 +102,8 @@ export default function LocationComboBox({ value, statusId, typeOfSiteId, onChan
           }
         }}
         options={filterLocation as LocationApiResponse[]}
-        isDisabled={false}
-        isRequired={type === 'form'}
+        isDisabled={isDisabled}
+        isRequired={isRequired}
         loading={loading}
         isError={isError}
         errorMessage={errorMessage}

@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react'
-import { HistoryApiResponse } from '../../../modules/shared/domain/types/responseTypes'
+import { type HistoryApiResponse } from '../../../modules/shared/domain/types/responseTypes'
 
 interface Props extends React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFormElement>, HTMLFormElement> {
     handleSubmit: (event: React.FormEvent) => Promise<void>    

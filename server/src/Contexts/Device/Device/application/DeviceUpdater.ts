@@ -176,9 +176,9 @@ export class DeviceUpdater {
    */
   private async updateMainDevice({ params, deviceEntity }: { params: PartialDeviceParams, deviceEntity: Device }): Promise<void> {
     const { serial, activo, statusId, categoryId, brandId, modelId, employeeId, locationId, observation, stockNumber } = params
+    await DeviceStatus.updateStatusField({ repository: this.repository.status, status: statusId, entity: deviceEntity })
     await DeviceActivo.updateActivoField({ repository: this.repository.device, activo, entity: deviceEntity })
     await DeviceSerial.updateSerialField({ repository: this.repository.device, serial, entity: deviceEntity })
-    await DeviceStatus.updateStatusField({ repository: this.repository.status, status: statusId, entity: deviceEntity })
     await DeviceLocation.updateLocationField({ repository: this.repository.location, location: locationId, entity: deviceEntity })
     await DeviceObservation.updateObservationField({ observation, entity: deviceEntity })
     await DeviceStocknumber.updateStockNumberField({ stockNumber, entity: deviceEntity })

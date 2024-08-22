@@ -1,11 +1,11 @@
 import { AcceptedNullValueObject } from '../../../../shared/domain/value-object/AcceptedNullValueObjects'
-import { type Primitives } from '../../../../shared/domain/value-object/Primitives'
 import { StatusId } from '../../../devices/status/domain/StatusId'
+import { type Primitives } from '../../../../shared/domain/value-object/Primitives'
 import { type HardDriveCapacityId } from '../../hardDrive/hardDriveCapacity/domain/HardDriveCapacityId'
 
 export class ComputerHDDCapacity extends AcceptedNullValueObject<Primitives<HardDriveCapacityId>> {
   private static errors: string = ''
-  constructor (
+  constructor(
     readonly value: Primitives<HardDriveCapacityId>,
     private readonly status: Primitives<StatusId>
   ) {
@@ -21,23 +21,28 @@ export class ComputerHDDCapacity extends AcceptedNullValueObject<Primitives<Hard
     }
   }
 
-  private static updateError (error: string): void {
+  private static updateError(error: string): void {
     ComputerHDDCapacity.errors = error
   }
 
-  private static get errorsValue (): string {
+  private static get errorsValue(): string {
     return ComputerHDDCapacity.errors
   }
 
-  public static isValid (value: Primitives<ComputerHDDCapacity>, status: Primitives<StatusId>): boolean {
-    if (status === StatusId.StatusOptions.INUSE && !value) {
+  public static isValid(value: Primitives<ComputerHDDCapacity>, status: Primitives<StatusId>): boolean {
+    if ([
+      StatusId.StatusOptions.INUSE,
+      StatusId.StatusOptions.PRESTAMO,
+      StatusId.StatusOptions.CONTINGENCIA,
+      StatusId.StatusOptions.GUARDIA,
+    ].includes(status) && !value) {
       ComputerHDDCapacity.updateError('Si el equipo está en uso, no se puede dejar en blanco la capacidad del Disco Duro')
       return false
     }
     return true
   }
 
-  public static invalidMessage (): string {
+  public static invalidMessage(): string {
     return ComputerHDDCapacity.errorsValue
   }
 }
