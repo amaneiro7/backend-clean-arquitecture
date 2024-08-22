@@ -19,13 +19,23 @@ export function IpAddressInput({ value, status, onChange, type = 'form' }: Props
   const [isError, setIsError] = useState(false)
   const isFirstInput = useRef(true)
   const [isDisabled, setIsDisabled] = useState(false)
+  const [isRequired, setIsRequired] = useState(true)
+  
   useEffect(() => {
     if (type !== 'form') return
-    if (status !== StatusId.StatusOptions.INUSE) {
-      onChange('ipAddress', '')
+    if ([
+      StatusId.StatusOptions.INALMACEN,
+      StatusId.StatusOptions.PORDESINCORPORAR,
+      StatusId.StatusOptions.DESINCORPORADO,
+    ].includes(status)) {
       setIsDisabled(true)
     } else {
       setIsDisabled(false)
+    }
+    if ([StatusId.StatusOptions.INUSE].includes(status) && type === 'form') {
+      setIsRequired(true)
+    } else {
+      setIsRequired(false)
     }
 
 
@@ -52,7 +62,7 @@ export function IpAddressInput({ value, status, onChange, type = 'form' }: Props
       name='ipAddress'
       type='text'
       label='Direccion IP'
-      isRequired={type === 'form' && !isDisabled}
+      isRequired={isRequired}
       disabled={isDisabled}
       onChange={(event) => {
           const { name, value } = event.target

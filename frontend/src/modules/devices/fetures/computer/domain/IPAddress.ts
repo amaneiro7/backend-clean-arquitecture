@@ -4,7 +4,7 @@ import { StatusId } from '../../../devices/status/domain/StatusId'
 export class IPAddress {
   static readonly IPADRRESS_VALIDATION = /^([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])){3}$/
   private static errors: string = ''
-  constructor (
+  constructor(
     readonly value: string | null,
     private readonly status: Primitives<StatusId>
 
@@ -20,21 +20,26 @@ export class IPAddress {
     }
   }
 
-  private static updateError (error: string): void {
+  private static updateError(error: string): void {
     IPAddress.errors = error
   }
 
-  private static get errorsValue (): string {
+  private static get errorsValue(): string {
     return IPAddress.errors
   }
 
-  public static isValid (value: Primitives<IPAddress>, status: Primitives<StatusId>): boolean {
+  public static isValid(value: Primitives<IPAddress>, status: Primitives<StatusId>): boolean {
     if (status === '') return true
     if (StatusId.StatusOptions.INUSE === status && !value) {
       IPAddress.updateError('Si el equipo esta en uso la dirección IP es requerida')
       return false
     }
-    if (StatusId.StatusOptions.INUSE !== status && value) {
+    if ([
+      StatusId.StatusOptions.INALMACEN,
+      StatusId.StatusOptions.PORDESINCORPORAR,
+      StatusId.StatusOptions.DESINCORPORADO,
+      StatusId.StatusOptions.ASIGNADO,
+    ].includes(status) && value) {
       IPAddress.updateError('Si el equipo no está en uso, no puede tener dirección IP')
       return false
     }
@@ -51,7 +56,7 @@ export class IPAddress {
     return true
   }
 
-  public static invalidMessage (): string {
+  public static invalidMessage(): string {
     return IPAddress.errorsValue
   }
 }
