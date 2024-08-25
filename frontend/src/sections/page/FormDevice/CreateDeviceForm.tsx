@@ -1,5 +1,4 @@
 import { lazy, useMemo } from 'react'
-import { useLocation } from 'react-router-dom'
 import { useFormDevice } from './useGenericFormData'
 import { Computer } from '../../../modules/devices/fetures/computer/domain/Computer'
 import { HardDrive } from '../../../modules/devices/fetures/hardDrive/hardDrive/domain/HardDrive'
@@ -13,7 +12,6 @@ const AddHardDriveFeatures = lazy(async () => await import('./AddHardDriveFeatur
 const AddMFPFeatures = lazy(async () => await import('./AddMFPFeatures'))
 
 export default function CreateDeviceForm() {
-  const location = useLocation()
   const { handleChange, handleMemory, handleModel, handleClose, handleSubmit, isAddForm, formData, processing } = useFormDevice()
   const categoryType = useMemo(() => {
     return Computer.isComputerCategory({ categoryId: formData.categoryId }) ? 'computer' :
@@ -23,8 +21,7 @@ export default function CreateDeviceForm() {
 
   
   return (
-    <FormContainer
-      key={location.key}
+    <FormContainer      
       title='Dispositivo'
       description='Ingrese los datos del dispositivo.'
       isAddForm={isAddForm}
@@ -54,7 +51,8 @@ export default function CreateDeviceForm() {
       <div className='grid grid-cols-[repeat(auto-fit,minmax(450px,1fr))] gap-4'>
         {(categoryType === 'computer' && formData.modelId) ? 
           <AddComputerFeatures
-            handleMemory={handleMemory} onChange={handleChange}
+            handleMemory={handleMemory} 
+            onChange={handleChange}
             statusId={formData.statusId}
             computerName={formData.computerName}
             processorId={formData.processorId}

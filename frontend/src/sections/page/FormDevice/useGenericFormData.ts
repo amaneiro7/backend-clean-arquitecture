@@ -416,6 +416,7 @@ export function useFormDevice() {
     }
 
     const handleModel = ({ value, memoryRamSlotQuantity, memoryRamType }: { value: string, memoryRamSlotQuantity?: number, memoryRamType?: string }) => {
+        console.log('Estamos aqui')
         dispatch({ type: 'modelId', payload: { value, memoryRamSlotQuantity, memoryRamType } })
     }
     const handleMemory = (value: string, index: number) => {

@@ -70,16 +70,18 @@ export default function ModelComboBox({ value, onChange, handleModel, categoryId
                         } else {
                             const value = newValue ? newValue.id : ''
                             if (type === 'form') {
+                                let memoryRamSlotQuantity
+                                let memoryRamType
                                 if (newValue?.modelComputer !== null) {
-                                    const memoryRamSlotQuantity = newValue ? newValue?.modelComputer.memoryRamSlotQuantity : undefined
-                                    const memoryRamType = newValue ? newValue?.modelComputer.memoryRamType.name : ''
+                                    memoryRamSlotQuantity = newValue ? newValue?.modelComputer.memoryRamSlotQuantity : undefined
+                                    memoryRamType = newValue ? newValue?.modelComputer.memoryRamType.name : ''
                                     handleModel({ value, memoryRamSlotQuantity, memoryRamType })
                                 }
                                 if (newValue?.modelLaptop !== null) {
-                                    const memoryRamSlotQuantity = newValue ? newValue?.modelLaptop.memoryRamSlotQuantity : undefined
-                                    const memoryRamType = newValue ? newValue?.modelLaptop.memoryRamType.name : ''
-                                    handleModel({ value, memoryRamSlotQuantity, memoryRamType })
+                                    memoryRamSlotQuantity = newValue ? newValue?.modelLaptop.memoryRamSlotQuantity : undefined
+                                    memoryRamType = newValue ? newValue?.modelLaptop.memoryRamType.name : ''
                                 }
+                                handleModel({ value, memoryRamSlotQuantity, memoryRamType })
                             }
                             else {
                                 onChange(name, value, Operator.EQUAL)

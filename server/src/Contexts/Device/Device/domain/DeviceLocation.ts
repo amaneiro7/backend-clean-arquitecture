@@ -1,19 +1,38 @@
+import { AcceptedNullValueObject } from '../../../Shared/domain/value-object/AcceptedNullValueObjects'
 import { LocationId } from '../../../Location/Location/domain/LocationId'
 import { DeviceStatus } from './DeviceStatus'
 import { TypeOfSiteId } from '../../../Location/TypeOfSite/domain/TypeOfSiteId'
 import { LocationDoesNotExistError } from '../../../Location/Location/domain/LocationDoesNotExistError'
 import { InvalidArgumentError } from '../../../Shared/domain/value-object/InvalidArgumentError'
+import { type Device } from './Device'
 import { type LocationRepository } from '../../../Location/Location/domain/LocationRepository'
 import { type LocationPrimitives } from '../../../Location/Location/domain/Location'
 import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
-import { Device } from './Device'
-import { AcceptedNullValueObject } from '../../../Shared/domain/value-object/AcceptedNullValueObjects'
+
 
 export class DeviceLocation extends AcceptedNullValueObject<Primitives<LocationId>> {
   constructor(
     readonly value: Primitives<LocationId> | null,
   ) {
     super(value)
+    this.ensureIsValidLocationId(this.value)
+  }
+
+  private ensureIsValidLocationId(id: Primitives<LocationId> | null): void {
+    if (!this.isValid(id)) {
+      throw new InvalidArgumentError('Location is required')
+    }
+  }
+
+  private isValid(id: Primitives<LocationId> | null): boolean {
+    console.log('location', id, typeof id)
+    if (id === null) return true
+    const employeeId = new LocationId(id)
+    if (employeeId instanceof LocationId) {
+      return true
+    }
+
+    return false
   }
   static ensureDeviceBelongsToAppropiateLocationDependsOfStatus(typeOfSite: Primitives<TypeOfSiteId>, status: Primitives<DeviceStatus>): void {
     if ([
@@ -56,7 +75,7 @@ export class DeviceLocation extends AcceptedNullValueObject<Primitives<LocationI
 
   static async ensureLocationExit({ repository, location, status }: { repository: LocationRepository, location: Primitives<DeviceLocation>, status: Primitives<DeviceStatus> }): Promise<void> {
     // If the location is null, it does not exist, so we don't need to do any verification
-    if (location === null) {
+    if (!location) {
       return
     }
     // Searches for a device with the given location in the database

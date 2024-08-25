@@ -10,6 +10,7 @@ import { DeviceEmployee } from './DeviceEmployee'
 import { DeviceObservation } from './DeviceObservation'
 import { DeviceSerial } from './DeviceSerial'
 import { DeviceStockNumber } from './DeviceStockNumber'
+import { DeviceLocation } from './DeviceLocation'
 
 export interface DevicePrimitives {
   id?: Primitives<DeviceId>
@@ -33,7 +34,7 @@ export class Device {
     private readonly brandId: BrandId,
     private readonly modelId: ModelId,
     private readonly employeeId: DeviceEmployee,
-    private readonly locationId: LocationId,
+    private readonly locationId: DeviceLocation,
     private readonly observation: DeviceObservation,
     private readonly stockNumber: DeviceStockNumber
   ) { }
@@ -47,7 +48,7 @@ export class Device {
       new BrandId(params.brandId),
       new ModelId(params.modelId),
       new DeviceEmployee(params.employeeId, params.statusId),
-      new LocationId(params.locationId),
+      new DeviceLocation(params.locationId, params.statusId),
       new DeviceObservation(params.observation),
       new DeviceStockNumber(params.stockNumber, params.statusId)
     )

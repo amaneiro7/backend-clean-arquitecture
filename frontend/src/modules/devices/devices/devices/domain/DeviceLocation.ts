@@ -6,11 +6,16 @@ import { StatusId } from "../../status/domain/StatusId";
 export class DeviceLocation extends LocationId {
     private static errors: string = ''
     constructor(
-        locationId: Primitives<LocationId>,
+        readonly value: Primitives<LocationId>,
         private readonly status: Primitives<StatusId>,
-        private readonly typeOfSite: Primitives<TypeOfSiteId>,
+        private readonly typeOfSite?: Primitives<TypeOfSiteId>,
     ) {
-        super(locationId)
+        super(value)
+        if (value === null || value === '') {
+            this.value = null
+        } else {
+            this.value = value
+        }
         if (!DeviceLocation.isValid({ status: this.status, typeOfSite: this.typeOfSite })) {
             throw new Error(DeviceLocation.invalidMessage())
         }
