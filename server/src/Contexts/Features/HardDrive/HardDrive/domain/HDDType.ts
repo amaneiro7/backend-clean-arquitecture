@@ -4,7 +4,7 @@ import { type HardDriveTypeRepository } from '../../HardDriveType/domain/HardDri
 import { type DeviceHardDrive } from './HardDrive'
 
 export class HDDType extends HardDriveTypeId {
-  static async updateHardDriveTypeField ({ repository, hardDriveType, entity }: { repository: HardDriveTypeRepository, hardDriveType?: Primitives<HDDType>, entity: DeviceHardDrive }): Promise<void> {
+  static async updateHardDriveTypeField({ repository, hardDriveType, entity }: { repository: HardDriveTypeRepository, hardDriveType?: Primitives<HDDType>, entity: DeviceHardDrive }): Promise<void> {
     // Si no se ha pasado un nuevo valor de la capacidad del Disco Duro no realiza ninguna acción
     if (hardDriveType === undefined) {
       return

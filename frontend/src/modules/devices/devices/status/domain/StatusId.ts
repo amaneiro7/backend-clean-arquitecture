@@ -9,7 +9,6 @@ export class StatusId extends StringValueObject {
     PRESTAMO: '5',
     CONTINGENCIA: '6',
     GUARDIA: '7',
-    ASIGNADO: '8',
-    VACANTE: '9'
+    DISPONIBLE: '8'
   } as const
 }

@@ -45,8 +45,7 @@ export default function LocationComboBox({ value, statusId, typeOfSiteId, onChan
         StatusId.StatusOptions.PRESTAMO,
         StatusId.StatusOptions.CONTINGENCIA,
         StatusId.StatusOptions.GUARDIA,
-        StatusId.StatusOptions.ASIGNADO,
-        StatusId.StatusOptions.VACANTE,
+        StatusId.StatusOptions.DISPONIBLE,
       ].includes(statusId) ? ([TypeOfSiteId.SitesOptions.ADMINISTRATIVE, TypeOfSiteId.SitesOptions.AGENCY].includes(location.typeOfSiteId)) : [TypeOfSiteId.SitesOptions.ALMACEN].includes(location.typeOfSiteId)
       return typeOfSite && status
     })

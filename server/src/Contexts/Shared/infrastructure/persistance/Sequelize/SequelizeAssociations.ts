@@ -3,9 +3,9 @@ import { CategoryModel } from '../../../../Category/infrastructure/Sequelize/Cat
 import { DeviceModel } from '../../../../Device/Device/infrastructure/sequelize/DeviceSchema'
 import { StatusModel } from '../../../../Device/Status/infrastructure/sequelize/StatusSchema'
 import { DeviceComputerModel } from '../../../../Features/Computer/infraestructure/sequelize/DeviceComputerSchema'
-import { DeviceHardDriveModel } from '../../../../Features/HardDrive.ts/HardDrive/infraestructure/sequelize/DeviceHardDriveSchema'
-import { HardDriveCapacityModel } from '../../../../Features/HardDrive.ts/HardDriveCapacity/infraestructure/sequelize/HardDriveCapacitySchema'
-import { HardDriveTypeModel } from '../../../../Features/HardDrive.ts/HardDriveType/infraestructure/sequelize/HardDriveTypeSchema'
+import { DeviceHardDriveModel } from '../../../../Features/HardDrive/HardDrive/infraestructure/sequelize/DeviceHardDriveSchema'
+import { HardDriveCapacityModel } from '../../../../Features/HardDrive/HardDriveCapacity/infraestructure/sequelize/HardDriveCapacitySchema'
+import { HardDriveTypeModel } from '../../../../Features/HardDrive/HardDriveType/infraestructure/sequelize/HardDriveTypeSchema'
 import { DeviceMFPModel } from '../../../../Features/MFP/infraestructure/MFPSchema'
 import { MemoryRamTypeModel } from '../../../../Features/MemoryRam/MemoryRamType/infraestructure/sequelize/MemoryRamTypeSchema'
 import { OperatingSystemModel } from '../../../../Features/OperatingSystem/OperatingSystem/infraesructure/sequelize/OperatingSystemSchema'
@@ -38,7 +38,7 @@ import { sequelize } from './SequelizeConfig'
 import { type Models } from './SequelizeRepository'
 
 // Define associations between different Sequelize models
-export function InitSequelizeAssociation (): void {
+export function InitSequelizeAssociation(): void {
   const models = sequelize.models as unknown as Models
   CategoryModel.associate(models) // Category Associations
   BrandModel.associate(models) // Brand Associations

@@ -49,7 +49,7 @@ export class DeviceEmployee extends AcceptedNullValueObject<Primitives<EmployeeI
     if (status === DeviceStatus.StatusOptions.GUARDIA && employee === null) {
       throw new InvalidArgumentError('El dispositivo debe estar asignado a un usuario si el estatus es en guardia')
     }
-    if (status === DeviceStatus.StatusOptions.VACANTE && employee !== null) {
+    if (status === DeviceStatus.StatusOptions.DISPONIBLE && employee !== null) {
       throw new InvalidArgumentError('The device cannot have an employee if it is in Available status')
     }
     if ([

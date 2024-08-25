@@ -6,17 +6,23 @@ import { InvalidArgumentError } from '../../../Shared/domain/value-object/Invali
 import { type LocationRepository } from '../../../Location/Location/domain/LocationRepository'
 import { type LocationPrimitives } from '../../../Location/Location/domain/Location'
 import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
-import { type Device } from './Device'
+import { Device } from './Device'
+import { AcceptedNullValueObject } from '../../../Shared/domain/value-object/AcceptedNullValueObjects'
 
-export class DeviceLocation extends LocationId {
+export class DeviceLocation extends AcceptedNullValueObject<Primitives<LocationId>> {
+  constructor(
+    readonly value: Primitives<LocationId> | null,
+  ) {
+    super(value)
+  }
   static ensureDeviceBelongsToAppropiateLocationDependsOfStatus(typeOfSite: Primitives<TypeOfSiteId>, status: Primitives<DeviceStatus>): void {
     if ([
       DeviceStatus.StatusOptions.INUSE,
       DeviceStatus.StatusOptions.PRESTAMO,
       DeviceStatus.StatusOptions.CONTINGENCIA,
       DeviceStatus.StatusOptions.GUARDIA,
-      DeviceStatus.StatusOptions.VACANTE,
-      DeviceStatus.StatusOptions.ASIGNADO].includes(status) && typeOfSite === TypeOfSiteId.TypeOfSiteOptions.ALMACEN) {
+      DeviceStatus.StatusOptions.DISPONIBLE
+    ].includes(status) && typeOfSite === TypeOfSiteId.TypeOfSiteOptions.ALMACEN) {
       throw new InvalidArgumentError('The device is in use and cannot be in the warehouse')
     }
     if (([
@@ -24,9 +30,15 @@ export class DeviceLocation extends LocationId {
       DeviceStatus.StatusOptions.PORDESINCORPORAR].includes(status) && typeOfSite !== TypeOfSiteId.TypeOfSiteOptions.ALMACEN)) {
       throw new InvalidArgumentError('The device is not in use can only be located in the warehouse')
     }
+    if (([
+      DeviceStatus.StatusOptions.DESINCORPORADO
+    ].includes(status) && typeOfSite !== null)) {
+      throw new InvalidArgumentError('The device cannot have a location if status is desincorporated')
+
+    }
   }
 
-  static async updateLocationField({ repository, location, entity }: { repository: LocationRepository, location?: Primitives<LocationId>, entity: Device }): Promise<void> {
+  static async updateLocationField({ repository, location, entity }: { repository: LocationRepository, location?: Primitives<DeviceLocation>, entity: Device }): Promise<void> {
     // Si no se ha pasado un nuevo location no realiza ninguna acción
     if (location === undefined) {
       return
@@ -42,7 +54,11 @@ export class DeviceLocation extends LocationId {
     entity.updateLocation(location)
   }
 
-  static async ensureLocationExit({ repository, location, status }: { repository: LocationRepository, location: Primitives<LocationId>, status: Primitives<DeviceStatus> }): Promise<void> {
+  static async ensureLocationExit({ repository, location, status }: { repository: LocationRepository, location: Primitives<DeviceLocation>, status: Primitives<DeviceStatus> }): Promise<void> {
+    // If the location is null, it does not exist, so we don't need to do any verification
+    if (location === null) {
+      return
+    }
     // Searches for a device with the given location in the database
     const deviceWithLocation: LocationPrimitives | null = await repository.searchById(new LocationId(location).toString())
     // If a device with the given location exists, it means that it already exists in the database,

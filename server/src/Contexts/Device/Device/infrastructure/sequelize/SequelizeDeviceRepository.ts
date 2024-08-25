@@ -11,7 +11,7 @@ import { sequelize } from '../../../../Shared/infrastructure/persistance/Sequeli
 import { DeviceComputer } from '../../../../Features/Computer/domain/Computer'
 import { DeviceAssociation } from './DeviceAssociation'
 import { DevicesApiResponse } from './DeviceResponse'
-import { DeviceHardDrive } from '../../../../Features/HardDrive.ts/HardDrive/domain/HardDrive'
+import { DeviceHardDrive } from '../../../../Features/HardDrive/HardDrive/domain/HardDrive'
 import { MFP } from '../../../../Features/MFP/domain/MFP'
 
 export class SequelizeDeviceRepository extends SequelizeCriteriaConverter implements DeviceRepository {

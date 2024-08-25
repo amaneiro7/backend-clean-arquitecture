@@ -4,7 +4,7 @@ import { type HardDriveCapacityRepository } from '../../HardDriveCapacity/domain
 import { type DeviceHardDrive } from './HardDrive'
 
 export class HDDCapacity extends HardDriveCapacityId {
-  static async updateHardDriveCapacityField ({ repository, hardDriveCapacity, entity }: { repository: HardDriveCapacityRepository, hardDriveCapacity?: Primitives<HDDCapacity>, entity: DeviceHardDrive }): Promise<void> {
+  static async updateHardDriveCapacityField({ repository, hardDriveCapacity, entity }: { repository: HardDriveCapacityRepository, hardDriveCapacity?: Primitives<HDDCapacity>, entity: DeviceHardDrive }): Promise<void> {
     // Si no se ha pasado un nuevo valor de la capacidad del Disco Duro no realiza ninguna acción
     if (hardDriveCapacity === undefined) {
       return

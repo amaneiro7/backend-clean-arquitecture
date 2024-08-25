@@ -31,8 +31,7 @@ export class DeviceLocation extends LocationId {
             StatusId.StatusOptions.PRESTAMO,
             StatusId.StatusOptions.CONTINGENCIA,
             StatusId.StatusOptions.GUARDIA,
-            StatusId.StatusOptions.VACANTE,
-            StatusId.StatusOptions.ASIGNADO,
+            StatusId.StatusOptions.DISPONIBLE,
         ].includes(status) && typeOfSite === TypeOfSiteId.SitesOptions.ALMACEN) {
             this.updateError('Si esta en uso, la ubicación no puede estar en almacen')
             return false

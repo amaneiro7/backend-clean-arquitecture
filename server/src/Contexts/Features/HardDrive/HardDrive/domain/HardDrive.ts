@@ -10,12 +10,12 @@ import { StatusId } from '../../../../Device/Status/domain/StatusId'
 import { DeviceActivo } from '../../../../Device/Device/domain/DeviceActivo'
 import { DeviceSerial } from '../../../../Device/Device/domain/DeviceSerial'
 import { DeviceEmployee } from '../../../../Device/Device/domain/DeviceEmployee'
-import { LocationId } from '../../../../Location/Location/domain/LocationId'
 import { DeviceObservation } from '../../../../Device/Device/domain/DeviceObservation'
 import { HDDCapacity } from './HDDCapacity'
 import { HDDType } from './HDDType'
 import { InvalidArgumentError } from '../../../../Shared/domain/value-object/InvalidArgumentError'
 import { DeviceStocknumber } from '../../../../Device/Device/domain/DeviceStock'
+import { DeviceLocation } from '../../../../Device/Device/domain/DeviceLocation'
 
 export interface DeviceHardDrivePrimitives extends DevicePrimitives {
   health: Primitives<HardDriveHealth>
@@ -33,7 +33,7 @@ export class DeviceHardDrive extends Device {
     brandId: BrandId,
     modelId: ModelSeriesId,
     employeeId: DeviceEmployee,
-    locationId: LocationId,
+    locationId: DeviceLocation,
     observation: DeviceObservation,
     stockNumber: DeviceStocknumber,
     private health: HardDriveHealth,
@@ -58,7 +58,7 @@ export class DeviceHardDrive extends Device {
       new BrandId(params.brandId),
       new ModelSeriesId(params.modelId),
       new DeviceEmployee(params.employeeId, params.statusId),
-      new LocationId(params.locationId),
+      new DeviceLocation(params.locationId),
       new DeviceObservation(params.observation),
       new DeviceStocknumber(params.stockNumber, params.statusId),
       new HardDriveHealth(params.health),
@@ -94,7 +94,7 @@ export class DeviceHardDrive extends Device {
       new BrandId(primitives.brandId),
       new ModelSeriesId(primitives.modelId),
       new DeviceEmployee(primitives.employeeId, primitives.statusId),
-      new LocationId(primitives.locationId),
+      new DeviceLocation(primitives.locationId),
       new DeviceObservation(primitives.observation),
       new DeviceStocknumber(primitives.stockNumber, primitives.statusId),
       new HardDriveHealth(primitives.health),

@@ -5,11 +5,11 @@ import { type HardDriveCapacityRepository } from '../../domain/HardDriveCapacity
 import { HardDriveCapacityModel } from './HardDriveCapacitySchema'
 
 export class SequelizeHardDriveCapacityRepository implements HardDriveCapacityRepository {
-  async searchAll (): Promise<HardDriveCapacityPrimitives[]> {
+  async searchAll(): Promise<HardDriveCapacityPrimitives[]> {
     return await HardDriveCapacityModel.findAll()
   }
 
-  async searchById (id: Primitives<HardDriveCapacityId>): Promise<HardDriveCapacityPrimitives | null> {
+  async searchById(id: Primitives<HardDriveCapacityId>): Promise<HardDriveCapacityPrimitives | null> {
     return await HardDriveCapacityModel.findByPk(id) ?? null
   }
 }

@@ -51,7 +51,7 @@ export default function EmployeeComboBox({ value, name, onChange, status, type =
       StatusId.StatusOptions.INALMACEN,
       StatusId.StatusOptions.PORDESINCORPORAR,
       StatusId.StatusOptions.DESINCORPORADO,
-      StatusId.StatusOptions.VACANTE,
+      StatusId.StatusOptions.DISPONIBLE,
     ].includes(status)) {
       setIsDisabled(true)
     } else {

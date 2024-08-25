@@ -26,8 +26,7 @@ export function ComputerNameInput({ value, status, onChange, type = 'form' }: Pr
     if ([
       StatusId.StatusOptions.INALMACEN,
       StatusId.StatusOptions.PORDESINCORPORAR,
-      StatusId.StatusOptions.DESINCORPORADO,
-      StatusId.StatusOptions.ASIGNADO
+      StatusId.StatusOptions.DESINCORPORADO
     ].includes(status)) {
       setIsRequired(false)
       setIsDisabled(true)

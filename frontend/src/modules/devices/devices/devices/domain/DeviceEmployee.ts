@@ -43,7 +43,7 @@ export class DeviceEmployee extends AcceptedNullValueObject<Primitives<EmployeeI
       StatusId.StatusOptions.DESINCORPORADO,
       StatusId.StatusOptions.INALMACEN,
       StatusId.StatusOptions.PORDESINCORPORAR,
-      StatusId.StatusOptions.VACANTE,
+      StatusId.StatusOptions.DISPONIBLE,
     ].includes(status) && value) {
       DeviceEmployee.errors = 'No se le puede asignar un usuario si el estatus es ese'
       return false

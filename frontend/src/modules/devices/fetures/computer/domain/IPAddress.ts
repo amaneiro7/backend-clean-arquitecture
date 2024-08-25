@@ -38,7 +38,7 @@ export class IPAddress {
       StatusId.StatusOptions.INALMACEN,
       StatusId.StatusOptions.PORDESINCORPORAR,
       StatusId.StatusOptions.DESINCORPORADO,
-      StatusId.StatusOptions.ASIGNADO,
+      StatusId.StatusOptions.DISPONIBLE,
     ].includes(status) && value) {
       IPAddress.updateError('Si el equipo no está en uso, no puede tener dirección IP')
       return false

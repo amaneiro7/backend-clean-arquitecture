@@ -45,7 +45,6 @@ export class ComputerName {
       StatusId.StatusOptions.INALMACEN,
       StatusId.StatusOptions.PORDESINCORPORAR,
       StatusId.StatusOptions.DESINCORPORADO,
-      StatusId.StatusOptions.ASIGNADO,
     ].includes(status) && value) {
       this.updateError('Si el equipo no está en uso, el nombre de equipo debe quedar en blanco')
       return false

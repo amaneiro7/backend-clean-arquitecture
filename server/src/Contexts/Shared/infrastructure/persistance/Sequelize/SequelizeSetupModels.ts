@@ -5,8 +5,8 @@ import { initBrandModel } from '../../../../Brand/infrastructure/Sequelize/Brand
 import { initDeviceModel } from '../../../../Device/Device/infrastructure/sequelize/DeviceSchema'
 import { initUserModel } from '../../../../User/user/infrastructure/persistance/Sequelize/UserSchema'
 import { initStatusModel } from '../../../../Device/Status/infrastructure/sequelize/StatusSchema'
-import { initHardDriveCapacityModel } from '../../../../Features/HardDrive.ts/HardDriveCapacity/infraestructure/sequelize/HardDriveCapacitySchema'
-import { initHardDriveTypeModel } from '../../../../Features/HardDrive.ts/HardDriveType/infraestructure/sequelize/HardDriveTypeSchema'
+import { initHardDriveCapacityModel } from '../../../../Features/HardDrive/HardDriveCapacity/infraestructure/sequelize/HardDriveCapacitySchema'
+import { initHardDriveTypeModel } from '../../../../Features/HardDrive/HardDriveType/infraestructure/sequelize/HardDriveTypeSchema'
 import { initProcessorModel } from '../../../../Features/Processor/Processor/infrastructure/sequelize/ProcessorSchema'
 import { initMemoryRamTypeModel } from '../../../../Features/MemoryRam/MemoryRamType/infraestructure/sequelize/MemoryRamTypeSchema'
 import { initOperatingSystemModel } from '../../../../Features/OperatingSystem/OperatingSystem/infraesructure/sequelize/OperatingSystemSchema'
@@ -29,14 +29,14 @@ import { initGerenciaModel } from '../../../../employee/Area/Gerencia/infrastruc
 import { initCoordinacionModel } from '../../../../employee/Area/Coordinacion/infrastructure/sequelize/CoordinacionSchema'
 import { initVicepresidenciaModel } from '../../../../employee/Area/VicePresidencia/infrastructure/sequelize/VicepresidenciaSchema'
 import { initCargoModel } from '../../../../employee/Cargo/infrastructure/sequelize/CargoSchema'
-import { initDeviceHardDriveModel } from '../../../../Features/HardDrive.ts/HardDrive/infraestructure/sequelize/DeviceHardDriveSchema'
+import { initDeviceHardDriveModel } from '../../../../Features/HardDrive/HardDrive/infraestructure/sequelize/DeviceHardDriveSchema'
 import { initDeviceComputerModel } from '../../../../Features/Computer/infraestructure/sequelize/DeviceComputerSchema'
 import { initInputTypeModel } from '../../../../ModelSeries/InputType/infrastructure/sequelize/InputTypeSchema'
 import { initKeyboardModels } from '../../../../ModelSeries/ModelCharacteristics/Keyboards/infraestructure/KeyboardModelSchema'
 import { initEmployeeModel } from '../../../../employee/Employee/infrastructure/sequelize/EmployeeSchema'
 import { initDeviceMFPModel } from '../../../../Features/MFP/infraestructure/MFPSchema'
 
-export function setupModels (sequelize: Sequelize): void {
+export function setupModels(sequelize: Sequelize): void {
   initCategoryModel(sequelize)
   initBrandModel(sequelize)
   initModelSeriesModel(sequelize)

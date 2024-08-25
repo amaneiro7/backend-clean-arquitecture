@@ -1,8 +1,8 @@
 import { AcceptedNullValueObject } from '../../../Shared/domain/value-object/AcceptedNullValueObjects'
 import { InvalidArgumentError } from '../../../Shared/domain/value-object/InvalidArgumentError'
 import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
-import { HardDriveTypeId } from '../../HardDrive.ts/HardDriveType/domain/HardDriveTypeId'
-import { type HardDriveTypeRepository } from '../../HardDrive.ts/HardDriveType/domain/HardDriveTypeRepository'
+import { HardDriveTypeId } from '../../HardDrive/HardDriveType/domain/HardDriveTypeId'
+import { type HardDriveTypeRepository } from '../../HardDrive/HardDriveType/domain/HardDriveTypeRepository'
 
 import { type DeviceComputer } from './Computer'
 import { type ComputerHardDriveCapacity } from './ComputerHardDriveCapacity'
