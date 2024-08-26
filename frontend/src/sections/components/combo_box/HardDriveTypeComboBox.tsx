@@ -17,7 +17,7 @@ interface Props {
 
 const ComboBox = lazy(async () => import("./combo_box"))
 
-export default function HardDriveTypeComboBox({ value, error, isDisabled, isRequired, onChange, type = 'search' }: Props) {
+export default function HardDriveTypeComboBox({ value, error, isDisabled = false, isRequired, onChange, type = 'search' }: Props) {
   const { useHardDriveType: { hardDriveType, loading } } = useAppContext()
 
 

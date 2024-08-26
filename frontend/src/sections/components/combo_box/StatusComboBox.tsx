@@ -17,7 +17,7 @@ interface Props {
 
 const ComboBox = lazy(async () => import("./combo_box"))
 
-export default function StatusComboBox({ value, onChange, error, isDisabled, isRequired, type = 'search' }: Props) {
+export default function StatusComboBox({ value, onChange, error, isDisabled = false, isRequired, type = 'search' }: Props) {
     const { useStatus: { status, loading }} = useAppContext()
 
     const initialValue = useMemo(() => {

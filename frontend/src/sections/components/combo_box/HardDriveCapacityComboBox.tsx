@@ -17,7 +17,7 @@ interface Props {
 
   const ComboBox = lazy(async() => import("./combo_box"))  
 
-export function HardDriveCapacityComboBox ({ value, error, isDisabled, isRequired, onChange, type = 'search' }: Props) {
+export function HardDriveCapacityComboBox ({ value, error, isDisabled = false, isRequired, onChange, type = 'search' }: Props) {
     const { useHardDriveCapacity: { hardDriveCapacity, loading } } = useAppContext()
     
     const initialValue = useMemo(() => {

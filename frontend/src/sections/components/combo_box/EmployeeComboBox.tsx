@@ -26,7 +26,7 @@ interface NewValue extends EmployeePrimitives {
 
 const EmployeeDialog = lazy(async () => import("../Dialog/EmployeeDialog"))
 const ComboBox = lazy(async () => import("./combo_box"))
-export default function EmployeeComboBox({ value, error, isDisabled, isRequired, name, onChange, type = 'search' }: Props) {
+export default function EmployeeComboBox({ value, error, isDisabled = false, isRequired, name, onChange, type = 'search' }: Props) {
   const { useEmployee: { employees, loading, createEmployee } } = useAppContext()
   const employeeOptions = useMemo(() => (
     employees.map(employee => ({ id: employee.id, name: employee.userName }))

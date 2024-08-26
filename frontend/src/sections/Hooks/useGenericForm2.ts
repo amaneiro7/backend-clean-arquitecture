@@ -2,24 +2,21 @@ import { useCallback, useState } from 'react'
 import { tostPromise } from '../utils/toaster'
 
 export function useGenericForm2<T>({ create }: { create: (formData: T) => Promise<unknown> }): {
-    submitForm: (formData: T) => Promise<void>
+    submitForm: (formData: T, fn?: () => void) => Promise<void>
     processing: boolean
-    success: boolean
 } {
     const [processing, setProcessing] = useState<boolean>(false)
-    const [success, setSuccess] = useState<boolean>(false)
 
-    const submitForm = useCallback(async (formData: T) => {
+    const submitForm = useCallback(async (formData: T, fn?: () => void) => {
         setProcessing(true)
         tostPromise(create(formData), {
             loading: 'Procesando...',
             success: () => {
-                setProcessing(false)
-                setSuccess(true)
+                fn()
                 return 'Operacion exitosa'
             },
             error() {
-                setProcessing(false)
+
                 return `Ha ocurrido un error`
             },
             description(data) {
@@ -27,7 +24,10 @@ export function useGenericForm2<T>({ create }: { create: (formData: T) => Promis
             },
             duration: 3500,
             onAutoClose: () => {
-                setSuccess(false)
+
+            },
+            finally() {
+                setProcessing(false)
             },
             onDismiss() {
 
@@ -37,6 +37,5 @@ export function useGenericForm2<T>({ create }: { create: (formData: T) => Promis
     return {
         submitForm,
         processing,
-        success
     }
 }

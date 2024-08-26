@@ -21,7 +21,7 @@ interface Props {
 const ComboBox = lazy(async () => import("./combo_box"))
 const ReadOnlyInputBox = lazy(async () => import("../ReadOnlyInputBox").then(m => ({ default: m.ReadOnlyInputBox })))
 
-export default function CategoryComboBox({ value, filter, error, isDisabled, isRequired, onChange, type = 'search', isAdd = false }: Props) {
+export default function CategoryComboBox({ value, filter, error, isDisabled = false, isRequired, onChange, type = 'search', isAdd = false }: Props) {
     const { useCategory: { categories, loading } } = useAppContext()
 
     const filterCategory = useMemo(() => {

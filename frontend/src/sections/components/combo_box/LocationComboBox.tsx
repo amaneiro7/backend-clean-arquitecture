@@ -15,7 +15,7 @@ interface Props {
   typeOfSiteId?: Primitives<LocationId>
   statusId?: Primitives<StatusId>
   onChange?: OnHandleChange
-  handleLocation: ({ value, typeOfSiteId }: { value: string; typeOfSiteId?: string }) => void
+  handleLocation?: ({ value, typeOfSiteId }: { value: string; typeOfSiteId?: string }) => void
   type?: 'form' | 'search'
   error?: string
   isRequired?: boolean
@@ -29,7 +29,7 @@ interface NewValue extends LocationPrimitives {
 const ComboBox = lazy(async () => import("./combo_box"))
 const LocationDialog = lazy(async () => import("../Dialog/LocationDialog").then(m => ({ default: m.LocationDialog })))
 
-export default function LocationComboBox({ value, error, isDisabled, isRequired, statusId, typeOfSiteId, onChange, handleLocation, type = 'search' }: Props) {
+export default function LocationComboBox({ value, error, isDisabled = false, isRequired, statusId, typeOfSiteId, onChange, handleLocation, type = 'search' }: Props) {
   const { useSiteLocation: { locations, loading, createLocation } } = useAppContext()
   const [open, toggleOpen] = useState(false)
   const [dialogValue, setDialogValue] = useState<DefaultLocationProps>(defaultInitialLocationState)

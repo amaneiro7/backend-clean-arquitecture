@@ -1,11 +1,11 @@
-import { LocationId } from "../../../location/locations/domain/locationId"
-import { Primitives } from "../../../shared/domain/value-object/Primitives"
+import { type Primitives } from "../../../shared/domain/value-object/Primitives"
 import { BrandId } from "../../brand/domain/BrandId"
 import { CategoryDefaultData, CategoryNames, CategoryValues } from "../../category/domain/CategoryDefaultData"
 import { CategoryId } from "../../category/domain/CategoryId"
 import { Device, DevicePrimitives } from "../../devices/devices/domain/Device"
 import { DeviceActivo } from "../../devices/devices/domain/DeviceActivo"
 import { DeviceEmployee } from "../../devices/devices/domain/DeviceEmployee"
+import { DeviceLocation } from "../../devices/devices/domain/DeviceLocation"
 import { DeviceObservation } from "../../devices/devices/domain/DeviceObservation"
 import { DeviceSerial } from "../../devices/devices/domain/DeviceSerial"
 import { DeviceStockNumber } from "../../devices/devices/domain/DeviceStockNumber"
@@ -26,7 +26,7 @@ export class MFP extends Device {
     categoryId: CategoryId,
     brandId: BrandId,
     employeeId: DeviceEmployee,
-    locationId: LocationId,
+    locationId: DeviceLocation,
     observation: DeviceObservation,
     stockNumber: DeviceStockNumber,
     private readonly ipAddress: IPAddress,
@@ -49,7 +49,7 @@ export class MFP extends Device {
       new CategoryId(params.categoryId),
       new BrandId(params.brandId),
       new DeviceEmployee(params.employeeId, params.statusId),
-      new LocationId(params.locationId),
+      new DeviceLocation(params.locationId, params.statusId, params.typeOfSiteId),
       new DeviceObservation(params.observation),
       new DeviceStockNumber(params.stockNumber, params.statusId),
       new IPAddress(params.ipAddress, params.statusId)

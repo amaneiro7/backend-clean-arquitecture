@@ -49,6 +49,9 @@ export class ComputerName {
       this.updateError('Si el equipo no está en uso, el nombre de equipo debe quedar en blanco')
       return false
     }
+    if (!value) {
+      return true
+    }
     const errorMesagge: string[] = []
     const isHasNotSpecialCharacterOnlyGuiones = this.notSpecialCharacterOnlyGuiones.test(value)
     if (!isHasNotSpecialCharacterOnlyGuiones) {

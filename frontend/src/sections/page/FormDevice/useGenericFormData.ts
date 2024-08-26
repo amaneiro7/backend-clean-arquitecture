@@ -373,15 +373,13 @@ export function useFormDevice() {
     const resetForm = useCallback(() => {
         setResetState()
         dispatch({ type: 'reset', payload: { formData: preloadedDeviceState } })
+        console.log('me he ejecutado')
     }, [preloadedDeviceState, setResetState])
 
     const handleSubmit = useCallback(async (event: React.FormEvent) => {
         event.preventDefault()
         event.stopPropagation()
-        await submitForm(formData).then(() => {
-            console.log('Me he ejecutado')
-            resetForm()
-        })
+        await submitForm(formData, resetForm)
     }, [formData, submitForm, resetForm])
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

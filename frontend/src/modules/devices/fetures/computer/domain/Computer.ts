@@ -1,4 +1,4 @@
-import { LocationId } from '../../../../location/locations/domain/locationId'
+import { DeviceLocation } from '@/modules/devices/devices/devices/domain/DeviceLocation'
 import { type Primitives } from '../../../../shared/domain/value-object/Primitives'
 import { BrandId } from '../../../brand/domain/BrandId'
 import { CategoryDefaultData, type CategoryValues } from '../../../category/domain/CategoryDefaultData'
@@ -45,7 +45,7 @@ export class Computer extends Device {
     brandId: BrandId,
     modelId: ModelId,
     employeeId: DeviceEmployee,
-    locationId: LocationId,
+    locationId: DeviceLocation,
     observation: DeviceObservation,
     stockNumber: DeviceStockNumber,
     private readonly computerName: ComputerName,
@@ -80,7 +80,7 @@ export class Computer extends Device {
       new BrandId(params.brandId),
       new ModelId(params.modelId),
       new DeviceEmployee(params.employeeId, params.statusId),
-      new LocationId(params.locationId),
+      new DeviceLocation(params.locationId, params.statusId, params.typeOfSiteId),
       new DeviceObservation(params.observation),
       new DeviceStockNumber(params.stockNumber, params.statusId),
       new ComputerName(params.computerName, params.statusId),

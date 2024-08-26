@@ -17,7 +17,7 @@ interface Props {
 
 const ComboBox = lazy(async () => import("./combo_box"))
 
-export function OperatingSystemComboBox({ value, error, isDisabled, isRequired, onChange, type = 'search' }: Props) {
+export function OperatingSystemComboBox({ value, error, isDisabled = false, isRequired, onChange, type = 'search' }: Props) {
   const { useOperatingSystemVersions: { operatingSystem, loading } } = useAppContext()
 
   const initialValue = useMemo(() => {

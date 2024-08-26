@@ -31,7 +31,7 @@ const ComboBox = lazy(async () => import("./combo_box"))
 const ModelDialog = lazy(async () => import("../Dialog/ModelDialog"))
 const ReadOnlyInputBox = lazy(async () => import("../ReadOnlyInputBox").then(m => ({ default: m.ReadOnlyInputBox })))
 
-export default function ModelComboBox({ value, error, isDisabled, isRequired, onChange, handleModel, categoryId, brandId, type = 'search', name = 'modelId', isAdd = false }: Props) {
+export default function ModelComboBox({ value, error, isDisabled = false, isRequired, onChange, handleModel, categoryId, brandId, type = 'search', name = 'modelId', isAdd = false }: Props) {
     const { useModel: { models, loading, createModel } } = useAppContext()
     const [open, toggleOpen] = useState(false)
     const [dialogValue, setDialogValue] = useState<DefaultModelProps>(defaultInitialModelState)
