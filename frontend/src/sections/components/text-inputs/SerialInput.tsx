@@ -1,49 +1,31 @@
-import { lazy, useEffect, useRef, useState } from "react"
-import { DeviceSerial } from "../../../modules/devices/devices/devices/domain/DeviceSerial"
-import { type Primitives } from "../../../modules/shared/domain/value-object/Primitives"
-import { type OnHandleChange } from "../../../modules/shared/domain/types/types"
-import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
+import { lazy } from "react"
+import { Operator } from "@/modules/shared/domain/criteria/FilterOperators"
+import { type DeviceSerial } from "@/modules/devices/devices/devices/domain/DeviceSerial"
+import { type Primitives } from "@/modules/shared/domain/value-object/Primitives"
+import { type OnHandleChange } from "@/modules/shared/domain/types/types"
 
 interface Props {
   value: Primitives<DeviceSerial>
   onChange: OnHandleChange
   type?: "form" | "search"
   isAdd?: boolean
+  error?: string
+  isRequired?: boolean
+  isDisabled?: boolean
 }
 
 const Input = lazy(async () => import("./Input").then((m) => ({ default: m.Input })))
 const ReadOnlyInputBox = lazy(async () => import("../ReadOnlyInputBox").then((m) => ({ default: m.ReadOnlyInputBox })))
 
-export default function SerialInput({ value, onChange, type = "search", isAdd = false }: Props) {
-  const [errorMessage, setErrorMessage] = useState("")
-  const [isError, setIsError] = useState(false)
-  const isFirstInput = useRef(true)
-
-  useEffect(() => {
-    if (type !== "form") return
-
-    if (isFirstInput.current || value === "") {
-      isFirstInput.current = value?.length <= DeviceSerial.NAME_MIN_LENGTH
-      return
-    }
-
-    const isValid = DeviceSerial.isValid(value)
-
-    setIsError(!isValid)
-    setErrorMessage(isValid ? "" : DeviceSerial.invalidMessage())
-
-    return () => {
-      setErrorMessage("")
-      setIsError(false)
-    }
-  }, [type, value])
+export default function SerialInput({ value, error, isDisabled, isRequired, onChange, type = "search", isAdd = false }: Props) {
   return (
     <>
       {!isAdd && type === "form" 
-       ? <ReadOnlyInputBox label='Serial' value={value} required />
+       ? <ReadOnlyInputBox label='Serial' value={value} required={isRequired} />
        : <Input
            id='serial'
-           isRequired={type === "form"}
+           isRequired={isRequired}
+           disabled={isDisabled}
            name='serial'
            type='text'
            label='Serial'
@@ -54,8 +36,8 @@ export default function SerialInput({ value, onChange, type = "search", isAdd = 
             onChange(name, value, Operator.CONTAINS)
           }}
            value={value}
-           error={isError}
-           errorMessage={errorMessage}
+           error={!!error}
+           errorMessage={error}
          />}
     </>
   )

@@ -1,20 +1,23 @@
 import { lazy, useMemo } from "react"
-import { OnHandleChange } from "../../../modules/shared/domain/types/types"
-import { Primitives } from "../../../modules/shared/domain/value-object/Primitives"
-import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
-import { StatusId } from "../../../modules/devices/devices/status/domain/StatusId"
-import { useAppContext } from "../../Context/AppProvider"
-import { type StatusPrimitives } from "../../../modules/devices/devices/status/domain/Status"
+import { useAppContext } from "@/sections/Context/AppProvider"
+import { Operator } from "@/modules/shared/domain/criteria/FilterOperators"
+import { type OnHandleChange } from "@/modules/shared/domain/types/types"
+import { type Primitives } from "@/modules/shared/domain/value-object/Primitives"
+import { type StatusId } from "@/modules/devices/devices/status/domain/StatusId"
+import { type StatusPrimitives } from "@/modules/devices/devices/status/domain/Status"
 
 interface Props {
     value: Primitives<StatusId>
     onChange: OnHandleChange
     type?: 'form' | 'search'
+    error?: string
+    isRequired?: boolean
+    isDisabled?: boolean
 }
 
 const ComboBox = lazy(async () => import("./combo_box"))
 
-export default function StatusComboBox({ value, onChange, type = 'search' }: Props) {
+export default function StatusComboBox({ value, onChange, error, isDisabled, isRequired, type = 'search' }: Props) {
     const { useStatus: { status, loading }} = useAppContext()
 
     const initialValue = useMemo(() => {
@@ -29,14 +32,13 @@ export default function StatusComboBox({ value, onChange, type = 'search' }: Pro
         name='statusId'
         type={type}
         onChange={(_, newValue: StatusPrimitives) => {
-                    onChange('statusId', newValue ? newValue.id : '', Operator.EQUAL)
-                    if (type === 'form') {
-                        onChange('locationId', '')
-                    }
+                    onChange('statusId', newValue ? newValue.id : '', Operator.EQUAL)                    
                 }}
         options={status}
-        isRequired={type === 'form'}
-        isDisabled={false}
+        isRequired={isRequired}
+        isDisabled={isDisabled}
+        isError={!!error}
+        errorMessage={error}
         loading={loading}
       />
     )

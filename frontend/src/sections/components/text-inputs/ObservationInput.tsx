@@ -7,16 +7,19 @@ import { type DeviceObservation } from '../../../modules/devices/devices/devices
 interface Props {
   value: Primitives<DeviceObservation>
   onChange: OnHandleChange
-  isForm?: boolean
+  error?: string
+  isRequired?: boolean
+  isDisabled?: boolean
 }
 
 const Input = lazy(async () => import('./Input').then(m => ({default: m.Input})))
 
-export default function ObservationInput ({ value, onChange }: Props) {
+export default function ObservationInput ({ value, error, isDisabled, isRequired, onChange }: Props) {
   return (    
     <Input
       id='observation'
-      isRequired={false}
+      isRequired={isRequired}
+      disabled={isDisabled}
       name='observation'
       type='textarea'
       label='Observacion'
@@ -26,6 +29,8 @@ export default function ObservationInput ({ value, onChange }: Props) {
             onChange(name, value, Operator.CONTAINS)
           }}
       value={value}
+      error={!!error}
+      errorMessage={error}
     />    
   )
 }

@@ -1,7 +1,7 @@
 import { lazy, useEffect, useState } from 'react'
-import { MemoryRamValues } from '../../../modules/devices/fetures/memoryRam/memoryRamCapacity/domain/MemoryRamValue'
-import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
-import { type Event } from '../../../modules/shared/domain/types/types'
+import { MemoryRamValues } from '@/modules/devices/fetures/memoryRam/memoryRamCapacity/domain/MemoryRamValue'
+import { type Primitives } from '@/modules/shared/domain/value-object/Primitives'
+import { type Event } from '@/modules/shared/domain/types/types'
 
 interface Props {
   value: Primitives<MemoryRamValues>

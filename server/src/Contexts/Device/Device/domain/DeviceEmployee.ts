@@ -15,7 +15,6 @@ export class DeviceEmployee extends AcceptedNullValueObject<Primitives<EmployeeI
     private readonly status: Primitives<DeviceStatus>
   ) {
     super(value)
-    console.log('employee', value, typeof value)
     this.ensureEmployeeConditionDependsOfStatus({ employee: this.value, status: this.status })
     this.ensureIsValidEmployeeId(value)
   }

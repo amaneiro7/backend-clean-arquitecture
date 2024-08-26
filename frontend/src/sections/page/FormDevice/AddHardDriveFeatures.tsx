@@ -1,29 +1,32 @@
 import { lazy, Suspense } from 'react'
-import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoading'
-import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
-import { type HardDriveHealth } from '../../../modules/devices/fetures/hardDrive/hardDrive/domain/HardDriveHealth'
-import { type HardDriveCapacityId } from '../../../modules/devices/fetures/hardDrive/hardDriveCapacity/domain/HardDriveCapacityId'
-import { type StatusId } from '../../../modules/devices/devices/status/domain/StatusId'
-import { type HardDriveTypeId } from '../../../modules/devices/fetures/hardDrive/hardDriveType/domain/HardDriveTypeId'
-import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
+import { InputSkeletonLoading } from '@/sections/components/skeleton/inputSkeletonLoading'
+import { type OnHandleChange } from '@/modules/shared/domain/types/types'
+import { type HardDriveHealth } from '@/modules/devices/fetures/hardDrive/hardDrive/domain/HardDriveHealth'
+import { type HardDriveCapacityId } from '@/modules/devices/fetures/hardDrive/hardDriveCapacity/domain/HardDriveCapacityId'
+import { type HardDriveTypeId } from '@/modules/devices/fetures/hardDrive/hardDriveType/domain/HardDriveTypeId'
+import { type Primitives } from '@/modules/shared/domain/value-object/Primitives'
+import { type FormDeviceDisabled, type FormDeviceErrors, type FormDeviceRequired } from '@/sections/Hooks/device/DefaultInitialState'
 interface Props {
   onChange: OnHandleChange
   health: Primitives<HardDriveHealth>
-  statusId: Primitives<StatusId>
   hardDriveCapacityId: Primitives<HardDriveCapacityId>
-  hardDriveTypeId: Primitives<HardDriveTypeId>  
-  
+  hardDriveTypeId: Primitives<HardDriveTypeId>
+  errors: FormDeviceErrors,
+  required: FormDeviceRequired,
+  disabled: FormDeviceDisabled
 }
 
-const HardDriveCapacityComboBox = lazy(async () => import('../../components/combo_box/HardDriveCapacityComboBox').then(m => ({ default: m.HardDriveCapacityComboBox })))
-const HardDriveTypeComboBox = lazy(async () => import('../../components/combo_box/HardDriveTypeComboBox'))
-const HealthInput = lazy(async () => await import('../../components/number-inputs/HealthInput').then(m => ({ default: m.HealthInput })))
+const HardDriveCapacityComboBox = lazy(async () => import('@/sections/components/combo_box/HardDriveCapacityComboBox').then(m => ({ default: m.HardDriveCapacityComboBox })))
+const HardDriveTypeComboBox = lazy(async () => import('@/sections/components/combo_box/HardDriveTypeComboBox'))
+const HealthInput = lazy(async () => await import('@/sections/components/number-inputs/HealthInput').then(m => ({ default: m.HealthInput })))
 
 export default function AddHardDriveFeatures({ 
-  statusId, 
   hardDriveCapacityId,
   hardDriveTypeId,
-  health,
+  health, 
+  disabled, 
+  errors, 
+  required,
   onChange 
 }: Props) {
   return (
@@ -31,8 +34,10 @@ export default function AddHardDriveFeatures({
       <Suspense fallback={<InputSkeletonLoading />}>
         <HealthInput
           onChange={onChange}
-          value={health}
-          isRequired
+          value={health}          
+          isRequired={required.health}
+          isDisabled={disabled.health}
+          error={errors.health}
         />
       </Suspense>
       <Suspense fallback={<InputSkeletonLoading />}>
@@ -40,7 +45,9 @@ export default function AddHardDriveFeatures({
           onChange={onChange}
           value={hardDriveCapacityId}
           type='form'
-          status={statusId}
+          isRequired={required.hardDriveCapacityId}
+          isDisabled={disabled.hardDriveCapacityId}
+          error={errors.hardDriveCapacityId}
         />
       </Suspense>
       <Suspense fallback={<InputSkeletonLoading />}>
@@ -48,7 +55,9 @@ export default function AddHardDriveFeatures({
           onChange={onChange}
           value={hardDriveTypeId}
           type='form'
-          hardDriveCapacity={hardDriveCapacityId}
+          isRequired={required.hardDriveTypeId}
+          isDisabled={disabled.hardDriveTypeId}
+          error={errors.hardDriveTypeId}
         />
       </Suspense>
     </>

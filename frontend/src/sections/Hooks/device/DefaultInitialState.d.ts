@@ -24,6 +24,7 @@ import { type MemoryRamValues } from '../../../modules/devices/fetures/memoryRam
 import { type MemoryRamSlotQuantity } from '../../../modules/devices/model/ModelCharacteristics/modelComputer/MemoryRamSlotQuantity'
 import { type MemoryRamTypeName } from '../../../modules/devices/fetures/memoryRam/memoryRamType/domain/MemoryRamTypeName'
 import { type DeviceStockNumber } from '../../../modules/devices/devices/devices/domain/DeviceStockNumber'
+import { type TypeOfSiteId } from '@/modules/location/typeofsites/domain/typeOfSiteId'
 
 export interface DefaultProps {
     id?: Primitives<DeviceId>
@@ -35,6 +36,7 @@ export interface DefaultProps {
     brandId: Primitives<BrandId>
     employeeId: Primitives<EmployeeId>
     locationId: Primitives<LocationId>
+    typeOfSiteId: Primitives<TypeOfSiteId>
     observation: Primitives<DeviceObservation>
     stockNumber: Primitives<DeviceStockNumber>
     computerName?: Primitives<ComputerName>
@@ -52,4 +54,76 @@ export interface DefaultProps {
     memoryRamType?: Primitives<MemoryRamTypeName>
     history: HistoryApiResponse[]
     updatedAt?: string
+}
+
+export interface FormDeviceErrors {
+    statusId: string
+    categoryId: string
+    brandId: string
+    modelId: string
+    serial: string
+    activo: string
+    employeeId: string
+    locationId: string
+    stockNumber: string
+    observation: string
+    computerName: string
+    processorId: string
+    memoryRamCapacity: string
+    memoryRam: string
+    hardDriveCapacityId: string
+    hardDriveTypeId: string
+    operatingSystemArqId: string
+    operatingSystemId: string
+    ipAddress: string
+    macAddress: string
+    health: string
+}
+
+export interface FormDeviceDisabled {
+    statusId: boolean,
+    categoryId: boolean,
+    brandId: boolean,
+    modelId: boolean,
+    serial: boolean,
+    activo: boolean,
+    employeeId: boolean,
+    locationId: boolean,
+    stockNumber: boolean,
+    observation: boolean,
+    computerName: boolean,
+    processorId: boolean,
+    memoryRamCapacity: boolean,
+    memoryRam: boolean,
+    hardDriveCapacityId: boolean,
+    hardDriveTypeId: boolean,
+    operatingSystemArqId: boolean,
+    operatingSystemId: boolean,
+    ipAddress: boolean,
+    macAddress: boolean,
+    health: boolean,
+}
+
+export interface FormDeviceRequired {
+    statusId: boolean,
+    categoryId: boolean,
+    brandId: boolean,
+    modelId: boolean,
+    serial: boolean,
+    activo: boolean,
+    employeeId: boolean,
+    locationId: boolean,
+    stockNumber: boolean,
+    observation: boolean,
+    computerName: boolean,
+    processorId: boolean,
+    memoryRamCapacity: boolean,
+    memoryRam: boolean,
+    hardDriveCapacityId: boolean,
+    hardDriveTypeId: boolean,
+    operatingSystemArqId: boolean,
+    operatingSystemId: boolean,
+    ipAddress: boolean,
+    macAddress: boolean,
+    health: boolean,
 }

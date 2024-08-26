@@ -1,16 +1,19 @@
 import { lazy, useMemo, useState } from "react"
-import { useAppContext } from "../../Context/AppProvider"
-import { defaultInitialProcessorState } from "../../Hooks/processor/ProcessorFormInitialState"
-import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
-import { type ProcessorPrimitives } from "../../../modules/devices/fetures/processor/domain/Processor"
-import { type ProcessorId } from "../../../modules/devices/fetures/processor/domain/ProcessorId"
-import { type Primitives } from "../../../modules/shared/domain/value-object/Primitives"
-import { type OnHandleChange } from "../../../modules/shared/domain/types/types"
+import { useAppContext } from "@/sections/Context/AppProvider"
+import { defaultInitialProcessorState } from "@/sections/Hooks/processor/ProcessorFormInitialState"
+import { Operator } from "@/modules/shared/domain/criteria/FilterOperators"
+import { type ProcessorPrimitives } from "@/modules/devices/fetures/processor/domain/Processor"
+import { type ProcessorId } from "@/modules/devices/fetures/processor/domain/ProcessorId"
+import { type Primitives } from "@/modules/shared/domain/value-object/Primitives"
+import { type OnHandleChange } from "@/modules/shared/domain/types/types"
 
 interface Props {
     value?: Primitives<ProcessorId>
     onChange: OnHandleChange
     type?: 'form' | 'search'
+    error?: string
+    isRequired?: boolean
+    isDisabled?: boolean
 }
 
 interface NewValue extends ProcessorPrimitives {
@@ -20,7 +23,7 @@ interface NewValue extends ProcessorPrimitives {
 const ComboBox = lazy(async () => import("./combo_box"))
 const ProcessorDialog = lazy(async () => import("../Dialog/ProcessorDialog"))
 
-export default function ProcessorComboBox({ value, onChange, type = 'search' }: Props) {
+export default function ProcessorComboBox({ value, error, isDisabled, isRequired, onChange, type = 'search' }: Props) {
     const { useProcessor: { processors, createProcessor, loading } } = useAppContext()
     const [open, toggleOpen] = useState(false)
     const [dialogValue, setDialogValue] = useState<ProcessorPrimitives>(defaultInitialProcessorState)
@@ -63,8 +66,10 @@ export default function ProcessorComboBox({ value, onChange, type = 'search' }: 
                     }
                 }}
           options={processorOptions}
-          isDisabled={false}
-          isRequired={type === 'form'}
+          isDisabled={isDisabled}
+          isRequired={isRequired}
+          isError={!!error}
+          errorMessage={error}
           loading={loading}
         >
           {type === 'form' && (            

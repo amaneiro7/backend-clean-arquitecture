@@ -4,69 +4,10 @@ import { useGenericForm2 } from "../../Hooks/useGenericForm2"
 import { useDeviceContext } from "../../Context/DeviceProvider"
 import { type DefaultProps } from "../../Hooks/device/DefaultInitialState"
 import { MemoryRam } from "../../../modules/devices/fetures/computer/domain/MemoryRam"
+import { useErrorManagement } from "./useErrorManagement"
 
 interface InitialState {
     formData: DefaultProps
-    // errors: Pick<DefaultProps, 'activo'
-    //     | 'serial'
-    //     | 'employeeId'
-    //     | 'locationId'
-    //     | 'stockNumber'
-    //     | 'computerName'
-    //     | 'processorId'
-    //     | 'memoryRamCapacity'
-    //     | 'hardDriveCapacityId'
-    //     | 'hardDriveTypeId'
-    //     | 'operatingSystemArqId'
-    //     | 'operatingSystemId'
-    //     | 'ipAddress'
-    //     | 'macAddress'>
-    // required: {
-    //     statusId: boolean
-    //     categoryId: boolean
-    //     brandId: boolean
-    //     modelId: boolean
-    //     serial: boolean
-    //     activo: boolean
-    //     employeeId: boolean
-    //     locationId: boolean
-    //     stockNumber: boolean
-    //     observation: boolean
-    //     computerName: boolean
-    //     processorId: boolean
-    //     memoryRamCapacity: boolean
-    //     memoryRam: boolean
-    //     hardDriveCapacityId: boolean
-    //     hardDriveTypeId: boolean
-    //     operatingSystemArqId: boolean
-    //     operatingSystemId: boolean
-    //     ipAddress: boolean
-    //     macAddress: boolean
-    //     health: boolean
-    // },
-    // disabled: {
-    //     statusId: boolean
-    //     categoryId: boolean
-    //     brandId: boolean
-    //     modelId: boolean
-    //     serial: boolean
-    //     activo: boolean
-    //     employeeId: boolean
-    //     locationId: boolean
-    //     stockNumber: boolean
-    //     observation: boolean
-    //     computerName: boolean
-    //     processorId: boolean
-    //     memoryRamCapacity: boolean
-    //     memoryRam: boolean
-    //     hardDriveCapacityId: boolean
-    //     hardDriveTypeId: boolean
-    //     operatingSystemArqId: boolean
-    //     operatingSystemId: boolean
-    //     ipAddress: boolean
-    //     macAddress: boolean
-    //     health: boolean
-    // }
 }
 
 const initialState: InitialState = {
@@ -80,6 +21,7 @@ const initialState: InitialState = {
         activo: '',
         employeeId: '',
         locationId: '',
+        typeOfSiteId: '',
         stockNumber: '',
         observation: '',
         computerName: '',
@@ -110,7 +52,7 @@ export type Action =
     | { type: 'serial', payload: { value: string } }
     | { type: 'activo', payload: { value: string } }
     | { type: 'employeeId', payload: { value: string } }
-    | { type: 'locationId', payload: { value: string } }
+    | { type: 'locationId', payload: { value: string, typeOfSiteId: string } }
     | { type: 'stockNumber', payload: { value: string } }
     | { type: 'observation', payload: { value: string } }
     | { type: 'computerName', payload: { value: string } }
@@ -239,12 +181,13 @@ const reducer = (state: InitialState, action: Action): InitialState => {
         }
     }
     if (action.type === 'locationId') {
-        const { value } = action.payload
+        const { value, typeOfSiteId } = action.payload
         return {
             ...state,
             formData: {
                 ...state.formData,
                 locationId: value,
+                typeOfSiteId,
                 stockNumber: ''
             }
         }
@@ -391,6 +334,7 @@ export function useFormDevice() {
     const { createDevice } = useDeviceContext()
     const { isAddForm, preloadedDeviceState, setResetState } = useDeviceInitialState()
     const [{ formData }, dispatch] = useReducer(reducer, initialState)
+    const { error, disabled, required } = useErrorManagement(formData)
     const { processing, submitForm } = useGenericForm2({ create: createDevice })
 
     useEffect(() => {
@@ -411,13 +355,15 @@ export function useFormDevice() {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleChange = (name: Action['type'], value: any) => {
-        if (name === 'INIT_STATE' || name === 'reset' || name === 'modelId' || name === 'memoryRam') return
+        if (name === 'INIT_STATE' || name === 'reset' || name === 'modelId' || name === 'memoryRam' || name === 'locationId') return
         dispatch({ type: name, payload: { value } })
     }
 
     const handleModel = ({ value, memoryRamSlotQuantity, memoryRamType }: { value: string, memoryRamSlotQuantity?: number, memoryRamType?: string }) => {
-        console.log('Estamos aqui')
         dispatch({ type: 'modelId', payload: { value, memoryRamSlotQuantity, memoryRamType } })
+    }
+    const handleLocation = ({ value, typeOfSiteId }: { value: string, typeOfSiteId?: string }) => {
+        dispatch({ type: 'locationId', payload: { value, typeOfSiteId } })
     }
     const handleMemory = (value: string, index: number) => {
         dispatch({ type: 'memoryRam', payload: { value, index } })
@@ -429,10 +375,14 @@ export function useFormDevice() {
         formData,
         isAddForm,
         processing,
+        error,
+        disabled,
+        required,
         handleSubmit,
         handleClose,
         handleChange,
         handleMemory,
         handleModel,
+        handleLocation
     }
 }

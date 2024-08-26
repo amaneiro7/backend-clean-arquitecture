@@ -1,18 +1,18 @@
 import { lazy, useMemo } from 'react'
 import { useFormDevice } from './useGenericFormData'
-import { Computer } from '../../../modules/devices/fetures/computer/domain/Computer'
-import { HardDrive } from '../../../modules/devices/fetures/hardDrive/hardDrive/domain/HardDrive'
-import { MFP } from '../../../modules/devices/fetures/multiFunctionalPrinter/MFP'
+import { Computer } from '@/modules/devices/fetures/computer/domain/Computer'
+import { HardDrive } from '@/modules/devices/fetures/hardDrive/hardDrive/domain/HardDrive'
+import { MFP } from '@/modules/devices/fetures/multiFunctionalPrinter/MFP'
 
-const FormContainer = lazy(async () => await import('../../components/formContainer/formContainer'))
-const DeviceSearchComboBox = lazy(async () => import('../../components/combo_box/DeviceSearchComboBox'))
+const FormContainer = lazy(async () => await import('@/sections/components/formContainer/formContainer'))
+const DeviceSearchComboBox = lazy(async () => import('@/sections/components/combo_box/DeviceSearchComboBox'))
 const MainFormInputs = lazy(async () => await import('./MainFormInputs').then(m => ({ default: m.MainFormInputs})))
 const AddComputerFeatures = lazy(async () => await import('./AddComputerFeatures'))
 const AddHardDriveFeatures = lazy(async () => await import('./AddHardDriveFeatures'))
 const AddMFPFeatures = lazy(async () => await import('./AddMFPFeatures'))
 
 export default function CreateDeviceForm() {
-  const { handleChange, handleMemory, handleModel, handleClose, handleSubmit, isAddForm, formData, processing } = useFormDevice()
+  const { handleChange, handleMemory, handleModel, handleLocation, handleClose, handleSubmit, isAddForm, formData, processing, disabled, error, required } = useFormDevice()
   const categoryType = useMemo(() => {
     return Computer.isComputerCategory({ categoryId: formData.categoryId }) ? 'computer' :
     HardDrive.isHardDriveCategory({ categoryId: formData.categoryId }) ? 'hardDrive' :
@@ -36,7 +36,11 @@ export default function CreateDeviceForm() {
       <MainFormInputs 
         handleChange={handleChange}
         handleModel={handleModel}
+        handleLocation={handleLocation}
         isAddForm={isAddForm}
+        disabled={disabled}
+        errors={error}
+        required={required}
         statusId={formData.statusId}
         categoryId={formData.categoryId}
         brandId={formData.brandId}
@@ -53,7 +57,9 @@ export default function CreateDeviceForm() {
           <AddComputerFeatures
             handleMemory={handleMemory} 
             onChange={handleChange}
-            statusId={formData.statusId}
+            disabled={disabled}
+            errors={error}
+            required={required}            
             computerName={formData.computerName}
             processorId={formData.processorId}
             memoryRam={formData.memoryRam}
@@ -71,17 +77,21 @@ export default function CreateDeviceForm() {
         {categoryType === 'hardDrive' ? 
           <AddHardDriveFeatures
             onChange={handleChange}
-            statusId={formData.statusId}
             hardDriveCapacityId={formData.hardDriveCapacityId}
             hardDriveTypeId={formData.hardDriveTypeId}
             health={formData.health}
+            disabled={disabled}
+            errors={error}
+            required={required}            
           /> 
         : null}
         {categoryType === 'mfp' ? 
           <AddMFPFeatures
             onChange={handleChange}
-            statusId={formData.statusId}
             ipAddress={formData.ipAddress}
+            disabled={disabled}
+            errors={error}
+            required={required}            
           /> 
         : null}
       </div>

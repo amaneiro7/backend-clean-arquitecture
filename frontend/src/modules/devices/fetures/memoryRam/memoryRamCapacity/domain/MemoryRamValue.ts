@@ -27,8 +27,9 @@ export class MemoryRamValues {
     }
 
     public static isValid(value: Primitives<MemoryRamValues>): boolean {
+        console.log('isVali MemoryRamValues', value)
         const numberValue = Number(value)
-        const secuencia = this.generarSecuencia()        
+        const secuencia = this.generarSecuencia()
         return secuencia.includes(numberValue)
     }
 

@@ -30,7 +30,7 @@ export class DeviceStockNumber {
     }
 
     public static isValid(value: string | null, status: Primitives<StatusId>): boolean {
-        if (value === null || value === '') return true
+        if (!value) return true
         const errorMesagge: string[] = []
         const isNameValidLength = value.length >= this.NAME_MIN_LENGTH && value.length <= this.NAME_MAX_LENGTH
         if (!(status === StatusId.StatusOptions.INALMACEN || status === StatusId.StatusOptions.PORDESINCORPORAR)) {

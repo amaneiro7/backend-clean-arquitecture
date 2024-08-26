@@ -11,6 +11,7 @@ import { DeviceObservation } from './DeviceObservation'
 import { DeviceSerial } from './DeviceSerial'
 import { DeviceStockNumber } from './DeviceStockNumber'
 import { DeviceLocation } from './DeviceLocation'
+import { type TypeOfSiteId } from '@/modules/location/typeofsites/domain/typeOfSiteId'
 
 export interface DevicePrimitives {
   id?: Primitives<DeviceId>
@@ -22,6 +23,7 @@ export interface DevicePrimitives {
   modelId: Primitives<ModelId>
   employeeId: Primitives<DeviceEmployee>
   locationId: Primitives<LocationId>
+  typeOfSiteId?: Primitives<TypeOfSiteId>
   observation: Primitives<DeviceObservation>
   stockNumber: Primitives<DeviceStockNumber>
 }
@@ -48,7 +50,7 @@ export class Device {
       new BrandId(params.brandId),
       new ModelId(params.modelId),
       new DeviceEmployee(params.employeeId, params.statusId),
-      new DeviceLocation(params.locationId, params.statusId),
+      new DeviceLocation(params.locationId, params.statusId, params.typeOfSiteId),
       new DeviceObservation(params.observation),
       new DeviceStockNumber(params.stockNumber, params.statusId)
     )

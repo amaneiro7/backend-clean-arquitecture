@@ -1,4 +1,4 @@
-import { StringValueObject } from '../../../../shared/domain/value-object/StringValueObject'
+import { StringValueObject } from "@/modules/shared/domain/value-object/StringValueObject";
 
 export class StatusId extends StringValueObject {
   static readonly StatusOptions: Record<string, string> = {

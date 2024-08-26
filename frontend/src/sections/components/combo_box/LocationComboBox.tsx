@@ -1,7 +1,6 @@
-import { lazy, useEffect, useMemo, useRef, useState } from "react"
+import { lazy, useMemo, useState } from "react"
 import { useAppContext } from "../../Context/AppProvider"
 import { defaultInitialLocationState, type DefaultLocationProps } from "../../Hooks/locations/useLocationInitialState"
-import { DeviceLocation } from "../../../modules/devices/devices/devices/domain/DeviceLocation"
 import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
 import { StatusId } from "../../../modules/devices/devices/status/domain/StatusId"
 import { TypeOfSiteId } from "../../../modules/location/typeofsites/domain/typeOfSiteId"
@@ -15,8 +14,12 @@ interface Props {
   value?: Primitives<LocationId>
   typeOfSiteId?: Primitives<LocationId>
   statusId?: Primitives<StatusId>
-  onChange: OnHandleChange
+  onChange?: OnHandleChange
+  handleLocation: ({ value, typeOfSiteId }: { value: string; typeOfSiteId?: string }) => void
   type?: 'form' | 'search'
+  error?: string
+  isRequired?: boolean
+  isDisabled?: boolean
 }
 
 interface NewValue extends LocationPrimitives {
@@ -26,16 +29,10 @@ interface NewValue extends LocationPrimitives {
 const ComboBox = lazy(async () => import("./combo_box"))
 const LocationDialog = lazy(async () => import("../Dialog/LocationDialog").then(m => ({ default: m.LocationDialog })))
 
-export default function LocationComboBox({ value, statusId, typeOfSiteId, onChange, type = 'search' }: Props) {
+export default function LocationComboBox({ value, error, isDisabled, isRequired, statusId, typeOfSiteId, onChange, handleLocation, type = 'search' }: Props) {
   const { useSiteLocation: { locations, loading, createLocation } } = useAppContext()
-  const firstRender = useRef(true)
-  const [errorMessage, setErrorMessage] = useState('')
-  const [isError, setIsError] = useState(false)
   const [open, toggleOpen] = useState(false)
   const [dialogValue, setDialogValue] = useState<DefaultLocationProps>(defaultInitialLocationState)
-  const [isDisabled, setIsDisabled] = useState(false)
-  const [isRequired, setIsRequired] = useState(true)
-
   
   const filterLocation = useMemo(() => {
     return locations.filter(location => {
@@ -54,29 +51,6 @@ export default function LocationComboBox({ value, statusId, typeOfSiteId, onChan
   const initialValue = useMemo(() => {
     return filterLocation.find(location => location.id === value)
   }, [filterLocation, value])
-  
-  useEffect(() => {
-    if (type !== 'form') return
-
-    setIsDisabled([StatusId.StatusOptions.DESINCORPORADO].includes(statusId))
-    setIsRequired(![StatusId.StatusOptions.DESINCORPORADO].includes(statusId) && type === 'form')
-    // if (initialValue === undefined) return
-
-    if (firstRender.current) {
-      firstRender.current = false
-      return
-    }
-    const isValid = DeviceLocation.isValid({ typeOfSite: initialValue?.typeOfSiteId, status: statusId })
-
-
-    setIsError(!isValid)
-    setErrorMessage(isValid ? '' : DeviceLocation.invalidMessage())
-
-    return () => {
-      setErrorMessage('')
-      setIsError(false)
-    }
-  }, [value, statusId, typeOfSiteId, type, initialValue])
 
   return (
     <>
@@ -97,15 +71,20 @@ export default function LocationComboBox({ value, statusId, typeOfSiteId, onChan
             toggleOpen(true)
             setDialogValue(prev => ({ ...prev, name: newValue.inputValue }))
           } else {
-            onChange('locationId', newValue ? newValue.id : '', Operator.EQUAL)
+            if (type === 'form') {
+              handleLocation({ value: newValue ? newValue.id : '', typeOfSiteId: newValue ? newValue.typeOfSiteId : '' })
+            }
+            else {
+              onChange('locationId', newValue ? newValue.id : '', Operator.EQUAL)
+            }
           }
         }}
         options={filterLocation as LocationApiResponse[]}
         isDisabled={isDisabled}
         isRequired={isRequired}
         loading={loading}
-        isError={isError}
-        errorMessage={errorMessage}
+        isError={!!error}
+        errorMessage={error}
       >
         {type === 'form' ? <LocationDialog createLocation={createLocation} dialogValue={dialogValue} open={open} toggleOpen={toggleOpen} /> : null}
       </ComboBox>

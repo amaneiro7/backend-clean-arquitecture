@@ -31,6 +31,7 @@ export class DeviceLocation extends LocationId {
     }
 
     public static isValid({ status, typeOfSite }: { typeOfSite?: Primitives<TypeOfSiteId>, status: Primitives<StatusId> }): boolean {
+        if (!status) return
         if ([
             StatusId.StatusOptions.INUSE,
             StatusId.StatusOptions.PRESTAMO,
@@ -45,6 +46,7 @@ export class DeviceLocation extends LocationId {
             StatusId.StatusOptions.INALMACEN,
             StatusId.StatusOptions.PORDESINCORPORAR,
         ].includes(status) && typeOfSite !== TypeOfSiteId.SitesOptions.ALMACEN) {
+
             this.updateError('Si no esta en uso, solo puede estar ubicado en el almacen')
             return false
         }

@@ -1,55 +1,28 @@
-import { lazy, useEffect, useMemo, useState } from "react"
-import { useAppContext } from "../../Context/AppProvider"
-import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
-import { StatusId } from "../../../modules/devices/devices/status/domain/StatusId"
-import { ComputerHDDCapacity } from "../../../modules/devices/fetures/computer/domain/ComputerHHDCapacity"
-
-import { type HardDrivePrimitives } from "../../../modules/devices/fetures/hardDrive/hardDrive/domain/HardDrive"
-import { type OnHandleChange } from "../../../modules/shared/domain/types/types"
-import { type Primitives } from "../../../modules/shared/domain/value-object/Primitives"
+import { lazy, useMemo } from "react"
+import { useAppContext } from "@/sections/Context/AppProvider"
+import { Operator } from "@/modules/shared/domain/criteria/FilterOperators"
+import { type ComputerHDDCapacity } from "@/modules/devices/fetures/computer/domain/ComputerHHDCapacity"
+import { type HardDrivePrimitives } from "@/modules/devices/fetures/hardDrive/hardDrive/domain/HardDrive"
+import { type OnHandleChange } from "@/modules/shared/domain/types/types"
+import { type Primitives } from "@/modules/shared/domain/value-object/Primitives"
 
 interface Props {
     value: Primitives<ComputerHDDCapacity>    
-    status?: Primitives<StatusId>
     onChange: OnHandleChange
     type?: 'form' | 'search'
+    error?: string
+    isRequired?: boolean
+    isDisabled?: boolean
   }
 
   const ComboBox = lazy(async() => import("./combo_box"))  
 
-export function HardDriveCapacityComboBox ({ value, status, onChange, type = 'search' }: Props) {
+export function HardDriveCapacityComboBox ({ value, error, isDisabled, isRequired, onChange, type = 'search' }: Props) {
     const { useHardDriveCapacity: { hardDriveCapacity, loading } } = useAppContext()
-    const [errorMessage, setErrorMessage] = useState('')
-    const [isError, setIsError] = useState(false)    
-    const [isRequired, setIsRequired] = useState(false)
-
+    
     const initialValue = useMemo(() => {
         return hardDriveCapacity.find(hddtype => hddtype.id === value)
     }, [hardDriveCapacity, value])
-
-    useEffect(() => {
-        if (type !== 'form') return
-
-        if (value === undefined) {      
-          return
-        }
-    
-        const isValid = ComputerHDDCapacity.isValid(value, status)
-        setIsRequired([
-          StatusId.StatusOptions.INUSE,
-          StatusId.StatusOptions.PRESTAMO,
-          StatusId.StatusOptions.CONTINGENCIA,
-          StatusId.StatusOptions.GUARDIA,
-        ].includes(status) && type === 'form')
-    
-        setIsError(!isValid)
-        setErrorMessage(isValid ? '' : ComputerHDDCapacity.invalidMessage())
-    
-        return () => {
-          setErrorMessage('')
-          setIsError(false)
-        }
-      }, [value, status, type])
 
     return (
       <>
@@ -65,10 +38,10 @@ export function HardDriveCapacityComboBox ({ value, status, onChange, type = 'se
                 }}
           options={hardDriveCapacity}
           isRequired={isRequired}
-          isDisabled={false}
+          isDisabled={isDisabled}
           loading={loading}
-          isError={isError}
-          errorMessage={errorMessage}
+          isError={!!error}
+          errorMessage={error}
         />
       </>
     )

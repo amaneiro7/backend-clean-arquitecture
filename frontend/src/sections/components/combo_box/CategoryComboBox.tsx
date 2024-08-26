@@ -13,12 +13,15 @@ interface Props {
     onChange: OnHandleChange
     type?: 'form' | 'search'
     isAdd?: boolean
+    error?: string
+    isRequired?: boolean
+    isDisabled?: boolean
 }
 
 const ComboBox = lazy(async () => import("./combo_box"))
 const ReadOnlyInputBox = lazy(async () => import("../ReadOnlyInputBox").then(m => ({ default: m.ReadOnlyInputBox })))
 
-export default function CategoryComboBox({ value, filter, onChange, type = 'search', isAdd = false }: Props) {
+export default function CategoryComboBox({ value, filter, error, isDisabled, isRequired, onChange, type = 'search', isAdd = false }: Props) {
     const { useCategory: { categories, loading } } = useAppContext()
 
     const filterCategory = useMemo(() => {
@@ -35,7 +38,7 @@ export default function CategoryComboBox({ value, filter, onChange, type = 'sear
     return (
       <>
         {(!isAdd && type === 'form') 
-          ? <ReadOnlyInputBox label='Categoria' required defaultValue={initialValue?.name} /> 
+          ? <ReadOnlyInputBox label='Categoria' required={isRequired} defaultValue={initialValue?.name} /> 
           : <ComboBox
               id='categoryId'
               initialValue={initialValue}
@@ -46,9 +49,11 @@ export default function CategoryComboBox({ value, filter, onChange, type = 'sear
                         onChange('categoryId', newValue ? newValue.id : '', Operator.EQUAL)
                     }}
               options={filterCategory}
-              isRequired={type === 'form'}
-              isDisabled={false}
+              isRequired={isRequired}
+              isDisabled={isDisabled}
               loading={loading}
+              isError={!!error}
+              errorMessage={error}
             />}
       </>
     )

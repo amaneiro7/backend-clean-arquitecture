@@ -11,9 +11,7 @@ import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
 
 
 export class DeviceLocation extends AcceptedNullValueObject<Primitives<LocationId>> {
-  constructor(
-    readonly value: Primitives<LocationId> | null,
-  ) {
+  constructor(value: Primitives<LocationId> | null) {
     super(value)
     this.ensureIsValidLocationId(this.value)
   }
@@ -25,7 +23,6 @@ export class DeviceLocation extends AcceptedNullValueObject<Primitives<LocationI
   }
 
   private isValid(id: Primitives<LocationId> | null): boolean {
-    console.log('location', id, typeof id)
     if (id === null) return true
     const employeeId = new LocationId(id)
     if (employeeId instanceof LocationId) {

@@ -1,7 +1,7 @@
 import { EmployeeId } from '../../../../employee/employee/domain/EmployeeId'
 import { AcceptedNullValueObject } from '../../../../shared/domain/value-object/AcceptedNullValueObjects'
-import { type Primitives } from '../../../../shared/domain/value-object/Primitives'
 import { StatusId } from '../../status/domain/StatusId'
+import { type Primitives } from '../../../../shared/domain/value-object/Primitives'
 import { type DeviceId } from './DeviceId'
 
 export class DeviceEmployee extends AcceptedNullValueObject<Primitives<EmployeeId>> {
@@ -11,7 +11,7 @@ export class DeviceEmployee extends AcceptedNullValueObject<Primitives<EmployeeI
     private readonly status: Primitives<StatusId>
   ) {
     super(value)
-    if (value === null || value === '') {
+    if (!value) {
       this.value = null
     } else {
       this.value = value

@@ -1,4 +1,4 @@
-import { lazy, useEffect, useMemo, useState } from "react"
+import { lazy, useMemo, useState } from "react"
 import { useAppContext } from "../../Context/AppProvider"
 import { defaultInitialEmployeeState } from "../../Hooks/employee/EmployeeFormInitialState"
 import { DeviceEmployee } from "../../../modules/devices/devices/devices/domain/DeviceEmployee"
@@ -15,6 +15,9 @@ interface Props {
   status?: Primitives<StatusId>
   onChange: OnHandleChange
   type?: 'form' | 'search'
+  error?: string
+  isRequired?: boolean
+  isDisabled?: boolean
 }
 
 interface NewValue extends EmployeePrimitives {
@@ -23,7 +26,7 @@ interface NewValue extends EmployeePrimitives {
 
 const EmployeeDialog = lazy(async () => import("../Dialog/EmployeeDialog"))
 const ComboBox = lazy(async () => import("./combo_box"))
-export default function EmployeeComboBox({ value, name, onChange, status, type = 'search' }: Props) {
+export default function EmployeeComboBox({ value, error, isDisabled, isRequired, name, onChange, type = 'search' }: Props) {
   const { useEmployee: { employees, loading, createEmployee } } = useAppContext()
   const employeeOptions = useMemo(() => (
     employees.map(employee => ({ id: employee.id, name: employee.userName }))
@@ -33,40 +36,8 @@ export default function EmployeeComboBox({ value, name, onChange, status, type =
     employeeOptions.find(employee => employee.id === value)
   ), [employeeOptions, value])
 
-  const [errorMessage, setErrorMessage] = useState('')
-  const [isError, setIsError] = useState(false)
-  const [isDisabled, setIsDisabled] = useState(false)
   const [open, toggleOpen] = useState(false)
   const [dialogValue, setDialogValue] = useState<EmployeePrimitives>(defaultInitialEmployeeState)
-
-  useEffect(() => {
-    if (type !== 'form') return
-
-    if (value === undefined) {
-      return
-    }
-
-    const isValid = DeviceEmployee.isValid(value, status)
-    if ([
-      StatusId.StatusOptions.INALMACEN,
-      StatusId.StatusOptions.PORDESINCORPORAR,
-      StatusId.StatusOptions.DESINCORPORADO,
-      StatusId.StatusOptions.DISPONIBLE,
-    ].includes(status)) {
-      setIsDisabled(true)
-    } else {
-      setIsDisabled(false)
-    }
-
-    setIsError(!isValid)
-    setErrorMessage(isValid ? '' : DeviceEmployee.invalidMessage())
-
-    return () => {
-      setErrorMessage('')
-      setIsError(false)
-    }
-  }, [value, status, type])
-  
 
   return (
     <>
@@ -97,10 +68,10 @@ export default function EmployeeComboBox({ value, name, onChange, status, type =
         }}
         options={employeeOptions}
         isDisabled={isDisabled}
-        isRequired={false}
-        isError={isError}
+        isRequired={isRequired}
+        isError={!!error}
         loading={loading}
-        errorMessage={errorMessage}
+        errorMessage={error}
       >
         {type === 'form' &&          
           <EmployeeDialog createEmployee={createEmployee} dialogValue={dialogValue} open={open} toggleOpen={toggleOpen} />}

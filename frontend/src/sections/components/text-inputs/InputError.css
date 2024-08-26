@@ -1,12 +1,14 @@
 .inputBox::after {
   content: attr(data-error);
+  display: inline-block;
   background: rgba(211, 47, 47, 0.1);
   border-radius: 4px;
   z-index: 1;
-  position: absolute;
+  /* position: absolute;
   top: 40px;
-  left: 4px;
+  left: 4px; */
   padding-left: 12px;
+  margin-left: 4px;
   font-size: 12px;
   height: fit-content;
   width: 98%;

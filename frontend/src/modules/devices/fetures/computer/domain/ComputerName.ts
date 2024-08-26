@@ -1,5 +1,5 @@
-import { type Primitives } from '../../../../shared/domain/value-object/Primitives'
-import { StatusId } from '../../../devices/status/domain/StatusId'
+import { StatusId } from "@/modules/devices/devices/status/domain/StatusId"
+import { type Primitives } from "@/modules/shared/domain/value-object/Primitives"
 
 export class ComputerName {
   static readonly NAME_MIN_LENGTH = 5

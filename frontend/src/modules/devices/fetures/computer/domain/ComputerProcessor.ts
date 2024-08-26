@@ -6,7 +6,7 @@ import { type ProcessorId } from '../../processor/domain/ProcessorId'
 
 export class ComputerProcessor extends AcceptedNullValueObject<Primitives<ProcessorId>> {
   private static errors: string = ''
-  constructor (
+  constructor(
     readonly value: Primitives<OperatingSystemId>,
     private readonly status: Primitives<StatusId>
   ) {
@@ -22,23 +22,29 @@ export class ComputerProcessor extends AcceptedNullValueObject<Primitives<Proces
     }
   }
 
-  private static updateError (error: string): void {
+  private static updateError(error: string): void {
     ComputerProcessor.errors = error
   }
 
-  private static get errorsValue (): string {
+  private static get errorsValue(): string {
     return ComputerProcessor.errors
   }
 
-  public static isValid (value: Primitives<ComputerProcessor>, status: Primitives<StatusId>): boolean {
-    if ((status === StatusId.StatusOptions.INUSE || status === StatusId.StatusOptions.INALMACEN) && !value) {
+  public static isValid(value: Primitives<ComputerProcessor>, status: Primitives<StatusId>): boolean {
+    if ([
+      StatusId.StatusOptions.INUSE,
+      StatusId.StatusOptions.INALMACEN,
+      StatusId.StatusOptions.PRESTAMO,
+      StatusId.StatusOptions.GUARDIA,
+      StatusId.StatusOptions.CONTINGENCIA
+    ].includes(status) && !value) {
       ComputerProcessor.updateError('Si esta en uso o en almacém, el procesador es requerido')
       return false
     }
     return true
   }
 
-  public static invalidMessage (): string {
+  public static invalidMessage(): string {
     return ComputerProcessor.errorsValue
   }
 }

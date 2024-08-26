@@ -18,6 +18,9 @@ interface Props {
     handleModel?: ({value, memoryRamSlotQuantity, memoryRamType }: {value: string, memoryRamSlotQuantity?: number, memoryRamType?: string}) => void
     type?: 'form' | 'search'
     isAdd?: boolean
+    error?: string
+    isRequired?: boolean
+    isDisabled?: boolean
 }
 
 interface NewValue extends ModelApiresponse {
@@ -28,7 +31,7 @@ const ComboBox = lazy(async () => import("./combo_box"))
 const ModelDialog = lazy(async () => import("../Dialog/ModelDialog"))
 const ReadOnlyInputBox = lazy(async () => import("../ReadOnlyInputBox").then(m => ({ default: m.ReadOnlyInputBox })))
 
-export default function ModelComboBox({ value, onChange, handleModel, categoryId, brandId, type = 'search', name = 'modelId', isAdd = false }: Props) {
+export default function ModelComboBox({ value, error, isDisabled, isRequired, onChange, handleModel, categoryId, brandId, type = 'search', name = 'modelId', isAdd = false }: Props) {
     const { useModel: { models, loading, createModel } } = useAppContext()
     const [open, toggleOpen] = useState(false)
     const [dialogValue, setDialogValue] = useState<DefaultModelProps>(defaultInitialModelState)
@@ -89,8 +92,10 @@ export default function ModelComboBox({ value, onChange, handleModel, categoryId
                         }
                     }}
                 options={filterdModel}
-                isDisabled={false}
-                isRequired={type === 'form'}
+                isDisabled={isDisabled}
+                isRequired={isRequired}
+                isError={!!error}
+                errorMessage={error}
                 loading={loading}
               />}
         {type === 'form' && (                    

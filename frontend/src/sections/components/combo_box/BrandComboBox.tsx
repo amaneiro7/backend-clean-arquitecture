@@ -15,6 +15,9 @@ interface Props {
     onChange: OnHandleChange
     type?: 'form' | 'search'
     isAdd?: boolean
+    error?: string
+    isRequired?: boolean
+    isDisabled?: boolean
 }
 
 interface NewValue extends BrandPrimitives {
@@ -25,7 +28,7 @@ const ComboBox = lazy(async () => import("./combo_box"))
 const BrandDialog = lazy(async () => import("../Dialog/BrandDialog").then(m => ({ default: m.BrandDialog })))
 const ReadOnlyInputBox = lazy(async () => import("../ReadOnlyInputBox").then(m => ({ default: m.ReadOnlyInputBox })))
 
-export default function BrandComboBox({ value, onChange, categoryId, type = 'search', isAdd = false }: Props) {
+export default function BrandComboBox({ value, onChange, error, isDisabled, isRequired, categoryId, type = 'search', isAdd = false }: Props) {
     const { useBrand: { brands, loading, createBrand } } = useAppContext()
     const [open, toggleOpen] = useState(false)
     const [dialogValue, setDialogValue] = useState<BrandPrimitives>(defaultInitialBrandState)
@@ -73,8 +76,10 @@ export default function BrandComboBox({ value, onChange, categoryId, type = 'sea
                         }
                     }}
             options={filterdBrand as BrandApiResponse[]}
-            isDisabled={false}
-            isRequired={type === 'form'}
+            isDisabled={isDisabled}
+            isRequired={isRequired}
+            isError={!!error}
+            errorMessage={error}
             loading={loading}
           />}
         {type === 'form' && 

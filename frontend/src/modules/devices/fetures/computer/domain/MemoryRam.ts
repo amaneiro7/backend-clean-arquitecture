@@ -17,7 +17,12 @@ export class MemoryRam {
     }
 
     public static isValid(value: Primitives<MemoryRamValues>[], status: Primitives<StatusId>): boolean {
-        if (StatusId.StatusOptions.INUSE === status && MemoryRam.isZeroTotalMemory(value) && !this.isEmpty(value)) {
+        if ([
+            StatusId.StatusOptions.INUSE,
+            StatusId.StatusOptions.PRESTAMO,
+            StatusId.StatusOptions.CONTINGENCIA,
+            StatusId.StatusOptions.GUARDIA
+        ].includes(status) && MemoryRam.isZeroTotalMemory(value) && !this.isEmpty(value)) {
             return false
         }
         return true
@@ -28,7 +33,7 @@ export class MemoryRam {
     }
 
     private static isEmpty(value: Primitives<MemoryRamValues>[]): boolean {
-        return value.length === 0
+        return value?.length === 0
     }
 
     static totalAmount(value: Primitives<MemoryRamValues>[]): number {
