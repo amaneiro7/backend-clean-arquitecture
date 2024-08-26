@@ -64,7 +64,6 @@ export default function CreateDeviceForm() {
             processorId={formData.processorId}
             memoryRam={formData.memoryRam}
             memoryRamCapacity={formData.memoryRamCapacity}
-            memoryRamSlotQuantity={formData.memoryRamSlotQuantity}
             memoryRamType={formData.memoryRamType}
             hardDriveCapacityId={formData.hardDriveCapacityId}
             hardDriveTypeId={formData.hardDriveTypeId}

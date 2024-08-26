@@ -1,4 +1,4 @@
-import { lazy, Suspense, useMemo } from 'react'
+import { lazy, Suspense } from 'react'
 import { InputSkeletonLoading } from '@/sections/components/skeleton/inputSkeletonLoading'
 import { type OnHandleChange } from '@/modules/shared/domain/types/types'
 import { type Primitives } from '@/modules/shared/domain/value-object/Primitives'
@@ -13,7 +13,6 @@ import { type OperatingSystemArqId } from '@/modules/devices/fetures/operatingSy
 import { type HardDriveTypeId } from '@/modules/devices/fetures/hardDrive/hardDriveType/domain/HardDriveTypeId'
 import { type HardDriveCapacityId } from '@/modules/devices/fetures/hardDrive/hardDriveCapacity/domain/HardDriveCapacityId'
 import { type MemoryRamTypeName } from '@/modules/devices/fetures/memoryRam/memoryRamType/domain/MemoryRamTypeName'
-import { type MemoryRamSlotQuantity } from '@/modules/devices/model/ModelCharacteristics/modelComputer/MemoryRamSlotQuantity'
 import { type FormDeviceDisabled, type FormDeviceErrors, type FormDeviceRequired } from '@/sections/Hooks/device/DefaultInitialState'
 
 interface Props {
@@ -25,8 +24,7 @@ interface Props {
   computerName: Primitives<ComputerName>
   processorId: Primitives<ProcessorId>
   memoryRam?: Primitives<MemoryRamValues>[]
-  memoryRamCapacity: Primitives<MemoryRamCapacity>  
-  memoryRamSlotQuantity?: Primitives<MemoryRamSlotQuantity>
+  memoryRamCapacity: Primitives<MemoryRamCapacity>
   memoryRamType?: Primitives<MemoryRamTypeName>
   hardDriveCapacityId?: Primitives<HardDriveCapacityId>
   hardDriveTypeId?: Primitives<HardDriveTypeId>
@@ -57,7 +55,6 @@ export default function AddComputerFeatures({
   memoryRamType,
   hardDriveCapacityId,
   hardDriveTypeId,
-  memoryRamSlotQuantity,
   operatingSystemId,
   operatingSystemArqId,
   macAddress,
@@ -67,17 +64,6 @@ export default function AddComputerFeatures({
   onChange, 
   handleMemory 
 }: Props) {
-  
-  const renderInputs = useMemo(() => {    
-    if (memoryRam && memoryRam?.length === memoryRamSlotQuantity) {
-      return memoryRam
-    }
-    const inputs = new Array(memoryRamSlotQuantity).fill(0)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    memoryRam = inputs
-    return inputs
-  }, [memoryRamSlotQuantity])
-
 
   return (
     <>
@@ -111,8 +97,8 @@ export default function AddComputerFeatures({
       </Suspense>
       <div className='grid grid-cols-2 gap-4 md:col-span-2'>
         <div className='grid grid-cols-2 gap-4'>
-          {renderInputs.length > 0 ?
-          renderInputs?.map((_, index) => (
+          {memoryRam.length > 0 ?
+          memoryRam?.map((_, index) => (
             <MemoryRamCapacitySlotInput
               key={`memRam-${index}`}
               index={index}

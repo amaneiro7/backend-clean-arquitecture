@@ -5,6 +5,7 @@ import { useDeviceContext } from "../../Context/DeviceProvider"
 import { type DefaultProps } from "../../Hooks/device/DefaultInitialState"
 import { MemoryRam } from "../../../modules/devices/fetures/computer/domain/MemoryRam"
 import { useErrorManagement } from "./useErrorManagement"
+import { StatusId } from "@/modules/devices/devices/status/domain/StatusId"
 
 interface InitialState {
     formData: DefaultProps
@@ -83,18 +84,43 @@ const reducer = (state: InitialState, action: Action): InitialState => {
     }
     if (action.type === 'statusId') {
         const { value } = action.payload
-        return {
-            ...state,
-            formData: {
-                ...state.formData,
-                statusId: value,
-                employeeId: '',
-                locationId: '',
-                stockNumber: '',
-                computerName: '',
-                operatingSystemId: '',
-                operatingSystemArqId: '',
-                ipAddress: '',
+        if ([
+            StatusId.StatusOptions.INALMACEN,
+            StatusId.StatusOptions.PORDESINCORPORAR,
+            StatusId.StatusOptions.DESINCORPORADO,
+        ].includes(value)) {
+            return {
+                ...state,
+                formData: {
+                    ...state.formData,
+                    statusId: value,
+                    employeeId: '',
+                    locationId: '',
+                    computerName: '',
+                    operatingSystemId: '',
+                    operatingSystemArqId: '',
+                    ipAddress: '',
+                }
+            }
+        } else if ([StatusId.StatusOptions.DISPONIBLE].includes(value)) {
+            return {
+                ...state,
+                formData: {
+                    ...state.formData,
+                    statusId: value,
+                    employeeId: '',
+                    stockNumber: '',
+                    ipAddress: '',
+                }
+            }
+        } else {
+            return {
+                ...state,
+                formData: {
+                    ...state.formData,
+                    statusId: value,
+                    stockNumber: ''
+                }
             }
         }
     }
@@ -140,13 +166,17 @@ const reducer = (state: InitialState, action: Action): InitialState => {
     }
     if (action.type === 'modelId') {
         const { value, memoryRamSlotQuantity, memoryRamType } = action.payload
+
+        const memoryRam = state.formData.memoryRam?.length === memoryRamSlotQuantity ? state.formData.memoryRam : new Array(memoryRamSlotQuantity).fill(0)
+
         return {
             ...state,
             formData: {
                 ...state.formData,
                 modelId: value,
                 memoryRamSlotQuantity,
-                memoryRamType
+                memoryRamType,
+                memoryRam
             }
         }
     }
@@ -236,16 +266,15 @@ const reducer = (state: InitialState, action: Action): InitialState => {
         const { value, index } = action.payload
         const parsedValue = parseFloat(value)
 
-        const updatedMemoryRamSlot = initialState.formData.memoryRam
+        const updatedMemoryRamSlot = state.formData.memoryRam
         updatedMemoryRamSlot[index] = isNaN(parsedValue) ? 0 : parsedValue
-        const memoryRamCapacity = MemoryRam.totalAmount(updatedMemoryRamSlot)
 
         return {
             ...state,
             formData: {
                 ...state.formData,
                 memoryRam: updatedMemoryRamSlot,
-                memoryRamCapacity
+                memoryRamCapacity: MemoryRam.totalAmount(updatedMemoryRamSlot)
             }
         }
     }
@@ -349,8 +378,10 @@ export function useFormDevice() {
     const handleSubmit = useCallback(async (event: React.FormEvent) => {
         event.preventDefault()
         event.stopPropagation()
-        await submitForm(formData, resetForm)
-
+        await submitForm(formData).then(() => {
+            console.log('Me he ejecutado')
+            resetForm()
+        })
     }, [formData, submitForm, resetForm])
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
