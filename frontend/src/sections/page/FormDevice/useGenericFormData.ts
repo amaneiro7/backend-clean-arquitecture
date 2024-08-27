@@ -372,14 +372,13 @@ export function useFormDevice() {
 
     const resetForm = useCallback(() => {
         setResetState()
-        dispatch({ type: 'reset', payload: { formData: preloadedDeviceState } })
-    }, [preloadedDeviceState, setResetState])
+    }, [setResetState])
 
     const handleSubmit = useCallback(async (event: React.FormEvent) => {
         event.preventDefault()
         event.stopPropagation()
-        await submitForm(formData, resetForm)
-    }, [formData, submitForm, resetForm])
+        await submitForm(formData, setResetState)
+    }, [formData, submitForm, setResetState])
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleChange = (name: Action['type'], value: any) => {
@@ -411,6 +410,7 @@ export function useFormDevice() {
         handleChange,
         handleMemory,
         handleModel,
+        resetForm,
         handleLocation
     }
 }

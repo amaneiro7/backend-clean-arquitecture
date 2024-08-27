@@ -9,10 +9,13 @@ export function useGenericForm2<T>({ create }: { create: (formData: T) => Promis
 
     const submitForm = useCallback(async (formData: T, fn?: () => void) => {
         setProcessing(true)
-        tostPromise(create(formData), {
+        tostPromise(create(formData)
+            .then((res) => {
+                fn();
+                return res
+            }), {
             loading: 'Procesando...',
             success: () => {
-                fn()
                 return 'Operacion exitosa'
             },
             error() {
