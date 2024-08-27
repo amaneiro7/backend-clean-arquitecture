@@ -30,6 +30,7 @@ export function useErrorManagement({
     computerName,
     processorId,
     memoryRam,
+    memoryRamCapacity,
     hardDriveCapacityId,
     hardDriveTypeId,
     operatingSystemArqId,
@@ -155,7 +156,7 @@ export function useErrorManagement({
             operatingSystemId: [StatusId.StatusOptions.INUSE, StatusId.StatusOptions.PRESTAMO, StatusId.StatusOptions.CONTINGENCIA, StatusId.StatusOptions.GUARDIA].includes(statusId),
             operatingSystemArqId: !!operatingSystemId
         }))
-    }, [activo, employeeId, locationId, serial, statusId, typeOfSiteId, stockNumber, categoryId, brandId, computerName, ipAddress, macAddress, memoryRam, processorId, hardDriveCapacityId, hardDriveTypeId, operatingSystemId, operatingSystemArqId, health])
+    }, [memoryRamCapacity, activo, employeeId, locationId, serial, statusId, typeOfSiteId, stockNumber, categoryId, brandId, computerName, ipAddress, macAddress, memoryRam, processorId, hardDriveCapacityId, hardDriveTypeId, operatingSystemId, operatingSystemArqId, health])
 
     return {
         error,

@@ -1,7 +1,7 @@
 .inputBox::after {
   content: attr(data-error);
   display: inline-block;
-  background: rgba(211, 47, 47, 0.1);
+  /* background: rgba(211, 47, 47, 0.1); */
   border-radius: 4px;
   z-index: 1;
   /* position: absolute;
@@ -14,9 +14,9 @@
   width: 98%;
 }
 
-.inputBox.error::after {
+/* .inputBox.error::after {
   border: 1px solid rgba(211, 47, 47, 0.3);
-}
+} */
 
 .inputBox {
   display: -webkit-inline-box;
