@@ -86,7 +86,6 @@ export class ComputerName extends AcceptedNullValueObject<string> {
     await ComputerName.ensuerComputerNameDoesNotExit({ repository, computerName })
     // Actualiza el campo nombre de equipo de la entidad {@link Device} con el nuevo nombre de equipo
     const status = entity.statusValue
-    console.log('updateComputerNameField', status)
     entity.updateComputerName(computerName, status)
   }
 

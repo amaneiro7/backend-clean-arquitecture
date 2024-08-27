@@ -32,11 +32,17 @@ export class IPAddress extends AcceptedNullValueObject<string> {
   }
 
   private ensureIsStatusIsInUseIPAddressIsRequired(status: Primitives<DeviceStatus>, ipAddress: Primitives<IPAddress>): void {
-    if (DeviceStatus.StatusOptions.INUSE && ipAddress === null) {
-      throw new InvalidArgumentError('IP Address is required when status is in use') // Throw an error if IP Address is null when computer status is in use
+    if ([DeviceStatus.StatusOptions.INUSE].includes(status) && !ipAddress) {
+      // Throw an error if IP Address is null when computer status is in use
+      throw new InvalidArgumentError('IP Address is required when status is in use')
     }
-    if ([DeviceStatus.StatusOptions.INALMACEN, DeviceStatus.StatusOptions.DESINCORPORADO, DeviceStatus.StatusOptions.PORDESINCORPORAR].includes(status) && ipAddress !== null) {
-      throw new InvalidArgumentError('IP Address is not required when status is in use') // Throw an error if IP Address is null when computer status is in use
+    if ([
+      DeviceStatus.StatusOptions.INALMACEN,
+      DeviceStatus.StatusOptions.DESINCORPORADO,
+      DeviceStatus.StatusOptions.PORDESINCORPORAR
+    ].includes(status) && !!ipAddress) {
+      // Throw an error if IP Address is not null when computer status is in werehouse
+      throw new InvalidArgumentError('IP Address is not required when status is in use')
     }
   }
 

@@ -133,7 +133,7 @@ export function useErrorManagement({
             brandId: !categoryId,
             modelId: !brandId,
             locationId: !statusId || [StatusId.StatusOptions.DESINCORPORADO].includes(statusId),
-            stockNumber: !statusId || [StatusId.StatusOptions.INALMACEN, StatusId.StatusOptions.PORDESINCORPORAR].includes(statusId),
+            stockNumber: !statusId || ![StatusId.StatusOptions.INALMACEN, StatusId.StatusOptions.PORDESINCORPORAR].includes(statusId),
             employeeId: !statusId || [StatusId.StatusOptions.INALMACEN, StatusId.StatusOptions.PORDESINCORPORAR, StatusId.StatusOptions.DESINCORPORADO, StatusId.StatusOptions.DISPONIBLE].includes(statusId),
             computerName: [StatusId.StatusOptions.INALMACEN, StatusId.StatusOptions.PORDESINCORPORAR, StatusId.StatusOptions.DESINCORPORADO].includes(statusId),
             ipAddress: [StatusId.StatusOptions.INALMACEN, StatusId.StatusOptions.PORDESINCORPORAR, StatusId.StatusOptions.DESINCORPORADO].includes(statusId),

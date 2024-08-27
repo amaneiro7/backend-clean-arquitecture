@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useReducer } from "react"
-import { useDeviceInitialState } from "../../Hooks/device/DeviceFormInitialState"
-import { useGenericForm2 } from "../../Hooks/useGenericForm2"
-import { useDeviceContext } from "../../Context/DeviceProvider"
-import { type DefaultProps } from "../../Hooks/device/DefaultInitialState"
-import { MemoryRam } from "../../../modules/devices/fetures/computer/domain/MemoryRam"
-import { useErrorManagement } from "./useErrorManagement"
+import { useDeviceInitialState } from "@/sections/Hooks/device/DeviceFormInitialState"
+import { useGenericForm2 } from "@/sections/Hooks/useGenericForm2"
+import { useDeviceContext } from "@/sections/Context/DeviceProvider"
+import { type DefaultProps } from "@/sections/Hooks/device/DefaultInitialState"
+import { MemoryRam } from "@/modules/devices/fetures/computer/domain/MemoryRam"
 import { StatusId } from "@/modules/devices/devices/status/domain/StatusId"
+import { useErrorManagement } from "./useErrorManagement"
 
 interface InitialState {
     formData: DefaultProps
@@ -373,7 +373,6 @@ export function useFormDevice() {
     const resetForm = useCallback(() => {
         setResetState()
         dispatch({ type: 'reset', payload: { formData: preloadedDeviceState } })
-        console.log('me he ejecutado')
     }, [preloadedDeviceState, setResetState])
 
     const handleSubmit = useCallback(async (event: React.FormEvent) => {
