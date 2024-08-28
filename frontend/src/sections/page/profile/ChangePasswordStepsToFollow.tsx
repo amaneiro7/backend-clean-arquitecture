@@ -21,7 +21,7 @@ export function ChangePasswordStepsToFollow() {
       <StepsText 
         requisito='opcional' 
         text='Si desea abortar la operación, oprima ' 
-        iconText='Cancelar' 
+        iconText='Reset' 
         icon={
           <Suspense fallback={<div className='w-4 h-4 rounded-full bg-slate-200 animate-pulse' />}>
             <CancelIcon width={16} />

@@ -104,7 +104,7 @@ export default function ProfilePage () {
               <Button
                 type='button'
                 color='gray'
-                text='Cancelar'
+                text='Reset'
                 onClick={handleClose}
                 size='content'                
                 hoverTranslation
