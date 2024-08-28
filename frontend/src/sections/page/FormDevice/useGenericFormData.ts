@@ -231,7 +231,7 @@ const reducer = (state: InitialState, action: Action): InitialState => {
                 locationId: value,
                 typeOfSiteId,
                 stockNumber: '',
-                ipAddress: state.formData.ipAddress ? state.formData.ipAddress : newIpAddress
+                ipAddress: newIpAddress
             }
         }
     }

@@ -1,4 +1,4 @@
-import { lazy, useMemo } from 'react'
+import { lazy, Suspense, useMemo } from 'react'
 import { useFormDevice } from './useGenericFormData'
 import { Computer } from '@/modules/devices/fetures/computer/domain/Computer'
 import { HardDrive } from '@/modules/devices/fetures/hardDrive/hardDrive/domain/HardDrive'
@@ -21,80 +21,90 @@ export default function CreateDeviceForm() {
 
   
   return (
-    <FormContainer      
-      title='Dispositivo'
-      description='Ingrese los datos del dispositivo.'
-      isAddForm={isAddForm}
-      handleSubmit={handleSubmit}
-      handleClose={handleClose}
-      reset={!isAddForm ? resetForm : undefined}
-      isDisabled={processing}
-      lastUpdated={formData.updatedAt}
-      updatedBy={formData.history}
-      url='/device/add'
-      searchInput={<DeviceSearchComboBox />}
-    >
-      <MainFormInputs 
-        handleChange={handleChange}
-        handleModel={handleModel}
-        handleLocation={handleLocation}
+    <Suspense>
+      <FormContainer      
+        title='Dispositivo'
+        description='Ingrese los datos del dispositivo.'
         isAddForm={isAddForm}
-        disabled={disabled}
-        errors={error}
-        required={required}
-        statusId={formData.statusId}
-        categoryId={formData.categoryId}
-        brandId={formData.brandId}
-        modelId={formData.modelId}
-        serial={formData.serial}
-        activo={formData.activo}
-        employeeId={formData.employeeId}
-        locationId={formData.locationId}
-        stockNumber={formData.stockNumber}
-        observation={formData.observation}
-      />
-      <div className='grid grid-cols-[repeat(auto-fit,minmax(450px,1fr))] gap-4'>
-        {(categoryType === 'computer' && formData.modelId) ? 
-          <AddComputerFeatures
-            handleMemory={handleMemory} 
-            onChange={handleChange}
+        handleSubmit={handleSubmit}
+        handleClose={handleClose}
+        reset={!isAddForm ? resetForm : undefined}
+        isDisabled={processing}
+        lastUpdated={formData.updatedAt}
+        updatedBy={formData.history}
+        url='/device/add'
+        searchInput={<DeviceSearchComboBox />}
+      >
+        <Suspense>
+          <MainFormInputs 
+            handleChange={handleChange}
+            handleModel={handleModel}
+            handleLocation={handleLocation}
+            isAddForm={isAddForm}
             disabled={disabled}
             errors={error}
-            required={required}            
-            computerName={formData.computerName}
-            processorId={formData.processorId}
-            memoryRam={formData.memoryRam}
-            memoryRamCapacity={formData.memoryRamCapacity}
-            memoryRamType={formData.memoryRamType}
-            hardDriveCapacityId={formData.hardDriveCapacityId}
-            hardDriveTypeId={formData.hardDriveTypeId}
-            operatingSystemArqId={formData.operatingSystemArqId}
-            operatingSystemId={formData.operatingSystemId}
-            ipAddress={formData.ipAddress}
-            macAddress={formData.macAddress}
-          /> 
+            required={required}
+            statusId={formData.statusId}
+            categoryId={formData.categoryId}
+            brandId={formData.brandId}
+            modelId={formData.modelId}
+            serial={formData.serial}
+            activo={formData.activo}
+            employeeId={formData.employeeId}
+            locationId={formData.locationId}
+            stockNumber={formData.stockNumber}
+            observation={formData.observation}
+          />
+        </Suspense>
+        <div className='grid grid-cols-[repeat(auto-fit,minmax(450px,1fr))] gap-4'>
+          {(categoryType === 'computer' && formData.modelId) ?
+            <Suspense>
+              <AddComputerFeatures
+                handleMemory={handleMemory} 
+                onChange={handleChange}
+                disabled={disabled}
+                errors={error}
+                required={required}            
+                computerName={formData.computerName}
+                processorId={formData.processorId}
+                memoryRam={formData.memoryRam}
+                memoryRamCapacity={formData.memoryRamCapacity}
+                memoryRamType={formData.memoryRamType}
+                hardDriveCapacityId={formData.hardDriveCapacityId}
+                hardDriveTypeId={formData.hardDriveTypeId}
+                operatingSystemArqId={formData.operatingSystemArqId}
+                operatingSystemId={formData.operatingSystemId}
+                ipAddress={formData.ipAddress}
+                macAddress={formData.macAddress}
+              />
+            </Suspense>
         : null}
-        {categoryType === 'hardDrive' ? 
-          <AddHardDriveFeatures
-            onChange={handleChange}
-            hardDriveCapacityId={formData.hardDriveCapacityId}
-            hardDriveTypeId={formData.hardDriveTypeId}
-            health={formData.health}
-            disabled={disabled}
-            errors={error}
-            required={required}            
-          /> 
+          {categoryType === 'hardDrive' ? 
+            <Suspense>
+              <AddHardDriveFeatures
+                onChange={handleChange}
+                hardDriveCapacityId={formData.hardDriveCapacityId}
+                hardDriveTypeId={formData.hardDriveTypeId}
+                health={formData.health}
+                disabled={disabled}
+                errors={error}
+                required={required}
+              /> 
+            </Suspense>
         : null}
-        {categoryType === 'mfp' ? 
-          <AddMFPFeatures
-            onChange={handleChange}
-            ipAddress={formData.ipAddress}
-            disabled={disabled}
-            errors={error}
-            required={required}            
-          /> 
+          {categoryType === 'mfp' ? 
+            <Suspense>
+              <AddMFPFeatures
+                onChange={handleChange}
+                ipAddress={formData.ipAddress}
+                disabled={disabled}
+                errors={error}
+                required={required}
+              /> 
+            </Suspense>
         : null}
-      </div>
-    </FormContainer>
+        </div>
+      </FormContainer>
+    </Suspense>
   )
 }
