@@ -5,6 +5,7 @@ interface Props extends React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFor
     handleSubmit: (event: React.FormEvent) => Promise<void>    
     isDisabled: boolean
     handleClose: () => void    
+    reset?: () => void    
     lastUpdated?: string
     updatedBy?: HistoryApiResponse[]    
   }
@@ -14,11 +15,12 @@ const LastUpdated = lazy(async () => import('../LastUpdated').then(m => ({ defau
 const UpdatedBy = lazy(async () => import('../UpdatedBy').then(m => ({ default: m.UpdatedBy })))
 const CancelIcon = lazy(() => import('../icon/CancelIcon').then(m => ({ default: m.CancelIcon })))
 const RightArrowIcon = lazy(() => import('../icon/RightArrowIcon').then(m => ({ default: m.RightArrowIcon })))
+const ResetIcon = lazy(() => import('../icon/ResetIcon').then(m => ({ default: m.ResetIcon })))
 const CircleSpinningIcon = lazy(() => import('../icon/CircleSpinning').then(m => ({ default: m.CircleSpinningIcon })))
 
 
 
-export function FormComponent ({ handleSubmit, lastUpdated, updatedBy, handleClose, isDisabled ,children,...props }: Props) {
+export function FormComponent ({ handleSubmit, lastUpdated, updatedBy, handleClose, reset, isDisabled, children, ...props }: Props) {
   return (
     <form
       action='submit'
@@ -28,11 +30,11 @@ export function FormComponent ({ handleSubmit, lastUpdated, updatedBy, handleClo
     >
       <fieldset className='w-full grid gap-5 relative'>
         {children}
-        <div className='flex flex-col mt-8 md:flex-row md:w-1/2 gap-5 justify-around justify-self-end'>
+        <div className='flex flex-col mt-8 md:flex-row md:w-1/3 gap-5 justify-end justify-self-end'>
           <Button
             color='green'                
             type='submit'
-            text={isDisabled ? 'Procesando...' : 'Continuar'}
+            text={isDisabled ? 'Procesando...' : 'Guardar'}
             buttonSize='large'
             disabled={isDisabled}
             hoverTranslation
@@ -53,7 +55,7 @@ export function FormComponent ({ handleSubmit, lastUpdated, updatedBy, handleClo
             color='gray'
             size='full'
             buttonSize='large'
-            text='Cancelar'                
+            text='Regresar'                
             onClick={handleClose}
             disabled={isDisabled}
             hoverTranslation
@@ -63,6 +65,22 @@ export function FormComponent ({ handleSubmit, lastUpdated, updatedBy, handleClo
               </Suspense>
                     }
           />
+          {/* Boton pare restablecer el formulario, solo si es en editar */}
+          {reset 
+            ? <Button
+                type='button'
+                color='blue'
+                size='content'
+                buttonSize='large'
+                text='Reset'                
+                onClick={reset}
+                disabled={isDisabled}            
+                icon={
+                  <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>
+                    <ResetIcon width={20} className='aspect-square' />
+                  </Suspense>
+                    }
+              /> : null}
                           
         </div>
         <p className='justify-self-end text-sm text-black/80'>

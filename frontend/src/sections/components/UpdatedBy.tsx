@@ -7,6 +7,6 @@ export const UpdatedBy = memo(({ history }: { history: HistoryApiResponse[] }) =
         lastHistoryUpdated(history)
     ), [history])
     return (
-      <span className='block'>Realizdo por <strong>{sortHistroy?.user?.email ?? 'root'}</strong> </span>
+      <span className='block'>Realizado por <strong>{sortHistroy?.user?.email ?? 'root'}</strong> </span>
     )
 })

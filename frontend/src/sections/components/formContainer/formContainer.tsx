@@ -10,6 +10,7 @@ interface Props {
   isDisabled: boolean
   handleSubmit: (event: React.FormEvent) => Promise<void>
   handleClose: () => void
+  reset?: () => void
   lastUpdated?: string
   updatedBy?: HistoryApiResponse[]
   searchInput?: JSX.Element
@@ -25,9 +26,9 @@ const SearchSection = lazy(() => import('./SearchSection').then(m => ({ default:
 const AddIcon = lazy(() => import('../icon/AddIcon').then(m => ({ default: m.AddIcon })))
 const FormComponent = lazy(() => import('./FormComponent').then(m => ({ default: m.FormComponent })))
 const StepsToFollow = lazy(() => import('../stepsToFollow/StepsToFollow').then(m => ({ default: m.StepsToFollow })))
-const RegisterEditStepsToFollow = lazy(() => import('../stepsToFollow/RegisterEditStepsToFollow').then(m => ({ default: m.RegisterEditStepsToFollow })))
+const RegisterNewDeviceToFollow = lazy(() => import('../stepsToFollow/RegisterNewDeviceToFollow').then(m => ({ default: m.RegisterNewDeviceToFollow })))
 
-export default function FormContainer({ url, title, description, searchInput, isAddForm, children, isDisabled, handleSubmit, handleClose, updatedBy, lastUpdated }: React.PropsWithChildren<Props>) {
+export default function FormContainer({ url, title, description, searchInput, isAddForm, children, isDisabled, handleSubmit, handleClose, reset, updatedBy, lastUpdated }: React.PropsWithChildren<Props>) {
   const location = useLocation()
   return (
     <Main content='max' overflow={false} className='pr-8'>
@@ -47,10 +48,10 @@ export default function FormContainer({ url, title, description, searchInput, is
           />
         </DetailsBoxWrapper>
         <DetailsBoxWrapper position='center'>
-          <FormComponent
-            key={location.key}
+          <FormComponent            
             handleSubmit={handleSubmit}
             handleClose={handleClose}
+            reset={reset}
             isDisabled={isDisabled}
             updatedBy={updatedBy}
             lastUpdated={lastUpdated}
@@ -60,7 +61,7 @@ export default function FormContainer({ url, title, description, searchInput, is
         </DetailsBoxWrapper>
       </DetailsWrapper>
       <StepsToFollow>
-        <RegisterEditStepsToFollow />
+        <RegisterNewDeviceToFollow isEdit={!isAddForm} />
       </StepsToFollow>
     </Main>
   )

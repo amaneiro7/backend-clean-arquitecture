@@ -15,7 +15,7 @@ interface Props {
   typeOfSiteId?: Primitives<LocationId>
   statusId?: Primitives<StatusId>
   onChange?: OnHandleChange
-  handleLocation?: ({ value, typeOfSiteId }: { value: string; typeOfSiteId?: string }) => void
+  handleLocation?: ({ value, typeOfSiteId, ipAddress }: { value: string; typeOfSiteId?: string, ipAddress?: string }) => void
   type?: 'form' | 'search'
   error?: string
   isRequired?: boolean
@@ -72,7 +72,10 @@ export default function LocationComboBox({ value, error, isDisabled = false, isR
             setDialogValue(prev => ({ ...prev, name: newValue.inputValue }))
           } else {
             if (type === 'form') {
-              handleLocation({ value: newValue ? newValue.id : '', typeOfSiteId: newValue ? newValue.typeOfSiteId : '' })
+              const value = newValue ? newValue.id : ''
+              const typeOfSiteId = newValue ? newValue.typeOfSiteId : ''
+              const ipAddress = newValue ? newValue.subnet : ''
+              handleLocation({ value, typeOfSiteId, ipAddress })
             }
             else {
               onChange('locationId', newValue ? newValue.id : '', Operator.EQUAL)

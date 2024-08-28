@@ -71,7 +71,7 @@ export const useDeviceInitialState = (): {
       if (memoryRamCapacity > 0 && memoryRam.length !== memoryRamSlotQuantity) {
         meRam[0] = Number(memoryRamCapacity)
       }
-      setPreloadedDeviceState(prev => ({ ...prev, computerName, processorId, memoryRamType, memoryRamSlotQuantity, memoryRamCapacity, memoryRam: meRam, hardDriveCapacityId, hardDriveTypeId, operatingSystemArqId, operatingSystemId, macAddress, ipAddress }))
+      setPreloadedDeviceState(prev => ({ ...prev, computerName: computerName ?? '', processorId, memoryRamType, memoryRamSlotQuantity, memoryRamCapacity, memoryRam: meRam, hardDriveCapacityId, hardDriveTypeId, operatingSystemArqId, operatingSystemId, macAddress, ipAddress }))
     }
     if (hardDrive !== null) {
       const { health, hardDriveCapacityId, hardDriveTypeId } = hardDrive

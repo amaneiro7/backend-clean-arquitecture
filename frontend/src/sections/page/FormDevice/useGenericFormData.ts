@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useReducer } from "react"
+import { useCallback, useLayoutEffect, useReducer, useState } from "react"
 import { useDeviceInitialState } from "@/sections/Hooks/device/DeviceFormInitialState"
 import { useGenericForm2 } from "@/sections/Hooks/useGenericForm2"
 import { useDeviceContext } from "@/sections/Context/DeviceProvider"
@@ -53,7 +53,7 @@ export type Action =
     | { type: 'serial', payload: { value: string } }
     | { type: 'activo', payload: { value: string } }
     | { type: 'employeeId', payload: { value: string } }
-    | { type: 'locationId', payload: { value: string, typeOfSiteId: string } }
+    | { type: 'locationId', payload: { value: string, typeOfSiteId: string, ipAddress?: string } }
     | { type: 'stockNumber', payload: { value: string } }
     | { type: 'observation', payload: { value: string } }
     | { type: 'computerName', payload: { value: string } }
@@ -109,8 +109,7 @@ const reducer = (state: InitialState, action: Action): InitialState => {
                     ...state.formData,
                     statusId: value,
                     employeeId: '',
-                    stockNumber: '',
-                    ipAddress: '',
+                    stockNumber: ''
                 }
             }
         } else {
@@ -211,14 +210,28 @@ const reducer = (state: InitialState, action: Action): InitialState => {
         }
     }
     if (action.type === 'locationId') {
-        const { value, typeOfSiteId } = action.payload
+        const { value, typeOfSiteId, ipAddress } = action.payload
+        let newIpAddress
+        if (ipAddress) {
+            // Dividir la direccion IP en segmentos
+            const segments = ipAddress.split('.')
+            // Eliminar el ultimo segmento
+            segments.pop()
+            // Unir los segmentos restantes con un punto al final
+            newIpAddress = segments.join('.') + '.'
+        } else {
+            // si el ip Address es undefined o un string vacio, se deja el mismo valor
+            newIpAddress = state.formData.ipAddress
+        }
+        // si ya estaba escrita una IP, se deja la ip que estaba antes sin modificarla
         return {
             ...state,
             formData: {
                 ...state.formData,
                 locationId: value,
                 typeOfSiteId,
-                stockNumber: ''
+                stockNumber: '',
+                ipAddress: state.formData.ipAddress ? state.formData.ipAddress : newIpAddress
             }
         }
     }
@@ -362,17 +375,19 @@ const reducer = (state: InitialState, action: Action): InitialState => {
 export function useFormDevice() {
     const { createDevice } = useDeviceContext()
     const { isAddForm, preloadedDeviceState, setResetState } = useDeviceInitialState()
+    const [prevFormData, setPrevFormData] = useState(preloadedDeviceState)
     const [{ formData }, dispatch] = useReducer(reducer, initialState)
     const { error, disabled, required } = useErrorManagement(formData)
     const { processing, submitForm } = useGenericForm2({ create: createDevice })
 
-    useEffect(() => {
-        dispatch({ type: 'INIT_STATE', payload: { formData: preloadedDeviceState } })
+    useLayoutEffect(() => {
+        dispatch({ type: 'INIT_STATE', payload: { formData: structuredClone(preloadedDeviceState) } })
+        setPrevFormData(structuredClone(preloadedDeviceState))
     }, [preloadedDeviceState])
 
-    const resetForm = useCallback(() => {
-        setResetState()
-    }, [setResetState])
+    const resetForm = () => {
+        dispatch({ type: 'reset', payload: { formData: structuredClone(prevFormData) } })
+    }
 
     const handleSubmit = useCallback(async (event: React.FormEvent) => {
         event.preventDefault()
@@ -389,8 +404,8 @@ export function useFormDevice() {
     const handleModel = ({ value, memoryRamSlotQuantity, memoryRamType }: { value: string, memoryRamSlotQuantity?: number, memoryRamType?: string }) => {
         dispatch({ type: 'modelId', payload: { value, memoryRamSlotQuantity, memoryRamType } })
     }
-    const handleLocation = ({ value, typeOfSiteId }: { value: string, typeOfSiteId?: string }) => {
-        dispatch({ type: 'locationId', payload: { value, typeOfSiteId } })
+    const handleLocation = ({ value, typeOfSiteId, ipAddress }: { value: string, typeOfSiteId?: string, ipAddress?: string }) => {
+        dispatch({ type: 'locationId', payload: { value, typeOfSiteId, ipAddress } })
     }
     const handleMemory = (value: string, index: number) => {
         dispatch({ type: 'memoryRam', payload: { value, index } })

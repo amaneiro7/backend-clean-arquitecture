@@ -12,7 +12,7 @@ const AddHardDriveFeatures = lazy(async () => await import('./AddHardDriveFeatur
 const AddMFPFeatures = lazy(async () => await import('./AddMFPFeatures'))
 
 export default function CreateDeviceForm() {
-  const { handleChange, handleMemory, handleModel, handleLocation, handleClose, handleSubmit, isAddForm, formData, processing, disabled, error, required } = useFormDevice()
+  const { handleChange, resetForm, handleMemory, handleModel, handleLocation, handleClose, handleSubmit, isAddForm, formData, processing, disabled, error, required } = useFormDevice()
   const categoryType = useMemo(() => {
     return Computer.isComputerCategory({ categoryId: formData.categoryId }) ? 'computer' :
     HardDrive.isHardDriveCategory({ categoryId: formData.categoryId }) ? 'hardDrive' :
@@ -27,6 +27,7 @@ export default function CreateDeviceForm() {
       isAddForm={isAddForm}
       handleSubmit={handleSubmit}
       handleClose={handleClose}
+      reset={!isAddForm ? resetForm : undefined}
       isDisabled={processing}
       lastUpdated={formData.updatedAt}
       updatedBy={formData.history}
