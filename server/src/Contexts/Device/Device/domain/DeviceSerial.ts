@@ -1,8 +1,9 @@
 import { AcceptedNullValueObject } from '../../../Shared/domain/value-object/AcceptedNullValueObjects'
 import { InvalidArgumentError } from '../../../Shared/domain/value-object/InvalidArgumentError'
+import { DeviceAlreadyExistError } from './DeviceAlreadyExistError'
 import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
 import { type Device, type DevicePrimitives } from './Device'
-import { DeviceAlreadyExistError } from './DeviceAlreadyExistError'
+import { type Generic } from '../../../ModelSeries/ModelSeries/domain/Generic'
 import { type DeviceRepository } from './DeviceRepository'
 
 export class DeviceSerial extends AcceptedNullValueObject<string> {
@@ -48,6 +49,12 @@ export class DeviceSerial extends AcceptedNullValueObject<string> {
       this.errors.push(`El Serial debe tener entre ${this.NAME_MIN_LENGTH} y ${this.NAME_MAX_LENGTH} caracteres`)
     }
     return isHasNotSpecialCharacterOnlyGuiones && isNotHasLowerCharacter && isNameValidLength
+  }
+
+  static async isSerialCanBeNull({ generic, serial }: { generic: Primitives<Generic>, serial: Primitives<DeviceSerial> }) {
+    if (generic === false && serial === null) {
+      throw new InvalidArgumentError('Serial cannot be null is model is not generic')
+    }
   }
 
   static async updateSerialField({ repository, serial, entity }: { repository: DeviceRepository, serial?: Primitives<DeviceSerial>, entity: Device }): Promise<void> {

@@ -1,8 +1,9 @@
 import { lazy, Suspense } from 'react'
-import { OnHandleChange } from "../../../modules/shared/domain/types/types"
+import { type OnHandleChange } from "../../../modules/shared/domain/types/types"
 import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoading'
 
 interface Props {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     formData: any
     onChange: OnHandleChange
     isAddForm?: boolean
@@ -15,6 +16,7 @@ const AddModelComputer = lazy(async () => import('./AddModelComputer').then(m =>
 const AddModelMonitor = lazy(async () => import('./AddModelMonitor').then(m => ({ default: m.AddModelMonitor })))
 const AddModelPrinter = lazy(async () => import('./AddModelPrinter').then(m => ({ default: m.AddModelPrinter })))
 const AddModelKeyboard = lazy(async () => import('./AddModelKeyboard').then(m => ({ default: m.AddModelKeyboard })))
+const Checkbox = lazy(async () => import('../../components/checkbox').then(m => ({ default: m.Checkbox })))
 
 export function ModelInputs({ onChange, formData, isAddForm }: Props) {
     return (
@@ -41,8 +43,17 @@ export function ModelInputs({ onChange, formData, isAddForm }: Props) {
             value={formData.name}
             onChange={onChange}
           />
-
         </Suspense>
+        <Checkbox
+          label='modelo genéirco'
+          text='¿Es un modelo genérico?'
+          name='generic'
+          value={formData.generic ?? false}
+          handle={(event) => {
+                                    const { name, checked } = event.target
+                                    onChange(name, checked);
+                                }}
+        />
         <Suspense>
           <AddModelComputer formData={formData} onChange={onChange} />
           <AddModelMonitor formData={formData} onChange={onChange} />

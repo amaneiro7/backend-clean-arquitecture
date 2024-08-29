@@ -1,11 +1,11 @@
-import { ModelComputer, ModelComputerPrimitives } from '../../ModelCharacteristics/modelComputer/ModelComputer'
-import { ModelKeyboard, ModelKeyboardPrimitives } from '../../ModelCharacteristics/modelKeyboard/ModelKeyboard'
-import { ModelLaptop, ModelLaptopPrimitives } from '../../ModelCharacteristics/modelLaptop/ModelLaptop'
-import { ModelMonitor, ModelMonitorPrimitives } from '../../ModelCharacteristics/modelMonitor/ModelMonitor'
-import { ModelPrinter, ModelPrinterPrimitives } from '../../ModelCharacteristics/modelPrinter/ModelPrinter'
+import { ModelComputer, type ModelComputerPrimitives } from '../../ModelCharacteristics/modelComputer/ModelComputer'
+import { ModelKeyboard, type ModelKeyboardPrimitives } from '../../ModelCharacteristics/modelKeyboard/ModelKeyboard'
+import { ModelLaptop, type ModelLaptopPrimitives } from '../../ModelCharacteristics/modelLaptop/ModelLaptop'
+import { ModelMonitor, type ModelMonitorPrimitives } from '../../ModelCharacteristics/modelMonitor/ModelMonitor'
+import { ModelPrinter, type ModelPrinterPrimitives } from '../../ModelCharacteristics/modelPrinter/ModelPrinter'
 import { Model, type ModelPrimitives } from '../domain/Model'
 import { ModelId } from '../domain/ModelId'
-import { ModelRepository } from '../domain/ModelRepository'
+import { type ModelRepository } from '../domain/ModelRepository'
 
 export class ModelCreator {
   constructor(readonly repository: ModelRepository) { }

@@ -21,6 +21,7 @@ export interface DefaultModelProps {
   name: Primitives<ModelName>
   categoryId: Primitives<CategoryId>
   brandId: Primitives<BrandId>
+  generic: boolean
   memoryRamTypeId?: Primitives<MemoryRamTypeId>
   memoryRamSlotQuantity?: Primitives<MemoryRamSlotQuantity>
   hasBluetooth?: boolean
@@ -40,6 +41,7 @@ export const defaultInitialModelState: DefaultModelProps = {
   name: '',
   categoryId: '',
   brandId: '',
+  generic: false,
   hasBluetooth: false,
   hasDVI: false,
   hasHDMI: false,
@@ -66,8 +68,8 @@ export const useModelInitialState = () => {
   }, [location.state])
 
   const processModelState = useCallback((model: ModelPrimitives): void => {
-    const { brandId, categoryId, name, updatedAt, modelComputer, modelLaptop, modelMonitor, modelPrinter } = model as ModelApiresponse
-    setPreloadedModelState((prev) => ({ ...prev, id, brandId, categoryId, name, updatedAt }))
+    const { brandId, categoryId, name, generic, updatedAt, modelComputer, modelLaptop, modelMonitor, modelPrinter } = model as ModelApiresponse
+    setPreloadedModelState((prev) => ({ ...prev, id, brandId, categoryId, name, generic, updatedAt }))
     if (modelComputer !== null) {
       setPreloadedModelState((prev) => ({ ...prev, ...modelComputer }))
     }

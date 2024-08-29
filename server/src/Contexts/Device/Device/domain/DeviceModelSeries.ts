@@ -9,7 +9,7 @@ import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
 import { type Device } from './Device'
 
 export class DeviceModelSeries extends ModelSeriesId {
-  static async updateModelField ({
+  static async updateModelField({
     repository,
     modelSeries,
     category,
@@ -31,14 +31,14 @@ export class DeviceModelSeries extends ModelSeriesId {
       return
     }
     // Verifica que el model no exista en la base de datos, si existe lanza un error {@link DeviceAlreadyExistError} con el model pasado
-    const { brandId, categoryId } = await DeviceModelSeries.ensureModelSeriesExit({ repository, modelSeries, category, brand })
+    const { brandId, categoryId, generic } = await DeviceModelSeries.ensureModelSeriesExit({ repository, modelSeries, category, brand })
     // Actualiza el campo model de la entidad {@link Device} con el nuevo model
     entity.updateCategoryId(categoryId)
     entity.updateBrandId(brandId)
     entity.updateModelId(modelSeries)
   }
 
-  static async ensureModelSeriesExit ({
+  static async ensureModelSeriesExit({
     repository,
     modelSeries,
     category,

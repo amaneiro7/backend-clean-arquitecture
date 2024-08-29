@@ -1,4 +1,4 @@
-import { lazy,useLayoutEffect, useState } from 'react'
+import { lazy, useLayoutEffect, useState } from 'react'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { MemoryRamSlotQuantity } from '../../../modules/devices/model/ModelCharacteristics/modelComputer/MemoryRamSlotQuantity'
 
@@ -27,13 +27,14 @@ export function MemoryRamSlotQuantityInput({ value = MemoryRamSlotQuantity.MIN, 
       setErrorMessage('')
       setIsError(false)
     }
-  }, [value])
+  }, [type, value])
 
   return (
     <Input
       name='memoryRamSlotQuantity'
       label='Cantidad de Ranuras'
       isRequired={type === 'form'}
+      type='number'
       value={value}
       error={isError}
       errorMessage={errorMessage}

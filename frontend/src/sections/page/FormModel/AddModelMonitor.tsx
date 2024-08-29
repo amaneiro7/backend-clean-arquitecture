@@ -15,54 +15,53 @@ export function AddModelMonitor({ formData, onChange }: Props) {
     const isMonitorModel = ModelMonitor.isMonitorCategory({ categoryId: formData.categoryId })
 
     return (
-        <>
-            {isMonitorModel &&
-                <>
-                    <div className='flex gap-4'>
-                        <Suspense>
-                            <ScreenSizeInput
-                                onChange={onChange}
-                                type='form'
-                                value={formData.screenSize}
-                            />
-                        </Suspense>
-                    </div>
-                    <Suspense>
-                        <div className='grid md:grid-cols-3 grid-flow-row gap-4'>
-                            <Checkbox
-                                label="Tiene Puerto VGA"
-                                text="¿Tiene Puerto VGA?"
-                                name="hasVGA"
-                                value={formData.hasVGA ?? true}
-                                handle={(event) => {
+      <>
+        {isMonitorModel &&
+          <>
+            <div className='flex gap-4'>
+              <Suspense>
+                <ScreenSizeInput
+                  onChange={onChange}
+                  type='form'
+                  value={formData.screenSize}
+                />
+              </Suspense>
+            </div>
+            <Suspense>
+              <div className='grid md:grid-cols-3 grid-flow-row gap-4'>
+                <Checkbox
+                  label='Tiene Puerto VGA'
+                  text='¿Tiene Puerto VGA?'
+                  name='hasVGA'
+                  value={formData.hasVGA ?? true}
+                  handle={(event) => {
                                     const { name, checked } = event.target
                                     onChange(name, checked);
                                 }}
-                            />
-                            <Checkbox
-                                label="Tiene Puerto DVI"
-                                text="¿Tiene Puerto DVI?"
-                                name="hasDVI"
-                                value={formData.hasDVI ?? false}
-                                handle={(event) => {
+                />
+                <Checkbox
+                  label='Tiene Puerto DVI'
+                  text='¿Tiene Puerto DVI?'
+                  name='hasDVI'
+                  value={formData.hasDVI ?? false}
+                  handle={(event) => {
                                     const { name, checked } = event.target
                                     onChange(name, checked);
                                 }}
-                            />
-                            <Checkbox
-                                label="Tiene Puerto HDMI"
-                                text="¿Tiene Puerto HDMI?"
-                                name="hasHDMI"
-                                value={formData.hasHDMI ?? false}
-                                handle={(event) => {
+                />
+                <Checkbox
+                  label='Tiene Puerto HDMI'
+                  text='¿Tiene Puerto HDMI?'
+                  name='hasHDMI'
+                  value={formData.hasHDMI ?? false}
+                  handle={(event) => {
                                     const { name, checked } = event.target
                                     onChange(name, checked);
                                 }}
-                            />
-                        </div>
-                    </Suspense>
-                </>
-            }
-        </>
+                />
+              </div>
+            </Suspense>
+          </>}
+      </>
     )
 }

@@ -9,39 +9,47 @@ export interface ModelPrimitives {
   name: Primitives<ModelName>
   categoryId: Primitives<CategoryId>
   brandId: Primitives<BrandId>
+  generic: boolean
 }
 export class Model {
-  constructor (
+  constructor(
     private readonly name: ModelName,
     private readonly categoryId: CategoryId,
-    private readonly brandId: BrandId
-  ) {}
+    private readonly brandId: BrandId,
+    private readonly generic: boolean
+  ) { }
 
-  public static create ({ name, categoryId, brandId }: ModelPrimitives): Model {
+  public static create(params: ModelPrimitives): Model {
     return new Model(
-      new ModelName(name),
-      new CategoryId(categoryId),
-      new BrandId(brandId)
+      new ModelName(params.name),
+      new CategoryId(params.categoryId),
+      new BrandId(params.brandId),
+      params.generic,
     )
   }
 
-  nameValue (): Primitives<ModelName> {
+  nameValue(): Primitives<ModelName> {
     return this.name.value
   }
 
-  categoryValue (): Primitives<CategoryId> {
+  categoryValue(): Primitives<CategoryId> {
     return this.categoryId.value
   }
 
-  brandValue (): Primitives<BrandId> {
+  brandValue(): Primitives<BrandId> {
     return this.brandId.value
   }
 
-  toPrimitives (): ModelPrimitives {
+  genericValue(): boolean {
+    return this.generic
+  }
+
+  toPrimitives(): ModelPrimitives {
     return {
       name: this.nameValue(),
       categoryId: this.categoryValue(),
-      brandId: this.brandValue()
+      brandId: this.brandValue(),
+      generic: this.genericValue(),
     }
   }
 }
