@@ -19,7 +19,7 @@ export class ModelSeriesCreator {
   constructor(private readonly repository: Repository) { }
 
   // Define the run method to create model series
-  async run({ name, categoryId, brandId, ...otherParams }: ModelParams): Promise<void> {
+  async run({ name, categoryId, brandId, generic, ...otherParams }: ModelParams): Promise<void> {
     let modelSeries
 
     // Create the model series based on the category
@@ -53,7 +53,7 @@ export class ModelSeriesCreator {
       modelSeries = KeyboardModels.create({ ...keyboardParams, name, categoryId, brandId })
     } else {
       // If the category does not match any specific type, create a general model series with the name, category ID, and brand ID
-      modelSeries = ModelSeries.create({ name, categoryId, brandId })
+      modelSeries = ModelSeries.create({ name, categoryId, brandId, generic })
     }
 
     await ModelSeriesCategory.ensureCategoryExist({ repository: this.repository.category, categoryId })

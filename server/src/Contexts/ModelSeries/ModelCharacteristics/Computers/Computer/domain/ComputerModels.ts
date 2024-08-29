@@ -1,8 +1,8 @@
 import { BrandId } from '../../../../../Brand/domain/BrandId'
 import { CategoryDefaultData, type CategoryValues } from '../../../../../Category/domain/CategoryDefaultData'
 import { CategoryId } from '../../../../../Category/domain/CategoryId'
-import { ProcessorSocketId } from '../../../../../Features/Processor/ProcessorSocket/domain/ProcessorSocketId'
 import { type Primitives } from '../../../../../Shared/domain/value-object/Primitives'
+import { Generic } from '../../../../ModelSeries/domain/Generic'
 import { ModelSeries, type ModelSeriesPrimitives } from '../../../../ModelSeries/domain/ModelSeries'
 import { ModelSeriesId } from '../../../../ModelSeries/domain/ModelSeriesId'
 import { ModelSeriesName } from '../../../../ModelSeries/domain/ModelSeriesName'
@@ -30,6 +30,7 @@ export class ComputerModels extends ModelSeries {
     name: ModelSeriesName,
     categoryId: CategoryId,
     brandId: BrandId,
+    generic: Generic,
     private memoryRamTypeId: ComputerMemoryRamType,
     private memoryRamSlotQuantity: MemoryRamSlotQuantity,
     private hasBluetooth: HasBluetooth,
@@ -38,7 +39,7 @@ export class ComputerModels extends ModelSeries {
     private hasHDMI: HasHDMI,
     private hasVGA: HasVGA
   ) {
-    super(id, name, categoryId, brandId)
+    super(id, name, categoryId, brandId, generic)
   }
 
   static create(params: Omit<ComputerModelsPrimitives, 'id'>): ComputerModels {
@@ -48,13 +49,14 @@ export class ComputerModels extends ModelSeries {
       new ModelSeriesName(params.name),
       new CategoryId(params.categoryId),
       new BrandId(params.brandId),
+      new Generic(params.generic),
       new ComputerMemoryRamType(params.memoryRamTypeId),
       new MemoryRamSlotQuantity(params.memoryRamSlotQuantity),
       new HasBluetooth(params.hasBluetooth),
       new HasWifiAdapter(params.hasWifiAdapter),
       new HasDVI(params.hasDVI),
       new HasHDMI(params.hasHDMI),
-      new HasVGA(params.hasVGA)
+      new HasVGA(params.hasVGA),
     )
   }
 
@@ -69,6 +71,7 @@ export class ComputerModels extends ModelSeries {
       new ModelSeriesName(primitives.name),
       new CategoryId(primitives.categoryId),
       new BrandId(primitives.brandId),
+      new Generic(primitives.generic),
       new ComputerMemoryRamType(primitives.memoryRamTypeId),
       new MemoryRamSlotQuantity(primitives.memoryRamSlotQuantity),
       new HasBluetooth(primitives.hasBluetooth),
@@ -85,6 +88,7 @@ export class ComputerModels extends ModelSeries {
       name: this.nameValue,
       categoryId: this.categoryIdValue,
       brandId: this.brandIdValue,
+      generic: this.genericValue,
       memoryRamTypeId: this.memoryRamTypeValue,
       memoryRamSlotQuantity: this.memoryRamSlotQuantityValue,
       hasBluetooth: this.hasBluetoothValue,

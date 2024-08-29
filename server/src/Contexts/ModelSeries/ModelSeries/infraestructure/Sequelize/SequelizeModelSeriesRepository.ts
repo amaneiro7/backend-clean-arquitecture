@@ -64,11 +64,11 @@ export class SequelizeModelSeriesRepository extends CriteriaToSequelizeConverter
   async save(payload: ModelSeriesPrimitives): Promise<void> {
     const t = await sequelize.transaction()
     try {
-      const { id, name, categoryId, brandId } = payload
+      const { id, name, categoryId, brandId, generic } = payload
       const model = await ModelSeriesModel.findByPk(id) ?? null
 
       if (model === null) {
-        await ModelSeriesModel.create({ id, name, categoryId, brandId })
+        await ModelSeriesModel.create({ id, name, categoryId, brandId, generic })
       } else {
         await ModelSeriesModel.update(
           { name, categoryId, brandId },

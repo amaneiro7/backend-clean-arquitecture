@@ -33,6 +33,7 @@ import { BatteryModelName } from '../../ModelCharacteristics/Computers/Laptops/d
 import { MemoryRamSlotQuantity } from '../../ModelCharacteristics/Computers/Computer/domain/MemoryRamSlotQuantity'
 import { ComputerMemoryRamType } from '../../ModelCharacteristics/Computers/Computer/domain/ComputerMemoryRamType'
 import { ComputerModels } from '../../ModelCharacteristics/Computers/Computer/domain/ComputerModels'
+import { Generic } from '../domain/Generic'
 
 export class ModelSeriesUpdater {
   constructor(private readonly repository: Repository) { }
@@ -56,6 +57,7 @@ export class ModelSeriesUpdater {
         id: modelSeries.id,
         name: modelSeries.name,
         categoryId: modelSeries.categoryId,
+        generic: modelSeries.generic,
         brandId: modelSeries.brandId,
         inputTypeId: modelKeyboard?.inputTypeId,
         hasFingerPrintReader: modelKeyboard?.hasFingerPrintReader,
@@ -71,6 +73,7 @@ export class ModelSeriesUpdater {
         id: modelSeries.id,
         name: modelSeries.name,
         categoryId: modelSeries.categoryId,
+        generic: modelSeries.generic,
         brandId: modelSeries.brandId,
         cartridgeModel: modelPrinter.cartridgeModel
       })
@@ -84,6 +87,7 @@ export class ModelSeriesUpdater {
         id: modelSeries.id,
         name: modelSeries.name,
         categoryId: modelSeries.categoryId,
+        generic: modelSeries.generic,
         brandId: modelSeries.brandId,
         screenSize: modelMonitor.screenSize,
         hasVGA: modelMonitor.hasVGA,
@@ -103,14 +107,15 @@ export class ModelSeriesUpdater {
         id: modelSeries.id,
         name: modelSeries.name,
         categoryId: modelSeries.categoryId,
+        generic: modelSeries.generic,
         brandId: modelSeries.brandId,
-        memoryRamSlotQuantity: modelLaptop.memoryRamSlotQuantity, 
+        memoryRamSlotQuantity: modelLaptop.memoryRamSlotQuantity,
         memoryRamTypeId: modelLaptop.memoryRamTypeId,
         hasDVI: modelLaptop.hasDVI,
         hasHDMI: modelLaptop.hasHDMI,
         hasVGA: modelLaptop.hasVGA,
         hasBluetooth: modelLaptop.hasBluetooth,
-        hasWifiAdapter: modelLaptop.hasWifiAdapter, 
+        hasWifiAdapter: modelLaptop.hasWifiAdapter,
         batteryModel: modelLaptop.batteryModel,
       })
       const laptopParams = params as LaptopsModelsPrimitives
@@ -130,8 +135,9 @@ export class ModelSeriesUpdater {
         id: modelSeries.id,
         name: modelSeries.name,
         categoryId: modelSeries.categoryId,
+        generic: modelSeries.generic,
         brandId: modelSeries.brandId,
-        memoryRamSlotQuantity: modelComputer.memoryRamSlotQuantity, 
+        memoryRamSlotQuantity: modelComputer.memoryRamSlotQuantity,
         memoryRamTypeId: modelComputer.memoryRamTypeId,
         hasDVI: modelComputer.hasDVI,
         hasHDMI: modelComputer.hasHDMI,
@@ -144,7 +150,7 @@ export class ModelSeriesUpdater {
       await HasDVI.updateDVIField({ hasDVI: computerParams.hasDVI, entity: modelEntity })
       await HasHDMI.updateDVIField({ hasHDMI: computerParams.hasHDMI, entity: modelEntity })
       await HasBluetooth.updateBluetoothField({ hasBluetooth: computerParams.hasBluetooth, entity: modelEntity })
-      await HasWifiAdapter.updateWifiAdapterField({ hasWifiAdapter: computerParams.hasWifiAdapter, entity: modelEntity })      
+      await HasWifiAdapter.updateWifiAdapterField({ hasWifiAdapter: computerParams.hasWifiAdapter, entity: modelEntity })
       await MemoryRamSlotQuantity.updateMemoryRamSlotQuantityField({ memoryRamSlotQuantity: computerParams.memoryRamSlotQuantity, entity: modelEntity })
       await ComputerMemoryRamType.updateInputTypeField({ repository: this.repository.memoryRamType, memoryRamTypeId: computerParams.memoryRamTypeId, entity: modelEntity })
     }
@@ -159,6 +165,7 @@ export class ModelSeriesUpdater {
     await ModelSeriesCategory.updateCategoryField({ repository: this.repository.category, categoryId: params.categoryId, entity })
     await ModelSeriesBrand.updateBrandField({ repository: this.repository.brand, brandId: params.brandId, entity })
     await ModelSeriesName.updateNameField({ repository: this.repository.modelSeries, name: params.name, entity })
+    await Generic.updateGenericField({ generic: params.generic, entity })
 
   }
 }

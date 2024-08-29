@@ -3,6 +3,7 @@ import { CategoryDefaultData, type CategoryValues } from '../../../../../Categor
 import { CategoryId } from '../../../../../Category/domain/CategoryId'
 import { MemoryRamTypeId } from '../../../../../Features/MemoryRam/MemoryRamType/domain/MemoryRamTypeId'
 import { type Primitives } from '../../../../../Shared/domain/value-object/Primitives'
+import { Generic } from '../../../../ModelSeries/domain/Generic'
 import { ModelSeriesId } from '../../../../ModelSeries/domain/ModelSeriesId'
 import { ModelSeriesName } from '../../../../ModelSeries/domain/ModelSeriesName'
 import { ComputerModels, type ComputerModelsPrimitives } from '../../Computer/domain/ComputerModels'
@@ -19,11 +20,12 @@ export interface LaptopsModelsPrimitives extends ComputerModelsPrimitives {
 }
 
 export class LaptopsModels extends ComputerModels {
-  constructor (
+  constructor(
     id: ModelSeriesId,
     name: ModelSeriesName,
     categoryId: CategoryId,
     brandId: BrandId,
+    generic: Generic,
     memoryRamTypeId: MemoryRamTypeId,
     memoryRamSlotQuantity: MemoryRamSlotQuantity,
     hasBluetooth: HasBluetooth,
@@ -34,16 +36,17 @@ export class LaptopsModels extends ComputerModels {
     private batteryModel: BatteryModelName
 
   ) {
-    super(id, name, categoryId, brandId,  memoryRamTypeId, memoryRamSlotQuantity, hasBluetooth, hasWifiAdapter, hasDVI, hasHDMI, hasVGA)
+    super(id, name, categoryId, brandId, generic, memoryRamTypeId, memoryRamSlotQuantity, hasBluetooth, hasWifiAdapter, hasDVI, hasHDMI, hasVGA)
   }
 
-  static create (params: Omit<LaptopsModelsPrimitives, 'id'>): LaptopsModels {
+  static create(params: Omit<LaptopsModelsPrimitives, 'id'>): LaptopsModels {
     const id = String(ModelSeriesId.random())
     return new LaptopsModels(
       new ModelSeriesId(id),
       new ModelSeriesName(params.name),
       new CategoryId(params.categoryId),
       new BrandId(params.brandId),
+      new Generic(params.generic),
       new MemoryRamTypeId(params.memoryRamTypeId),
       new MemoryRamSlotQuantity(params.memoryRamSlotQuantity),
       new HasBluetooth(params.hasBluetooth),
@@ -55,17 +58,18 @@ export class LaptopsModels extends ComputerModels {
     )
   }
 
-  public static isLaptopCategory ({ categoryId }: { categoryId: Primitives<CategoryId> }): boolean {
+  public static isLaptopCategory({ categoryId }: { categoryId: Primitives<CategoryId> }): boolean {
     const AcceptedComputerCategories: CategoryValues[] = ['Laptops']
     return AcceptedComputerCategories.includes(CategoryDefaultData[categoryId])
   }
 
-  static fromPrimitives (primitives: LaptopsModelsPrimitives): LaptopsModels {
+  static fromPrimitives(primitives: LaptopsModelsPrimitives): LaptopsModels {
     return new LaptopsModels(
       new ModelSeriesId(primitives.id),
       new ModelSeriesName(primitives.name),
       new CategoryId(primitives.categoryId),
       new BrandId(primitives.brandId),
+      new Generic(primitives.generic),
       new MemoryRamTypeId(primitives.memoryRamTypeId),
       new MemoryRamSlotQuantity(primitives.memoryRamSlotQuantity),
       new HasBluetooth(primitives.hasBluetooth),
@@ -77,12 +81,13 @@ export class LaptopsModels extends ComputerModels {
     )
   }
 
-  toPrimitives (): LaptopsModelsPrimitives {
+  toPrimitives(): LaptopsModelsPrimitives {
     return {
       id: this.idValue,
       name: this.nameValue,
       categoryId: this.categoryIdValue,
       brandId: this.brandIdValue,
+      generic: this.genericValue,
       memoryRamTypeId: this.memoryRamTypeValue,
       memoryRamSlotQuantity: this.memoryRamSlotQuantityValue,
       hasBluetooth: this.hasBluetoothValue,
@@ -94,11 +99,11 @@ export class LaptopsModels extends ComputerModels {
     }
   }
 
-  get batteryModelValue (): Primitives<BatteryModelName> {
+  get batteryModelValue(): Primitives<BatteryModelName> {
     return this.batteryModel.value
   }
 
-  updateBatterModel (newValue: Primitives<BatteryModelName>): void {
+  updateBatterModel(newValue: Primitives<BatteryModelName>): void {
     this.batteryModel = new BatteryModelName(newValue)
   }
 }

@@ -7,7 +7,7 @@ import { type ModelPrintersPrimitives } from '../../domain/ModelPrinters'
 import { type CartridgeModel } from '../../domain/CartridgeModel'
 import { CategoryValues } from '../../../../../Category/domain/Category'
 
-interface ModelPrinterCreationAttributes extends Omit<ModelPrintersPrimitives, 'name' | 'brandId'> {
+interface ModelPrinterCreationAttributes extends Omit<ModelPrintersPrimitives, 'name' | 'brandId' | 'generic'> {
   modelSeriesId: Primitives<ModelSeriesId>
 }
 
@@ -17,13 +17,13 @@ export class ModelPrinterModel extends Model<ModelPrinterCreationAttributes> imp
   public modelSeriesId!: Primitives<ModelSeriesId>
   public categoryId!: Primitives<CategoryId>
 
-  public static associate (models: Models): void {
+  public static associate(models: Models): void {
     this.belongsTo(models.Model, { as: 'model', foreignKey: 'modelSeriesId' }) // A Laptop model belongs to a model
     this.belongsTo(models.Category, { as: 'category' }) // A computer model belongs to a category
   }
 }
 
-export function initModelPrinter (sequelize: Sequelize): void {
+export function initModelPrinter(sequelize: Sequelize): void {
   ModelPrinterModel.init(
     {
       id: {

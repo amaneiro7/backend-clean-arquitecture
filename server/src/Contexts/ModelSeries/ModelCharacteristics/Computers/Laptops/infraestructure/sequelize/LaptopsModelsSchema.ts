@@ -14,7 +14,7 @@ import { type HasVGA } from '../../../Computer/domain/HasVGA'
 import { type BatteryModelName } from '../../domain/BatteryModelName'
 import { CategoryValues } from '../../../../../../Category/domain/Category'
 
-interface LaptopModelsCreationAttributes extends Omit<LaptopsModelsPrimitives, 'name' | 'brandId'> {
+interface LaptopModelsCreationAttributes extends Omit<LaptopsModelsPrimitives, 'name' | 'brandId' | 'generic'> {
   modelSeriesId: Primitives<ModelSeriesId>
 }
 
@@ -31,7 +31,7 @@ export class LaptopModelsModel extends Model<LaptopModelsCreationAttributes> imp
   public hasVGA!: Primitives<HasVGA>
   public batteryModel!: Primitives<BatteryModelName>
 
-  public static associate (models: Models): void {
+  public static associate(models: Models): void {
     this.belongsTo(models.Model, { as: 'model', foreignKey: 'modelSeriesId' }) // A Laptop model belongs to a model
     this.belongsTo(models.Category, { as: 'category' }) // A computer model belongs to a category
     // this.belongsTo(models.ProcessorSocket, { as: 'processorSocket' }) // A computer model belongs to a processor socket
@@ -39,7 +39,7 @@ export class LaptopModelsModel extends Model<LaptopModelsCreationAttributes> imp
   }
 }
 
-export function initLaptopModels (sequelize: Sequelize): void {
+export function initLaptopModels(sequelize: Sequelize): void {
   LaptopModelsModel.init(
     {
       id: {

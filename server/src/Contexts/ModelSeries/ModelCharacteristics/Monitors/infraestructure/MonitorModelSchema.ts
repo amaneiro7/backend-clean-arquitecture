@@ -10,7 +10,7 @@ import { type MonitorHasVGA } from '../domain/MonitorHasVGA'
 import { type Models } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
 import { CategoryValues } from '../../../../Category/domain/Category'
 
-interface MonitorModelsCreationAttributes extends Omit<MonitorModelsPrimitives, 'name' | 'brandId'> {
+interface MonitorModelsCreationAttributes extends Omit<MonitorModelsPrimitives, 'name' | 'brandId' | 'generic'> {
   modelSeriesId: Primitives<ModelSeriesId>
 }
 
@@ -23,13 +23,13 @@ export class MonitorModelsModel extends Model<MonitorModelsCreationAttributes> i
   public hasHDMI!: Primitives<MonitorHasHDMI>
   public hasVGA!: Primitives<MonitorHasVGA>
 
-  public static associate (models: Models): void {
+  public static associate(models: Models): void {
     this.belongsTo(models.Model, { as: 'model', foreignKey: 'modelSeriesId' }) // A monitor model belongs to a model
     this.belongsTo(models.Category, { as: 'category' }) // A monitor model belongs to a category
   }
 }
 
-export function initMonitorModels (sequelize: Sequelize): void {
+export function initMonitorModels(sequelize: Sequelize): void {
   MonitorModelsModel.init(
     {
       id: {

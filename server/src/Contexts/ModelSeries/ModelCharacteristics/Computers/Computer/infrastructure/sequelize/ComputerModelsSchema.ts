@@ -13,7 +13,7 @@ import { type ModelSeriesId } from '../../../../../ModelSeries/domain/ModelSerie
 import { type Models } from '../../../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
 import { CategoryValues } from '../../../../../../Category/domain/Category'
 
-interface ComputerModelsCreationAttributes extends Omit<ComputerModelsPrimitives, 'name' | 'brandId'> {
+interface ComputerModelsCreationAttributes extends Omit<ComputerModelsPrimitives, 'name' | 'brandId' | 'generic'> {
   modelSeriesId: Primitives<ModelSeriesId>
 }
 
@@ -29,7 +29,7 @@ export class ComputerModelsModel extends Model<ComputerModelsCreationAttributes>
   public hasHDMI!: Primitives<HasHDMI>
   public hasVGA!: Primitives<HasVGA>
 
-  public static associate (models: Models): void {
+  public static associate(models: Models): void {
     this.belongsTo(models.Model, { as: 'model', foreignKey: 'modelSeriesId' }) // A computer model belongs to a model
     this.belongsTo(models.Category, { as: 'category' }) // A computer model belongs to a category
     // this.belongsTo(models.ProcessorSocket, { as: 'processorSocket' }) // A computer model belongs to a processor socket
@@ -37,7 +37,7 @@ export class ComputerModelsModel extends Model<ComputerModelsCreationAttributes>
   }
 }
 
-export function initComputerModels (sequelize: Sequelize): void {
+export function initComputerModels(sequelize: Sequelize): void {
   ComputerModelsModel.init(
     {
       id: {

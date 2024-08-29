@@ -8,7 +8,7 @@ import { type InputTypeId } from '../../../InputType/domain/InputTypeId'
 import { CategoryValues } from '../../../../Category/domain/Category'
 import { HasFingerPrintReader } from '../domain/HasFingerPrintReader'
 
-interface KeyboardModelsCreationAttributes extends Omit<KeyboardModelsPrimitives, 'name' | 'brandId'> {
+interface KeyboardModelsCreationAttributes extends Omit<KeyboardModelsPrimitives, 'name' | 'brandId' | 'generic'> {
   modelSeriesId: Primitives<ModelSeriesId>
 }
 
@@ -19,14 +19,14 @@ export class KeyboardModelsModel extends Model<KeyboardModelsCreationAttributes>
   public inputTypeId!: Primitives<InputTypeId>
   public hasFingerPrintReader!: Primitives<HasFingerPrintReader>
 
-  public static associate (models: Models): void {
+  public static associate(models: Models): void {
     this.belongsTo(models.Model, { as: 'model', foreignKey: 'modelSeriesId' }) // A keyboard model belongs to a model
     this.belongsTo(models.Category, { as: 'category', foreignKey: 'categoryId' }) // A keyboard model belongs to a category
     this.belongsTo(models.InputType, { as: 'inputType', foreignKey: 'inputTypeId' }) // A keyboard model belongs to a InputTypes
   }
 }
 
-export function initKeyboardModels (sequelize: Sequelize): void {
+export function initKeyboardModels(sequelize: Sequelize): void {
   KeyboardModelsModel.init(
     {
       id: {
@@ -54,7 +54,7 @@ export function initKeyboardModels (sequelize: Sequelize): void {
         allowNull: false
       },
       hasFingerPrintReader: {
-        type: DataTypes.BOOLEAN,        
+        type: DataTypes.BOOLEAN,
         defaultValue: false,
         field: 'has_fingerprint_reader'
       }

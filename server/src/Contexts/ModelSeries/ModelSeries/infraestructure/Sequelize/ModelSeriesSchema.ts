@@ -6,14 +6,16 @@ import { type ModelSeriesId } from '../../domain/ModelSeriesId'
 import { type ModelSeriesName } from '../../domain/ModelSeriesName'
 import { type CategoryId } from '../../../../Category/domain/CategoryId'
 import { type BrandId } from '../../../../Brand/domain/BrandId'
+import { Generic } from '../../domain/Generic'
 
 export class ModelSeriesModel extends Model<ModelSeriesPrimitives> implements ModelSeriesPrimitives {
   readonly id!: Primitives<ModelSeriesId>
   readonly name!: Primitives<ModelSeriesName>
   readonly categoryId!: Primitives<CategoryId>
   readonly brandId!: Primitives<BrandId>
+  readonly generic!: Primitives<Generic>
 
-  public static associate (models: Models): void {
+  public static associate(models: Models): void {
     this.belongsTo(models.Category, { as: 'category', foreignKey: 'categoryId' }) // A model series belongs to a category
     this.belongsTo(models.Brand, { as: 'brand', foreignKey: 'brandId' }) // A model series belongs to a brand
     this.hasMany(models.Device, { as: 'device', foreignKey: 'modelId' }) // A model series can have many devices
@@ -25,7 +27,7 @@ export class ModelSeriesModel extends Model<ModelSeriesPrimitives> implements Mo
   }
 }
 
-export function initModelSeriesModel (sequelize: Sequelize): void {
+export function initModelSeriesModel(sequelize: Sequelize): void {
   ModelSeriesModel.init(
     {
       id: {
@@ -45,6 +47,11 @@ export function initModelSeriesModel (sequelize: Sequelize): void {
       brandId: {
         type: DataTypes.UUID,
         allowNull: false
+      },
+      generic: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
       }
     },
     {
