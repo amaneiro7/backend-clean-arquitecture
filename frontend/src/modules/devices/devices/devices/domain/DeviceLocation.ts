@@ -31,7 +31,7 @@ export class DeviceLocation extends LocationId {
     }
 
     public static isValid({ status, typeOfSite }: { typeOfSite?: Primitives<TypeOfSiteId>, status: Primitives<StatusId> }): boolean {
-        if (!status) return
+        if (!status) return true
         if ([
             StatusId.StatusOptions.INUSE,
             StatusId.StatusOptions.PRESTAMO,
