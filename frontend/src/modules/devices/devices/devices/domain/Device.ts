@@ -24,6 +24,7 @@ export interface DevicePrimitives {
   employeeId: Primitives<DeviceEmployee>
   locationId: Primitives<LocationId>
   typeOfSiteId?: Primitives<TypeOfSiteId>
+  genericModel?: boolean
   observation: Primitives<DeviceObservation>
   stockNumber: Primitives<DeviceStockNumber>
 }
@@ -43,7 +44,7 @@ export class Device {
 
   public static create(params: DevicePrimitives): Device {
     return new Device(
-      new DeviceSerial(params.serial),
+      new DeviceSerial(params.serial, params.genericModel),
       new DeviceActivo(params.activo),
       new StatusId(params.statusId),
       new CategoryId(params.categoryId),

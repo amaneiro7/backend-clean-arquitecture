@@ -20,6 +20,7 @@ import { HardDriveHealth } from "@/modules/devices/fetures/hardDrive/hardDrive/d
 export function useErrorManagement({
     statusId,
     categoryId,
+    genericModel,
     activo,
     employeeId,
     locationId,
@@ -145,6 +146,7 @@ export function useErrorManagement({
 
         setRequired(prev => ({
             ...prev,
+            serial: !genericModel,
             employeeId: [StatusId.StatusOptions.PRESTAMO, StatusId.StatusOptions.CONTINGENCIA, StatusId.StatusOptions.GUARDIA].includes(statusId),
             locationId: ![StatusId.StatusOptions.DESINCORPORADO].includes(statusId),
             computerName: ![StatusId.StatusOptions.INALMACEN, StatusId.StatusOptions.PORDESINCORPORAR, StatusId.StatusOptions.DESINCORPORADO].includes(statusId),
@@ -156,7 +158,7 @@ export function useErrorManagement({
             operatingSystemId: [StatusId.StatusOptions.INUSE, StatusId.StatusOptions.PRESTAMO, StatusId.StatusOptions.CONTINGENCIA, StatusId.StatusOptions.GUARDIA].includes(statusId),
             operatingSystemArqId: !!operatingSystemId
         }))
-    }, [memoryRamCapacity, activo, employeeId, locationId, serial, statusId, typeOfSiteId, stockNumber, categoryId, brandId, computerName, ipAddress, macAddress, memoryRam, processorId, hardDriveCapacityId, hardDriveTypeId, operatingSystemId, operatingSystemArqId, health])
+    }, [memoryRamCapacity, activo, employeeId, locationId, serial, statusId, typeOfSiteId, stockNumber, categoryId, brandId, computerName, ipAddress, macAddress, memoryRam, processorId, hardDriveCapacityId, hardDriveTypeId, operatingSystemId, operatingSystemArqId, health, genericModel])
 
     return {
         error,

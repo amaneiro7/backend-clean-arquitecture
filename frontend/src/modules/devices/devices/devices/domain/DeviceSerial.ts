@@ -4,8 +4,11 @@ export class DeviceSerial {
   static readonly notLowerCase = /^[^a-z]*$/
   static readonly notSpecialCharacterOnlyGuiones = /^[^\W_]*-?[^\W_]*$/
   static errors: string = ''
-  constructor(readonly value: string) {
-    if (!DeviceSerial.isValid(value)) {
+  constructor(
+    readonly value: string,
+    readonly genericModel?: boolean
+  ) {
+    if (!DeviceSerial.isValid(value, genericModel)) {
       throw new Error(DeviceSerial.invalidMessage())
     }
   }
@@ -18,8 +21,13 @@ export class DeviceSerial {
     return DeviceSerial.errors
   }
 
-  public static isValid(value: string): boolean {
-    if (value === null || value === '') return true
+  public static isValid(value: string, genericModel?: boolean): boolean {
+    if (genericModel === undefined) return true
+    if (!genericModel && !value) {
+      this.updateError('El serial es requerido al menos que sea un modelo genérico')
+      return false
+    }
+    //if (value === null || value === '') return true
     const errorMesagge: string[] = []
     const isHasNotSpecialCharacterOnlyGuiones = this.notSpecialCharacterOnlyGuiones.test(value)
     if (!isHasNotSpecialCharacterOnlyGuiones) {

@@ -15,7 +15,7 @@ interface Props {
     categoryId: Primitives<CategoryId>
     brandId: Primitives<BrandId>
     onChange?: OnHandleChange
-    handleModel?: ({value, memoryRamSlotQuantity, memoryRamType }: {value: string, memoryRamSlotQuantity?: number, memoryRamType?: string}) => void
+    handleModel?: ({value, memoryRamSlotQuantity, memoryRamType, generic }: {value: string, memoryRamSlotQuantity?: number, memoryRamType?: string, generic?: boolean }) => void
     type?: 'form' | 'search'
     isAdd?: boolean
     error?: string
@@ -72,6 +72,7 @@ export default function ModelComboBox({ value, error, isDisabled = false, isRequ
                             setDialogValue(prev => ({ ...prev, name: newValue.inputValue }))
                         } else {
                             const value = newValue ? newValue.id : ''
+                            const generic = newValue ? newValue.generic : undefined
                             if (type === 'form') {
                                 let memoryRamSlotQuantity
                                 let memoryRamType
@@ -84,7 +85,7 @@ export default function ModelComboBox({ value, error, isDisabled = false, isRequ
                                     memoryRamSlotQuantity = newValue ? newValue?.modelLaptop.memoryRamSlotQuantity : undefined
                                     memoryRamType = newValue ? newValue?.modelLaptop.memoryRamType.name : ''
                                 }
-                                handleModel({ value, memoryRamSlotQuantity, memoryRamType })
+                                handleModel({ value, memoryRamSlotQuantity, memoryRamType, generic })
                             }
                             else {
                                 onChange(name, value, Operator.EQUAL)

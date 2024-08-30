@@ -48,7 +48,7 @@ export class DeviceCreator {
     await DeviceEmployee.ensureEmployeeExit({ repository: this.repository.employee, employee: params.employeeId })
     await DeviceLocation.ensureLocationExit({ repository: this.repository.location, location: params.locationId, status: params.statusId })
     await DeviceSerial.ensureSerialDoesNotExit({ repository: this.repository.device, serial: params.serial })
-    await DeviceSerial.isSerialCanBeNull({ generic, serial: params.serial })
+    await DeviceSerial.isSerialCanBeNull({ generic: generic, serial: params.serial })
 
     await this.repository.device.save(device.toPrimitives())
       .then(() => {

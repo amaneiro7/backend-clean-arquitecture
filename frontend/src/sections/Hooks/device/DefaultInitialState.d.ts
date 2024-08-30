@@ -32,6 +32,7 @@ export interface DefaultProps {
     activo: Primitives<DeviceActivo>
     statusId: Primitives<StatusId>
     modelId: Primitives<ModelId>
+    genericModel?: boolean
     categoryId: Primitives<CategoryId>
     brandId: Primitives<BrandId>
     employeeId: Primitives<EmployeeId>

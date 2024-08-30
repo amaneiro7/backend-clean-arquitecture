@@ -13,15 +13,15 @@ export class DeviceSerial extends AcceptedNullValueObject<string> {
   private readonly notSpecialCharacterOnlyGuiones = /^[^\W_]*-?[^\W_]*$/
   private errors: string[] = []
 
-  constructor(readonly value: string | null) {
+  constructor(value: string | null) {
     super(value)
 
     // Convertir el valor a mayúsculas si no es nulo
-    if (value !== null) {
-      this.value = value.toUpperCase().trim()
+    if (this.value !== null) {
+      this.value = this.value.toUpperCase().trim()
     }
 
-    this.ensureIsValidSerial(value)
+    this.ensureIsValidSerial(this.value)
   }
 
   toPrimitives(): string | null {
@@ -34,17 +34,17 @@ export class DeviceSerial extends AcceptedNullValueObject<string> {
     }
   }
 
-  private isDeviceSerialValid(name: string | null): boolean {
-    if (name === null) return true
-    const isHasNotSpecialCharacterOnlyGuiones = this.notSpecialCharacterOnlyGuiones.test(name)
+  private isDeviceSerialValid(serial: string | null): boolean {
+    if (serial === null) return true
+    const isHasNotSpecialCharacterOnlyGuiones = this.notSpecialCharacterOnlyGuiones.test(serial)
     if (!isHasNotSpecialCharacterOnlyGuiones) {
-      this.errors.push(`${name}: El serial no puede contener caracteres especiales`)
+      this.errors.push(`${serial}: El serial no puede contener caracteres especiales`)
     }
-    const isNotHasLowerCharacter = this.notLowerCase.test(name)
+    const isNotHasLowerCharacter = this.notLowerCase.test(serial)
     if (!isNotHasLowerCharacter) {
       this.errors.push("El serial debe estar en mayúsculas")
     }
-    const isNameValidLength = name.length >= this.NAME_MIN_LENGTH && name.length <= this.NAME_MAX_LENGTH
+    const isNameValidLength = serial.length >= this.NAME_MIN_LENGTH && serial.length <= this.NAME_MAX_LENGTH
     if (!isNameValidLength) {
       this.errors.push(`El Serial debe tener entre ${this.NAME_MIN_LENGTH} y ${this.NAME_MAX_LENGTH} caracteres`)
     }
@@ -52,8 +52,8 @@ export class DeviceSerial extends AcceptedNullValueObject<string> {
   }
 
   static async isSerialCanBeNull({ generic, serial }: { generic: Primitives<Generic>, serial: Primitives<DeviceSerial> }) {
-    if (generic === false && serial === null) {
-      throw new InvalidArgumentError('Serial cannot be null is model is not generic')
+    if (!generic && !serial) {
+      throw new InvalidArgumentError('El serial es obligatorio, excepto para los modelos de fabricante genérico')
     }
   }
 

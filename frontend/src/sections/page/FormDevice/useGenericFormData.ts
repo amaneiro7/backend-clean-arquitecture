@@ -2,10 +2,10 @@ import { useCallback, useLayoutEffect, useReducer, useState } from "react"
 import { useDeviceInitialState } from "@/sections/Hooks/device/DeviceFormInitialState"
 import { useGenericForm2 } from "@/sections/Hooks/useGenericForm2"
 import { useDeviceContext } from "@/sections/Context/DeviceProvider"
-import { type DefaultProps } from "@/sections/Hooks/device/DefaultInitialState"
 import { MemoryRam } from "@/modules/devices/fetures/computer/domain/MemoryRam"
 import { StatusId } from "@/modules/devices/devices/status/domain/StatusId"
 import { useErrorManagement } from "./useErrorManagement"
+import { type DefaultProps } from "@/sections/Hooks/device/DefaultInitialState"
 
 interface InitialState {
     formData: DefaultProps
@@ -18,6 +18,7 @@ const initialState: InitialState = {
         categoryId: '',
         brandId: '',
         modelId: '',
+        genericModel: undefined,
         serial: '',
         activo: '',
         employeeId: '',
@@ -49,7 +50,7 @@ export type Action =
     | { type: 'statusId', payload: { value: string } }
     | { type: 'categoryId', payload: { value: string } }
     | { type: 'brandId', payload: { value: string } }
-    | { type: 'modelId', payload: { value: string, memoryRamSlotQuantity: number, memoryRamType: string } }
+    | { type: 'modelId', payload: { value: string, memoryRamSlotQuantity: number, memoryRamType: string, generic?: boolean } }
     | { type: 'serial', payload: { value: string } }
     | { type: 'activo', payload: { value: string } }
     | { type: 'employeeId', payload: { value: string } }
@@ -164,7 +165,7 @@ const reducer = (state: InitialState, action: Action): InitialState => {
         }
     }
     if (action.type === 'modelId') {
-        const { value, memoryRamSlotQuantity, memoryRamType } = action.payload
+        const { value, memoryRamSlotQuantity, memoryRamType, generic } = action.payload
 
         const memoryRam = state.formData.memoryRam?.length === memoryRamSlotQuantity ? state.formData.memoryRam : new Array(memoryRamSlotQuantity).fill(0)
 
@@ -175,7 +176,8 @@ const reducer = (state: InitialState, action: Action): InitialState => {
                 modelId: value,
                 memoryRamSlotQuantity,
                 memoryRamType,
-                memoryRam
+                memoryRam,
+                genericModel: generic
             }
         }
     }
@@ -293,9 +295,9 @@ const reducer = (state: InitialState, action: Action): InitialState => {
     }
     if (action.type === 'hardDriveCapacityId') {
         const { value } = action.payload
-        const hardDriveTypeId = value ? initialState.formData.hardDriveTypeId : ''
-        const operatingSystemId = value ? initialState.formData.operatingSystemId : ''
-        const operatingSystemArqId = value ? initialState.formData.operatingSystemArqId : ''
+        const hardDriveTypeId = value ? state.formData.hardDriveTypeId : ''
+        const operatingSystemId = value ? state.formData.operatingSystemId : ''
+        const operatingSystemArqId = value ? state.formData.operatingSystemArqId : ''
         return {
             ...state,
             formData: {
@@ -319,7 +321,7 @@ const reducer = (state: InitialState, action: Action): InitialState => {
     }
     if (action.type === 'operatingSystemId') {
         const { value } = action.payload
-        const operatingSystemArqId = value ? initialState.formData.operatingSystemArqId : ''
+        const operatingSystemArqId = value ? state.formData.operatingSystemArqId : ''
         return {
             ...state,
             formData: {
@@ -401,8 +403,8 @@ export function useFormDevice() {
         dispatch({ type: name, payload: { value } })
     }
 
-    const handleModel = ({ value, memoryRamSlotQuantity, memoryRamType }: { value: string, memoryRamSlotQuantity?: number, memoryRamType?: string }) => {
-        dispatch({ type: 'modelId', payload: { value, memoryRamSlotQuantity, memoryRamType } })
+    const handleModel = ({ value, memoryRamSlotQuantity, memoryRamType, generic }: { value: string, memoryRamSlotQuantity?: number, memoryRamType?: string, generic?: boolean }) => {
+        dispatch({ type: 'modelId', payload: { value, memoryRamSlotQuantity, memoryRamType, generic } })
     }
     const handleLocation = ({ value, typeOfSiteId, ipAddress }: { value: string, typeOfSiteId?: string, ipAddress?: string }) => {
         dispatch({ type: 'locationId', payload: { value, typeOfSiteId, ipAddress } })

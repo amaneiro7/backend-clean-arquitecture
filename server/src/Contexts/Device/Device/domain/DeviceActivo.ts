@@ -13,9 +13,9 @@ export class DeviceActivo extends AcceptedNullValueObject<string> {
   private readonly notSpecialCharacterOnlyGuiones = /^[^\W_]*-?[^\W_]*$/
   private errors: string[] = []
 
-  constructor(readonly value: string | null) {
+  constructor(value: string | null) {
     super(value)
-    this.ensureIsValidActivo(value)
+    this.ensureIsValidActivo(this.value)
   }
 
   toPrimitives(): string | null {
