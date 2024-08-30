@@ -32,6 +32,7 @@ export function AddModelComputer({ formData, onChange }: Props) {
               <Suspense>
                 <MemoryRamSlotQuantityInput
                   type='form'
+                  onChange={onChange}
                   value={formData.memoryRamSlotQuantity}
                 />
               </Suspense>

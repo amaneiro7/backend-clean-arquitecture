@@ -31,7 +31,7 @@ const RegisterNewDeviceToFollow = lazy(() => import('../stepsToFollow/RegisterNe
 export default function FormContainer({ url, title, description, searchInput, isAddForm, children, isDisabled, handleSubmit, handleClose, reset, updatedBy, lastUpdated }: React.PropsWithChildren<Props>) {
   const location = useLocation()
   return (
-    <Suspense>
+    <Suspense fallback={<main className='flex-1' />}>
       <Main content='max' overflow={false} className='pr-8'>
         <PageTitle title={`Gestión de ${title}`} />
         <DetailsWrapper borderColor='blue'>

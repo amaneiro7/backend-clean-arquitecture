@@ -1,17 +1,19 @@
 import { lazy, useLayoutEffect, useState } from 'react'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
+import { type OnHandleChange } from '@/modules/shared/domain/types/types'
 import { MemoryRamSlotQuantity } from '../../../modules/devices/model/ModelCharacteristics/modelComputer/MemoryRamSlotQuantity'
 
 
 
 interface Props {
   value: Primitives<MemoryRamSlotQuantity>
+  onChange: OnHandleChange
   type?: 'form' | 'search'
 }
 
-const Input = lazy(async () => import('../text-inputs/Input').then(m => ({ default: m.Input })))
+const NumberInput = lazy(async () => import('./NumberInput').then(m => ({ default: m.NumberInput })))
 
-export function MemoryRamSlotQuantityInput({ value = MemoryRamSlotQuantity.MIN, type = 'form' }: Props) {
+export function MemoryRamSlotQuantityInput({ value = MemoryRamSlotQuantity.MIN, type = 'form', onChange }: Props) {
   const [errorMessage, setErrorMessage] = useState('')
   const [isError, setIsError] = useState(false)
 
@@ -30,12 +32,16 @@ export function MemoryRamSlotQuantityInput({ value = MemoryRamSlotQuantity.MIN, 
   }, [type, value])
 
   return (
-    <Input
+    <NumberInput
       name='memoryRamSlotQuantity'
       label='Cantidad de Ranuras'
       isRequired={type === 'form'}
       type='number'
       value={value}
+      onChange={(event) => {
+        const {name, value} = event.target
+        onChange(name, value)
+    }}
       error={isError}
       errorMessage={errorMessage}
       min={MemoryRamSlotQuantity.MIN}
