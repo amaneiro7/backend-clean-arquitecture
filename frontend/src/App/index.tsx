@@ -11,16 +11,16 @@ const ToasterComponent = lazy(async () => import('../sections/utils/toaster.tsx'
 function App() {
   const repository = apiRepository
   return (
-    <ErrorBoundary>
-      <BrowserRouter>
-        <AppContextProvider repository={repository}>
-          <Suspense fallback={<Loading />}>
+    <Suspense fallback={<Loading />}>
+      <ErrorBoundary>
+        <BrowserRouter>
+          <AppContextProvider repository={repository}>
             <AppRoutes />
-          </Suspense>          
-          <ToasterComponent />          
-        </AppContextProvider>
-      </BrowserRouter>
-    </ErrorBoundary>
+            <ToasterComponent />          
+          </AppContextProvider>
+        </BrowserRouter>
+      </ErrorBoundary>
+    </Suspense>          
   )
 }
 
