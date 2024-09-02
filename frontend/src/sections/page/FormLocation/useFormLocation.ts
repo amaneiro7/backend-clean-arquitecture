@@ -94,18 +94,17 @@ const reducer = (state: DefaultLocationProps, action: Action): DefaultLocationPr
         }
     }
     if (action.type === 'codeAgency') {
+        const numero = Number(action.payload.value)
         let numberFormatter: string = ''
-        if (state.codeAgency >= 1 && state.codeAgency <= 9) {
-            numberFormatter = state.codeAgency.toString().padStart(2, '0')
-        } else if (state.codeAgency >= 10 && state.codeAgency <= 99) {
-            numberFormatter = state.codeAgency.toString().padStart(3, '0')
+        if (numero >= 1 && numero <= 99) {
+            numberFormatter = numero.toString().padStart(3, '0')
         } else {
-            numberFormatter = state.codeAgency.toString()
+            numberFormatter = numero.toString()
         }
         return {
             ...state,
             name: `Agencia (${numberFormatter}) ${state.siteName}`,
-            codeAgency: Number(action.payload.value)
+            codeAgency: Number(numero)
         }
     }
     if (action.type === 'subnet') {
