@@ -2,17 +2,13 @@ import { lazy, Suspense } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useFormLocation } from './useFormLocation'
 
-
-
-const FormContainer = lazy(async () => import('../../components/formContainer/formContainer'))
+const FormContainer = lazy(async () => import('@/sections/components/formContainer/formContainer'))
 const LocationInputs = lazy(async () => import('./LocationInputs').then(m => ({ default: m.LocationInputs })))
 
 export default function CreateLocationForm() {
     
     const location = useLocation()
-    const { isAddForm, formData, handleChange, handleClose, handleSubmit, resetForm, processing } = useFormLocation()
-
-    
+    const { isAddForm, formData, handleChange, handleClose, handleSite, handleSubmit, resetForm, processing, disabled, error, required } = useFormLocation()
 
     return (      
       <FormContainer
@@ -28,7 +24,7 @@ export default function CreateLocationForm() {
         url='/location/add'
       >
         <Suspense>
-          <LocationInputs isAddForm={isAddForm} formData={formData} onChange={handleChange} />
+          <LocationInputs isAddForm={isAddForm} disabled={disabled} error={error} required={required} formData={formData} handleSite={handleSite} onChange={handleChange} />
         </Suspense>
       </FormContainer>   
     )

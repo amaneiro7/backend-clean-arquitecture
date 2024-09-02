@@ -1,23 +1,20 @@
-import { lazy, Suspense, useMemo } from 'react'
-import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
-import { InputSkeletonLoading } from '../skeleton/inputSkeletonLoading'
+import { lazy } from 'react'
+import { type OnHandleChange } from '@/modules/shared/domain/types/types'
 
 interface Props {
   value: number
   onChange: OnHandleChange
+  error?: string
+  disabled?: boolean
+  required?: boolean
 }
 
 const NumberInput = lazy(async () => await import('./NumberInput').then(m => ({ default: m.NumberInput })))
 
 
-export function CodeAgencyInput({ value, onChange }: Props) {
-  const errorMessage = useMemo(() => {
-    if (value > 550 || value < 1) {
-      return 'El valor debe estar entre 1 y 550'
-    }
-  }, [value])
+export function CodeAgencyInput({ value, onChange, disabled, error, required }: Props) { 
   return (
-    <Suspense fallback={<InputSkeletonLoading />}>
+    <>
       <NumberInput
         name='codeAgency'
         label='Codigo de agencia'
@@ -25,14 +22,14 @@ export function CodeAgencyInput({ value, onChange }: Props) {
           const { name, value } = event.target
           onChange(name, value)
         }}
-        placeholder='--- Código de la agencia ---'
         value={value}
-        isRequired
+        isRequired={required}
+        disabled={disabled}
         max={550}
         min={1}
-        errorMessage={errorMessage}
-        error={!!errorMessage}
+        error={!!error}
+        errorMessage={error}
       />
-    </Suspense>
+    </>
   )
 }

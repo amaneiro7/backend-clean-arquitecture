@@ -1,25 +1,29 @@
 import { lazy, Suspense, useMemo } from "react"
-import { OnHandleChange } from "../../../../modules/shared/domain/types/types"
+import { useAppContext } from "../../../Context/AppProvider"
 import { Operator } from "../../../../modules/shared/domain/criteria/FilterOperators"
+import { type OnHandleChange } from "../../../../modules/shared/domain/types/types"
 import { type Primitives } from "../../../../modules/shared/domain/value-object/Primitives"
 import { type SiteId } from "../../../../modules/location/site/domain/SiteId"
 import { type SitePrimitives } from "../../../../modules/location/site/domain/site"
 import { type CityId } from "../../../../modules/location/city/domain/CityId"
-import { useAppContext } from "../../../Context/AppProvider"
 
 
 interface Props {
     value?: Primitives<SiteId>
     city?: Primitives<CityId>
-    onChange: OnHandleChange
+    onChange?: OnHandleChange
+    handleSite?: (value: string, siteName: string) => void
     isAddForm?: boolean
     type?: 'form' | 'search'
+    error?: string
+    disabled?: boolean
+    required?: boolean
 }
 
 const ComboBox = lazy(async () => import("../combo_box"))
-const ReadOnlyInputBox = lazy(async () => import('../../ReadOnlyInputBox').then(m => ({ default: m.ReadOnlyInputBox })))
+const ReadOnlyInputBox = lazy(async () => import('@/sections/components/ReadOnlyInputBox').then(m => ({ default: m.ReadOnlyInputBox })))
 
-export function SiteComboBox({ value, city, onChange, type = 'search', isAddForm = false }: Props) {
+export function SiteComboBox({ value, city, onChange, handleSite, type = 'search', isAddForm = false, error, required, disabled = false }: Props) {
     const { useSite: { sites, loading }} = useAppContext()
     
     const filtered = useMemo(() => {
@@ -42,12 +46,21 @@ export function SiteComboBox({ value, city, onChange, type = 'search', isAddForm
                 name='siteId'
                 type={type}
                 onChange={(_, newValue: SitePrimitives) => {
-                    onChange('siteId', newValue ? newValue.id : '', Operator.EQUAL)
-                    onChange('siteName', newValue ? newValue.name : '', Operator.EQUAL)
+                    const value = newValue ? newValue.id : ''
+                    if (onChange) {
+                        onChange('siteId',value , Operator.EQUAL)
+                    }
+                    if (handleSite) {
+                        const siteName = newValue ? newValue.name : ''
+                        handleSite(value, siteName)
+                    }
+                    
                 }}
                 options={filtered}
-                isDisabled={false}
-                isRequired={type === 'form'}
+                isDisabled={disabled}
+                isRequired={required}
+                isError={!!error}
+                errorMessage={error}
                 loading={loading}
               />}
       </Suspense>

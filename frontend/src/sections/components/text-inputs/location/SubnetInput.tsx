@@ -1,53 +1,28 @@
-import { lazy, Suspense, useLayoutEffect, useRef, useState } from 'react'
-import { Primitives } from '../../../../modules/shared/domain/value-object/Primitives'
-import { OnHandleChange } from '../../../../modules/shared/domain/types/types'
-import { Subnet } from '../../../../modules/location/locations/domain/Subnet'
-import { InputSkeletonLoading } from '../../skeleton/inputSkeletonLoading'
+import { lazy } from 'react'
+import { type Primitives } from '../../../../modules/shared/domain/value-object/Primitives'
+import { type OnHandleChange } from '../../../../modules/shared/domain/types/types'
+import { type Subnet } from '../../../../modules/location/locations/domain/Subnet'
 
 interface Props {
   value: Primitives<Subnet>  
   onChange: OnHandleChange
-  type?: 'form' | 'search' | 'dialog'
+  error?: string
+  disabled?: boolean
+  required?: boolean
 }
 
-const FormInput = lazy(async () => import('./../FormInput').then(m => ({default: m.FormInput})))
+const Input = lazy(async () => import('./../Input').then(m => ({default: m.Input})))
 
-export function SubnetInput({ value, onChange, type = 'form' }: Props) {
-  const [errorMessage, setErrorMessage] = useState('')
-  const [isError, setIsError] = useState(false)
-  const isFirstInput = useRef(true)
-  
-  
-  useLayoutEffect(() => {
-    if (type !== 'form') return
-
-    if (isFirstInput.current) {
-      isFirstInput.current = value?.length === 12
-      return
-    }
-
-    const isValid = Subnet.isValid(value)
-
-    setIsError(!isValid)
-    setErrorMessage(isValid ? '' : Subnet.invalidMessage())
-
-    return () => {
-      setErrorMessage('')
-      setIsError(false)
-    }
-  }, [value])
-  
-
+export function SubnetInput({ value, onChange, required, error, disabled = false }: Props) {
   return (
-    <Suspense fallback={<InputSkeletonLoading />}>
-      <FormInput
+    <>
+      <Input
         id='subnet'
-        name="subnet"
-        type="text"
+        name='subnet'
+        type='text'
         label='Subnet'
-        placeholder='-- Ingrese la Subnet del Sitio --'
-        isRequired={false}        
-        handle={(event) => {
+        isRequired={required}
+        onChange={(event) => {
           const { name, value } = event.target
           // value = value.replace(/\D/g, '').trim() // Remove non-numeric characters from input
           // value = value.replace(/(\d{3})(?=\d)/g, '$1.') // Add dots every 3 digits          
@@ -55,9 +30,10 @@ export function SubnetInput({ value, onChange, type = 'form' }: Props) {
           onChange(name, value)
         }}
         value={value}
-        isError={isError}
-        errorMessage={errorMessage}
+        error={!!error}
+        errorMessage={error}
+        disabled={disabled}
       />
-    </Suspense>
+    </>
   )
 }

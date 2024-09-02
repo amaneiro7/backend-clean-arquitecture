@@ -1,4 +1,4 @@
-import { lazy, PropsWithChildren } from 'react'
+import { lazy, Suspense, PropsWithChildren } from 'react'
 import { createFilterOptions } from '@mui/material'
 import parse from 'autosuggest-highlight/parse'
 import match from 'autosuggest-highlight/match'
@@ -98,24 +98,26 @@ export default function ComboBox<T, Multiple extends boolean, Disable extends bo
         handleHomeEndKeys        
         clearIcon={<CloseIcon fontSize='small' />}
         renderInput={(params) => (
-          <TextField
-            {...params}
-            label={label}
-            name={name}                  
-            required={isRequired}
-            InputProps={{
-              ...params.InputProps,
-              endAdornment: (
-                <>
-                  {loading && <CircularProgress color='inherit' size={20} />}
-                  {params.InputProps.endAdornment}
-                </>
-              ),
-            }}
-            color={isError ? 'warning' : 'primary'}
-            error={isError}
-            helperText={errorMessage}
-          />
+          <Suspense>
+            <TextField
+              {...params}
+              label={label}
+              name={name}                  
+              required={isRequired}
+              InputProps={{
+                ...params.InputProps,
+                endAdornment: (
+                  <>
+                    {loading && <CircularProgress color='inherit' size={20} />}
+                    {params.InputProps.endAdornment}
+                  </>
+                ),
+              }}
+              color={isError ? 'warning' : 'primary'}
+              error={isError}
+              helperText={errorMessage}
+            />
+          </Suspense>
         )}
         renderOption={(props, option, { inputValue }) => {
           const matches = match(option.name, inputValue, { insideWords: true });

@@ -16,12 +16,15 @@ interface Props {
     onChange: OnHandleChange
     isAddForm?: boolean
     type?: "form" | "search"
+    error?: string
+    disabled?: boolean
+    required?: boolean
 }
 
 const ComboBox = lazy(async () => import("../combo_box"))
 const ReadOnlyInputBox = lazy(async () => import("../../ReadOnlyInputBox").then((m) => ({ default: m.ReadOnlyInputBox })))
 
-export function CityComboBox({ value, state, region, onChange, type = "search", isAddForm = false }: Props) {
+export function CityComboBox({ value, state, region, onChange, type = "search", isAddForm = false, error, disabled = false, required }: Props) {
     const { useCity: { cities, loading }} = useAppContext()
     
     const filtered = useMemo(() => {
@@ -47,8 +50,10 @@ export function CityComboBox({ value, state, region, onChange, type = "search", 
                         onChange("cityId", newValue ? newValue.id : "", Operator.EQUAL)
                     }}
               options={filtered}
-              isDisabled={false}
-              isRequired={type === "form"}
+              isDisabled={disabled}
+              isRequired={required}
+              isError={!!error}
+              errorMessage={error}
               loading={loading}
             />}
       </Suspense>

@@ -12,12 +12,15 @@ interface Props {
     onChange: OnHandleChange
     isAddForm?: boolean
     type?: 'form' | 'search'
+    error?: string
+    disabled?: boolean
+    required?: boolean
 }
 
 const ComboBox = lazy(async () => import("../combo_box"))
 const ReadOnlyInputBox = lazy(async () => import('../../ReadOnlyInputBox').then(m => ({ default: m.ReadOnlyInputBox })))
 
-export function RegionComboBox({ value, onChange, type = 'search', isAddForm = false }: Props) {
+export function RegionComboBox({ value, onChange, type = 'search', isAddForm = false, disabled = false, error, required }: Props) {
     const { useRegion: { regions, loading }} = useAppContext()
     
 
@@ -39,8 +42,10 @@ export function RegionComboBox({ value, onChange, type = 'search', isAddForm = f
                     onChange('regionId', newValue ? newValue.id : '', Operator.EQUAL)
                 }}
                 options={regions}
-                isDisabled={false}
-                isRequired={type === 'form'}
+                isDisabled={disabled}
+                isRequired={required}
+                isError={!!error}
+                errorMessage={error}
                 loading={loading}
               />}
       </Suspense>

@@ -29,6 +29,7 @@ export type Action =
     | { type: 'siteId', payload: { value: string, siteName: string } }
     | { type: 'name', payload: { value: string } }
     | { type: 'subnet', payload: { value: string } }
+    | { type: 'codeAgency', payload: { value: string } }
 
 const reducer = (state: DefaultLocationProps, action: Action): DefaultLocationProps => {
     if (action.type === 'init') {
@@ -92,6 +93,21 @@ const reducer = (state: DefaultLocationProps, action: Action): DefaultLocationPr
             name: action.payload.value
         }
     }
+    if (action.type === 'codeAgency') {
+        let numberFormatter: string = ''
+        if (state.codeAgency >= 1 && state.codeAgency <= 9) {
+            numberFormatter = state.codeAgency.toString().padStart(2, '0')
+        } else if (state.codeAgency >= 10 && state.codeAgency <= 99) {
+            numberFormatter = state.codeAgency.toString().padStart(3, '0')
+        } else {
+            numberFormatter = state.codeAgency.toString()
+        }
+        return {
+            ...state,
+            name: `Agencia (${numberFormatter}) ${state.siteName}`,
+            codeAgency: Number(action.payload.value)
+        }
+    }
     if (action.type === 'subnet') {
         return {
             ...state,
@@ -124,6 +140,10 @@ export function useFormLocation() {
         dispatch({ type: name, payload: { value } })
     }
 
+    const handleSite = (value: string, siteName: string) => {
+        dispatch({ type: 'siteId', payload: { value, siteName } })
+    }
+
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault()
         event.stopPropagation()
@@ -141,6 +161,7 @@ export function useFormLocation() {
         handleSubmit,
         resetForm,
         handleChange,
-        handleClose
+        handleClose,
+        handleSite
     }
 }
