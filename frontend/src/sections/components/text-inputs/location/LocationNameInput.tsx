@@ -63,13 +63,13 @@ export function LocationNameInput({ value = '', onChange, type = 'form', siteNam
     }, [siteName, typeOfSite])
 
     return (
-        <>
-            {
+      <>
+        {
                 (isAddForm && typeOfSite === TypeOfSiteId.SitesOptions.AGENCY) &&
-                <Suspense>
+                  <Suspense>
                     <CodeAgencyInput
-                        onChange={(_, value) => {
-                            let numero = Number(value)
+                      onChange={(_, value) => {
+                            const numero = Number(value)
                             let numberFormater: string = ''
                             setCodeAgency(numero)
                             if (numero >= 1 && numero <= 9) {
@@ -83,28 +83,28 @@ export function LocationNameInput({ value = '', onChange, type = 'form', siteNam
                             const name = `Agencia (${numberFormater}) ${siteName}`
                             onChange('name', name)
                         }}
-                        value={codeAgency}
+                      value={codeAgency}
                     />
-                </Suspense>
+                  </Suspense>
             }
-            <Suspense fallback={<InputSkeletonLoading />}>
-                {
+        <Suspense fallback={<InputSkeletonLoading />}>
+          {
                     ((!isAddForm && type === 'form') || (TypeOfSiteId.SitesOptions.AGENCY === typeOfSite && type === 'form'))
                         ? <ReadOnlyInputBox label='Nombre del sitio' required value={value} />
                         : <FormInput
                             id='name'
                             isRequired={type !== 'search'}
-                            name="name"
-                            type="text"
+                            name='name'
+                            type='text'
                             label='Nombre del sitio'
                             placeholder='-- Ingrese el nombre del sitio --'
                             handle={handleChange}
                             value={value}
                             isError={isError}
                             errorMessage={errorMessage}
-                        />
+                          />
                 }
-            </Suspense>
-        </>
+        </Suspense>
+      </>
     )
 }

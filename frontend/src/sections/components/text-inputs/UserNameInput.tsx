@@ -1,56 +1,36 @@
-import { lazy, Suspense, useEffect, useRef, useState } from 'react'
+import { lazy } from 'react'
+import { EmployeeUserName } from '../../../modules/employee/employee/domain/UserName'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
-import { EmployeeUserName } from '../../../modules/employee/employee/domain/UserName'
-import { InputSkeletonLoading } from '../skeleton/inputSkeletonLoading'
-import { UserName } from '../../../modules/user/user/domain/UserName'
 
 interface Props {
   value: Primitives<EmployeeUserName>
   onChange: OnHandleChange
-  type?: 'form' | 'dialog' | 'search'
+  error?: string
+  isRequired?: boolean
+  isDisabled?: boolean
 }
 
-const FormInput = lazy(async () => import('./FormInput').then(m => ({default: m.FormInput})))
+const Input = lazy(async () => import('./Input').then(m => ({default: m.Input})))
 
-export function EmployeeUserNameInput ({ value, onChange, type = 'search'}: Props) { 
-  const [errorMessage, setErrorMessage] = useState('')
-  const [isError, setIsError] = useState(false)
-  const isFirstInput = useRef(true)
-  useEffect(() => {
-    if (isFirstInput.current) {
-      isFirstInput.current = value.length < UserName.NAME_MIN_LENGTH
-      return
-    }
-
-    const isValid = UserName.isValid(value)
-
-    setIsError(!isValid)
-    setErrorMessage(isValid ? '' : UserName.invalidMessage())
-
-    return () => {
-      setErrorMessage('')
-      setIsError(false)
-      isFirstInput.current = true
-    }
-  }, [value])
+export function EmployeeUserNameInput ({ value, error, isDisabled, isRequired, onChange}: Props) {   
   return (
-    <Suspense fallback={<InputSkeletonLoading />}>
-      <FormInput
+    <>
+      <Input
         id='userName'
-        isRequired={type === 'form'}
         name='userName'
         type='text'
-        label='Nombre de Usuario'
-        placeholder='-- Ingrese el usuario --'
-        handle={(event) => {
+        label='Nombre de Usuario'        
+        onChange={(event) => {
             const { name, value } = event.target
             onChange(name, value)
           }}
         value={value}
-        isError={isError}
-        errorMessage={errorMessage}
+        isRequired={isRequired}
+        disabled={isDisabled}
+        error={!!error}
+        errorMessage={error}
       />
-    </Suspense>
+    </>
   )
 }

@@ -1,93 +1,61 @@
-import { lazy, Suspense, useEffect } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
-import { useEmployee } from '../../Hooks/employee/useEmployee'
-import { useEmployeeInitialState } from '../../Hooks/employee/EmployeeFormInitialState'
-import { useGenericFormData } from '../../Hooks/useGenericFormData'
-import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoading'
-import { FormStatus, useGenericForm } from '../../Hooks/useGenericForm'
+import { lazy, Suspense } from 'react'
+import { InputSkeletonLoading } from '@/sections/components/skeleton/inputSkeletonLoading'
+import { useFormEmployee } from './useFormEmployee'
+import { useLocation } from 'react-router-dom'
 
-const InfoBox = lazy(async () => import('../../components/info-box/InfoBox').then(m => ({ default: m.InfoBox })))
-const InfoBoxTitle = lazy(async () => import('../../components/info-box/InfoBoxTitle').then(m => ({ default: m.InfoBoxTitle })))
-const InfoBoxText = lazy(async () => import('../../components/info-box/InfoBoxText').then(m => ({ default: m.InfoBoxText })))
-const EmployeeSearchComboBox = lazy(async () => import('../../components/combo_box/EmployeeSearchComboBox').then(m => ({default: m.EmployeeSearchComboBox})))
-const FormContainer = lazy(async () => await import('../../components/formContainer/formContainer'))
-const EmployeeUserNameInput = lazy(async () => await import('../../components/text-inputs/UserNameInput').then(m => ({ default: m.EmployeeUserNameInput })))
+const InfoBox = lazy(async () => import('@/sections/components/info-box/InfoBox').then(m => ({ default: m.InfoBox })))
+const InfoBoxTitle = lazy(async () => import('@/sections/components/info-box/InfoBoxTitle').then(m => ({ default: m.InfoBoxTitle })))
+const InfoBoxText = lazy(async () => import('@/sections/components/info-box/InfoBoxText').then(m => ({ default: m.InfoBoxText })))
+const EmployeeSearchComboBox = lazy(async () => import('@/sections/components/combo_box/EmployeeSearchComboBox').then(m => ({default: m.EmployeeSearchComboBox})))
+const FormContainer = lazy(async () => await import('@/sections/components/formContainer/formContainer'))
+const EmployeeUserNameInput = lazy(async () => await import('@/sections/components/text-inputs/UserNameInput').then(m => ({ default: m.EmployeeUserNameInput })))
 
 export default function CreateEmployeeForm() {
-  const navigate = useNavigate()
   const location = useLocation()
-  const { createEmployee } = useEmployee()
-  const { preloadedEmployeeState, isAddForm } = useEmployeeInitialState()
-  const { formData, resetForm, updateForm } = useGenericFormData(preloadedEmployeeState)
-  const { formStatus, resetFormStatus, submitForm } = useGenericForm({ create: createEmployee })
-
-  useEffect(() => {
-    updateForm(preloadedEmployeeState)
-    return () => {
-      resetForm()
-    }
-  }, [preloadedEmployeeState, resetForm, updateForm])
-
-  useEffect(() => {
-    if (formStatus === FormStatus.Success) {
-      resetFormStatus()
-      resetForm()
-    }
-    if (formStatus === FormStatus.Error) {
-      resetFormStatus()
-    }
-  }, [formStatus, resetForm, resetFormStatus])
-
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault()
-    event.stopPropagation()
-    await submitForm(formData)
-  }
-
-  const handleClose = () => {
-    navigate('/')
-  }
-
-  const handleChange = (name: string, value: string) => {
-    updateForm({ [name]: value })
-  }
+  const { disabled, error, formData, handleChange, handleClose, handleSubmit, isAddForm, processing, required, resetForm } = useFormEmployee()
 
   return (
-    <FormContainer
-      key={location.key}
-      title='Empleado'
-      description='Ingrese los datos del usuario el cual desea registar.'
-      isAddForm={isAddForm}
-      handleSubmit={handleSubmit}
-      handleClose={handleClose}
-      isDisabled={formStatus === FormStatus.Loading}
-      lastUpdated={formData.updatedAt}
-      url='/employee/add'
-      searchInput={<EmployeeSearchComboBox />}
-    >
-      <Suspense fallback={<InputSkeletonLoading />}>
-        <EmployeeUserNameInput
-          key={location.key}
-          value={formData.userName}
-          type='form'
-          onChange={handleChange}
-        />
-      </Suspense>
-      {formData.devices.length > 0 &&
-            formData.devices.map(({ id, category, brand, model, serial, location, computer }) =>
-            (
-              <Suspense key={id}>
-                <InfoBox>
-                  <InfoBoxTitle title={category?.name} url={`/device/edit/${id}`} />
-                  <InfoBoxText desc='Marca' text={brand?.name} />
-                  <InfoBoxText desc='Modelo' text={model?.name} />
-                  <InfoBoxText desc='Serial' text={serial} />
-                  <InfoBoxText desc='Ubicación' text={location?.name} />
-                  {computer !== null && <InfoBoxText desc='Dirección IP' text={computer?.ipAddress} />}
-                </InfoBox>
-              </Suspense>
-            )
-            )}
-    </FormContainer>
+    <Suspense>
+      <FormContainer
+        key={location.key}
+        title='Empleado'
+        description='Ingrese los datos del usuario el cual desea registar.'
+        isAddForm={isAddForm}
+        handleSubmit={handleSubmit}
+        handleClose={handleClose}
+        reset={!isAddForm ? resetForm : undefined}
+        isDisabled={processing}
+        lastUpdated={formData.updatedAt}
+        url='/employee/add'
+        searchInput={<EmployeeSearchComboBox />}
+      >
+        <Suspense fallback={<InputSkeletonLoading />}>
+          <EmployeeUserNameInput
+            key={location.key}
+            value={formData.userName}            
+            onChange={handleChange}
+            error={error.userName}
+            isDisabled={disabled.userName}
+            isRequired={required.userName}
+            
+          />
+        </Suspense>
+        {formData.devices.length > 0 &&
+              formData.devices.map(({ id, category, brand, model, serial, location, computer }) =>
+              (
+                <Suspense key={id}>
+                  <InfoBox>
+                    <InfoBoxTitle title={category?.name} url={`/device/edit/${id}`} />
+                    <InfoBoxText desc='Marca' text={brand?.name} />
+                    <InfoBoxText desc='Modelo' text={model?.name} />
+                    <InfoBoxText desc='Serial' text={serial} />
+                    <InfoBoxText desc='Ubicación' text={location?.name} />
+                    {computer !== null && <InfoBoxText desc='Dirección IP' text={computer?.ipAddress} />}
+                  </InfoBox>
+                </Suspense>
+              )
+              )}
+      </FormContainer>
+    </Suspense>
   )
 }

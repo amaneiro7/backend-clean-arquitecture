@@ -1,30 +1,10 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useSiteLocation } from './useLocation'
-import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
-import { type LocationId } from '../../../modules/location/locations/domain/locationId'
-import { type SiteId } from '../../../modules/location/site/domain/SiteId'
-import { type TypeOfSiteId } from '../../../modules/location/typeofsites/domain/typeOfSiteId'
-import { type LocationName } from '../../../modules/location/locations/domain/LocationName'
-import { type Subnet } from '../../../modules/location/locations/domain/Subnet'
-import { type RegionId } from '../../../modules/location/region/domain/RegionId'
-import { type StateId } from '../../../modules/location/state/domain/StateId'
-import { type CityId } from '../../../modules/location/city/domain/CityId'
-import { type LocationApiResponse } from '../../../modules/shared/domain/types/responseTypes'
-import { type LocationPrimitives } from '../../../modules/location/locations/domain/location'
+import { type LocationPrimitives } from '@/modules/location/locations/domain/location'
+import { type LocationApiResponse } from '@/modules/shared/domain/types/responseTypes'
+import { type DefaultLocationProps } from './DefaultInitialState'
 
-export interface DefaultLocationProps {
-  id?: Primitives<LocationId>
-  name: Primitives<LocationName>
-  typeOfSiteId: Primitives<TypeOfSiteId>
-  siteId: Primitives<SiteId>
-  subnet: Primitives<Subnet>
-  regionId: Primitives<RegionId>
-  stateId: Primitives<StateId>
-  siteName?: string
-  cityId: Primitives<CityId>
-  updatedAt?: string
-}
 
 export const defaultInitialLocationState: DefaultLocationProps = {
   id: undefined,

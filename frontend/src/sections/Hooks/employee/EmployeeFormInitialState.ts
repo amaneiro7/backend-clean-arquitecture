@@ -1,19 +1,10 @@
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
-import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
-import { type EmployeeUserName } from '../../../modules/employee/employee/domain/UserName'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useEmployee } from './useEmployee'
-import { DevicesApiResponse } from '../../../modules/shared/domain/types/responseTypes'
-import { EmployeeId } from '../../../modules/employee/employee/domain/EmployeeId'
 
-interface DefaultProps {
-  id?: Primitives<EmployeeId>
-  userName: Primitives<EmployeeUserName>
-  devices?: DevicesApiResponse[]
-  updatedAt?: string
-}
+import { DefaultEmployeeProps } from './DefaultInitialState'
 
-export const defaultInitialEmployeeState: DefaultProps = {
+export const defaultInitialEmployeeState: DefaultEmployeeProps = {
   id: undefined,
   userName: '',
   devices: [],
@@ -34,7 +25,7 @@ export const useEmployeeInitialState = () => {
   const fetchEmployee = useCallback(() => {
     getEmployee.getById(id)
       .then(employee => {
-        setPreloadedEmployeeState(employee as DefaultProps)
+        setPreloadedEmployeeState(employee as DefaultEmployeeProps)
       })
       .catch(error => {
         console.error('useEmployeeInitialState', error)

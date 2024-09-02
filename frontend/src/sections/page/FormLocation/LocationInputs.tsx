@@ -1,9 +1,10 @@
 import { lazy, Suspense } from "react"
 import { InputSkeletonLoading } from "../../components/skeleton/inputSkeletonLoading"
 import { type OnHandleChange } from "../../../modules/shared/domain/types/types"
+import { type DefaultLocationProps } from "@/sections/Hooks/locations/DefaultInitialState"
 
 interface Props {
-    formData: any
+    formData: DefaultLocationProps
     onChange: OnHandleChange
     isAddForm: boolean
 }
@@ -18,74 +19,74 @@ const LocationNameInput = lazy(async () => import('../../components/text-inputs/
 
 export function LocationInputs({ onChange, formData, isAddForm }: Props) {
     return (
-        <>
-            <Suspense fallback={<InputSkeletonLoading />}>
-                <TypeOfSiteComboBox
-                    isAddForm={isAddForm}
-                    onChange={onChange}
-                    value={formData.typeOfSiteId}
-                    type='form'
-                />
-            </Suspense>
-            <div className="flex gap-4">
-                <Suspense fallback={<InputSkeletonLoading />}>
-                    <RegionComboBox
-                        isAddForm={isAddForm}
-                        onChange={onChange}
-                        type='form'
-                        value={formData.regionId}
-                    />
-                </Suspense>
-                <Suspense fallback={<InputSkeletonLoading />}>
-                    <StateComboBox
-                        isAddForm={isAddForm}
-                        onChange={onChange}
-                        type='form'
-                        value={formData.stateId}
-                        region={formData.regionId}
-                    />
-                </Suspense>
-            </div>
-            <div className="flex gap-4">
-                <Suspense fallback={<InputSkeletonLoading />}>
-                    <CityComboBox
-                        isAddForm={isAddForm}
-                        onChange={onChange}
-                        type='form'
-                        value={formData.cityId}
-                        state={formData.stateId}
-                    />
-                </Suspense>
-                <Suspense fallback={<InputSkeletonLoading />}>
-                    <SiteComboBox
-                        isAddForm={isAddForm}
-                        onChange={onChange}
-                        type='form'
-                        value={formData.siteId}
-                        city={formData.cityId}
-                    />
-                </Suspense>
-            </div>
-            <div className="flex gap-4">
-                <Suspense fallback={<InputSkeletonLoading />}>
-                    <LocationNameInput
-                        onChange={onChange}
-                        value={formData.name}
-                        siteName={formData.siteName}
-                        typeOfSite={formData.typeOfSiteId}
-                        type='form'
-                        isAddForm={isAddForm}
-                    />
-                </Suspense>
-            </div>
+      <>
+        <Suspense fallback={<InputSkeletonLoading />}>
+          <TypeOfSiteComboBox
+            isAddForm={isAddForm}
+            onChange={onChange}
+            value={formData.typeOfSiteId}
+            type='form'
+          />
+        </Suspense>
+        <div className='flex gap-4'>
+          <Suspense fallback={<InputSkeletonLoading />}>
+            <RegionComboBox
+              isAddForm={isAddForm}
+              onChange={onChange}
+              type='form'
+              value={formData.regionId}
+            />
+          </Suspense>
+          <Suspense fallback={<InputSkeletonLoading />}>
+            <StateComboBox
+              isAddForm={isAddForm}
+              onChange={onChange}
+              type='form'
+              value={formData.stateId}
+              region={formData.regionId}
+            />
+          </Suspense>
+        </div>
+        <div className='flex gap-4'>
+          <Suspense fallback={<InputSkeletonLoading />}>
+            <CityComboBox
+              isAddForm={isAddForm}
+              onChange={onChange}
+              type='form'
+              value={formData.cityId}
+              state={formData.stateId}
+            />
+          </Suspense>
+          <Suspense fallback={<InputSkeletonLoading />}>
+            <SiteComboBox
+              isAddForm={isAddForm}
+              onChange={onChange}
+              type='form'
+              value={formData.siteId}
+              city={formData.cityId}
+            />
+          </Suspense>
+        </div>
+        <div className='flex gap-4'>
+          <Suspense fallback={<InputSkeletonLoading />}>
+            <LocationNameInput
+              onChange={onChange}
+              value={formData.name}
+              siteName={formData.siteName}
+              typeOfSite={formData.typeOfSiteId}
+              type='form'
+              isAddForm={isAddForm}
+            />
+          </Suspense>
+        </div>
 
-            <Suspense fallback={<InputSkeletonLoading />}>
-                <SubnetInput
-                    onChange={onChange}
-                    value={formData.subnet}
-                    type='form'
-                />
-            </Suspense>
-        </>
+        <Suspense fallback={<InputSkeletonLoading />}>
+          <SubnetInput
+            onChange={onChange}
+            value={formData.subnet}
+            type='form'
+          />
+        </Suspense>
+      </>
     )
 }

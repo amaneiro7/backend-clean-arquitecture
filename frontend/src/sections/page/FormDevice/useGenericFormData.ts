@@ -1,4 +1,4 @@
-import { useCallback, useLayoutEffect, useReducer, useState } from "react"
+import { useLayoutEffect, useReducer, useState } from "react"
 import { useDeviceInitialState } from "@/sections/Hooks/device/DeviceFormInitialState"
 import { useGenericForm2 } from "@/sections/Hooks/useGenericForm2"
 import { useDeviceContext } from "@/sections/Context/DeviceProvider"
@@ -7,42 +7,37 @@ import { StatusId } from "@/modules/devices/devices/status/domain/StatusId"
 import { useErrorManagement } from "./useErrorManagement"
 import { type DefaultProps } from "@/sections/Hooks/device/DefaultInitialState"
 
-interface InitialState {
-    formData: DefaultProps
+const initialState: DefaultProps = {
+    id: undefined,
+    statusId: '',
+    categoryId: '',
+    brandId: '',
+    modelId: '',
+    genericModel: undefined,
+    serial: '',
+    activo: '',
+    employeeId: '',
+    locationId: '',
+    typeOfSiteId: '',
+    stockNumber: '',
+    observation: '',
+    computerName: '',
+    processorId: '',
+    memoryRamSlotQuantity: undefined,
+    memoryRamType: '',
+    memoryRamCapacity: 0,
+    memoryRam: [],
+    hardDriveCapacityId: '',
+    hardDriveTypeId: '',
+    operatingSystemArqId: '',
+    operatingSystemId: '',
+    ipAddress: '',
+    macAddress: '',
+    health: 100,
+    updatedAt: undefined,
+    history: []
 }
 
-const initialState: InitialState = {
-    formData: {
-        id: undefined,
-        statusId: '',
-        categoryId: '',
-        brandId: '',
-        modelId: '',
-        genericModel: undefined,
-        serial: '',
-        activo: '',
-        employeeId: '',
-        locationId: '',
-        typeOfSiteId: '',
-        stockNumber: '',
-        observation: '',
-        computerName: '',
-        processorId: '',
-        memoryRamSlotQuantity: undefined,
-        memoryRamType: '',
-        memoryRamCapacity: 0,
-        memoryRam: [],
-        hardDriveCapacityId: '',
-        hardDriveTypeId: '',
-        operatingSystemArqId: '',
-        operatingSystemId: '',
-        ipAddress: '',
-        macAddress: '',
-        health: 100,
-        updatedAt: undefined,
-        history: []
-    }
-}
 
 export type Action =
     | { type: 'INIT_STATE', payload: { formData: DefaultProps } }
@@ -68,19 +63,19 @@ export type Action =
     | { type: 'macAddress', payload: { value: string } }
     | { type: 'health', payload: { value: number } }
 
-const reducer = (state: InitialState, action: Action): InitialState => {
+const reducer = (state: DefaultProps, action: Action): DefaultProps => {
     if (action.type === 'INIT_STATE') {
         const { formData } = action.payload
         return {
             ...state,
-            formData: formData
+            ...formData
         }
     }
     if (action.type === 'reset') {
         const { formData } = action.payload
         return {
             ...state,
-            formData: formData
+            ...formData
         }
     }
     if (action.type === 'statusId') {
@@ -92,35 +87,26 @@ const reducer = (state: InitialState, action: Action): InitialState => {
         ].includes(value)) {
             return {
                 ...state,
-                formData: {
-                    ...state.formData,
-                    statusId: value,
-                    employeeId: '',
-                    locationId: '',
-                    computerName: '',
-                    operatingSystemId: '',
-                    operatingSystemArqId: '',
-                    ipAddress: '',
-                }
+                statusId: value,
+                employeeId: '',
+                locationId: '',
+                computerName: '',
+                operatingSystemId: '',
+                operatingSystemArqId: '',
+                ipAddress: '',
             }
         } else if ([StatusId.StatusOptions.DISPONIBLE].includes(value)) {
             return {
                 ...state,
-                formData: {
-                    ...state.formData,
-                    statusId: value,
-                    employeeId: '',
-                    stockNumber: ''
-                }
+                statusId: value,
+                employeeId: '',
+                stockNumber: ''
             }
         } else {
             return {
                 ...state,
-                formData: {
-                    ...state.formData,
-                    statusId: value,
-                    stockNumber: ''
-                }
+                statusId: value,
+                stockNumber: ''
             }
         }
     }
@@ -128,87 +114,70 @@ const reducer = (state: InitialState, action: Action): InitialState => {
         const { value } = action.payload
         return {
             ...state,
-            formData: {
-                ...state.formData,
-                categoryId: value,
-                brandId: '',
-                modelId: '',
-                computerName: '',
-                processorId: '',
-                memoryRamSlotQuantity: undefined,
-                memoryRamType: '',
-                memoryRamCapacity: 0,
-                memoryRam: [],
-                hardDriveCapacityId: '',
-                hardDriveTypeId: '',
-                operatingSystemArqId: '',
-                operatingSystemId: '',
-                ipAddress: '',
-                macAddress: '',
-                health: 100
-            }
+            categoryId: value,
+            brandId: '',
+            modelId: '',
+            computerName: '',
+            processorId: '',
+            memoryRamSlotQuantity: undefined,
+            memoryRamType: '',
+            memoryRamCapacity: 0,
+            memoryRam: [],
+            hardDriveCapacityId: '',
+            hardDriveTypeId: '',
+            operatingSystemArqId: '',
+            operatingSystemId: '',
+            ipAddress: '',
+            macAddress: '',
+            health: 100
         }
     }
     if (action.type === 'brandId') {
         const { value } = action.payload
         return {
             ...state,
-            formData: {
-                ...state.formData,
-                brandId: value,
-                modelId: '',
-                memoryRamSlotQuantity: undefined,
-                memoryRamType: '',
-                memoryRamCapacity: 0,
-                memoryRam: [],
-            }
+            brandId: value,
+            modelId: '',
+            memoryRamSlotQuantity: undefined,
+            memoryRamType: '',
+            memoryRamCapacity: 0,
+            memoryRam: [],
         }
     }
     if (action.type === 'modelId') {
         const { value, memoryRamSlotQuantity, memoryRamType, generic } = action.payload
 
-        const memoryRam = state.formData.memoryRam?.length === memoryRamSlotQuantity ? state.formData.memoryRam : new Array(memoryRamSlotQuantity).fill(0)
+        const memoryRam = state.memoryRam?.length === memoryRamSlotQuantity ? state.memoryRam : new Array(memoryRamSlotQuantity).fill(0)
 
         return {
             ...state,
-            formData: {
-                ...state.formData,
-                modelId: value,
-                memoryRamSlotQuantity,
-                memoryRamType,
-                memoryRam,
-                genericModel: generic
-            }
+            modelId: value,
+            memoryRamSlotQuantity,
+            memoryRamType,
+            memoryRam,
+            genericModel: generic
+
         }
     }
     if (action.type === 'serial') {
         const { value } = action.payload
         return {
             ...state,
-            formData: {
-                ...state.formData,
-                serial: value
-            }
+            serial: value
         }
     }
     if (action.type === 'activo') {
         const { value } = action.payload
         return {
             ...state,
-            formData: {
-                ...state.formData,
-                activo: value
-            }
+            activo: value
         }
     }
     if (action.type === 'employeeId') {
         const { value } = action.payload
         return {
             ...state,
-            formData: {
-                ...state.formData,
-                employeeId: value
-            }
+            employeeId: value
         }
     }
     if (action.type === 'locationId') {
@@ -223,152 +192,113 @@ const reducer = (state: InitialState, action: Action): InitialState => {
             newIpAddress = segments.join('.') + '.'
         } else {
             // si el ip Address es undefined o un string vacio, se deja el mismo valor
-            newIpAddress = state.formData.ipAddress
+            newIpAddress = state.ipAddress
         }
         // si ya estaba escrita una IP, se deja la ip que estaba antes sin modificarla
         return {
             ...state,
-            formData: {
-                ...state.formData,
-                locationId: value,
-                typeOfSiteId,
-                stockNumber: '',
-                ipAddress: newIpAddress
-            }
+            locationId: value,
+            typeOfSiteId,
+            stockNumber: '',
+            ipAddress: newIpAddress
         }
     }
     if (action.type === 'stockNumber') {
         const { value } = action.payload
         return {
             ...state,
-            formData: {
-                ...state.formData,
-                stockNumber: value
-            }
+            stockNumber: value
         }
     }
     if (action.type === 'observation') {
         const { value } = action.payload
         return {
             ...state,
-            formData: {
-                ...state.formData,
-                observation: value
-            }
+            observation: value
         }
     }
     if (action.type === 'computerName') {
         const { value } = action.payload
         return {
             ...state,
-            formData: {
-                ...state.formData,
-                computerName: value
-            }
+            computerName: value
         }
     }
     if (action.type === 'processorId') {
         const { value } = action.payload
         return {
             ...state,
-            formData: {
-                ...state.formData,
-                processorId: value
-            }
+            processorId: value
         }
     }
     if (action.type === 'memoryRam') {
         const { value, index } = action.payload
         const parsedValue = parseFloat(value)
 
-        const updatedMemoryRamSlot = state.formData.memoryRam
+        const updatedMemoryRamSlot = state.memoryRam
         updatedMemoryRamSlot[index] = isNaN(parsedValue) ? 0 : parsedValue
 
         return {
             ...state,
-            formData: {
-                ...state.formData,
-                memoryRam: updatedMemoryRamSlot,
-                memoryRamCapacity: MemoryRam.totalAmount(updatedMemoryRamSlot)
-            }
+            memoryRam: updatedMemoryRamSlot,
+            memoryRamCapacity: MemoryRam.totalAmount(updatedMemoryRamSlot)
         }
     }
     if (action.type === 'hardDriveCapacityId') {
         const { value } = action.payload
-        const hardDriveTypeId = value ? state.formData.hardDriveTypeId : ''
-        const operatingSystemId = value ? state.formData.operatingSystemId : ''
-        const operatingSystemArqId = value ? state.formData.operatingSystemArqId : ''
+        const hardDriveTypeId = value ? state.hardDriveTypeId : ''
+        const operatingSystemId = value ? state.operatingSystemId : ''
+        const operatingSystemArqId = value ? state.operatingSystemArqId : ''
         return {
             ...state,
-            formData: {
-                ...state.formData,
-                hardDriveCapacityId: value,
-                hardDriveTypeId,
-                operatingSystemId,
-                operatingSystemArqId
-            }
+            hardDriveCapacityId: value,
+            hardDriveTypeId,
+            operatingSystemId,
+            operatingSystemArqId
         }
     }
     if (action.type === 'hardDriveTypeId') {
         const { value } = action.payload
         return {
             ...state,
-            formData: {
-                ...state.formData,
-                hardDriveTypeId: value
-            }
+            hardDriveTypeId: value
         }
     }
     if (action.type === 'operatingSystemId') {
         const { value } = action.payload
-        const operatingSystemArqId = value ? state.formData.operatingSystemArqId : ''
+        const operatingSystemArqId = value ? state.operatingSystemArqId : ''
         return {
             ...state,
-            formData: {
-                ...state.formData,
-                operatingSystemId: value,
-                operatingSystemArqId
-            }
+            operatingSystemId: value,
+            operatingSystemArqId
         }
     }
     if (action.type === 'operatingSystemArqId') {
         const { value } = action.payload
         return {
             ...state,
-            formData: {
-                ...state.formData,
-                operatingSystemArqId: value,
-            }
+            operatingSystemArqId: value,
         }
     }
     if (action.type === 'ipAddress') {
         const { value } = action.payload
         return {
             ...state,
-            formData: {
-                ...state.formData,
-                ipAddress: value,
-            }
+            ipAddress: value,
         }
     }
     if (action.type === 'macAddress') {
         const { value } = action.payload
         return {
             ...state,
-            formData: {
-                ...state.formData,
-                macAddress: value,
-            }
+            macAddress: value,
         }
     }
     if (action.type === 'health') {
         const { value } = action.payload
         return {
             ...state,
-            formData: {
-                ...state.formData,
-                health: value,
-            }
+            health: value,
         }
     }
     return state
@@ -378,7 +308,7 @@ export function useFormDevice() {
     const { createDevice } = useDeviceContext()
     const { isAddForm, preloadedDeviceState, setResetState } = useDeviceInitialState()
     const [prevFormData, setPrevFormData] = useState(preloadedDeviceState)
-    const [{ formData }, dispatch] = useReducer(reducer, initialState)
+    const [formData, dispatch] = useReducer(reducer, initialState)
     const { error, disabled, required } = useErrorManagement(formData)
     const { processing, submitForm } = useGenericForm2({ create: createDevice })
 
@@ -391,11 +321,11 @@ export function useFormDevice() {
         dispatch({ type: 'reset', payload: { formData: structuredClone(prevFormData) } })
     }
 
-    const handleSubmit = useCallback(async (event: React.FormEvent) => {
+    const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault()
         event.stopPropagation()
         await submitForm(formData, setResetState)
-    }, [formData, submitForm, setResetState])
+    }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleChange = (name: Action['type'], value: any) => {
