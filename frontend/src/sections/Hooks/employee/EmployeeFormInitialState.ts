@@ -1,7 +1,6 @@
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useEmployee } from './useEmployee'
-
 import { DefaultEmployeeProps } from './DefaultInitialState'
 
 export const defaultInitialEmployeeState: DefaultEmployeeProps = {

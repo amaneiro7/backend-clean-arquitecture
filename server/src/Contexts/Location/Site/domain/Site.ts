@@ -12,14 +12,14 @@ export interface SitePrimitives {
 }
 
 export class Site {
-  constructor (
+  constructor(
     private readonly id: SiteId,
     private readonly cityId: CityId,
-    private readonly address: SiteAddress,
-    private readonly name: SiteName
-  ) {}
+    private address: SiteAddress,
+    private name: SiteName
+  ) { }
 
-  static fromPrimitives (primitives: SitePrimitives): Site {
+  static fromPrimitives(primitives: SitePrimitives): Site {
     return new Site(
       new SiteId(primitives.id),
       new CityId(primitives.cityId),
@@ -28,7 +28,17 @@ export class Site {
     )
   }
 
-  toPrimitive (): SitePrimitives {
+  static create(params: Omit<SitePrimitives, 'id'>): Site {
+    const id = SiteId.random().value
+    return new Site(
+      new SiteId(id),
+      new CityId(params.cityId),
+      new SiteAddress(params.address),
+      new SiteName(params.name)
+    )
+  }
+
+  toPrimitive(): SitePrimitives {
     return {
       id: this.idValue,
       cityId: this.cityIdValue,
@@ -37,19 +47,27 @@ export class Site {
     }
   }
 
-  get idValue (): Primitives<SiteId> {
+  updateAddress(address: Primitives<SiteAddress>): void {
+    this.address = new SiteAddress(address)
+  }
+
+  updateName(name: Primitives<SiteName>): void {
+    this.name = new SiteName(name)
+  }
+
+  get idValue(): Primitives<SiteId> {
     return this.id.value
   }
 
-  get nameValue (): Primitives<SiteName> {
+  get nameValue(): Primitives<SiteName> {
     return this.name.value
   }
 
-  get addressValue (): Primitives<SiteAddress> {
+  get addressValue(): Primitives<SiteAddress> {
     return this.address.value
   }
 
-  get cityIdValue (): Primitives<CityId> {
+  get cityIdValue(): Primitives<CityId> {
     return this.cityId.value
   }
 }

@@ -25,7 +25,7 @@ export function CodeAgencyInput({ value, onChange, disabled, error, required }: 
         value={value}
         isRequired={required}
         disabled={disabled}
-        max={550}
+        max={599}
         min={1}
         error={!!error}
         errorMessage={error}

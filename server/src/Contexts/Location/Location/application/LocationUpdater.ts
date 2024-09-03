@@ -1,12 +1,12 @@
 import { Repository } from "../../../Shared/domain/Repository"
-import { Primitives } from "../../../Shared/domain/value-object/Primitives"
-import { Location, LocationPrimitives } from "../domain/Location"
+import { Location, type LocationPrimitives } from "../domain/Location"
 import { LocationDoesNotExistError } from "../domain/LocationDoesNotExistError"
 import { LocationId } from "../domain/LocationId"
 import { LocationName } from "../domain/LocationName"
 import { LocationSite } from "../domain/LocationSite"
 import { LocationSubnet } from "../domain/LocationSubnet"
 import { LocationTypeOfSite } from "../domain/LocationTypeOfSite"
+import { type Primitives } from "../../../Shared/domain/value-object/Primitives"
 
 
 export class LocationUpdater {
@@ -23,7 +23,7 @@ export class LocationUpdater {
 
     await LocationName.updateNameField({ repository: this.repository.location, name: params.name, entity: locationEntity })
     await LocationSite.updateSiteField({ repository: this.repository.site, entity: locationEntity, site: params.siteId })
-    await LocationTypeOfSite.updateTypeOfSiteField({ repository: this.repository.typeOfSite, entity: locationEntity, typeOfSite: params.typeOfSiteId  })
+    await LocationTypeOfSite.updateTypeOfSiteField({ repository: this.repository.typeOfSite, entity: locationEntity, typeOfSite: params.typeOfSiteId })
     await LocationSubnet.updateSubnetField({ subnet: params.subnet, entity: locationEntity })
 
     await this.repository.location.save(locationEntity.toPrimitive())

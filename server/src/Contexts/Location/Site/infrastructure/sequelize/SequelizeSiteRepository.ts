@@ -5,7 +5,7 @@ import { type SiteRepository } from '../../domain/SiteRepository'
 import { SiteModels } from './SiteSchema'
 
 export class SequelizeSiteRepository implements SiteRepository {
-  async searchAll (): Promise<SitePrimitives[]> {
+  async searchAll(): Promise<SitePrimitives[]> {
     return await SiteModels.findAll({
       include: [
         { association: 'city', include: ['state'] }
@@ -13,7 +13,18 @@ export class SequelizeSiteRepository implements SiteRepository {
     })
   }
 
-  async searchById (id: Primitives<SiteId>): Promise<SitePrimitives | null> {
+  async searchById(id: Primitives<SiteId>): Promise<SitePrimitives | null> {
     return await SiteModels.findByPk(id) ?? null
+  }
+
+  async save(payload: SitePrimitives): Promise<void> {
+    const { id } = payload
+    const employee = await SiteModels.findByPk(id) ?? null
+    if (employee === null) {
+      await SiteModels.create({ ...payload })
+    } else {
+      employee.set({ ...payload })
+      await employee.save()
+    }
   }
 }

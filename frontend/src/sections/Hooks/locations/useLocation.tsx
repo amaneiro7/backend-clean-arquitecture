@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { type LocationPrimitives } from '../../../modules/location/locations/domain/location'
-import { AllLocationGetter } from '../../../modules/location/locations/application/AllLocationGetter'
-import { ApiLocationRepository } from '../../../modules/location/locations/infraestructure/ApiLocationRepository'
-import { LocationCreator } from '../../../modules/location/locations/application/LocationCreator'
-import { LocationGetter } from '../../../modules/location/locations/application/LocationGetter'
+import { type LocationPrimitives } from '@/modules/location/locations/domain/location'
+import { AllLocationGetter } from '@/modules/location/locations/application/AllLocationGetter'
+import { ApiLocationRepository } from '@/modules/location/locations/infraestructure/ApiLocationRepository'
+import { LocationCreator } from '@/modules/location/locations/application/LocationCreator'
+import { LocationGetter } from '@/modules/location/locations/application/LocationGetter'
 
 export interface UseSiteLocation {
   locations: LocationPrimitives[]
