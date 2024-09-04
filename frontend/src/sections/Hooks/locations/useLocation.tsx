@@ -27,10 +27,11 @@ export const useSiteLocation = (): UseSiteLocation => {
       .get()
       .then((res) => {
         setLocation(res)
-        setLoading(false)
       })
       .catch((error) => {
         setError(error)
+      }).
+      finally(() => {
         setLoading(false)
       })
   }, [repository])

@@ -106,6 +106,11 @@ export const navigation: Navigation[] = [
                 title: 'Agregar una nueva ubicación',
                 desc: 'Aqui se puede agregar una nueva ubicación',
                 path: '/location/add'
+            },
+            {
+                title: 'Agregar una nuevo sitio',
+                desc: 'Aqui se puede agregar un nuevo sitio',
+                path: '/site/add'
             }
         ]
     }

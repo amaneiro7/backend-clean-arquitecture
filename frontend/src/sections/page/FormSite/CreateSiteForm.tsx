@@ -1,12 +1,13 @@
-import React, { lazy, Suspense } from 'react'
+  import React, { lazy, Suspense } from 'react'
 import { InputSkeletonLoading } from '@/sections/components/skeleton/inputSkeletonLoading'
 import { useFormSite } from './useFormSite'
 import { useLocation } from 'react-router-dom'
 
 const FormContainer = lazy(async () => await import('@/sections/components/formContainer/formContainer'))
 const Input = lazy(async () => await import('@/sections/components/text-inputs/Input').then(m => ({ default: m.Input })))
+const CityComboBox = lazy(async () => await import('@/sections/components/combo_box/location/CityComboBox').then(m => ({ default: m.CityComboBox })))
 
-export default function CreateEmployeeForm() {
+export default function CreateSiteForm() {
   const location = useLocation()
   const { disabled, error, formData, handleChange, handleClose, handleSubmit, isAddForm, processing, required, resetForm } = useFormSite()
 
@@ -24,6 +25,17 @@ export default function CreateEmployeeForm() {
         lastUpdated={formData.updatedAt}
         url='/site/add'
       >
+        <Suspense fallback={<InputSkeletonLoading />}>
+          <CityComboBox
+            isAddForm={isAddForm}
+            onChange={handleChange}
+            type='form'
+            value={formData.cityId}
+            disabled={disabled.cityId}
+            required={required.cityId}
+            error={error.cityId}
+          />
+        </Suspense>
         <Suspense fallback={<InputSkeletonLoading />}>
           <Input
             id='site-address'            

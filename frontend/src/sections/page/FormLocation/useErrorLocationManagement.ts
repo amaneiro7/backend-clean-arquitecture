@@ -60,7 +60,7 @@ export function useErrorLocationManagement({
             ...prev,
             siteName: isFirstSiteNameInput.current ? '' : LocationName.isValid(siteName) ? '' : LocationName.invalidMessage(),
             subnet: isFirstSubnetInput.current ? '' : Subnet.isValid(subnet) ? '' : Subnet.invalidMessage(),
-            codeAgency: (codeAgency > 550 || codeAgency < 1) ? 'El valor debe estar entre 1 y 599' : ''
+            codeAgency: (codeAgency > 599 || codeAgency < 1) ? 'El valor debe estar entre 1 y 599' : ''
         }))
         setDisabled(prev => ({
             ...prev,

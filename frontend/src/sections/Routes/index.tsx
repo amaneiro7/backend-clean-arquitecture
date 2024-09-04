@@ -24,6 +24,7 @@ const CreateBrandForm = lazy(() => import('../page/FormBrand/CreateBrandForm.tsx
 const CreateModelForm = lazy(() => import('../page/FormModel/CreateModelForm.tsx'))
 const CreateLocationForm = lazy(() => import('../page/FormLocation/CreateLocationForm.tsx'))
 const CreateProcessorForm = lazy(() => import('../page/FormProcessor/CreateProcessorForm.tsx'))
+const CreateSiteForm = lazy(() => import('../page/FormSite/CreateSiteForm.tsx'))
 const UserManagement = lazy(() => import('../page/user-management/UserManagement.tsx'))
 const RegisterPage = lazy(() => import('../page/user-management/register/RegisterPage.tsx'))
 const ManagementProfile = lazy(() => import('../page/user-management/profile/ManagementProfile.tsx'))
@@ -46,6 +47,9 @@ export default function AppRoutes() {
 
         <Route path='/processor/add' element={<CreateProcessorForm />} />
         <Route path='/processor/edit/:id' element={<CreateProcessorForm />} />
+  
+        <Route path='/site/add' element={<CreateSiteForm />} />
+        <Route path='/site/edit/:id' element={<CreateSiteForm />} />
         
         {/* Rutas para el manejo de listados de ubicaciones  */}
         <Route path='/location' element={<LocationConsumer><ListadoSitios /></LocationConsumer>} />

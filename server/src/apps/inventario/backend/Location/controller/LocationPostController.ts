@@ -5,7 +5,7 @@ import { LocationCreator } from '../../../../../Contexts/Location/Location/appli
 import { LocationUpdater } from '../../../../../Contexts/Location/Location/application/LocationUpdater'
 
 export class LocationPostController {
-  constructor (private readonly repository: Repository) {}
+  constructor(private readonly repository: Repository) { }
 
   create = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
