@@ -41,7 +41,7 @@ const reducer = (state: DefaultEmployeeProps, action: Action): DefaultEmployeePr
 
 export function useFormEmployee() {
     const { useEmployee: { createEmployee } } = useAppContext()
-    const { preloadedEmployeeState, isAddForm, setResetState } = useEmployeeInitialState()
+    const { preloadedEmployeeState, isAddForm, setResetState } = useEmployeeInitialState(initialState)
     const [prevFormData, setPrevFormData] = useState(preloadedEmployeeState)
     const [formData, dispatch] = useReducer(reducer, initialState)
     const { disabled, error, required } = useErrorEmployeeManagement(formData)
@@ -57,6 +57,7 @@ export function useFormEmployee() {
     }
 
     const handleChange = (name: Action['type'], value: string) => {
+        console.log(value)
         if (name === 'init' || name === 'reset') return
         dispatch({ type: name, payload: { value } })
     }

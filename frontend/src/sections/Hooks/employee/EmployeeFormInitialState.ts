@@ -1,16 +1,9 @@
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useEmployee } from './useEmployee'
-import { DefaultEmployeeProps } from './DefaultInitialState'
+import { type DefaultEmployeeProps } from './DefaultInitialState'
 
-export const defaultInitialEmployeeState: DefaultEmployeeProps = {
-  id: undefined,
-  userName: '',
-  devices: [],
-  updatedAt: undefined
-}
-
-export const useEmployeeInitialState = () => {
+export const useEmployeeInitialState = (defaultInitialEmployeeState: DefaultEmployeeProps) => {
   const { id } = useParams()
   const location = useLocation()
   const navidate = useNavigate()
@@ -45,7 +38,7 @@ export const useEmployeeInitialState = () => {
       return
     }
 
-    if (location.state?.state2 !== undefined) {
+    if (location.state?.state !== undefined) {
       const employee = location.state?.state
       setPreloadedEmployeeState(employee)
     } else {
@@ -56,7 +49,7 @@ export const useEmployeeInitialState = () => {
       fetchEmployee()
     }
 
-  }, [fetchEmployee, id, isAddForm, location.state?.state, location.state?.state2, navidate])
+  }, [defaultInitialEmployeeState, fetchEmployee, id, isAddForm, location.state?.state, navidate])
 
   return {
     preloadedEmployeeState,

@@ -1,5 +1,4 @@
 import { lazy, Suspense } from 'react'
-import { InputSkeletonLoading } from '@/sections/components/skeleton/inputSkeletonLoading'
 import { useFormEmployee } from './useFormEmployee'
 import { useLocation } from 'react-router-dom'
 
@@ -7,8 +6,8 @@ const InfoBox = lazy(async () => import('@/sections/components/info-box/InfoBox'
 const InfoBoxTitle = lazy(async () => import('@/sections/components/info-box/InfoBoxTitle').then(m => ({ default: m.InfoBoxTitle })))
 const InfoBoxText = lazy(async () => import('@/sections/components/info-box/InfoBoxText').then(m => ({ default: m.InfoBoxText })))
 const EmployeeSearchComboBox = lazy(async () => import('@/sections/components/combo_box/EmployeeSearchComboBox').then(m => ({default: m.EmployeeSearchComboBox})))
+const EmployeeInputs = lazy(async () => import('./EmployeInputs').then(m => ({default: m.EmployeeInputs})))
 const FormContainer = lazy(async () => await import('@/sections/components/formContainer/formContainer'))
-const EmployeeUserNameInput = lazy(async () => await import('@/sections/components/text-inputs/UserNameInput').then(m => ({ default: m.EmployeeUserNameInput })))
 
 export default function CreateEmployeeForm() {
   const location = useLocation()
@@ -29,15 +28,14 @@ export default function CreateEmployeeForm() {
         url='/employee/add'
         searchInput={<EmployeeSearchComboBox />}
       >
-        <Suspense fallback={<InputSkeletonLoading />}>
-          <EmployeeUserNameInput
+        <Suspense>
+          <EmployeeInputs
             key={location.key}
-            value={formData.userName}            
-            onChange={handleChange}
-            error={error.userName}
-            isDisabled={disabled.userName}
-            isRequired={required.userName}
-            
+            disabled={disabled}
+            error={error}
+            formData={formData}
+            handleChange={handleChange}
+            required={required}
           />
         </Suspense>
         {formData.devices.length > 0 &&

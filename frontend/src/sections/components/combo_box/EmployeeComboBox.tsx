@@ -1,13 +1,12 @@
-import { lazy, useMemo, useState } from "react"
+import { lazy, useMemo, useRef } from "react"
 import { useAppContext } from "../../Context/AppProvider"
-import { defaultInitialEmployeeState } from "../../Hooks/employee/EmployeeFormInitialState"
 import { DeviceEmployee } from "../../../modules/devices/devices/devices/domain/DeviceEmployee"
 import { StatusId } from "../../../modules/devices/devices/status/domain/StatusId"
 import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
-
 import { type EmployeePrimitives } from "../../../modules/employee/employee/domain/Employee"
 import { type Primitives } from "../../../modules/shared/domain/value-object/Primitives"
 import { type OnHandleChange } from "../../../modules/shared/domain/types/types"
+import { type EmployeeDialogRef } from "../Dialog/EmployeeDialog"
 
 interface Props {
   value: Primitives<DeviceEmployee>
@@ -24,10 +23,11 @@ interface NewValue extends EmployeePrimitives {
   inputValue: string
 }
 
-const EmployeeDialog = lazy(async () => import("../Dialog/EmployeeDialog"))
+const EmployeeDialog = lazy(async () => import("../Dialog/EmployeeDialog").then(m => ({ default: m.EmployeeDialog})))
 const ComboBox = lazy(async () => import("./combo_box"))
 export default function EmployeeComboBox({ value, error, isDisabled = false, isRequired, name, onChange, type = 'search' }: Props) {
-  const { useEmployee: { employees, loading, createEmployee } } = useAppContext()
+  const employeeRef = useRef<EmployeeDialogRef>(null)
+  const { useEmployee: { employees, loading } } = useAppContext()
   const employeeOptions = useMemo(() => (
     employees.map(employee => ({ id: employee.id, name: employee.userName }))
   ), [employees])
@@ -35,9 +35,6 @@ export default function EmployeeComboBox({ value, error, isDisabled = false, isR
   const initialValue = useMemo(() => (
     employeeOptions.find(employee => employee.id === value)
   ), [employeeOptions, value])
-
-  const [open, toggleOpen] = useState(false)
-  const [dialogValue, setDialogValue] = useState<EmployeePrimitives>(defaultInitialEmployeeState)
 
   return (
     <>
@@ -51,16 +48,12 @@ export default function EmployeeComboBox({ value, error, isDisabled = false, isR
           if (typeof newValue === 'string') {
             // timeout to avoid instant validation of the dialog's form.
             setTimeout(() => {
-              toggleOpen(true)
-              setDialogValue({
-                userName: newValue
-              })
+              employeeRef.current?.toggleOpen(true)
+              employeeRef.current?.handleChange('userName', newValue)              
             })
           } else if (newValue && newValue.inputValue) {
-            toggleOpen(true)
-            setDialogValue({
-              userName: newValue.inputValue
-            })
+            employeeRef.current?.toggleOpen(true)
+            employeeRef.current?.handleChange('userName', newValue.inputValue)
           } else {
             const hasNewValue = newValue ? newValue.id : ''
             onChange(name, hasNewValue, Operator.EQUAL)
@@ -74,7 +67,7 @@ export default function EmployeeComboBox({ value, error, isDisabled = false, isR
         errorMessage={error}
       >
         {type === 'form' &&          
-          <EmployeeDialog createEmployee={createEmployee} dialogValue={dialogValue} open={open} toggleOpen={toggleOpen} />}
+          <EmployeeDialog ref={employeeRef} />}
       </ComboBox>
     </>
   )

@@ -2,6 +2,7 @@ import { lazy, useEffect } from "react"
 import { useGenericFormData } from "../../Hooks/useGenericFormData"
 import { FormStatus, useGenericForm } from "../../Hooks/useGenericForm"
 import { type LocationPrimitives } from "../../../modules/location/locations/domain/location"
+import { useFormLocation } from "@/sections/page/FormLocation/useFormLocation"
 
 interface Props {
   dialogValue: LocationPrimitives
@@ -14,36 +15,7 @@ const DialogAdd = lazy(async () => import("./dialog"))
 const LocationInputs = lazy(async () => import("../../page/FormLocation/LocationInputs").then(m => ({ default: m.LocationInputs })))
 
 export function LocationDialog({ dialogValue, open, toggleOpen, createLocation }: Props) {
-  const { formData, resetForm, updateForm } = useGenericFormData(dialogValue)
-  const { formStatus, resetFormStatus, submitForm } = useGenericForm({ create: createLocation })
-
-  useEffect(() => {
-    updateForm(dialogValue)
-    return () => {
-      resetForm()
-    }
-  }, [dialogValue, resetForm, updateForm])
-
-  useEffect(() => {
-    if (formStatus === FormStatus.Success) {
-      resetFormStatus()
-      resetForm()
-      toggleOpen(false)
-    }
-    if (formStatus === FormStatus.Error) {
-      resetFormStatus()
-    }
-  }, [formStatus, resetForm, resetFormStatus, toggleOpen])
-
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault()
-    event.stopPropagation()
-    await submitForm(formData)
-  }
-
-  const handleChange = (name: string, value: string) => {
-    updateForm({ [name]: value })
-  }
+  const { isAddForm, formData, handleChange, handleClose, handleSite, handleSubmit, resetForm, processing, disabled, error, required } = useFormLocation()
 
   return (
     <DialogAdd
