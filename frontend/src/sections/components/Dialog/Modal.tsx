@@ -1,10 +1,10 @@
 import { forwardRef, useImperativeHandle, useRef} from "react"
 import './Modal.css'
-export type DialogRef = {
+export type ModalRef = {
     handleClose: () => void
     handleOpen: () => void
 } 
-function Dialog({ children }: React.PropsWithChildren, ref: React.Ref<DialogRef>) {
+function Dialog({ children }: React.PropsWithChildren, ref: React.Ref<ModalRef>) {
     const modalRef = useRef(null)
     
     const handleOpen = () => { modalRef.current?.showModal() }
@@ -21,4 +21,4 @@ function Dialog({ children }: React.PropsWithChildren, ref: React.Ref<DialogRef>
       </dialog>
     )
 }
-export const ConfirmationDialog = forwardRef(Dialog)
+export const Modal = forwardRef(Dialog)

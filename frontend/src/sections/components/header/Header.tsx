@@ -2,7 +2,7 @@ import { lazy,  useEffect, useState, memo, Suspense, useRef } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { useAppContext } from "../../Context/AppContext"
 import { type UserApiResponse } from "../../../modules/shared/domain/types/responseTypes"
-import { type DialogRef } from "../Dialog/Modal"
+import { type ModalRef } from "../Dialog/Modal"
 import { User } from "../../../modules/user/user/domain/User"
 
 const ConfirmationModal = lazy(async () => import("../Dialog/ConfirmationModal").then(m => ({ default: m.ConfirmationModal })))
@@ -13,12 +13,12 @@ const HamburgerMenu = lazy(async () => import("../button/HamburgerMenu/Hamburger
 const WrapperBox = lazy(async () => import("./WrapperBox").then((m) => ({ default: m.WrapperBox })))
 const Logo = lazy(async () => import("../Logo/Logo"))
 const Button = lazy(async () => import("../button/button"))
-const ConfirmationDialog = lazy(async () => import('../Dialog/Modal').then(m => ({default: m.ConfirmationDialog })))
+const Modal = lazy(async () => import('../Dialog/Modal').then(m => ({default: m.Modal })))
 
 export const Header = memo(function() {
   const [isActive, setIsActive] = useState(false)
   const location = useLocation()
-  const dialogExitRef = useRef<DialogRef>(null)
+  const dialogExitRef = useRef<ModalRef>(null)
 
   const { useAuth: { logout, user: userDefault }} = useAppContext()
   const { user } = userDefault as unknown as UserApiResponse
@@ -73,9 +73,9 @@ export const Header = memo(function() {
 
       
       </header>
-      <ConfirmationDialog ref={dialogExitRef}>
+      <Modal ref={dialogExitRef}>
         <ConfirmationModal handleClose={() => dialogExitRef.current?.handleClose()} handle={logout} text='¿Está seguro que desea ' strongText='Cerrar la Sesión?' />
-      </ConfirmationDialog>
+      </Modal>
     </>
   )
 })
