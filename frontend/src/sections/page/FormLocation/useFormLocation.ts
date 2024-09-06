@@ -5,7 +5,7 @@ import { useGenericForm2 } from "@/sections/Hooks/useGenericForm2"
 import { useErrorLocationManagement } from "./useErrorLocationManagement"
 import { type DefaultLocationProps } from "@/sections/Hooks/locations/DefaultInitialState"
 
-const initialState: DefaultLocationProps = {
+export const initialLocationState: DefaultLocationProps = {
     id: undefined,
     typeOfSiteId: '',
     codeAgency: 1,
@@ -117,11 +117,11 @@ const reducer = (state: DefaultLocationProps, action: Action): DefaultLocationPr
 
 
 
-export function useFormLocation() {
+export function useFormLocation(defaultInitialState?: DefaultLocationProps) {
     const { useSiteLocation: { createLocation } } = useAppContext()
-    const { isAddForm, preloadedLocationState, setResetState } = useLocationInitialState()
+    const { isAddForm, preloadedLocationState, setResetState } = useLocationInitialState(defaultInitialState ?? initialLocationState)
     const [prevFormData, setPrevFormData] = useState(preloadedLocationState)
-    const [formData, dispatch] = useReducer(reducer, initialState)
+    const [formData, dispatch] = useReducer(reducer, initialLocationState)
     const { disabled, error, required } = useErrorLocationManagement(formData)
     const { processing, submitForm } = useGenericForm2({ create: createLocation })
 

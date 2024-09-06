@@ -1,32 +1,53 @@
-import { lazy, useEffect } from "react"
-import { useGenericFormData } from "../../Hooks/useGenericFormData"
-import { FormStatus, useGenericForm } from "../../Hooks/useGenericForm"
-import { type LocationPrimitives } from "../../../modules/location/locations/domain/location"
+import { lazy, Suspense } from "react"
 import { useFormLocation } from "@/sections/page/FormLocation/useFormLocation"
+import { type DefaultLocationProps } from "@/sections/Hooks/locations/DefaultInitialState"
 
 interface Props {
-  dialogValue: LocationPrimitives
-  open: boolean,
-  toggleOpen: React.Dispatch<React.SetStateAction<boolean>>
-  createLocation: (formData: LocationPrimitives) => Promise<void>
+  initialDialogValue?: DefaultLocationProps
+  handleClose: () => void
 }
 
-const DialogAdd = lazy(async () => import("./dialog"))
+const FormComponent = lazy(async () => import("../formContainer/FormComponent").then(m => ({ default: m.FormComponent })))
 const LocationInputs = lazy(async () => import("../../page/FormLocation/LocationInputs").then(m => ({ default: m.LocationInputs })))
+const Subtitle = lazy(async () => import("../Typography/Subtitle").then(m => ({ default: m.Subtitle })))
+const Paragraph = lazy(async () => import("../Typography/Paragraph").then(m => ({ default: m.Paragraph })))
 
-export function LocationDialog({ dialogValue, open, toggleOpen, createLocation }: Props) {
-  const { isAddForm, formData, handleChange, handleClose, handleSite, handleSubmit, resetForm, processing, disabled, error, required } = useFormLocation()
+export function LocationDialog({ handleClose, initialDialogValue }: Props) {
+  const { formData, handleChange, handleSite, handleSubmit, processing, disabled, error, required } = useFormLocation(initialDialogValue)
+
+  const onSubmit = async(event: React.FormEvent) => {
+    handleSubmit(event)
+    handleClose()
+  }
 
   return (
-    <DialogAdd
-      title='Agregar una nueva ubicación'
-      contextText='¿No existe la ubicación en la lista? Por favor, añada uno nuevo.'
-      open={open}
-      toggleOpen={toggleOpen}
-      handleSubmit={handleSubmit}
-      resetForm={resetForm}
-    >      
-      <LocationInputs formData={formData} onChange={handleChange} isAddForm />      
-    </DialogAdd>
+    <Suspense>
+      <FormComponent
+        key='employee-dialog-form'
+        id='employee-dialog-form'
+        isDisabled={processing}
+        handleSubmit={onSubmit}
+        method='dialog'
+        handleClose={handleClose}
+      >
+        <Suspense>
+          <Subtitle variant='h5' color='black' text='Agregar una nueva ubicación' />
+        </Suspense>
+        <Suspense>
+          <Paragraph variant='p' color='gray' text='¿No existe la ubicación en la lista? Por favor, añada uno nuevo.' />
+        </Suspense>
+        <Suspense>
+          <LocationInputs 
+            isAddForm
+            formData={formData} 
+            handleSite={handleSite}
+            onChange={handleChange} 
+            disabled={disabled}
+            error={error}
+            required={required}
+          />
+        </Suspense>
+      </FormComponent>
+    </Suspense>    
   )
 }

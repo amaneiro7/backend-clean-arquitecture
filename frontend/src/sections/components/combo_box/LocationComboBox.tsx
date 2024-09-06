@@ -1,14 +1,16 @@
-import { lazy, useMemo, useState } from "react"
-import { useAppContext } from "../../Context/AppProvider"
-import { defaultInitialLocationState, type DefaultLocationProps } from "../../Hooks/locations/useLocationInitialState"
-import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
-import { StatusId } from "../../../modules/devices/devices/status/domain/StatusId"
-import { TypeOfSiteId } from "../../../modules/location/typeofsites/domain/typeOfSiteId"
-import { type OnHandleChange } from "../../../modules/shared/domain/types/types"
-import { type Primitives } from "../../../modules/shared/domain/value-object/Primitives"
-import { type LocationId } from "../../../modules/location/locations/domain/locationId"
-import { type LocationApiResponse } from "../../../modules/shared/domain/types/responseTypes"
-import { type LocationPrimitives } from "../../../modules/location/locations/domain/location"
+import { lazy, Suspense, useMemo, useRef, useState } from "react"
+import { useAppContext } from "@/sections/Context/AppProvider"
+import { Operator } from "@/modules/shared/domain/criteria/FilterOperators"
+import { StatusId } from "@/modules/devices/devices/status/domain/StatusId"
+import { TypeOfSiteId } from "@/modules/location/typeofsites/domain/typeOfSiteId"
+import { initialLocationState } from "@/sections/page/FormLocation/useFormLocation"
+import { type OnHandleChange } from "@/modules/shared/domain/types/types"
+import { type Primitives } from "@/modules/shared/domain/value-object/Primitives"
+import { type LocationId } from "@/modules/location/locations/domain/locationId"
+import { type LocationApiResponse } from "@/modules/shared/domain/types/responseTypes"
+import { type LocationPrimitives } from "@/modules/location/locations/domain/location"
+import { type DefaultLocationProps } from "@/sections/Hooks/locations/DefaultInitialState"
+import { type ModalRef } from "../Dialog/Modal"
 
 interface Props {
   value?: Primitives<LocationId>
@@ -26,13 +28,14 @@ interface NewValue extends LocationPrimitives {
   inputValue: string
 }
 
+const Modal = lazy(async () => import("../Dialog/Modal").then(m => ({ default: m.Modal })))
 const ComboBox = lazy(async () => import("./combo_box"))
 const LocationDialog = lazy(async () => import("../Dialog/LocationDialog").then(m => ({ default: m.LocationDialog })))
 
 export default function LocationComboBox({ value, error, isDisabled = false, isRequired, statusId, typeOfSiteId, onChange, handleLocation, type = 'search' }: Props) {
-  const { useSiteLocation: { locations, loading, createLocation } } = useAppContext()
-  const [open, toggleOpen] = useState(false)
-  const [dialogValue, setDialogValue] = useState<DefaultLocationProps>(defaultInitialLocationState)
+  const { useSiteLocation: { locations, loading } } = useAppContext()
+  const modalRef = useRef<ModalRef>(null)
+  const [dialogValue, setDialogValue] = useState<DefaultLocationProps>(initialLocationState)
   
   const filterLocation = useMemo(() => {
     return locations.filter(location => {
@@ -64,11 +67,11 @@ export default function LocationComboBox({ value, error, isDisabled = false, isR
           if (typeof newValue === 'string') {
             // timeout to avoid instant validation of the dialog's form.
             setTimeout(() => {
-              toggleOpen(true)
+              modalRef.current?.handleOpen()
               setDialogValue(prev => ({ ...prev, value: newValue }))
             })
           } else if (newValue && newValue.inputValue) {
-            toggleOpen(true)
+            modalRef.current?.handleOpen()
             setDialogValue(prev => ({ ...prev, name: newValue.inputValue }))
           } else {
             if (type === 'form') {
@@ -89,7 +92,18 @@ export default function LocationComboBox({ value, error, isDisabled = false, isR
         isError={!!error}
         errorMessage={error}
       >
-        {type === 'form' ? <LocationDialog createLocation={createLocation} dialogValue={dialogValue} open={open} toggleOpen={toggleOpen} /> : null}
+        {type === 'form' ? 
+          <Modal ref={modalRef}>
+            <Suspense>
+              <LocationDialog
+                initialDialogValue={dialogValue}
+                handleClose={() => {
+                modalRef.current?.handleClose()
+              }}
+              />
+            </Suspense>
+          </Modal>
+        : null}
       </ComboBox>
     </>
   )

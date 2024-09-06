@@ -5,21 +5,7 @@ import { type LocationPrimitives } from '@/modules/location/locations/domain/loc
 import { type LocationApiResponse } from '@/modules/shared/domain/types/responseTypes'
 import { type DefaultLocationProps } from './DefaultInitialState'
 
-
-export const defaultInitialLocationState: DefaultLocationProps = {
-  id: undefined,
-  name: '',
-  typeOfSiteId: '',
-  siteId: '',
-  subnet: '',
-  regionId: '',
-  stateId: '',
-  cityId: '',
-  siteName: '',
-  updatedAt: undefined
-}
-
-export const useLocationInitialState = () => {
+export const useLocationInitialState = (defaultInitialLocationState: DefaultLocationProps) => {
   const { id } = useParams()
   const location = useLocation()
   const navidate = useNavigate()
@@ -71,7 +57,7 @@ export const useLocationInitialState = () => {
       }
       fetchLocation()
     }
-  }, [fetchLocation, id, isAddForm, location.state?.state, navidate, processLocationState])
+  }, [defaultInitialLocationState, fetchLocation, id, isAddForm, location.state?.state, navidate, processLocationState])
 
   return {
     preloadedLocationState,
