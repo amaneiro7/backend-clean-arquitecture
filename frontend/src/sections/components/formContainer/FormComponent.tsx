@@ -3,9 +3,12 @@ import { type HistoryApiResponse } from '../../../modules/shared/domain/types/re
 
 interface Props extends React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFormElement>, HTMLFormElement> {
     handleSubmit: (event: React.FormEvent) => Promise<void>    
+    handleClose: () => void
+    reset?: () => void
+    id: string
+    key: string
     isDisabled: boolean
-    handleClose: () => void    
-    reset?: () => void    
+    method?: 'dialog' | 'form'
     lastUpdated?: string
     updatedBy?: HistoryApiResponse[]    
   }
@@ -20,9 +23,24 @@ const CircleSpinningIcon = lazy(() => import('../icon/CircleSpinning').then(m =>
 
 
 
-export function FormComponent ({ handleSubmit, lastUpdated, updatedBy, handleClose, reset, isDisabled, children, ...props }: Props) {
+export function FormComponent ({ 
+    handleSubmit, 
+    handleClose, 
+    reset, 
+    id,
+    key,
+    method = 'form',
+    isDisabled, 
+    updatedBy, 
+    lastUpdated, 
+    children, 
+    ...props
+  }: Props) {
+  
   return (
     <form
+      key={key}
+      id={id}
       action='submit'
       onSubmit={handleSubmit}
       className='w-full bg-white flex justify-center border border-gray-400 rounded-lg p-8'
@@ -32,7 +50,7 @@ export function FormComponent ({ handleSubmit, lastUpdated, updatedBy, handleClo
         {children}
         <div className='flex flex-col mt-8 md:flex-row md:w-1/3 gap-5 justify-end justify-self-end'>
           <Button
-            color='green'                
+            color={method === 'form' ? 'green' : 'blue'}
             type='submit'
             text={isDisabled ? 'Procesando...' : 'Guardar'}
             buttonSize='large'
@@ -52,7 +70,7 @@ export function FormComponent ({ handleSubmit, lastUpdated, updatedBy, handleClo
           />
           <Button
             type='button'
-            color='gray'
+            color={method === 'form' ? 'gray' : 'red'}
             size='full'
             buttonSize='large'
             text='Regresar'                

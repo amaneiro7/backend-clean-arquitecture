@@ -4,7 +4,6 @@ import { DialogContent } from '../../mui/DialogContent'
 import { DialogContentText } from '../../mui/DialogContentText'
 import { Button } from '../../mui/Button'
 import { DialogTitle } from '../../mui/DialogTitle'
-import { PropsWithChildren } from 'react'
 
 interface Props {
   title: string
@@ -23,7 +22,7 @@ export default function DialogAdd ({
     handleSubmit,
     resetForm,
     children
-}: PropsWithChildren<Props>) {  
+}: React.PropsWithChildren<Props>) {  
   
   const handleClose = () => {
     resetForm()

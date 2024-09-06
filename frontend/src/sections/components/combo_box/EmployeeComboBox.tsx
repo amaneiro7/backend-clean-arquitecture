@@ -1,4 +1,4 @@
-import { lazy, Suspense, useMemo, useRef } from "react"
+import { lazy, Suspense, useMemo, useRef, useState } from "react"
 import { useAppContext } from "../../Context/AppProvider"
 import { DeviceEmployee } from "../../../modules/devices/devices/devices/domain/DeviceEmployee"
 import { StatusId } from "../../../modules/devices/devices/status/domain/StatusId"
@@ -7,6 +7,7 @@ import { type EmployeePrimitives } from "../../../modules/employee/employee/doma
 import { type Primitives } from "../../../modules/shared/domain/value-object/Primitives"
 import { type OnHandleChange } from "../../../modules/shared/domain/types/types"
 import { type ModalRef } from "../Dialog/Modal"
+import { type DefaultEmployeeProps } from "@/sections/Hooks/employee/DefaultInitialState"
 
 
 interface Props {
@@ -24,13 +25,18 @@ interface NewValue extends EmployeePrimitives {
   inputValue: string
 }
 
-
 const Modal = lazy(async () => import("../Dialog/Modal").then(m => ({ default: m.Modal })))
 const EmployeeDialog = lazy(async () => import("../Dialog/EmployeeDialog").then(m => ({ default: m.EmployeeDialog})))
 const ComboBox = lazy(async () => import("./combo_box"))
+
 export default function EmployeeComboBox({ value, error, isDisabled = false, isRequired, name, onChange, type = 'search' }: Props) {
+  const [dialogValue, setDialogValue] = useState<DefaultEmployeeProps>({
+    userName: '',
+    devices: []
+  })
   const employeeRef = useRef<ModalRef>(null)
   const { useEmployee: { employees, loading } } = useAppContext()
+  
   const employeeOptions = useMemo(() => (
     employees.map(employee => ({ id: employee.id, name: employee.userName }))
   ), [employees])
@@ -52,11 +58,15 @@ export default function EmployeeComboBox({ value, error, isDisabled = false, isR
             // timeout to avoid instant validation of the dialog's form.
             setTimeout(() => {
               employeeRef.current?.handleOpen()
-              //employeeRef.current?.handleChange('userName', newValue)              
+              setDialogValue({
+                userName: newValue
+              })
             })
           } else if (newValue && newValue.inputValue) {
             employeeRef.current?.handleOpen()
-            // employeeRef.current?.handleChange('userName', newValue.inputValue)
+            setDialogValue({
+              userName: newValue.inputValue
+            })
           } else {
             const hasNewValue = newValue ? newValue.id : ''
             onChange(name, hasNewValue, Operator.EQUAL)
@@ -72,7 +82,12 @@ export default function EmployeeComboBox({ value, error, isDisabled = false, isR
         {type === 'form' ?
           <Modal ref={employeeRef}>            
             <Suspense>
-              <EmployeeDialog />
+              <EmployeeDialog 
+                initialDialogValue={dialogValue} 
+                handleClose={() => {
+                  employeeRef.current?.handleClose()
+                 }}
+              />
             </Suspense>
           </Modal>
           : null}

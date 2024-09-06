@@ -2,8 +2,8 @@ import React, { useLayoutEffect, useReducer, useState } from "react"
 import { useAppContext } from "@/sections/Context/AppProvider"
 import { useEmployeeInitialState } from "@/sections/Hooks/employee/EmployeeFormInitialState"
 import { useGenericForm2 } from "@/sections/Hooks/useGenericForm2"
-import { type DefaultEmployeeProps } from "@/sections/Hooks/employee/DefaultInitialState"
 import { useErrorEmployeeManagement } from "./useErrorEmployeeManagement"
+import { type DefaultEmployeeProps } from "@/sections/Hooks/employee/DefaultInitialState"
 
 const initialState: DefaultEmployeeProps = {
     id: undefined,
@@ -39,9 +39,9 @@ const reducer = (state: DefaultEmployeeProps, action: Action): DefaultEmployeePr
 
 }
 
-export function useFormEmployee() {
+export function useFormEmployee(defaultInitialState?: DefaultEmployeeProps) {
     const { useEmployee: { createEmployee } } = useAppContext()
-    const { preloadedEmployeeState, isAddForm, setResetState } = useEmployeeInitialState(initialState)
+    const { preloadedEmployeeState, isAddForm, setResetState } = useEmployeeInitialState(defaultInitialState ?? initialState)
     const [prevFormData, setPrevFormData] = useState(preloadedEmployeeState)
     const [formData, dispatch] = useReducer(reducer, initialState)
     const { disabled, error, required } = useErrorEmployeeManagement(formData)
@@ -57,7 +57,6 @@ export function useFormEmployee() {
     }
 
     const handleChange = (name: Action['type'], value: string) => {
-        console.log(value)
         if (name === 'init' || name === 'reset') return
         dispatch({ type: name, payload: { value } })
     }

@@ -51,7 +51,9 @@ export default function FormContainer({ url, title, description, searchInput, is
             </Suspense>
           </DetailsBoxWrapper>
           <DetailsBoxWrapper position='center'>
-            <FormComponent            
+            <FormComponent
+              key={location.key}
+              id={location.key}
               handleSubmit={handleSubmit}
               handleClose={handleClose}
               reset={reset}
