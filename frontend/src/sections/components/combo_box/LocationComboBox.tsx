@@ -4,6 +4,7 @@ import { Operator } from "@/modules/shared/domain/criteria/FilterOperators"
 import { StatusId } from "@/modules/devices/devices/status/domain/StatusId"
 import { TypeOfSiteId } from "@/modules/location/typeofsites/domain/typeOfSiteId"
 import { initialLocationState } from "@/sections/page/FormLocation/useFormLocation"
+import { Dialog } from "@/sections/mui/Dialog"
 import { type OnHandleChange } from "@/modules/shared/domain/types/types"
 import { type Primitives } from "@/modules/shared/domain/value-object/Primitives"
 import { type LocationId } from "@/modules/location/locations/domain/locationId"
@@ -28,13 +29,14 @@ interface NewValue extends LocationPrimitives {
   inputValue: string
 }
 
-const Modal = lazy(async () => import("../Dialog/Modal").then(m => ({ default: m.Modal })))
+// const Modal = lazy(async () => import("../Dialog/Modal").then(m => ({ default: m.Modal })))
 const ComboBox = lazy(async () => import("./combo_box"))
 const LocationDialog = lazy(async () => import("../Dialog/LocationDialog").then(m => ({ default: m.LocationDialog })))
 
 export default function LocationComboBox({ value, error, isDisabled = false, isRequired, statusId, typeOfSiteId, onChange, handleLocation, type = 'search' }: Props) {
   const { useSiteLocation: { locations, loading } } = useAppContext()
   const modalRef = useRef<ModalRef>(null)
+  const [open, setOpen] = useState(false)
   const [dialogValue, setDialogValue] = useState<DefaultLocationProps>(initialLocationState)
   
   const filterLocation = useMemo(() => {
@@ -67,11 +69,13 @@ export default function LocationComboBox({ value, error, isDisabled = false, isR
           if (typeof newValue === 'string') {
             // timeout to avoid instant validation of the dialog's form.
             setTimeout(() => {
-              modalRef.current?.handleOpen()
+              // modalRef.current?.handleOpen()
+              setOpen(true)
               setDialogValue(prev => ({ ...prev, value: newValue }))
             })
           } else if (newValue && newValue.inputValue) {
-            modalRef.current?.handleOpen()
+            // modalRef.current?.handleOpen()
+            setOpen(true)
             setDialogValue(prev => ({ ...prev, name: newValue.inputValue }))
           } else {
             if (type === 'form') {
@@ -93,7 +97,8 @@ export default function LocationComboBox({ value, error, isDisabled = false, isR
         errorMessage={error}
       >
         {type === 'form' ? 
-          <Modal ref={modalRef}>
+          // <Modal ref={modalRef}>
+          <Dialog open={open} onClose={() => { setOpen(false) }}>
             <Suspense>
               <LocationDialog
                 initialDialogValue={dialogValue}
@@ -102,7 +107,8 @@ export default function LocationComboBox({ value, error, isDisabled = false, isR
               }}
               />
             </Suspense>
-          </Modal>
+          </Dialog>
+          // </Modal>
         : null}
       </ComboBox>
     </>
