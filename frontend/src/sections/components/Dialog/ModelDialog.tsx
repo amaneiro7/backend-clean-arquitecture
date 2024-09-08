@@ -10,7 +10,7 @@ interface Props {
   createModel: (formData: ModelPrimitives) => Promise<void>
 }
 
-const DialogAdd = lazy(async () => import("./dialog"))
+const DialogAdd = lazy(async () => import("./DialogAdd"))
 const ModelInputs = lazy(async () => import("../../page/FormModel/ModelFeatures").then(m => ({ default: m.ModelInputs })))
 
 export default function ModelDialog({ dialogValue, open, toggleOpen, createModel }: Props) {

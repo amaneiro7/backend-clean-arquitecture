@@ -11,7 +11,7 @@ interface Props {
   createBrand: (formData: BrandPrimitives) => Promise<void>
 }
 
-const DialogAdd = lazy(async () => import("./dialog"))
+const DialogAdd = lazy(async () => import("./DialogAdd"))
 const BrandNameInput = lazy(async () => import("../text-inputs/BrandNameInput"))
 export function BrandDialog({ dialogValue, open, toggleOpen, createBrand }: Props) {
   const { formData, resetForm, updateForm } = useGenericFormData(dialogValue)

@@ -26,7 +26,7 @@ const ReadOnlyInputBox = lazy(async () => import('@/sections/components/ReadOnly
 export function LocationNameInput({ value = '', onChange, type = 'form', typeOfSite, isAddForm, disabled = false, error, required }: Props) {
     const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = event.target
-        onChange(name, value.trim().toUpperCase(), Operator.CONTAINS)
+        onChange(name, value.trimStart(), Operator.CONTAINS)
     }
 
     return (

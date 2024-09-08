@@ -10,7 +10,7 @@ export function exportToExcel(tableData: React.MutableRefObject<any>): void {
         Author: 'Inventarios',
         Company: 'Banco Nacional de Credito'
     }
-    worksheet["!cols"] = [{ wch: 20 }]; // set column A width to 10 characters
+    worksheet["!cols"] = [{ wch: 40 }]; // set column A width to 20 characters
     utils.book_append_sheet(workbook, worksheet, 'Inventario')
     const now = new Date()
     const filename = `Reporte-Inventario${now.toLocaleString().replace(/[/:]/g, '-')}.xlsx`

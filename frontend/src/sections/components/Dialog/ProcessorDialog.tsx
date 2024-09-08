@@ -12,7 +12,7 @@ interface Props {
     createProcessor: (formData: ProcessorPrimitives) => Promise<void> 
 }
 
-const DialogAdd = lazy(async () => import("./dialog"))
+const DialogAdd = lazy(async () => import("./DialogAdd"))
 const ProcessorNumberModelInput = lazy(async () => import("../text-inputs/ProcessorNumberModelInput"))
 const ProcessorCoresInput = lazy(async () => import("../number-inputs/ProcessorCoresInput"))
 const ProcessorFrequencyInput = lazy(async () => import("../number-inputs/ProcessorFrequency"))
