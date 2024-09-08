@@ -1,17 +1,9 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
-import { DefaultSiteProps } from './DefaultSiteInitialState'
 import { useGetSite } from './useGetSite'
+import { type DefaultSiteProps } from './DefaultSiteInitialState'
 
-export const defaultInitialSiteState: DefaultSiteProps = {
-  id: undefined,
-  name: '',
-  address: '',
-  cityId: '',
-  updatedAt: undefined
-}
-
-export const useSiteInitialState = () => {
+export const useSiteInitialState = (defaultInitialSiteState: DefaultSiteProps) => {
   const { id } = useParams()
   const location = useLocation()
   const navidate = useNavigate()
@@ -57,7 +49,7 @@ export const useSiteInitialState = () => {
       fetchSite()
     }
 
-  }, [fetchSite, id, isAddForm, location.state?.state, navidate])
+  }, [defaultInitialSiteState, fetchSite, id, isAddForm, location.state?.state, navidate])
 
   return {
     preloadedSiteState,

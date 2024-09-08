@@ -1,11 +1,9 @@
-  import React, { lazy, Suspense } from 'react'
-import { InputSkeletonLoading } from '@/sections/components/skeleton/inputSkeletonLoading'
-import { useFormSite } from './useFormSite'
+import { lazy, Suspense } from 'react'
 import { useLocation } from 'react-router-dom'
+import { useFormSite } from './useFormSite'
 
 const FormContainer = lazy(async () => await import('@/sections/components/formContainer/formContainer'))
-const Input = lazy(async () => await import('@/sections/components/text-inputs/Input').then(m => ({ default: m.Input })))
-const CityComboBox = lazy(async () => await import('@/sections/components/combo_box/location/CityComboBox').then(m => ({ default: m.CityComboBox })))
+const SiteInputs = lazy(async () => await import('./SiteInputs').then(m => ({ default: m.SiteInputs })))
 
 export default function CreateSiteForm() {
   const location = useLocation()
@@ -25,49 +23,14 @@ export default function CreateSiteForm() {
         lastUpdated={formData.updatedAt}
         url='/site/add'
       >
-        <Suspense fallback={<InputSkeletonLoading />}>
-          <CityComboBox
+        <Suspense>
+          <SiteInputs
             isAddForm={isAddForm}
-            onChange={handleChange}
-            type='form'
-            value={formData.cityId}
-            disabled={disabled.cityId}
-            required={required.cityId}
-            error={error.cityId}
-          />
-        </Suspense>
-        <Suspense fallback={<InputSkeletonLoading />}>
-          <Input
-            id='site-address'            
-            name='address'
-            type='text'
-            label='Dirección del sitio'
-            isRequired={required.address}
-            disabled={disabled.address}
-            value={formData.address}
-            error={!!error.address}
-            errorMessage={error.address}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              const { value } = event.target
-              handleChange('address', value)
-            }}
-          />
-        </Suspense>
-        <Suspense fallback={<InputSkeletonLoading />}>
-          <Input
-            id='site-name'            
-            name='name'
-            type='text'
-            label='Nombre del sitio'
-            isRequired={required.name}
-            disabled={disabled.name}
-            value={formData.name}
-            error={!!error.name}
-            errorMessage={error.name}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              const { value } = event.target
-              handleChange('name', value)
-            }}
+            handleChange={handleChange}
+            disabled={disabled}
+            error={error}
+            required={required}
+            formData={formData}
           />
         </Suspense>
       </FormContainer>

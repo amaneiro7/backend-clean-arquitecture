@@ -5,7 +5,7 @@ import { useErrorSiteManagement } from "./useErrorSiteManagement"
 import { DefaultSiteProps } from "@/sections/Hooks/locations/site/DefaultSiteInitialState"
 import { useSiteInitialState } from "@/sections/Hooks/locations/site/SiteFormInitialState"
 
-const initialState: DefaultSiteProps = {
+export const initialSiteState: DefaultSiteProps = {
     id: undefined,
     name: '',
     address: '',
@@ -54,11 +54,11 @@ const reducer = (state: DefaultSiteProps, action: Action): DefaultSiteProps => {
 
 }
 
-export function useFormSite() {
+export function useFormSite(defaultInitialState?: DefaultSiteProps) {
     const { useSite: { createSite } } = useAppContext()
-    const { preloadedSiteState, isAddForm, setResetState } = useSiteInitialState()
+    const { preloadedSiteState, isAddForm, setResetState } = useSiteInitialState(defaultInitialState ?? initialSiteState)
     const [prevFormData, setPrevFormData] = useState(preloadedSiteState)
-    const [formData, dispatch] = useReducer(reducer, initialState)
+    const [formData, dispatch] = useReducer(reducer, initialSiteState)
     const { disabled, error, required } = useErrorSiteManagement(formData)
     const { processing, submitForm } = useGenericForm2({ create: createSite })
 

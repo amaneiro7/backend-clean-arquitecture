@@ -63,19 +63,20 @@ export default function LocationComboBox({ value, error, isDisabled = false, isR
   }
 
   return (
-    <Suspense>
-      <ComboBox
-        id='locationId'
-        initialValue={initialValue}
-        label='Ubicación'
-        name='locationId'
-        type={type}
-        onChange={(_, newValue: NewValue) => {
+    <>
+      <Suspense>
+        <ComboBox
+          id='locationId'
+          initialValue={initialValue}
+          label='Ubicación'
+          name='locationId'
+          type={type}
+          onChange={(_, newValue: NewValue) => {
           if (typeof newValue === 'string') {
             // timeout to avoid instant validation of the dialog's form.
             setTimeout(() => {
               handleOpen()
-              setDialogValue(prev => ({ ...prev, value: newValue }))
+              setDialogValue(prev => ({ ...prev, name: newValue }))
             })
           } else if (newValue && newValue.inputValue) {
              handleOpen()
@@ -92,23 +93,26 @@ export default function LocationComboBox({ value, error, isDisabled = false, isR
             }
           }
         }}
-        options={filterLocation as LocationApiResponse[]}
-        isDisabled={isDisabled}
-        isRequired={isRequired}
-        loading={loading}
-        isError={!!error}
-        errorMessage={error}
-      />
-      {type === 'form' ?        
-        <DialogComponent open={open} handleClose={handleClose}>
-          <Suspense>
-            <LocationDialog
-              initialDialogValue={dialogValue}
-              handleClose={handleClose}
-            />
-          </Suspense>        
-        </DialogComponent>        
+          options={filterLocation as LocationApiResponse[]}
+          isDisabled={isDisabled}
+          isRequired={isRequired}
+          loading={loading}
+          isError={!!error}
+          errorMessage={error}
+        />
+      </Suspense>
+      {type === 'form' ?
+        <Suspense>
+          <DialogComponent open={open} handleClose={handleClose}>
+            <Suspense>
+              <LocationDialog
+                initialDialogValue={dialogValue}
+                handleClose={handleClose}
+              />
+            </Suspense>        
+          </DialogComponent>
+        </Suspense>
         : null}
-    </Suspense>
+    </>
   )
 }
