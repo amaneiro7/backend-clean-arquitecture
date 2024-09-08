@@ -2,7 +2,7 @@ import { lazy, Suspense } from "react"
 import { InputSkeletonLoading } from "@/sections/components/skeleton/inputSkeletonLoading"
 import { TypeOfSiteId } from "@/modules/location/typeofsites/domain/typeOfSiteId"
 import { type OnHandleChange } from "@/modules/shared/domain/types/types"
-import { type FormLocationDisabled, type FormLocationErrors, type FormLocationRequired, type DefaultLocationProps } from "@/sections/Hooks/locations/DefaultInitialState"
+import { type FormLocationDisabled, type FormLocationErrors, type FormLocationRequired, type DefaultLocationProps } from "@/sections/Hooks/locations/DefaulLocationtInitialState"
 
 interface Props {
     isAddForm: boolean

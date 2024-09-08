@@ -3,7 +3,7 @@ import { useAppContext } from "@/sections/Context/AppProvider"
 import { useLocationInitialState } from "@/sections/Hooks/locations/useLocationInitialState"
 import { useGenericForm2 } from "@/sections/Hooks/useGenericForm2"
 import { useErrorLocationManagement } from "./useErrorLocationManagement"
-import { type DefaultLocationProps } from "@/sections/Hooks/locations/DefaultInitialState"
+import { type DefaultLocationProps } from "@/sections/Hooks/locations/DefaulLocationtInitialState"
 
 export const initialLocationState: DefaultLocationProps = {
     id: undefined,

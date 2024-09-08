@@ -16,7 +16,7 @@ import { type UseInputType, useInputType } from "../Hooks/inputType/useInputType
 import { type UseRegion, useRegion } from "../Hooks/locations/useRegion"
 import { type UseCities, useCity } from "../Hooks/locations/useCity"
 import { type UseStates,useCountryStates } from "../Hooks/locations/useCountryStates"
-import { type UseSites, useSite } from "../Hooks/locations/useSite"
+import { type UseSites, useSite } from "../Hooks/locations/site/useSite"
 
 export interface AppContextState {
     useCategory: UseCategory

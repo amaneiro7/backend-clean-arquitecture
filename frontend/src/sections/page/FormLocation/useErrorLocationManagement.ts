@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { LocationName } from "@/modules/location/locations/domain/LocationName"
 import { Subnet } from "@/modules/location/locations/domain/Subnet"
 import { TypeOfSiteId } from "@/modules/location/typeofsites/domain/typeOfSiteId"
-import { type DefaultLocationProps, type FormLocationDisabled, type FormLocationErrors, type FormLocationRequired } from "@/sections/Hooks/locations/DefaultInitialState"
+import { type DefaultLocationProps, type FormLocationDisabled, type FormLocationErrors, type FormLocationRequired } from "@/sections/Hooks/locations/DefaulLocationtInitialState"
 
 
 export function useErrorLocationManagement({

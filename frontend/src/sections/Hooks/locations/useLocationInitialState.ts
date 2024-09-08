@@ -3,7 +3,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useSiteLocation } from './useLocation'
 import { type LocationPrimitives } from '@/modules/location/locations/domain/location'
 import { type LocationApiResponse } from '@/modules/shared/domain/types/responseTypes'
-import { type DefaultLocationProps } from './DefaultInitialState'
+import { type DefaultLocationProps } from './DefaulLocationtInitialState'
 
 export const useLocationInitialState = (defaultInitialLocationState: DefaultLocationProps) => {
   const { id } = useParams()
@@ -35,8 +35,11 @@ export const useLocationInitialState = (defaultInitialLocationState: DefaultLoca
   }, [getLocation, id, processLocationState])
 
   const setResetState = () => {
+    // se valida que el formulario sea de location, sino se salta esta funcion
+    if (!location.pathname.includes('location')) return
+    // Se valida si el formulario es para agregar una nueva ubicacion y no de editar    
     if (isAddForm) {
-      processLocationState({ id: undefined, ...defaultInitialLocationState })
+      setPreloadedLocationState({ id: undefined, ...defaultInitialLocationState })
     } else {
       fetchLocation()
     }

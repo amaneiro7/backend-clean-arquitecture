@@ -2,8 +2,8 @@ import React, { useLayoutEffect, useReducer, useState } from "react"
 import { useAppContext } from "@/sections/Context/AppProvider"
 import { useGenericForm2 } from "@/sections/Hooks/useGenericForm2"
 import { useErrorSiteManagement } from "./useErrorSiteManagement"
-import { DefaultSiteProps } from "@/sections/Hooks/locations/DefaultSiteInitialState"
-import { useSiteInitialState } from "@/sections/Hooks/locations/SiteFormInitialState"
+import { DefaultSiteProps } from "@/sections/Hooks/locations/site/DefaultSiteInitialState"
+import { useSiteInitialState } from "@/sections/Hooks/locations/site/SiteFormInitialState"
 
 const initialState: DefaultSiteProps = {
     id: undefined,

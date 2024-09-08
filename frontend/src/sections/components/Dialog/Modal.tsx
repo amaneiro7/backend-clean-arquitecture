@@ -1,10 +1,12 @@
 import { forwardRef, useImperativeHandle, useRef} from "react"
-import './Modal.css'
 import { createPortal } from "react-dom"
+import './Modal.css'
+
 export type ModalRef = {
     handleClose: () => void
     handleOpen: () => void
 } 
+
 function Dialog({ children }: React.PropsWithChildren, ref: React.Ref<ModalRef>) {
     const modalRef = useRef(null)
     

@@ -102,7 +102,7 @@ export default function ComboBox<T, Multiple extends boolean, Disable extends bo
             <TextField
               {...params}
               label={label}
-              name={name}                  
+              name={name}              
               required={isRequired}
               InputProps={{
                 ...params.InputProps,

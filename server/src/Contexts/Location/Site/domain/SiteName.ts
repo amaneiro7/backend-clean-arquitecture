@@ -1,8 +1,7 @@
-import { InvalidArgumentError } from '../../../Shared/domain/value-object/InvalidArgumentError'
-import { Primitives } from '../../../Shared/domain/value-object/Primitives'
-import { StringValueObject } from '../../../Shared/domain/value-object/StringValueObject'
 import { Site } from './Site'
-import { SiteRepository } from './SiteRepository'
+import { StringValueObject } from '../../../Shared/domain/value-object/StringValueObject'
+import { InvalidArgumentError } from '../../../Shared/domain/value-object/InvalidArgumentError'
+import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
 
 export class SiteName extends StringValueObject {
   private readonly NAME_MAX_LENGTH = 100
@@ -20,11 +19,11 @@ export class SiteName extends StringValueObject {
   }
 
   private ensureIsValidSerial(value: string): void {
-    if (!this.isValid(value)) {
-      throw new InvalidArgumentError(`<${value}> is not a valid site name`)
-    }
     if (!this.isValidLength(value)) {
       throw new InvalidArgumentError(`El nombre del sitio debe tener al menos ${this.NAME_MIN_LENGTH} caracteres y un máximo de ${this.NAME_MAX_LENGTH} caracteres`)
+    }
+    if (!this.isValid(value)) {
+      throw new InvalidArgumentError(`<${value}> is not a valid site name`)
     }
   }
 

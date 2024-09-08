@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { type DefaultSiteProps, type FormSiteDisabled, type FormSiteErrors, type FormSiteRequired } from "@/sections/Hooks/locations/DefaultSiteInitialState";
+import { type DefaultSiteProps, type FormSiteDisabled, type FormSiteErrors, type FormSiteRequired } from "@/sections/Hooks/locations/site/DefaultSiteInitialState";
 import { SiteName } from "@/modules/location/site/domain/SiteName";
 import { SiteAddress } from "@/modules/location/site/domain/SiteAddress";
 

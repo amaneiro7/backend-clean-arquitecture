@@ -9,7 +9,7 @@ import { type Primitives } from "@/modules/shared/domain/value-object/Primitives
 import { type LocationId } from "@/modules/location/locations/domain/locationId"
 import { type LocationApiResponse } from "@/modules/shared/domain/types/responseTypes"
 import { type LocationPrimitives } from "@/modules/location/locations/domain/location"
-import { type DefaultLocationProps } from "@/sections/Hooks/locations/DefaultInitialState"
+import { type DefaultLocationProps } from "@/sections/Hooks/locations/DefaulLocationtInitialState"
 
 interface Props {
   value?: Primitives<LocationId>

@@ -1,6 +1,6 @@
 import { lazy, Suspense } from "react"
 import { useFormLocation } from "@/sections/page/FormLocation/useFormLocation"
-import { type DefaultLocationProps } from "@/sections/Hooks/locations/DefaultInitialState"
+import { type DefaultLocationProps } from "@/sections/Hooks/locations/DefaulLocationtInitialState"
 
 interface Props {
   initialDialogValue?: DefaultLocationProps
