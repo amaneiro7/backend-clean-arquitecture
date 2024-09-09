@@ -1,62 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useModel } from './useModel'
-import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
-import { type ModelId } from '../../../modules/devices/model/model/domain/ModelId'
-import { type ModelName } from '../../../modules/devices/model/model/domain/ModelName'
-import { type CategoryId } from '../../../modules/devices/category/domain/CategoryId'
-import { type BrandId } from '../../../modules/devices/brand/domain/BrandId'
-import { MemoryRamTypeId } from '../../../modules/devices/fetures/memoryRam/memoryRamType/domain/MemoryRamTypeId'
-import { MemoryRamSlotQuantity } from '../../../modules/devices/model/ModelCharacteristics/modelComputer/MemoryRamSlotQuantity'
-import { ModelPrimitives } from '../../../modules/devices/model/model/domain/Model'
-import { BatteryModel } from '../../../modules/devices/model/ModelCharacteristics/modelLaptop/BatteryModel'
-import { ScreenSize } from '../../../modules/devices/model/ModelCharacteristics/modelMonitor/ScreenSize'
-import { CartridgeModel } from '../../../modules/devices/model/ModelCharacteristics/modelPrinter/CartridgeModel'
-import { InputTypeId } from '../../../modules/devices/model/InputType/domain/InputTypeId'
-import { HasFingerPrintReader } from '../../../modules/devices/model/ModelCharacteristics/modelKeyboard/HasFingerPrintReader'
-import { ModelApiresponse } from '../../../modules/shared/domain/types/responseTypes'
+import { type ModelPrimitives } from '@/modules/devices/model/model/domain/Model'
+import { type ModelApiresponse } from '@/modules/shared/domain/types/responseTypes'
+import { type DefaultModelProps } from './DefaultInitialModelState'
 
-export interface DefaultModelProps {
-  id?: Primitives<ModelId>
-  name: Primitives<ModelName>
-  categoryId: Primitives<CategoryId>
-  brandId: Primitives<BrandId>
-  generic: boolean
-  memoryRamTypeId?: Primitives<MemoryRamTypeId>
-  memoryRamSlotQuantity?: Primitives<MemoryRamSlotQuantity>
-  hasBluetooth?: boolean
-  hasWifiAdapter?: boolean
-  hasDVI?: boolean
-  hasHDMI?: boolean
-  hasVGA?: boolean
-  batteryModel?: Primitives<BatteryModel>
-  screenSize?: Primitives<ScreenSize>
-  cartridgeModel?: Primitives<CartridgeModel>
-  inputTypeId?: Primitives<InputTypeId>
-  hasFingerPrintReader?: Primitives<HasFingerPrintReader>
-  updatedAt?: string
-}
-export const defaultInitialModelState: DefaultModelProps = {
-  id: undefined,
-  name: '',
-  categoryId: '',
-  brandId: '',
-  generic: false,
-  hasBluetooth: false,
-  hasDVI: false,
-  hasHDMI: false,
-  hasVGA: true,
-  hasWifiAdapter: false,
-  hasFingerPrintReader: false,
-  memoryRamSlotQuantity: MemoryRamSlotQuantity.MIN,
-  memoryRamTypeId: '',
-  batteryModel: '',
-  screenSize: ScreenSize.MIN,
-  cartridgeModel: '',
-  inputTypeId: '',
-  updatedAt: undefined
-}
-export const useModelInitialState = () => {
+export const useModelInitialState = (defaultInitialModelState: DefaultModelProps) => {
   const { id } = useParams()
   const location = useLocation()
   const navigate = useNavigate()
@@ -95,6 +44,7 @@ export const useModelInitialState = () => {
   }, [getModel, id, processModelState])
 
   const setResetState = () => {
+    if (!location.pathname.includes('model')) return
     if (isAddForm) {
       setPreloadedModelState({ id: undefined, ...defaultInitialModelState })
     } else {
@@ -119,7 +69,7 @@ export const useModelInitialState = () => {
       fetchModel()
 
     }
-  }, [fetchModel, id, isAddForm, location.state?.state, navigate, processModelState])
+  }, [defaultInitialModelState, fetchModel, id, isAddForm, location.state?.state, navigate, processModelState])
 
   return {
     preloadedModelState,
