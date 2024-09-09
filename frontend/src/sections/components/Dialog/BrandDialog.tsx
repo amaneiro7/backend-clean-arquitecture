@@ -1,67 +1,47 @@
-import { lazy, Suspense, useEffect } from "react";
-import { type BrandPrimitives } from "../../../modules/devices/brand/domain/Brand";
-import { useGenericFormData } from "../../Hooks/useGenericFormData";
-import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading";
-import { useGenericForm, FormStatus } from "../../Hooks/useGenericForm";
-
+import { lazy, Suspense } from "react"
+import { useFormBrand } from "@/sections/Hooks/brand/useFormBrand"
+import { type DefaultBrandProps } from "@/sections/Hooks/brand/DefaultInitialBrandState"
 interface Props {
-  dialogValue: BrandPrimitives
-  open: boolean,
-  toggleOpen: React.Dispatch<React.SetStateAction<boolean>>
-  createBrand: (formData: BrandPrimitives) => Promise<void>
+  initialDialogValue?: DefaultBrandProps
+  handleClose: () => void
 }
 
-const DialogAdd = lazy(async () => import("./DialogAdd"))
-const BrandNameInput = lazy(async () => import("../text-inputs/BrandNameInput"))
-export function BrandDialog({ dialogValue, open, toggleOpen, createBrand }: Props) {
-  const { formData, resetForm, updateForm } = useGenericFormData(dialogValue)
-  const { formStatus, resetFormStatus, submitForm } = useGenericForm<BrandPrimitives>({create: createBrand})
+const FormComponent = lazy(async () => import("../formContainer/FormComponent").then(m => ({ default: m.FormComponent })))
+const BrandInput = lazy(async () => import("@/sections/page/FormBrand/BrandInputs").then(m => ({ default: m.BrandInputs })))
+const Subtitle = lazy(async () => import("../Typography/Subtitle").then(m => ({ default: m.Subtitle })))
+const Paragraph = lazy(async () => import("../Typography/Paragraph").then(m => ({ default: m.Paragraph })))
 
-  useEffect(() => {
-    updateForm(dialogValue)
-    return () => {
-      resetForm()
-    }
-  }, [dialogValue, resetForm, updateForm])
+export function BrandDialog({ initialDialogValue, handleClose }: Props) {
+  const { disabled, error, formData, handleChange, handleSubmit, processing, required } = useFormBrand(initialDialogValue)
 
-  useEffect(() => {
-    if (formStatus === FormStatus.Success) {
-      resetFormStatus()
-      resetForm()
-      toggleOpen(false)
-    }
-    if (formStatus === FormStatus.Error) {
-      resetFormStatus()
-    }
-  }, [formStatus, resetForm, resetFormStatus, toggleOpen])
-
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault()
-    event.stopPropagation()
-    await submitForm(formData)
-
+  const onSubmit = async(event: React.FormEvent) => {
+    handleSubmit(event)
+    handleClose()
   }
-
-  const handleChange = (name: string, value: string) => {
-    updateForm({ [name]: value })
-  }
-
+  
   return (
-    <DialogAdd
-      title='Agregar una nueva marca'
-      contextText='¿No existe la marca en la lista? Por favor, añada uno nuevo.'
-      open={open}
-      toggleOpen={toggleOpen}
-      handleSubmit={handleSubmit}
-      resetForm={resetForm}
-    >
-      <Suspense fallback={<InputSkeletonLoading />}>
-        <BrandNameInput
-          value={formData.name}
-          type='dialog'
-          onChange={handleChange}
-        />
-      </Suspense>
-    </DialogAdd>
+    <Suspense>
+      <FormComponent
+        title='Agregar una nueva marca'                
+        key='brand-dialog-form'
+        id='brand-dialog-form'
+        isDisabled={processing}
+        handleSubmit={onSubmit}
+        method='dialog'
+        handleClose={handleClose}        
+      >
+        <Subtitle variant='h5' color='black' textTransform='capitalize' text='Agregar una nueva marca' />
+        <Paragraph variant='p' color='gray' text='¿No existe la marca en la lista? Por favor, añada uno nuevo.' />
+        <Suspense>
+          <BrandInput
+            disabled={disabled}
+            error={error}
+            formData={formData}
+            handleChange={handleChange}
+            required={required}
+          />
+        </Suspense>
+      </FormComponent>
+    </Suspense>
   )
 }

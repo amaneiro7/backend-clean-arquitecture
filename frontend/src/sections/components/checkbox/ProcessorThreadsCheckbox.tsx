@@ -1,26 +1,31 @@
-import { Suspense } from "react";
-import { Checkbox } from ".";
-import { OnHandleChange } from "../../../modules/shared/domain/types/types";
-import { ProcessorHasThreads } from "../../../modules/devices/fetures/processor/domain/ProcessorHasThreads";
-import { Primitives } from "../../../modules/shared/domain/value-object/Primitives";
+import { lazy, Suspense } from "react";
+import { type OnHandleChange } from "@/modules/shared/domain/types/types";
+import { type ProcessorHasThreads } from "@/modules/devices/fetures/processor/domain/ProcessorHasThreads";
+import { type Primitives } from "@/modules/shared/domain/value-object/Primitives";
 interface Props {
     value: Primitives<ProcessorHasThreads>
     onChange: OnHandleChange
-
+    isRequired?: boolean
+    isDisabled?: boolean    
 }
-export default function ProcessorThreadsCheckbox({ value, onChange }: Props) {
+
+const Checkbox = lazy(async () => import("./Checbox").then(m => ({ default: m.Checkbox })))
+
+export function ProcessorThreadsCheckbox({ value, onChange, isDisabled, isRequired }: Props) {
     return (
-        <Suspense>
-            <Checkbox
-                label="Tiene Threads"
-                text="¿Tiene Threads?"
-                name="threads"
-                value={value}
-                handle={(event) => {
+      <Suspense>
+        <Checkbox
+          label='Tiene Threads'
+          text='¿Tiene Threads?'
+          name='threads'
+          value={value}
+          disabled={isDisabled}
+          required={isRequired}
+          handle={(event) => {
                     const { name, checked } = event.target
-                    onChange(name, checked);
+                    onChange(name, checked)
                 }}
-            />
-        </Suspense>
+        />
+      </Suspense>
     )
 }

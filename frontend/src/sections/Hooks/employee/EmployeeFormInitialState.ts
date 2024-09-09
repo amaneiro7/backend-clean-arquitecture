@@ -25,6 +25,7 @@ export const useEmployeeInitialState = (defaultInitialEmployeeState: DefaultEmpl
   }, [getEmployee, id])
 
   const setResetState = () => {
+    if (location.pathname.includes('employee')) return
     if (isAddForm) {
       setPreloadedEmployeeState({ id: undefined, ...defaultInitialEmployeeState })
     } else {
@@ -49,7 +50,7 @@ export const useEmployeeInitialState = (defaultInitialEmployeeState: DefaultEmpl
       fetchEmployee()
     }
 
-  }, [defaultInitialEmployeeState, fetchEmployee, id, isAddForm, location.state?.state, navidate])
+  }, [defaultInitialEmployeeState, fetchEmployee, id, isAddForm, location.pathname, location.state?.state, navidate])
 
   return {
     preloadedEmployeeState,

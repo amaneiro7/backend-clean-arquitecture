@@ -1,56 +1,36 @@
-import { useEffect, useRef, useState, lazy, Suspense } from 'react'
-import { OnHandleChange } from '../../../modules/shared/domain/types/types'
-import { InputSkeletonLoading } from '../skeleton/inputSkeletonLoading'
-import { ProcessorFrequency } from '../../../modules/devices/fetures/processor/domain/ProcessorFrequency'
+import {lazy, Suspense } from 'react'
+import { type OnHandleChange } from '@/modules/shared/domain/types/types'
+import { ProcessorFrequency } from '@/modules/devices/fetures/processor/domain/ProcessorFrequency'
 
 interface Props {
     value: number
     onChange: OnHandleChange
-    type?: 'form' | 'search'
+    error?: string
+    isRequired?: boolean
+    isDisabled?: boolean
 }
 
 const NumberInput = lazy(async () => await import('./NumberInput').then(m => ({ default: m.NumberInput })))
 
-export default function ProcessorFrequencyInput({ value, onChange, type = 'form' }: Props) {
-    const [errorMessage, setErrorMessage] = useState('')
-    const [isError, setIsError] = useState(false)
-    const isFirstInput = useRef(true)
-    useEffect(() => {
-        if (type === 'search') return
-
-        if (isFirstInput.current) {
-            isFirstInput.current = value === 0
-            return
-        }
-
-        const isValid = ProcessorFrequency.isValid(value)
-
-        setIsError(!isValid)
-        setErrorMessage(isValid ? '' : ProcessorFrequency.invalidMessage(value))
-
-        return () => {
-            setErrorMessage('')
-            setIsError(false)
-        }
-    }, [value])
+export function ProcessorFrequencyInput({ value, onChange, error, isDisabled, isRequired }: Props) {
     return (
-        <Suspense fallback={<InputSkeletonLoading />}>
-            <NumberInput
-                name='frequency'
-                label='Frecuencia'
-                onChange={(event) => {
+      <Suspense>
+        <NumberInput
+          name='frequency'
+          label='Frecuencia'
+          onChange={(event) => {
                     const { name, value } = event.target
                     onChange(name, value)
                 }}
-                placeholder='--- Ingrese la frecuencia del procesador ---'
-                value={value}
-                isRequired={type === 'form'}
-                max={ProcessorFrequency.MAX}
-                min={ProcessorFrequency.MIN}
-                error={isError}
-                errorMessage={errorMessage}
-            />
-        </Suspense>
+          value={value}
+          disabled={isDisabled}
+          isRequired={isRequired}
+          max={ProcessorFrequency.MAX}
+          min={ProcessorFrequency.MIN}
+          error={!!error}
+          errorMessage={error}
+        />
+      </Suspense>
     )
 }
 

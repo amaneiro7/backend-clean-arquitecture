@@ -1,25 +1,23 @@
-import { lazy,useEffect, useMemo, useRef, useState } from "react"
-import { useAppContext } from "../../Context/AppProvider"
-import { ProcessorProductCollection } from "../../../modules/devices/fetures/processor/domain/ProcessorCollection"
-import { type OnHandleChange } from "../../../modules/shared/domain/types/types"
-import { type Primitives } from "../../../modules/shared/domain/value-object/Primitives"
-import { type ProcessorPrimitives } from "../../../modules/devices/fetures/processor/domain/Processor"
+import { lazy, Suspense, useMemo } from "react"
+import { useAppContext } from "@/sections/Context/AppProvider"
+import { ProcessorProductCollection } from "@/modules/devices/fetures/processor/domain/ProcessorCollection"
+import { type OnHandleChange } from "@/modules/shared/domain/types/types"
+import { type Primitives } from "@/modules/shared/domain/value-object/Primitives"
+import { type ProcessorPrimitives } from "@/modules/devices/fetures/processor/domain/Processor"
 
 
 interface Props {
     value?: Primitives<ProcessorProductCollection>
     onChange: OnHandleChange
-    type?: 'form' | 'search'
+    error?: string
+    isRequired?: boolean
+    isDisabled?: boolean
 }
 
 const ComboBox = lazy(async () => import("./combo_box"))
 
-export default function ProcessorCollectionComboBox({ value, onChange, type = 'search' }: Props) {
+export function ProcessorCollectionComboBox({ value, onChange, error, isRequired, isDisabled = false }: Props) {
     const { useProcessor: { processors, loading } } = useAppContext()
-
-    const [errorMessage, setErrorMessage] = useState('')
-    const [isError, setIsError] = useState(false)
-    const isFirstInput = useRef(true)
 
     const processorOptions: { id: string, name: string }[] = useMemo(() => {
         const productCollectionList: Set<string> = new Set()
@@ -33,26 +31,8 @@ export default function ProcessorCollectionComboBox({ value, onChange, type = 's
         return processorOptions.find(category => category.name === value)
     }, [processorOptions, value])
 
-    useEffect(() => {
-        if (isFirstInput.current) {
-            isFirstInput.current = value === ''
-            return
-        }
-
-        const isValid = ProcessorProductCollection.isValid(value)
-
-        setIsError(!isValid)
-        setErrorMessage(isValid ? '' : ProcessorProductCollection.invalidMessage(value))
-
-        return () => {
-            setErrorMessage('')
-            setIsError(false)
-        }
-    }, [value])
-
-
     return (
-      <>
+      <Suspense>
         <ComboBox
           id='productCollection'
           initialValue={initialValue}
@@ -64,12 +44,12 @@ export default function ProcessorCollectionComboBox({ value, onChange, type = 's
                     onChange('productCollection', newValue ? newValue.name : '')
                 }}
           options={processorOptions}
-          isRequired={type === 'form'}
-          isDisabled={false}
+          isRequired={isRequired}
+          isDisabled={isDisabled}
           loading={loading}
-          isError={isError}
-          errorMessage={errorMessage}
+          isError={!!error}
+          errorMessage={error}
         />
-      </>
+      </Suspense>
     )
 }

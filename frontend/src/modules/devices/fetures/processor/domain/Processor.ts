@@ -1,15 +1,16 @@
-import { type Primitives } from '../../../../shared/domain/value-object/Primitives'
+
 import { ProcessorProductCollection } from './ProcessorCollection'
 import { ProcessorCores } from './ProcessorCores'
 import { ProcessorFrequency } from './ProcessorFrequency'
 import { ProcessorHasThreads } from './ProcessorHasThreads'
-import { type ProcessorId } from './ProcessorId'
-import { ProcessorName } from './ProcessorName'
 import { ProcessorNumberModel } from './ProcessorNumberModel'
+import { type ProcessorName } from './ProcessorName'
+import { type ProcessorId } from './ProcessorId'
+import { type Primitives } from '@/modules/shared/domain/value-object/Primitives'
 
 export interface ProcessorPrimitives {
   id?: Primitives<ProcessorId>
-  name?: Primitives<ProcessorName>
+  name: Primitives<ProcessorName>
   productCollection: Primitives<ProcessorProductCollection>
   numberModel: Primitives<ProcessorNumberModel>
   cores: Primitives<ProcessorCores>
@@ -18,15 +19,15 @@ export interface ProcessorPrimitives {
 }
 
 export class Processor {
-  constructor (
+  constructor(
     private productCollection: ProcessorProductCollection,
     private numberModel: ProcessorNumberModel,
     private cores: ProcessorCores,
     private threads: ProcessorHasThreads,
     private frequency: ProcessorFrequency
-  ) {}
+  ) { }
 
-  public static create (params: Omit<ProcessorPrimitives, 'id' | 'name'>): Processor {
+  public static create(params: Omit<ProcessorPrimitives, 'id' | 'name'>): Processor {
     return new Processor(
       new ProcessorProductCollection(params.productCollection),
       new ProcessorNumberModel(params.numberModel),
@@ -36,29 +37,29 @@ export class Processor {
     )
   }
 
-  productCollectionValue (): Primitives<ProcessorProductCollection> {
+  productCollectionValue(): Primitives<ProcessorProductCollection> {
     return this.productCollection.value
   }
-  numberModelValue (): Primitives<ProcessorNumberModel> {
+  numberModelValue(): Primitives<ProcessorNumberModel> {
     return this.numberModel.value
   }
-  coresValue (): Primitives<ProcessorCores> {
+  coresValue(): Primitives<ProcessorCores> {
     return this.cores.value
   }
-  hasThreadsValue (): Primitives<ProcessorHasThreads> {
+  hasThreadsValue(): Primitives<ProcessorHasThreads> {
     return this.threads.value
   }
-  frequencyValue (): Primitives<ProcessorFrequency> {
+  frequencyValue(): Primitives<ProcessorFrequency> {
     return this.frequency.value
   }
 
-  toPrimitives (): ProcessorPrimitives {
-   return {
-        productCollection: this.productCollectionValue(),
-        numberModel: this.numberModelValue(),
-        cores: this.coresValue(),
-        threads: this.hasThreadsValue(),
-        frequency: this.frequencyValue(),
+  toPrimitives(): Omit<ProcessorPrimitives, 'name'> {
+    return {
+      productCollection: this.productCollectionValue(),
+      numberModel: this.numberModelValue(),
+      cores: this.coresValue(),
+      threads: this.hasThreadsValue(),
+      frequency: this.frequencyValue(),
     }
   }
 }

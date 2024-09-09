@@ -5,7 +5,7 @@ import { HardDrive } from '@/modules/devices/fetures/hardDrive/hardDrive/domain/
 import { MFP } from '@/modules/devices/fetures/multiFunctionalPrinter/MFP'
 
 const FormContainer = lazy(async () => await import('@/sections/components/formContainer/formContainer'))
-const DeviceSearchComboBox = lazy(async () => import('@/sections/components/combo_box/DeviceSearchComboBox'))
+const DeviceSearchComboBox = lazy(async () => import('@/sections/components/combo_box/search/DeviceSearchComboBox'))
 const MainFormInputs = lazy(async () => await import('./MainFormInputs').then(m => ({ default: m.MainFormInputs})))
 const AddComputerFeatures = lazy(async () => await import('./AddComputerFeatures'))
 const AddHardDriveFeatures = lazy(async () => await import('./AddHardDriveFeatures'))

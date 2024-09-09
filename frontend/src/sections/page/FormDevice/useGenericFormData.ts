@@ -7,7 +7,7 @@ import { StatusId } from "@/modules/devices/devices/status/domain/StatusId"
 import { useErrorManagement } from "./useErrorManagement"
 import { type DefaultProps } from "@/sections/Hooks/device/DefaultInitialState"
 
-const initialState: DefaultProps = {
+export const initialState: DefaultProps = {
     id: undefined,
     statusId: '',
     categoryId: '',

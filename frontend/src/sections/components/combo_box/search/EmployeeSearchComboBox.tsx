@@ -3,17 +3,17 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import parse from 'autosuggest-highlight/parse'
 import match from 'autosuggest-highlight/match'
 import debounce from 'just-debounce-it'
-import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
+import { type SearchByCriteriaQuery } from '../../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
 
-import { Operator } from '../../../modules/shared/domain/criteria/FilterOperators'
-import { useSearchEmployee } from '../../Hooks/employee/useSearchEmployee'
-import { InputSkeletonLoading } from '../skeleton/inputSkeletonLoading'
-import { Autocomplete } from '../../mui/Autocomplete'
+import { Operator } from '../../../../modules/shared/domain/criteria/FilterOperators'
+import { useSearchEmployee } from '../../../Hooks/employee/useSearchEmployee'
+import { InputSkeletonLoading } from '../../skeleton/inputSkeletonLoading'
+import { Autocomplete } from '../../../mui/Autocomplete'
 
-const TextField = lazy(async () => await import("../../mui/TextField").then(m => ({ default: m.TextField })))
-const CircularProgress = lazy(async () => await import('../../mui/CircularProgress').then(m => ({ default: m.CircularProgress })))
-const CloseIcon = lazy(async () => await import('../../mui/CloseIcon').then(m => ({ default: m.CloseIcon })))
-const SearchLink = lazy(async() => import('../button/SearchLink').then(m => ({ default: m.SearchLink })))
+const TextField = lazy(async () => await import("../../../mui/TextField").then(m => ({ default: m.TextField })))
+const CircularProgress = lazy(async () => await import('../../../mui/CircularProgress').then(m => ({ default: m.CircularProgress })))
+const CloseIcon = lazy(async () => await import('../../../mui/CloseIcon').then(m => ({ default: m.CloseIcon })))
+const SearchLink = lazy(async() => import('../../button/SearchLink').then(m => ({ default: m.SearchLink })))
 
 export const EmployeeSearchComboBox = () => {
     const { employees, loading, searchEmployees } = useSearchEmployee()

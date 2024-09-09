@@ -1,52 +1,13 @@
-import { lazy, Suspense, useEffect } from 'react'
-import { type BrandPrimitives } from '../../../modules/devices/brand/domain/Brand'
-import { useGenericFormData } from '../../Hooks/useGenericFormData'
-import { useBrandInitialState } from '../../Hooks/brand/BrandFormInitialState'
-import { useGenericForm, FormStatus } from '../../Hooks/useGenericForm'
-import { useBrand } from '../../Hooks/brand/useBrand'
+import { lazy, Suspense } from 'react'
 import { useLocation } from 'react-router-dom'
+import { useFormBrand } from '@/sections/Hooks/brand/useFormBrand'
 
-const BrandNameInput = lazy(async () => import('../../components/text-inputs/BrandNameInput'))
-const FormContainer = lazy(async () => import('../../components/formContainer/formContainer'))
+const BrandInput = lazy(async () => import('./BrandInputs').then(m => ({ default: m.BrandInputs })))
+const FormContainer = lazy(async () => import('@/sections/components/formContainer/formContainer'))
 
 export default function CreateBrandForm() {
   const location = useLocation()
-  const { createBrand } = useBrand()
-  const { preloadedBrandState } = useBrandInitialState()
-  const { formData, updateForm, resetForm } = useGenericFormData(preloadedBrandState)
-  const { formStatus, submitForm, resetFormStatus } = useGenericForm<BrandPrimitives>({create: createBrand})
-
-  useEffect(() => {
-    updateForm(preloadedBrandState)
-
-    return () => {
-      resetForm()
-    }
-  }, [preloadedBrandState])
-
-  useEffect(() => {
-    if (formStatus === FormStatus.Success) {
-      resetFormStatus()
-      resetForm()
-      handleClose()
-    }
-    if (formStatus === FormStatus.Error) {
-      resetFormStatus()
-    }
-  }, [formStatus])
-
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault()
-    await submitForm(formData)
-  }
-
-  const handleClose = () => {
-    window.history.back()
-  }
-
-  const handleChange = (name: string, value: string) => {
-    updateForm({ [name]: value })
-  }
+  const { isAddForm, formData, error, disabled, required, processing, resetForm, handleChange, handleClose, handleSubmit } = useFormBrand()
 
   return (
     <Suspense>
@@ -54,15 +15,23 @@ export default function CreateBrandForm() {
         key={location.key}
         title='marca'
         description='Ingrese los datos de la marca el cual desea registar.'
-        isAddForm
+        isAddForm={isAddForm}
         handleSubmit={handleSubmit}
         handleClose={handleClose}
-        isDisabled={formStatus === FormStatus.Loading}
+        reset={!isAddForm ? resetForm : undefined}
+        isDisabled={processing}
+        url='/brand/add'
       >
-        <BrandNameInput
-          value={formData.name}
-          onChange={handleChange}
-        />
+        <Suspense>
+          <BrandInput 
+            key={location.key}
+            disabled={disabled}
+            error={error}
+            formData={formData}
+            handleChange={handleChange}
+            required={required}
+          />
+        </Suspense>
       </FormContainer>
     </Suspense>
   )

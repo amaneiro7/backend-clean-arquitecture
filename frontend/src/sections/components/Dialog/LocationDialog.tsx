@@ -23,17 +23,15 @@ export function LocationDialog({ handleClose, initialDialogValue }: Props) {
   return (
     <Suspense>
       <FormComponent
-        key='employee-dialog-form'
-        id='employee-dialog-form'
+        key='location-dialog-form'
+        id='location-dialog-form'
         isDisabled={processing}
         handleSubmit={onSubmit}
         method='dialog'
         handleClose={handleClose}
       >
         <Suspense>
-          <Subtitle variant='h5' color='black' text='Agregar una nueva ubicación' />
-        </Suspense>
-        <Suspense>
+          <Subtitle variant='h5' color='black' textTransform='capitalize' text='Agregar una nueva ubicación' />
           <Paragraph variant='p' color='gray' text='¿No existe la ubicación en la lista? Por favor, añada uno nuevo.' />
         </Suspense>
         <Suspense>

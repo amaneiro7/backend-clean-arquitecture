@@ -1,18 +1,9 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useProcessor } from './useProcessor'
-import { ProcessorPrimitives } from '../../../modules/devices/fetures/processor/domain/Processor'
+import { type DefaultProcessorProps } from './DefaultInitialBrandState'
 
-export const defaultInitialProcessorState: ProcessorPrimitives = {
-  id: undefined,
-  name: '',
-  cores: 1,
-  frequency: 1,
-  threads: false,
-  numberModel: "",
-  productCollection: "",
-}
-export const useProcessorInitialState = () => {
+export const useProcessorInitialState = (defaultInitialProcessorState: DefaultProcessorProps) => {
   const { id } = useParams()
   const location = useLocation()
   const navigate = useNavigate()
@@ -23,7 +14,7 @@ export const useProcessorInitialState = () => {
     return !location.pathname.includes('edit')
   }, [location.pathname])
 
-  const fetchUser = useCallback(() => {
+  const fetchProcessor = useCallback(() => {
     getProcessor.getById({ id })
       .then(processor => {
         setPreloadedProcessorState(processor)
@@ -34,10 +25,11 @@ export const useProcessorInitialState = () => {
   }, [getProcessor, id])
 
   const setResetState = () => {
+    if (location.pathname.includes('processor')) return
     if (isAddForm) {
       setPreloadedProcessorState({ id: undefined, ...defaultInitialProcessorState })
     } else {
-      fetchUser()
+      fetchProcessor()
     }
   }
 
@@ -56,9 +48,9 @@ export const useProcessorInitialState = () => {
         navigate('/error')
         return
       }
-      fetchUser()
+      fetchProcessor()
     }
-  }, [fetchUser, id, isAddForm, location.state?.state, navigate])
+  }, [defaultInitialProcessorState, fetchProcessor, id, isAddForm, location.state?.state, navigate])
 
   return {
     preloadedProcessorState,

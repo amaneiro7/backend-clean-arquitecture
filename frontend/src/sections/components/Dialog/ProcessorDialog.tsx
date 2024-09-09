@@ -1,107 +1,47 @@
-import { lazy, Suspense, useEffect } from "react";
-import { useGenericFormData } from "../../Hooks/useGenericFormData"
-import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
-import { type ProcessorPrimitives } from "../../../modules/devices/fetures/processor/domain/Processor"
-import { FormStatus, useGenericForm } from "../../Hooks/useGenericForm";
-
-
+import { lazy, Suspense } from "react";
+import { useFormProcessor } from "@/sections/Hooks/processor/useFormProcessor";
+import { type DefaultProcessorProps } from "@/sections/Hooks/processor/DefaultInitialBrandState";
 interface Props {
-    dialogValue: ProcessorPrimitives
-    open: boolean,
-    toggleOpen: React.Dispatch<React.SetStateAction<boolean>>
-    createProcessor: (formData: ProcessorPrimitives) => Promise<void> 
+  initialDialogValue?: DefaultProcessorProps
+  handleClose: () => void
 }
 
-const DialogAdd = lazy(async () => import("./DialogAdd"))
-const ProcessorNumberModelInput = lazy(async () => import("../text-inputs/ProcessorNumberModelInput"))
-const ProcessorCoresInput = lazy(async () => import("../number-inputs/ProcessorCoresInput"))
-const ProcessorFrequencyInput = lazy(async () => import("../number-inputs/ProcessorFrequency"))
-const ProcessorThreadsCheckbox = lazy(async () => import("../checkbox/ProcessorThreadsCheckbox"))
-const ProcessorCollectionComboBox = lazy(async () => import("../combo_box/ProductCollectionComboBox"))
+const FormComponent = lazy(async () => import("../formContainer/FormComponent").then(m => ({ default: m.FormComponent })))
+const ProcessorInputs = lazy(async () => import("@/sections/page/FormProcessor/ProcessorInputs").then(m => ({ default: m.ProcessorInputs })))
+const Subtitle = lazy(async () => import("../Typography/Subtitle").then(m => ({ default: m.Subtitle })))
+const Paragraph = lazy(async () => import("../Typography/Paragraph").then(m => ({ default: m.Paragraph })))
 
-export default function ProcessorDialog({ dialogValue, open, toggleOpen, createProcessor }: Props) {
-    const { formData, resetForm, updateForm } = useGenericFormData(dialogValue)
-    const { formStatus, resetFormStatus, submitForm } = useGenericForm({create: createProcessor})
-
-    useEffect(() => {
-        updateForm(dialogValue)
-        return () => {
-            resetForm()
-        }
-    }, [dialogValue, resetForm, updateForm])
-
-    useEffect(() => {
-        if (formStatus === FormStatus.Success) {
-            resetFormStatus()
-            resetForm()
-            toggleOpen(false)
-        }
-        if (formStatus === FormStatus.Error) {
-            resetFormStatus()
-        }
-    }, [formStatus, resetForm, resetFormStatus, toggleOpen])
-
-    const handleSubmit = async (event: React.FormEvent) => {
-        event.preventDefault()
-        event.stopPropagation()
-        await submitForm(formData)
-    }
-
-    const handleChange = (name: string, value: string) => {
-        updateForm({ [name]: value })
-    }
-
+export default function ProcessorDialog({ initialDialogValue, handleClose }: Props) {
+    
+  const {disabled, error, formData, handleChange, handleSubmit, required, processing } = useFormProcessor(initialDialogValue)
+  const onSubmit = async(event: React.FormEvent) => {
+    handleSubmit(event)
+    handleClose()
+  }
     return (
-      <DialogAdd
-        title='Agregar una nuevo procesador'
-        contextText='¿No existe el procesador en la lista? Por favor, añada uno nuevo.'
-        open={open}
-        toggleOpen={toggleOpen}
-        handleSubmit={handleSubmit}
-        resetForm={resetForm}
-      >
-
-        <Suspense fallback={<InputSkeletonLoading />}>
-          <ProcessorCollectionComboBox
-            onChange={handleChange}
-            value={formData.productCollection}
-            type='form'
-          />
-        </Suspense>
-        <Suspense fallback={<InputSkeletonLoading />}>
-          <ProcessorNumberModelInput
-            onChange={handleChange}
-            value={formData.numberModel}
-            type='form'
-          />
-        </Suspense>
-
-        <div className='flex gap-4'>
-          <Suspense fallback={<InputSkeletonLoading />}>
-            <ProcessorCoresInput
-              onChange={handleChange}
-              value={formData.cores}
-              type='form'
-            />
-          </Suspense>
-
-
-          <Suspense fallback={<InputSkeletonLoading />}>
-            <ProcessorFrequencyInput
-              onChange={handleChange}
-              value={formData.frequency}
-              type='form'
-            />
-          </Suspense>
-
+      <Suspense>
+        <FormComponent
+          key='processor-dialog-form'
+          id='processor-dialog-form'
+          isDisabled={processing}
+          handleSubmit={onSubmit}
+          method='dialog'
+          handleClose={handleClose}
+        >
           <Suspense>
-            <ProcessorThreadsCheckbox
-              onChange={handleChange}
-              value={formData.threads}
+            <Subtitle variant='h5' color='black' textTransform='capitalize' text='Agregar un nuevo procesador' />
+            <Paragraph variant='p' color='gray' text='¿No existe el procesador en la lista? Por favor, añada uno nuevo' />
+          </Suspense>
+          <Suspense>
+            <ProcessorInputs
+              disabled={disabled} 
+              error={error} 
+              formData={formData} 
+              handleChange={handleChange} 
+              required={required}
             />
           </Suspense>
-        </div>
-
-      </DialogAdd>
+        </FormComponent>
+      </Suspense>
     )
 }

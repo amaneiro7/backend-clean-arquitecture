@@ -1,11 +1,11 @@
-import React, { useLayoutEffect, useReducer, useState } from "react"
+import { useLayoutEffect, useReducer, useState } from "react"
 import { useAppContext } from "@/sections/Context/AppProvider"
 import { useEmployeeInitialState } from "@/sections/Hooks/employee/EmployeeFormInitialState"
 import { useGenericForm2 } from "@/sections/Hooks/useGenericForm2"
 import { useErrorEmployeeManagement } from "./useErrorEmployeeManagement"
 import { type DefaultEmployeeProps } from "@/sections/Hooks/employee/DefaultInitialState"
 
-const initialState: DefaultEmployeeProps = {
+export const initialEmployeeState: DefaultEmployeeProps = {
     id: undefined,
     userName: '',
     devices: [],
@@ -41,9 +41,9 @@ const reducer = (state: DefaultEmployeeProps, action: Action): DefaultEmployeePr
 
 export function useFormEmployee(defaultInitialState?: DefaultEmployeeProps) {
     const { useEmployee: { createEmployee } } = useAppContext()
-    const { preloadedEmployeeState, isAddForm, setResetState } = useEmployeeInitialState(defaultInitialState ?? initialState)
+    const { preloadedEmployeeState, isAddForm, setResetState } = useEmployeeInitialState(defaultInitialState ?? initialEmployeeState)
     const [prevFormData, setPrevFormData] = useState(preloadedEmployeeState)
-    const [formData, dispatch] = useReducer(reducer, initialState)
+    const [formData, dispatch] = useReducer(reducer, initialEmployeeState)
     const { disabled, error, required } = useErrorEmployeeManagement(formData)
     const { processing, submitForm } = useGenericForm2({ create: createEmployee })
 

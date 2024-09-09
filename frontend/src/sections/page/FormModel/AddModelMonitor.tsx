@@ -9,7 +9,7 @@ interface Props {
 }
 
 const ScreenSizeInput = lazy(async () => import('../../components/number-inputs/ScreenSizeInput').then(m => ({ default: m.ScreenSizeInput })))
-const Checkbox = lazy(async () => import('../../components/checkbox').then(m => ({ default: m.Checkbox })))
+const Checkbox = lazy(async () => import('../../components/checkbox/Checbox').then(m => ({ default: m.Checkbox })))
 
 export function AddModelMonitor({ formData, onChange }: Props) {
     const isMonitorModel = ModelMonitor.isMonitorCategory({ categoryId: formData.categoryId })

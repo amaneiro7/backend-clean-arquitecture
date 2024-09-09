@@ -1,13 +1,13 @@
-import { lazy, useMemo, useState } from "react"
-import { useAppContext } from "../../Context/AppProvider"
-import { type OnHandleChange } from "../../../modules/shared/domain/types/types"
-import { type Primitives } from "../../../modules/shared/domain/value-object/Primitives"
-import { type BrandId } from "../../../modules/devices/brand/domain/BrandId"
-import { type CategoryId } from "../../../modules/devices/category/domain/CategoryId"
-import { type BrandPrimitives } from "../../../modules/devices/brand/domain/Brand"
-import { type BrandApiResponse } from "../../../modules/shared/domain/types/responseTypes"
-import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
-import { defaultInitialBrandState } from "../../Hooks/brand/BrandFormInitialState"
+import { lazy, Suspense, useMemo, useState } from "react"
+import { useAppContext } from "@/sections/Context/AppProvider"
+import { Operator } from "@/modules/shared/domain/criteria/FilterOperators"
+import { initialBrandState } from "@/sections/Hooks/brand/useFormBrand"
+import { type OnHandleChange } from "@/modules/shared/domain/types/types"
+import { type Primitives } from "@/modules/shared/domain/value-object/Primitives"
+import { type BrandId } from "@/modules/devices/brand/domain/BrandId"
+import { type CategoryId } from "@/modules/devices/category/domain/CategoryId"
+import { type BrandPrimitives } from "@/modules/devices/brand/domain/Brand"
+import { type BrandApiResponse } from "@/modules/shared/domain/types/responseTypes"
 
 interface Props {
     value?: Primitives<BrandId>
@@ -24,14 +24,15 @@ interface NewValue extends BrandPrimitives {
     inputValue: string
 }
 
+const DialogComponent = lazy(async () => import("@/sections/components/Dialog/DialogComponent").then(m => ({ default: m.DialogWrapper })))
 const ComboBox = lazy(async () => import("./combo_box"))
 const BrandDialog = lazy(async () => import("../Dialog/BrandDialog").then(m => ({ default: m.BrandDialog })))
 const ReadOnlyInputBox = lazy(async () => import("../ReadOnlyInputBox").then(m => ({ default: m.ReadOnlyInputBox })))
 
 export default function BrandComboBox({ value, onChange, error, isDisabled = false, isRequired, categoryId, type = 'search', isAdd = false }: Props) {
-    const { useBrand: { brands, loading, createBrand } } = useAppContext()
-    const [open, toggleOpen] = useState(false)
-    const [dialogValue, setDialogValue] = useState<BrandPrimitives>(defaultInitialBrandState)
+    const { useBrand: { brands, loading } } = useAppContext()
+    const [open, setOpen] = useState(false)
+    const [dialogValue, setDialogValue] = useState<BrandPrimitives>(initialBrandState)
 
     const filterdBrand = useMemo(() => {
         if (!categoryId) {
@@ -47,48 +48,63 @@ export default function BrandComboBox({ value, onChange, error, isDisabled = fal
         return filterdBrand.find(brand => brand.id === value)
     }, [filterdBrand, value])
 
+    const handleClose = () => {
+        setOpen(false)
+      }
+    
+      const handleOpen = () => {
+        setOpen(true)
+      }
+
     return (
       <>
-        {(!isAdd && type === 'form') 
-            ? <ReadOnlyInputBox label='Marca' required defaultValue={initialValue?.name} />
-        : <ComboBox
-            id='brandId'
-            initialValue={initialValue}
-            label='Marca'
-            name='brandId'
-            type={type}                                        
-            onChange={(_, newValue: NewValue) => {
-                        if (typeof newValue === 'string') {
-                            // timeout to avoid instant validation of the dialog's form.
-                            setTimeout(() => {
-                                toggleOpen(true)
-                                setDialogValue({
-                                    name: newValue
+        {(!isAdd && type === 'form') ? 
+          <Suspense><ReadOnlyInputBox label='Marca' required defaultValue={initialValue?.name} /></Suspense> : 
+          <Suspense>
+            <ComboBox
+              id='brandId'
+              initialValue={initialValue}
+              label='Marca'
+              name='brandId'
+              type={type}                                        
+              onChange={(_, newValue: NewValue) => {
+                            if (typeof newValue === 'string') {
+                                // timeout to avoid instant validation of the dialog's form.
+                                setTimeout(() => {
+                                    setDialogValue({
+                                        name: newValue
+                                    })
+                                    handleOpen()
                                 })
-                            })
-                        } else if (newValue && newValue.inputValue) {
-                            toggleOpen(true)
-                            setDialogValue({
-                                name: newValue.inputValue
-                            })
-                        } else {
-                            onChange('brandId', newValue ? newValue.id : '', Operator.EQUAL)
-                        }
-                    }}
-            options={filterdBrand as BrandApiResponse[]}
-            isDisabled={isDisabled}
-            isRequired={isRequired}
-            isError={!!error}
-            errorMessage={error}
-            loading={loading}
-          />}
-        {type === 'form' && 
-          <BrandDialog
-            dialogValue={dialogValue}
-            open={open}
-            toggleOpen={toggleOpen}
-            createBrand={createBrand}
-          />}
+                            } else if (newValue && newValue.inputValue) {
+                                setDialogValue({
+                                    name: newValue.inputValue
+                                })
+                                handleOpen()
+                            } else {
+                                onChange('brandId', newValue ? newValue.id : '', Operator.EQUAL)
+                            }
+                        }}
+              options={filterdBrand as BrandApiResponse[]}
+              isDisabled={isDisabled}
+              isRequired={isRequired}
+              isError={!!error}
+              errorMessage={error}
+              loading={loading}
+            />
+          </Suspense>}
+        {type === 'form' ?
+          <Suspense>
+            <DialogComponent open={open} handleClose={handleClose}>
+              <Suspense>
+                <BrandDialog
+                  initialDialogValue={dialogValue}
+                  handleClose={handleClose}
+                />
+              </Suspense>
+            </DialogComponent>
+          </Suspense>
+        : null}
       </>
     )
 }

@@ -1,5 +1,6 @@
 import { lazy, useMemo, useState } from "react"
 import { useAppContext } from "../../Context/AppProvider"
+import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
 import { type Primitives } from "../../../modules/shared/domain/value-object/Primitives"
 import { type BrandId } from "../../../modules/devices/brand/domain/BrandId"
 import { type CategoryId } from "../../../modules/devices/category/domain/CategoryId"
@@ -7,7 +8,6 @@ import { type ModelApiresponse } from "../../../modules/shared/domain/types/resp
 import { type ModelId } from "../../../modules/devices/model/model/domain/ModelId"
 import { type DefaultModelProps, defaultInitialModelState } from "../../Hooks/model/ModelFormInitialState"
 import { type OnHandleChange } from "../../../modules/shared/domain/types/types"
-import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
 
 interface Props {
     value: Primitives<ModelId>

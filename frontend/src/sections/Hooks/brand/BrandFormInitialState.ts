@@ -2,15 +2,10 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useBrand } from './useBrand'
 import { type BrandApiResponse } from '../../../modules/shared/domain/types/responseTypes'
-import { type BrandPrimitives } from '../../../modules/devices/brand/domain/Brand'
+import { type DefaultBrandProps } from './DefaultInitialBrandState'
 
-export const defaultInitialBrandState: BrandPrimitives = {
-  id: undefined,
-  name: '',
-}
-
-export const useBrandInitialState = (): {
-  preloadedBrandState: BrandPrimitives
+export const useBrandInitialState = (defaultInitialBrandState: DefaultBrandProps): {
+  preloadedBrandState: DefaultBrandProps
   setResetState: () => void
   isAddForm: boolean
 } => {
@@ -36,6 +31,7 @@ export const useBrandInitialState = (): {
   }, [getBrand, id])
 
   const setResetState = () => {
+    if (location.pathname.includes('brand')) return
     if (isAddForm) {
       setPreloadedBrandState({ id: undefined, ...defaultInitialBrandState })
     } else {
@@ -59,7 +55,7 @@ export const useBrandInitialState = (): {
       }
       fetchBrand()
     }
-  }, [fetchBrand, id, isAddForm, location.state?.state, navigate])
+  }, [defaultInitialBrandState, fetchBrand, id, isAddForm, location.state?.state, navigate])
 
   return {
     preloadedBrandState,

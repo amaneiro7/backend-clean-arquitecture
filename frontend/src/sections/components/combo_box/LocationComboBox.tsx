@@ -23,9 +23,6 @@ interface Props {
   isDisabled?: boolean
 }
 
-interface NewValue extends LocationPrimitives {
-  inputValue: string
-}
 
 const DialogComponent = lazy(async () => import("@/sections/components/Dialog/DialogComponent").then(m => ({ default: m.DialogWrapper })))
 const ComboBox = lazy(async () => import("./combo_box"))
@@ -71,16 +68,18 @@ export default function LocationComboBox({ value, error, isDisabled = false, isR
           label='Ubicación'
           name='locationId'
           type={type}
-          onChange={(_, newValue: NewValue) => {
+          onChange={(_, newValue: LocationPrimitives & {
+            inputValue: string
+          }) => {
           if (typeof newValue === 'string') {
             // timeout to avoid instant validation of the dialog's form.
             setTimeout(() => {
-              handleOpen()
               setDialogValue(prev => ({ ...prev, name: newValue }))
+              handleOpen()
             })
           } else if (newValue && newValue.inputValue) {
-             handleOpen()
             setDialogValue(prev => ({ ...prev, name: newValue.inputValue }))
+            handleOpen()
           } else {
             if (type === 'form') {
               const value = newValue ? newValue.id : ''

@@ -24,17 +24,15 @@ export function SiteDialog({ handleClose, initialDialogValue }: Props) {
   return (
     <Suspense>
       <FormComponent
-        key='employee-dialog-form'
-        id='employee-dialog-form'
+        key='site-dialog-form'
+        id='site-dialog-form'
         isDisabled={processing}
         handleSubmit={onSubmit}
         method='dialog'
         handleClose={handleClose}
       >
         <Suspense>
-          <Subtitle variant='h5' color='black' text='Agregar una nuevo sitio' />
-        </Suspense>
-        <Suspense>
+          <Subtitle variant='h5' color='black' textTransform='capitalize' text='Agregar una nuevo sitio' />
           <Paragraph variant='p' color='gray' text='¿No existe el sitio en la lista? Por favor, añada uno nuevo.' />
         </Suspense>
         <Suspense>

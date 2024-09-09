@@ -1,11 +1,11 @@
 import { lazy, Suspense } from 'react'
-import { useFormEmployee } from './useFormEmployee'
 import { useLocation } from 'react-router-dom'
+import { useFormEmployee } from '@/sections/Hooks/employee/useFormEmployee'
 
 const InfoBox = lazy(async () => import('@/sections/components/info-box/InfoBox').then(m => ({ default: m.InfoBox })))
 const InfoBoxTitle = lazy(async () => import('@/sections/components/info-box/InfoBoxTitle').then(m => ({ default: m.InfoBoxTitle })))
 const InfoBoxText = lazy(async () => import('@/sections/components/info-box/InfoBoxText').then(m => ({ default: m.InfoBoxText })))
-const EmployeeSearchComboBox = lazy(async () => import('@/sections/components/combo_box/EmployeeSearchComboBox').then(m => ({default: m.EmployeeSearchComboBox})))
+const EmployeeSearchComboBox = lazy(async () => import('@/sections/components/combo_box/search/EmployeeSearchComboBox').then(m => ({default: m.EmployeeSearchComboBox})))
 const EmployeeInputs = lazy(async () => import('./EmployeInputs').then(m => ({default: m.EmployeeInputs})))
 const FormContainer = lazy(async () => await import('@/sections/components/formContainer/formContainer'))
 

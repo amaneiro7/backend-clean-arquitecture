@@ -10,7 +10,7 @@ interface Props {
 }
 const MemoryRamTypeComboBox = lazy(async () => import('../../components/combo_box/MemoryRamTypeComboBox').then(m => ({ default: m.MemoryRamTypeComboBox })))
 const MemoryRamSlotQuantityInput = lazy(async () => import('../../components/number-inputs/MemoryRamSlotQuantity').then(m => ({ default: m.MemoryRamSlotQuantityInput })))
-const Checkbox = lazy(async () => import('../../components/checkbox').then(m => ({ default: m.Checkbox })))
+const Checkbox = lazy(async () => import('../../components/checkbox/Checbox').then(m => ({ default: m.Checkbox })))
 const BatteryModelInput = lazy(async () => import('../../components/text-inputs/BatteryModel').then(m => ({ default: m.BatteryModelInput })))
 
 

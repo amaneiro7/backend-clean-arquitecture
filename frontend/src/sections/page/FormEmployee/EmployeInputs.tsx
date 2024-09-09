@@ -1,6 +1,6 @@
-import { lazy, Suspense } from "react";
-import { InputSkeletonLoading } from "@/sections/components/skeleton/inputSkeletonLoading";
-import { type FormEmployeeDisabled, type FormEmployeeErrors, type FormEmployeeRequired, type DefaultEmployeeProps } from "@/sections/Hooks/employee/DefaultInitialState";
+import { lazy, Suspense } from "react"
+import { InputSkeletonLoading } from "@/sections/components/skeleton/inputSkeletonLoading"
+import { type FormEmployeeDisabled, type FormEmployeeErrors, type FormEmployeeRequired, type DefaultEmployeeProps } from "@/sections/Hooks/employee/DefaultInitialState"
 
 const EmployeeUserNameInput = lazy(async () => await import('@/sections/components/text-inputs/UserNameInput').then(m => ({ default: m.EmployeeUserNameInput })))
 interface Props {

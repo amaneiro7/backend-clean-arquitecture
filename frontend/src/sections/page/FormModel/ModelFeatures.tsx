@@ -16,7 +16,7 @@ const AddModelComputer = lazy(async () => import('./AddModelComputer').then(m =>
 const AddModelMonitor = lazy(async () => import('./AddModelMonitor').then(m => ({ default: m.AddModelMonitor })))
 const AddModelPrinter = lazy(async () => import('./AddModelPrinter').then(m => ({ default: m.AddModelPrinter })))
 const AddModelKeyboard = lazy(async () => import('./AddModelKeyboard').then(m => ({ default: m.AddModelKeyboard })))
-const Checkbox = lazy(async () => import('../../components/checkbox').then(m => ({ default: m.Checkbox })))
+const Checkbox = lazy(async () => import('../../components/checkbox/Checbox').then(m => ({ default: m.Checkbox })))
 
 export function ModelInputs({ onChange, formData, isAddForm }: Props) {
     return (
