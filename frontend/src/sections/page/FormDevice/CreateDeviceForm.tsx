@@ -1,5 +1,5 @@
 import { lazy, Suspense, useMemo } from 'react'
-import { useFormDevice } from './useGenericFormData'
+import { useFormDevice } from '@/sections/Hooks/device/useGenericFormData'
 import { Computer } from '@/modules/devices/fetures/computer/domain/Computer'
 import { HardDrive } from '@/modules/devices/fetures/hardDrive/hardDrive/domain/HardDrive'
 import { MFP } from '@/modules/devices/fetures/multiFunctionalPrinter/MFP'

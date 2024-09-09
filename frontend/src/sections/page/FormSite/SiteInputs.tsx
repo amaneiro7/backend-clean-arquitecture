@@ -1,6 +1,6 @@
 import { Suspense, lazy } from 'react'
 import { InputSkeletonLoading } from '@/sections/components/skeleton/inputSkeletonLoading'
-import { type Action } from './useFormSite'
+import { type Action } from '../../Hooks/locations/site/useFormSite'
 import { type DefaultSiteProps, type FormSiteDisabled, type FormSiteErrors, type FormSiteRequired } from '@/sections/Hooks/locations/site/DefaultSiteInitialState'
 
 const Input = lazy(async () => await import('@/sections/components/text-inputs/Input').then(m => ({ default: m.Input })))

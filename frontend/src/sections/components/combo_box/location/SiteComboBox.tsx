@@ -1,7 +1,7 @@
 import { lazy, Suspense, useMemo, useState } from "react"
 import { useAppContext } from "../../../Context/AppProvider"
 import { Operator } from "../../../../modules/shared/domain/criteria/FilterOperators"
-import { initialSiteState } from "@/sections/page/FormSite/useFormSite"
+import { initialSiteState } from "@/sections/Hooks/locations/site/useFormSite"
 import { type OnHandleChange } from "../../../../modules/shared/domain/types/types"
 import { type Primitives } from "../../../../modules/shared/domain/value-object/Primitives"
 import { type SiteId } from "../../../../modules/location/site/domain/SiteId"

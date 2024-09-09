@@ -1,7 +1,7 @@
 import { lazy, Suspense } from "react"
 
 import { type DefaultSiteProps } from "@/sections/Hooks/locations/site/DefaultSiteInitialState"
-import { useFormSite } from "@/sections/page/FormSite/useFormSite"
+import { useFormSite } from "@/sections/Hooks/locations/site/useFormSite"
 
 interface Props {
   initialDialogValue?: DefaultSiteProps

@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react'
 import { useLocation } from 'react-router-dom'
-import { useFormSite } from './useFormSite'
+import { useFormSite } from '../../Hooks/locations/site/useFormSite'
 
 const FormContainer = lazy(async () => await import('@/sections/components/formContainer/formContainer'))
 const SiteInputs = lazy(async () => await import('./SiteInputs').then(m => ({ default: m.SiteInputs })))

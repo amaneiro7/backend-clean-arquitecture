@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react"
-import { useFormLocation } from "@/sections/page/FormLocation/useFormLocation"
+import { useFormLocation } from "@/sections/Hooks/locations/useFormLocation"
 import { type DefaultLocationProps } from "@/sections/Hooks/locations/DefaulLocationtInitialState"
 
 interface Props {
