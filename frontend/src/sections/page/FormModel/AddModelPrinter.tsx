@@ -1,35 +1,36 @@
 import { lazy, Suspense } from 'react'
-import { OnHandleChange } from "../../../modules/shared/domain/types/types"
-import { DefaultModelProps } from '../../Hooks/model/ModelFormInitialState'
-import { ModelPrinter } from '../../../modules/devices/model/ModelCharacteristics/modelPrinter/ModelPrinter'
-
-
+import { type DefaultModelProps, type FormModelDisabled, type FormModelErrors, type FormModelRequired } from '@/sections/Hooks/model/DefaultInitialModelState'
+import { type OnHandleChange } from "@/modules/shared/domain/types/types"
 interface Props {
     formData: DefaultModelProps
     onChange: OnHandleChange
+    disabled: FormModelDisabled
+    error: FormModelErrors
+    required: FormModelRequired
+
 }
+const Input = lazy(async () => import('@/sections/components/text-inputs/Input').then(m => ({ default: m.Input })))
 
-const CartridgeModelInput = lazy(async () => import('../../components/text-inputs/CartridgeModelInput').then(m => ({ default: m.CartridgeModelInput })))
-
-export function AddModelPrinter({ formData, onChange }: Props) {
-    const isPrinterCategory = ModelPrinter.isPrinterCategory({ categoryId: formData.categoryId })
-
+export function AddModelPrinter({ formData, onChange, disabled, error, required }: Props) {
     return (
-        <>
-            {isPrinterCategory &&
-                <>
-                    <div className='flex gap-4'>
-                        <Suspense>
-                            <CartridgeModelInput
-                                onChange={onChange}
-                                type='form'
-                                value={formData.cartridgeModel}
-                            />
-                        </Suspense>
-                    </div>
-
-                </>
-            }
-        </>
+      <div className='flex gap-4'>
+        <Suspense>
+          <Input
+            id='cartridgeModel'
+            name='cartridgeModel'
+            type='text'
+            label='Numero de Modelo del cartucho'          
+            onChange={(event) => {
+                const { name, value } = event.target
+                onChange(name, value)
+            }}                
+            value={formData.cartridgeModel}
+            isRequired={required.cartridgeModel}
+            disabled={disabled.cartridgeModel}
+            error={!!error.cartridgeModel}
+            errorMessage={error.cartridgeModel}
+          />
+        </Suspense>
+      </div>      
     )
 }

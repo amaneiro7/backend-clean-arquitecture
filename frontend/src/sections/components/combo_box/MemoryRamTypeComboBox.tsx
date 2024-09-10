@@ -1,17 +1,20 @@
 import { lazy, useMemo } from "react"
-import { useAppContext } from "../../Context/AppProvider"
-import { type OnHandleChange } from "../../../modules/shared/domain/types/types"
-import { type MemoryRamTypePrimitives } from "../../../modules/devices/fetures/memoryRam/memoryRamType/domain/MemoryRamType"
+import { useAppContext } from "@/sections/Context/AppProvider"
+import { type MemoryRamTypePrimitives } from "@/modules/devices/fetures/memoryRam/memoryRamType/domain/MemoryRamType"
+import { type OnHandleChange } from "@/modules/shared/domain/types/types"
 
 interface Props {
     value?: string
     onChange: OnHandleChange
     type?: 'form' | 'search'
+    disabled?: boolean
+    required?: boolean
+    error?: string
 }
 
 const ComboBox = lazy(async () => import("./combo_box"))
 
-export function MemoryRamTypeComboBox({ value, onChange, type = 'search' }: Props) {
+export function MemoryRamTypeComboBox({ value, onChange, type = 'search', error, disabled, required }: Props) {
     const { useMemoryRamType: { memoryRamTypes, loading } } = useAppContext()
 
     const initialValue = useMemo(() => {
@@ -30,9 +33,11 @@ export function MemoryRamTypeComboBox({ value, onChange, type = 'search' }: Prop
                     onChange('memoryRamTypeId', newValue ? newValue.id : '')
                 }}
           options={memoryRamTypes}
-          isDisabled={false}
-          isRequired={type === 'form'}
           loading={loading}
+          isDisabled={disabled}
+          isRequired={required}
+          isError={!!error}
+          errorMessage={error}
         />
       </>
     )

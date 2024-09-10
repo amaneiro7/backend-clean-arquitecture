@@ -1,18 +1,21 @@
-import { lazy, useMemo } from "react"
-import { useAppContext } from "../../Context/AppProvider"
-import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
-import { type OnHandleChange } from "../../../modules/shared/domain/types/types"
-import { type InputTypePrimitives } from "../../../modules/devices/model/InputType/domain/InputType"
+import { lazy, Suspense, useMemo } from "react"
+import { useAppContext } from "@/sections/Context/AppProvider"
+import { Operator } from "@/modules/shared/domain/criteria/FilterOperators"
+import { type OnHandleChange } from "@/modules/shared/domain/types/types"
+import { type InputTypePrimitives } from "@/modules/devices/model/InputType/domain/InputType"
 
 interface Props {
     value?: string
     onChange: OnHandleChange
     type?: 'form' | 'search'
+    error?: string
+    disabled?: boolean
+    required?: boolean
 }
 
 const ComboBox = lazy(async () => import("./combo_box"))
 
-export function InputTypeComboBox({ value, onChange, type = 'search' }: Props) {
+export function InputTypeComboBox({ value, onChange, type = 'search', disabled, error, required }: Props) {
     const { useInputType: { inputType, loading }} = useAppContext()
 
     const initialValue = useMemo(() => {
@@ -20,7 +23,7 @@ export function InputTypeComboBox({ value, onChange, type = 'search' }: Props) {
     }, [inputType, value])
 
     return (
-      <>
+      <Suspense>
         <ComboBox
           id='inputTypeId'
           initialValue={initialValue}
@@ -31,10 +34,12 @@ export function InputTypeComboBox({ value, onChange, type = 'search' }: Props) {
                     onChange('inputTypeId', newValue ? newValue.id : '', Operator.EQUAL)
                 }}
           options={inputType}
-          isDisabled={false}
-          isRequired={type === 'form'}
+          isDisabled={disabled}
+          isRequired={required}
+          isError={!!error}
+          errorMessage={error}
           loading={loading}
         />
-      </>
+      </Suspense>
     )
 }

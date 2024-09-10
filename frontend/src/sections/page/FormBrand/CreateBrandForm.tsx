@@ -25,10 +25,10 @@ export default function CreateBrandForm() {
         <Suspense>
           <BrandInput 
             key={location.key}
-            disabled={disabled}
-            error={error}
             formData={formData}
             handleChange={handleChange}
+            disabled={disabled}
+            error={error}
             required={required}
           />
         </Suspense>

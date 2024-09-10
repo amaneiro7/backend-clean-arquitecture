@@ -1,103 +1,127 @@
 import { lazy, Suspense } from 'react'
-import { OnHandleChange } from "../../../modules/shared/domain/types/types"
-import { ModelComputer } from '../../../modules/devices/model/ModelCharacteristics/modelComputer/ModelComputer'
-import { DefaultModelProps } from '../../Hooks/model/ModelFormInitialState'
-import { ModelLaptop } from '../../../modules/devices/model/ModelCharacteristics/modelLaptop/ModelLaptop'
+import { MemoryRamSlotQuantity } from '@/modules/devices/model/ModelCharacteristics/modelComputer/MemoryRamSlotQuantity'
+import { type FormModelDisabled, type FormModelErrors, type FormModelRequired, type DefaultModelProps } from '@/sections/Hooks/model/DefaultInitialModelState'
+import { type OnHandleChange } from "@/modules/shared/domain/types/types"
 
 interface Props {
     formData: DefaultModelProps
     onChange: OnHandleChange
+    disabled?: FormModelDisabled
+    error?: FormModelErrors
+    required?: FormModelRequired
+    categoryType: "computer" | "laptop" | "monitor" | "printer" | "keyboard"
 }
-const MemoryRamTypeComboBox = lazy(async () => import('../../components/combo_box/MemoryRamTypeComboBox').then(m => ({ default: m.MemoryRamTypeComboBox })))
-const MemoryRamSlotQuantityInput = lazy(async () => import('../../components/number-inputs/MemoryRamSlotQuantity').then(m => ({ default: m.MemoryRamSlotQuantityInput })))
-const Checkbox = lazy(async () => import('../../components/checkbox/Checbox').then(m => ({ default: m.Checkbox })))
-const BatteryModelInput = lazy(async () => import('../../components/text-inputs/BatteryModel').then(m => ({ default: m.BatteryModelInput })))
+const MemoryRamTypeComboBox = lazy(async () => import('@/sections/components/combo_box/MemoryRamTypeComboBox').then(m => ({ default: m.MemoryRamTypeComboBox })))
+const NumberInput = lazy(async () => import('@/sections/components/number-inputs/NumberInput').then(m => ({ default: m.NumberInput })))
+const Checkbox = lazy(async () => import('@/sections/components/checkbox/Checbox').then(m => ({ default: m.Checkbox })))
+const Input = lazy(async () => import('@/sections/components/text-inputs/Input').then(m => ({ default: m.Input })))
 
 
-export function AddModelComputer({ formData, onChange }: Props) {
-    const isComputerModel = ModelComputer.isComputerCategory({ categoryId: formData.categoryId })
-    const isLaptopModel = ModelLaptop.isLaptopCategory({ categoryId: formData.categoryId })
+export function AddModelComputer({ formData, onChange, disabled, error, required, categoryType }: Props) {    
     return (
       <>
-        {(isComputerModel || isLaptopModel) &&
-          <>
-            <div className='flex gap-4'>
-              <Suspense>
-                <MemoryRamTypeComboBox
-                  value={formData.memoryRamTypeId}
-                  onChange={onChange}
-                  type='form'
-                />
-              </Suspense>
-              <Suspense>
-                <MemoryRamSlotQuantityInput
-                  type='form'
-                  onChange={onChange}
-                  value={formData.memoryRamSlotQuantity}
-                />
-              </Suspense>
-            </div>
-            <Suspense>
-              <div className='grid md:grid-cols-3 grid-flow-row gap-4'>
-                <Checkbox
-                  label='Tiene Puerto VGA'
-                  text='¿Tiene Puerto VGA?'
-                  name='hasVGA'
-                  value={formData.hasVGA ?? true}
-                  handle={(event) => {
-                                    const { name, checked } = event.target
-                                    onChange(name, checked);
-                                }}
-                />
-                <Checkbox
-                  label='Tiene Puerto DVI'
-                  text='¿Tiene Puerto DVI?'
-                  name='hasDVI'
-                  value={formData.hasDVI ?? false}
-                  handle={(event) => {
-                                    const { name, checked } = event.target
-                                    onChange(name, checked);
-                                }}
-                />
-                <Checkbox
-                  label='Tiene Puerto HDMI'
-                  text='¿Tiene Puerto HDMI?'
-                  name='hasHDMI'
-                  value={formData.hasHDMI ?? false}
-                  handle={(event) => {
-                                    const { name, checked } = event.target
-                                    onChange(name, checked);
-                                }}
-                />
-                <Checkbox
-                  label='Tiene BlueTooth'
-                  text='¿Tiene Bluetooth?'
-                  name='hasBluetooth'
-                  value={formData.hasBluetooth ?? false}
-                  handle={(event) => {
-                                    const { name, checked } = event.target
-                                    onChange(name, checked);
-                                }}
-                />
-                <Checkbox
-                  label='Tiene WiFi'
-                  text='¿Tiene Adaptador Wifi?'
-                  name='hasWifiAdapter'
-                  value={formData.hasWifiAdapter ?? false}
-                  handle={(event) => {
-                                    const { name, checked } = event.target
-                                    onChange(name, checked);
-                                }}
-                />
-              </div>
-            </Suspense>
-          </>}
-        {isLaptopModel &&
-          <BatteryModelInput 
-            onChange={onChange}
-            type='form'
+        <div className='flex gap-4'>
+          <Suspense>
+            <MemoryRamTypeComboBox
+              value={formData.memoryRamTypeId}
+              onChange={onChange}
+              type='form'
+              error={error.memoryRamTypeId}
+              disabled={disabled.memoryRamTypeId}
+              required={required.memoryRamTypeId}
+
+            />
+          </Suspense>
+          <Suspense>
+            <NumberInput
+              name='memoryRamSlotQuantity'
+              label='Cantidad de Ranuras'
+              type='number'
+              isRequired={required.memoryRamSlotQuantity}
+              value={formData.memoryRamSlotQuantity}
+              onChange={(event) => {
+                  const {name, value} = event.target
+                  onChange(name, value)
+              }}
+              error={!!error.memoryRamSlotQuantity}
+              errorMessage={error.memoryRamSlotQuantity}
+              min={MemoryRamSlotQuantity.MIN}
+              max={MemoryRamSlotQuantity.MAX}
+            />  
+          </Suspense>
+        </div>
+        <Suspense>
+          <div className='grid md:grid-cols-3 grid-flow-row gap-4'>
+            <Checkbox
+              label='Tiene Puerto VGA'
+              text='¿Tiene Puerto VGA?'
+              name='hasVGA'
+              value={formData.hasVGA ?? true}
+              handle={(event) => {
+                  const { name, checked } = event.target
+                  onChange(name, checked);
+              }}
+            />
+            <Checkbox
+              label='Tiene Puerto DVI'
+              text='¿Tiene Puerto DVI?'
+              name='hasDVI'
+              value={formData.hasDVI ?? false}
+              handle={(event) => {
+                  const { name, checked } = event.target
+                  onChange(name, checked);
+              }}
+            />
+            <Checkbox
+              label='Tiene Puerto HDMI'
+              text='¿Tiene Puerto HDMI?'
+              name='hasHDMI'
+              value={formData.hasHDMI ?? false}
+              handle={(event) => {
+                  const { name, checked } = event.target
+                  onChange(name, checked);
+              }}
+            />
+            <Checkbox
+              label='Tiene BlueTooth'
+              text='¿Tiene Bluetooth?'
+              name='hasBluetooth'
+              value={formData.hasBluetooth ?? false}
+              handle={(event) => {
+                  const { name, checked } = event.target
+                  onChange(name, checked);
+              }}
+            />
+            <Checkbox
+              label='Tiene WiFi'
+              text='¿Tiene Adaptador Wifi?'
+              name='hasWifiAdapter'
+              value={formData.hasWifiAdapter ?? false}
+              handle={(event) => {
+                  const { name, checked } = event.target
+                  onChange(name, checked);
+              }}
+            />
+          </div>
+        </Suspense>
+         
+        {categoryType === 'laptop' ?
+          <Input
+            id='batteryModel'
+            name='batteryModel'
+            type='text'
+            label='Numero de Modelo de Bateria'
+            onChange={(event) => {
+              const { name, value } = event.target
+              onChange(name, value)
+            }}
             value={formData.batteryModel}
-          />}
+            isRequired={required.batteryModel}
+            error={!!error.batteryModel}
+            disabled={disabled.batteryModel}
+            errorMessage={error.batteryModel}
+          />
+        : null}
       </>
     )
 }

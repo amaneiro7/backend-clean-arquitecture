@@ -1,62 +1,46 @@
-import { lazy, Suspense, useEffect } from "react"
-import { useGenericFormData } from "../../Hooks/useGenericFormData"
-import { type ModelPrimitives } from "../../../modules/devices/model/model/domain/Model"
-import { FormStatus, useGenericForm } from "../../Hooks/useGenericForm"
-
+import { lazy, Suspense } from "react"
+import { useFormModel } from "@/sections/Hooks/model/useFormModel"
+import { type DefaultModelProps } from "@/sections/Hooks/model/DefaultInitialModelState"
 interface Props {
-  dialogValue: ModelPrimitives
-  open: boolean,
-  toggleOpen: React.Dispatch<React.SetStateAction<boolean>>
-  createModel: (formData: ModelPrimitives) => Promise<void>
+  initialDialogValue?: DefaultModelProps
+  handleClose: () => void
 }
 
-const DialogAdd = lazy(async () => import("./DialogAdd"))
-const ModelInputs = lazy(async () => import("../../page/FormModel/ModelFeatures").then(m => ({ default: m.ModelInputs })))
+const FormComponent = lazy(async () => import("../formContainer/FormComponent").then(m => ({ default: m.FormComponent })))
+const Subtitle = lazy(async () => import("../Typography/Subtitle").then(m => ({ default: m.Subtitle })))
+const ModelInputs = lazy(async () => import("@/sections/page/FormModel/ModelFeatures").then(m => ({ default: m.ModelInputs })))
+const Paragraph = lazy(async () => import("../Typography/Paragraph").then(m => ({ default: m.Paragraph })))
 
-export default function ModelDialog({ dialogValue, open, toggleOpen, createModel }: Props) {
-  const { formData, resetForm, updateForm } = useGenericFormData(dialogValue)
-  const { formStatus, resetFormStatus, submitForm } = useGenericForm({ create: createModel })
-
-  useEffect(() => {
-    updateForm(dialogValue)
-    return () => {
-      resetForm()
-    }
-  }, [dialogValue, resetForm, updateForm])
-
-  useEffect(() => {
-    if (formStatus === FormStatus.Success) {
-      resetFormStatus()
-      resetForm()
-      toggleOpen(false)
-    }
-    if (formStatus === FormStatus.Error) {
-      resetFormStatus()
-    }
-  }, [formStatus, resetForm, resetFormStatus, toggleOpen])
-
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault()
-    event.stopPropagation()
-    await submitForm(formData)
+export default function ModelDialog({ handleClose, initialDialogValue }: Props) {
+  const { disabled, error, formData, handleChange, handleSubmit, required, processing } = useFormModel(initialDialogValue)
+  const onSubmit = async(event: React.FormEvent) => {
+    handleSubmit(event)
+    handleClose()
   }
-
-  const handleChange = (name: string, value: string) => {
-    updateForm({ [name]: value })
-  }
-
-  return (
-    <DialogAdd
-      title='Agregar un nuevo modelo'
-      contextText='¿No existe el modelo en la lista? Por favor, añada uno nuevo.'
-      open={open}
-      toggleOpen={toggleOpen}
-      handleSubmit={handleSubmit}
-      resetForm={resetForm}
-    >
-      <Suspense>
-        <ModelInputs formData={formData} onChange={handleChange} isAddForm />
-      </Suspense>
-    </DialogAdd>
+  return (    
+    <Suspense>
+      <FormComponent
+        key='model-dialog-form'
+        id='model-dialog-form'
+        isDisabled={processing}
+        handleSubmit={onSubmit}
+        method='dialog'
+        handleClose={handleClose}
+      >
+        <Suspense>
+          <Subtitle variant='h5' color='black' textTransform='capitalize' text='Agregar un nuevo modelo' />
+          <Paragraph variant='p' color='gray' text='¿No existe el modelo en la lista? Por favor, añada uno nuevo.' />
+        </Suspense>
+        <Suspense>
+          <ModelInputs 
+            disabled={disabled} 
+            error={error} 
+            formData={formData} 
+            onChange={handleChange} 
+            required={required}
+          />
+        </Suspense>
+      </FormComponent>
+    </Suspense>
   )
 }

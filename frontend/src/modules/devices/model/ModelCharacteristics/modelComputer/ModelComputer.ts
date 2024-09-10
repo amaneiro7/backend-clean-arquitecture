@@ -1,12 +1,11 @@
-import { type Primitives } from "../../../../shared/domain/value-object/Primitives";
-import { BrandId } from "../../../brand/domain/BrandId";
-import { CategoryDefaultData, CategoryValues } from "../../../category/domain/CategoryDefaultData";
-import { CategoryId } from "../../../category/domain/CategoryId";
-import { MemoryRamTypeId } from "../../../fetures/memoryRam/memoryRamType/domain/MemoryRamTypeId";
-import { Model, ModelPrimitives } from "../../model/domain/Model";
-import { ModelName } from "../../model/domain/ModelName";
-import { MemoryRamSlotQuantity } from "./MemoryRamSlotQuantity";
-
+import { type Primitives } from "@/modules/shared/domain/value-object/Primitives"
+import { BrandId } from "@/modules/devices/brand/domain/BrandId"
+import { CategoryId } from "@/modules/devices/category/domain/CategoryId"
+import { CategoryDefaultData, CategoryValues } from "@/modules/devices/category/domain/CategoryDefaultData"
+import { MemoryRamTypeId } from "@/modules/devices/fetures/memoryRam/memoryRamType/domain/MemoryRamTypeId"
+import { Model, type ModelPrimitives } from "../../model/domain/Model"
+import { ModelName } from "../../model/domain/ModelName"
+import { MemoryRamSlotQuantity } from "./MemoryRamSlotQuantity"
 
 export interface ModelComputerPrimitives extends ModelPrimitives {
   memoryRamTypeId: Primitives<MemoryRamTypeId>

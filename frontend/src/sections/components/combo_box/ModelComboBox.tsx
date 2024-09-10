@@ -1,13 +1,14 @@
-import { lazy, useMemo, useState } from "react"
-import { useAppContext } from "../../Context/AppProvider"
-import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
-import { type Primitives } from "../../../modules/shared/domain/value-object/Primitives"
-import { type BrandId } from "../../../modules/devices/brand/domain/BrandId"
-import { type CategoryId } from "../../../modules/devices/category/domain/CategoryId"
-import { type ModelApiresponse } from "../../../modules/shared/domain/types/responseTypes"
-import { type ModelId } from "../../../modules/devices/model/model/domain/ModelId"
-import { type DefaultModelProps, defaultInitialModelState } from "../../Hooks/model/ModelFormInitialState"
-import { type OnHandleChange } from "../../../modules/shared/domain/types/types"
+import { lazy, Suspense, useMemo, useState } from "react"
+import { useAppContext } from "@/sections/Context/AppProvider"
+import { Operator } from "@/modules/shared/domain/criteria/FilterOperators"
+import { initialModelState } from "@/sections/Hooks/model/useFormModel"
+import { type Primitives } from "@/modules/shared/domain/value-object/Primitives"
+import { type BrandId } from "@/modules/devices/brand/domain/BrandId"
+import { type CategoryId } from "@/modules/devices/category/domain/CategoryId"
+import { type ModelApiresponse } from "@/modules/shared/domain/types/responseTypes"
+import { type ModelId } from "@/modules/devices/model/model/domain/ModelId"
+import { type DefaultModelProps } from "@/sections/Hooks/model/DefaultInitialModelState"
+import { type OnHandleChange } from "@/modules/shared/domain/types/types"
 
 interface Props {
     value: Primitives<ModelId>
@@ -23,18 +24,15 @@ interface Props {
     isDisabled?: boolean
 }
 
-interface NewValue extends ModelApiresponse {
-    inputValue: string
-}
-
+const DialogComponent = lazy(async () => import("@/sections/components/Dialog/DialogComponent").then(m => ({ default: m.DialogWrapper })))
 const ComboBox = lazy(async () => import("./combo_box"))
 const ModelDialog = lazy(async () => import("../Dialog/ModelDialog"))
 const ReadOnlyInputBox = lazy(async () => import("../ReadOnlyInputBox").then(m => ({ default: m.ReadOnlyInputBox })))
 
 export default function ModelComboBox({ value, error, isDisabled = false, isRequired, onChange, handleModel, categoryId, brandId, type = 'search', name = 'modelId', isAdd = false }: Props) {
-    const { useModel: { models, loading, createModel } } = useAppContext()
+    const { useModel: { models, loading } } = useAppContext()
     const [open, toggleOpen] = useState(false)
-    const [dialogValue, setDialogValue] = useState<DefaultModelProps>(defaultInitialModelState)
+    const [dialogValue, setDialogValue] = useState<DefaultModelProps>(initialModelState)
 
     
     const filterdModel = useMemo(() => {
@@ -49,63 +47,80 @@ export default function ModelComboBox({ value, error, isDisabled = false, isRequ
         return filterdModel.find(model => model.id === value)
     }, [filterdModel, value])
 
+    const handleClose = () => {
+        toggleOpen(false)
+      }
+    
+      const handleOpen = () => {
+        toggleOpen(true)
+      }
+
     return (
       <>
-        {(!isAdd && type === 'form') 
-            ? <ReadOnlyInputBox label='Modelo' defaultValue={initialValue?.name} />
-            : <ComboBox
-                id='modelId'
-                initialValue={initialValue}
-                label='Modelo'
-                name={name}
-                readOnly={!isAdd && type === 'form'}
-                type={type}
-                onChange={(_, newValue: NewValue) => {
-                        if (typeof newValue === 'string') {
-                            // timeout to avoid instant validation of the dialog's form.
-                            setTimeout(() => {
-                                toggleOpen(true)
-                                setDialogValue(prev => ({ ...prev, value: newValue }))
-                            })
-                        } else if (newValue && newValue.inputValue) {
-                            toggleOpen(true)
-                            setDialogValue(prev => ({ ...prev, name: newValue.inputValue }))
-                        } else {
-                            const value = newValue ? newValue.id : ''
-                            const generic = newValue ? newValue.generic : undefined
-                            if (type === 'form') {
-                                let memoryRamSlotQuantity
-                                let memoryRamType
-                                if (newValue?.modelComputer !== null) {
-                                    memoryRamSlotQuantity = newValue ? newValue?.modelComputer.memoryRamSlotQuantity : undefined
-                                    memoryRamType = newValue ? newValue?.modelComputer.memoryRamType.name : ''
-                                    handleModel({ value, memoryRamSlotQuantity, memoryRamType })
+        {(!isAdd && type === 'form') ? 
+          <Suspense><ReadOnlyInputBox label='Modelo' defaultValue={initialValue?.name} /></Suspense> : 
+          <Suspense>
+            <ComboBox
+              id='modelId'
+              initialValue={initialValue}
+              label='Modelo'
+              name={name}
+              readOnly={!isAdd && type === 'form'}
+              type={type}
+              onChange={(_, newValue: ModelApiresponse & {
+                        inputValue: string
+                    }) => {
+                            if (typeof newValue === 'string') {
+                                // timeout to avoid instant validation of the dialog's form.
+                                setTimeout(() => {
+                                    handleOpen()
+                                    setDialogValue(prev => ({ ...prev, value: newValue }))
+                                })
+                            } else if (newValue && newValue.inputValue) {
+                                handleOpen()
+                                setDialogValue(prev => ({ ...prev, name: newValue.inputValue }))
+                            } else {
+                                const value = newValue ? newValue.id : ''
+                                const generic = newValue ? newValue.generic : undefined
+                                if (type === 'form') {
+                                    let memoryRamSlotQuantity
+                                    let memoryRamType
+                                    if (newValue?.modelComputer !== null) {
+                                        memoryRamSlotQuantity = newValue ? newValue?.modelComputer.memoryRamSlotQuantity : undefined
+                                        memoryRamType = newValue ? newValue?.modelComputer.memoryRamType.name : ''
+                                        handleModel({ value, memoryRamSlotQuantity, memoryRamType })
+                                    }
+                                    if (newValue?.modelLaptop !== null) {
+                                        memoryRamSlotQuantity = newValue ? newValue?.modelLaptop.memoryRamSlotQuantity : undefined
+                                        memoryRamType = newValue ? newValue?.modelLaptop.memoryRamType.name : ''
+                                    }
+                                    handleModel({ value, memoryRamSlotQuantity, memoryRamType, generic })
                                 }
-                                if (newValue?.modelLaptop !== null) {
-                                    memoryRamSlotQuantity = newValue ? newValue?.modelLaptop.memoryRamSlotQuantity : undefined
-                                    memoryRamType = newValue ? newValue?.modelLaptop.memoryRamType.name : ''
+                                else {
+                                    onChange(name, value, Operator.EQUAL)
                                 }
-                                handleModel({ value, memoryRamSlotQuantity, memoryRamType, generic })
                             }
-                            else {
-                                onChange(name, value, Operator.EQUAL)
-                            }
-                        }
-                    }}
-                options={filterdModel}
-                isDisabled={isDisabled}
-                isRequired={isRequired}
-                isError={!!error}
-                errorMessage={error}
-                loading={loading}
-              />}
-        {type === 'form' && (                    
-          <ModelDialog
-            dialogValue={dialogValue}
-            open={open}
-            toggleOpen={toggleOpen}
-            createModel={createModel}
-          />)}
+                        }}
+              options={filterdModel}
+              isDisabled={isDisabled}
+              isRequired={isRequired}
+              isError={!!error}
+              errorMessage={error}
+              loading={loading}
+            />
+          </Suspense>}
+        {type === 'form' ?
+          <Suspense>
+            <DialogComponent open={open} handleClose={handleClose}>        
+              <Suspense>
+                <ModelDialog 
+                  initialDialogValue={dialogValue} 
+                  handleClose={handleClose}
+                />
+              </Suspense>
+            </DialogComponent>
+          </Suspense>
+          : null}       
       </>
     )
 }

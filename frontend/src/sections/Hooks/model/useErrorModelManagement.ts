@@ -1,25 +1,19 @@
 import { useEffect, useRef, useState } from "react"
 import { type DefaultModelProps, type FormModelDisabled, type FormModelErrors, type FormModelRequired } from "./DefaultInitialModelState"
 import { ModelName } from "@/modules/devices/model/model/domain/ModelName"
+import { CartridgeModel } from "@/modules/devices/model/ModelCharacteristics/modelPrinter/CartridgeModel"
+import { BatteryModel } from "@/modules/devices/model/ModelCharacteristics/modelLaptop/BatteryModel"
+import { MemoryRamSlotQuantity } from "@/modules/devices/model/ModelCharacteristics/modelComputer/MemoryRamSlotQuantity"
+import { ScreenSize } from "@/modules/devices/model/ModelCharacteristics/modelMonitor/ScreenSize"
 
 
 export function useErrorModelManagement({
     name,
-    categoryId,
-    brandId,
-    generic,
-    memoryRamTypeId,
-    memoryRamSlotQuantity,
-    hasBluetooth,
-    hasWifiAdapter,
-    hasDVI,
-    hasHDMI,
-    hasVGA,
+    cartridgeModel,
     batteryModel,
     screenSize,
-    cartridgeModel,
-    inputTypeId,
-    hasFingerPrintReader
+    categoryId,
+    memoryRamSlotQuantity
 }: DefaultModelProps) {
     const isFistNameInput = useRef(true)
     const isFirstBatteryModelInput = useRef(true)
@@ -78,25 +72,28 @@ export function useErrorModelManagement({
         if (isFistNameInput.current || name === '') {
             isFistNameInput.current = name.length < ModelName.NAME_MIN_LENGTH
         }
-        if (isFirstBatteryModelInput.current || name === '') {
-            isFirstBatteryModelInput.current = batteryModel.length < .NAME_MIN_LENGTH
+        if (isFirstBatteryModelInput.current || batteryModel === '') {
+            isFirstBatteryModelInput.current = batteryModel.length < BatteryModel.NAME_MIN_LENGTH
         }
-        if (isFirstCartridgeModel.current || name === '') {
-            isFirstCartridgeModel.current = name.length < ProcessorName.NAME_MIN_LENGTH
+        if (isFirstCartridgeModel.current || cartridgeModel === '') {
+            isFirstCartridgeModel.current = cartridgeModel.length < CartridgeModel.NAME_MIN_LENGTH
         }
         setError(prev => ({
             ...prev,
-            name: isFirstProcessorNameInput.current ? '' : ProcessorName.isValid(name) ? '' : ProcessorName.invalidMessage(name),
-
-
+            name: isFistNameInput.current ? '' : ModelName.isValid(name) ? '' : ModelName.invalidMessage(name),
+            batteryModel: isFirstBatteryModelInput.current ? '' : BatteryModel.isValid(batteryModel) ? '' : BatteryModel.invalidMessage(batteryModel),
+            cartridgeModel: isFirstCartridgeModel.current ? '' : CartridgeModel.isValid(cartridgeModel) ? '' : CartridgeModel.invalidMessage(cartridgeModel),
+            memoryRamSlotQuantity: MemoryRamSlotQuantity.isValid(memoryRamSlotQuantity) ? '' : MemoryRamSlotQuantity.invalidMessage(),
+            screenSize: ScreenSize.isValid(screenSize) ? '' : ScreenSize.invalidMessage()
         }))
         setDisabled(prev => ({
-            ...prev
+            ...prev,
+            brandId: !categoryId
         }))
         setRequired(prev => ({
-            ...prev
+            ...prev,
         }))
-    }, [name])
+    }, [batteryModel, cartridgeModel, categoryId, memoryRamSlotQuantity, name, screenSize])
 
     return {
         error,

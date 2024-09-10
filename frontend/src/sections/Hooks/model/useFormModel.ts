@@ -179,7 +179,8 @@ export function useFormModel(defaultInitialState?: DefaultModelProps) {
         dispatch({ type: 'reset', payload: { formData: structuredClone(prevFormData) } })
     }
 
-    const handleChange = (name: Action['type'], value: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const handleChange = (name: Action['type'], value: any) => {
         if (name === 'init' || name === 'reset') return
         dispatch({ type: name, payload: { value } })
     }
