@@ -1,4 +1,4 @@
-import { lazy } from 'react'
+import { lazy, Suspense } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { useAppContext } from '../Context/AppContext.tsx'
 
@@ -36,48 +36,48 @@ export default function AppRoutes() {
       <Route path='/login' element={<Login user={user} />} />
       <Route 
         path='/' 
-        element={<ProtectedRoute user={user}><Layout /></ProtectedRoute>}
+        element={<Suspense><ProtectedRoute user={user}><Layout /></ProtectedRoute></Suspense>}
       >
-        <Route path='/' element={<Home />} />
-        <Route path='/profile' element={<ProfilePage />} />
-        <Route path='/employee/add' element={<CreateEmployeeForm />} />
-        <Route path='/employee/edit/:id' element={<CreateEmployeeForm />} />
-        <Route path='/brand/add' element={<CreateBrandForm />} />
-        <Route path='/brand/edit/:id' element={<CreateBrandForm />} />
+        <Route path='/' element={<Suspense><Home /></Suspense>} />
+        <Route path='/profile' element={<Suspense><ProfilePage /></Suspense>} />
+        <Route path='/employee/add' element={<Suspense><CreateEmployeeForm /></Suspense>} />
+        <Route path='/employee/edit/:id' element={<Suspense><CreateEmployeeForm /></Suspense>} />
+        <Route path='/brand/add' element={<Suspense><CreateBrandForm /></Suspense>} />
+        <Route path='/brand/edit/:id' element={<Suspense><CreateBrandForm /></Suspense>} />
 
-        <Route path='/processor/add' element={<CreateProcessorForm />} />
-        <Route path='/processor/edit/:id' element={<CreateProcessorForm />} />
+        <Route path='/processor/add' element={<Suspense><CreateProcessorForm /></Suspense>} />
+        <Route path='/processor/edit/:id' element={<Suspense><CreateProcessorForm /></Suspense>} />
   
-        <Route path='/site/add' element={<CreateSiteForm />} />
-        <Route path='/site/edit/:id' element={<CreateSiteForm />} />
+        <Route path='/site/add' element={<Suspense><CreateSiteForm /></Suspense>} />
+        <Route path='/site/edit/:id' element={<Suspense><CreateSiteForm /></Suspense>} />
         
         {/* Rutas para el manejo de listados de ubicaciones  */}
-        <Route path='/location' element={<LocationConsumer><ListadoSitios /></LocationConsumer>} />
-        <Route path='/location/add' element={<LocationConsumer><CreateLocationForm /></LocationConsumer>} />
-        <Route path='/location/edit/:id' element={<LocationConsumer><CreateLocationForm /></LocationConsumer>} />
+        <Route path='/location' element={<Suspense><LocationConsumer><ListadoSitios /></LocationConsumer></Suspense>} />
+        <Route path='/location/add' element={<Suspense><LocationConsumer><CreateLocationForm /></LocationConsumer></Suspense>} />
+        <Route path='/location/edit/:id' element={<Suspense><LocationConsumer><CreateLocationForm /></LocationConsumer></Suspense>} />
         
         {/* Rutas para el manejo de listados de modelos  */}
-        <Route path='/model' element={<ModelConsumer><ListadoModelos /></ModelConsumer>} />
-        <Route path='/model/add' element={<ModelConsumer><CreateModelForm /></ModelConsumer>} />
-        <Route path='/model/edit/:id' element={<ModelConsumer><CreateModelForm /></ModelConsumer>} />
+        <Route path='/model' element={<Suspense><ModelConsumer><ListadoModelos /></ModelConsumer></Suspense>} />
+        <Route path='/model/add' element={<Suspense><ModelConsumer><CreateModelForm /></ModelConsumer></Suspense>} />
+        <Route path='/model/edit/:id' element={<Suspense><ModelConsumer><CreateModelForm /></ModelConsumer></Suspense>} />
         
         {/* Rutas para el manejo de listados de dispositivos  */}
-        <Route path='/computer' element={<DeviceConsumer location='computer'><ListComputer /></DeviceConsumer>} />
-        <Route path='/monitor' element={<DeviceConsumer location='monitor'><ListMonitor /></DeviceConsumer>} />
-        <Route path='/finantialprinter' element={<DeviceConsumer location='finantialPrinter'><ListFinantialPrinter /></DeviceConsumer>} />
-        <Route path='/printer' element={<DeviceConsumer location='printer'><ListPrinters /></DeviceConsumer>} />
-        <Route path='/parts' element={<DeviceConsumer location='parts'><ListPartAndPieces /></DeviceConsumer>} />
-        <Route path='/device/add' element={<DeviceConsumer><CreateDeviceForm /></DeviceConsumer>} />
-        <Route path='/device/edit/:id' element={<DeviceConsumer><CreateDeviceForm /></DeviceConsumer>} />
+        <Route path='/computer' element={<Suspense><DeviceConsumer location='computer'><ListComputer /></DeviceConsumer></Suspense>} />
+        <Route path='/monitor' element={<Suspense><DeviceConsumer location='monitor'><ListMonitor /></DeviceConsumer></Suspense>} />
+        <Route path='/finantialprinter' element={<Suspense><DeviceConsumer location='finantialPrinter'><ListFinantialPrinter /></DeviceConsumer></Suspense>} />
+        <Route path='/printer' element={<Suspense><DeviceConsumer location='printer'><ListPrinters /></DeviceConsumer></Suspense>} />
+        <Route path='/parts' element={<Suspense><DeviceConsumer location='parts'><ListPartAndPieces /></DeviceConsumer></Suspense>} />
+        <Route path='/device/add' element={<Suspense><DeviceConsumer><CreateDeviceForm /></DeviceConsumer></Suspense>} />
+        <Route path='/device/edit/:id' element={<Suspense><DeviceConsumer><CreateDeviceForm /></DeviceConsumer></Suspense>} />
         
         {/* Rutas para la gestion de usuario */}
-        <Route path='/user-management' element={<UserManagement />}>
-          <Route path='register' element={<RegisterPage />} />        
-          <Route path='edit/:id' element={<RegisterPage />} />
-          <Route path='profile/:id' element={<ManagementProfile />} />
+        <Route path='/user-management' element={<Suspense><UserManagement /></Suspense>}>
+          <Route path='register' element={<Suspense><RegisterPage /></Suspense>} />
+          <Route path='edit/:id' element={<Suspense><RegisterPage /></Suspense>} />
+          <Route path='profile/:id' element={<Suspense><ManagementProfile /></Suspense>} />
         </Route>
       </Route>
-      <Route path='*' element={<NotFound />} />
+      <Route path='*' element={<Suspense><NotFound /></Suspense>} />
     </Routes>
   )
 }

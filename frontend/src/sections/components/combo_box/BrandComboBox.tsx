@@ -20,9 +20,6 @@ interface Props {
     isDisabled?: boolean
 }
 
-interface NewValue extends BrandPrimitives {
-    inputValue: string
-}
 
 const DialogComponent = lazy(async () => import("@/sections/components/Dialog/DialogComponent").then(m => ({ default: m.DialogWrapper })))
 const ComboBox = lazy(async () => import("./combo_box"))
@@ -67,24 +64,26 @@ export default function BrandComboBox({ value, onChange, error, isDisabled = fal
               label='Marca'
               name='brandId'
               type={type}                                        
-              onChange={(_, newValue: NewValue) => {
-                            if (typeof newValue === 'string') {
-                                // timeout to avoid instant validation of the dialog's form.
-                                setTimeout(() => {
-                                    setDialogValue({
-                                        name: newValue
-                                    })
-                                    handleOpen()
-                                })
-                            } else if (newValue && newValue.inputValue) {
-                                setDialogValue({
-                                    name: newValue.inputValue
-                                })
-                                handleOpen()
-                            } else {
-                                onChange('brandId', newValue ? newValue.id : '', Operator.EQUAL)
-                            }
-                        }}
+              onChange={(_, newValue: BrandPrimitives & {
+                inputValue: string
+              }) => {
+                  if (typeof newValue === 'string') {
+                      // timeout to avoid instant validation of the dialog's form.
+                      setTimeout(() => {
+                          setDialogValue({
+                              name: newValue
+                          })
+                          handleOpen()
+                      })
+                  } else if (newValue && newValue.inputValue) {
+                      setDialogValue({
+                          name: newValue.inputValue
+                      })
+                      handleOpen()
+                  } else {
+                      onChange('brandId', newValue ? newValue.id : '', Operator.EQUAL)
+                  }
+              }}
               options={filterdBrand as BrandApiResponse[]}
               isDisabled={isDisabled}
               isRequired={isRequired}

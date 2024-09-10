@@ -68,39 +68,39 @@ export default function ModelComboBox({ value, error, isDisabled = false, isRequ
               readOnly={!isAdd && type === 'form'}
               type={type}
               onChange={(_, newValue: ModelApiresponse & {
-                        inputValue: string
-                    }) => {
-                            if (typeof newValue === 'string') {
-                                // timeout to avoid instant validation of the dialog's form.
-                                setTimeout(() => {
-                                    handleOpen()
-                                    setDialogValue(prev => ({ ...prev, value: newValue }))
-                                })
-                            } else if (newValue && newValue.inputValue) {
-                                handleOpen()
-                                setDialogValue(prev => ({ ...prev, name: newValue.inputValue }))
-                            } else {
-                                const value = newValue ? newValue.id : ''
-                                const generic = newValue ? newValue.generic : undefined
-                                if (type === 'form') {
-                                    let memoryRamSlotQuantity
-                                    let memoryRamType
-                                    if (newValue?.modelComputer !== null) {
-                                        memoryRamSlotQuantity = newValue ? newValue?.modelComputer.memoryRamSlotQuantity : undefined
-                                        memoryRamType = newValue ? newValue?.modelComputer.memoryRamType.name : ''
-                                        handleModel({ value, memoryRamSlotQuantity, memoryRamType })
-                                    }
-                                    if (newValue?.modelLaptop !== null) {
-                                        memoryRamSlotQuantity = newValue ? newValue?.modelLaptop.memoryRamSlotQuantity : undefined
-                                        memoryRamType = newValue ? newValue?.modelLaptop.memoryRamType.name : ''
-                                    }
-                                    handleModel({ value, memoryRamSlotQuantity, memoryRamType, generic })
-                                }
-                                else {
-                                    onChange(name, value, Operator.EQUAL)
-                                }
-                            }
-                        }}
+                inputValue: string
+              }) => {
+                  if (typeof newValue === 'string') {
+                      // timeout to avoid instant validation of the dialog's form.
+                      setTimeout(() => {
+                          handleOpen()
+                          setDialogValue(prev => ({ ...prev, value: newValue, categoryId, brandId }))
+                      })
+                  } else if (newValue && newValue.inputValue) {
+                      handleOpen()
+                      setDialogValue(prev => ({ ...prev, name: newValue.inputValue, categoryId, brandId }))
+                  } else {
+                      const value = newValue ? newValue.id : ''
+                      const generic = newValue ? newValue.generic : undefined
+                      if (type === 'form') {
+                          let memoryRamSlotQuantity
+                          let memoryRamType
+                          if (newValue?.modelComputer !== null) {
+                              memoryRamSlotQuantity = newValue ? newValue?.modelComputer.memoryRamSlotQuantity : undefined
+                              memoryRamType = newValue ? newValue?.modelComputer.memoryRamType.name : ''
+                              handleModel({ value, memoryRamSlotQuantity, memoryRamType })
+                          }
+                          if (newValue?.modelLaptop !== null) {
+                              memoryRamSlotQuantity = newValue ? newValue?.modelLaptop.memoryRamSlotQuantity : undefined
+                              memoryRamType = newValue ? newValue?.modelLaptop.memoryRamType.name : ''
+                          }
+                          handleModel({ value, memoryRamSlotQuantity, memoryRamType, generic })
+                      }
+                      else {
+                          onChange(name, value, Operator.EQUAL)
+                      }
+                  }
+              }}
               options={filterdModel}
               isDisabled={isDisabled}
               isRequired={isRequired}

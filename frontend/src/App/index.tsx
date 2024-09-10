@@ -9,14 +9,15 @@ const AppRoutes = lazy(async () => await import('../sections/Routes/index.tsx'))
 const ToasterComponent = lazy(async () => import('../sections/utils/toaster.tsx').then(m => ({ default: m.ToasterComponent })))
 
 function App() {
-  const repository = apiRepository
   return (
     <Suspense fallback={<Loading />}>
       <ErrorBoundary>
         <BrowserRouter>
-          <AppContextProvider repository={repository}>
-            <AppRoutes />
-            <ToasterComponent />          
+          <AppContextProvider repository={apiRepository}>
+            <Suspense>
+              <AppRoutes />
+              <ToasterComponent />
+            </Suspense>
           </AppContextProvider>
         </BrowserRouter>
       </ErrorBoundary>
