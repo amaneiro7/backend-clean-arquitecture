@@ -1,16 +1,16 @@
 import { lazy, Suspense, useRef } from "react"
-import { useResetUserPassword } from "../../../Hooks/user/useResetPassword"
-import { type DialogRef } from "../../../components/Dialog/Modal"
-import { tostPromise } from "../../../utils/toaster"
+import { useResetUserPassword } from "@/sections/Hooks/user/useResetPassword"
+import { tostPromise } from "@/sections/utils/toaster"
+import { type ModalRef } from "@/sections/components/Dialog/Modal"
 
 
-const ConfirmationDialog = lazy(async () => import("../../../components/Dialog/Modal").then(m => ({ default: m.ConfirmationDialog })))
-const ConfirmationModal = lazy(async () => import("../../../components/Dialog/ConfirmationModal").then(m => ({ default: m.ConfirmationModal })))
-const Button = lazy(async () => import("../../../components/button/button"))
-const ResetIcon = lazy(async () => import("../../../components/icon/ResetIcon").then(m => ({ default: m.ResetIcon })))
+const Modal = lazy(async () => import("@/sections/components/Dialog/Modal").then(m => ({ default: m.Modal })))
+const ConfirmationModal = lazy(async () => import("@/sections/components/Dialog/ConfirmationModal").then(m => ({ default: m.ConfirmationModal })))
+const Button = lazy(async () => import("@/sections/components/button/button"))
+const ResetIcon = lazy(async () => import("@/sections/components/icon/ResetIcon").then(m => ({ default: m.ResetIcon })))
 
 export function ResetHandle ({id}: {id: string}) {
-    const dialogResetRef = useRef<DialogRef>(null)
+    const dialogResetRef = useRef<ModalRef>(null)
     const { resetUserPassword } = useResetUserPassword()    
     const handleClose = () => {
         dialogResetRef.current?.handleClose()
@@ -20,7 +20,7 @@ export function ResetHandle ({id}: {id: string}) {
         dialogResetRef.current?.handleOpen()
     }
 
-    const hanleReset = () => {
+    const handleReset = () => {
         tostPromise(resetUserPassword({id}), {
             loading: 'Procesando...',
             success: () => {
@@ -57,9 +57,9 @@ export function ResetHandle ({id}: {id: string}) {
             }
         />
             
-        <ConfirmationDialog ref={dialogResetRef}>
-          <ConfirmationModal handleClose={handleClose} handle={hanleReset} text='¿Está seguro que desea ' strongText='Restablecer la Contraseña?' />
-        </ConfirmationDialog>
+        <Modal ref={dialogResetRef}>
+          <ConfirmationModal handleClose={handleClose} handle={handleReset} text='¿Está seguro que desea ' strongText='Restablecer la Contraseña?' />
+        </Modal>
             
       </>
     )

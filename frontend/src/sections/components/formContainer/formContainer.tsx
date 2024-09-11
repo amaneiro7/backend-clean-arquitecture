@@ -16,7 +16,7 @@ interface Props {
   searchInput?: JSX.Element
 }
 
-const Main = lazy(async () => import('../Main'))
+// const Main = lazy(async () => import('../Main'))
 const PageTitle = lazy(async () => import("../Typography/PageTitle"))
 const DetailsWrapper = lazy(async () => import("../DetailsWrapper/DetailsWrapper").then(m => ({ default: m.DetailsWrapper })))
 const DetailsBoxWrapper = lazy(async () => import("../DetailsWrapper/DetailsBoxWrapper"))
@@ -32,43 +32,43 @@ export default function FormContainer({ url, title, description, searchInput, is
   const location = useLocation()
   return (
     <Suspense fallback={<main className='flex-1' />}>
-      <Main content='max' overflow={false} className='pr-8'>
-        <PageTitle title={`Gestión de ${title}`} />
-        <DetailsWrapper borderColor='blue'>
-          <DetailsBoxWrapper>
-            <Subtitle variant='h2' color='blue' text={`Gestión de ${title} - ${isAddForm ? 'Registre un nuevo' : 'modifique un'} ${title}`} />
-            <p className='inline-flex gap-1 text-center justify-center items-center '>
-              <Paragraph color='gray' variant='span' text={description} />
-              {!isAddForm ? <Paragraph color='white' variant='span' text='Agregar nuevo' backgroundColor='orange' icon={<AddIcon width={16} />} /> : null}
-            </p>
-            <Suspense>
-              <SearchSection
-                key={location.key}
-                searchInput={searchInput}
-                url={url}            
-                isEdit={!isAddForm}
-              />
-            </Suspense>
-          </DetailsBoxWrapper>
-          <DetailsBoxWrapper position='center'>
-            <FormComponent
+      {/* <Main content='max' overflow={false} className='pr-8'> */}
+      <PageTitle title={`Gestión de ${title}`} />
+      <DetailsWrapper borderColor='blue'>
+        <DetailsBoxWrapper>
+          <Subtitle variant='h2' color='blue' text={`Gestión de ${title} - ${isAddForm ? 'Registre un nuevo' : 'modifique un'} ${title}`} />
+          <p className='inline-flex gap-1 text-center justify-center items-center '>
+            <Paragraph color='gray' variant='span' text={description} />
+            {!isAddForm ? <Paragraph color='white' variant='span' text='Agregar nuevo' backgroundColor='orange' icon={<AddIcon width={16} />} /> : null}
+          </p>
+          <Suspense>
+            <SearchSection
               key={location.key}
-              id={location.key}
-              handleSubmit={handleSubmit}
-              handleClose={handleClose}
-              reset={reset}
-              isDisabled={isDisabled}
-              updatedBy={updatedBy}
-              lastUpdated={lastUpdated}
-            >
-              {children}
-            </FormComponent>
-          </DetailsBoxWrapper>
-        </DetailsWrapper>
-        <StepsToFollow>
-          <RegisterNewDeviceToFollow isEdit={!isAddForm} />
-        </StepsToFollow>
-      </Main>
+              searchInput={searchInput}
+              url={url}            
+              isEdit={!isAddForm}
+            />
+          </Suspense>
+        </DetailsBoxWrapper>
+        <DetailsBoxWrapper position='center'>
+          <FormComponent
+            key={location.key}
+            id={location.key}
+            handleSubmit={handleSubmit}
+            handleClose={handleClose}
+            reset={reset}
+            isDisabled={isDisabled}
+            updatedBy={updatedBy}
+            lastUpdated={lastUpdated}
+          >
+            {children}
+          </FormComponent>
+        </DetailsBoxWrapper>
+      </DetailsWrapper>
+      <StepsToFollow>
+        <RegisterNewDeviceToFollow isEdit={!isAddForm} />
+      </StepsToFollow>
+      {/* </Main> */}
     </Suspense>
   )
 }

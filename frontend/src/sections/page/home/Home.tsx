@@ -1,7 +1,7 @@
-import { lazy } from "react"
+import { lazy, Suspense } from "react"
 import { navigation } from "../../Routes/new.routes"
 
-const Main = lazy(() => import("../../components/Main"))
+// const Main = lazy(() => import("../../components/Main"))
 const Banner = lazy(() => import("../../components/Banner"))
 const TilesSection = lazy(() => import("../../components/TilesSection/TilesSection").then((m) => ({ default: m.TilesSection })))
 const TilesContainer = lazy(() => import("../../components/TilesSection/TilesContainer").then((m) => ({ default: m.TilesContainer })))
@@ -13,26 +13,34 @@ const TilesVisible = lazy(() => import("../../components/TilesSection/TilesVisib
 
 export default function Home() {
   return (    
-    <Main content='max' overflow={false}>
-      <Banner />
-      <TilesSection>     
-        <TilesContainer>
-          {navigation.map((nav, index) => (            
-            <TilesBox img={nav.img} key={nav.label}>              
-              <TilesInvisible>
-                {nav.navs.map((info) => (
-                  <TilesInvisibleInfo 
-                    key={info.path} 
-                    label={info.title} 
-                    url={info.path} 
-                  />
+    <Suspense>
+      {/* <Main content='max' overflow={false}> */}
+      <Suspense>
+        <Banner />
+      </Suspense>
+
+      <Suspense>
+        <TilesSection>     
+          <TilesContainer>
+            {navigation.map((nav, index) => (            
+              <TilesBox img={nav.img} key={nav.label}>              
+                <TilesInvisible>
+                  {nav.navs.map((info) => (
+                    <TilesInvisibleInfo 
+                      key={info.path} 
+                      label={info.title} 
+                      url={info.path}
+                    />
                 ))}
-              </TilesInvisible>              
-              <TilesVisible isPar={index} desc={nav.desc} title={nav.label} />              
-            </TilesBox>            
+                </TilesInvisible>              
+                <TilesVisible isPar={index} desc={nav.desc} title={nav.label} />              
+              </TilesBox>            
             ))}
-        </TilesContainer>     
-      </TilesSection>      
-    </Main>
+          </TilesContainer>     
+        </TilesSection>      
+
+      </Suspense>
+      {/* </Main> */}
+    </Suspense>
   )
 }

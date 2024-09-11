@@ -1,16 +1,16 @@
 import { lazy, Suspense, useRef } from "react"
 import { useNavigate } from "react-router-dom"
-import { useDeleteUser } from "../../../Hooks/user/useDeleteUser"
-import { tostPromise } from "../../../utils/toaster"
-import { type DialogRef } from "../../../components/Dialog/Modal"
+import { useDeleteUser } from "@/sections/Hooks/user/useDeleteUser"
+import { tostPromise } from "@/sections/utils/toaster"
+import { type ModalRef } from "@/sections/components/Dialog/Modal"
 
-const ConfirmationDialog = lazy(async () => import("../../../components/Dialog/Modal").then(m => ({ default: m.ConfirmationDialog })))
-const ConfirmationModal = lazy(async () => import("../../../components/Dialog/ConfirmationModal").then(m => ({ default: m.ConfirmationModal })))
-const Button = lazy(async () => import("../../../components/button/button"))
-const ThrashIcon = lazy(async () => import("../../../components/icon/ThrashIcon").then(m => ({ default: m.ThrashIcon })))
+const Modal = lazy(async () => import("@/sections/components/Dialog/Modal").then(m => ({ default: m.Modal })))
+const ConfirmationModal = lazy(async () => import("@/sections/components/Dialog/ConfirmationModal").then(m => ({ default: m.ConfirmationModal })))
+const Button = lazy(async () => import("@/sections/components/button/button"))
+const ThrashIcon = lazy(async () => import("@/sections/components/icon/ThrashIcon").then(m => ({ default: m.ThrashIcon })))
 
 export function DeleteHandle ({id}: {id: string}) {
-    const dialogDeleteRef = useRef<DialogRef>(null)
+    const dialogDeleteRef = useRef<ModalRef>(null)
     const { deleteUser } = useDeleteUser()
     const navigate = useNavigate()
     const handleClose = () => {
@@ -59,9 +59,9 @@ export function DeleteHandle ({id}: {id: string}) {
           }
         />
             
-        <ConfirmationDialog ref={dialogDeleteRef}>
+        <Modal ref={dialogDeleteRef}>
           <ConfirmationModal handleClose={handleClose} handle={hanleDelete} text='¿Está seguro que desea ' strongText='Eliminar este usuario?' />
-        </ConfirmationDialog>
+        </Modal>
             
       </>
     )

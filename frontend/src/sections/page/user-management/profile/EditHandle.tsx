@@ -1,7 +1,7 @@
 import { lazy, Suspense } from "react"
 
-const LinkAsButton = lazy(async () => import("../../../components/button/LinkAsButton").then(m => ({ default: m.LinkAsButton })))
-const EditIcon = lazy(async () => import("../../../components/icon/EditIcon").then(m => ({ default: m.EditIcon })))
+const LinkAsButton = lazy(async () => import("@/sections/components/button/LinkAsButton").then(m => ({ default: m.LinkAsButton })))
+const EditIcon = lazy(async () => import("@/sections/components/icon/EditIcon").then(m => ({ default: m.EditIcon })))
 export function EditHandle ({ id }: {id: string}) {
     return (
       <LinkAsButton

@@ -5,7 +5,7 @@ import { AppContextProvider } from '../sections/Context/AppContext.tsx'
 import { apiRepository } from '../modules/shared/infraestructure/ApiRepository.ts'
 import Loading from '../sections/components/Loading/index.tsx'
 
-const AppRoutes = lazy(async () => await import('../sections/Routes/index.tsx'))
+const AppRoutes = lazy(async () => await import('../sections/Routes/routes.tsx'))
 const ToasterComponent = lazy(async () => import('../sections/utils/toaster.tsx').then(m => ({ default: m.ToasterComponent })))
 
 function App() {

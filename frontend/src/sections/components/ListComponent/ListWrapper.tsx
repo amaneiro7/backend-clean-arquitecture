@@ -6,7 +6,7 @@
     import { type TypeOfSiteId } from "../../../modules/location/typeofsites/domain/typeOfSiteId"
     import { type Primitives } from "../../../modules/shared/domain/value-object/Primitives"
     
-    const Main = lazy(async () => import('../Main'))
+    // const Main = lazy(async () => import('../Main'))
     const PageTitle = lazy(async () => import('../Typography/PageTitle'))
     const DetailsWrapper = lazy(async () => import("../DetailsWrapper/DetailsWrapper").then(m => ({ default: m.DetailsWrapper })))
     const DetailsBoxWrapper = lazy(async () => import("../DetailsWrapper/DetailsBoxWrapper"))
@@ -47,7 +47,7 @@
         const handleFilter = () => { filterContainerRef.current?.handleOpen() }
         
         return (      
-          <Main className='pr-8'>      
+          <Suspense>      
             <PageTitle title={title} optionalText={!loading && `${data.length} resultados`} />
             <DetailsWrapper borderColor='blue'>
               <DetailsBoxWrapper>
@@ -69,6 +69,6 @@
             
             {loading && <SpinnerSKCircle />}
             {table}
-          </Main>      
+          </Suspense>      
         )
     }
