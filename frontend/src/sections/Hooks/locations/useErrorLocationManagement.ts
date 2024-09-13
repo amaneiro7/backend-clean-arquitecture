@@ -11,8 +11,8 @@ export function useErrorLocationManagement({
     stateId,
     cityId,
     siteId,
-    siteName = '',
-    subnet = '',
+    siteName,
+    subnet,
     codeAgency
 }: DefaultLocationProps) {
     const isFirstSiteNameInput = useRef(true)
