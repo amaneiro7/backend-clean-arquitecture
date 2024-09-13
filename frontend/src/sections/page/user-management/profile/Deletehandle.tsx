@@ -61,8 +61,7 @@ export function DeleteHandle ({id}: {id: string}) {
             
         <Modal ref={dialogDeleteRef}>
           <ConfirmationModal handleClose={handleClose} handle={hanleDelete} text='¿Está seguro que desea ' strongText='Eliminar este usuario?' />
-        </Modal>
-            
+        </Modal>            
       </>
     )
 }

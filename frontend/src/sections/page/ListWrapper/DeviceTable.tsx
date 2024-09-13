@@ -1,6 +1,6 @@
-import { lazy, memo } from "react"
-import { FixedSizeList,  } from "react-window"
-import { type DevicesApiResponse } from "../../../modules/shared/domain/types/responseTypes"
+import { lazy, memo, Suspense } from "react"
+import { FixedSizeList } from "react-window"
+import { type DevicesApiResponse } from "@/modules/shared/domain/types/responseTypes"
 
 const TableWrapper = lazy(async () => import('./TableWrapper').then(m => ({default: m.TableWraper})))
 const DeviteRowTable = lazy(async () => import('./DeviceTableRow').then(m => ({default: m.DeviteRowTable})))
@@ -9,7 +9,7 @@ interface Props {
 }
 export const TableRef = ({ devices }: Props) => {  
     return (
-      <>        
+      <Suspense>        
         <FixedSizeList 
           height={1024} 
           itemData={devices} 
@@ -21,7 +21,7 @@ export const TableRef = ({ devices }: Props) => {
         >
           {DeviteRowTable}
         </FixedSizeList>
-      </>
+      </Suspense>
   )
 }
 
