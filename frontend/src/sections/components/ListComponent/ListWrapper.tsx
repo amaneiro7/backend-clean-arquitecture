@@ -6,7 +6,7 @@
     import { type TypeOfSiteId } from "../../../modules/location/typeofsites/domain/typeOfSiteId"
     import { type Primitives } from "../../../modules/shared/domain/value-object/Primitives"
     
-    // const Main = lazy(async () => import('../Main'))
+    const Main = lazy(async () => import('../Main'))
     const PageTitle = lazy(async () => import('../Typography/PageTitle'))
     const DetailsWrapper = lazy(async () => import("../DetailsWrapper/DetailsWrapper").then(m => ({ default: m.DetailsWrapper })))
     const DetailsBoxWrapper = lazy(async () => import("../DetailsWrapper/DetailsBoxWrapper"))
@@ -47,28 +47,30 @@
         const handleFilter = () => { filterContainerRef.current?.handleOpen() }
         
         return (      
-          <Suspense>      
-            <PageTitle title={title} optionalText={!loading && `${data.length} resultados`} />
-            <DetailsWrapper borderColor='blue'>
-              <DetailsBoxWrapper>
-                <FilterSection>
-                  {mainFilter}
-                  {otherFilter 
-                    ? <FilterContainer ref={filterContainerRef}>{otherFilter}</FilterContainer> 
-                    : null}
-                </FilterSection>        
-                <ButtonSection handleExportToExcel={handleDownload} handleAdd={() => { navigate(url) }} handleFilter={otherFilter ? handleFilter : undefined} handleClear={handleClear} />      
-              </DetailsBoxWrapper>
-            
-            </DetailsWrapper>
-            {typeOfSiteId !== undefined ? 
-              <Suspense fallback={<div className='min-h-7 h-7' />}>
-                <TypeOfSiteTabNav onChange={handleChange} value={typeOfSiteId} />
-              </Suspense> 
-            : null}
-            
-            {loading && <SpinnerSKCircle />}
-            {table}
+          <Suspense fallback={<main className='flex-1'/>}>
+            <Main overflow={true} content="full">
+              <PageTitle title={title} optionalText={!loading && `${data.length} resultados`} />
+              <DetailsWrapper borderColor='blue'>
+                <DetailsBoxWrapper>
+                  <FilterSection>
+                    {mainFilter}
+                    {otherFilter 
+                      ? <FilterContainer ref={filterContainerRef}>{otherFilter}</FilterContainer> 
+                      : null}
+                  </FilterSection>        
+                  <ButtonSection handleExportToExcel={handleDownload} handleAdd={() => { navigate(url) }} handleFilter={otherFilter ? handleFilter : undefined} handleClear={handleClear} />      
+                </DetailsBoxWrapper>
+              
+              </DetailsWrapper>
+              {typeOfSiteId !== undefined ? 
+                <Suspense fallback={<div className='min-h-7 h-7' />}>
+                  <TypeOfSiteTabNav onChange={handleChange} value={typeOfSiteId} />
+                </Suspense> 
+              : null}
+              
+              {loading && <SpinnerSKCircle />}
+              {table}
+            </Main>
           </Suspense>      
         )
     }
