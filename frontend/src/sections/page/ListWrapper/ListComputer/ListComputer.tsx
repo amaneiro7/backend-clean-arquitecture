@@ -1,4 +1,4 @@
-import { lazy } from "react"
+import { lazy, Suspense } from "react"
 import { useDefaultInitialInputValue } from "./defaultParams"
 import { useDeviceContext } from "@/sections/Context/DeviceProvider"
 import { useInputsData } from "@/sections/components/ListComponent/useInputData"
@@ -22,50 +22,58 @@ export default function ListComputer() {
       await import('@/sections/utils/downloadJsonToExcel').then(m => m.jsonToExcel({clearDataset}))      
   }
     return (      
-      <ListWrapper
-        data={devices}
-        title='Lista de equipos de computación'
-        url='/device/add'
-        loading={loading}
-        handleChange={handleChange}
-        handleClear={handleClear}
-        handleDownload={handleDownload}
-        typeOfSiteId={inputData.typeOfSiteId}
-        mainFilter={
-          <MainComputerFilter 
-            handleChange={handleChange}
-            categoryId={inputData.categoryId}
-            employeeId={inputData.employeeId}
-            locationId={inputData.locationId}
-            regionId={inputData.regionId}
-            serial={inputData.serial}
-            typeOfSiteId={inputData.typeOfSiteId}
-          />
+      <Suspense>
+        <ListWrapper
+          data={devices}
+          title='Lista de equipos de computación'
+          url='/device/add'
+          loading={loading}
+          handleChange={handleChange}
+          handleClear={handleClear}
+          handleDownload={handleDownload}
+          typeOfSiteId={inputData.typeOfSiteId}
+          mainFilter={
+            <Suspense>
+              <MainComputerFilter 
+                handleChange={handleChange}
+                categoryId={inputData.categoryId}
+                employeeId={inputData.employeeId}
+                locationId={inputData.locationId}
+                regionId={inputData.regionId}
+                serial={inputData.serial}
+                typeOfSiteId={inputData.typeOfSiteId}
+              />
+            </Suspense>
+          }
+          otherFilter={
+            <>
+              <Suspense>
+                <DefaultFilterSection 
+                  activo={inputData.activo}
+                  statusId={inputData.statusId}
+                  brandId={inputData.brandId}
+                  modelId={inputData.modelId}
+                  categoryId={inputData.categoryId}
+                  stateId={inputData.stateId}
+                  regionId={inputData.regionId}
+                  cityId={inputData.cityId}
+                  handleChange={handleChange}
+                />
+              </Suspense>  
+              <Suspense>
+                <OtherComputerFilter
+                  handleChange={handleChange}
+                  computerName={inputData.computerName}
+                  operatingSystemId={inputData.operatingSystemId}
+                  operatingSystemArqId={inputData.operatingSystemArqId}
+                  processor={inputData.processor}
+                  ipAddress={inputData.ipAddress}
+                />
+              </Suspense>
+            </>
         }
-        otherFilter={
-          <>
-            <DefaultFilterSection 
-              activo={inputData.activo}
-              statusId={inputData.statusId}
-              brandId={inputData.brandId}
-              modelId={inputData.modelId}
-              categoryId={inputData.categoryId}
-              stateId={inputData.stateId}
-              regionId={inputData.regionId}
-              cityId={inputData.cityId}
-              handleChange={handleChange}
-            />  
-            <OtherComputerFilter
-              handleChange={handleChange}
-              computerName={inputData.computerName}
-              operatingSystemId={inputData.operatingSystemId}
-              operatingSystemArqId={inputData.operatingSystemArqId}
-              processor={inputData.processor}
-              ipAddress={inputData.ipAddress}
-            />
-          </>
-      }
-        table={<DeviceTable devices={devices as DevicesApiResponse[]} />}
-      />
+          table={<Suspense><DeviceTable devices={devices as DevicesApiResponse[]} /></Suspense>}
+        />
+      </Suspense>
     )
 }
