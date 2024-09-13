@@ -40,7 +40,7 @@ export const useBrandInitialState = (defaultInitialBrandState: DefaultBrandProps
   }
 
   useEffect(() => {
-    if (isAddForm) {
+    if (isAddForm || !location.pathname.includes('brand')) {
       setPreloadedBrandState(defaultInitialBrandState)
       return
     }

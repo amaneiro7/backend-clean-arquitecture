@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { BrandName } from "@/modules/devices/brand/domain/BrandName"
 import { type FormBrandDisabled, type FormBrandErrors, FormBrandRequired, type DefaultBrandProps } from "@/sections/Hooks/brand/DefaultInitialBrandState"
 
-export function useErrorBrandManagement({ name }: DefaultBrandProps) {
+export function useErrorBrandManagement({ name = '' }: DefaultBrandProps) {
     const isFirstUserNameInput = useRef(true)
     const [error, setError] = useState<FormBrandErrors>({
         name: ''
@@ -17,7 +17,7 @@ export function useErrorBrandManagement({ name }: DefaultBrandProps) {
 
     useEffect(() => {
         if (isFirstUserNameInput.current || name === '') {
-            isFirstUserNameInput.current = name.length < BrandName.NAME_MIN_LENGTH
+            isFirstUserNameInput.current = name?.length < BrandName.NAME_MIN_LENGTH
         }
         setError(prev => ({
             ...prev,

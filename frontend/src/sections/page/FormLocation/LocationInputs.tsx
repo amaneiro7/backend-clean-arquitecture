@@ -24,6 +24,7 @@ const LocationNameInput = lazy(async () => import('@/sections/components/text-in
 const CodeAgencyInput = lazy(async () => import('@/sections/components/number-inputs/CodeAgency').then(m => ({ default: m.CodeAgencyInput })))
 
 export function LocationInputs({ onChange, handleSite, formData, isAddForm, disabled, error, required }: Props) {
+  console.log(formData)
     return (
       <>
         <Suspense fallback={<InputSkeletonLoading />}>

@@ -46,7 +46,7 @@ export const useLocationInitialState = (defaultInitialLocationState: DefaultLoca
   }
 
   useEffect(() => {
-    if (isAddForm) {
+    if (isAddForm || !location.pathname.includes('location')) {
       setPreloadedLocationState(defaultInitialLocationState)
       return
     }

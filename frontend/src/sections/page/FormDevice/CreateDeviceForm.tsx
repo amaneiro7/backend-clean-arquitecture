@@ -22,7 +22,8 @@ export default function CreateDeviceForm() {
   
   return (
     <Suspense>
-      <FormContainer      
+      <FormContainer
+        key='device-form'
         title='Dispositivo'
         description='Ingrese los datos del dispositivo.'
         isAddForm={isAddForm}

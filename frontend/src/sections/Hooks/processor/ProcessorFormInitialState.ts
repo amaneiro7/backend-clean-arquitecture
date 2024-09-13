@@ -34,7 +34,7 @@ export const useProcessorInitialState = (defaultInitialProcessorState: DefaultPr
   }
 
   useEffect(() => {
-    if (isAddForm) {
+    if (isAddForm || !location.pathname.includes('processor')) {
       setPreloadedProcessorState(defaultInitialProcessorState)
       return
     }

@@ -70,13 +70,13 @@ export function useErrorModelManagement({
 
     useEffect(() => {
         if (isFistNameInput.current || name === '') {
-            isFistNameInput.current = name.length < ModelName.NAME_MIN_LENGTH
+            isFistNameInput.current = name?.length < ModelName.NAME_MIN_LENGTH
         }
         if (isFirstBatteryModelInput.current || batteryModel === '') {
-            isFirstBatteryModelInput.current = batteryModel.length < BatteryModel.NAME_MIN_LENGTH
+            isFirstBatteryModelInput.current = batteryModel?.length < BatteryModel.NAME_MIN_LENGTH
         }
         if (isFirstCartridgeModel.current || cartridgeModel === '') {
-            isFirstCartridgeModel.current = cartridgeModel.length < CartridgeModel.NAME_MIN_LENGTH
+            isFirstCartridgeModel.current = cartridgeModel?.length < CartridgeModel.NAME_MIN_LENGTH
         }
         setError(prev => ({
             ...prev,

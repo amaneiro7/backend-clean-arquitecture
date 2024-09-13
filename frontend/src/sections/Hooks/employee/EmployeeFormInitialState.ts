@@ -34,7 +34,7 @@ export const useEmployeeInitialState = (defaultInitialEmployeeState: DefaultEmpl
   }
 
   useEffect(() => {
-    if (isAddForm) {
+    if (isAddForm || !location.pathname.includes('employee')) {
       setPreloadedEmployeeState(defaultInitialEmployeeState)
       return
     }

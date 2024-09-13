@@ -53,7 +53,7 @@ export const useModelInitialState = (defaultInitialModelState: DefaultModelProps
   }
 
   useEffect(() => {
-    if (isAddForm) {
+    if (isAddForm || !location.pathname.includes('model')) {
       setPreloadedModelState(defaultInitialModelState)
       return
     }

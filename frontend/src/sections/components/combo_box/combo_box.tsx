@@ -1,4 +1,4 @@
-import { lazy, Suspense, PropsWithChildren } from 'react'
+import { lazy, PropsWithChildren } from 'react'
 import { createFilterOptions } from '@mui/material'
 import parse from 'autosuggest-highlight/parse'
 import match from 'autosuggest-highlight/match'
@@ -98,7 +98,6 @@ export default function ComboBox<T, Multiple extends boolean, Disable extends bo
         handleHomeEndKeys        
         clearIcon={<CloseIcon fontSize='small' />}
         renderInput={(params) => (
-          <Suspense>
             <TextField
               {...params}
               label={label}
@@ -116,8 +115,7 @@ export default function ComboBox<T, Multiple extends boolean, Disable extends bo
               color={isError ? 'warning' : 'primary'}
               error={isError}
               helperText={errorMessage}
-            />
-          </Suspense>
+            />          
         )}
         renderOption={(props, option, { inputValue }) => {
           const matches = match(option.name, inputValue, { insideWords: true });
