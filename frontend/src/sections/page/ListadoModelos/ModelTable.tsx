@@ -1,5 +1,5 @@
-import { lazy, memo, useMemo } from "react"
-import { FixedSizeList,  } from "react-window"
+import { lazy, memo, Suspense, useMemo } from "react"
+import { FixedSizeList, } from "react-window"
 import { type ModelApiresponse } from "../../../modules/shared/domain/types/responseTypes"
 import { type Primitives } from "../../../modules/shared/domain/value-object/Primitives"
 import { type CategoryId } from "../../../modules/devices/category/domain/CategoryId"
@@ -23,7 +23,7 @@ export interface CategorySelected {
   isPrinter: boolean
   isKeyboard: boolean
 }
-export const ModelTable = memo(({ models, categoryId }: Props) => {  
+export const ModelTable = memo(({ models, categoryId }: Props) => {
 
   const categorySelected: CategorySelected = useMemo(() => {
     return {
@@ -31,31 +31,35 @@ export const ModelTable = memo(({ models, categoryId }: Props) => {
       isLaptop: ModelLaptop.isLaptopCategory({ categoryId }),
       isMonitor: ModelMonitor.isMonitorCategory({ categoryId }),
       isPrinter: ModelPrinter.isPrinterCategory({ categoryId }),
-      isKeyboard: ModelKeyboard.isKeyboardCategory({ categoryId }),  
+      isKeyboard: ModelKeyboard.isKeyboardCategory({ categoryId }),
     }
-  },[categoryId])
-  
-    return (
-      <>        
-        <FixedSizeList 
-          height={1024} 
-          itemData={models}
-          itemCount={models.length} 
-          itemSize={44} 
-          width='100%' 
-          outerElementType='section'
-          innerElementType={({style, children}) => <TableWrapper categorySelected={categorySelected} style={style}>{children}</TableWrapper>}
-        >
-          {({data, index, style}) => (
-            <ModelRowTable 
-              categorySelected={categorySelected} 
-              data={data}
-              index={index}
-              style={style}
-            />
+  }, [categoryId])
 
-            )}
-        </FixedSizeList>
-      </>
+  return (
+    <Suspense>
+      <FixedSizeList
+        height={1024}
+        itemData={models}
+        itemCount={models.length}
+        itemSize={44}
+        width='100%'
+        outerElementType='section'
+        innerElementType={({ style, children }) => (
+          <Suspense>
+            <TableWrapper categorySelected={categorySelected} style={style}>{children}</TableWrapper>
+          </Suspense>
+        )}
+      >
+        {({ data, index, style }) => (
+          <ModelRowTable
+            categorySelected={categorySelected}
+            data={data}
+            index={index}
+            style={style}
+          />
+
+        )}
+      </FixedSizeList>
+    </Suspense>
   )
 })

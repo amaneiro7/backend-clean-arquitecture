@@ -3,7 +3,7 @@ import { FormStatus, useGenericForm } from "@/sections/Hooks/useGenericForm"
 import { useGenericFormData } from "@/sections/Hooks/useGenericFormData"
 import { UserPassword } from "@/sections/../modules/user/user/domain/UserPassword"
 import { useUserChangePassword } from "@/sections/Hooks/user/useUserChangePassword"
-import { type ChangePasswordParams } from "@/sections/../modules/user/user/application/changePassoword"
+import { type ChangePasswordParams } from "@/modules/user/user/application/changePassoword"
 import { type ModalRef } from "@/sections/components/Dialog/Modal"
 
 const initialState: ChangePasswordParams = {

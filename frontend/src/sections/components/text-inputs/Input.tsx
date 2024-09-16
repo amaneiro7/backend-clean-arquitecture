@@ -12,14 +12,14 @@ interface InputProps<T extends string | number | readonly string[]> extends Reac
 export function Input<T extends string | number | readonly string[]>({ error, valid, value, errorMessage, type, label, className, isRequired = false, ...props }: InputProps<T>) {
     return (
       <div
-        className={`inputBox group after:text-error ${error ? 'error' : null} ${className ? className : undefined}`}
+        className={`inputBox group after:text-error ${error ? 'error' : ''} ${className}`}
         data-error={errorMessage} 
       >
         <label 
           className={`
-            ${(value || type === 'number') && 'transform'} 
-            ${error && '!text-error'} 
-            ${valid && '!text-success'} 
+            ${(value || type === 'number') ? 'transform' : ''}
+            ${error ? '!text-error' : ''} 
+            ${valid ? '!text-success' : ''} 
             group-focus-within:text-focus`}
         >
           {`${label} ${isRequired ? '*' : ''}`}
@@ -32,9 +32,9 @@ export function Input<T extends string | number | readonly string[]>({ error, va
           />
           <fieldset
             aria-hidden
-            className={`${error && '!border-2 !border-error'} ${valid && '!border-2 !border-success'} group-focus-within:border-focus group-focus-within:border-2`}
+            className={`${error ? '!border-2 !border-error' : ''} ${valid ? '!border-2 !border-success' : ''} group-focus-within:border-focus group-focus-within:border-2`}
           >
-            <legend className={(value || type === 'number') && 'transform'}>
+            <legend className={(value || type === 'number') ? 'transform' : ''}>
               <span>{`${label} ${isRequired ? '*' : ''}`}</span>
             </legend>
           </fieldset>
