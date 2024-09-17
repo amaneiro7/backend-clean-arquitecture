@@ -29,6 +29,7 @@ import { SequelizeVicepresidenciaRepository } from '../../../../employee/Area/Vi
 import { SequelizeVicepresidenciaEjecutivaRepository } from '../../../../employee/Area/VicepresidenciaEjecutiva/infrastructure/sequelize/SequelizeVicepresidenciaEjecutivaRepository'
 import { SequelizeEmployeeRepository } from '../../../../employee/Employee/infrastructure/sequelize/SequelizeEmployeeRepository'
 import { SequelizeInputTypeRepository } from '../../../../ModelSeries/InputType/infrastructure/sequelize/SequelizeInputTypeRepository'
+import { SequelizeDashboardRepository } from '../../../../Device/Inventroy/infra/sequelize/SequelizeDashboardRepository'
 
 initializeDatabase()
 
@@ -99,5 +100,6 @@ export const sequelizeRepository: Repository = {
   vicepresidencia: new SequelizeVicepresidenciaRepository(),
   vicepresidenciaEjecutiva: new SequelizeVicepresidenciaEjecutivaRepository(),
   employee: new SequelizeEmployeeRepository(),
-  inputType: new SequelizeInputTypeRepository()
+  inputType: new SequelizeInputTypeRepository(),
+  dashboard: new SequelizeDashboardRepository()
 }

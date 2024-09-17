@@ -33,6 +33,7 @@ import { createEmployeeRouter } from '../../Employee/routes/employee.routes'
 import { createHistoryRouter } from '../../History/routes/history.routes'
 import { createUserRouter } from '../../User/routes/user.routes'
 import { createRolesRouter } from '../../Roles/routes/roles.routes'
+import { createDashboardRouter } from '../../DeviceDashboard/routes/dashboard.routes'
 
 // import { createUserRouter } from './user.routes'
 // import { createAuthRouter } from './auth.routes'
@@ -76,6 +77,7 @@ export const routerApi = ({ app, repository }: Props): Router => {
   router.use('/vicepresidenciasejecutivas', authenticate, createVicepresidenciaEjecutivaRouter({ repository }))
   router.use('/employees', authenticate, createEmployeeRouter({ repository }))
   router.use('/histories', authenticate, createHistoryRouter({ repository }))
+  router.use('/dashboard', createDashboardRouter({ repository }))
 
   // router.use('/users', createUserRouter({ router, repository }))
   // router.use('/profiles', createProfileRouter({ router, repository }))

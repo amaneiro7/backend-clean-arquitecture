@@ -26,6 +26,7 @@ import { type CoordinacionRepository } from '../../employee/Area/Coordinacion/do
 import { type CargoRepository } from '../../employee/Cargo/domain/CargoRepository'
 import { type EmployeeRepository } from '../../employee/Employee/domain/EmployeeRepository'
 import { type InputTypeRepository } from '../../ModelSeries/InputType/domain/InputTypeRepository'
+import { type DashboardRepository } from '../../Device/Inventroy/domain/DashboardRepository'
 
 export interface Repository {
   user: UserRepository
@@ -56,5 +57,5 @@ export interface Repository {
   cargo: CargoRepository
   employee: EmployeeRepository
   inputType: InputTypeRepository
-
+  dashboard: DashboardRepository
 }
