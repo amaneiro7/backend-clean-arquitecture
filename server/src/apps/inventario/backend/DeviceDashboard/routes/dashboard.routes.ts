@@ -10,7 +10,8 @@ export const createDashboardRouter = ({ repository }: Props): Router => {
   const router = Router()
   const getController = new DashboardGetController(repository)
 
-  router.get('/', getController.getAll)
+  router.get('/bycategory', getController.countByCategory)
+  router.get('/totaldevices', getController.totalDevice)
 
 
   return router

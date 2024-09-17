@@ -1,39 +1,33 @@
-import { CategoryOptions } from "../../../../Category/domain/CategoryDefaultData"
-import { DeviceModel } from "../../../Device/infrastructure/sequelize/DeviceSchema"
+import { Sequelize } from "sequelize"
+import { CategoryModel } from "../../../../Category/infrastructure/Sequelize/CategorySchema"
 import { DashboardRepository } from "../../domain/DashboardRepository"
+import { DeviceModel } from "../../../Device/infrastructure/sequelize/DeviceSchema"
 
 export class SequelizeDashboardRepository implements DashboardRepository {
-    async countByCategory(): Promise<{
-        totalDevice: number
-        totalComputers: {
-            total: number
-            computers: number
-            servers: number
-            allInOne: number
-            laptops: number
-        }
-        monitors: number
-    }> {
-        const [laptops, computers, servers, allInOne, monitors] = await Promise.all([
-            DeviceModel.count({ where: { categoryId: CategoryOptions.LAPTOP } }),
-            DeviceModel.count({ where: { categoryId: CategoryOptions.COMPUTER } }),
-            DeviceModel.count({ where: { categoryId: CategoryOptions.SERVER } }),
-            DeviceModel.count({ where: { categoryId: CategoryOptions.ALLINONE } }),
-            DeviceModel.count({ where: { categoryId: CategoryOptions.MONITOR } }),
-        ])
-
-        return {
-            totalDevice: laptops + computers + servers + allInOne + monitors,
-            totalComputers: {
-                total: computers + servers + allInOne + laptops,
-                computers,
-                servers,
-                allInOne,
-                laptops
-            },
-            monitors,
-        }
+    async totalDevice(): Promise<{}> {
+        return DeviceModel.count()
     }
+    async countByCategory() {
 
+        const categories = await CategoryModel.findAll({
+            include: {
+                association: 'device',
+                attributes: []
+            },
+            attributes: {
+                include: [
+                    [Sequelize.fn('COUNT', Sequelize.col('device.id')), 'deviceCount']
+                ]
+            },
+            group: ['Category.id']
+        })
+
+
+
+        return categories.map(category => ({
+            [category.name]: category.get('deviceCount')
+        }))
+
+    }
 
 }
