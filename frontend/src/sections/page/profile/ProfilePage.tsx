@@ -12,32 +12,32 @@ const DescriptionListElement = lazy(async () => import('@/sections/components/De
 const DescriptionDesc = lazy(async () => import('@/sections/components/DetailsWrapper/DescriptionDesc').then(m => ({ default: m.DescriptionDesc })))
 const Main = lazy(async () => import("@/sections/components/Main"))
 const PageTitle = lazy(async () => import("@/sections/components/Typography/PageTitle"))
-const Modal = lazy(async () => import('@/sections/components/Dialog/Modal').then(m => ({default: m.Modal })))
+const Modal = lazy(async () => import('@/sections/components/Dialog/Modal').then(m => ({ default: m.Modal })))
 const ChangePassowrdForm = lazy(async () => import("./ChangePassowrdForm").then(m => ({ default: m.ChangePassowrdForm })))
 
 
-export default function ProfilePage () {
-    const { useAuth: { user }} = useAppContext()
-    const { user: { name, email, lastName, role } } = user as unknown as UserApiResponse
-    
-    const { errors, formData, handleChange, handleSubmit, handleClose, dialogRef, handleCloseModal, handleOpenModal, isDisabled } = useChangePassword()
-    return (
-      <Suspense fallback={<main className='flex-1'/>}>
-        <Main content='max' overflow={false} className='pr-8'>
-          <Suspense>
-            <PageTitle title='Perfil de usuario' />
-            <DetailsWrapper title='A continuación le indicamos los datos de contacto'>          
+export default function ProfilePage() {
+  const { useAuth: { user } } = useAppContext()
+  const { user: { name, email, lastName, role } } = user as unknown as UserApiResponse
+
+  const { errors, formData, handleChange, handleSubmit, handleClose, dialogRef, handleCloseModal, handleOpenModal, isDisabled } = useChangePassword()
+  return (
+    <Suspense fallback={<main className='flex-1' />}>
+      <Main content='max' overflow={false} className='pr-8'>
+        <PageTitle title='Perfil de usuario' />
+        <Suspense>
+          <DetailsWrapper title='A continuación le indicamos los datos de contacto'>
             <Suspense>
-                <DetailsInfo title='Datos de Contacto'>
-                  <DescriptionListElement title='Nombre'><DescriptionDesc desc={name} /></DescriptionListElement>
-                  <DescriptionListElement title='Apellido'><DescriptionDesc desc={lastName} /></DescriptionListElement>
-                  <DescriptionListElement title='Correo'><DescriptionDesc desc={email} /></DescriptionListElement>
-                  <DescriptionListElement title='Role'><DescriptionDesc desc={role?.name} /></DescriptionListElement>        
-                </DetailsInfo>
+              <DetailsInfo title='Datos de Contacto'>
+                <DescriptionListElement title='Nombre'><DescriptionDesc desc={name} /></DescriptionListElement>
+                <DescriptionListElement title='Apellido'><DescriptionDesc desc={lastName} /></DescriptionListElement>
+                <DescriptionListElement title='Correo'><DescriptionDesc desc={email} /></DescriptionListElement>
+                <DescriptionListElement title='Role'><DescriptionDesc desc={role?.name} /></DescriptionListElement>
+              </DetailsInfo>
             </Suspense>
-            
+
             <Suspense>
-              <ChangePassowrdForm 
+              <ChangePassowrdForm
                 errors={errors}
                 formData={formData}
                 handleChange={handleChange}
@@ -47,26 +47,26 @@ export default function ProfilePage () {
                 isDisabled={isDisabled}
               />
             </Suspense>
-                   
-            </DetailsWrapper>
-            <Suspense>
-              <StepsToFollow>
-                <ChangePasswordStepsToFollow />
-              </StepsToFollow>
-            </Suspense>
-          </Suspense>
-        </Main>
-        <Suspense>
-          <Modal key='profilePageModal' ref={dialogRef}>
-            <Suspense>
-              <ConfirmationModal 
-                handleClose={handleCloseModal} 
-                text='¿Seguro que desea cambiar la contraseña?' 
-              />
-            </Suspense>
-          </Modal>
-        </Suspense>
-      </Suspense>
 
-    )
+          </DetailsWrapper>
+          <Suspense>
+            <StepsToFollow>
+              <ChangePasswordStepsToFollow />
+            </StepsToFollow>
+          </Suspense>
+        </Suspense>
+      </Main>
+      <Suspense>
+        <Modal key='profilePageModal' ref={dialogRef}>
+          <Suspense>
+            <ConfirmationModal
+              handleClose={handleCloseModal}
+              text='¿Seguro que desea cambiar la contraseña?'
+            />
+          </Suspense>
+        </Modal>
+      </Suspense>
+    </Suspense>
+
+  )
 }

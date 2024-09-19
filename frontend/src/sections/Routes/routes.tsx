@@ -11,6 +11,7 @@ const DeviceConsumer = lazy(async () => import('../Context/Consumer/DeviceConsum
 const ModelConsumer = lazy(async () => import('../Context/Consumer/ModelConsumer.tsx'))
 const LocationConsumer = lazy(async () => import('../Context/Consumer/LocationConsumer.tsx'))
 const Home = lazy(() => import('../page/home/Home.tsx'))
+const Dashboard = lazy(() => import('../page/dashboard/Dashboard.tsx'))
 const ListadoSitios = lazy(() => import('../page/ListadoSitios/ListadoSitios.tsx'))
 const ListadoModelos = lazy(() => import('../page/ListadoModelos/ListadoModelos.tsx'))
 const ListComputer = lazy(() => import('../page/ListWrapper/ListComputer/ListComputer.tsx'))
@@ -33,13 +34,14 @@ export default function AppRoutes() {
   const { useAuth: { user } } = useAppContext()
   return (
     <Routes>
-      <Route path='/login' element={<Suspense><Login user={user} /></Suspense>
-        } />
-      <Route 
-        path='/' 
+      <Route path='/login' element={<Suspense><Login user={user} /></Suspense>} />
+      <Route
+        path='/'
         element={<Suspense><ProtectedRoute user={user}><Layout /></ProtectedRoute></Suspense>}
       >
         <Route path='/' element={<Suspense fallback={<main className='flex-1' />}><Home /></Suspense>} />
+
+        <Route path='/dashboard' element={<Suspense fallback={<main className='flex-1' />}><Dashboard /></Suspense>} />
         <Route path='/profile' element={<Suspense fallback={<main className='flex-1' />}><ProfilePage /></Suspense>} />
         <Route path='/employee/add' element={<Suspense fallback={<main className='flex-1' />}><CreateEmployeeForm /></Suspense>} />
         <Route path='/employee/edit/:id' element={<Suspense fallback={<main className='flex-1' />}><CreateEmployeeForm /></Suspense>} />
@@ -48,20 +50,20 @@ export default function AppRoutes() {
 
         <Route path='/processor/add' element={<Suspense fallback={<main className='flex-1' />}><CreateProcessorForm /></Suspense>} />
         <Route path='/processor/edit/:id' element={<Suspense fallback={<main className='flex-1' />}><CreateProcessorForm /></Suspense>} />
-  
+
         <Route path='/site/add' element={<Suspense fallback={<main className='flex-1' />}><CreateSiteForm /></Suspense>} />
         <Route path='/site/edit/:id' element={<Suspense fallback={<main className='flex-1' />}><CreateSiteForm /></Suspense>} />
-        
+
         {/* Rutas para el manejo de listados de ubicaciones  */}
         <Route path='/location' element={<Suspense fallback={<main className='flex-1' />}><LocationConsumer><ListadoSitios /></LocationConsumer></Suspense>} />
         <Route path='/location/add' element={<Suspense fallback={<main className='flex-1' />}><LocationConsumer><CreateLocationForm /></LocationConsumer></Suspense>} />
         <Route path='/location/edit/:id' element={<Suspense fallback={<main className='flex-1' />}><LocationConsumer><CreateLocationForm /></LocationConsumer></Suspense>} />
-        
+
         {/* Rutas para el manejo de listados de modelos  */}
         <Route path='/model' element={<Suspense fallback={<main className='flex-1' />}><ModelConsumer><ListadoModelos /></ModelConsumer></Suspense>} />
         <Route path='/model/add' element={<Suspense fallback={<main className='flex-1' />}><ModelConsumer><CreateModelForm /></ModelConsumer></Suspense>} />
         <Route path='/model/edit/:id' element={<Suspense fallback={<main className='flex-1' />}><ModelConsumer><CreateModelForm /></ModelConsumer></Suspense>} />
-        
+
         {/* Rutas para el manejo de listados de dispositivos  */}
         <Route path='/computer' element={<Suspense fallback={<main className='flex-1' />}><DeviceConsumer location='computer'><ListComputer /></DeviceConsumer></Suspense>} />
         <Route path='/monitor' element={<Suspense fallback={<main className='flex-1' />}><DeviceConsumer location='monitor'><ListMonitor /></DeviceConsumer></Suspense>} />
@@ -70,7 +72,7 @@ export default function AppRoutes() {
         <Route path='/parts' element={<Suspense fallback={<main className='flex-1' />}><DeviceConsumer location='parts'><ListPartAndPieces /></DeviceConsumer></Suspense>} />
         <Route path='/device/add' element={<Suspense fallback={<main className='flex-1' />}><DeviceConsumer><CreateDeviceForm /></DeviceConsumer></Suspense>} />
         <Route path='/device/edit/:id' element={<Suspense fallback={<main className='flex-1' />}><DeviceConsumer><CreateDeviceForm /></DeviceConsumer></Suspense>} />
-        
+
         {/* Rutas para la gestion de usuario */}
         <Route path='/user-management' element={<Suspense fallback={<main className='flex-1' />}><UserManagement /></Suspense>}>
           <Route path='register' element={<Suspense><RegisterPage /></Suspense>} />
