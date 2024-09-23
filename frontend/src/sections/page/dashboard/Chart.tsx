@@ -1,10 +1,10 @@
-import { useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 import * as am5 from "@amcharts/amcharts5";
 import * as am5percent from "@amcharts/amcharts5/percent";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 
-function Chart() {
-    useLayoutEffect(() => {
+export function Chart() {
+    useEffect(() => {
         const root = am5.Root.new("chartdiv");
 
         root.setThemes([
@@ -13,7 +13,7 @@ function Chart() {
 
         const chart = root.container.children.push(
             am5percent.PieChart.new(root, {
-                layout: root.verticalLayout
+                layout: root.horizontalLayout
             })
         );
 
@@ -57,8 +57,10 @@ function Chart() {
         // Add legend
         const legend = chart.children.push(am5.Legend.new(root, {
             centerX: am5.percent(50),
-            x: am5.percent(50),
-            layout: root.horizontalLayout
+            x: am5.percent(75),
+            centerY: am5.percent(35),
+            y: am5.percent(35),
+            layout: root.verticalLayout
         }));
         legend.data.setAll(series.dataItems);
 
@@ -68,11 +70,5 @@ function Chart() {
         };
     }, []);
 
-    return (
-        <div
-            id='chartdiv'
-            style={{ width: '700px', height: "400px" }}
-        />
-    )
+    return <div id='chartdiv' style={{ width: '65%', height: "400px" }} />
 }
-export default Chart;

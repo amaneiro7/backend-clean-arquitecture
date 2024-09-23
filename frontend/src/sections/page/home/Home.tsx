@@ -12,32 +12,32 @@ const TilesVisible = lazy(() => import("@/sections/components/TilesSection/Tiles
 
 
 export default function Home() {
-  return (    
+  return (
     <Suspense fallback={<main className='flex-1' />}>
       <Main content='max' overflow={false}>
-        <Suspense>
+        <Suspense fallback={<section className='relative w-full min-w-full h-52 bg-secondary-900' />}>
           <Banner />
         </Suspense>
+
         <Suspense>
-          <TilesSection>     
+          <TilesSection>
             <TilesContainer>
-              {navigation.map((nav, index) => (            
-                <TilesBox img={nav.img} key={nav.label}>              
+              {navigation.map((nav, index) => (
+                <TilesBox img={nav.img} key={nav.label}>
                   <TilesInvisible>
                     {nav.navs.map((info) => (
-                      <TilesInvisibleInfo 
-                        key={info.path} 
-                        label={info.title} 
+                      <TilesInvisibleInfo
+                        key={info.path}
+                        label={info.title}
                         url={info.path}
                       />
-                ))}
-                  </TilesInvisible>              
-                  <TilesVisible isPar={index} desc={nav.desc} title={nav.label} />              
-                </TilesBox>            
-            ))}
-            </TilesContainer>     
-          </TilesSection>      
-
+                    ))}
+                  </TilesInvisible>
+                  <TilesVisible isPar={index} desc={nav.desc} title={nav.label} />
+                </TilesBox>
+              ))}
+            </TilesContainer>
+          </TilesSection>
         </Suspense>
       </Main>
     </Suspense>
