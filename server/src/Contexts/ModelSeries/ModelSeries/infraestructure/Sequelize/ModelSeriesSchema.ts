@@ -24,6 +24,7 @@ export class ModelSeriesModel extends Model<ModelSeriesPrimitives> implements Mo
     this.hasOne(models.ModelMonitor, { as: 'modelMonitor', foreignKey: 'modelSeriesId' }) // A model series has one monitor model (if it is a monitor)
     this.hasOne(models.ModelPrinter, { as: 'modelPrinter', foreignKey: 'modelSeriesId' }) // A model series has one printer model (if it is a printer)
     this.hasOne(models.ModelKeyboard, { as: 'modelKeyboard', foreignKey: 'modelSeriesId' }) // A model series has one keyboard model (if it is a keyboard)
+    this.hasOne(models.ModelMouse, { as: 'modelMouse', foreignKey: 'modelSeriesId' }) // A model series has one keyboard model (if it is a keyboard)
   }
 }
 

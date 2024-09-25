@@ -15,7 +15,7 @@ module.exports = {
           allowNull: false,
           validate: {
             isIn: {
-              args: [['13']],
+              args: [['11']],
               msg: 'No pertenece a esta categoria'
             }
           },
@@ -26,22 +26,25 @@ module.exports = {
           onUpdate: 'cascade',
           onDelete: 'cascade'
         },
-        device_id: {
+        model_series_id: {
           type: Sequelize.UUID,
           allowNull: false,
           references: {
-            model: 'devices',
+            model: 'models',
             key: 'id'
           },
           onUpdate: 'cascade',
           onDelete: 'cascade'
         },
-        ip_address: {
-          type: Sequelize.INET,
-          allowNull: true,
-          validate: {
-            isIPv4: true
-          }
+        input_type_id: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
+          references: {
+            model: 'input_types',
+            key: 'id'
+          },
+          onUpdate: 'cascade',
+          onDelete: 'cascade'
         },
         created_at: {
           type: Sequelize.DATE

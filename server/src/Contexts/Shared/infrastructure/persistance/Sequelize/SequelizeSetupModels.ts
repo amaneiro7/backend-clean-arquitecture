@@ -35,6 +35,7 @@ import { initInputTypeModel } from '../../../../ModelSeries/InputType/infrastruc
 import { initKeyboardModels } from '../../../../ModelSeries/ModelCharacteristics/Keyboards/infraestructure/KeyboardModelSchema'
 import { initEmployeeModel } from '../../../../employee/Employee/infrastructure/sequelize/EmployeeSchema'
 import { initDeviceMFPModel } from '../../../../Features/MFP/infraestructure/MFPSchema'
+import { initMouseModels } from '../../../../ModelSeries/ModelCharacteristics/Mouses/infraestructure/MouseModelSchema'
 
 export function setupModels(sequelize: Sequelize): void {
   initCategoryModel(sequelize)
@@ -61,6 +62,7 @@ export function setupModels(sequelize: Sequelize): void {
   initMonitorModels(sequelize)
   initModelPrinter(sequelize)
   initKeyboardModels(sequelize)
+  initMouseModels(sequelize)
   initStateModel(sequelize)
   initCityModel(sequelize)
   initTypeOfSiteModel(sequelize)

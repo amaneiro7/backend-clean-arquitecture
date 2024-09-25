@@ -42,6 +42,7 @@ export interface Models {
   ModelMonitor: ModelStatic<Model<any>>
   ModelPrinter: ModelStatic<Model<any>>
   ModelKeyboard: ModelStatic<Model<any>>
+  ModelMouse: ModelStatic<Model<any>>
   Status: ModelStatic<Model<any>>
   Device: ModelStatic<Model<any>>
   DeviceComputer: ModelStatic<Model<any>>

@@ -9,12 +9,13 @@ export class InputTypeModel extends Model<InputTypePrimitives> implements InputT
   readonly id!: Primitives<InputTypeId>
   readonly name!: Primitives<InputTypeName>
 
-  public static associate (models: Models): void {
+  public static associate(models: Models): void {
     this.hasOne(models.ModelKeyboard, { as: 'modelKeyboard', foreignKey: 'inputTypeId' }) // An inputType has one keyboard model (if it is a keyboard)
+    this.hasOne(models.ModelMouse, { as: 'modelMouse', foreignKey: 'inputTypeId' }) // An inputType has one mouse model (if it is a mouse)
   }
 }
 
-export function initInputTypeModel (sequelize: Sequelize): void {
+export function initInputTypeModel(sequelize: Sequelize): void {
   InputTypeModel.init(
     {
       id: {

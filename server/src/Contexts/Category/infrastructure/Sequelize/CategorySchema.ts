@@ -9,7 +9,7 @@ export class CategoryModel extends Model<CategoryPrimitives> implements Category
   readonly id!: Primitives<CategoryId>
   readonly name!: Primitives<CategoryName>
 
-  public static associate (models: Models): void {
+  public static associate(models: Models): void {
     CategoryModel.hasMany(models.Model, { as: 'model', foreignKey: 'categoryId' }) // A category can have many model series
     CategoryModel.hasMany(models.Device, { as: 'device', foreignKey: 'categoryId' }) // A category can have many device
     CategoryModel.hasMany(models.DeviceHardDrive, { as: 'deviceHardDrive', foreignKey: 'categoryId' }) // A category can have many hard drive
@@ -20,10 +20,11 @@ export class CategoryModel extends Model<CategoryPrimitives> implements Category
     CategoryModel.hasMany(models.ModelMonitor, { as: 'modelMonitor', foreignKey: 'categoryId' }) // A category can have many monitor model
     CategoryModel.hasMany(models.ModelPrinter, { as: 'modelPrinter', foreignKey: 'categoryId' }) // A category can have many printer model
     CategoryModel.hasMany(models.ModelKeyboard, { as: 'modelKeyboard', foreignKey: 'categoryId' }) // A category can have many keyboard model
+    CategoryModel.hasMany(models.ModelMouse, { as: 'modelMouse', foreignKey: 'categoryId' }) // A category can have many mouse model
   }
 }
 
-export function initCategoryModel (sequelize: Sequelize): void {
+export function initCategoryModel(sequelize: Sequelize): void {
   CategoryModel.init(
     {
       id: {

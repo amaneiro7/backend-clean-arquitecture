@@ -24,6 +24,7 @@ import { ComputerModelsModel } from '../../../../ModelSeries/ModelCharacteristic
 import { LaptopModelsModel } from '../../../../ModelSeries/ModelCharacteristics/Computers/Laptops/infraestructure/sequelize/LaptopsModelsSchema'
 import { KeyboardModelsModel } from '../../../../ModelSeries/ModelCharacteristics/Keyboards/infraestructure/KeyboardModelSchema'
 import { MonitorModelsModel } from '../../../../ModelSeries/ModelCharacteristics/Monitors/infraestructure/MonitorModelSchema'
+import { MouseModelsModel } from '../../../../ModelSeries/ModelCharacteristics/Mouses/infraestructure/MouseModelSchema'
 import { ModelPrinterModel } from '../../../../ModelSeries/ModelCharacteristics/Printers/infraestructure/sequelize/ModelPrinterSchema'
 import { ModelSeriesModel } from '../../../../ModelSeries/ModelSeries/infraestructure/Sequelize/ModelSeriesSchema'
 import { RolesModel } from '../../../../User/Role/infrastructure/sequelize/RolesSchema'
@@ -48,6 +49,7 @@ export function InitSequelizeAssociation(): void {
   MonitorModelsModel.associate(models) // ModelMonitor Associations
   ModelPrinterModel.associate(models) // ModelPrinter Associations
   KeyboardModelsModel.associate(models) // ModelKeyboard Associations
+  MouseModelsModel.associate(models) // ModelMouse Associations
   StatusModel.associate(models) // Status Associations
   DeviceModel.associate(models)// Device Associations
   DeviceComputerModel.associate(models) // DeviceComputer Associations
