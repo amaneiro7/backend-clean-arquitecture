@@ -8,7 +8,16 @@ export const CategoryDefault = {
   LASERPRINTER: 'Impresoras Laser',
   INKJETPRNTER: 'Impresoras Tinta',
   HARDDRIVE: 'Discos Duros',
-  KEYBOARDS: 'Teclados'
+  KEYBOARDS: 'Teclados',
+  ANTENAS: 'Antenas',
+  CABLEUSB: 'Cable USB',
+  CAMARAS: 'Camaras',
+  IPAD: 'IPAD',
+  CORNETAS: 'Cornetas',
+  DOCKING: 'Docking',
+  LAPIZOPTICO: 'Lapiz Optico',
+  CONVERTIDORVGAHDMI: 'Convertidor de VGA - HDMI',
+  MIC: 'Micrófono',
 } as const
 
 export type CategoryDefaultValues = typeof CategoryDefault[keyof typeof CategoryDefault]

@@ -1,11 +1,11 @@
 'use strict';
 
-const { brandsData } = require('./brandData/brand');
+const { brandsBamData } = require('./brandData/brandBam');
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    return queryInterface.bulkInsert('brands', brandsData.map(({ id, name }) => ({
+    return queryInterface.bulkInsert('brands', brandsBamData.map(({ id, name }) => ({
       id,
       name,
       created_at: new Date(),
@@ -14,7 +14,8 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    return queryInterface.bulkDelete('brands', null, {})
+    // return queryInterface.bulkDelete('brands', null, {})
+    return
   }
 };
 

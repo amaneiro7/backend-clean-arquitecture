@@ -15,6 +15,16 @@ export const CategoryDefaultData: TypeCategoryDefaultData = {
   13: 'Impresoras Multifuncionales',
   14: 'Celulares',
   15: 'Escaners',
+  16: 'Antenas',
+  17: 'Cable USB',
+  18: 'Camaras',
+  19: 'IPAD',
+  20: 'WebCam',
+  21: 'Cornetas',
+  22: 'Docking',
+  23: 'Lapiz Optico',
+  24: 'Convertidor de VGA - HDMI',
+  25: 'Micrófono',
 } as const
 
 export type CategoryKeys = keyof typeof CategoryDefaultData
@@ -35,7 +45,17 @@ export const CategoryOptions = {
   BAM: '12',
   MFP: '13',
   PHONE: '14',
-  SCANNER: '15'
+  SCANNER: '15',
+  ANTENAS: '16',
+  CABLEUSB: '17',
+  CAMARAS: '18',
+  IPAD: '19',
+  WEBCAM: '20',
+  CORNETAS: '21',
+  DOCKING: '22',
+  LAPIZOPTICO: '23',
+  CONVERTIDORVGAHDMI: '24',
+  MIC: '25',
 } as const
 
 export const CategoryNames = {
@@ -54,4 +74,14 @@ export const CategoryNames = {
   MFP: 'Impresoras Multifuncionales',
   PHONE: 'Celulares',
   SCANNER: 'Escaners',
+  ANTENAS: 'Antenas',
+  CABLEUSB: 'Cable USB',
+  CAMARAS: 'Camaras',
+  IPAD: 'IPAD',
+  CORNETAS: 'Cornetas',
+  DOCKING: 'Docking',
+  LAPIZOPTICO: 'Lapiz Optico',
+  CONVERTIDORVGAHDMI: 'Convertidor de VGA - HDMI',
+  MIC: 'Micrófono',
+  WEBCAM: 'WebCam',
 } as const

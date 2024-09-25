@@ -22,34 +22,44 @@ export const CategoryValues = {
   BAM: '12',
   MFP: '13',
   PHONES: '14',
-  SCANNER: '15'
+  SCANNER: '15',
+  ANTENAS: '16',
+  CABLEUSB: '17',
+  CAMARAS: '18',
+  IPAD: '19',
+  WEBCAM: '20',
+  CORNETAS: '21',
+  DOCKING: '22',
+  LAPIZOPTICO: '23',
+  CONVERTIDORVGAHDMI: '24',
+  MIC: '25',
 } as const
 
 export class Category {
-  constructor (
+  constructor(
     private readonly id: CategoryId,
     private readonly name: CategoryName
-  ) {}
+  ) { }
 
-  static fromPrimitives (primitives: CategoryPrimitives): Category {
+  static fromPrimitives(primitives: CategoryPrimitives): Category {
     return new Category(
       new CategoryId(primitives.id),
       new CategoryName(primitives.name)
     )
   }
 
-  toPrimitive (): CategoryPrimitives {
+  toPrimitive(): CategoryPrimitives {
     return {
       id: this.id.value,
       name: this.name.value
     }
   }
 
-  get idValue (): Primitives<CategoryId> {
+  get idValue(): Primitives<CategoryId> {
     return this.id.value
   }
 
-  get nameValue (): Primitives<CategoryName> {
+  get nameValue(): Primitives<CategoryName> {
     return this.name.value
   }
 }
