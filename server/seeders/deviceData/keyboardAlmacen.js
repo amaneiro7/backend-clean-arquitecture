@@ -1,5 +1,5 @@
 const { keyboardModel } = require("./keyboardModel")
-const {almacenes: locations, almacenName} = require("../location/locations")
+const { almacenes: locations, almacenName } = require("../location/locations")
 
 const keyboadAlmacen = [
     {

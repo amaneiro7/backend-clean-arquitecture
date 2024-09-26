@@ -6,15 +6,7 @@ const { modelBAM: models } = require('./modelsSeries/modelBram');
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    const modelComputer = models.filter(model => {
-      const computer = categoryData.filter(category => category.name === categoryOnlyNames.COMPUTADORAS)[0].id.includes(model.categoryId)
-      const servidores = categoryData.filter(category => category.name === categoryOnlyNames.SERVIDORES)[0].id.includes(model.categoryId)
-      const allInOne = categoryData.filter(category => category.name === categoryOnlyNames.ALLINONE)[0].id.includes(model.categoryId)
-      return {
-        computer, servidores, allInOne
-      }
-    })
-    const modelLaptop = models.filter(model => categoryData.filter(category => category.name === categoryOnlyNames.LAPTOPS)[0].id.includes(model.categoryId))
+    const mouseModel = models.filter(model => categoryData.filter(category => category.name === categoryOnlyNames.MOUSE)[0].id.includes(model.categoryId))
     try {
       return await queryInterface.sequelize.transaction(async (t) => {
         await queryInterface.bulkInsert('models', models.map(({ id, name, categoryId, brandId }) => ({
@@ -25,32 +17,11 @@ module.exports = {
           created_at: new Date(),
           updated_at: new Date()
         })), { transaction: t })
-        await queryInterface.bulkInsert('model_mouses', modelComputer.map(({ id, categoryId, memoryRamTypeId, memoryRamSlotQuantity, hasBluetooth, hasDVI, hasHDMI, hasVGA, hasWifiAdapter }) => ({
-          id,
-          model_series_id: id,
-          category_id: categoryId,
-          memory_ram_type_id: memoryRamTypeId,
-          memory_ram_slot_quantity: memoryRamSlotQuantity,
-          has_bluetooth: hasBluetooth,
-          has_dvi: hasDVI,
-          has_hdmi: hasHDMI,
-          has_vga: hasVGA,
-          has_wifi_adapter: hasWifiAdapter,
-          created_at: new Date(),
-          updated_at: new Date()
-        })), { transaction: t })
-        await queryInterface.bulkInsert('model_laptops', modelLaptop.map(({ id, categoryId, memoryRamTypeId, memoryRamSlotQuantity, hasBluetooth, hasDVI, hasHDMI, hasVGA, hasWifiAdapter, batteryModel }) => ({
-          id,
-          model_series_id: id,
-          category_id: categoryId,
-          memory_ram_type_id: memoryRamTypeId,
-          memory_ram_slot_quantity: memoryRamSlotQuantity,
-          has_bluetooth: hasBluetooth,
-          has_dvi: hasDVI,
-          has_hdmi: hasHDMI,
-          has_vga: hasVGA,
-          has_wifi_adapter: hasWifiAdapter,
-          battery_model: batteryModel,
+        await queryInterface.bulkInsert('model_mouses', mouseModel.map((model) => ({
+          id: model.id,
+          model_series_id: model.id,
+          category_id: model.categoryId,
+          input_type_id: model.inputTypesId,
           created_at: new Date(),
           updated_at: new Date()
         })), { transaction: t })
@@ -61,8 +32,22 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    return queryInterface.bulkDelete('models', null, {})
-      .then(() => queryInterface.bulkDelete('model_computers', null, {}))
-      .then(() => queryInterface.bulkDelete('model_laptops', null, {}))
+    const mouseModel = models.filter(model => categoryData.filter(category => category.name === categoryOnlyNames.MOUSE)[0].id.includes(model.categoryId))
+    try {
+      return await queryInterface.sequelize.transaction(async (transaction) => {
+        await queryInterface.bulkDelete('models', {
+          id: {
+            [Sequelize.Op.in]: models.map(model => model.id)
+          }
+        }, { transaction })
+        await queryInterface.bulkDelete('model_mouses', {
+          id: {
+            [Sequelize.Op.in]: mouseModel.map(mouse => mouse.id)
+          }
+        }, { transaction })
+      })
+    } catch (error) {
+      throw new Error(error)
+    }
   }
 }

@@ -1,7 +1,13 @@
-const inputTypes = [
-    { id: 1, name: 'PS/2'},
-    { id: 2, name: 'USB'},
-    { id: 3, name: 'Wireless'},
-  ]
+const inputTypesOnlyName = {
+  PS2: 'PS/2',
+  USB: 'USB',
+  Wireless: 'Wireless'
+}
 
-  module.exports = { inputTypes }
+const inputTypes = [
+  { id: 1, name: 'PS/2' },
+  { id: 2, name: 'USB' },
+  { id: 3, name: 'Wireless' },
+]
+
+module.exports = { inputTypes, inputTypesOnlyName }

@@ -14,8 +14,11 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    // return queryInterface.bulkDelete('brands', null, {})
-    return
+    await queryInterface.bulkDelete('brands', {
+      id: {
+        [Sequelize.Op.in]: brandsBamData.map(brand => brand.id)
+      }
+    }, {})
   }
 };
 
