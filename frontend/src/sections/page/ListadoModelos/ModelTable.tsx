@@ -9,6 +9,7 @@ import { ModelLaptop } from "../../../modules/devices/model/ModelCharacteristics
 import { ModelPrinter } from "../../../modules/devices/model/ModelCharacteristics/modelPrinter/ModelPrinter"
 import { ModelMonitor } from "../../../modules/devices/model/ModelCharacteristics/modelMonitor/ModelMonitor"
 import { ModelKeyboard } from "../../../modules/devices/model/ModelCharacteristics/modelKeyboard/ModelKeyboard"
+import { ModelMouse } from "@/modules/devices/model/ModelCharacteristics/modelMouse/ModelMouse"
 
 const TableWrapper = lazy(async () => import('./TableWrapper').then(m => ({ default: m.TableWraper })))
 const ModelRowTable = lazy(async () => import('./ModelTableRow').then(m => ({ default: m.ModelTableRow })))
@@ -22,6 +23,7 @@ export interface CategorySelected {
   isMonitor: boolean
   isPrinter: boolean
   isKeyboard: boolean
+  isMouse: boolean
 }
 export const ModelTable = memo(({ models, categoryId }: Props) => {
 
@@ -32,6 +34,7 @@ export const ModelTable = memo(({ models, categoryId }: Props) => {
       isMonitor: ModelMonitor.isMonitorCategory({ categoryId }),
       isPrinter: ModelPrinter.isPrinterCategory({ categoryId }),
       isKeyboard: ModelKeyboard.isKeyboardCategory({ categoryId }),
+      isMouse: ModelMouse.isMouseCategory({ categoryId }),
     }
   }, [categoryId])
 

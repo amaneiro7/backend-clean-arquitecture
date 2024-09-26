@@ -1,7 +1,7 @@
-import { BrandPrimitives } from '../../../../Brand/domain/Brand'
+import { type BrandPrimitives } from '../../../../Brand/domain/Brand'
 import { type BrandId } from '../../../../Brand/domain/BrandId'
 import { type CategoryId } from '../../../../Category/domain/CategoryId'
-import { DeviceComputerPrimitives } from '../../../../Features/Computer/domain/Computer'
+import { type DeviceComputerPrimitives } from '../../../../Features/Computer/domain/Computer'
 import { type ComputerHardDriveCapacity } from '../../../../Features/Computer/domain/ComputerHardDriveCapacity'
 import { type ComputerHardDriveType } from '../../../../Features/Computer/domain/ComputerHardDriveType'
 import { type ComputerMemoryRamCapacity } from '../../../../Features/Computer/domain/ComputerMemoryRamCapacity'
@@ -13,31 +13,30 @@ import { type IPAddress } from '../../../../Features/Computer/domain/IPAddress'
 import { type MACAddress } from '../../../../Features/Computer/domain/MACAddress'
 import { type HardDriveCapacityPrimitives } from '../../../../Features/HardDrive/HardDriveCapacity/domain/HardDriveCapacity'
 import { type HardDriveTypePrimitives } from '../../../../Features/HardDrive/HardDriveType/domain/HardDriveType'
-import { MemoryRamTypePrimitives } from '../../../../Features/MemoryRam/MemoryRamType/domain/MemoryRamType'
+import { type MemoryRamTypePrimitives } from '../../../../Features/MemoryRam/MemoryRamType/domain/MemoryRamType'
 import { type OperatingSystemPrimitives } from '../../../../Features/OperatingSystem/OperatingSystem/domain/OperatingSystem'
 import { type OperatingSystemArqPrimitives } from '../../../../Features/OperatingSystem/OperatingSystemArq/domain/OperatingSystemArq'
 import { type ProcessorPrimitives } from '../../../../Features/Processor/Processor/domain/Processor'
-import { CityPrimitives } from '../../../../Location/City/domain/City'
-import { LocationPrimitives } from '../../../../Location/Location/domain/Location'
-import { SitePrimitives } from '../../../../Location/Site/domain/Site'
-import { TypeOfSitePrimitives } from '../../../../Location/TypeOfSite/domain/TypeOfSite'
-import { InputTypePrimitives } from '../../../../ModelSeries/InputType/domain/InputType'
-import { ComputerModelsPrimitives } from '../../../../ModelSeries/ModelCharacteristics/Computers/Computer/domain/ComputerModels'
-import { LaptopsModelsPrimitives } from '../../../../ModelSeries/ModelCharacteristics/Computers/Laptops/domain/LaptopsModels'
-import { KeyboardModelsPrimitives } from '../../../../ModelSeries/ModelCharacteristics/Keyboards/domain/KeyboadModels'
-import { MonitorModelsPrimitives } from '../../../../ModelSeries/ModelCharacteristics/Monitors/domain/MonitorModels'
-import { ModelPrintersPrimitives } from '../../../../ModelSeries/ModelCharacteristics/Printers/domain/ModelPrinters'
-import { ModelSeriesPrimitives } from '../../../../ModelSeries/ModelSeries/domain/ModelSeries'
+import { type CityPrimitives } from '../../../../Location/City/domain/City'
+import { type LocationPrimitives } from '../../../../Location/Location/domain/Location'
+import { type SitePrimitives } from '../../../../Location/Site/domain/Site'
+import { type TypeOfSitePrimitives } from '../../../../Location/TypeOfSite/domain/TypeOfSite'
+import { type InputTypePrimitives } from '../../../../ModelSeries/InputType/domain/InputType'
+import { type ComputerModelsPrimitives } from '../../../../ModelSeries/ModelCharacteristics/Computers/Computer/domain/ComputerModels'
+import { type LaptopsModelsPrimitives } from '../../../../ModelSeries/ModelCharacteristics/Computers/Laptops/domain/LaptopsModels'
+import { type KeyboardModelsPrimitives } from '../../../../ModelSeries/ModelCharacteristics/Keyboards/domain/KeyboadModels'
+import { type MonitorModelsPrimitives } from '../../../../ModelSeries/ModelCharacteristics/Monitors/domain/MonitorModels'
+import { type MouseModelsPrimitives } from '../../../../ModelSeries/ModelCharacteristics/Mouses/domain/MouseModels'
+import { type ModelPrintersPrimitives } from '../../../../ModelSeries/ModelCharacteristics/Printers/domain/ModelPrinters'
+import { type ModelSeriesPrimitives } from '../../../../ModelSeries/ModelSeries/domain/ModelSeries'
 import { type ModelSeriesId } from '../../../../ModelSeries/ModelSeries/domain/ModelSeriesId'
 import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
 import { type StatusPrimitives } from '../../../Status/domain/Status'
-import { DevicePrimitives } from '../../domain/Device'
-
+import { type DevicePrimitives } from '../../domain/Device'
 import { type DeviceActivo } from '../../domain/DeviceActivo'
 import { type DeviceEmployee } from '../../domain/DeviceEmployee'
 import { type DeviceId } from '../../domain/DeviceId'
 import { type DeviceLocation } from '../../domain/DeviceLocation'
-
 import { type DeviceObservation } from '../../domain/DeviceObservation'
 import { type DeviceSerial } from '../../domain/DeviceSerial'
 import { type DeviceStatus } from '../../domain/DeviceStatus'
@@ -82,6 +81,7 @@ export interface ModelApiresponse extends ModelSeriesPrimitives {
   modelComputer: ModelComputer
   modelLaptop: ModelLaptop
   modelKeyboard: ModelKeyboard
+  modelMouse: ModelKeyboard
   modelMonitor: ModelMonitor
   modelPrinter: ModelPrinter
 }
@@ -94,6 +94,9 @@ export interface ModelLaptop extends LaptopsModelsPrimitives {
 }
 
 export interface ModelKeyboard extends KeyboardModelsPrimitives {
+  inputType: InputTypePrimitives
+}
+export interface ModelMouse extends MouseModelsPrimitives {
   inputType: InputTypePrimitives
 }
 

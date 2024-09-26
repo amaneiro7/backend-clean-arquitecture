@@ -16,6 +16,16 @@ export class CategoryId extends StringValueObject {
         BAM: '12',
         MFP: '13',
         PHONE: '14',
-        SCANNER: '15'
+        SCANNER: '15',
+        ANTENAS: '16',
+        CABLEUSB: '17',
+        CAMARAS: '18',
+        IPAD: '19',
+        WEBCAM: '20',
+        CORNETAS: '21',
+        DOCKING: '22',
+        LAPIZOPTICO: '23',
+        CONVERTIDORVGAHDMI: '24',
+        MIC: '25'
     } as const
 }

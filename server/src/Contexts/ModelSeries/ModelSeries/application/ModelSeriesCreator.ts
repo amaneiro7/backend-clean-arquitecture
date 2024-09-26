@@ -5,6 +5,8 @@ import { LaptopsModels, type LaptopsModelsPrimitives } from '../../ModelCharacte
 import { KeyboardModels, KeyboardModelsPrimitives } from '../../ModelCharacteristics/Keyboards/domain/KeyboadModels'
 import { ModelKeyboardInputType } from '../../ModelCharacteristics/Keyboards/domain/ModelKeyboardInputType'
 import { MonitorModels, type MonitorModelsPrimitives } from '../../ModelCharacteristics/Monitors/domain/MonitorModels'
+import { ModelMouseInputType } from '../../ModelCharacteristics/Mouses/domain/ModelMouseInputType'
+import { MouseModels, MouseModelsPrimitives } from '../../ModelCharacteristics/Mouses/domain/MouseModels'
 import { ModelPrinters, type ModelPrintersPrimitives } from '../../ModelCharacteristics/Printers/domain/ModelPrinters'
 import { ModelSeries, type ModelSeriesPrimitives } from '../domain/ModelSeries'
 import { ModelSeriesBrand } from '../domain/ModelSeriesBrand'
@@ -51,6 +53,12 @@ export class ModelSeriesCreator {
       await ModelKeyboardInputType.ensureInputTypeExist({ repository: this.repository.inputType, inputTypeId: keyboardParams.inputTypeId })
       // Create a keyboard model series with the extracted parameters, name, category ID, and brand ID
       modelSeries = KeyboardModels.create({ ...keyboardParams, name, categoryId, brandId, generic })
+    } else if (MouseModels.isMouseCategory({ categoryId })) {
+      // If it is a Mouse category, extract Mouse-specific parameters
+      const mouseParams = otherParams as MouseModelsPrimitives
+      await ModelMouseInputType.ensureInputTypeExist({ repository: this.repository.inputType, inputTypeId: mouseParams.inputTypeId })
+      // Create a Mouse model series with the extracted parameters, name, category ID, and brand ID
+      modelSeries = MouseModels.create({ ...mouseParams, name, categoryId, brandId, generic })
     } else {
       // If the category does not match any specific type, create a general model series with the name, category ID, and brand ID
       modelSeries = ModelSeries.create({ name, categoryId, brandId, generic })

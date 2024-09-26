@@ -26,7 +26,7 @@ module.exports = {
   async down (queryInterface, Sequelize) {
     return await queryInterface.bulkDelete('devices', {
       serial: {
-        [Sequelize.Op.in]: monitores.map((device) => device.serial)
+        [Sequelize.Op.in]: partsAndPieces.map((device) => device.serial)
       }
     })
   }

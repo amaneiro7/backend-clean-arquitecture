@@ -1,29 +1,25 @@
-import { BrandDoesNotExistError } from '../../../Brand/domain/BrandDoesNotExistError'
-import { BrandId } from '../../../Brand/domain/BrandId'
-import { CategoryDoesNotExistError } from '../../../Category/domain/CategoryDoesNotExistError'
-import { CategoryId } from '../../../Category/domain/CategoryId'
-import { ModelSeriesAlreadyExistError } from '../domain/ModelSeriesAlreadyExistError'
+import { type Repository } from '../../../Shared/domain/Repository'
+import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
+import { type ModelApiresponse } from '../../../Device/Device/infrastructure/sequelize/DeviceResponse'
+import { KeyboardModels, type KeyboardModelsPrimitives } from '../../ModelCharacteristics/Keyboards/domain/KeyboadModels'
+import { ModelPrinters, type ModelPrintersPrimitives } from '../../ModelCharacteristics/Printers/domain/ModelPrinters'
+import { MonitorModels, type MonitorModelsPrimitives } from '../../ModelCharacteristics/Monitors/domain/MonitorModels'
+import { LaptopsModels, type LaptopsModelsPrimitives } from '../../ModelCharacteristics/Computers/Laptops/domain/LaptopsModels'
+import { MouseModels, type MouseModelsPrimitives } from '../../ModelCharacteristics/Mouses/domain/MouseModels'
 import { ModelSeriesDoesNotExistError } from '../domain/ModelSeriesDoesNotExistError'
 import { ModelSeriesId } from '../domain/ModelSeriesId'
 import { ModelSeriesName } from '../domain/ModelSeriesName'
-import { type Repository } from '../../../Shared/domain/Repository'
 import { ModelSeries } from '../domain/ModelSeries'
-import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
 import { ModelParams } from './ModelSeriesCreator'
-import { KeyboardModels, KeyboardModelsPrimitives } from '../../ModelCharacteristics/Keyboards/domain/KeyboadModels'
-import { ModelApiresponse } from '../../../Device/Device/infrastructure/sequelize/DeviceResponse'
 import { ModelSeriesCategory } from '../domain/ModelSeriesCategory'
 import { ModelSeriesBrand } from '../domain/ModelSeriesBrand'
 import { ModelKeyboardInputType } from '../../ModelCharacteristics/Keyboards/domain/ModelKeyboardInputType'
 import { HasFingerPrintReader } from '../../ModelCharacteristics/Keyboards/domain/HasFingerPrintReader'
-import { ModelPrinters, ModelPrintersPrimitives } from '../../ModelCharacteristics/Printers/domain/ModelPrinters'
 import { CartridgeModel } from '../../ModelCharacteristics/Printers/domain/CartridgeModel'
-import { MonitorModels, MonitorModelsPrimitives } from '../../ModelCharacteristics/Monitors/domain/MonitorModels'
 import { MonitorHasDVI } from '../../ModelCharacteristics/Monitors/domain/MonitorHasDVI'
 import { MonitorHasVGA } from '../../ModelCharacteristics/Monitors/domain/MonitorHasVGA'
 import { MonitorHasHDMI } from '../../ModelCharacteristics/Monitors/domain/MonitorHasHDMI'
 import { MonitorScreenSize } from '../../ModelCharacteristics/Monitors/domain/MonitorScreenSize'
-import { LaptopsModels, LaptopsModelsPrimitives } from '../../ModelCharacteristics/Computers/Laptops/domain/LaptopsModels'
 import { HasVGA } from '../../ModelCharacteristics/Computers/Computer/domain/HasVGA'
 import { HasDVI } from '../../ModelCharacteristics/Computers/Computer/domain/HasDVI'
 import { HasHDMI } from '../../ModelCharacteristics/Computers/Computer/domain/HasHDMI'
@@ -34,6 +30,7 @@ import { MemoryRamSlotQuantity } from '../../ModelCharacteristics/Computers/Comp
 import { ComputerMemoryRamType } from '../../ModelCharacteristics/Computers/Computer/domain/ComputerMemoryRamType'
 import { ComputerModels } from '../../ModelCharacteristics/Computers/Computer/domain/ComputerModels'
 import { Generic } from '../domain/Generic'
+import { ModelMouseInputType } from '../../ModelCharacteristics/Mouses/domain/ModelMouseInputType'
 
 export class ModelSeriesUpdater {
   constructor(private readonly repository: Repository) { }
@@ -65,6 +62,21 @@ export class ModelSeriesUpdater {
       const keyboardParams = params as KeyboardModelsPrimitives
       await ModelKeyboardInputType.updateInputTypeField({ repository: this.repository.inputType, inputTypeId: keyboardParams.inputTypeId, entity: modelEntity })
       await HasFingerPrintReader.updateFingerprintField({ hasFingerPrintReader: keyboardParams.hasFingerPrintReader, entity: modelEntity })
+    }
+    // Actualizar la tabla de Mouse
+    if (MouseModels.isMouseCategory({ categoryId })) {
+      const { modelMouse } = modelSeries as unknown as ModelApiresponse
+      modelEntity = MouseModels.fromPrimitives({
+        id: modelSeries.id,
+        name: modelSeries.name,
+        categoryId: modelSeries.categoryId,
+        generic: modelSeries.generic,
+        brandId: modelSeries.brandId,
+        inputTypeId: modelMouse?.inputTypeId
+      })
+      const mouseParams = params as MouseModelsPrimitives
+      await ModelMouseInputType.updateInputTypeField({ repository: this.repository.inputType, inputTypeId: mouseParams.inputTypeId, entity: modelEntity })
+
     }
     // Actualizar la tabla de Impresora laser y tinta
     else if (ModelPrinters.isPrinterCategory({ categoryId })) {
@@ -166,6 +178,5 @@ export class ModelSeriesUpdater {
     await ModelSeriesBrand.updateBrandField({ repository: this.repository.brand, brandId: params.brandId, entity })
     await ModelSeriesName.updateNameField({ repository: this.repository.modelSeries, name: params.name, entity })
     await Generic.updateGenericField({ generic: params.generic, entity })
-
   }
 }

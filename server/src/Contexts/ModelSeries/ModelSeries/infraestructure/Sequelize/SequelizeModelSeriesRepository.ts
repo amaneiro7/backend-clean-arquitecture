@@ -15,6 +15,7 @@ import { type ModelSeriesRepository } from '../../domain/ModelSeriesRepository'
 import { ModelAssociation } from './ModelAssociation'
 import { ModelSeriesModel } from './ModelSeriesSchema'
 import { KeyboardModels } from '../../../ModelCharacteristics/Keyboards/domain/KeyboadModels'
+import { MouseModels } from '../../../ModelCharacteristics/Mouses/domain/MouseModels'
 
 export class SequelizeModelSeriesRepository extends CriteriaToSequelizeConverter implements ModelSeriesRepository {
   private readonly models = sequelize.models as unknown as Models
@@ -97,6 +98,10 @@ export class SequelizeModelSeriesRepository extends CriteriaToSequelizeConverter
       if (KeyboardModels.isKeyboardCategory({ categoryId })) {
         await this.createModelKeyboardIfCategoryMatches(id, payload, t)
       }
+
+      if (MouseModels.isMouseCategory({ categoryId })) {
+        await this.createModelMouseIfCategoryMatches(id, payload, t)
+      }
       await t.commit()
     } catch (error: any) {
       await t.rollback()
@@ -169,6 +174,20 @@ export class SequelizeModelSeriesRepository extends CriteriaToSequelizeConverter
       await this.models.ModelKeyboard.create({ modelSeriesId: id, ...payload })
     } else {
       await this.models.ModelKeyboard.update(
+        { ...payload },
+        {
+          where: { id },
+          transaction
+        }
+      )
+    }
+  }
+  private async createModelMouseIfCategoryMatches(id: Primitives<ModelSeriesId>, payload: ModelSeriesPrimitives, transaction: Transaction): Promise<void> {
+    const modelMouse = await this.models.ModelMouse.findByPk(id) ?? null
+    if (modelMouse === null) {
+      await this.models.ModelMouse.create({ modelSeriesId: id, ...payload })
+    } else {
+      await this.models.ModelMouse.update(
         { ...payload },
         {
           where: { id },

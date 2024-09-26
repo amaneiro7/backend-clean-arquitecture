@@ -1,11 +1,11 @@
 import { lazy, Suspense } from "react"
 import { useDefaultInitialInputValue } from "./defaultParams"
-import { useModelContext } from "../../Context/ModelProvider"
-import { useInputsData } from "../../components/ListComponent/useInputData"
-import { type ModelApiresponse } from "../../../modules/shared/domain/types/responseTypes"
+import { useModelContext } from "@/sections/Context/ModelProvider"
+import { useInputsData } from "@/sections/components/ListComponent/useInputData"
+import { type ModelApiresponse } from "@/sections/../modules/shared/domain/types/responseTypes"
 
-const ListWrapper = lazy(async () => import("../../components/ListComponent/ListWrapper").then(m => ({ default: m.ListWrapper })))
-const MainModelFilter = lazy(async () => import("../../components/ListComponent/MainModelFIlter").then(m => ({ default: m.MainModelFilter })))
+const ListWrapper = lazy(async () => import("@/sections/components/ListComponent/ListWrapper").then(m => ({ default: m.ListWrapper })))
+const MainModelFilter = lazy(async () => import("@/sections/components/ListComponent/MainModelFIlter").then(m => ({ default: m.MainModelFilter })))
 const ModelTable = lazy(async () => import("./ModelTable").then(m => ({ default: m.ModelTable })))
 
 export default function ListadoModelos() {
@@ -14,9 +14,9 @@ export default function ListadoModelos() {
   const { inputData, handleChange, handleClear } = useInputsData({ addFilter, cleanFilters, defaultInputData, initialInputData })
 
   const handleDownload = async () => {
-    const clearDataset = await import('../../utils/clearModelDataset')
+    const clearDataset = await import('@/sections/utils/clearModelDataset')
       .then(m => m.clearModelDataset({ models: models as ModelApiresponse[] }))
-    await import('../../utils/downloadJsonToExcel').then(m => m.jsonToExcel({ clearDataset }))
+    await import('@/sections/utils/downloadJsonToExcel').then(m => m.jsonToExcel({ clearDataset }))
   }
   return (
     <Suspense>

@@ -35,9 +35,9 @@ export class MouseModels extends ModelSeries {
     )
   }
 
-  public static isKeyboardCategory({ categoryId }: { categoryId: Primitives<CategoryId> }): boolean {
-    const AcceptedKeyboardCategories: CategoryValues[] = ['Teclados']
-    return AcceptedKeyboardCategories.includes(CategoryDefaultData[categoryId])
+  public static isMouseCategory({ categoryId }: { categoryId: Primitives<CategoryId> }): boolean {
+    const AcceptedMouseCategories: CategoryValues[] = ['Mouses']
+    return AcceptedMouseCategories.includes(CategoryDefaultData[categoryId])
   }
 
   static fromPrimitives(primitives: MouseModelsPrimitives): MouseModels {

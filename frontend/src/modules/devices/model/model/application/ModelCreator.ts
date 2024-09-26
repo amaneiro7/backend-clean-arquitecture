@@ -2,6 +2,7 @@ import { ModelComputer, type ModelComputerPrimitives } from '../../ModelCharacte
 import { ModelKeyboard, type ModelKeyboardPrimitives } from '../../ModelCharacteristics/modelKeyboard/ModelKeyboard'
 import { ModelLaptop, type ModelLaptopPrimitives } from '../../ModelCharacteristics/modelLaptop/ModelLaptop'
 import { ModelMonitor, type ModelMonitorPrimitives } from '../../ModelCharacteristics/modelMonitor/ModelMonitor'
+import { ModelMouse, type ModelMousePrimitives } from '../../ModelCharacteristics/modelMouse/ModelMouse'
 import { ModelPrinter, type ModelPrinterPrimitives } from '../../ModelCharacteristics/modelPrinter/ModelPrinter'
 import { Model, type ModelPrimitives } from '../domain/Model'
 import { ModelId } from '../domain/ModelId'
@@ -22,6 +23,8 @@ export class ModelCreator {
       model = ModelPrinter.create(params as ModelPrinterPrimitives)
     } else if (ModelKeyboard.isKeyboardCategory({ categoryId: params.categoryId })) {
       model = ModelKeyboard.create(params as ModelKeyboardPrimitives)
+    } else if (ModelMouse.isMouseCategory({ categoryId: params.categoryId })) {
+      model = ModelMouse.create(params as ModelMousePrimitives)
     } else {
       model = Model.create(params)
     }
