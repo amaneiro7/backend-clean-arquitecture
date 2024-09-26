@@ -48,7 +48,7 @@ export const Header = memo(function () {
           {User.isSuperAdmin({ roleId: user?.roleId }) &&
             <Link to='/user-management' className='text-white text-xs md:text-sm lg:text-base font-medium p-1 border-b hover:text-primary hover:border-primary transition-colors duration-200'>Gestión de Usuarios</Link>}
 
-          <Link to='/dashboard' className='text-white text-xs md:text-sm lg:text-base font-medium p-1 border-b hover:text-primary hover:border-primary transition-colors duration-200'>Dashboard</Link>
+          {/* <Link to='/dashboard' className='text-white text-xs md:text-sm lg:text-base font-medium p-1 border-b hover:text-primary hover:border-primary transition-colors duration-200'>Dashboard</Link> */}
           <Link to='/profile' className='text-white text-xs md:text-sm lg:text-base font-medium p-1 border-b hover:text-primary hover:border-primary transition-colors duration-200'>Perfil</Link>
 
           <Button
