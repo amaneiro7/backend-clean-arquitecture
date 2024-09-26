@@ -175,7 +175,7 @@ const modelBAM = [
     },
     {
         id: '91899f99-e6f4-4e92-9d9a-b3e29b12896f',
-        name: 'SAMSUNG Galaxy J2',
+        name: 'Samsung Galaxy J2',
         categoryId: categoryData.filter(category => category.name === categoryOnlyNames.PHONE)[0].id,
         brandId: brandsData.filter(category => category.name === brandOnlyName.SAMSUNG)[0].id
     },
@@ -211,7 +211,7 @@ const modelBAM = [
     },
     {
         id: '71264c07-f6ae-443c-8877-6f879d562966',
-        name: '.CONVERTIDORVGAHDMI',
+        name: 'Convertidor de VGA - HDMI',
         categoryId: categoryBAMData.filter(category => category.name === categoryBamOnlyNames.CONVERTIDORVGAHDMI)[0].id,
         brandId: brandsData.filter(category => category.name === brandOnlyName.LENOVO)[0].id
     },
