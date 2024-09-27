@@ -1,8 +1,9 @@
 {
     "scripts": {
-        "start": "pnpm run start:frontend && pnpm run start:restart && pnpm run start:backend",
+        "start": "pnpm run start:pull && pnpm run start:frontend && pnpm run start:restart && pnpm run start:backend",
+        "start:pull": "git pull origin master",
         "start:frontend": "cd frontend && pnpm run build",
-        "start:restart": "cd .. && nginx -s relaod",
+        "start:restart": "cd .. && nginx.exe -s reload",
         "start:backend": "cd server && pnpm run build && pnpm run start"
     }
 }
