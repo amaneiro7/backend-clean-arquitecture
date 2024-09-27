@@ -2,7 +2,7 @@
     "scripts": {
         "start": "pnpm run start:frontend && pnpm run start:restart && pnpm run start:backend",
         "start:frontend": "cd frontend && pnpm run build",
-        "start:restart": "nginx -s relaod",
+        "start:restart": "cd .. && nginx -s relaod",
         "start:backend": "cd server && pnpm run build && pnpm run start"
     }
 }
