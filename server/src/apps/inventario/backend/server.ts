@@ -13,6 +13,9 @@ import { type Repository } from '../../../Contexts/Shared/domain/Repository'
 import { routerApi } from './Shared/Routes'
 import { options } from './cors'
 import { logger } from './Shared/Middleware/winstonError'
+import { cacheMiddleware } from './Shared/Middleware/cacheMiddleware'
+import { etagMiddleware } from './Shared/Middleware/etagMiddleware'
+import { lastModifiedMiddleware } from './Shared/Middleware/lastModifiedMiddleware'
 
 export class Server {
   private readonly app: express.Express
@@ -45,6 +48,10 @@ export class Server {
       logger.error('Error;', err)
       next(err)
     })
+
+    this.app.use(cacheMiddleware)
+    this.app.use(etagMiddleware)
+    this.app.use(lastModifiedMiddleware)
 
     const router = Router()
     router.use(errorHandler())
