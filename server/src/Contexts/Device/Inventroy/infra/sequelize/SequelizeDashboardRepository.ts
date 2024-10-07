@@ -4,6 +4,10 @@ import { DashboardRepository } from "../../domain/DashboardRepository"
 import { DeviceModel } from "../../../Device/infrastructure/sequelize/DeviceSchema"
 import { OperatingSystemModel } from "../../../../Features/OperatingSystem/OperatingSystem/infraesructure/sequelize/OperatingSystemSchema"
 import { TypeOfSiteModel } from "../../../../Location/TypeOfSite/infrastructure/sequelize/TypeOfSiteSchema"
+import { DeviceComputerModel } from "../../../../Features/Computer/infraestructure/sequelize/DeviceComputerSchema"
+import { sequelize } from "../../../../Shared/infrastructure/persistance/Sequelize/SequelizeConfig"
+import { LocationModel } from "../../../../Location/Location/infrastructure/sequelize/LocationSchema"
+import { TypeOfSiteId } from "../../../../Location/TypeOfSite/domain/TypeOfSiteId"
 
 export class SequelizeDashboardRepository implements DashboardRepository {
     async totalDevice(): Promise<{}> {
@@ -33,31 +37,114 @@ export class SequelizeDashboardRepository implements DashboardRepository {
 
     }
 
-    async countByOperatingSystem() {
-
-        const operatingSystem = await OperatingSystemModel.findAll({
+    async countByOperatingSystem(): Promise<any[]> {
+        const results = await OperatingSystemModel.findAll({
             include: {
                 association: 'computer',
-                attributes: []
+                attributes: [],
             },
             attributes: {
                 include: [
-                    [Sequelize.fn('COUNT', Sequelize.col('computer.id')), 'osCount']
+                    [Sequelize.fn('Count', Sequelize.col('computer.id')), 'totalComputer']
                 ]
             },
             group: ['OperatingSystemVersion.id']
-        })
+        });
 
-        return operatingSystem.map(os => ({
-            operatingSystemName: os.name,
-            total: os.get('osCount') as number
-        })).sort((a, b) => b.total - a.total)
+        const operatingSystemIds = results.map(result => result.id);
+
+        const countByAgency = await DeviceModel.findAndCountAll({
+            attributes: [
+                [Sequelize.literal('COUNT(*)'), 'count']
+            ],
+            include: [
+                {
+                    association: 'computer',
+                    where: { operatingSystemId: operatingSystemIds }
+                },
+                {
+                    association: 'location',
+                    attributes: ['typeOfSiteId'],
+                    where: { typeOfSiteId: TypeOfSiteId.TypeOfSiteOptions.AGENCIA },
+                    include: [
+                        {
+                            association: 'typeOfSite',
+                            attributes: ['name']
+                        }
+                    ]
+                }
+            ],
+            group: ['OperatingSystemVersion.id']
+        });
+
+        const countByAdministrativeSite = await DeviceModel.findAndCountAll({
+            attributes: [
+                [Sequelize.literal('COUNT(*)'), 'count']
+            ],
+            include: [
+                {
+                    association: 'computer',
+                    where: { operatingSystemId: operatingSystemIds }
+                },
+                {
+                    association: 'location',
+                    attributes: ['typeOfSiteId'],
+                    where: { typeOfSiteId: TypeOfSiteId.TypeOfSiteOptions.TORRE },
+                    include: [
+                        {
+                            association: 'typeOfSite',
+                            attributes: ['name']
+                        }
+                    ]
+                }
+            ],
+            group: ['OperatingSystemVersion.id']
+        });
+
+        const finalResults = results.map((result, index) => ({
+            operatingSystemName: result.name,
+            total: result.get('totalComputer'),
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error   
+            agency: countByAgency[index]?.count || 0,
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error   
+            administrativeSite: countByAdministrativeSite[index]?.count || 0
+        }))
+
+        return finalResults;
     }
 
-    async countTyOfSite(): Promise<{}> {
-        const typeOfSite = await TypeOfSiteModel.findAll()
+    async countTypeOfSite(): Promise<{}> {
+        return await TypeOfSiteModel.findAndCountAll()
 
-        return typeOfSite
+
+    }
+
+    async countByTypeOfSiteAndOperatingSystem(): Promise<{}> {
+        const result = await DeviceComputerModel.findAll({
+            attributes: [
+                [Sequelize.col('operatingSystem.name'), 'operatingSystemName'],
+                [Sequelize.fn('Count', sequelize.col('DeviceComputer.id')), 'total']
+            ],
+            include: [
+                {
+                    association: 'device',
+                    attributes: [],
+                    include: [{
+                        association: 'location',
+                        attributes: ['typeOfSiteId', 'name']
+                    }]
+                },
+                {
+                    association: 'operatingSystem',
+                    attributes: ['name']
+                }
+            ],
+            group: ['device.location.id', 'device.location.name', 'operatingSystem.id']
+        })
+
+        return result
     }
 
 }

@@ -8,10 +8,11 @@ export class Dashboard {
 
     async run(): Promise<{}> {
         return {
-            totalDevices: await new TotalDeviceCount(this.repository).run(),
-            countByCategory: await new DeviceCounByCategory(this.repository).run(),
+            // totalDevices: await new TotalDeviceCount(this.repository).run(),
+            // countByCategory: await new DeviceCounByCategory(this.repository).run(),
             countByOperatingSystem: await new DeviceCounByOperatingSystem(this.repository).run(),
-            countTyOfSite: await this.repository.dashboard.countTyOfSite()
+            // countTypeOfSite: await this.repository.dashboard.countTypeOfSite(),
+            // countTypeOfSiteAndOpetingSystem: await this.repository.dashboard.countByTypeOfSiteAndOperatingSystem(),
         }
     }
 
