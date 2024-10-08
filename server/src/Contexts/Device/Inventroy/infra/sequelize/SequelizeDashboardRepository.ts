@@ -53,66 +53,99 @@ export class SequelizeDashboardRepository implements DashboardRepository {
 
         const operatingSystemIds = results.map(result => result.id);
 
-        const countByAgency = await DeviceModel.findAndCountAll({
-            attributes: [
-                [Sequelize.literal('COUNT(*)'), 'count']
-            ],
+        // const countByAgency = await DeviceModel.findAndCountAll({
+        //     attributes: [],
+        //     include: [
+        //         {
+        //             association: 'computer', 
+        //             where: { operatingSystemId: operatingSystemIds }
+        //         },
+        //         {
+        //             association: 'location',
+        //             attributes: ['typeOfSiteId'],
+        //             where: { typeOfSiteId: TypeOfSiteId.TypeOfSiteOptions.AGENCIA },
+        //             include: [
+        //                 {
+        //                     association: 'typeOfSite',
+        //                     attributes: ['name']
+        //                 }
+        //             ]
+        //         }
+        //     ]
+        // });
+
+        const countByAdministrativeSite = await DeviceComputerModel.findAll({
             include: [
                 {
-                    association: 'computer',
-                    where: { operatingSystemId: operatingSystemIds }
-                },
-                {
-                    association: 'location',
-                    attributes: ['typeOfSiteId'],
-                    where: { typeOfSiteId: TypeOfSiteId.TypeOfSiteOptions.AGENCIA },
+                    association: 'device',
                     include: [
                         {
-                            association: 'typeOfSite',
-                            attributes: ['name']
+                            association: 'location',
+                            where: { typeOfSiteId: TypeOfSiteId.TypeOfSiteOptions.TORRE }
                         }
                     ]
                 }
-            ],
-            group: ['OperatingSystemVersion.id']
-        });
+            ]
+            // include: [
+            //     {
+            //         association: 'device',
+            //         include: [
+            //             {
+            //                 association: 'location',
+            //                 where: { typeOfSiteId: TypeOfSiteId.TypeOfSiteOptions.TORRE },
+            //                 // attributes: ['name'],
+            //             }
 
-        const countByAdministrativeSite = await DeviceModel.findAndCountAll({
-            attributes: [
-                [Sequelize.literal('COUNT(*)'), 'count']
-            ],
-            include: [
-                {
-                    association: 'computer',
-                    where: { operatingSystemId: operatingSystemIds }
-                },
-                {
-                    association: 'location',
-                    attributes: ['typeOfSiteId'],
-                    where: { typeOfSiteId: TypeOfSiteId.TypeOfSiteOptions.TORRE },
-                    include: [
-                        {
-                            association: 'typeOfSite',
-                            attributes: ['name']
-                        }
-                    ]
-                }
-            ],
-            group: ['OperatingSystemVersion.id']
-        });
+            //         ],
+            //         // attributes: []
+            //     },
+            //     {
+            //         association: 'operatingSystem',
+            //         // attributes: []
+            //     }
+            // ],
+            // attributes: [
+            //     [sequelize.fn('COUNT', sequelize.col('DeviceComputer.id')), 'totalComputer'],
+            //     [sequelize.col('operatingSystem.name'), 'operatingSystemName']
+            // ],
+            // group: ['operatingSystem.id']
+        })
+        // const countByAdministrativeSite = await DeviceModel.findAll({
+        //     // attributes: [
+        //     //     [sequelize.literal('Count(*)'), 'count']
+        //     // ],
+        //     include: [
+        //         {
+        //             association: 'computer',
+        //             attributes: []
+        //         },
+        //         {
+        //             association: 'location',
+        //             attributes: [],
+        //             where: { typeOfSiteId: TypeOfSiteId.TypeOfSiteOptions.TORRE },
+        //         }
+        //     ],
+        //     attributes: {
+        //         include: [
+        //             [sequelize.fn('Count', sequelize.col('computer.operatingSystemId')), 'n_operatingSsystem']
+        //         ]
+        //     },
+        //     group: ['Device.id']
+        // })
 
-        const finalResults = results.map((result, index) => ({
-            operatingSystemName: result.name,
-            total: result.get('totalComputer'),
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-expect-error   
-            agency: countByAgency[index]?.count || 0,
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-expect-error   
-            administrativeSite: countByAdministrativeSite[index]?.count || 0
-        }))
+        // const finalResults = results.map((result, index) => ({
+        //     operatingSystemName: result.name,
+        //     total: result.get('totalComputer'),
+        //     // // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //     // // @ts-expect-error   
+        //     // agency: countByAgency,
+        //     //// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //     //// @ts-expect-error   
+        //     administrativeSite: countByAdministrativeSite
+        // }))
 
-        return finalResults;
+        // return finalResults;
+        return countByAdministrativeSite
     }
 
     async countTypeOfSite(): Promise<{}> {
