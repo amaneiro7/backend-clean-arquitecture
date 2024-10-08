@@ -30,6 +30,11 @@ export const config = {
     dbUrl: process.env.POSTGRES_URI ?? 'postgres://postgres:Man12345*@localhost:5432/inventoryApp'
     // dbUrl: process.env.POSTGRES_URI ?? 'postgres://e2e:e2e123@localhost:5433/db_e2e'
   },
+  redis: {
+    host: process.env.REDIS_HOST ?? 'localhost',
+    port: process.env.REDIS_PORT ?? '6379',
+    password: process.env.REDIS_PASSWORD ?? 'Man12345*'
+  },
   accessTokenSecret: process.env.ACCESS_TOKEN_SECRET ?? 'access_token_scret',
   refreshTokenSecret: process.env.REFRESH_TOKEN_SECRET ?? 'refresh_token_scret',
   smtpEmail: process.env.SMTP_EMAIL ?? 'jaasnavas0811@gmail.com',
