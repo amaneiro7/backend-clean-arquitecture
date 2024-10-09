@@ -28,7 +28,6 @@ export class RedisRepository implements CacheRepository {
 
     async get(key: string): Promise<string | null> {
         const value = await this.client.get(key)
-        console.log('estoy leyendo desde el repositorio')
         return value
     }
 
