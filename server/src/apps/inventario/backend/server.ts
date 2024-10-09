@@ -1,4 +1,4 @@
-import express, { type NextFunction, json, urlencoded, type Request, type Response } from 'express'
+import express, { type NextFunction, json, urlencoded, type Request, type Response, response } from 'express'
 import Router from 'express-promise-router'
 import compress from 'compression'
 import cookieParser from 'cookie-parser'
@@ -8,6 +8,7 @@ import helmet from 'helmet'
 import morgan from 'morgan'
 import type * as http from 'http'
 import httpStatus from 'http-status'
+import responseTime from 'response-time'
 
 import { type Repository } from '../../../Contexts/Shared/domain/Repository'
 import { routerApi } from './Shared/Routes'
@@ -16,6 +17,7 @@ import { logger } from './Shared/Middleware/winstonError'
 import { cacheMiddleware } from './Shared/Middleware/cacheMiddleware'
 import { etagMiddleware } from './Shared/Middleware/etagMiddleware'
 import { lastModifiedMiddleware } from './Shared/Middleware/lastModifiedMiddleware'
+import { expiresMiddleware } from './Shared/Middleware/expiresMiddleware'
 
 export class Server {
   private readonly app: express.Express
@@ -34,6 +36,7 @@ export class Server {
     this.app.use(helmet.noSniff())
     this.app.use(helmet.hidePoweredBy())
     this.app.use(helmet.frameguard({ action: 'deny' }))
+    this.app.use(responseTime())
     this.app.use(compress())
     this.app.use(cookieParser())
     this.app.use(morgan('combined', {
@@ -50,8 +53,9 @@ export class Server {
     })
 
     this.app.use(cacheMiddleware)
-    this.app.use(etagMiddleware)
+    this.app.use(expiresMiddleware)
     this.app.use(lastModifiedMiddleware)
+    this.app.use(etagMiddleware)
 
     const router = Router()
     router.use(errorHandler())

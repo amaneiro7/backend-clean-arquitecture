@@ -1,5 +1,5 @@
 export class CachetService {
-    private cache: Map<string, any>
+    private readonly cache: Map<string, any>
 
     constructor() {
         this.cache = new Map()

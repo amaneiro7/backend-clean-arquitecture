@@ -1,10 +1,13 @@
+import { CacheRepository } from '../../../Contexts/Shared/domain/CacheRepository'
 import { type Repository } from '../../../Contexts/Shared/domain/Repository'
+import { RedisRepository } from '../../../Contexts/Shared/infrastructure/persistance/Redis/RedisRepository'
 // import { repositoryInMemory } from '../../../Contexts/Shared/infrastructure/inMemoryRepository'
 import { sequelizeRepository } from '../../../Contexts/Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
 
 import { InventarioBackendApp } from './InventarioBackendApp'
 
-const repository: Repository = sequelizeRepository
+const cache: CacheRepository = new RedisRepository()
+const repository: Repository = sequelizeRepository(cache)
 try {
   void new InventarioBackendApp({ repository }).start()
 } catch (e) {

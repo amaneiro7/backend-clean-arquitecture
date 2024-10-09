@@ -30,6 +30,7 @@ import { SequelizeVicepresidenciaEjecutivaRepository } from '../../../../employe
 import { SequelizeEmployeeRepository } from '../../../../employee/Employee/infrastructure/sequelize/SequelizeEmployeeRepository'
 import { SequelizeInputTypeRepository } from '../../../../ModelSeries/InputType/infrastructure/sequelize/SequelizeInputTypeRepository'
 import { SequelizeDashboardRepository } from '../../../../Device/Inventroy/infra/sequelize/SequelizeDashboardRepository'
+import { CacheRepository } from '../../../domain/CacheRepository'
 
 initializeDatabase()
 
@@ -73,7 +74,7 @@ export interface Models {
   InputType: ModelStatic<Model<any>>
 }
 
-export const sequelizeRepository: Repository = {
+export const sequelizeRepository = (cache: CacheRepository): Repository => ({
   user: new SequelizeUserRepository(),
   brand: new SequelizeBrandRepository(),
   category: new SequelizeCategoryRepository(),
@@ -94,7 +95,7 @@ export const sequelizeRepository: Repository = {
   typeOfSite: new SequelizeTypeOfSiteRepository(),
   region: new SequelizeRegionRepository(),
   site: new SequelizeSiteRepository(),
-  location: new SequelizeLocationRepository(),
+  location: new SequelizeLocationRepository(cache),
   cargo: new SequelizeCargoRepository(),
   coordinacion: new SequelizeCoordinacionRepository(),
   gerencia: new SequelizeGerenciaRepository(),
@@ -103,4 +104,4 @@ export const sequelizeRepository: Repository = {
   employee: new SequelizeEmployeeRepository(),
   inputType: new SequelizeInputTypeRepository(),
   dashboard: new SequelizeDashboardRepository()
-}
+})

@@ -1,31 +1,44 @@
 import { Criteria } from '../../../../Shared/domain/criteria/Criteria'
-import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
 import { CriteriaToSequelizeConverter } from '../../../../Shared/infrastructure/criteria/CriteriaToSequelizeConverter'
+import { type CacheRepository } from '../../../../Shared/domain/CacheRepository'
+import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
 import { type LocationPrimitives } from '../../domain/Location'
 import { type LocationId } from '../../domain/LocationId'
-import { LocationName } from '../../domain/LocationName'
 import { type LocationRepository } from '../../domain/LocationRepository'
+import { LocationName } from '../../domain/LocationName'
 import { LocationAssociation } from './LocationAssociation'
 import { LocationApiResponse } from './LocationResponse'
 import { LocationModel } from './LocationSchema'
 
 export class SequelizeLocationRepository extends CriteriaToSequelizeConverter implements LocationRepository {
+  constructor(private readonly cache: CacheRepository) {
+    super()
+  }
   async searchAll(): Promise<LocationPrimitives[]> {
-    return await LocationModel.findAll({
-      include: [
-        'typeOfSite',
-        {
-          association: 'site',
-          include: [{
-            association: 'city',
+    const cache = await this.cache.get('locations')
+    if (cache) {
+      return JSON.parse(cache)
+    } else {
+      console.log('leyendo desde postgres')
+      const result = await LocationModel.findAll({
+        include: [
+          'typeOfSite',
+          {
+            association: 'site',
             include: [{
-              association: 'state',
-              include: ['region']
+              association: 'city',
+              include: [{
+                association: 'state',
+                include: ['region']
+              }]
             }]
-          }]
-        }
-      ]
-    })
+          }
+        ]
+      })
+
+      await this.cache.set('locations', JSON.stringify(result))
+      return result
+    }
   }
 
   async matching(criteria: Criteria): Promise<LocationPrimitives[]> {
@@ -83,5 +96,7 @@ export class SequelizeLocationRepository extends CriteriaToSequelizeConverter im
       employee.set({ ...payload })
       await employee.save()
     }
+    await this.cache.del('locations')
+    await this.searchAll()
   }
 }

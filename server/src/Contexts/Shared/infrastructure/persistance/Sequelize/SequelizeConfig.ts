@@ -15,13 +15,13 @@ export const sequelize = new Sequelize(dbUrl, {
   }
 
 })
-export function initializeDatabase (): void {
+export function initializeDatabase(): void {
   setupModels(sequelize)
   InitSequelizeAssociation()
 
   sequelize.authenticate().then(() => {
     console.log('Connection has been established successfully.')
-  }).catch((error) => {
+  }).catch((error: Error) => {
     console.error('Unable to connect to the database:', error)
   })
 
