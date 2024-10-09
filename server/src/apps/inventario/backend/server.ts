@@ -52,7 +52,7 @@ export class Server {
       next(err)
     })
 
-    this.app.use(cacheMiddleware)
+    // this.app.use(cacheMiddleware)
     this.app.use(expiresMiddleware)
     this.app.use(lastModifiedMiddleware)
     this.app.use(etagMiddleware)
