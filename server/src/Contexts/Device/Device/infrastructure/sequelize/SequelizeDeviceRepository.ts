@@ -13,9 +13,14 @@ import { DeviceAssociation } from './DeviceAssociation'
 import { DevicesApiResponse } from './DeviceResponse'
 import { DeviceHardDrive } from '../../../../Features/HardDrive/HardDrive/domain/HardDrive'
 import { MFP } from '../../../../Features/MFP/domain/MFP'
+import { CacheRepository } from '../../../../Shared/domain/CacheRepository'
 
 export class SequelizeDeviceRepository extends SequelizeCriteriaConverter implements DeviceRepository {
   private readonly models = sequelize.models as unknown as Models
+  private readonly cacheKey: string = 'devices'
+  constructor(private readonly cache: CacheRepository) {
+    super()
+  }
   async matching(criteria: Criteria): Promise<DevicePrimitives[]> {
     const options = this.convert(criteria)
 

@@ -8,8 +8,11 @@ import { DeviceComputerModel } from "../../../../Features/Computer/infraestructu
 import { sequelize } from "../../../../Shared/infrastructure/persistance/Sequelize/SequelizeConfig"
 import { LocationModel } from "../../../../Location/Location/infrastructure/sequelize/LocationSchema"
 import { TypeOfSiteId } from "../../../../Location/TypeOfSite/domain/TypeOfSiteId"
+import { type CacheRepository } from "../../../../Shared/domain/CacheRepository"
 
 export class SequelizeDashboardRepository implements DashboardRepository {
+    private readonly cacheKey: string = 'dashboard'
+    constructor(private readonly cache: CacheRepository) { }
     async totalDevice(): Promise<{}> {
         return DeviceModel.count()
     }

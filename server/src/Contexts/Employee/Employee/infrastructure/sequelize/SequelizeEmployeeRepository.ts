@@ -1,26 +1,38 @@
+import { sequelize } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeConfig'
 import { CriteriaToSequelizeConverter } from '../../../../Shared/infrastructure/criteria/CriteriaToSequelizeConverter'
-import { Employee, type EmployeePrimitives } from '../../domain/Employee'
+import { type EmployeePrimitives } from '../../domain/Employee'
 import { type EmployeeRepository } from '../../domain/EmployeeRepository'
-import { EmployeeModel } from './EmployeeSchema'
 import { type Models } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
 import { type Criteria } from '../../../../Shared/domain/criteria/Criteria'
-import { sequelize } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeConfig'
+import { type CacheRepository } from '../../../../Shared/domain/CacheRepository'
+import { EmployeeModel } from './EmployeeSchema'
 import { EmployeeAssociation } from './EmployeeAssociation'
 
 
 export class SequelizeEmployeeRepository extends CriteriaToSequelizeConverter implements EmployeeRepository {
   private readonly models = sequelize.models as unknown as Models
-  async searchAll (): Promise<EmployeePrimitives[]> {
-    return await EmployeeModel.findAll()
+
+  private readonly cacheKey: string = 'employees'
+  constructor(private readonly cache: CacheRepository) {
+    super()
+  }
+  async searchAll(): Promise<EmployeePrimitives[]> {
+    const cache = await this.cache.get(this.cacheKey)
+    if (cache) {
+      return JSON.parse(cache)
+    }
+    const res = await EmployeeModel.findAll()
+    await this.cache.set(this.cacheKey, JSON.stringify(res))
+    return res
   }
 
-  async matching (criteria: Criteria): Promise<EmployeePrimitives[]> {
+  async matching(criteria: Criteria): Promise<EmployeePrimitives[]> {
     const options = this.convert(criteria)
     const locationJoin = new EmployeeAssociation().convertFilterLocation(criteria, options)
-    return await EmployeeModel.findAll(locationJoin)    
+    return await EmployeeModel.findAll(locationJoin)
   }
 
-  async searchById (id: string): Promise<EmployeePrimitives | null> {
+  async searchById(id: string): Promise<EmployeePrimitives | null> {
     return await EmployeeModel.findByPk(id, {
       include: [
         {
@@ -41,7 +53,7 @@ export class SequelizeEmployeeRepository extends CriteriaToSequelizeConverter im
     return await EmployeeModel.findOne({ where: { userName } })
   }
 
-  async save (payload: EmployeePrimitives): Promise<void> {
+  async save(payload: EmployeePrimitives): Promise<void> {
     const { id } = payload
     const employee = await EmployeeModel.findByPk(id) ?? null
     if (employee === null) {
@@ -50,9 +62,13 @@ export class SequelizeEmployeeRepository extends CriteriaToSequelizeConverter im
       employee.set({ ...payload })
       await employee.save()
     }
+    await this.cache.del(this.cacheKey)
+    await this.searchAll()
   }
 
-  async remove (id: string): Promise<void> {
+  async remove(id: string): Promise<void> {
     await EmployeeModel.destroy({ where: { id } })
+    await this.cache.del(this.cacheKey)
+    await this.searchAll()
   }
 }

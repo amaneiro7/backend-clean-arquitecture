@@ -11,15 +11,15 @@ import { LocationApiResponse } from './LocationResponse'
 import { LocationModel } from './LocationSchema'
 
 export class SequelizeLocationRepository extends CriteriaToSequelizeConverter implements LocationRepository {
+  private readonly cacheKey: string = 'locations'
   constructor(private readonly cache: CacheRepository) {
     super()
   }
   async searchAll(): Promise<LocationPrimitives[]> {
-    const cache = await this.cache.get('locations')
+    const cache = await this.cache.get(this.cacheKey)
     if (cache) {
       return JSON.parse(cache)
     } else {
-      console.log('leyendo desde postgres')
       const result = await LocationModel.findAll({
         include: [
           'typeOfSite',
@@ -36,7 +36,7 @@ export class SequelizeLocationRepository extends CriteriaToSequelizeConverter im
         ]
       })
 
-      await this.cache.set('locations', JSON.stringify(result))
+      await this.cache.set(this.cacheKey, JSON.stringify(result))
       return result
     }
   }
@@ -96,7 +96,7 @@ export class SequelizeLocationRepository extends CriteriaToSequelizeConverter im
       employee.set({ ...payload })
       await employee.save()
     }
-    await this.cache.del('locations')
+    await this.cache.del(this.cacheKey)
     await this.searchAll()
   }
 }

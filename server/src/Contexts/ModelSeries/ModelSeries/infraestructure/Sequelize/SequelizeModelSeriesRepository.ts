@@ -1,17 +1,18 @@
-import { Transaction } from 'sequelize'
-import { type CategoryId } from '../../../../Category/domain/CategoryId'
-import { Criteria } from '../../../../Shared/domain/criteria/Criteria'
-import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
-import { CriteriaToSequelizeConverter } from '../../../../Shared/infrastructure/criteria/CriteriaToSequelizeConverter'
 import { sequelize } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeConfig'
+import { Criteria } from '../../../../Shared/domain/criteria/Criteria'
+import { CriteriaToSequelizeConverter } from '../../../../Shared/infrastructure/criteria/CriteriaToSequelizeConverter'
+import { type Transaction } from 'sequelize'
+import { type CategoryId } from '../../../../Category/domain/CategoryId'
+import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
 import { type Models } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
+import { type ModelSeriesPrimitives } from '../../domain/ModelSeries'
+import { type ModelSeriesId } from '../../domain/ModelSeriesId'
+import { type ModelSeriesRepository } from '../../domain/ModelSeriesRepository'
+import { type CacheRepository } from '../../../../Shared/domain/CacheRepository'
 import { ComputerModels } from '../../../ModelCharacteristics/Computers/Computer/domain/ComputerModels'
 import { LaptopsModels } from '../../../ModelCharacteristics/Computers/Laptops/domain/LaptopsModels'
 import { MonitorModels } from '../../../ModelCharacteristics/Monitors/domain/MonitorModels'
 import { ModelPrinters } from '../../../ModelCharacteristics/Printers/domain/ModelPrinters'
-import { type ModelSeriesPrimitives } from '../../domain/ModelSeries'
-import { type ModelSeriesId } from '../../domain/ModelSeriesId'
-import { type ModelSeriesRepository } from '../../domain/ModelSeriesRepository'
 import { ModelAssociation } from './ModelAssociation'
 import { ModelSeriesModel } from './ModelSeriesSchema'
 import { KeyboardModels } from '../../../ModelCharacteristics/Keyboards/domain/KeyboadModels'
@@ -19,8 +20,17 @@ import { MouseModels } from '../../../ModelCharacteristics/Mouses/domain/MouseMo
 
 export class SequelizeModelSeriesRepository extends CriteriaToSequelizeConverter implements ModelSeriesRepository {
   private readonly models = sequelize.models as unknown as Models
+  private readonly cacheKey: string = 'modelSeries'
+  constructor(private readonly cache: CacheRepository) {
+    super()
+  }
   async searchAll(): Promise<ModelSeriesPrimitives[]> {
-    return await ModelSeriesModel.findAll({
+    const cache = await this.cache.get(this.cacheKey)
+    if (cache) {
+      return JSON.parse(cache)
+    }
+
+    const result = await ModelSeriesModel.findAll({
       include: [
         'category',
         'brand',
@@ -31,6 +41,8 @@ export class SequelizeModelSeriesRepository extends CriteriaToSequelizeConverter
         { association: 'modelKeyboard', include: ['inputType'] }
       ]
     })
+    await this.cache.set(this.cacheKey, JSON.stringify(result))
+    return result
   }
 
   async matching(criteria: Criteria): Promise<ModelSeriesPrimitives[]> {
@@ -103,6 +115,8 @@ export class SequelizeModelSeriesRepository extends CriteriaToSequelizeConverter
         await this.createModelMouseIfCategoryMatches(id, payload, t)
       }
       await t.commit()
+      await this.cache.del(this.cacheKey)
+      await this.searchAll()
     } catch (error: any) {
       await t.rollback()
       throw new Error(error)
@@ -199,5 +213,7 @@ export class SequelizeModelSeriesRepository extends CriteriaToSequelizeConverter
 
   async remove(id: string): Promise<void> {
     await ModelSeriesModel.destroy({ where: { id } })
+    await this.cache.del(this.cacheKey)
+    await this.searchAll()
   }
 }

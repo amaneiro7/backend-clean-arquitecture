@@ -1,5 +1,6 @@
 import { type ModelStatic, type Model } from 'sequelize'
 import { type Repository } from '../../../domain/Repository'
+import { type CacheRepository } from '../../../domain/CacheRepository'
 import { initializeDatabase } from './SequelizeConfig'
 import { SequelizeBrandRepository } from '../../../../Brand/infrastructure/Sequelize/SequelizeBrandRepository'
 import { SequelizeCategoryRepository } from '../../../../Category/infrastructure/Sequelize/SequelizeCategoryRepository'
@@ -30,7 +31,6 @@ import { SequelizeVicepresidenciaEjecutivaRepository } from '../../../../employe
 import { SequelizeEmployeeRepository } from '../../../../employee/Employee/infrastructure/sequelize/SequelizeEmployeeRepository'
 import { SequelizeInputTypeRepository } from '../../../../ModelSeries/InputType/infrastructure/sequelize/SequelizeInputTypeRepository'
 import { SequelizeDashboardRepository } from '../../../../Device/Inventroy/infra/sequelize/SequelizeDashboardRepository'
-import { CacheRepository } from '../../../domain/CacheRepository'
 
 initializeDatabase()
 
@@ -75,33 +75,33 @@ export interface Models {
 }
 
 export const sequelizeRepository = (cache: CacheRepository): Repository => ({
-  user: new SequelizeUserRepository(),
-  brand: new SequelizeBrandRepository(),
-  category: new SequelizeCategoryRepository(),
-  modelSeries: new SequelizeModelSeriesRepository(),
-  status: new SequelizeStatusRepository(),
-  device: new SequelizeDeviceRepository(),
-  processor: new SequelizeProcessorRepository(),
-  processorSocket: new SequelizeProcessorSocketRepository(),
-  hardDriveType: new SequelizeHardDriveTypeRepository(),
-  hardDriveCapacity: new SequelizeHardDriveCapacityRepository(),
-  memoryRamType: new SequelizeMemoryRamTypeRepository(),
-  operatingSystemVersion: new SequelizeOperatingSystemRepository(),
-  operatingSystemArq: new SequelizeOperatingSystemArqRepository(),
-  role: new SequelizeRolesRepository(),
-  history: new SequelizeHistoryRepository(),
-  state: new SequelizeStateRepository(),
-  city: new SequelizeCityRepository(),
-  typeOfSite: new SequelizeTypeOfSiteRepository(),
-  region: new SequelizeRegionRepository(),
-  site: new SequelizeSiteRepository(),
+  user: new SequelizeUserRepository(cache),
+  brand: new SequelizeBrandRepository(cache),
+  category: new SequelizeCategoryRepository(cache),
+  modelSeries: new SequelizeModelSeriesRepository(cache),
+  status: new SequelizeStatusRepository(cache),
+  device: new SequelizeDeviceRepository(cache),
+  processor: new SequelizeProcessorRepository(cache),
+  processorSocket: new SequelizeProcessorSocketRepository(cache),
+  hardDriveType: new SequelizeHardDriveTypeRepository(cache),
+  hardDriveCapacity: new SequelizeHardDriveCapacityRepository(cache),
+  memoryRamType: new SequelizeMemoryRamTypeRepository(cache),
+  operatingSystemVersion: new SequelizeOperatingSystemRepository(cache),
+  operatingSystemArq: new SequelizeOperatingSystemArqRepository(cache),
+  role: new SequelizeRolesRepository(cache),
+  history: new SequelizeHistoryRepository(cache),
+  state: new SequelizeStateRepository(cache),
+  city: new SequelizeCityRepository(cache),
+  typeOfSite: new SequelizeTypeOfSiteRepository(cache),
+  region: new SequelizeRegionRepository(cache),
+  site: new SequelizeSiteRepository(cache),
   location: new SequelizeLocationRepository(cache),
-  cargo: new SequelizeCargoRepository(),
-  coordinacion: new SequelizeCoordinacionRepository(),
-  gerencia: new SequelizeGerenciaRepository(),
-  vicepresidencia: new SequelizeVicepresidenciaRepository(),
-  vicepresidenciaEjecutiva: new SequelizeVicepresidenciaEjecutivaRepository(),
-  employee: new SequelizeEmployeeRepository(),
-  inputType: new SequelizeInputTypeRepository(),
-  dashboard: new SequelizeDashboardRepository()
+  cargo: new SequelizeCargoRepository(cache),
+  coordinacion: new SequelizeCoordinacionRepository(cache),
+  gerencia: new SequelizeGerenciaRepository(cache),
+  vicepresidencia: new SequelizeVicepresidenciaRepository(cache),
+  vicepresidenciaEjecutiva: new SequelizeVicepresidenciaEjecutivaRepository(cache),
+  employee: new SequelizeEmployeeRepository(cache),
+  inputType: new SequelizeInputTypeRepository(cache),
+  dashboard: new SequelizeDashboardRepository(cache)
 })
