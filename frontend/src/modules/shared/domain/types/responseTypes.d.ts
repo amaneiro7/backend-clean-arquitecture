@@ -152,6 +152,7 @@ export interface ModelLaptop extends ModelLaptopPrimitives {
 }
 
 export interface ModelPrinter extends ModelPrinterPrimitives { }
+
 export interface ModelMonitor extends ModelMonitorPrimitives { }
 export interface ModelKeyboard extends ModelKeyboardPrimitives {
   inputType: InputTypePrimitives

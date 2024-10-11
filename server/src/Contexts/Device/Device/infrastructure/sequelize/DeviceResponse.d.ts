@@ -1,6 +1,8 @@
 import { type BrandPrimitives } from '../../../../Brand/domain/Brand'
 import { type BrandId } from '../../../../Brand/domain/BrandId'
+import { type CategoryPrimitives } from '../../../../Category/domain/Category'
 import { type CategoryId } from '../../../../Category/domain/CategoryId'
+import { type EmployeePrimitives } from '../../../../employee/Employee/domain/Employee'
 import { type DeviceComputerPrimitives } from '../../../../Features/Computer/domain/Computer'
 import { type ComputerHardDriveCapacity } from '../../../../Features/Computer/domain/ComputerHardDriveCapacity'
 import { type ComputerHardDriveType } from '../../../../Features/Computer/domain/ComputerHardDriveType'
@@ -17,6 +19,7 @@ import { type MemoryRamTypePrimitives } from '../../../../Features/MemoryRam/Mem
 import { type OperatingSystemPrimitives } from '../../../../Features/OperatingSystem/OperatingSystem/domain/OperatingSystem'
 import { type OperatingSystemArqPrimitives } from '../../../../Features/OperatingSystem/OperatingSystemArq/domain/OperatingSystemArq'
 import { type ProcessorPrimitives } from '../../../../Features/Processor/Processor/domain/Processor'
+import { type HistoryPrimitives } from '../../../../History/domain/History'
 import { type CityPrimitives } from '../../../../Location/City/domain/City'
 import { type LocationPrimitives } from '../../../../Location/Location/domain/Location'
 import { type SitePrimitives } from '../../../../Location/Site/domain/Site'
@@ -31,6 +34,7 @@ import { type ModelPrintersPrimitives } from '../../../../ModelSeries/ModelChara
 import { type ModelSeriesPrimitives } from '../../../../ModelSeries/ModelSeries/domain/ModelSeries'
 import { type ModelSeriesId } from '../../../../ModelSeries/ModelSeries/domain/ModelSeriesId'
 import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
+import { type UserPrimitives } from '../../../../User/user/domain/User'
 import { type StatusPrimitives } from '../../../Status/domain/Status'
 import { type DevicePrimitives } from '../../domain/Device'
 import { type DeviceActivo } from '../../domain/DeviceActivo'
@@ -42,13 +46,24 @@ import { type DeviceSerial } from '../../domain/DeviceSerial'
 import { type DeviceStatus } from '../../domain/DeviceStatus'
 
 export interface DevicesApiResponse extends DevicePrimitives {
-  location: LocationApiResponse
-  createdAt: Date
-  updatedAt: Date
+  createdAt: string
+  updatedAt: string
+  category: CategoryPrimitives
+  brand: BrandPrimitives
   model: ModelApiresponse
+  location: LocationApiResponse
+  employee: EmployeePrimitives | null
   status: StatusPrimitives
   computer: Computer | null
   hardDrive: HardDrive | null
+  history: HistoryApiResponse[]
+}
+
+export interface HistoryApiResponse extends HistoryPrimitives {
+  employee: EmployeePrimitives
+  user: Pick<UserPrimitives, 'email' | 'name' | 'lastName'>
+  createdAt: string
+  updatedAt: string
 }
 
 export interface LocationApiResponse extends LocationPrimitives {

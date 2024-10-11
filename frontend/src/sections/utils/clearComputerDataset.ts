@@ -1,6 +1,6 @@
-import { type DevicesApiResponse } from "../../modules/shared/domain/types/responseTypes";
-import { type ClearDataset } from "../../types/types";
-import { lastHistoryUpdated } from "./lastHistoryUpdated";
+import { type DevicesApiResponse } from "../../modules/shared/domain/types/responseTypes"
+import { type ClearDataset } from "../../types/types"
+import { lastHistoryUpdated } from "./lastHistoryUpdated"
 
 export function clearComputerDataset({ devices }: { devices: DevicesApiResponse[] }): ClearDataset[] {
     return devices.map(device => ({
