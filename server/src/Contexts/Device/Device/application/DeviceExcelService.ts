@@ -1,10 +1,15 @@
-import * as XLSX from 'xlsx'
+import { utils, writeFileXLSX } from 'xlsx'
 import { type DevicesApiResponse } from '../infrastructure/sequelize/DeviceResponse'
 import { type Repository } from '../../../Shared/domain/Repository'
 import { SearchByCriteriaQuery } from '../../../Shared/domain/SearchByCriteriaQuery'
-import { DeviceByCriteriaSearcher } from './DeviceByCriteriaSearcher'
 import { lastHistoryUpdated } from '../../../Shared/domain/LastHistoryUpdated'
-import { DeviceComputer } from '../../../Features/Computer/domain/Computer'
+import { Criteria } from '../../../Shared/domain/criteria/Criteria'
+import { Filters } from '../../../Shared/domain/criteria/Filters'
+import { Order } from '../../../Shared/domain/criteria/Order'
+import { Filter } from '../../../Shared/domain/criteria/Filter'
+import { FilterField } from '../../../Shared/domain/criteria/FilterField'
+import { FilterValue } from '../../../Shared/domain/criteria/FilterValue'
+import { FilterOperator } from '../../../Shared/domain/criteria/FilterOperator'
 
 export type ClearDataset = {
     id: string
@@ -36,21 +41,30 @@ export class DeviceExcelService {
     async generateExcel(query: SearchByCriteriaQuery): Promise<void> {
 
         // Recuperar los datos de la base de datos usando Sequelize
-        const search = new DeviceByCriteriaSearcher(this.repository).search
-        const data = await search(query) as DevicesApiResponse[]
-
-        DeviceComputer.isComputerCategory({ categoryId: query.filters. })
-
-        // Convertir los datos a formato JSON
-        const jsonData = data.map(item => item.toJSON())
+        const filters = query.filters.map((filter) => {
+            return new Filter(
+                new FilterField(filter.field),
+                FilterOperator.fromValue(filter.operator),
+                new FilterValue(filter.value))
+        })
+        const order = Order.fromValues(
+            query.orderBy ?? 'locationId',
+            query.orderType
+        )
+        const criteria = new Criteria(new Filters(filters), order)
+        criteria.searchValueInArray('categoryId')
+        const data = await this.repository.device.matching(criteria)
 
         // Crear una nueva hoja de cálculo
-        const worksheet = XLSX.utils.json_to_sheet(jsonData)
-        const workbook = XLSX.utils.book_new()
-        XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1')
+        const worksheet = utils.json_to_sheet(data)
+        worksheet["!cols"] = [{ wch: 20 }]
+        const workbook = utils.book_new()
+        utils.book_append_sheet(workbook, worksheet, 'Inventario')
 
         // Generar un archivo buffer
-        const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'buffer' })
+        const now = new Date()
+        const filename = `Reporte-Inventario${now.toLocaleString().replace(/[/:]/g, '-')}.xlsx`
+        const excelBuffer = writeFileXLSX(workbook, filename, { compression: true })
 
         // Establecer los encabezados para la descarga del archivo
         // res.setHeader('Content-Disposition', 'attachment filename=report.xlsx')
