@@ -1,4 +1,5 @@
 import { type CacheRepository } from '../../../../Shared/domain/CacheRepository'
+import { CacheService } from '../../../../Shared/domain/CacheService'
 import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
 import { type StatePrimitives } from '../../domain/State'
 import { type StateId } from '../../domain/StateId'
@@ -11,13 +12,10 @@ export class SequelizeStateRepository extends StateRepository {
     super()
   }
   async searchAll(): Promise<StatePrimitives[]> {
-    const cache = await this.cache.get(this.cacheKey)
-    if (cache) {
-      return JSON.parse(cache)
-    }
-    const res = await StateModel.findAll()
-    await this.cache.set(this.cacheKey, JSON.stringify(res))
-    return res
+    return await new CacheService(this.cache).getCachedData(this.cacheKey, async () => {
+      return await StateModel.findAll()
+    })
+
   }
 
   async searchById(id: Primitives<StateId>): Promise<StatePrimitives | null> {

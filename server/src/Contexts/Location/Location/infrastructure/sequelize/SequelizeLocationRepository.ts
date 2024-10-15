@@ -9,6 +9,7 @@ import { LocationName } from '../../domain/LocationName'
 import { LocationAssociation } from './LocationAssociation'
 import { LocationApiResponse } from './LocationResponse'
 import { LocationModel } from './LocationSchema'
+import { CacheService } from '../../../../Shared/domain/CacheService'
 
 export class SequelizeLocationRepository extends CriteriaToSequelizeConverter implements LocationRepository {
   private readonly cacheKey: string = 'locations'
@@ -16,11 +17,8 @@ export class SequelizeLocationRepository extends CriteriaToSequelizeConverter im
     super()
   }
   async searchAll(): Promise<LocationPrimitives[]> {
-    const cache = await this.cache.get(this.cacheKey)
-    if (cache) {
-      return JSON.parse(cache)
-    } else {
-      const result = await LocationModel.findAll({
+    return await new CacheService(this.cache).getCachedData(this.cacheKey, async () => {
+      return await LocationModel.findAll({
         include: [
           'typeOfSite',
           {
@@ -35,10 +33,7 @@ export class SequelizeLocationRepository extends CriteriaToSequelizeConverter im
           }
         ]
       })
-
-      await this.cache.set(this.cacheKey, JSON.stringify(result))
-      return result
-    }
+    })
   }
 
   async matching(criteria: Criteria): Promise<LocationPrimitives[]> {
@@ -96,7 +91,7 @@ export class SequelizeLocationRepository extends CriteriaToSequelizeConverter im
       employee.set({ ...payload })
       await employee.save()
     }
-    await this.cache.del(this.cacheKey)
+    await new CacheService(this.cache).removeCachedData(this.cacheKey)
     await this.searchAll()
   }
 }

@@ -7,6 +7,7 @@ import { type Criteria } from '../../../../Shared/domain/criteria/Criteria'
 import { type CacheRepository } from '../../../../Shared/domain/CacheRepository'
 import { EmployeeModel } from './EmployeeSchema'
 import { EmployeeAssociation } from './EmployeeAssociation'
+import { CacheService } from '../../../../Shared/domain/CacheService'
 
 
 export class SequelizeEmployeeRepository extends CriteriaToSequelizeConverter implements EmployeeRepository {
@@ -17,13 +18,10 @@ export class SequelizeEmployeeRepository extends CriteriaToSequelizeConverter im
     super()
   }
   async searchAll(): Promise<EmployeePrimitives[]> {
-    const cache = await this.cache.get(this.cacheKey)
-    if (cache) {
-      return JSON.parse(cache)
-    }
-    const res = await EmployeeModel.findAll()
-    await this.cache.set(this.cacheKey, JSON.stringify(res))
-    return res
+    return await new CacheService(this.cache).getCachedData(this.cacheKey, async () => {
+      return await EmployeeModel.findAll()
+    })
+
   }
 
   async matching(criteria: Criteria): Promise<EmployeePrimitives[]> {
@@ -62,13 +60,13 @@ export class SequelizeEmployeeRepository extends CriteriaToSequelizeConverter im
       employee.set({ ...payload })
       await employee.save()
     }
-    await this.cache.del(this.cacheKey)
+    await new CacheService(this.cache).removeCachedData(this.cacheKey)
     await this.searchAll()
   }
 
   async remove(id: string): Promise<void> {
     await EmployeeModel.destroy({ where: { id } })
-    await this.cache.del(this.cacheKey)
+    await new CacheService(this.cache).removeCachedData(this.cacheKey)
     await this.searchAll()
   }
 }

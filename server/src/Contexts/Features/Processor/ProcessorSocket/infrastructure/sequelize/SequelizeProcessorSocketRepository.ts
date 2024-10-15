@@ -1,4 +1,5 @@
 import { type CacheRepository } from '../../../../../Shared/domain/CacheRepository'
+import { CacheService } from '../../../../../Shared/domain/CacheService'
 import { type Primitives } from '../../../../../Shared/domain/value-object/Primitives'
 import { type ProcessorSocketPrimitives } from '../../domain/ProcessorSocket'
 import { type ProcessorSocketId } from '../../domain/ProcessorSocketId'
@@ -9,14 +10,10 @@ export class SequelizeProcessorSocketRepository implements ProcessorSocketReposi
   private readonly cacheKey: string = 'processorSocket'
   constructor(private readonly cache: CacheRepository) { }
   async searchAll(): Promise<ProcessorSocketPrimitives[]> {
-    const cache = await this.cache.get(this.cacheKey)
-    if (cache) {
-      return JSON.parse(cache)
-    }
+    return await new CacheService(this.cache).getCachedData(this.cacheKey, async () => {
+      return await ProcessorSocketModel.findAll()
 
-    const res = await ProcessorSocketModel.findAll()
-    await this.cache.set(this.cacheKey, JSON.stringify(res))
-    return res
+    })
   }
 
   async searchById(id: Primitives<ProcessorSocketId>): Promise<ProcessorSocketPrimitives | null> {

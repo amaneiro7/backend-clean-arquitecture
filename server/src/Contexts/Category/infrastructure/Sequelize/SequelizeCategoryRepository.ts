@@ -1,4 +1,5 @@
 import { type CacheRepository } from '../../../Shared/domain/CacheRepository'
+import { CacheService } from '../../../Shared/domain/CacheService'
 import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
 import { type CategoryPrimitives } from '../../domain/Category'
 import { type CategoryId } from '../../domain/CategoryId'
@@ -10,17 +11,13 @@ export class SequelizeCategoryRepository implements CategoryRepository {
   private readonly cacheKey: string = 'categories'
   constructor(private readonly cache: CacheRepository) { }
   async searchAll(): Promise<CategoryPrimitives[]> {
-    const cache = await this.cache.get(this.cacheKey)
-    if (cache) {
-      return JSON.parse(cache)
-    }
-    const result = await CategoryModel.findAll({
-      order: [
-        ['name', 'ASC']
-      ]
+    return await new CacheService(this.cache).getCachedData(this.cacheKey, async () => {
+      return await CategoryModel.findAll({
+        order: [
+          ['name', 'ASC']
+        ]
+      })
     })
-    await this.cache.set(this.cacheKey, JSON.stringify(result))
-    return result
   }
 
   async searchById(id: Primitives<CategoryId>): Promise<CategoryPrimitives | null> {

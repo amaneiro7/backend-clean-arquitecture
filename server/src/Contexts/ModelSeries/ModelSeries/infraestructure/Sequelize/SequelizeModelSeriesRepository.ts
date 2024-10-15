@@ -17,6 +17,7 @@ import { ModelAssociation } from './ModelAssociation'
 import { ModelSeriesModel } from './ModelSeriesSchema'
 import { KeyboardModels } from '../../../ModelCharacteristics/Keyboards/domain/KeyboadModels'
 import { MouseModels } from '../../../ModelCharacteristics/Mouses/domain/MouseModels'
+import { CacheService } from '../../../../Shared/domain/CacheService'
 
 export class SequelizeModelSeriesRepository extends CriteriaToSequelizeConverter implements ModelSeriesRepository {
   private readonly models = sequelize.models as unknown as Models
@@ -25,24 +26,21 @@ export class SequelizeModelSeriesRepository extends CriteriaToSequelizeConverter
     super()
   }
   async searchAll(): Promise<ModelSeriesPrimitives[]> {
-    const cache = await this.cache.get(this.cacheKey)
-    if (cache) {
-      return JSON.parse(cache)
-    }
-
-    const result = await ModelSeriesModel.findAll({
-      include: [
-        'category',
-        'brand',
-        'modelPrinter',
-        'modelMonitor',
-        { association: 'modelLaptop', include: ['memoryRamType'] },
-        { association: 'modelComputer', include: ['memoryRamType'] },
-        { association: 'modelKeyboard', include: ['inputType'] }
-      ]
+    return await new CacheService(this.cache).getCachedData(this.cacheKey, async () => {
+      return await ModelSeriesModel.findAll({
+        include: [
+          'category',
+          'brand',
+          'modelPrinter',
+          'modelMonitor',
+          { association: 'modelLaptop', include: ['memoryRamType'] },
+          { association: 'modelComputer', include: ['memoryRamType'] },
+          { association: 'modelKeyboard', include: ['inputType'] }
+        ]
+      })
     })
-    await this.cache.set(this.cacheKey, JSON.stringify(result))
-    return result
+
+
   }
 
   async matching(criteria: Criteria): Promise<ModelSeriesPrimitives[]> {
@@ -115,7 +113,7 @@ export class SequelizeModelSeriesRepository extends CriteriaToSequelizeConverter
         await this.createModelMouseIfCategoryMatches(id, payload, t)
       }
       await t.commit()
-      await this.cache.del(this.cacheKey)
+      await await new CacheService(this.cache).removeCachedData(this.cacheKey)
       await this.searchAll()
     } catch (error: any) {
       await t.rollback()
@@ -213,7 +211,7 @@ export class SequelizeModelSeriesRepository extends CriteriaToSequelizeConverter
 
   async remove(id: string): Promise<void> {
     await ModelSeriesModel.destroy({ where: { id } })
-    await this.cache.del(this.cacheKey)
+    await new CacheService(this.cache).removeCachedData(this.cacheKey)
     await this.searchAll()
   }
 }

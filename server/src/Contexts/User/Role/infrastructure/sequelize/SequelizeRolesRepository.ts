@@ -4,6 +4,7 @@ import { type RolePrimitives } from '../../domain/Role'
 import { type RoleRepository } from '../../domain/RoleRepository'
 import { RoleId } from '../../domain/RoleId'
 import { RolesModel } from './RolesSchema'
+import { CacheService } from '../../../../Shared/domain/CacheService'
 
 export class SequelizeRolesRepository implements RoleRepository {
   private readonly cacheKey: string = 'roles'
@@ -13,13 +14,9 @@ export class SequelizeRolesRepository implements RoleRepository {
   }
 
   async searchAll(): Promise<RolePrimitives[]> {
-    const cache = await this.cache.get(this.cacheKey)
-    if (cache) {
-      return JSON.parse(cache)
-    }
-    const res = await RolesModel.findAll()
-    await this.cache.set(this.cacheKey, JSON.stringify(res))
-    return res
+    return await new CacheService(this.cache).getCachedData(this.cacheKey, async () => {
+      return await RolesModel.findAll()
+    })
 
   }
 }

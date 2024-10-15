@@ -3,19 +3,17 @@ import { type Primitives } from '../../../../../Shared/domain/value-object/Primi
 import { type OperatingSystemArqPrimitives } from '../../domain/OperatingSystemArq'
 import { type OperatingSystemArqId } from '../../domain/OperatingSystemArqID'
 import { type OperatingSystemArqRepository } from '../../domain/OperatingSystemArqRepository'
+import { CacheService } from '../../../../../Shared/domain/CacheService'
 import { OperatingSystemArqModel } from './OperatingSystemArqSchema'
 
 export class SequelizeOperatingSystemArqRepository implements OperatingSystemArqRepository {
   private readonly cacheKey: string = 'operatingSystemArq'
   constructor(private readonly cache: CacheRepository) { }
   async searchAll(): Promise<OperatingSystemArqPrimitives[]> {
-    const cache = await this.cache.get(this.cacheKey)
-    if (cache) {
-      return JSON.parse(cache)
-    }
-    const res = await OperatingSystemArqModel.findAll()
-    await this.cache.set(this.cacheKey, JSON.stringify(res))
-    return res
+    return await new CacheService(this.cache).getCachedData(this.cacheKey, async () => {
+      return await OperatingSystemArqModel.findAll()
+    })
+
   }
 
   async searchById(id: Primitives<OperatingSystemArqId>): Promise<OperatingSystemArqPrimitives | null> {

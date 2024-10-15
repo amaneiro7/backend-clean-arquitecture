@@ -3,19 +3,16 @@ import { type Primitives } from '../../../../../Shared/domain/value-object/Primi
 import { type HardDriveTypePrimitives } from '../../domain/HardDriveType'
 import { type HardDriveTypeId } from '../../domain/HardDriveTypeId'
 import { type HardDriveTypeRepository } from '../../domain/HardDriveTypeRepository'
+import { CacheService } from '../../../../../Shared/domain/CacheService'
 import { HardDriveTypeModel } from './HardDriveTypeSchema'
 
 export class SequelizeHardDriveTypeRepository implements HardDriveTypeRepository {
   private readonly cacheKey: string = 'hardDriveType'
   constructor(private readonly cache: CacheRepository) { }
   async searchAll(): Promise<HardDriveTypePrimitives[]> {
-    const cache = await this.cache.get(this.cacheKey)
-    if (cache) {
-      return JSON.parse(cache)
-    }
-    const res = await HardDriveTypeModel.findAll()
-    await this.cache.set(this.cacheKey, JSON.stringify(res))
-    return res
+    return await new CacheService(this.cache).getCachedData(this.cacheKey, async () => {
+      return await HardDriveTypeModel.findAll()
+    })
   }
 
   async searchById(id: Primitives<HardDriveTypeId>): Promise<HardDriveTypePrimitives | null> {

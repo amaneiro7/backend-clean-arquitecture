@@ -4,18 +4,15 @@ import { type MemoryRamTypePrimitives } from '../../domain/MemoryRamType'
 import { type MemoryRamTypeId } from '../../domain/MemoryRamTypeId'
 import { type MemoryRamTypeRepository } from '../../domain/MemoryRamTypeRepository'
 import { MemoryRamTypeModel } from './MemoryRamTypeSchema'
+import { CacheService } from '../../../../../Shared/domain/CacheService'
 
 export class SequelizeMemoryRamTypeRepository implements MemoryRamTypeRepository {
   private readonly cacheKey: string = 'memoryRamType'
   constructor(private readonly cache: CacheRepository) { }
   async searchAll(): Promise<MemoryRamTypePrimitives[]> {
-    const cache = await this.cache.get(this.cacheKey)
-    if (cache) {
-      return JSON.parse(cache)
-    }
-    const res = await MemoryRamTypeModel.findAll()
-    await this.cache.set(this.cacheKey, JSON.stringify(res))
-    return res
+    return await new CacheService(this.cache).getCachedData(this.cacheKey, async () => {
+      return await MemoryRamTypeModel.findAll()
+    })
   }
 
   async searchById(id: Primitives<MemoryRamTypeId>): Promise<MemoryRamTypePrimitives | null> {

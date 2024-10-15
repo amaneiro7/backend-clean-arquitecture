@@ -3,19 +3,16 @@ import { type Primitives } from '../../../../../Shared/domain/value-object/Primi
 import { type VicepresidenciaEjecutivaPrimitives } from '../../domain/VicepresidenciaEjecutiva'
 import { type VicepresidenciaEjecutivaId } from '../../domain/VicepresidenciaEjecutivaId'
 import { type VicepresidenciaEjecutivaRepository } from '../../domain/VicepresidenciaEjecutivaRepository'
+import { CacheService } from '../../../../../Shared/domain/CacheService'
 import { VicepresidenciaEjecutivaModel } from './VicepresidenciaEjecutivaSchema'
 
 export class SequelizeVicepresidenciaEjecutivaRepository implements VicepresidenciaEjecutivaRepository {
   private readonly cacheKey: string = 'vicepresidenciasEjecutivas'
   constructor(private readonly cache: CacheRepository) { }
   async searchAll(): Promise<VicepresidenciaEjecutivaPrimitives[]> {
-    const cache = await this.cache.get(this.cacheKey)
-    if (cache) {
-      return JSON.parse(cache)
-    }
-    const res = await VicepresidenciaEjecutivaModel.findAll()
-    await this.cache.set(this.cacheKey, JSON.stringify(res))
-    return res
+    return await new CacheService(this.cache).getCachedData(this.cacheKey, async () => {
+      return await VicepresidenciaEjecutivaModel.findAll()
+    })
   }
 
   async searchById(id: Primitives<VicepresidenciaEjecutivaId>): Promise<VicepresidenciaEjecutivaPrimitives | null> {

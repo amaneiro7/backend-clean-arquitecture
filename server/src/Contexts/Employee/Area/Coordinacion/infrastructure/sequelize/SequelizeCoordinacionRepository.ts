@@ -1,4 +1,5 @@
 import { type CacheRepository } from '../../../../../Shared/domain/CacheRepository'
+import { CacheService } from '../../../../../Shared/domain/CacheService'
 import { type Primitives } from '../../../../../Shared/domain/value-object/Primitives'
 import { type CoordinacionPrimitives } from '../../domain/Coordinacion'
 import { type CoordinacionId } from '../../domain/CoordinacionId'
@@ -9,13 +10,9 @@ export class SequelizeCoordinacionRepository implements CoordinacionRepository {
   private readonly cacheKey: string = 'coordinations'
   constructor(private readonly cache: CacheRepository) { }
   async searchAll(): Promise<CoordinacionPrimitives[]> {
-    const cache = await this.cache.get(this.cacheKey)
-    if (cache) {
-      return JSON.parse(cache)
-    }
-    const res = await CoordinacionModel.findAll()
-    await this.cache.set(this.cacheKey, JSON.stringify(res))
-    return res
+    return await new CacheService(this.cache).getCachedData(this.cacheKey, async () => {
+      return await CoordinacionModel.findAll()
+    })
   }
 
   async searchById(id: Primitives<CoordinacionId>): Promise<CoordinacionPrimitives | null> {
