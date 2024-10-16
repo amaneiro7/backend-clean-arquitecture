@@ -1,3 +1,4 @@
+import { utils, writeFileXLSX } from 'xlsx'
 import { type Transaction } from 'sequelize'
 import { type DevicePrimitives } from '../../domain/Device'
 import { type DeviceRepository } from '../../domain/DeviceRepository'
@@ -178,5 +179,25 @@ export class SequelizeDeviceRepository extends SequelizeCriteriaConverter implem
 
   async remove(deviceId: string): Promise<void> {
     await DeviceModel.destroy({ where: { id: deviceId } })
+  }
+
+  async donwload(criteria: Criteria): Promise<{}> {
+
+    const data = await this.matching(criteria)
+    // Crear una nueva hoja de cálculo
+    const worksheet = utils.json_to_sheet(data)
+    worksheet["!cols"] = [{ wch: 20 }]
+    const workbook = utils.book_new()
+    utils.book_append_sheet(workbook, worksheet, 'Inventario')
+
+    // Generar un archivo buffer
+    const now = new Date()
+    const filename = `Reporte-Inventario${now.toLocaleString().replace(/[/:]/g, '-')}.xlsx`
+    return writeFileXLSX(workbook, filename, { compression: true })
+
+    // Establecer los encabezados para la descarga del archivo
+    // res.setHeader('Content-Disposition', 'attachment filename=report.xlsx')
+    // res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+
   }
 }

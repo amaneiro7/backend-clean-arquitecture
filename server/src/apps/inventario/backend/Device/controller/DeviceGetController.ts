@@ -7,6 +7,7 @@ import { DeviceFinder } from '../../../../../Contexts/Device/Device/application/
 import { SearchByCriteriaQuery } from '../../../../../Contexts/Shared/domain/SearchByCriteriaQuery'
 import { DeviceByCriteriaSearcher } from '../../../../../Contexts/Device/Device/application/DeviceByCriteriaSearcher'
 import { DeviceComputerFinder } from '../../../../../Contexts/Device/Device/application/DeviceCoomputerFinder'
+import { DeviceExcelService } from '../../../../../Contexts/Device/Device/application/DeviceExcelService'
 
 export class DeviceGetController {
   constructor(private readonly repository: Repository) { }
@@ -52,6 +53,28 @@ export class DeviceGetController {
       const data = await new DeviceComputerFinder(this.repository).search(query)
       res.status(httpStatus.OK).json(data)
 
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  download = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const { filters, orderBy, orderType, limit, offset } = req.query
+      const query = new SearchByCriteriaQuery(
+        filters ? filters as unknown as FiltersPrimitives[] : [],
+        orderBy ? orderBy as string : undefined,
+        orderType ? orderType as string : undefined,
+        limit ? Number(limit) : undefined,
+        offset ? Number(offset) : undefined
+      )
+
+      const data = await new DeviceExcelService(this.repository).generateExcel(query)
+      res
+        .setHeader('Content-Disposition', 'attachment filename=report.xlsx')
+        .setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+        .status(httpStatus.OK)
+        .json(data)
     } catch (error) {
       next(error)
     }

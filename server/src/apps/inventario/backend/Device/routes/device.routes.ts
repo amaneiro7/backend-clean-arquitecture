@@ -14,6 +14,7 @@ export const createDeviceRouter = ({ repository }: Props): Router => {
 
   router.get('/', deviceGetController.getByCriteria)
   router.get('/computers', deviceGetController.getComputersByCriteria)
+  router.get('/computers/download', deviceGetController.download)
   router.get('/:id', deviceGetController.getById)
   router.post('/', devicePostController.create)
   router.patch('/:id', devicePostController.update)

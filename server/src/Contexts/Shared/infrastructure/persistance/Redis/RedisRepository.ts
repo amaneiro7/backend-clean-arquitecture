@@ -27,15 +27,28 @@ export class RedisRepository implements CacheRepository {
     }
 
     async get(key: string): Promise<string | null> {
-        const value = await this.client.get(key)
-        return value
+        try {
+            const value = await this.client.get(key)
+            return value
+        } catch (error) {
+            console.error('Error getting value from Redis', error)
+            return null
+        }
     }
 
     async set(key: string, value: string): Promise<void> {
-        await this.client.set(key, value)
+        try {
+            await this.client.set(key, value)
+        } catch (error) {
+            console.error('Error setting value in Redis: ', error)
+        }
     }
     async del(key: string): Promise<void> {
-        await this.client.del(key)
+        try {
+            await this.client.del(key)
+        } catch (error) {
+            console.error('Error deleting value in Redis: ', error)
+        }
     }
 
     async close(): Promise<void> {
