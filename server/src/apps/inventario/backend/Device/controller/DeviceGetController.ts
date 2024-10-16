@@ -69,12 +69,15 @@ export class DeviceGetController {
         offset ? Number(offset) : undefined
       )
 
-      const data = await new DeviceExcelService(this.repository).generateExcel(query)
+      const buf = await new DeviceExcelService(this.repository).generateExcel(query)
+      const now = new Date()
+      const filename = `Reporte-Inventario${now.toLocaleDateString().replace(/[/:]/g, '-')}.xlsx`
+      console.log(filename)
       res
-        .setHeader('Content-Disposition', 'attachment filename=report.xlsx')
-        .setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
         .status(httpStatus.OK)
-        .json(data)
+        .setHeader('Content-Disposition', `attachment filename=${filename}`)
+        .setHeader('Content-Type', 'application/vnd.ms-excel')
+        .end(buf)
     } catch (error) {
       next(error)
     }
