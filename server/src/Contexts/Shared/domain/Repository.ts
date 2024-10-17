@@ -1,5 +1,4 @@
 import { type BrandRepository } from '../../Brand/domain/BrandRepository'
-import { type CategoryRepository } from '../../Category/domain/CategoryRepository'
 import { type StatusRepository } from '../../Device/Status/domain/StatusRepository'
 import { type DeviceRepository } from '../../Device/Device/domain/DeviceRepository'
 import { type ModelSeriesRepository } from '../../ModelSeries/ModelSeries/domain/ModelSeriesRepository'
@@ -27,10 +26,14 @@ import { type CargoRepository } from '../../employee/Cargo/domain/CargoRepositor
 import { type EmployeeRepository } from '../../employee/Employee/domain/EmployeeRepository'
 import { type InputTypeRepository } from '../../ModelSeries/InputType/domain/InputTypeRepository'
 import { type DashboardRepository } from '../../Device/Inventroy/domain/DashboardRepository'
+import { type CategoryRepository } from '../../Category/SubCategory/domain/CategoryRepository'
+import { type MainCategoryRepository } from '../../Category/Category/domain/MainCategoryRepository'
+
 
 export interface Repository {
   user: UserRepository
   brand: BrandRepository
+  mainCategory: MainCategoryRepository
   category: CategoryRepository
   modelSeries: ModelSeriesRepository
   status: StatusRepository

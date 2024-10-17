@@ -10,9 +10,9 @@ import { type SearchByCriteriaQuery } from '../../../Shared/domain/SearchByCrite
 import { type DevicePrimitives } from '../domain/Device'
 
 export class DeviceByCriteriaSearcher {
-  constructor (private readonly repository: Repository) {}
+  constructor(private readonly repository: Repository) { }
 
-  async search (query: SearchByCriteriaQuery): Promise<DevicePrimitives[]> {
+  async search(query: SearchByCriteriaQuery): Promise<DevicePrimitives[]> {
     const filters = query.filters.map((filter) => {
       return new Filter(
         new FilterField(filter.field),
@@ -20,7 +20,7 @@ export class DeviceByCriteriaSearcher {
         new FilterValue(filter.value))
     })
     const order = Order.fromValues(
-      query.orderBy ?? 'categoryId',
+      query.orderBy ?? 'locationId',
       query.orderType
     )
     const criteria = new Criteria(new Filters(filters), order, query.limit, query.offset)

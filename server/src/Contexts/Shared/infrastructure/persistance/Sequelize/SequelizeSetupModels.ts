@@ -1,6 +1,6 @@
 import { type Sequelize } from 'sequelize'
 import { initModelSeriesModel } from '../../../../ModelSeries/ModelSeries/infraestructure/Sequelize/ModelSeriesSchema'
-import { initCategoryModel } from '../../../../Category/infrastructure/Sequelize/CategorySchema'
+import { initCategoryModel } from '../../../../Category/SubCategory/infrastructure/Sequelize/CategorySchema'
 import { initBrandModel } from '../../../../Brand/infrastructure/Sequelize/BrandSchema'
 import { initDeviceModel } from '../../../../Device/Device/infrastructure/sequelize/DeviceSchema'
 import { initUserModel } from '../../../../User/user/infrastructure/persistance/Sequelize/UserSchema'

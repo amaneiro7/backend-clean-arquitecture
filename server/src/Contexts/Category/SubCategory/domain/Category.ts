@@ -1,10 +1,12 @@
-import { type Primitives } from '../../Shared/domain/value-object/Primitives'
+import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
+import { CategoryId } from '../../Category/domain/MainCategoryId'
 import { CategoryId } from './CategoryId'
 import { CategoryName } from './CategoryName'
 
 export interface CategoryPrimitives {
   id: Primitives<CategoryId>
   name: Primitives<CategoryName>
+  categoryId: Primitives<CategoryId>
 }
 
 export const CategoryValues = {
@@ -38,20 +40,23 @@ export const CategoryValues = {
 export class Category {
   constructor(
     private readonly id: CategoryId,
-    private readonly name: CategoryName
+    private readonly name: CategoryName,
+    private readonly categoryId: CategoryId
   ) { }
 
   static fromPrimitives(primitives: CategoryPrimitives): Category {
     return new Category(
       new CategoryId(primitives.id),
-      new CategoryName(primitives.name)
+      new CategoryName(primitives.name),
+      new CategoryId(primitives.categoryId),
     )
   }
 
   toPrimitive(): CategoryPrimitives {
     return {
       id: this.id.value,
-      name: this.name.value
+      name: this.name.value,
+      categoryId: this.categoryId.value
     }
   }
 
@@ -61,5 +66,9 @@ export class Category {
 
   get nameValue(): Primitives<CategoryName> {
     return this.name.value
+  }
+
+  get categoryIdValue(): Primitives<CategoryId> {
+    return this.categoryId.value
   }
 }

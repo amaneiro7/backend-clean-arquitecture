@@ -72,7 +72,7 @@ export const DeviceContextProvider = ({ children, location }: React.PropsWithChi
   }, [list, location])
 
   const defaultCategoryQuery: SearchByCriteriaQuery = useMemo(() => {
-    return { filters: [...defaultCategoryList.map(id => ({ field: 'categoryId', operator: Operator.EQUAL, value: id }))] }
+    return { filters: [...defaultCategoryList.map(id => ({ field: 'categoryId', operator: Operator.EQUAL, value: id }))], limit: 25, offset: 1 }
   }, [defaultCategoryList])
 
   const { devices, error, loading, searchDevices, resetDevices } = useSearchDevice()

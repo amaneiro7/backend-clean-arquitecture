@@ -1,11 +1,11 @@
-import { type CacheRepository } from '../../../Shared/domain/CacheRepository'
-import { CacheService } from '../../../Shared/domain/CacheService'
-import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
+import { CategoryModel } from './CategorySchema'
+import { CacheService } from '../../../../Shared/domain/CacheService'
+import { type CacheRepository } from '../../../../Shared/domain/CacheRepository'
+import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
 import { type CategoryPrimitives } from '../../domain/Category'
 import { type CategoryId } from '../../domain/CategoryId'
 import { type CategoryName } from '../../domain/CategoryName'
 import { type CategoryRepository } from '../../domain/CategoryRepository'
-import { CategoryModel } from './CategorySchema'
 
 export class SequelizeCategoryRepository implements CategoryRepository {
   private readonly cacheKey: string = 'categories'

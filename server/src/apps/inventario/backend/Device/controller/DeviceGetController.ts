@@ -72,7 +72,6 @@ export class DeviceGetController {
       const buf = await new DeviceExcelService(this.repository).generateExcel(query)
       const now = new Date()
       const filename = `Reporte-Inventario${now.toLocaleDateString().replace(/[/:]/g, '-')}.xlsx`
-      console.log(filename)
       res
         .status(httpStatus.OK)
         .setHeader('Content-Disposition', `attachment filename=${filename}`)

@@ -1,5 +1,5 @@
 import { BrandModel } from '../../../../Brand/infrastructure/Sequelize/BrandSchema'
-import { CategoryModel } from '../../../../Category/infrastructure/Sequelize/CategorySchema'
+import { CategoryModel } from '../../../../Category/SubCategory/infrastructure/Sequelize/CategorySchema'
 import { DeviceModel } from '../../../../Device/Device/infrastructure/sequelize/DeviceSchema'
 import { StatusModel } from '../../../../Device/Status/infrastructure/sequelize/StatusSchema'
 import { DeviceComputerModel } from '../../../../Features/Computer/infraestructure/sequelize/DeviceComputerSchema'
