@@ -21,6 +21,38 @@ export class ApiDeviceRepository implements DeviceRepository {
     return await makeRequest<DevicesApiResponse[]>({ method: 'GET', endpoint: `${this.endpoint}?${queryParams}` })
   }
 
+  async download(criteria: Criteria): Promise<void> {
+    const now = new Date()
+    const filename = `Reporte-Inventario${now.toLocaleString().replace(/[/:]/g, '-')}.xlsx`
+    const criteriaPrimitives = criteria.toPrimitives()
+    const queryParams = criteria.buildQuery(criteriaPrimitives)
+    return await fetch(`http://localhost:5000/api/v1/devices/computers/download?${queryParams}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/vnc.ms-excel'
+      },
+      credentials: 'include'
+    })
+      .then(res => {
+        if (res.ok) {
+          return res.blob() // convert the response to a blob
+        }
+        throw new Error('Network response was not ok')
+      })
+      .then(blob => {
+        const url = window.URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.href = url
+        a.download = filename
+        document.body.appendChild(a)
+        a.click()
+        a.remove()
+      })
+      .catch(error => {
+        console.error('There was a problem with the fetch operation: ', error)
+      })
+  }
+
   async getAll(): Promise<DevicePrimitives[]> {
     return await makeRequest<DevicesApiResponse[]>({ method: 'GET', endpoint: this.endpoint })
   }
