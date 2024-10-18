@@ -10,7 +10,7 @@ export class MainCategoryModel extends Model<MainCategoryPrimitives> implements 
   readonly name!: Primitives<MainCategoryName>
 
   public static associate(models: Models): void {
-    MainCategoryModel.hasMany(models.Category, { as: 'category', foreignKey: 'mainCategoryId' }) // A category can have many device
+    MainCategoryModel.hasMany(models.Category, { as: 'category', foreignKey: 'mainCategoryId' }) // A main category can have many categories
   }
 }
 
@@ -29,7 +29,7 @@ export function initMainCategoryModel(sequelize: Sequelize): void {
       }
     },
     {
-      modelName: 'Category',
+      modelName: 'MainCategory',
       underscored: true,
       timestamps: false,
       sequelize

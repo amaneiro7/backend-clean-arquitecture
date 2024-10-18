@@ -1,6 +1,7 @@
 import { BrandId } from '../../../Brand/domain/BrandId'
-import { CategoryId } from '../../../Category/domain/CategoryId'
+import { CategoryId } from '../../../Category/SubCategory/domain/CategoryId'
 import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
+
 import { Generic } from './Generic'
 import { ModelSeriesId } from './ModelSeriesId'
 import { ModelSeriesName } from './ModelSeriesName'

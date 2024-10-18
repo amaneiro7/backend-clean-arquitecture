@@ -6,7 +6,7 @@ import { type FiltersPrimitives } from '../../../../../Contexts/Shared/domain/cr
 import { DeviceFinder } from '../../../../../Contexts/Device/Device/application/DeviceFinder'
 import { SearchByCriteriaQuery } from '../../../../../Contexts/Shared/domain/SearchByCriteriaQuery'
 import { DeviceByCriteriaSearcher } from '../../../../../Contexts/Device/Device/application/DeviceByCriteriaSearcher'
-import { DeviceComputerFinder } from '../../../../../Contexts/Device/Device/application/DeviceCoomputerFinder'
+import { DeviceComputerFinder } from '../../../../../Contexts/Device/Device/application/DeviceComputerFinder'
 import { DeviceExcelService } from '../../../../../Contexts/Device/Device/application/DeviceExcelService'
 
 export class DeviceGetController {

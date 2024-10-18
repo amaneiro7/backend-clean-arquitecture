@@ -1,27 +1,27 @@
-import { SubCategoryDoesNotExistError } from '../domain/CategoryDoesNotExistError'
+import { CategoryDoesNotExistError } from '../domain/CategoryDoesNotExistError'
 import { type Repository } from '../../../Shared/domain/Repository'
-import { type SubCategoryPrimitives } from '../domain/Category'
-import { type SubCategoryId } from '../domain/CategoryId'
-import { type SubCategoryName } from '../domain/CategoryName'
+import { type CategoryPrimitives } from '../domain/Category'
+import { type CategoryId } from '../domain/CategoryId'
+import { type CategoryName } from '../domain/CategoryName'
 
-export class SubCategoriesFinder {
+export class CategoriesFinder {
   constructor(private readonly repository: Repository) { }
 
-  async searchById(categoryId: SubCategoryId): Promise<SubCategoryPrimitives> {
-    const category = await this.repository.subCategory.searchById(categoryId.value)
+  async searchById(categoryId: CategoryId): Promise<CategoryPrimitives> {
+    const category = await this.repository.category.searchById(categoryId.value)
 
     if (category === null) {
-      throw new SubCategoryDoesNotExistError(categoryId.toString())
+      throw new CategoryDoesNotExistError(categoryId.toString())
     }
 
     return category
   }
 
-  async searchByName(categoryName: SubCategoryName): Promise<SubCategoryPrimitives> {
-    const category = await this.repository.subCategory.searchByName(categoryName.toString())
+  async searchByName(categoryName: CategoryName): Promise<CategoryPrimitives> {
+    const category = await this.repository.category.searchByName(categoryName.toString())
 
     if (category === null) {
-      throw new SubCategoryDoesNotExistError(categoryName.toString())
+      throw new CategoryDoesNotExistError(categoryName.toString())
     }
 
     return category

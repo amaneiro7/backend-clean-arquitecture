@@ -1,15 +1,20 @@
 import { DataTypes, Model, type Sequelize } from 'sequelize'
 import { type CategoryPrimitives } from '../../domain/Category'
-import { type Models } from '../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
-import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
+import { type Models } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
 import { type CategoryId } from '../../domain/CategoryId'
 import { type CategoryName } from '../../domain/CategoryName'
+import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
+import { type MainCategoryId } from '../../../Category/domain/MainCategoryId'
+
+
 
 export class CategoryModel extends Model<CategoryPrimitives> implements CategoryPrimitives {
   readonly id!: Primitives<CategoryId>
   readonly name!: Primitives<CategoryName>
+  readonly mainCategoryId!: Primitives<MainCategoryId>
 
   public static associate(models: Models): void {
+    CategoryModel.hasOne(models.MainCategory, { as: 'mainCategory', foreignKey: 'mainCategoryId' }) // A category can have one main category
     CategoryModel.hasMany(models.Model, { as: 'model', foreignKey: 'categoryId' }) // A category can have many model series
     CategoryModel.hasMany(models.Device, { as: 'device', foreignKey: 'categoryId' }) // A category can have many device
     CategoryModel.hasMany(models.DeviceHardDrive, { as: 'deviceHardDrive', foreignKey: 'categoryId' }) // A category can have many hard drive
@@ -36,6 +41,10 @@ export function initCategoryModel(sequelize: Sequelize): void {
         allowNull: false,
         type: DataTypes.STRING,
         unique: true
+      },
+      mainCategoryId: {
+        allowNull: false,
+        type: DataTypes.STRING,
       }
     },
     {

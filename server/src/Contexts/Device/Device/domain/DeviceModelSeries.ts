@@ -1,12 +1,12 @@
 import { type BrandId } from '../../../Brand/domain/BrandId'
-import { type CategoryId } from '../../../Category/domain/CategoryId'
+import { type CategoryId } from '../../../Category/SubCategory/domain/CategoryId'
 import { type ModelSeriesPrimitives } from '../../../ModelSeries/ModelSeries/domain/ModelSeries'
-import { ModelSeriesDoesNotExistError } from '../../../ModelSeries/ModelSeries/domain/ModelSeriesDoesNotExistError'
-import { ModelSeriesId } from '../../../ModelSeries/ModelSeries/domain/ModelSeriesId'
 import { type ModelSeriesRepository } from '../../../ModelSeries/ModelSeries/domain/ModelSeriesRepository'
-import { InvalidArgumentError } from '../../../Shared/domain/value-object/InvalidArgumentError'
 import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
 import { type Device } from './Device'
+import { ModelSeriesDoesNotExistError } from '../../../ModelSeries/ModelSeries/domain/ModelSeriesDoesNotExistError'
+import { ModelSeriesId } from '../../../ModelSeries/ModelSeries/domain/ModelSeriesId'
+import { InvalidArgumentError } from '../../../Shared/domain/value-object/InvalidArgumentError'
 
 export class DeviceModelSeries extends ModelSeriesId {
   static async updateModelField({

@@ -1,13 +1,14 @@
+import httpStatus from 'http-status'
 import { type NextFunction, type Request, type Response } from 'express'
 import { type Repository } from '../../../../../Contexts/Shared/domain/Repository'
-import httpStatus from 'http-status'
-import { SearchAllCategories } from '../../../../../Contexts/Category/application/CategoryFinderAll'
-import { CategoriesFinder } from '../../../../../Contexts/Category/application/CategoryFinder'
-import { CategoryId } from '../../../../../Contexts/Category/domain/CategoryId'
-import { CategoryName } from '../../../../../Contexts/Category/domain/CategoryName'
+import { SearchAllCategories } from '../../../../../Contexts/Category/SubCategory/application/CategoryFinderAll'
+import { CategoriesFinder } from '../../../../../Contexts/Category/SubCategory/application/CategoryFinder'
+import { CategoryId } from '../../../../../Contexts/Category/SubCategory/domain/CategoryId'
+import { CategoryName } from '../../../../../Contexts/Category/SubCategory/domain/CategoryName'
+
 
 export class CategoryGetController {
-  constructor (private readonly repository: Repository) {}
+  constructor(private readonly repository: Repository) { }
 
   getAll = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {

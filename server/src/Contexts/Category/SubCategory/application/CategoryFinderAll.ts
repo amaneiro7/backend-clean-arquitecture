@@ -1,10 +1,10 @@
 import { type Repository } from '../../../Shared/domain/Repository'
-import { type SubCategoryPrimitives } from '../domain/Category'
+import { type CategoryPrimitives } from '../domain/Category'
 
-export class SearchAllSubCategories {
+export class SearchAllCategories {
   constructor(private readonly repository: Repository) { }
 
-  async search(): Promise<SubCategoryPrimitives[]> {
-    return await this.repository.subCategory.searchAll()
+  async search(): Promise<CategoryPrimitives[]> {
+    return await this.repository.category.searchAll()
   }
 }

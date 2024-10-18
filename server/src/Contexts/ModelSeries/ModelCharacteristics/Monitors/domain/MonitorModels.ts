@@ -1,6 +1,6 @@
 import { BrandId } from '../../../../Brand/domain/BrandId'
-import { CategoryDefaultData, type CategoryValues } from '../../../../Category/domain/CategoryDefaultData'
-import { CategoryId } from '../../../../Category/domain/CategoryId'
+import { CategoryDefaultData, type CategoryValues } from '../../../../Category/SubCategory/domain/CategoryDefaultData'
+import { CategoryId } from '../../../../Category/SubCategory/domain/CategoryId'
 import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
 import { Generic } from '../../../ModelSeries/domain/Generic'
 import { ModelSeries, type ModelSeriesPrimitives } from '../../../ModelSeries/domain/ModelSeries'

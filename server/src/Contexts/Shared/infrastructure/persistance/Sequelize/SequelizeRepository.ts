@@ -31,11 +31,13 @@ import { SequelizeVicepresidenciaEjecutivaRepository } from '../../../../employe
 import { SequelizeEmployeeRepository } from '../../../../employee/Employee/infrastructure/sequelize/SequelizeEmployeeRepository'
 import { SequelizeInputTypeRepository } from '../../../../ModelSeries/InputType/infrastructure/sequelize/SequelizeInputTypeRepository'
 import { SequelizeDashboardRepository } from '../../../../Device/Inventroy/infra/sequelize/SequelizeDashboardRepository'
+import { SequelizeMainCategoryRepository } from '../../../../Category/Category/infrastructure/Sequelize/SequelizeMainCategoryRepository'
 
 initializeDatabase()
 
 export interface Models {
   Category: ModelStatic<Model<any>>
+  MainCategory: ModelStatic<Model<any>>
   Brand: ModelStatic<Model<any>>
   Model: ModelStatic<Model<any>>
   ModelComputer: ModelStatic<Model<any>>
@@ -77,6 +79,7 @@ export interface Models {
 export const sequelizeRepository = (cache: CacheRepository): Repository => ({
   user: new SequelizeUserRepository(cache),
   brand: new SequelizeBrandRepository(cache),
+  mainCategory: new SequelizeMainCategoryRepository(cache),
   category: new SequelizeCategoryRepository(cache),
   modelSeries: new SequelizeModelSeriesRepository(cache),
   status: new SequelizeStatusRepository(cache),

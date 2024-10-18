@@ -12,7 +12,7 @@ export class MainCategoriesFinder {
     const category = await this.repository.mainCategory.searchById(categoryId.value)
 
     if (category === null) {
-      throw new MainCategoryDoesNotExistError(categoryId.toString())
+      throw new MainCategoryDoesNotExistError(categoryId.value)
     }
 
     return category

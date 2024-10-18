@@ -6,18 +6,20 @@ import { type DeviceId } from '../../../../Device/Device/domain/DeviceId'
 import { type ProcessorId } from '../../../Processor/Processor/domain/ProcessorId'
 import { type MACAddress } from '../../domain/MACAddress'
 import { type IPAddress } from '../../domain/IPAddress'
-import { type CategoryId } from '../../../../Category/domain/CategoryId'
 import { type ComputerName } from '../../domain/ComputerName'
-import { CategoryValues } from '../../../../Category/domain/Category'
-import { ComputerMemoryRamCapacity } from '../../domain/ComputerMemoryRamCapacity'
-import { ComputerHardDriveCapacity } from '../../domain/ComputerHardDriveCapacity'
-import { ComputerHardDriveType } from '../../domain/ComputerHardDriveType'
-import { ComputerOperatingSystem } from '../../domain/ComputerOperatingSystem'
-import { ComputerOperatingSystemArq } from '../../domain/ComputerOperatingSystemArq'
-import { MemoryRamValues } from '../../../MemoryRam/MemoryRamCapacity/MemoryRamValues'
+import { type CategoryId } from '../../../../Category/SubCategory/domain/CategoryId'
+import { type ComputerMemoryRamCapacity } from '../../domain/ComputerMemoryRamCapacity'
+import { type ComputerHardDriveCapacity } from '../../domain/ComputerHardDriveCapacity'
+import { type ComputerHardDriveType } from '../../domain/ComputerHardDriveType'
+import { type ComputerOperatingSystem } from '../../domain/ComputerOperatingSystem'
+import { type ComputerOperatingSystemArq } from '../../domain/ComputerOperatingSystemArq'
+import { type MemoryRamValues } from '../../../MemoryRam/MemoryRamCapacity/MemoryRamValues'
+import { CategoryValues } from '../../../../Category/SubCategory/domain/Category'
+
+
 
 interface DeviceComputerCreationAttributes extends Pick<DeviceComputerPrimitives, 'id' | 'categoryId' | 'computerName' | 'processorId' | 'memoryRam' | 'memoryRamCapacity' | 'hardDriveCapacityId'
-| 'hardDriveTypeId' | 'operatingSystemId' | 'operatingSystemArqId' | 'macAddress' | 'ipAddress' > {
+  | 'hardDriveTypeId' | 'operatingSystemId' | 'operatingSystemArqId' | 'macAddress' | 'ipAddress'> {
   deviceId: Primitives<DeviceId>
 }
 export class DeviceComputerModel extends Model<DeviceComputerCreationAttributes> implements DeviceComputerCreationAttributes {
@@ -25,7 +27,7 @@ export class DeviceComputerModel extends Model<DeviceComputerCreationAttributes>
   readonly id!: Primitives<DeviceId>
   readonly categoryId!: Primitives<CategoryId>
   readonly computerName!: Primitives<ComputerName>
-  readonly memoryRam! : Primitives<MemoryRamValues>[]
+  readonly memoryRam!: Primitives<MemoryRamValues>[]
   readonly processorId!: Primitives<ProcessorId>
   readonly memoryRamCapacity!: Primitives<ComputerMemoryRamCapacity>
   readonly hardDriveCapacityId!: Primitives<ComputerHardDriveCapacity>
@@ -35,7 +37,7 @@ export class DeviceComputerModel extends Model<DeviceComputerCreationAttributes>
   readonly macAddress!: Primitives<MACAddress>
   readonly ipAddress!: Primitives<IPAddress>
 
-  public static associate (models: Models): void {
+  public static associate(models: Models): void {
     this.belongsTo(models.Category, { as: 'category', foreignKey: 'categoryId' }) // A computer belongs to a category
     this.belongsTo(models.Device, { as: 'device', foreignKey: 'device_id' }) // A computer belongs to a device
     this.belongsTo(models.Processor, { as: 'processor', foreignKey: 'processorId' }) // A computer belongs to a processor
@@ -46,7 +48,7 @@ export class DeviceComputerModel extends Model<DeviceComputerCreationAttributes>
   }
 }
 
-export function initDeviceComputerModel (sequelize: Sequelize): void {
+export function initDeviceComputerModel(sequelize: Sequelize): void {
   DeviceComputerModel.init(
     {
       id: {

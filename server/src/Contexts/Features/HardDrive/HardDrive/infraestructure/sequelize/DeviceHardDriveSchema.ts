@@ -3,11 +3,13 @@ import { type Models } from '../../../../../Shared/infrastructure/persistance/Se
 import { type Primitives } from '../../../../../Shared/domain/value-object/Primitives'
 import { type DeviceId } from '../../../../../Device/Device/domain/DeviceId'
 import { type DeviceHardDrivePrimitives } from '../../domain/HardDrive'
-import { type CategoryId } from '../../../../../Category/domain/CategoryId'
+
 import { type HardDriveHealth } from '../../domain/HardDriveHealth'
 import { type HDDCapacity } from '../../domain/HDDCapacity'
 import { type HDDType } from '../../domain/HDDType'
-import { CategoryValues } from '../../../../../Category/domain/Category'
+import { type CategoryId } from '../../../../../Category/SubCategory/domain/CategoryId'
+import { CategoryValues } from '../../../../../Category/SubCategory/domain/Category'
+
 
 interface DeviceHardDriveCreationAttributes extends Pick<DeviceHardDrivePrimitives, 'id' | 'categoryId' | 'health' | 'hardDriveCapacityId' | 'hardDriveTypeId'> {
   deviceId: Primitives<DeviceId>
@@ -20,7 +22,7 @@ export class DeviceHardDriveModel extends Model<DeviceHardDriveCreationAttribute
   readonly hardDriveCapacityId!: Primitives<HDDCapacity>
   readonly hardDriveTypeId!: Primitives<HDDType>
 
-  public static associate (models: Models): void {
+  public static associate(models: Models): void {
     this.belongsTo(models.Device, { as: 'device', foreignKey: 'deviceId' }) // A computer belongs to a device
     this.belongsTo(models.Category, { as: 'category', foreignKey: 'categoryId' }) // A computer belongs to a category
     this.belongsTo(models.HardDriveCapacity, { as: 'hardDriveCapacity', foreignKey: 'hardDriveCapacityId' }) // A computer belongs to a hard drive
@@ -28,7 +30,7 @@ export class DeviceHardDriveModel extends Model<DeviceHardDriveCreationAttribute
   }
 }
 
-export function initDeviceHardDriveModel (sequelize: Sequelize): void {
+export function initDeviceHardDriveModel(sequelize: Sequelize): void {
   DeviceHardDriveModel.init(
     {
       id: {

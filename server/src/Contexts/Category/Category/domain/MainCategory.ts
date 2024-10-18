@@ -7,14 +7,14 @@ export interface MainCategoryPrimitives {
   name: Primitives<MainCategoryName>
 }
 
-export class Category {
+export class MainCategory {
   constructor(
     private readonly id: MainCategoryId,
     private readonly name: MainCategoryName
   ) { }
 
-  static fromPrimitives(primitives: MainCategoryPrimitives): Category {
-    return new Category(
+  static fromPrimitives(primitives: MainCategoryPrimitives): MainCategory {
+    return new MainCategory(
       new MainCategoryId(primitives.id),
       new MainCategoryName(primitives.name)
     )

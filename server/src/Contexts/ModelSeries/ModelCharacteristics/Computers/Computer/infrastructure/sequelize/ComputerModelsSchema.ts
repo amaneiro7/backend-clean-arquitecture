@@ -8,10 +8,11 @@ import { type HasWifiAdapter } from '../../domain/HasWifiAdapter'
 import { type HasDVI } from '../../domain/HasDVI'
 import { type HasHDMI } from '../../domain/HasHDMI'
 import { type HasVGA } from '../../domain/HasVGA'
-import { type CategoryId } from '../../../../../../Category/domain/CategoryId'
 import { type ModelSeriesId } from '../../../../../ModelSeries/domain/ModelSeriesId'
 import { type Models } from '../../../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
-import { CategoryValues } from '../../../../../../Category/domain/Category'
+import { type CategoryId } from '../../../../../../Category/SubCategory/domain/CategoryId'
+import { CategoryValues } from '../../../../../../Category/SubCategory/domain/Category'
+
 
 interface ComputerModelsCreationAttributes extends Omit<ComputerModelsPrimitives, 'name' | 'brandId' | 'generic'> {
   modelSeriesId: Primitives<ModelSeriesId>

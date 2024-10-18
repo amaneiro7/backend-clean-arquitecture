@@ -1,14 +1,15 @@
 import { DataTypes, Model, type Sequelize } from 'sequelize'
-import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
-import { type ModelSeriesId } from '../../../ModelSeries/domain/ModelSeriesId'
-import { type MonitorModelsPrimitives } from '../domain/MonitorModels'
-import { type MonitorScreenSize } from '../domain/MonitorScreenSize'
-import { type CategoryId } from '../../../../Category/domain/CategoryId'
-import { type MonitorHasDVI } from '../domain/MonitorHasDVI'
-import { type MonitorHasHDMI } from '../domain/MonitorHasHDMI'
-import { type MonitorHasVGA } from '../domain/MonitorHasVGA'
-import { type Models } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
-import { CategoryValues } from '../../../../Category/domain/Category'
+import { type Primitives } from '../../../../../Shared/domain/value-object/Primitives'
+import { type ModelSeriesId } from '../../../../ModelSeries/domain/ModelSeriesId'
+import { type MonitorModelsPrimitives } from '../../domain/MonitorModels'
+import { type MonitorScreenSize } from '../../domain/MonitorScreenSize'
+import { type MonitorHasDVI } from '../../domain/MonitorHasDVI'
+import { type MonitorHasHDMI } from '../../domain/MonitorHasHDMI'
+import { type MonitorHasVGA } from '../../domain/MonitorHasVGA'
+import { type Models } from '../../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
+import { type CategoryId } from '../../../../../Category/SubCategory/domain/CategoryId'
+import { CategoryValues } from '../../../../../Category/SubCategory/domain/Category'
+
 
 interface MonitorModelsCreationAttributes extends Omit<MonitorModelsPrimitives, 'name' | 'brandId' | 'generic'> {
   modelSeriesId: Primitives<ModelSeriesId>

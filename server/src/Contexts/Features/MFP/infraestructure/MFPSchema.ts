@@ -1,11 +1,11 @@
 import { DataTypes, Model, type Sequelize } from 'sequelize'
-import { DeviceId } from '../../../Device/Device/domain/DeviceId'
-import { MFPIPAddress } from '../domain/MFPIPAddress'
-import { DeviceMFPPrimitives } from '../domain/MFP'
-import { Primitives } from '../../../Shared/domain/value-object/Primitives'
-import { CategoryId } from '../../../Category/domain/CategoryId'
-import { CategoryValues } from '../../../Category/domain/Category'
-import { Models } from '../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
+import { type DeviceId } from '../../../Device/Device/domain/DeviceId'
+import { type MFPIPAddress } from '../domain/MFPIPAddress'
+import { type DeviceMFPPrimitives } from '../domain/MFP'
+import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
+import { type Models } from '../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
+import { type CategoryId } from '../../../Category/SubCategory/domain/CategoryId'
+import { CategoryValues } from '../../../Category/SubCategory/domain/Category'
 
 interface MFPCreationAttributes extends Pick<DeviceMFPPrimitives, 'id' | 'categoryId' | 'ipAddress'> {
   deviceId: Primitives<DeviceId>
@@ -15,15 +15,15 @@ export class DeviceMFPModel extends Model<MFPCreationAttributes> implements MFPC
   readonly id!: Primitives<DeviceId>
   readonly categoryId!: Primitives<CategoryId>
   readonly ipAddress!: Primitives<MFPIPAddress>
-  
 
-  public static associate (models: Models): void {
+
+  public static associate(models: Models): void {
     this.belongsTo(models.Device, { as: 'device', foreignKey: 'deviceId' }) // A computer belongs to a device
     this.belongsTo(models.Category, { as: 'category', foreignKey: 'categoryId' }) // A computer belongs to a category    
   }
 }
 
-export function initDeviceMFPModel (sequelize: Sequelize): void {
+export function initDeviceMFPModel(sequelize: Sequelize): void {
   DeviceMFPModel.init(
     {
       id: {

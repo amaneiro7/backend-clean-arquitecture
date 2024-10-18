@@ -1,8 +1,8 @@
 import { Device, type DevicePrimitives } from '../../../Device/Device/domain/Device'
 import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
-import { CategoryDefaultData, CategoryNames, type CategoryValues } from '../../../Category/domain/CategoryDefaultData'
+import { CategoryDefaultData, CategoryNames, type CategoryValues } from '../../../Category/SubCategory/domain/CategoryDefaultData'
 import { BrandId } from '../../../Brand/domain/BrandId'
-import { CategoryId } from '../../../Category/domain/CategoryId'
+import { CategoryId } from '../../../Category/SubCategory/domain/CategoryId'
 import { DeviceActivo } from '../../../Device/Device/domain/DeviceActivo'
 import { DeviceEmployee } from '../../../Device/Device/domain/DeviceEmployee'
 import { DeviceId } from '../../../Device/Device/domain/DeviceId'
@@ -12,7 +12,6 @@ import { DeviceSerial } from '../../../Device/Device/domain/DeviceSerial'
 import { DeviceStatus } from '../../../Device/Device/domain/DeviceStatus'
 import { MFPIPAddress } from './MFPIPAddress'
 import { DeviceLocation } from '../../../Device/Device/domain/DeviceLocation'
-
 import { InvalidArgumentError } from '../../../Shared/domain/value-object/InvalidArgumentError'
 import { DeviceStocknumber } from '../../../Device/Device/domain/DeviceStock'
 

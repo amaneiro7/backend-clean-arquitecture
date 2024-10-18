@@ -1,6 +1,6 @@
 import { BrandId } from '../../../../../Brand/domain/BrandId'
-import { CategoryDefaultData, type CategoryValues } from '../../../../../Category/domain/CategoryDefaultData'
-import { CategoryId } from '../../../../../Category/domain/CategoryId'
+import { type CategoryValues, CategoryDefaultData } from '../../../../../Category/SubCategory/domain/CategoryDefaultData'
+import { CategoryId } from '../../../../../Category/SubCategory/domain/CategoryId'
 import { MemoryRamTypeId } from '../../../../../Features/MemoryRam/MemoryRamType/domain/MemoryRamTypeId'
 import { type Primitives } from '../../../../../Shared/domain/value-object/Primitives'
 import { Generic } from '../../../../ModelSeries/domain/Generic'

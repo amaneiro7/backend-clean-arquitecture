@@ -1,3 +1,4 @@
+import { CategoryValues } from '../../../Category/SubCategory/domain/Category'
 import { Criteria } from '../../../Shared/domain/criteria/Criteria'
 import { Filter } from '../../../Shared/domain/criteria/Filter'
 import { FilterField } from '../../../Shared/domain/criteria/FilterField'
@@ -5,9 +6,8 @@ import { FilterOperator, Operator } from '../../../Shared/domain/criteria/Filter
 import { Filters } from '../../../Shared/domain/criteria/Filters'
 import { FilterValue } from '../../../Shared/domain/criteria/FilterValue'
 import { Order } from '../../../Shared/domain/criteria/Order'
-import { type Repository } from '../../../Shared/domain/Repository'
 import { SearchByCriteriaQuery } from '../../../Shared/domain/SearchByCriteriaQuery'
-import { CategoryValues } from '../../../SubCategory/domain/SubCategory'
+import { type Repository } from '../../../Shared/domain/Repository'
 import { type DevicePrimitives } from '../domain/Device'
 
 export class DeviceComputerFinder {

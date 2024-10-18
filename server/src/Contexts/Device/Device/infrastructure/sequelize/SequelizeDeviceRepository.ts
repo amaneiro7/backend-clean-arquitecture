@@ -1,4 +1,4 @@
-import { set_fs, utils, write, writeFile } from 'xlsx'
+import { set_fs, utils, write } from 'xlsx'
 import fs from 'node:fs'
 import { type Transaction } from 'sequelize'
 import { type DevicePrimitives } from '../../domain/Device'
