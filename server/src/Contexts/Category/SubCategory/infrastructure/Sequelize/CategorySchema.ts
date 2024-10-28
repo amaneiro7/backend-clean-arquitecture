@@ -14,18 +14,18 @@ export class CategoryModel extends Model<CategoryPrimitives> implements Category
   readonly mainCategoryId!: Primitives<MainCategoryId>
 
   public static associate(models: Models): void {
-    CategoryModel.hasOne(models.MainCategory, { as: 'mainCategory', foreignKey: 'mainCategoryId' }) // A category can have one main category
-    CategoryModel.hasMany(models.Model, { as: 'model', foreignKey: 'categoryId' }) // A category can have many model series
-    CategoryModel.hasMany(models.Device, { as: 'device', foreignKey: 'categoryId' }) // A category can have many device
-    CategoryModel.hasMany(models.DeviceHardDrive, { as: 'deviceHardDrive', foreignKey: 'categoryId' }) // A category can have many hard drive
-    CategoryModel.hasMany(models.DeviceComputer, { as: 'deviceComputer', foreignKey: 'categoryId' }) // A category can have many computer
-    CategoryModel.hasMany(models.DeviceMFP, { as: 'deviceMFP', foreignKey: 'categoryId' }) // A category can have many multifunctionalprinter
-    CategoryModel.hasMany(models.ModelComputer, { as: 'modelComputer', foreignKey: 'categoryId' }) // A category can have many computer model
-    CategoryModel.hasMany(models.ModelLaptop, { as: 'modelLaptop', foreignKey: 'categoryId' }) // A category can have many laptop model
-    CategoryModel.hasMany(models.ModelMonitor, { as: 'modelMonitor', foreignKey: 'categoryId' }) // A category can have many monitor model
-    CategoryModel.hasMany(models.ModelPrinter, { as: 'modelPrinter', foreignKey: 'categoryId' }) // A category can have many printer model
-    CategoryModel.hasMany(models.ModelKeyboard, { as: 'modelKeyboard', foreignKey: 'categoryId' }) // A category can have many keyboard model
-    CategoryModel.hasMany(models.ModelMouse, { as: 'modelMouse', foreignKey: 'categoryId' }) // A category can have many mouse model
+    this.belongsTo(models.MainCategory, { as: 'mainCategory', foreignKey: 'mainCategoryId' }) // A category can have one main category
+    this.hasMany(models.Model, { as: 'model', foreignKey: 'categoryId' }) // A category can have many model series
+    this.hasMany(models.Device, { as: 'device', foreignKey: 'categoryId' }) // A category can have many device
+    this.hasMany(models.DeviceHardDrive, { as: 'deviceHardDrive', foreignKey: 'categoryId' }) // A category can have many hard drive
+    this.hasMany(models.DeviceComputer, { as: 'deviceComputer', foreignKey: 'categoryId' }) // A category can have many computer
+    this.hasMany(models.DeviceMFP, { as: 'deviceMFP', foreignKey: 'categoryId' }) // A category can have many multifunctionalprinter
+    this.hasMany(models.ModelComputer, { as: 'modelComputer', foreignKey: 'categoryId' }) // A category can have many computer model
+    this.hasMany(models.ModelLaptop, { as: 'modelLaptop', foreignKey: 'categoryId' }) // A category can have many laptop model
+    this.hasMany(models.ModelMonitor, { as: 'modelMonitor', foreignKey: 'categoryId' }) // A category can have many monitor model
+    this.hasMany(models.ModelPrinter, { as: 'modelPrinter', foreignKey: 'categoryId' }) // A category can have many printer model
+    this.hasMany(models.ModelKeyboard, { as: 'modelKeyboard', foreignKey: 'categoryId' }) // A category can have many keyboard model
+    this.hasMany(models.ModelMouse, { as: 'modelMouse', foreignKey: 'categoryId' }) // A category can have many mouse model
   }
 }
 

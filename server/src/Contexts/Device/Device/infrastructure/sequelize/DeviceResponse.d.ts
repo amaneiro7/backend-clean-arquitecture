@@ -1,7 +1,7 @@
 import { type BrandPrimitives } from '../../../../Brand/domain/Brand'
 import { type BrandId } from '../../../../Brand/domain/BrandId'
-import { type CategoryPrimitives } from '../../../../Category/domain/Category'
 import { type CategoryId } from '../../../../Category/domain/CategoryId'
+import { type CategoryPrimitives } from '../../../../Category/SubCategory/domain/Category'
 import { type EmployeePrimitives } from '../../../../employee/Employee/domain/Employee'
 import { type DeviceComputerPrimitives } from '../../../../Features/Computer/domain/Computer'
 import { type ComputerHardDriveCapacity } from '../../../../Features/Computer/domain/ComputerHardDriveCapacity'
@@ -119,7 +119,7 @@ export interface ModelMonitor extends MonitorModelsPrimitives { }
 
 export interface ModelPrinter extends ModelPrintersPrimitives { }
 
-export type ClearDataset = {
+export type ClearComputerDataset = {
   id: string
   Usuario: string
   "Ubicación": string
@@ -139,6 +139,21 @@ export type ClearDataset = {
   "Tipo de Disco Duro"?: string
   "Sistema Operativo"?: string
   "Arquitectura"?: string
+  Observación: string | null
+  "Actualizado por"?: string
+  "Fecha de Modificacion": string
+}
+
+export type ClearDefaultDataset = {
+  id: string
+  Usuario: string
+  "Ubicación": string
+  Serial: string
+  Activo: string
+  Estatus: string
+  Categoria: string
+  Marca: string
+  Modelo: string
   Observación: string | null
   "Actualizado por"?: string
   "Fecha de Modificacion": string

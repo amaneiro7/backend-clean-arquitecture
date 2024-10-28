@@ -10,7 +10,7 @@ export class MainCategoryModel extends Model<MainCategoryPrimitives> implements 
   readonly name!: Primitives<MainCategoryName>
 
   public static associate(models: Models): void {
-    MainCategoryModel.hasMany(models.Category, { as: 'category', foreignKey: 'mainCategoryId' }) // A main category can have many categories
+    this.hasMany(models.Category, { as: 'category', foreignKey: 'mainCategoryId' }) // A main category can have many categories
   }
 }
 

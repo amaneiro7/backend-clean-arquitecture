@@ -7,7 +7,7 @@ import { type MainCategoryId } from '../../domain/MainCategoryId'
 import { type MainCategoryRepository } from '../../domain/MainCategoryRepository'
 
 export class SequelizeMainCategoryRepository implements MainCategoryRepository {
-  private readonly cacheKey: string = 'categories'
+  private readonly cacheKey: string = 'mainCategories'
   constructor(private readonly cache: CacheRepository) { }
   async searchAll(): Promise<MainCategoryPrimitives[]> {
     return await new CacheService(this.cache).getCachedData(this.cacheKey, async () => {
