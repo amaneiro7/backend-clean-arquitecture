@@ -12,6 +12,7 @@ export class SequelizeMainCategoryRepository implements MainCategoryRepository {
   async searchAll(): Promise<MainCategoryPrimitives[]> {
     return await new CacheService(this.cache).getCachedData(this.cacheKey, async () => {
       return await MainCategoryModel.findAll({
+        include: ['category'],
         order: [
           ['name', 'ASC']
         ]
