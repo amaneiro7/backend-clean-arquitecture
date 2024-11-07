@@ -16,9 +16,9 @@ export default function ListMonitor() {
   const { inputData, handleChange, handleClear } = useInputsData({ initialInputData, defaultInputData, addFilter, cleanFilters })
   
   const handleDownload = async () => {
-    const clearDataset = await import('../../../utils/clearComputerDataset')
-    .then(m => m.clearComputerDataset({devices: devices as DevicesApiResponse[]}))
-    await import('../../../utils/downloadJsonToExcel').then(m => m.jsonToExcel({clearDataset}))      
+    const clearDataset = await import('@/sections/utils/clearDefaultDataset')
+    .then(m => m.clearDefaultDataset({devices: devices as DevicesApiResponse[]}))
+    await import('@/sections/utils/downloadJsonToExcel').then(m => m.jsonToExcel({clearDataset}))      
   }
     return (      
       <ListWrapper
