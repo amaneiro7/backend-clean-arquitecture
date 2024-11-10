@@ -1,10 +1,11 @@
 
+import { MainComputerList } from "../../../../Category/Category/domain/MainCategory"
 import { lastHistoryUpdated } from "../../../../Shared/domain/LastHistoryUpdated"
 import { type ClearDefaultDataset, type ClearComputerDataset, type DevicesApiResponse } from "./DeviceResponse"
 
 
 export function clearComputerDataset({ devices }: { devices: DevicesApiResponse[] }): ClearComputerDataset[] | ClearDefaultDataset[] {
-    if (devices.every(device => device.category.mainCategoryId === '1')) {
+    if (devices.every(device => device.category.mainCategoryId === MainComputerList.COMPUTER)) {
         return devices.map(device => ({
             id: device?.id,
             Usuario: device?.employee?.userName ?? 'Sin Asignar',

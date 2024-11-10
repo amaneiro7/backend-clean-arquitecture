@@ -5,7 +5,7 @@ import { type DeviceId } from './DeviceId'
 export abstract class DeviceRepository {
   abstract getAll(): Promise<DevicePrimitives[]>
 
-  abstract getByCriteria(criteria: Criteria): Promise<DevicePrimitives[]>
+  abstract getByCriteria(criteria: Criteria): Promise<{ total: number, data: DevicePrimitives[] }>
 
   abstract getById({ id }: { id: DeviceId }): Promise<DevicePrimitives>
 

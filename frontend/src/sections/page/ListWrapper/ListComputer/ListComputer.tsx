@@ -2,9 +2,8 @@ import { lazy, Suspense } from "react"
 import { useDefaultInitialInputValue } from "./defaultParams"
 import { useDeviceContext } from "@/sections/Context/DeviceProvider"
 import { useInputsData } from "@/sections/components/ListComponent/useInputData"
-
 import { type DevicesApiResponse } from "@/modules/shared/domain/types/responseTypes"
-import { useDownloadExcelFromServer } from "@/sections/utils/downloadExcelfromServer"
+
 
 const ListWrapper = lazy(() => import("@/sections/components/ListComponent/ListWrapper").then(m => ({ default: m.ListWrapper })))
 const MainComputerFilter = lazy(async () => import("@/sections/components/ListComponent/MainComputerFilter").then(m => ({ default: m.MainComputerFilter })))
@@ -16,11 +15,7 @@ export default function ListComputer() {
   const { inputData: initialInputData, defaultInputData } = useDefaultInitialInputValue()
   const { devices, loading, addFilter, cleanFilters, query } = useDeviceContext()
   const { inputData, handleChange, handleClear } = useInputsData({ initialInputData, defaultInputData, addFilter, cleanFilters })
-  const { download, isDownloading } = useDownloadExcelFromServer({ query })
-
-  const handleDownload = async () => {
-    await download()
-  }
+  
   return (
     <Suspense>
       <ListWrapper
@@ -30,8 +25,7 @@ export default function ListComputer() {
         loading={loading}
         handleChange={handleChange}
         handleClear={handleClear}
-        handleDownload={handleDownload}
-        loadingDowload={isDownloading}
+        query={query}
         typeOfSiteId={inputData.typeOfSiteId}
         mainFilter={
           <Suspense>

@@ -15,10 +15,10 @@ export class ApiDeviceRepository implements DeviceRepository {
     return await makeRequest({ method: 'PATCH', endpoint: `${this.endpoint}/${id.value}`, data: device.toPrimitives() })
   }
 
-  async getByCriteria(criteria: Criteria): Promise<DevicePrimitives[]> {
+  async getByCriteria(criteria: Criteria): Promise<{ total: number, data: DevicePrimitives[] }> {
     const criteriaPrimitives = criteria.toPrimitives()
     const queryParams = criteria.buildQuery(criteriaPrimitives)
-    return await makeRequest<DevicesApiResponse[]>({ method: 'GET', endpoint: `${this.endpoint}?${queryParams}` })
+    return await makeRequest<{ total: number, data: DevicesApiResponse[] }>({ method: 'GET', endpoint: `${this.endpoint}?${queryParams}` })
   }
 
   async download(criteria: Criteria): Promise<void> {
@@ -26,7 +26,7 @@ export class ApiDeviceRepository implements DeviceRepository {
     const filename = `Reporte-Inventario${now.toLocaleString().replace(/[/:]/g, '-')}.xlsx`
     const criteriaPrimitives = criteria.toPrimitives()
     const queryParams = criteria.buildQuery(criteriaPrimitives)
-    return await fetch(`http://localhost:5000/api/v1/devices/computers/download?${queryParams}`, {
+    return await fetch(`http://localhost:5000/api/v1/devices/download?${queryParams}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/vnc.ms-excel'

@@ -12,7 +12,10 @@ import { DeviceRepository } from '../domain/DeviceRepository'
 
 export class DeviceGetterByCriteria {
   constructor(private readonly repository: DeviceRepository) { }
-  async get(query: SearchByCriteriaQuery): Promise<DevicePrimitives[]> {
+  async get(query: SearchByCriteriaQuery): Promise<{
+    total: number
+    data: DevicePrimitives[]
+  }> {
     const filters = query.filters.length > 0 && query.filters.map((filter) => {
       return new Filter(
         new FilterField(filter.field),
@@ -25,5 +28,6 @@ export class DeviceGetterByCriteria {
     const criteria = new Criteria(new Filters(filters), order, limit, offset)
 
     return await this.repository.getByCriteria(criteria)
+
   }
 }

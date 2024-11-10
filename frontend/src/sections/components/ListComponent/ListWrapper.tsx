@@ -2,9 +2,11 @@ import React, { lazy, Suspense, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
 import { SpinnerSKCircle } from "../Loading/spinner-sk-circle"
+import { useDownloadExcelFromServer } from "@/sections/utils/downloadExcelfromServer"
 import { type FilterContainerRef } from "./FilterContainer/FilterContainer"
 import { type TypeOfSiteId } from "../../../modules/location/typeofsites/domain/typeOfSiteId"
 import { type Primitives } from "../../../modules/shared/domain/value-object/Primitives"
+import { type SearchByCriteriaQuery } from "@/modules/shared/infraestructure/criteria/SearchByCriteriaQuery"
 
 const Main = lazy(async () => import('../Main'))
 const PageTitle = lazy(async () => import('../Typography/PageTitle'))
@@ -23,8 +25,7 @@ export function ListWrapper<Data>({
   url,
   handleChange,
   handleClear,
-  handleDownload,
-  loadingDowload,
+  query,
   typeOfSiteId,
   mainFilter,
   otherFilter,
@@ -37,16 +38,17 @@ export function ListWrapper<Data>({
   loading: boolean
   handleChange: (name: string, value: string, operator?: Operator) => void
   handleClear: () => void
-  handleDownload: () => void
-  loadingDowload?: boolean
+  query: SearchByCriteriaQuery
   mainFilter: React.ReactElement
-  otherFilter?: React.ReactElement,
+  otherFilter?: React.ReactElement
   table: React.ReactElement
 }) {
   const navigate = useNavigate()
   const filterContainerRef = useRef<FilterContainerRef>(null)
+  const { download, isDownloading } = useDownloadExcelFromServer({ query })
 
   const handleFilter = () => { filterContainerRef.current?.handleOpen() }
+
 
   return (
     <Suspense fallback={<main className='flex-1' />}>
@@ -61,8 +63,8 @@ export function ListWrapper<Data>({
                 : null}
             </FilterSection>
             <ButtonSection
-              handleExportToExcel={handleDownload}
-              loading={loadingDowload}
+              handleExportToExcel={download}
+              loading={isDownloading}
               handleAdd={() => { navigate(url) }}
               handleFilter={otherFilter ? handleFilter : undefined}
               handleClear={handleClear}

@@ -12,14 +12,9 @@ const DeviceTable = lazy(() => import("../DeviceTable").then(m => ({ default: m.
 
 export default function ListPrinters() {        
   const { inputData: initialInputData, defaultInputData } = useDefaultInitialInputValue()
-  const { devices, loading, addFilter, cleanFilters } = useDeviceContext()
+  const { devices, loading, addFilter, cleanFilters, query } = useDeviceContext()
   const { inputData, handleChange, handleClear } = useInputsData({ initialInputData, defaultInputData, addFilter, cleanFilters })
   
-  const handleDownload = async () => {
-    const clearDataset = await import('../../../utils/clearComputerDataset')
-    .then(m => m.clearComputerDataset({devices: devices as DevicesApiResponse[]}))
-    await import('../../../utils/downloadJsonToExcel').then(m => m.jsonToExcel({clearDataset}))      
-  }
     return (      
       <ListWrapper
         data={devices}
@@ -28,7 +23,7 @@ export default function ListPrinters() {
         loading={loading}
         handleChange={handleChange}
         handleClear={handleClear}
-        handleDownload={handleDownload}
+        query={query}
         typeOfSiteId={inputData.typeOfSiteId}
         mainFilter={
           <MainComputerFilter 

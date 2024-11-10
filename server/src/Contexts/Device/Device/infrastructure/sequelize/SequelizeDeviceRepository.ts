@@ -24,11 +24,11 @@ export class SequelizeDeviceRepository extends SequelizeCriteriaConverter implem
   constructor(private readonly cache: CacheRepository) {
     super()
   }
-  async matching(criteria: Criteria): Promise<DevicePrimitives[]> {
+  async matching(criteria: Criteria): Promise<{ total: number, data: DevicePrimitives[] }> {
     const options = this.convert(criteria)
 
     const deviceOptions = new DeviceAssociation().convertFilterLocation(criteria, options)
-    const data = await DeviceModel.findAll(deviceOptions)
+    const { count: total, rows: data } = await DeviceModel.findAndCountAll(deviceOptions)
     let filtered: DevicesApiResponse[] | undefined
     ['regionId'].forEach(ele => {
       if (criteria.searchValueInArray(ele)) {
@@ -61,7 +61,10 @@ export class SequelizeDeviceRepository extends SequelizeCriteriaConverter implem
     })
 
     const res = filtered ?? data
-    return JSON.parse(JSON.stringify(res))
+    return {
+      total,
+      data: JSON.parse(JSON.stringify(res))
+    }
   }
 
   async searchById(id: string): Promise<DevicePrimitives | null> {
@@ -187,7 +190,7 @@ export class SequelizeDeviceRepository extends SequelizeCriteriaConverter implem
   async donwload(criteria: Criteria): Promise<{}> {
     set_fs(fs)
 
-    const data = await this.matching(criteria) as DevicesApiResponse[]
+    const { data } = await this.matching(criteria) as { total: number, data: DevicesApiResponse[] }
 
     const wbData = clearComputerDataset({ devices: data })
     // Crear una nueva hoja de cálculo

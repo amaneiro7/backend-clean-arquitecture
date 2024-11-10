@@ -7,6 +7,13 @@ export interface MainCategoryPrimitives {
   name: Primitives<MainCategoryName>
 }
 
+export const MainComputerList = {
+  COMPUTER: '1',
+  SCREENS: '2',
+  PRINTERS: '3',
+  PARTS: '4'
+} as const
+
 export class MainCategory {
   constructor(
     private readonly id: MainCategoryId,

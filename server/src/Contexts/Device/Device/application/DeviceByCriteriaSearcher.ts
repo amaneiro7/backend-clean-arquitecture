@@ -12,7 +12,7 @@ import { type DevicePrimitives } from '../domain/Device'
 export class DeviceByCriteriaSearcher {
   constructor(private readonly repository: Repository) { }
 
-  async search(query: SearchByCriteriaQuery): Promise<DevicePrimitives[]> {
+  async search(query: SearchByCriteriaQuery): Promise<{ total: number, data: DevicePrimitives[] }> {
     const filters = query.filters.map((filter) => {
       return new Filter(
         new FilterField(filter.field),
