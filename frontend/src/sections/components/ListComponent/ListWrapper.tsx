@@ -8,7 +8,6 @@ import { type TypeOfSiteId } from "../../../modules/location/typeofsites/domain/
 import { type Primitives } from "../../../modules/shared/domain/value-object/Primitives"
 import { type SearchByCriteriaQuery } from "@/modules/shared/infraestructure/criteria/SearchByCriteriaQuery"
 
-const Main = lazy(async () => import('../Main'))
 const PageTitle = lazy(async () => import('../Typography/PageTitle'))
 const DetailsWrapper = lazy(async () => import("../DetailsWrapper/DetailsWrapper").then(m => ({ default: m.DetailsWrapper })))
 const DetailsBoxWrapper = lazy(async () => import("../DetailsWrapper/DetailsBoxWrapper"))
@@ -16,7 +15,6 @@ const FilterSection = lazy(async () => import('./FilterSection').then(m => ({ de
 const FilterContainer = lazy(async () => import("./FilterContainer/FilterContainer").then(m => ({ default: m.FilterContainer })))
 const ButtonSection = lazy(async () => import("./buttonsection/ButtonSection").then((m) => ({ default: m.ButtonSection })))
 const TypeOfSiteTabNav = lazy(async () => import("../tabs/TypeOfSiteTabNav").then((m) => ({ default: m.TypeOfSiteTabNav })))
-
 
 export function ListWrapper({
   total,
@@ -51,36 +49,36 @@ export function ListWrapper({
 
 
   return (
-    <Suspense fallback={<main className='flex-1' />}>
-      <Main overflow content='full'>
-        <PageTitle title={title} optionalText={!loading && `${total} resultados`} />
-        <DetailsWrapper borderColor='blue'>
-          <DetailsBoxWrapper>
-            <FilterSection>
-              {mainFilter}
-              {otherFilter
+    <>
+      
+      <PageTitle title={title} optionalText={!loading && `${total} resultados`} />
+      <DetailsWrapper borderColor='blue'>
+        <DetailsBoxWrapper>
+          <FilterSection>
+            {mainFilter}
+            {otherFilter
                 ? <FilterContainer ref={filterContainerRef}>{otherFilter}</FilterContainer>
                 : null}
-            </FilterSection>
-            <ButtonSection
-              handleExportToExcel={download}
-              loading={isDownloading}
-              handleAdd={() => { navigate(url) }}
-              handleFilter={otherFilter ? handleFilter : undefined}
-              handleClear={handleClear}
-            />
-          </DetailsBoxWrapper>
+          </FilterSection>
+          <ButtonSection
+            handleExportToExcel={download}
+            loading={isDownloading}
+            handleAdd={() => { navigate(url) }}
+            handleFilter={otherFilter ? handleFilter : undefined}
+            handleClear={handleClear}
+          />
+        </DetailsBoxWrapper>
 
-        </DetailsWrapper>
-        {typeOfSiteId !== undefined ?
-          <Suspense fallback={<div className='min-h-7 h-7' />}>
-            <TypeOfSiteTabNav onChange={handleChange} value={typeOfSiteId} />
-          </Suspense>
+      </DetailsWrapper>
+      {typeOfSiteId !== undefined ?
+        <Suspense fallback={<div className='min-h-7 h-7' />}>
+          <TypeOfSiteTabNav onChange={handleChange} value={typeOfSiteId} />
+        </Suspense>
           : null}
 
-        {loading && <SpinnerSKCircle />}
-        {table}
-      </Main>
-    </Suspense>
+      {loading && <SpinnerSKCircle />}
+      {table}
+ 
+    </>
   )
 }
