@@ -12,12 +12,12 @@ const DeviceTable = lazy(() => import("../DeviceTable").then(m => ({ default: m.
 
 export default function ListPartsAndPieces() {
   const { inputData: initialInputData, defaultInputData } = useDefaultInitialInputValue()
-  const { devices, loading, addFilter, cleanFilters, query } = useDeviceContext()
+  const { devices, total, loading, addFilter, cleanFilters, query } = useDeviceContext()
   const { inputData, handleChange, handleClear } = useInputsData({ initialInputData, defaultInputData, addFilter, cleanFilters })
 
   return (
     <ListWrapper
-      data={devices}
+      total={total}
       title='Lista de partes y piezas'
       url='/device/add'
       loading={loading}

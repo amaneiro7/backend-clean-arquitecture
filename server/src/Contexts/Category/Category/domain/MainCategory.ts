@@ -7,7 +7,7 @@ export interface MainCategoryPrimitives {
   name: Primitives<MainCategoryName>
 }
 
-export const MainComputerList = {
+export const MainCategoryList = {
   COMPUTER: '1',
   SCREENS: '2',
   PRINTERS: '3',

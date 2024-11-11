@@ -62,10 +62,14 @@ export interface UserApiResponsePrimitives extends UserPrimitives {
   }
 }
 
+export interface CategoryApiResponse extends CategoryPrimitives {
+  mainCategory: CategoryPrimitives
+}
+
 export interface DevicesApiResponse extends DevicePrimitives {
   createdAt: string
   updatedAt: string
-  category: CategoryPrimitives
+  category: CategoryApiResponse
   brand: BrandPrimitives
   model: ModelApiresponse
   location: LocationPrimitives
@@ -151,9 +155,9 @@ export interface ModelLaptop extends ModelLaptopPrimitives {
   memoryRamType: MemoryRamTypePrimitives
 }
 
-export interface ModelPrinter extends ModelPrinterPrimitives { }
+export type ModelPrinter = ModelPrinterPrimitives
 
-export interface ModelMonitor extends ModelMonitorPrimitives { }
+export type ModelMonitor = ModelMonitorPrimitives
 export interface ModelKeyboard extends ModelKeyboardPrimitives {
   inputType: InputTypePrimitives
 }

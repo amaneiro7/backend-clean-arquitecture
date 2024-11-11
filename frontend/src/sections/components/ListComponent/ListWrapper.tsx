@@ -18,8 +18,8 @@ const ButtonSection = lazy(async () => import("./buttonsection/ButtonSection").t
 const TypeOfSiteTabNav = lazy(async () => import("../tabs/TypeOfSiteTabNav").then((m) => ({ default: m.TypeOfSiteTabNav })))
 
 
-export function ListWrapper<Data>({
-  data,
+export function ListWrapper({
+  total,
   title,
   loading,
   url,
@@ -34,7 +34,7 @@ export function ListWrapper<Data>({
   typeOfSiteId?: Primitives<TypeOfSiteId>
   title: string
   url: string
-  data: Data[]
+  total: number
   loading: boolean
   handleChange: (name: string, value: string, operator?: Operator) => void
   handleClear: () => void
@@ -53,7 +53,7 @@ export function ListWrapper<Data>({
   return (
     <Suspense fallback={<main className='flex-1' />}>
       <Main overflow content='full'>
-        <PageTitle title={title} optionalText={!loading && `${data.length} resultados`} />
+        <PageTitle title={title} optionalText={!loading && `${total} resultados`} />
         <DetailsWrapper borderColor='blue'>
           <DetailsBoxWrapper>
             <FilterSection>

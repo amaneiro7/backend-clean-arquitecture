@@ -10,6 +10,7 @@ import { Operator } from "../../modules/shared/domain/criteria/FilterOperators"
 
 export interface DeviceContextState {
   devices: DevicePrimitives[]
+  total: number
   error: string
   loading: boolean
   createDevice: (formData: DevicePrimitives) => Promise<void>
@@ -75,7 +76,7 @@ export const DeviceContextProvider = ({ children, location }: React.PropsWithChi
     return { filters: [...defaultCategoryList.map(id => ({ field: 'categoryId', operator: Operator.EQUAL, value: id }))], limit: 25, offset: 1 }
   }, [defaultCategoryList])
 
-  const { devices, error, loading, searchDevices, resetDevices } = useSearchDevice()
+  const { devices, total, error, loading, searchDevices, resetDevices } = useSearchDevice()
   const { addFilter, cleanFilters, query } = useSearchByCriteriaQuery(defaultCategoryQuery)
   const { createDevice } = useCreateDevice()
 
@@ -95,6 +96,7 @@ export const DeviceContextProvider = ({ children, location }: React.PropsWithChi
   return (
     <DeviceContext.Provider value={{
       devices,
+      total,
       error,
       loading,
       createDevice: handleCreate,
