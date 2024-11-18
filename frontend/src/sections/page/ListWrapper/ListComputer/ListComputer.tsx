@@ -9,7 +9,7 @@ const ListWrapper = lazy(() => import("@/sections/components/ListComponent/ListW
 const MainComputerFilter = lazy(async () => import("@/sections/components/ListComponent/MainComputerFilter").then(m => ({ default: m.MainComputerFilter })))
 const DefaultFilterSection = lazy(() => import("@/sections/components/ListComponent/DefaultFilter").then(m => ({ default: m.DefaultFilterSection })))
 const OtherComputerFilter = lazy(() => import("@/sections/components/ListComponent/OtherComputerFilter").then(m => ({ default: m.OtherComputerFilter })))
-const DeviceTable = lazy(() => import("./DeviceTable").then(m => ({ default: m.DeviceTable })))
+const DeviceTable = lazy(() => import("./TableDevice").then(m => ({ default: m.TablerWraper })))
 
 export default function ListComputer() {
   const { inputData: initialInputData, defaultInputData } = useDefaultInitialInputValue()

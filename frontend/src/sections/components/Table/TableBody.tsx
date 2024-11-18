@@ -1,6 +1,6 @@
 type Props = React.DetailedHTMLProps<React.HTMLAttributes<HTMLTableSectionElement>, HTMLTableSectionElement>
 
-function TableBody({ children, ...props }: React.PropsWithChildren<Props>) {
+export function TableBody({ children, ...props }: React.PropsWithChildren<Props>) {
   return (
     <tbody {...props}>
       {children}
@@ -8,4 +8,3 @@ function TableBody({ children, ...props }: React.PropsWithChildren<Props>) {
   )
 }
 
-export default TableBody

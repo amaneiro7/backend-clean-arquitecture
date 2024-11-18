@@ -50,7 +50,6 @@ export function ListWrapper({
 
   return (
     <>
-      
       <PageTitle title={title} optionalText={!loading && `${total} resultados`} />
       <DetailsWrapper borderColor='blue'>
         <DetailsBoxWrapper>
@@ -69,15 +68,17 @@ export function ListWrapper({
           />
         </DetailsBoxWrapper>
 
-      </DetailsWrapper>
-      {typeOfSiteId !== undefined ?
-        <Suspense fallback={<div className='min-h-7 h-7' />}>
-          <TypeOfSiteTabNav onChange={handleChange} value={typeOfSiteId} />
-        </Suspense>
+        <div className='w-full flex flex-col justify-start'>
+          {typeOfSiteId !== undefined ?
+            <Suspense fallback={<div className='min-h-7 h-7' />}>
+              <TypeOfSiteTabNav onChange={handleChange} value={typeOfSiteId} />
+            </Suspense>
           : null}
 
-      {loading && <SpinnerSKCircle />}
-      {table}
+          {loading && <SpinnerSKCircle />}
+          {table}
+        </div>
+      </DetailsWrapper>
  
     </>
   )

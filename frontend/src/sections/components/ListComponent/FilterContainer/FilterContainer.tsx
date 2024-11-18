@@ -3,7 +3,7 @@ import './filterContainerStyle.css'
 
 const CloseIcon = lazy(async () => import("../../icon/CloseIcon").then(m => ({ default: m.CloseIcon })))
 
-interface Props extends React.PropsWithChildren<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>> { }
+type Props = React.PropsWithChildren<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>>
 
 export type FilterContainerRef = {
   handleOpen: () => void

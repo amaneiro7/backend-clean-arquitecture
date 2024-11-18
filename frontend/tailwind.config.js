@@ -74,7 +74,13 @@ export default {
       }
     },
     fontFamily: {
-      'body': [
+      montserrat: [
+        'Montserrat',
+        'sans-serif',
+        'Roboto',
+        'Helvetica Neue',
+      ],
+      body: [
         'Roboto',
         'ui-sans-serif',
         'system-ui',
@@ -91,7 +97,7 @@ export default {
         'Segoe UI Symbol',
         'Noto Color Emoji'
       ],
-      'sans': [
+      sans: [
         'Roboto',
         'ui-sans-serif',
         'system-ui',

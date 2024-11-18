@@ -1,10 +1,10 @@
 import ArrowBadge from './arrow-badge.svg?react'
 
-interface Props extends React.SVGProps<SVGSVGElement> {}
+type Props = React.SVGProps<SVGSVGElement>
 
-export function ArrowBadgeIcon({...props}:Props) {
+export function ArrowBadgeIcon({...props}: Props) {
   return (
-    <i>
+    <i className='grid place-content-center'>
       <ArrowBadge {...props} />
     </i>
   )
