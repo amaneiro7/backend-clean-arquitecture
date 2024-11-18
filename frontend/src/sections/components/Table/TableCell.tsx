@@ -1,7 +1,7 @@
-import { Suspense } from "react"
-import { TableCellWithUrl } from "./TableCellWithUrl"
-import { TableCellText } from "./TableCellText"
+import { Suspense, lazy } from "react"
 
+const TableCellWithUrl = lazy(() => import("./TableCellWithUrl").then((m) => ({ default: m.TableCellWithUrl })))
+const TableCellText = lazy(() => import("./TableCellText").then((m) => ({ default: m.TableCellText })))
 interface Props<T> extends React.DetailedHTMLProps<React.TdHTMLAttributes<HTMLTableCellElement>, HTMLTableCellElement> {
   value: string | number, 
   url?: string, 
