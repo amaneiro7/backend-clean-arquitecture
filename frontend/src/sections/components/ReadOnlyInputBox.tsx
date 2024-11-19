@@ -1,6 +1,6 @@
 type Props = React.DetailedHTMLProps<React.HTMLAttributes<HTMLParagraphElement>, HTMLParagraphElement> & {
   label: string
-  required: boolean
+  required?: boolean
 }
 
 export function ReadOnlyInputBox ({ label, required, ...props }: Props) {
@@ -17,7 +17,7 @@ export function ReadOnlyInputBox ({ label, required, ...props }: Props) {
         </label>
         <div className='w-full h-14 p-1 pr-2 border rounded-md outline-none border-black/20'>
           <p
-            className='py-1 pr-1 pl-2 w-0 min-w-full flex-1 text-ellipsis focus-visible:outline-none text-black/60'
+            className='py-1 pr-1 pl-2 w-0 min-w-full overflow-hidden text-nowrap whitespace-nowrap flex-1 text-ellipsis focus-visible:outline-none text-black/60'
             tabIndex={-1}            
             {...props}
           >{props.defaultValue}

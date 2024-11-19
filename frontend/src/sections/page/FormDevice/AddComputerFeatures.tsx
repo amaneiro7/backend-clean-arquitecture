@@ -119,8 +119,8 @@ export default function AddComputerFeatures({
           </Suspense>
           <Suspense>
             <ReadOnlyInputBox
-              label='Tipo de Memoria'
-              value={memoryRamType}
+              label='Tipo de Memoria'              
+              defaultValue={memoryRamType}
             />
           </Suspense>
 

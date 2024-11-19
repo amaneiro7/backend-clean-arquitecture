@@ -10,34 +10,85 @@ export class DeviceAssociation {
                 include: [
                     {
                         association: 'modelComputer', // 0 - 0
-                        include: ['memoryRamType']
+                        include: ['memoryRamType'],
+                        attributes: [
+                            'memoryRamTypeId',
+                            'memoryRamSlotQuantity',
+                            'hasBluetooth',
+                            'hasWifiAdapter',
+                            'hasDVI',
+                            'hasHDMI',
+                            'hasVGA'
+                        ]
                     },
                     {
                         association: 'modelLaptop', // 0 - 1
-                        include: ['memoryRamType']
+                        include: ['memoryRamType'],
+                        attributes: [
+                            'memoryRamTypeId',
+                            'memoryRamSlotQuantity',
+                            'hasBluetooth',
+                            'hasWifiAdapter',
+                            'hasDVI',
+                            'hasHDMI',
+                            'hasVGA',
+                            'batteryModel'
+                        ]
                     },
-                    'modelMonitor',
-                    'modelPrinter',
-                    'modelKeyboard',
-                    'modelMouse'
-                ]
+                    {
+                        association: 'modelMonitor', // 0 - 2
+                        attributes: ["screenSize", "hasDVI", "hasHDMI", "hasVGA"]
+                    },
+                    {
+                        association: 'modelPrinter', // 0 - 3
+                        attributes: ["cartridgeModel"]
+                    },
+                    {
+                        association: 'modelKeyboard', // 0 - 4
+                        include: ['inputType'],
+                        attributes: ["inputTypeId", "hasFingerPrintReader"]
+                    },
+                    {
+                        association: 'modelMouse', // 0 - 5
+                        include: ['inputType'],
+                        attributes: ["inputTypeId"]
+                    },
+                ],
+                attributes: ['name', 'categoryId', 'brandId', 'generic']
             },
             {
                 association: 'category', // 1
                 include: ['mainCategory']
             },
-            // 'category', // 1
-            'brand', // 2
+            {
+                association: 'brand', // 2
+                attributes: ['id', 'name']
+            },
             'status', // 3
-            'employee', // 4
+            {
+                association: 'employee', // 4
+                attributes: ['id', 'userName']
+            },
             {
                 association: 'computer', // 5
                 include: [
-                    { association: 'processor' }, // 5 - 0
-                    { association: 'hardDriveCapacity' }, // 5 - 1
-                    { association: 'hardDriveType' }, // 5 - 2
-                    { association: 'operatingSystem' }, // 5 - 3
-                    { association: 'operatingSystemArq' }, // 5 - 4
+                    { association: 'processor', attributes: ['productCollection', 'numberModel', 'name', 'frequency', 'cores', 'threads'] }, // 5 - 0
+                    { association: 'hardDriveCapacity', attributes: ['name'] }, // 5 - 1
+                    { association: 'hardDriveType', attributes: ['name'] }, // 5 - 2
+                    { association: 'operatingSystem', attributes: ['name'] }, // 5 - 3
+                    { association: 'operatingSystemArq', attributes: ['name'] }, // 5 - 4
+                ],
+                attributes: [
+                    'computerName',
+                    'processorId',
+                    'memoryRam',
+                    'memoryRamCapacity',
+                    'hardDriveCapacityId',
+                    'hardDriveTypeId',
+                    'operatingSystemId',
+                    'operatingSystemArqId',
+                    'macAddress',
+                    'ipAddress'
                 ]
             },
             {
