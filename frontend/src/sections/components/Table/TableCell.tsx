@@ -10,6 +10,7 @@ interface Props<T> extends React.DetailedHTMLProps<React.TdHTMLAttributes<HTMLTa
 }
 
 const SIZE = {
+  xxSmall: 'w-8', // 32px
   xSmall: 'w-20', // 80px
   small: 'w-28', // 112px
   medium: 'w-36', // 144px
@@ -17,7 +18,7 @@ const SIZE = {
   xLarge: 'w-52' // 224px
 } as const
 
-export function TableCell<T>({ value, url, state, size = 'xSmall', ...props }: React.PropsWithChildren<Props<T>>) {
+export function TableCell<T>({ value, url, state, size, ...props }: React.PropsWithChildren<Props<T>>) {
   return (
     <td
       className={`min-h-8 h-8 ${SIZE[size]} p-0 text-gray-800 overflow-hidden whitespace-nowrap text-ellipsis border-b-2 border-b-gray-300`}

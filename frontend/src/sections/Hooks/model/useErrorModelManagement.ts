@@ -56,16 +56,16 @@ export function useErrorModelManagement({
         generic: true,
         memoryRamTypeId: true,
         memoryRamSlotQuantity: true,
-        hasBluetooth: true,
-        hasWifiAdapter: true,
-        hasDVI: true,
-        hasHDMI: true,
-        hasVGA: true,
+        hasBluetooth: false,
+        hasWifiAdapter: false,
+        hasDVI: false,
+        hasHDMI: false,
+        hasVGA: false,
         batteryModel: true,
         screenSize: true,
         cartridgeModel: true,
         inputTypeId: true,
-        hasFingerPrintReader: true
+        hasFingerPrintReader: false
     })
 
     useEffect(() => {

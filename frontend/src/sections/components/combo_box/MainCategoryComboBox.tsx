@@ -10,7 +10,6 @@ import { type MainCategoryPrimitives } from "@/modules/devices/mainCategory/doma
 
 interface Props {
     value: Primitives<MainCategoryId>
-    filter?: Primitives<MainCategoryId>[]
     onChange: OnHandleChange
     type?: 'form' | 'search'
     isAdd?: boolean
@@ -22,14 +21,8 @@ interface Props {
 const ComboBox = lazy(async () => import("./combo_box"))
 const ReadOnlyInputBox = lazy(async () => import("../ReadOnlyInputBox").then(m => ({ default: m.ReadOnlyInputBox })))
 
-export default function MainCategoryComboBox({ value, filter, error, isDisabled = false, isRequired, onChange, type = 'search', isAdd = false }: Props) {
+export default function MainCategoryComboBox({ value, error, isDisabled = false, isRequired, onChange, type = 'search', isAdd = false }: Props) {
     const { useMainCategory: { mainCategories , loading } } = useAppContext()
-
-    const filterCategory = useMemo(() => {
-      if (!filter) return mainCategories
-      return mainCategories.filter(cat =>  filter.includes(cat.id))
-      
-    },[mainCategories, filter])
 
     const initialValue = useMemo(() => {
         return mainCategories.find(category => category.id === value)
@@ -41,15 +34,15 @@ export default function MainCategoryComboBox({ value, filter, error, isDisabled 
         {(!isAdd && type === 'form') 
           ? <ReadOnlyInputBox label='Categoria' required={isRequired} defaultValue={initialValue?.name} /> 
           : <ComboBox
-              id='categoryId'
+              id='mainCategoryId'
               initialValue={initialValue}
               label='Categoria'
-              name='categoryId'
+              name='mainCategoryId'
               type={type}
               onChange={(_, newValue: MainCategoryPrimitives) => {
-                        onChange('categoryId', newValue ? newValue.id : '', Operator.EQUAL)
+                        onChange('mainCategoryId', newValue ? newValue.id : '', Operator.EQUAL)
                     }}
-              options={filterCategory}
+              options={mainCategories}
               isRequired={isRequired}
               isDisabled={isDisabled}
               loading={loading}

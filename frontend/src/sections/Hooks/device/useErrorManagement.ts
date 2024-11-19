@@ -20,6 +20,7 @@ import { HardDriveHealth } from "@/modules/devices/fetures/hardDrive/hardDrive/d
 export function useErrorManagement({
     statusId,
     categoryId,
+    mainCategoryId,
     genericModel,
     activo,
     employeeId,
@@ -42,6 +43,7 @@ export function useErrorManagement({
 }: DefaultProps) {
     const [error, setError] = useState<FormDeviceErrors>({
         statusId: '',
+        mainCategoryId: '',
         categoryId: '',
         brandId: '',
         modelId: '',
@@ -65,6 +67,7 @@ export function useErrorManagement({
     })
     const [required, setRequired] = useState<FormDeviceRequired>({
         statusId: true,
+        mainCategoryId: true,
         categoryId: true,
         brandId: true,
         modelId: true,
@@ -88,6 +91,7 @@ export function useErrorManagement({
     })
     const [disabled, setDisabled] = useState<FormDeviceDisabled>({
         statusId: false,
+        mainCategoryId: false,
         categoryId: false,
         brandId: true,
         modelId: true,
@@ -132,6 +136,7 @@ export function useErrorManagement({
 
         setDisabled(prev => ({
             ...prev,
+            categoryId: !mainCategoryId,
             brandId: !categoryId,
             modelId: !brandId,
             locationId: !statusId || [StatusId.StatusOptions.DESINCORPORADO].includes(statusId),
@@ -158,7 +163,7 @@ export function useErrorManagement({
             operatingSystemId: [StatusId.StatusOptions.INUSE, StatusId.StatusOptions.PRESTAMO, StatusId.StatusOptions.CONTINGENCIA, StatusId.StatusOptions.GUARDIA].includes(statusId),
             operatingSystemArqId: !!operatingSystemId
         }))
-    }, [memoryRamCapacity, activo, employeeId, locationId, serial, statusId, typeOfSiteId, stockNumber, categoryId, brandId, computerName, ipAddress, macAddress, memoryRam, processorId, hardDriveCapacityId, hardDriveTypeId, operatingSystemId, operatingSystemArqId, health, genericModel])
+    }, [memoryRamCapacity, activo, employeeId, locationId, serial, statusId, typeOfSiteId, stockNumber, categoryId, brandId, computerName, ipAddress, macAddress, memoryRam, processorId, hardDriveCapacityId, hardDriveTypeId, operatingSystemId, operatingSystemArqId, health, genericModel, mainCategoryId])
 
     return {
         error,

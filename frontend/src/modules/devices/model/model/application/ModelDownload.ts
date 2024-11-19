@@ -6,11 +6,11 @@ import { Filters } from '../../../../shared/domain/criteria/Filters'
 import { FilterValue } from '../../../../shared/domain/criteria/FilterValue'
 import { Limit } from '../../../../shared/domain/criteria/Limit'
 import { Order } from '../../../../shared/domain/criteria/Order'
-import { DeviceRepository } from '../domain/DeviceRepository'
+import { type ModelRepository } from '../domain/ModelRepository'
 import { type SearchByCriteriaQuery } from '../../../../shared/infraestructure/criteria/SearchByCriteriaQuery'
 
 export class DeviceDownload {
-    constructor(private readonly repository: DeviceRepository) { }
+    constructor(private readonly repository: ModelRepository) { }
     async exec(query: SearchByCriteriaQuery): Promise<void> {
         const filters = query.filters.length > 0 && query.filters.map((filter) => {
             return new Filter(

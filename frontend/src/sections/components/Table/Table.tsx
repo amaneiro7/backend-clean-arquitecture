@@ -8,7 +8,7 @@ type Props<T> = React.DetailedHTMLProps<React.TableHTMLAttributes<HTMLTableEleme
 export function Table<T extends typeof TableBody | typeof TableHeader>({ children, ...props }: Props<T>) {
   return (
     <table
-      className={`clear-both relative min-w-full max-w-max border-separate border-spacing-0 table rounded-e-lg overflow-hidden ${props.className}`}
+      className={`clear-both relative min-w-full border-separate border-spacing-0 table rounded-e-lg overflow-hidden ${props.className}`}
       {...props}      
     >
       {children}

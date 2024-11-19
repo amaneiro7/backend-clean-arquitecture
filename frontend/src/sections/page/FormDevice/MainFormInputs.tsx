@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react'
 import { InputSkeletonLoading } from '@/sections/components/skeleton/inputSkeletonLoading'
 import { type Primitives } from '@/modules/shared/domain/value-object/Primitives'
 import { type StatusId } from '@/modules/devices/devices/status/domain/StatusId'
+import { type MainCategoryId } from '@/modules/devices/mainCategory/domain/MainCategoryId'
 import { type CategoryId } from '@/modules/devices/category/domain/CategoryId'
 import { type BrandId } from '@/modules/devices/brand/domain/BrandId'
 import { type ModelId } from '@/modules/devices/model/model/domain/ModelId'
@@ -15,6 +16,7 @@ import { type FormDeviceDisabled, type FormDeviceErrors, type FormDeviceRequired
 
 const StatusComboBox = lazy(async () => await import('@/sections/components/combo_box/StatusComboBox'))
 const CategoryComboBox = lazy(async () => await import('@/sections/components/combo_box/CategoryComboBox'))
+const MainCategoryComboBox = lazy(async () => await import('@/sections/components/combo_box/MainCategoryComboBox'))
 const BrandComboBox = lazy(async () => await import('@/sections/components/combo_box/BrandComboBox'))
 const ModelComboBox = lazy(async () => await import('@/sections/components/combo_box/ModelComboBox'))
 const SerialInput = lazy(async () => await import('@/sections/components/text-inputs/SerialInput'))
@@ -26,6 +28,7 @@ const StockNumberInput = lazy(async () => import('@/sections/components/text-inp
 
 export function MainFormInputs({
     statusId,
+    mainCategoryId,
     categoryId,
     brandId,    
     modelId,        
@@ -44,6 +47,7 @@ export function MainFormInputs({
     handleLocation
 }: {
     statusId: Primitives<StatusId>
+    mainCategoryId: Primitives<MainCategoryId>
     categoryId: Primitives<CategoryId>
     brandId: Primitives<BrandId>
     modelId: Primitives<ModelId>
@@ -74,8 +78,20 @@ export function MainFormInputs({
         />
       </Suspense>        
       <Suspense fallback={<InputSkeletonLoading />}>
+        <MainCategoryComboBox
+          value={mainCategoryId}
+          onChange={handleChange}
+          isDisabled={disabled.mainCategoryId}
+          isRequired={required.mainCategoryId}
+          error={errors.mainCategoryId}
+          type='form'
+          isAdd={isAddForm}
+        />
+      </Suspense>
+      <Suspense fallback={<InputSkeletonLoading />}>
         <CategoryComboBox
           value={categoryId}
+          mainCategory={mainCategoryId}
           onChange={handleChange}
           isDisabled={disabled.categoryId}
           isRequired={required.categoryId}

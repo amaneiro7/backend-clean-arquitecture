@@ -7,7 +7,7 @@ import { useDeviceContext } from "@/sections/Context/DeviceProvider"
 
 const ListWrapper = lazy(() => import("@/sections/components/ListComponent/ListWrapper").then(m => ({ default: m.ListWrapper })))
 const MainComputerFilter = lazy(async () => import("@/sections/components/ListComponent/MainComputerFilter").then(m => ({ default: m.MainComputerFilter })))
-const DeviceTable = lazy(() => import("../DeviceTable").then(m => ({ default: m.DeviceTable })))
+const DeviceTable = lazy(() => import("../DeviceDefaultTable").then(m => ({ default: m.DefaultDeviceTable })))
 
 
 export default function ListPartsAndPieces() {

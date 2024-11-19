@@ -47,6 +47,7 @@ export default function CreateDeviceForm() {
             required={required}
             statusId={formData.statusId}
             categoryId={formData.categoryId}
+            mainCategoryId={formData.mainCategoryId}
             brandId={formData.brandId}
             modelId={formData.modelId}
             serial={formData.serial}

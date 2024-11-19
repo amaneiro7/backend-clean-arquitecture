@@ -1,11 +1,12 @@
 import { createContext, useContext, useEffect, useMemo } from "react"
 import { useSearchDevice } from "../Hooks/device/useSearchDevice"
 import { useCreateDevice } from "../Hooks/device/useCreateDevices"
-import { type DevicePrimitives } from "../../modules/devices/devices/devices/domain/Device"
-import { type SearchByCriteriaQuery } from "../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery"
 import { useSearchByCriteriaQuery } from "../Hooks/useQueryUpdate"
-import { CategoryId } from "../../modules/devices/category/domain/CategoryId"
-import { Operator } from "../../modules/shared/domain/criteria/FilterOperators"
+import { MainCategoryList } from "@/modules/devices/mainCategory/domain/MainCategoryList"
+import { Operator } from "@/modules/shared/domain/criteria/FilterOperators"
+import { type SearchByCriteriaQuery } from "@/modules/shared/infraestructure/criteria/SearchByCriteriaQuery"
+import { type DevicePrimitives } from "@/modules/devices/devices/devices/domain/Device"
+
 
 
 export interface DeviceContextState {
@@ -18,7 +19,7 @@ export interface DeviceContextState {
   cleanFilters: () => void
   query: SearchByCriteriaQuery
   defaultCategoryQuery: SearchByCriteriaQuery
-  defaultCategoryList: Monitor | Computer | Parts | Printer | FinantialPrinter
+  defaultMainCategory: typeof MainCategoryList[keyof typeof MainCategoryList]
 }
 
 interface List {
@@ -31,11 +32,11 @@ interface List {
 
 export type LocationProps = 'computer' | 'monitor' | 'printer' | 'finantialPrinter' | 'parts'
 
-type Monitor = ('5')[]
-type Computer = ('1' | '2' | '3' | '4')[]
-type Parts = ('9' | '10' | '11' | '12' | '14' | '15' | '16' | '17' | '18' | '19' | '20' | '21' | '22' | '23' | '24' | '25')[]
-type Printer = ('13' | '7' | '8')[]
-type FinantialPrinter = ('6')[]
+type Computer = typeof MainCategoryList['COMPUTER']
+type Monitor = typeof MainCategoryList['SCREENS']
+type Parts = typeof MainCategoryList['PARTS']
+type Printer = typeof MainCategoryList['PRINTERS']
+type FinantialPrinter = typeof MainCategoryList['PRINTERS']
 
 
 export const DeviceContext = createContext({} as DeviceContextState)
@@ -43,38 +44,21 @@ export const DeviceContext = createContext({} as DeviceContextState)
 export const DeviceContextProvider = ({ children, location }: React.PropsWithChildren<{ location?: LocationProps }>) => {
   const list: List = useMemo(() => {
     return {
-      computer: [CategoryId.categoryOptions.COMPUTER, CategoryId.categoryOptions.LAPTOP, CategoryId.categoryOptions.ALLINONE, CategoryId.categoryOptions.SERVER],
-      monitor: [CategoryId.categoryOptions.MONITOR],
-      parts: [
-        CategoryId.categoryOptions.HARDDRIVE,
-        CategoryId.categoryOptions.KEYBOARD,
-        CategoryId.categoryOptions.MOUSE,
-        CategoryId.categoryOptions.BAM,
-        CategoryId.categoryOptions.PHONE,
-        CategoryId.categoryOptions.SCANNER,
-        CategoryId.categoryOptions.ANTENAS,
-        CategoryId.categoryOptions.CABLEUSB,
-        CategoryId.categoryOptions.CAMARAS,
-        CategoryId.categoryOptions.IPAD,
-        CategoryId.categoryOptions.WEBCAM,
-        CategoryId.categoryOptions.CORNETAS,
-        CategoryId.categoryOptions.DOCKING,
-        CategoryId.categoryOptions.LAPIZOPTICO,
-        CategoryId.categoryOptions.CONVERTIDORVGAHDMI,
-        CategoryId.categoryOptions.MIC,
-      ],
-      printer: [CategoryId.categoryOptions.LASERPRINTER, CategoryId.categoryOptions.INKPRINTER, CategoryId.categoryOptions.MFP],
-      finantialPrinter: [CategoryId.categoryOptions.FINANTIALPRINTER]
+      computer: MainCategoryList.COMPUTER,
+      monitor: MainCategoryList.SCREENS,
+      parts: MainCategoryList.PARTS,
+      printer: MainCategoryList.PRINTERS,
+      finantialPrinter: MainCategoryList.PRINTERS
     }
   }, [])
 
-  const defaultCategoryList = useMemo(() => {
-    return list[location] ?? []
+  const defaultMainCategory = useMemo(() => {
+    return list[location]
   }, [list, location])
 
   const defaultCategoryQuery: SearchByCriteriaQuery = useMemo(() => {
-    return { filters: [...defaultCategoryList.map(id => ({ field: 'categoryId', operator: Operator.EQUAL, value: id }))], limit: 25, offset: 1 }
-  }, [defaultCategoryList])
+    return { filters: [{ field: 'mainCategoryId', operator: Operator.EQUAL, value: defaultMainCategory }], limit: 25, offset: 1 }
+  }, [defaultMainCategory])
 
   const { devices, total, error, loading, searchDevices, resetDevices } = useSearchDevice()
   const { addFilter, cleanFilters, query } = useSearchByCriteriaQuery(defaultCategoryQuery)
@@ -103,7 +87,7 @@ export const DeviceContextProvider = ({ children, location }: React.PropsWithChi
       addFilter,
       cleanFilters,
       query,
-      defaultCategoryList,
+      defaultMainCategory,
       defaultCategoryQuery
     }}
     >

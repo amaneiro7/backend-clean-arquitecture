@@ -1,4 +1,4 @@
-import { FindOptions, Op, Sequelize } from "sequelize";
+import { FindOptions } from "sequelize";
 import { Criteria } from "../../../../Shared/domain/criteria/Criteria";
 import { sequelize } from "../../../../Shared/infrastructure/persistance/Sequelize/SequelizeConfig";
 
@@ -15,10 +15,18 @@ export class DeviceAssociation {
                     {
                         association: 'modelLaptop', // 0 - 1
                         include: ['memoryRamType']
-                    }
+                    },
+                    'modelMonitor',
+                    'modelPrinter',
+                    'modelKeyboard',
+                    'modelMouse'
                 ]
             },
-            'category', // 1
+            {
+                association: 'category', // 1
+                include: ['mainCategory']
+            },
+            // 'category', // 1
             'brand', // 2
             'status', // 3
             'employee', // 4
@@ -76,6 +84,16 @@ export class DeviceAssociation {
                 order: ['createdAt', 'DESC']
             }
         ]
+
+        // Poder filtrar por main category
+        if (criteria.searchValueInArray('mainCategoryId')) {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
+            options.include[1].where = { ...options.include[1].where, mainCategoryId: options.where.mainCategoryId }
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
+            delete options.where.mainCategoryId
+        }
         // Poder filtrar por las caracteristicas de computer
         const firstLevelJoin = ['computerName', 'processorId', 'hardDriveCapacityId', 'hardDriveTypeId', 'operatingSystemId', 'operatingSystemArqId', 'memoryRam', 'memoryRamCapacity', 'macAddress']
         firstLevelJoin.forEach(ele => {
@@ -88,7 +106,7 @@ export class DeviceAssociation {
                 delete options.where[ele]
             }
         })
-
+        // Poder filtrar por direccion
         if (criteria.searchValueInArray('ipAddress')) {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-expect-error            
@@ -115,6 +133,7 @@ export class DeviceAssociation {
                 delete options.where[ele]
             }
         })
+
         // Poder filtrar por ciudad
         if (criteria.searchValueInArray('cityId')) {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
