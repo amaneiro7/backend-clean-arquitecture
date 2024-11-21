@@ -1,93 +1,67 @@
 import { lazy, Suspense } from "react"
+import { useExpendedRows } from "@/sections/Hooks/useExpendedRows"
 import { type DevicesApiResponse } from "@/modules/shared/domain/types/responseTypes"
 
 interface Props {
-    open: boolean
-    device: DevicesApiResponse
+  devices: DevicesApiResponse[]
 }
 
+const TableCell = lazy(async () => import("@/sections/components/Table/TableCell").then(m => ({ default: m.TableCell })))
+const TableRow = lazy(async () => import("@/sections/components/Table/TableRow").then(m => ({ default: m.TableRow })))
 const TableCellDescInfo = lazy(async () => import("@/sections/components/Table/TableCellDescInfo").then(m => ({ default: m.TableCellDescInfo })))
 const TableCellDescription = lazy(async () => import("@/sections/components/Table/TableCellDescription").then(m => ({ default: m.TableCellDescription })))
+const TableCellOpenIcon = lazy(async () => import("@/sections/components/Table/TableCellOpenIcon").then(m => ({ default: m.TableCellOpenIcon })))
 
-export function MonitorDescription({ open, device }: Props) {
+export function MonitorDescription({ devices }: Props) {
+  const { expandedRows, handleRowClick } = useExpendedRows()
   return (
-    <Suspense>
-      <TableCellDescription
-        open={open}
-        state={device} 
-        stateId={device.id} 
-        url={`/device/edit/${device.id}`} 
-        colspan={10}
-      >
-        <div className='flex flex-col gap-2'>
-          <TableCellDescInfo 
-            title='Estatus' 
-            text={device.status?.name ?? ""}
-          />
-          <TableCellDescInfo 
-            title='Activo' 
-            text={device.activo ?? "Sin Activo"}
-          />
-        </div>
-        <div className='flex flex-col gap-2'>
-          <TableCellDescInfo 
-            title='Procesador' 
-            text={device.computer ? `${device?.computer?.processor?.productCollection} ${device?.computer?.processor?.numberModel}` : ""}
-          />
-          <div className='flex gap-4'>
-            <TableCellDescInfo 
-              title='Nucleos' 
-              text={device.computer ? `${device?.computer?.processor?.cores}` : ""}
-            />
-            <TableCellDescInfo 
-              title='Frecuencia' 
-              text={device.computer ? `${device?.computer?.processor?.frequency}` : ""}
-            />
-          </div>
-
-        </div>
-        <div className='flex flex-col gap-2'>
-          <TableCellDescInfo 
-            title='Memoria Ram' 
-            text={device.computer ? `${device?.computer?.memoryRamCapacity} Gb` : ""}
-          />
-          <div className='flex gap-4'>
-            <TableCellDescInfo 
-              title='Tipo' 
-              text={device?.model?.modelComputer ? device?.model?.modelComputer?.memoryRamType?.name : device?.model?.modelLaptop ? device?.model?.modelLaptop?.memoryRamType?.name : ""}
-            />
-            <TableCellDescInfo 
-              title='Modulos' 
-              text={device.computer ? device?.computer?.memoryRam?.map((mem) => mem).join(" / ") : ""}
-            />
-
-          </div>
-        </div>
-        <div className='flex flex-col gap-2'>
-          <TableCellDescInfo 
-            title='Disco Duro' 
-            text={device?.computer?.hardDriveCapacity ? `${device?.computer?.hardDriveCapacity?.name} Gb` : "Sin Disco"}
-          />
-          <TableCellDescInfo 
-            title='Tipo' 
-            text={device?.computer?.hardDriveType?.name ?? 'No Aplica'}
-          />
-        </div>
-        <div className='flex flex-col gap-2'>
-          <TableCellDescInfo 
-            title='Sistema Operativo' 
-            text={device?.computer?.operatingSystem?.name ?? 'No Aplica'}
-          />
-          <TableCellDescInfo 
-            title='Arquitectura del Sistema Operativo' 
-            text={device?.computer?.operatingSystemArq?.name ?? 'No Aplica'}
-          />
-        </div>
-        <TableCellDescInfo 
-          title='Última Actualización' 
-          text={device.updatedAt ? new Date(device.updatedAt).toLocaleDateString() : ""}
-        />
-      </TableCellDescription>
-    </Suspense>
+    <>
+      {
+        devices?.map(device => (
+          <Suspense key={device.id}>
+            <TableRow className={`[&>td]:cursor-pointer ${expandedRows.includes(device.id) && '[&>td]:bg-slate-200 [&>td]:border-b-slate-200'}`} onClick={() => handleRowClick(device.id)}>
+              <TableCell size='small' value={device.employee?.userName} />
+              <TableCell size='large' value={device.location?.name} />
+              <TableCell size='small' value={device.serial} />
+              <TableCell size='small' value={device.category?.name} />
+              <TableCell size='small' value={device.brand?.name} />
+              <TableCell size='xLarge' value={device.model?.name} />
+              <TableCell size='small' value={device.observation} />
+              <TableCellOpenIcon open={expandedRows.includes(device.id)} />
+            </TableRow>
+            <Suspense>
+              <TableCellDescription
+                open={expandedRows.includes(device.id)}
+                state={device}
+                stateId={device.id}
+                url={`/device/edit/${device.id}`}
+                colspan={7}
+              >
+                <TableCellDescInfo
+                  title='Estatus'
+                  text={device.status?.name ?? ""}
+                />
+                <TableCellDescInfo
+                  title='Activo'
+                  text={device.activo ?? "Sin Activo"}
+                />
+                <TableCellDescInfo
+                  title='Tamaño de Pantalla'
+                  text={device?.model?.modelMonitor ? `${device?.model?.modelMonitor?.screenSize}'` : ""}
+                />
+                <TableCellDescInfo
+                  title='Tamaño de Pantalla'
+                  text={device?.model?.modelMonitor ? `${device?.model?.modelMonitor?.}'` : ""}
+                />
+                <TableCellDescInfo
+                  title='Última Actualización'
+                  text={device.updatedAt ? new Date(device.updatedAt).toLocaleDateString() : ""}
+                />
+              </TableCellDescription>
+            </Suspense>
+          </Suspense>
+        ))
+      }
+    </>
   )
 }
