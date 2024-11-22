@@ -50,8 +50,16 @@ export function MonitorDescription({ devices }: Props) {
                   text={device?.model?.modelMonitor ? `${device?.model?.modelMonitor?.screenSize}'` : ""}
                 />
                 <TableCellDescInfo
-                  title='Tamaño de Pantalla'
-                  text={device?.model?.modelMonitor ? `${device?.model?.modelMonitor?.}'` : ""}
+                  title='Puerto VGA'
+                  text={device?.model?.modelMonitor?.hasVGA ? "Si" : "No"}
+                />
+                <TableCellDescInfo
+                  title='Puerto DVI'
+                  text={device?.model?.modelMonitor?.hasDVI ? "Si" : "No"}
+                />
+                <TableCellDescInfo
+                  title='Puerto HDMI'
+                  text={device?.model?.modelMonitor?.hasHDMI ? "Si" : "No"}
                 />
                 <TableCellDescInfo
                   title='Última Actualización'
