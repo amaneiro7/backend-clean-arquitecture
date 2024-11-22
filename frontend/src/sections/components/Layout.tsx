@@ -12,7 +12,7 @@ export default function Layout() {
       <Suspense fallback={<header className='min-h-16 h-16 bg-secondary' />}>
         <Header />
       </Suspense>
-      <Suspense>
+      <Suspense fallback={<main className='min-h-screen h-screen bg-gray-100' />}>
         <Main>
           <Outlet />
         </Main>

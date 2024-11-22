@@ -3,11 +3,12 @@ import { useDefaultInitialInputValue } from "./defaultParams"
 import { useInputsData } from "@/sections/components/ListComponent/useInputData"
 import { useDeviceContext } from "@/sections/Context/DeviceProvider"
 import { type DevicesApiResponse } from "@/modules/shared/domain/types/responseTypes"
-import { MonitorDescription } from "./MonitorDescription"
 
-const ListWrapper = lazy(() => import("../../../components/ListComponent/ListWrapper").then(m => ({ default: m.ListWrapper })))
-const MainComputerFilter = lazy(async () => import("../../../components/ListComponent/MainComputerFilter").then(m => ({ default: m.MainComputerFilter })))
+
+const ListWrapper = lazy(() => import("@/sections/components/ListComponent/ListWrapper").then(m => ({ default: m.ListWrapper })))
+const MainComputerFilter = lazy(async () => import("@/sections/components/ListComponent/MainComputerFilter").then(m => ({ default: m.MainComputerFilter })))
 const DeviceTable = lazy(() => import("../DeviceDefaultTable").then(m => ({ default: m.DefaultDeviceTable })))
+const MonitorDescription = lazy(() => import("./MonitorDescription").then(m => ({ default: m.MonitorDescription })))
 
 
 export default function ListMonitor() {
@@ -27,15 +28,17 @@ export default function ListMonitor() {
         query={query}
         typeOfSiteId={inputData.typeOfSiteId}
         mainFilter={
-          <MainComputerFilter
-            handleChange={handleChange}
-            categoryId={inputData.categoryId}
-            employeeId={inputData.employeeId}
-            locationId={inputData.locationId}
-            regionId={inputData.regionId}
-            serial={inputData.serial}
-            typeOfSiteId={inputData.typeOfSiteId}
-          />
+          <Suspense>
+            <MainComputerFilter
+              handleChange={handleChange}
+              categoryId={inputData.categoryId}
+              employeeId={inputData.employeeId}
+              locationId={inputData.locationId}
+              regionId={inputData.regionId}
+              serial={inputData.serial}
+              typeOfSiteId={inputData.typeOfSiteId}
+            />
+          </Suspense>
         }
         table={
           <Suspense>

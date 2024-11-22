@@ -43,6 +43,7 @@ import { type Primitives } from '../value-object/Primitives'
 import { type HistoryPrimitives } from '../../../history/domain/history'
 import { type RoleId } from '../../../user/role/domain/RoleId'
 import { type DeviceStockNumber } from '../../../devices/devices/devices/domain/DeviceStockNumber'
+import { MFPPrimitives } from '@/modules/devices/fetures/multiFunctionalPrinter/MFP'
 
 interface UserApiResponse {
   user: UserApiResponsePrimitives
@@ -77,6 +78,7 @@ export interface DevicesApiResponse extends DevicePrimitives {
   status: StatusPrimitives
   computer: Computer | null
   hardDrive: HardDrive | null
+  mfp: MFP | null
   history: HistoryApiResponse[]
 }
 
@@ -219,3 +221,5 @@ export interface HardDrive extends HardDrivePrimitives {
   hardDriveCapacity: HardDriveCapacityPrimitives
   hardDriveType: HardDriveTypePrimitives
 }
+
+export type MFP = MFPPrimitives

@@ -36,7 +36,7 @@ type Computer = typeof MainCategoryList['COMPUTER']
 type Monitor = typeof MainCategoryList['SCREENS']
 type Parts = typeof MainCategoryList['PARTS']
 type Printer = typeof MainCategoryList['PRINTERS']
-type FinantialPrinter = typeof MainCategoryList['PRINTERS']
+type FinantialPrinter = typeof MainCategoryList['FINANTIALPRINTERS']
 
 
 export const DeviceContext = createContext({} as DeviceContextState)
@@ -48,7 +48,7 @@ export const DeviceContextProvider = ({ children, location }: React.PropsWithChi
       monitor: MainCategoryList.SCREENS,
       parts: MainCategoryList.PARTS,
       printer: MainCategoryList.PRINTERS,
-      finantialPrinter: MainCategoryList.PRINTERS
+      finantialPrinter: MainCategoryList.FINANTIALPRINTERS
     }
   }, [])
 
