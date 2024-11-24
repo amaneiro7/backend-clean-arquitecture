@@ -1,5 +1,5 @@
 import { type NextFunction, type Request, type Response } from 'express'
-import httpStatus from 'http-status'
+import httpStatus from '../../Shared/utils/http-status'
 import { type Repository } from '../../../../../Contexts/Shared/domain/Repository'
 import { type FiltersPrimitives } from '../../../../../Contexts/Shared/domain/criteria/Filter'
 import { EmployeeByCriteriaSearcher } from '../../../../../Contexts/employee/Employee/application/EmployeeByCriteriaSearcher'
@@ -9,7 +9,7 @@ import { SearchAllEmployees } from '../../../../../Contexts/Device/Device/applic
 import { EmployeesApiResponse } from '../../../../../Contexts/employee/Employee/infrastructure/sequelize/EmployeeResponse'
 
 export class EmployeeGetController {
-  constructor (private readonly repository: Repository) {}
+  constructor(private readonly repository: Repository) { }
 
   getByCriteria = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {

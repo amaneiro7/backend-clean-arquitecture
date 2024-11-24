@@ -1,10 +1,10 @@
 import { type NextFunction, type Request, type Response } from 'express'
-import httpStatus from 'http-status'
+import httpStatus from '../../../Shared/utils/http-status'
 import { type Repository } from '../../../../../../Contexts/Shared/domain/Repository'
 import { SearchAllOperatingSystem } from '../../../../../../Contexts/Features/OperatingSystem/OperatingSystem/application/OperatingSystemFinderAll'
 
 export class OperatingSystemGetController {
-  constructor (private readonly repository: Repository) {}
+  constructor(private readonly repository: Repository) { }
 
   getAll = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {

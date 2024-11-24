@@ -7,7 +7,7 @@ import cors from 'cors'
 import helmet from 'helmet'
 import morgan from 'morgan'
 import type * as http from 'http'
-import httpStatus from 'http-status'
+import httpStatus from './Shared/utils/http-status'
 import responseTime from 'response-time'
 
 import { type Repository } from '../../../Contexts/Shared/domain/Repository'

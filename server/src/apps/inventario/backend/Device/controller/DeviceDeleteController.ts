@@ -1,6 +1,6 @@
 import { type NextFunction, type Request, type Response } from 'express'
 import { type Repository } from '../../../../../Contexts/Shared/domain/Repository'
-import httpStatus from 'http-status'
+import httpStatus from '../../Shared/utils/http-status'
 import { DeviceRemover } from '../../../../../Contexts/Device/Device/application/DeviceRemover'
 
 export class DeviceDeleteController {

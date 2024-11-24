@@ -1,5 +1,5 @@
 import { type NextFunction, type Request, type Response } from 'express'
-import httpStatus from 'http-status'
+import httpStatus from '../../../Shared/utils/http-status'
 import { SearchAllHardDriveCapacity } from '../../../../../../Contexts/Features/HardDrive/HardDriveCapacity/application/HardDriveCapacityFinder'
 import { type Repository } from '../../../../../../Contexts/Shared/domain/Repository'
 

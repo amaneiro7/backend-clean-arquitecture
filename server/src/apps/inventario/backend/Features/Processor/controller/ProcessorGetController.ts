@@ -1,13 +1,13 @@
 import { type NextFunction, type Request, type Response } from 'express'
 
-import httpStatus from 'http-status'
+import httpStatus from '../../../Shared/utils/http-status'
 import { type Repository } from '../../../../../../Contexts/Shared/domain/Repository'
 import { SearchAllProcessors } from '../../../../../../Contexts/Features/Processor/Processor/application/ProcessorFinderAll'
 import { ProcessorsFinder } from '../../../../../../Contexts/Features/Processor/Processor/application/ProcessorFinder'
 import { ProcessorId } from '../../../../../../Contexts/Features/Processor/Processor/domain/ProcessorId'
 
 export class ProcessorGetController {
-  constructor (private readonly repository: Repository) {}
+  constructor(private readonly repository: Repository) { }
 
   getAll = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {

@@ -1,6 +1,6 @@
 import { type NextFunction, type Request, type Response } from 'express'
 import { type Repository } from '../../../../../Contexts/Shared/domain/Repository'
-import httpStatus from 'http-status'
+import httpStatus from '../../Shared/utils/http-status'
 import { EmployeeCreator } from '../../../../../Contexts/employee/Employee/application/EmployeeCreator'
 import { EmployeeUpdater } from '../../../../../Contexts/employee/Employee/application/EmployeeUpdater'
 import { EmployeeRemover } from '../../../../../Contexts/employee/Employee/application/EmployeeRemover'

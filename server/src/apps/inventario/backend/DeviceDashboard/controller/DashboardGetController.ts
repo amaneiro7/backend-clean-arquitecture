@@ -1,5 +1,5 @@
 import { type NextFunction, type Request, type Response } from 'express'
-import httpStatus from 'http-status'
+import httpStatus from '../../Shared/utils/http-status'
 import { type Repository } from '../../../../../Contexts/Shared/domain/Repository'
 import { DeviceCounByCategory } from '../../../../../Contexts/Device/Inventroy/application/DeviceCountByCategory'
 import { TotalDeviceCount } from '../../../../../Contexts/Device/Inventroy/application/TotalDeviceCount'
