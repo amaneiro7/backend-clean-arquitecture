@@ -23,12 +23,10 @@ export const config = {
   port: process.env.PORT ?? 3000,
   postgres: {
     user: process.env.POSTGRES_USER ?? 'postgres',
-    password: process.env.POSTGRES_PASS ?? 'Man12345*',
+    password: process.env.POSTGRES_PASSWORD ?? 'Man12345*',
     host: process.env.POSTGRES_HOST ?? 'localhost',
     port: process.env.POSTGRES_PORT ?? 5432,
-    dbName: process.env.POSTGRES_DB_NAME ?? 'inventoryApp',
-    dbUrl: process.env.POSTGRES_URI ?? 'postgres://postgres:Man12345*@localhost:5432/inventoryApp'
-    // dbUrl: process.env.POSTGRES_URI ?? 'postgres://e2e:e2e123@localhost:5433/db_e2e'
+    dbName: process.env.POSTGRES_DB_NAME ?? 'inventoryApp'
   },
   redis: {
     host: process.env.REDIS_HOST ?? 'localhost',
