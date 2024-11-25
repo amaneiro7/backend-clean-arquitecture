@@ -7,7 +7,7 @@ import { type DevicesApiResponse } from "@/sections/../modules/shared/domain/typ
 const ListWrapper = lazy(() => import("@/sections/components/ListComponent/ListWrapper").then(m => ({ default: m.ListWrapper})))
 const MainComputerFilter = lazy(async () => import("@/sections/components/ListComponent/MainComputerFilter").then(m => ({ default: m.MainComputerFilter })))
 const DeviceTable = lazy(() => import("../DeviceDefaultTable").then(m => ({ default: m.DefaultDeviceTable })))
-
+const FinantialPrinterDescription = lazy(() => import("./FinantialPrintersDescription").then(m => ({ default: m.FinantialPrinterDescription })))
 export default function ListFinantialPrinter() {        
   const { inputData: initialInputData, defaultInputData } = useDefaultInitialInputValue()
   const { devices, total, loading, addFilter, cleanFilters, query } = useDeviceContext()
@@ -37,7 +37,13 @@ export default function ListFinantialPrinter() {
               />  
             </Suspense>
           }
-          table={<Suspense><DeviceTable devices={devices as DevicesApiResponse[]} /></Suspense>}
+          table={
+            <Suspense>
+              <DeviceTable>
+                <FinantialPrinterDescription devices={devices as DevicesApiResponse[]} />
+              </DeviceTable>
+            </Suspense>
+            }
         />
       </Suspense>  
     )}
