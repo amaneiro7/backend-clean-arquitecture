@@ -1,5 +1,4 @@
-import { lazy, Suspense } from 'react'
-import { InputSkeletonLoading } from '@/sections/components/skeleton/inputSkeletonLoading'
+import { lazy } from 'react'
 import { type Primitives } from '@/modules/shared/domain/value-object/Primitives'
 import { type StatusId } from '@/modules/devices/devices/status/domain/StatusId'
 import { type MainCategoryId } from '@/modules/devices/mainCategory/domain/MainCategoryId'
@@ -66,129 +65,126 @@ export function MainFormInputs({
     handleLocation: ({ value, typeOfSiteId }: { value: string; typeOfSiteId?: string }) => void
 }) {
   return (
-    <div className='grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-x-5 gap-y-6'>
-      <Suspense fallback={<InputSkeletonLoading />}>
-        <StatusComboBox
-          value={statusId}
-          onChange={handleChange}
-          isDisabled={disabled.statusId}
-          isRequired={required.statusId}
-          error={errors.statusId}
-          type='form'
-        />
-      </Suspense>        
-      <Suspense fallback={<InputSkeletonLoading />}>
-        <MainCategoryComboBox
-          value={mainCategoryId}
-          onChange={handleChange}
-          isDisabled={disabled.mainCategoryId}
-          isRequired={required.mainCategoryId}
-          error={errors.mainCategoryId}
-          type='form'
-          isAdd={isAddForm}
-        />
-      </Suspense>
-      <Suspense fallback={<InputSkeletonLoading />}>
-        <CategoryComboBox
-          value={categoryId}
-          mainCategory={mainCategoryId}
-          onChange={handleChange}
-          isDisabled={disabled.categoryId}
-          isRequired={required.categoryId}
-          error={errors.categoryId}
-          type='form'
-          isAdd={isAddForm}
-        />
-      </Suspense>
-      <Suspense fallback={<InputSkeletonLoading />}>
-        <BrandComboBox
-          value={brandId}
-          onChange={handleChange}
-          isDisabled={disabled.brandId}
-          isRequired={required.brandId}
-          error={errors.brandId}
-          categoryId={categoryId}
-          type='form'
-          isAdd={isAddForm}
-        />
-      </Suspense>
-      <Suspense fallback={<InputSkeletonLoading />}>
-        <ModelComboBox
-          value={modelId}
-          handleModel={handleModel}
-          categoryId={categoryId}
-          brandId={brandId}
-          type='form'
-          isAdd={isAddForm}
-          isDisabled={disabled.modelId}
-          isRequired={required.modelId}
-          error={errors.modelId}
-        />
-      </Suspense>
-      <Suspense fallback={<InputSkeletonLoading />}>
-        <SerialInput
-          value={serial}
-          onChange={handleChange}
-          isDisabled={disabled.serial}
-          isRequired={required.serial}
-          error={errors.serial}
-          type='form'
-          isAdd={isAddForm}
-        />
-      </Suspense>
-      <Suspense fallback={<InputSkeletonLoading />}>
-        <ActivoInput
-          value={activo}
-          onChange={handleChange}
-          isDisabled={disabled.activo}
-          isRequired={required.activo}
-          error={errors.activo}
-          isForm
-        />
-      </Suspense>        
-      <Suspense fallback={<InputSkeletonLoading />}>
-        <EmployeeComboBox
-          onChange={handleChange}
-          isDisabled={disabled.employeeId}
-          isRequired={required.employeeId}
-          error={errors.employeeId}
-          name='employeeId'
-          type='form'
-          status={statusId}
-          value={employeeId}
-        />
-      </Suspense>
+    <div className='grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-x-5 gap-y-6'>      
+      <StatusComboBox
+        value={statusId}
+        onChange={handleChange}
+        isDisabled={disabled.statusId}
+        isRequired={required.statusId}
+        error={errors.statusId}
+        type='form'
+      />
+      <MainCategoryComboBox
+        value={mainCategoryId}
+        onChange={handleChange}
+        isDisabled={disabled.mainCategoryId}
+        isRequired={required.mainCategoryId}
+        error={errors.mainCategoryId}
+        type='form'
+        isAdd={isAddForm}
+      />
+      
+      
+      <CategoryComboBox
+        value={categoryId}
+        mainCategory={mainCategoryId}
+        onChange={handleChange}
+        isDisabled={disabled.categoryId}
+        isRequired={required.categoryId}
+        error={errors.categoryId}
+        type='form'
+        isAdd={isAddForm}
+      />
+      
+      
+      <BrandComboBox
+        value={brandId}
+        onChange={handleChange}
+        isDisabled={disabled.brandId}
+        isRequired={required.brandId}
+        error={errors.brandId}
+        categoryId={categoryId}
+        type='form'
+        isAdd={isAddForm}
+      />
+      
+      
+      <ModelComboBox
+        value={modelId}
+        handleModel={handleModel}
+        categoryId={categoryId}
+        brandId={brandId}
+        type='form'
+        isAdd={isAddForm}
+        isDisabled={disabled.modelId}
+        isRequired={required.modelId}
+        error={errors.modelId}
+      />
+      
+      
+      <SerialInput
+        value={serial}
+        onChange={handleChange}
+        isDisabled={disabled.serial}
+        isRequired={required.serial}
+        error={errors.serial}
+        type='form'
+        isAdd={isAddForm}
+      />
+      
+      
+      <ActivoInput
+        value={activo}
+        onChange={handleChange}
+        isDisabled={disabled.activo}
+        isRequired={required.activo}
+        error={errors.activo}
+        isForm
+      />
+      
+      
+      <EmployeeComboBox
+        onChange={handleChange}
+        isDisabled={disabled.employeeId}
+        isRequired={required.employeeId}
+        error={errors.employeeId}
+        name='employeeId'
+        type='form'
+        status={statusId}
+        value={employeeId}
+      />
+      
       <div className='flex gap-5 col-span-2'>
-        <Suspense fallback={<InputSkeletonLoading />}>
-          <LocationComboBox
-            handleLocation={handleLocation}
-            value={locationId}
-            statusId={statusId}
-            isDisabled={disabled.locationId}
-            isRequired={required.locationId}
-            error={errors.locationId}
-            type='form'
-          />
-        </Suspense>
-        <Suspense fallback={<InputSkeletonLoading />}>
-          <StockNumberInput
-            onChange={handleChange}
-            isDisabled={disabled.stockNumber}
-            isRequired={required.stockNumber}
-            error={errors.stockNumber}
-            value={stockNumber}            
-          />
-        </Suspense>
-      </div>        
-      <Suspense fallback={<InputSkeletonLoading />}>
-        <ObservationInput
-          onChange={handleChange}
-          isDisabled={disabled.observation}
-          isRequired={required.observation}
-          error={errors.observation}
-          value={observation}
+        
+        <LocationComboBox
+          handleLocation={handleLocation}
+          value={locationId}
+          statusId={statusId}
+          isDisabled={disabled.locationId}
+          isRequired={required.locationId}
+          error={errors.locationId}
+          type='form'
         />
-      </Suspense>
+        
+        
+        <StockNumberInput
+          onChange={handleChange}
+          isDisabled={disabled.stockNumber}
+          isRequired={required.stockNumber}
+          error={errors.stockNumber}
+          value={stockNumber}
+        />
+        
+      </div>        
+      
+      <ObservationInput
+        onChange={handleChange}
+        isDisabled={disabled.observation}
+        isRequired={required.observation}
+        error={errors.observation}
+        value={observation}
+      />
+      
     </div>
   )
 }

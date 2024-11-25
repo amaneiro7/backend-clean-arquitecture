@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useRef } from "react"
+import { lazy, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
 import { SpinnerSKCircle } from "../Loading/spinner-sk-circle"
@@ -70,16 +70,15 @@ export function ListWrapper({
 
         <div className='w-full flex flex-col justify-start'>
           {typeOfSiteId !== undefined ?
-            <Suspense fallback={<div className='min-h-7 h-7' />}>
-              <TypeOfSiteTabNav onChange={handleChange} value={typeOfSiteId} />
-            </Suspense>
+            // <Suspense fallback={<div className='min-h-7 h-7' />}>
+            <TypeOfSiteTabNav onChange={handleChange} value={typeOfSiteId} />
+            // </Suspense>
           : null}
 
           {loading && <SpinnerSKCircle />}
           {table}
         </div>
-      </DetailsWrapper>
- 
+      </DetailsWrapper> 
     </>
   )
 }

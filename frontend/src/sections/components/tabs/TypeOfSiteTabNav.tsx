@@ -24,20 +24,18 @@ export const TypeOfSiteTabNav = memo(function({ onChange, value }: Props) {
     return (
       <Suspense fallback={<div className='min-h-7 h-7' />}>
         <TabsNav>          
-          {!loading && typeOfSiteTab.map(type => (
-            <Suspense key={type.id} fallback={<div className='p-4 w-20 h-7 will-change-auto rounded-t-md px-4 odd:bg-slate-400 even:bg-slate-300 animate-pulse' />}>
-              <TabNav
-                displayName={type.name}
-                handleClick={() => {
+          {!loading && typeOfSiteTab.map(type => (            
+            <TabNav
+              key={type.id}
+              displayName={type.name}
+              handleClick={() => {
                               if (type.id === inputValue) return
                               setInputValue(type.id)
                               onChange('typeOfSiteId', type.id === '0' ? '' : type.id, Operator.EQUAL)
                           }}
-                value={inputValue}
-                active={inputValue === type.id}
-              />
-
-            </Suspense>
+              value={inputValue}
+              active={inputValue === type.id}
+            />
                 ))}
         </TabsNav>
       </Suspense>

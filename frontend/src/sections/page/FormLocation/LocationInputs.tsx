@@ -102,7 +102,6 @@ export function LocationInputs({ onChange, handleSite, formData, isAddForm, disa
             onChange={onChange}
             value={formData.name}
             siteName={formData.siteName}
-            typeOfSite={formData.typeOfSiteId}
             type='form'
             isAddForm={isAddForm}
             disabled={disabled.name}
