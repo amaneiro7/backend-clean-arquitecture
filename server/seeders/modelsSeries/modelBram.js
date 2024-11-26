@@ -3,11 +3,6 @@ const { categoryData, categoryOnlyNames } = require("../categoryData/categoryDat
 const { brandsBamData, brandBAMOnlyName } = require("../brandData/brandBam")
 const { categoryBAMData, categoryBamOnlyNames } = require("../categoryData/newCategories")
 const { inputTypes, inputTypesOnlyName } = require("../deviceData/inputType")
-// const { randomUUID } = require("node:crypto")
-
-// for (let index = 0; index < 41; index++) {
-//     console.log(randomUUID())
-// }
 
 const modelBAMName = {
     HP4915: 'HighPrint 4915',

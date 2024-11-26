@@ -3,6 +3,5 @@ import passport from 'passport'
 import { Strategy } from '../../../../../Contexts/User/user/infrastructure/auth/passport'
 
 export const authenticate = (req: Request, res: Response, next: NextFunction): any => {
-  console.log(req)
   passport.authenticate(Strategy.JWT, { session: false })(req, res, next)
 }

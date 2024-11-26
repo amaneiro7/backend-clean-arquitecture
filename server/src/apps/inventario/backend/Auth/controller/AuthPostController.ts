@@ -15,21 +15,20 @@ export class AuthPostController {
       const [accessToken, refreshToken] = generateTokens(user)
       const infoUser = SendUserWithoutPassowrd(user, refreshToken)
 
-      whitelist.forEach(domain =>  {
-        console.log(req.headers.origin)
+      whitelist.forEach(domain => {
         this.setCookieForDomain(res, domain, 'refreshToken', accessToken)
       })
       res
         .status(httpStatus.OK)
-        .cookie('accessToken', accessToken, { httpOnly: true,  })
+        .cookie('accessToken', accessToken, { httpOnly: true, })
         .json({ ...infoUser, message: 'Usuario logeado exitosamente' })
     } catch (error) {
       next(error)
     }
   }
 
-  private setCookieForDomain (res: Response, domain: string, cookieName: string, cookieValue: string): void {
-    const commonOptions: CookieOptions =  {
+  private setCookieForDomain(res: Response, domain: string, cookieName: string, cookieValue: string): void {
+    const commonOptions: CookieOptions = {
       httpOnly: true,
       sameSite: 'none',
       maxAge: 24 * 60 * 60 * 1000, // 1 day
