@@ -1,19 +1,18 @@
 import { type CorsOptions } from 'cors'
 
 const whitelist = [
-  'http://localhost:3000',
-  'http://localhost:9000',
-  'http://localhost:5173',
-  'http://localhost:8070',
-  'http://10.0.12.106:8070',
-  'http://10.0.12.113:8070',
+  'localhost',  
+  '10.0.12.106',
+  '10.0.12.113',
+  '10.0.11.111',
   'mandev',
-  'srvsocker',
+  'srvdocker',
 ]
 export const options: CorsOptions = {
   origin: (origin, callback) => {
-    console.log(origin)
-    if (origin == null || whitelist.includes(origin) || origin.includes('srvsoporte') || origin.includes('devtunnels')) {
+    const validorigin = whitelist.some(domain => origin?.includes(domain))
+    
+    if (origin == null || validorigin || origin?.includes('devtunnels')) {
       callback(null, true); return
     }
     callback(new Error('Not allowed by CORS'))
