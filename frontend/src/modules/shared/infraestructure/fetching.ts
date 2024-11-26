@@ -13,25 +13,55 @@ export async function makeRequest<T>({
   const apiURL = new URL(`${API_URL}${endpoint}`)
   const requestInit: RequestInit = {
     method,
+    credentials: 'include',
+    mode: 'cors',
     headers: {
       'Content-Type': 'application/json'
     },
-    credentials: 'include'
   }
 
-  if (data !== undefined) {
+  if (data) {
     requestInit.body = JSON.stringify(data)
   }
 
-  return await fetch(apiURL, requestInit).then(async res => {
-    if (!res.ok) {
-      throw new Error(await res.text())
+  try {
+    const response = await fetch(apiURL, requestInit)
+    if (!response.ok) {
+      throw new Error(await response.text())
     }
-    return await (res.json() as Promise<T>)
-  }).catch((error: Error) => {
-    if (error.message !== 'Unauthorized') {
+    const responseData = await response.json()
+    if (responseData === null) {
+      throw new Error('makeRequest: No se ha podido obtener la respuesta')
+    }
+    return responseData as T
+  } catch (error) {
+    if (error instanceof Error && error.message !== 'Unauthorized') {
       console.error('makeRequest', error)
+    } else {
+      throw new Error('makeRequest: No se ha podido realizar la petición')
     }
-    throw new Error(error.message)
-  })
+    throw error
+  }
+
+  // return fetch(apiURL, requestInit)
+  //   .then(async response => {
+  //     if (!response.ok) {
+  //       throw new Error(await response.text())
+  //     }
+  //     const data = await response.json()
+  //     if (data === null) {
+  //       throw new Error('makeRequest: No se ha podido obtener la respuesta')
+  //     }
+  //     return data as T
+  //   })
+  //   .catch(error => {
+  //     if (error instanceof Error) {
+  //       if (error.message !== 'Unauthorized') {
+  //         console.error('makeRequest', error)
+  //       }
+  //     } else {
+  //       throw new Error('makeRequest: No se ha podido realizar la petición')
+  //     }
+  //     throw error
+  //   })
 }

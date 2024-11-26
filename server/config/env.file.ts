@@ -1,5 +1,6 @@
 /* eslint-disable no-prototype-builtins */
 // import 'dotenv/config'
+import { signedCookie } from 'cookie-parser'
 import dotenv from 'dotenv'
 
 const env = process.env.NODE_ENV ?? 'development'
@@ -33,6 +34,7 @@ export const config = {
     port: Number(process.env.REDIS_PORT) ?? 6379,
     password: process.env.REDIS_PASSWORD ?? 'Man12345*'
   },
+  signedCookie: process.env.SIGNED_COOKIE_SECRET ?? 'signed_cookie_secret',
   accessTokenSecret: process.env.ACCESS_TOKEN_SECRET ?? 'access_token_scret',
   refreshTokenSecret: process.env.REFRESH_TOKEN_SECRET ?? 'refresh_token_scret',
   smtpEmail: process.env.SMTP_EMAIL ?? 'jaasnavas0811@gmail.com',
