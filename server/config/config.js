@@ -2,11 +2,14 @@ require('dotenv').config()
 
 console.log(process.env.POSTGRES_USER)
 console.log(process.env.POSTGRES_PASSWORD)
+console.log(process.env.POSTGRES_HOST)
+console.log(process.env.POSTGRES_PORT)
+console.log(process.env.POSTGRES_DB_NAME)
 module.exports = {
   development: {
     username: process.env.POSTGRES_USER,
     password: process.env.POSTGRES_PASSWORD,
-    database: process.env.POSTGRES_DBNAME,
+    database: process.env.POSTGRES_DB_NAME,
     port: process.env.POSTGRES_PORT,
     host: process.env.POSTGRES_HOST,
     dialect: "postgres",
