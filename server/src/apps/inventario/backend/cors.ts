@@ -7,9 +7,12 @@ const whitelist = [
   'http://localhost:8070',
   'http://10.0.12.106:8070',
   'http://10.0.12.113:8070',
+  'mandev',
+  'srvsocker',
 ]
 export const options: CorsOptions = {
   origin: (origin, callback) => {
+    console.log(origin)
     if (origin == null || whitelist.includes(origin) || origin.includes('srvsoporte') || origin.includes('devtunnels')) {
       callback(null, true); return
     }
