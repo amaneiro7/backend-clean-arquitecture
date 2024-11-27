@@ -1,10 +1,10 @@
  .tableCellDesc, .tableCellDesc td, .tableCellDesc td .tableCellDescContainer {
-  display: none;
-  padding: 0;
 } 
 
-.tableCellDesc, .tableCellDesc td,.tableCellDesc td .tableCellDescContainer {  
-  transition: all .5s ease, display .5s ease allow-discrete;
+.tableCellDesc, .tableCellDesc td, .tableCellDesc td .tableCellDescContainer {  
+  display: none;
+  padding: 0;
+  transition: all .5s ease-out, display .5s ease allow-discrete;
   transform-origin: top;
   height: 0;
   flex-direction: column;
