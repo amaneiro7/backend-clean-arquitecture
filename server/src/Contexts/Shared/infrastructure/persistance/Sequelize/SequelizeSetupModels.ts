@@ -1,6 +1,6 @@
 import { type Sequelize } from 'sequelize'
 import { initModelSeriesModel } from '../../../../ModelSeries/ModelSeries/infraestructure/Sequelize/ModelSeriesSchema'
-import { initCategoryModel } from '../../../../Category/infrastructure/Sequelize/CategorySchema'
+import { initCategoryModel } from '../../../../Category/SubCategory/infrastructure/Sequelize/CategorySchema'
 import { initBrandModel } from '../../../../Brand/infrastructure/Sequelize/BrandSchema'
 import { initDeviceModel } from '../../../../Device/Device/infrastructure/sequelize/DeviceSchema'
 import { initUserModel } from '../../../../User/user/infrastructure/persistance/Sequelize/UserSchema'
@@ -16,7 +16,7 @@ import { initHistoryModel } from '../../../../History/infrastructure/sequelize/H
 import { initComputerModels } from '../../../../ModelSeries/ModelCharacteristics/Computers/Computer/infrastructure/sequelize/ComputerModelsSchema'
 import { initLaptopModels } from '../../../../ModelSeries/ModelCharacteristics/Computers/Laptops/infraestructure/sequelize/LaptopsModelsSchema'
 import { initProcessorSocketModel } from '../../../../Features/Processor/ProcessorSocket/infrastructure/sequelize/ProcessorSocketSchema'
-import { initMonitorModels } from '../../../../ModelSeries/ModelCharacteristics/Monitors/infraestructure/MonitorModelSchema'
+import { initMonitorModels } from '../../../../ModelSeries/ModelCharacteristics/Monitors/infraestructure/sequelize/MonitorModelSchema'
 import { initModelPrinter } from '../../../../ModelSeries/ModelCharacteristics/Printers/infraestructure/sequelize/ModelPrinterSchema'
 import { initStateModel } from '../../../../Location/State/infrastructure/sequelize/StateSchema'
 import { initCityModel } from '../../../../Location/City/infrastructure/sequelize/CitySchema'
@@ -32,13 +32,15 @@ import { initCargoModel } from '../../../../employee/Cargo/infrastructure/sequel
 import { initDeviceHardDriveModel } from '../../../../Features/HardDrive/HardDrive/infraestructure/sequelize/DeviceHardDriveSchema'
 import { initDeviceComputerModel } from '../../../../Features/Computer/infraestructure/sequelize/DeviceComputerSchema'
 import { initInputTypeModel } from '../../../../ModelSeries/InputType/infrastructure/sequelize/InputTypeSchema'
-import { initKeyboardModels } from '../../../../ModelSeries/ModelCharacteristics/Keyboards/infraestructure/KeyboardModelSchema'
+import { initKeyboardModels } from '../../../../ModelSeries/ModelCharacteristics/Keyboards/infraestructure/sequelize/KeyboardModelSchema'
 import { initEmployeeModel } from '../../../../employee/Employee/infrastructure/sequelize/EmployeeSchema'
 import { initDeviceMFPModel } from '../../../../Features/MFP/infraestructure/MFPSchema'
 import { initMouseModels } from '../../../../ModelSeries/ModelCharacteristics/Mouses/infraestructure/MouseModelSchema'
+import { initMainCategoryModel } from '../../../../Category/Category/infrastructure/Sequelize/MainCategorySchema'
 
 export function setupModels(sequelize: Sequelize): void {
   initCategoryModel(sequelize)
+  initMainCategoryModel(sequelize)
   initBrandModel(sequelize)
   initModelSeriesModel(sequelize)
   initStatusModel(sequelize)

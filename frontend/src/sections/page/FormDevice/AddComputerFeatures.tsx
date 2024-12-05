@@ -1,5 +1,4 @@
 import { lazy, Suspense } from 'react'
-import { InputSkeletonLoading } from '@/sections/components/skeleton/inputSkeletonLoading'
 import { type OnHandleChange } from '@/modules/shared/domain/types/types'
 import { type Primitives } from '@/modules/shared/domain/value-object/Primitives'
 import { type ComputerName } from '@/modules/devices/fetures/computer/domain/ComputerName'
@@ -66,35 +65,35 @@ export default function AddComputerFeatures({
 }: Props) {
 
   return (
-    <>
-      <Suspense fallback={<InputSkeletonLoading />}>
-        <ComputerNameInput
-          onChange={onChange}
-          value={computerName}
-          isRequired={required.computerName}
-          isDisabled={disabled.computerName}
-          error={errors.computerName}
-        />
-      </Suspense>
-      <Suspense fallback={<InputSkeletonLoading />}>
-        <IpAddressInput
-          onChange={onChange}
-          value={ipAddress}
-          isRequired={required.ipAddress}
-          isDisabled={disabled.ipAddress}
-          error={errors.ipAddress}
-        />
-      </Suspense>
-      <Suspense fallback={<InputSkeletonLoading />}>
-        <ProcessorComboBox
-          onChange={onChange}
-          value={processorId}
-          type='form'
-          isRequired={required.processorId}
-          isDisabled={disabled.processorId}
-          error={errors.processorId}
-        />
-      </Suspense>
+    <Suspense>
+      
+      <ComputerNameInput
+        onChange={onChange}
+        value={computerName}
+        isRequired={required.computerName}
+        isDisabled={disabled.computerName}
+        error={errors.computerName}
+      />
+      
+      
+      <IpAddressInput
+        onChange={onChange}
+        value={ipAddress}
+        isRequired={required.ipAddress}
+        isDisabled={disabled.ipAddress}
+        error={errors.ipAddress}
+      />
+      
+      
+      <ProcessorComboBox
+        onChange={onChange}
+        value={processorId}
+        type='form'
+        isRequired={required.processorId}
+        isDisabled={disabled.processorId}
+        error={errors.processorId}
+      />
+      
       <div className='grid grid-cols-2 gap-4 md:col-span-2'>
         <div className='grid grid-cols-2 gap-4'>
           {memoryRam.length > 0 ?
@@ -109,84 +108,84 @@ export default function AddComputerFeatures({
 
         </div>
         <div className='flex gap-4'>
-          <Suspense fallback={<InputSkeletonLoading />}>
-            <MemoryRamCapacityInput
-              value={memoryRamCapacity}              
-              isRequired={required.memoryRamCapacity}
-              isDisabled={disabled.memoryRamCapacity}
-              error={errors.memoryRamCapacity}
-            />
-          </Suspense>
-          <Suspense>
-            <ReadOnlyInputBox
-              label='Tipo de Memoria'
-              value={memoryRamType}
-            />
-          </Suspense>
+          
+          <MemoryRamCapacityInput
+            value={memoryRamCapacity}              
+            isRequired={required.memoryRamCapacity}
+            isDisabled={disabled.memoryRamCapacity}
+            error={errors.memoryRamCapacity}
+          />
+          
+          
+          <ReadOnlyInputBox
+            label='Tipo de Memoria'              
+            defaultValue={memoryRamType}
+          />
+          
 
         </div>
       </div>
       <div className='grid md:grid-cols-3 gap-4'>
         <div className='col-span-2'>
-          <Suspense fallback={<InputSkeletonLoading />}>
-            <HardDriveCapacityComboBox
-              onChange={onChange}
-              value={hardDriveCapacityId}
-              type='form'
-              isRequired={required.hardDriveCapacityId}
-              isDisabled={disabled.hardDriveCapacityId}
-              error={errors.hardDriveCapacityId}
-            />
-          </Suspense>
+          
+          <HardDriveCapacityComboBox
+            onChange={onChange}
+            value={hardDriveCapacityId}
+            type='form'
+            isRequired={required.hardDriveCapacityId}
+            isDisabled={disabled.hardDriveCapacityId}
+            error={errors.hardDriveCapacityId}
+          />
+          
         </div>
         <div>
-          <Suspense fallback={<InputSkeletonLoading />}>
-            <HardDriveTypeComboBox
-              onChange={onChange}
-              value={hardDriveTypeId}
-              type='form'
-              isRequired={required.hardDriveTypeId}
-              isDisabled={disabled.hardDriveTypeId}
-              error={errors.hardDriveTypeId}
-            />
-          </Suspense>
+          
+          <HardDriveTypeComboBox
+            onChange={onChange}
+            value={hardDriveTypeId}
+            type='form'
+            isRequired={required.hardDriveTypeId}
+            isDisabled={disabled.hardDriveTypeId}
+            error={errors.hardDriveTypeId}
+          />
+          
         </div>
       </div>
       <div className='grid md:grid-cols-3 gap-4'>
         <div className='col-span-2'>
-          <Suspense fallback={<InputSkeletonLoading />}>
-            <OperatingSystemComboBox
-              onChange={onChange}
-              value={operatingSystemId}
-              type='form'
-              isRequired={required.operatingSystemId}
-              isDisabled={disabled.operatingSystemId}
-              error={errors.operatingSystemId}
-            />
-          </Suspense>
+          
+          <OperatingSystemComboBox
+            onChange={onChange}
+            value={operatingSystemId}
+            type='form'
+            isRequired={required.operatingSystemId}
+            isDisabled={disabled.operatingSystemId}
+            error={errors.operatingSystemId}
+          />
+          
         </div>
         <div>
-          <Suspense fallback={<InputSkeletonLoading />}>
-            <OperatingSystemArqComboBox
-              onChange={onChange}
-              value={operatingSystemArqId}
-              type='form'
-              isRequired={required.operatingSystemArqId}
-              isDisabled={disabled.operatingSystemArqId}
-              error={errors.operatingSystemArqId}
-            />
-          </Suspense>
+          
+          <OperatingSystemArqComboBox
+            onChange={onChange}
+            value={operatingSystemArqId}
+            type='form'
+            isRequired={required.operatingSystemArqId}
+            isDisabled={disabled.operatingSystemArqId}
+            error={errors.operatingSystemArqId}
+          />
+          
         </div>
       </div>
-      <Suspense fallback={<InputSkeletonLoading />}>
-        <MacAddressInput
-          onChange={onChange}
-          value={macAddress}
-          isRequired={required.macAddress}
-          isDisabled={disabled.macAddress}
-          error={errors.macAddress}
-        />
-      </Suspense>
-    </>
+      
+      <MacAddressInput
+        onChange={onChange}
+        value={macAddress}
+        isRequired={required.macAddress}
+        isDisabled={disabled.macAddress}
+        error={errors.macAddress}
+      />
+      
+    </Suspense>
   )
 }

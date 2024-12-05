@@ -1,6 +1,7 @@
 import { JsonWebTokenError, type JwtPayload, NotBeforeError, verify, TokenExpiredError } from 'jsonwebtoken'
-import { config } from '../../Shared/infrastructure/config'
+
 import { InvalidArgumentError } from '../../Shared/domain/value-object/InvalidArgumentError'
+import { config } from '../../../../config/env.file'
 
 export function validateToken(token: string): JwtPayload {
   try {

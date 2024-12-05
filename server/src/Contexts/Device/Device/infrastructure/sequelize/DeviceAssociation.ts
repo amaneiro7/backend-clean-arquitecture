@@ -1,4 +1,4 @@
-import { FindOptions, Op, Sequelize } from "sequelize";
+import { FindOptions } from "sequelize";
 import { Criteria } from "../../../../Shared/domain/criteria/Criteria";
 import { sequelize } from "../../../../Shared/infrastructure/persistance/Sequelize/SequelizeConfig";
 
@@ -10,26 +10,85 @@ export class DeviceAssociation {
                 include: [
                     {
                         association: 'modelComputer', // 0 - 0
-                        include: ['memoryRamType']
+                        include: ['memoryRamType'],
+                        attributes: [
+                            'memoryRamTypeId',
+                            'memoryRamSlotQuantity',
+                            'hasBluetooth',
+                            'hasWifiAdapter',
+                            'hasDVI',
+                            'hasHDMI',
+                            'hasVGA'
+                        ]
                     },
                     {
                         association: 'modelLaptop', // 0 - 1
-                        include: ['memoryRamType']
-                    }
-                ]
+                        include: ['memoryRamType'],
+                        attributes: [
+                            'memoryRamTypeId',
+                            'memoryRamSlotQuantity',
+                            'hasBluetooth',
+                            'hasWifiAdapter',
+                            'hasDVI',
+                            'hasHDMI',
+                            'hasVGA',
+                            'batteryModel'
+                        ]
+                    },
+                    {
+                        association: 'modelMonitor', // 0 - 2
+                        attributes: ["screenSize", "hasDVI", "hasHDMI", "hasVGA"]
+                    },
+                    {
+                        association: 'modelPrinter', // 0 - 3
+                        attributes: ["cartridgeModel"]
+                    },
+                    {
+                        association: 'modelKeyboard', // 0 - 4
+                        include: ['inputType'],
+                        attributes: ["inputTypeId", "hasFingerPrintReader"]
+                    },
+                    {
+                        association: 'modelMouse', // 0 - 5
+                        include: ['inputType'],
+                        attributes: ["inputTypeId"]
+                    },
+                ],
+                attributes: ['name', 'categoryId', 'brandId', 'generic']
             },
-            'category', // 1
-            'brand', // 2
+            {
+                association: 'category', // 1
+                include: ['mainCategory']
+            },
+            {
+                association: 'brand', // 2
+                attributes: ['id', 'name']
+            },
             'status', // 3
-            'employee', // 4
+            {
+                association: 'employee', // 4
+                attributes: ['id', 'userName']
+            },
             {
                 association: 'computer', // 5
                 include: [
-                    { association: 'processor' }, // 5 - 0
-                    { association: 'hardDriveCapacity' }, // 5 - 1
-                    { association: 'hardDriveType' }, // 5 - 2
-                    { association: 'operatingSystem' }, // 5 - 3
-                    { association: 'operatingSystemArq' }, // 5 - 4
+                    { association: 'processor', attributes: ['productCollection', 'numberModel', 'name', 'frequency', 'cores', 'threads'] }, // 5 - 0
+                    { association: 'hardDriveCapacity', attributes: ['name'] }, // 5 - 1
+                    { association: 'hardDriveType', attributes: ['name'] }, // 5 - 2
+                    { association: 'operatingSystem', attributes: ['name'] }, // 5 - 3
+                    { association: 'operatingSystemArq', attributes: ['name'] }, // 5 - 4
+                ],
+                attributes: [
+                    'computerName',
+                    'processorId',
+                    'memoryRam',
+                    'memoryRamCapacity',
+                    'hardDriveCapacityId',
+                    'hardDriveTypeId',
+                    'operatingSystemId',
+                    'operatingSystemArqId',
+                    'macAddress',
+                    'ipAddress'
                 ]
             },
             {
@@ -76,6 +135,16 @@ export class DeviceAssociation {
                 order: ['createdAt', 'DESC']
             }
         ]
+
+        // Poder filtrar por main category
+        if (criteria.searchValueInArray('mainCategoryId')) {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
+            options.include[1].where = { ...options.include[1].where, mainCategoryId: options.where.mainCategoryId }
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
+            delete options.where.mainCategoryId
+        }
         // Poder filtrar por las caracteristicas de computer
         const firstLevelJoin = ['computerName', 'processorId', 'hardDriveCapacityId', 'hardDriveTypeId', 'operatingSystemId', 'operatingSystemArqId', 'memoryRam', 'memoryRamCapacity', 'macAddress']
         firstLevelJoin.forEach(ele => {
@@ -88,7 +157,7 @@ export class DeviceAssociation {
                 delete options.where[ele]
             }
         })
-
+        // Poder filtrar por direccion
         if (criteria.searchValueInArray('ipAddress')) {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-expect-error            
@@ -115,6 +184,7 @@ export class DeviceAssociation {
                 delete options.where[ele]
             }
         })
+
         // Poder filtrar por ciudad
         if (criteria.searchValueInArray('cityId')) {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment

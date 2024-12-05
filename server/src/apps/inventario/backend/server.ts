@@ -7,17 +7,18 @@ import cors from 'cors'
 import helmet from 'helmet'
 import morgan from 'morgan'
 import type * as http from 'http'
-import httpStatus from 'http-status'
+import httpStatus from './Shared/utils/http-status'
 import responseTime from 'response-time'
 
 import { type Repository } from '../../../Contexts/Shared/domain/Repository'
 import { routerApi } from './Shared/Routes'
-import { options } from './cors'
+import { options } from './Shared/Middleware/cors'
 import { logger } from './Shared/Middleware/winstonError'
 import { cacheMiddleware } from './Shared/Middleware/cacheMiddleware'
 import { etagMiddleware } from './Shared/Middleware/etagMiddleware'
 import { lastModifiedMiddleware } from './Shared/Middleware/lastModifiedMiddleware'
 import { expiresMiddleware } from './Shared/Middleware/expiresMiddleware'
+import { config } from '../../../../config/env.file'
 
 export class Server {
   private readonly app: express.Express
@@ -29,16 +30,18 @@ export class Server {
     this.app = express()
 
     // Middlewares
-    this.app.use(json())
-    this.app.use(cors(options))
-    this.app.use(urlencoded({ extended: true }))
-    this.app.use(helmet.xssFilter())
-    this.app.use(helmet.noSniff())
-    this.app.use(helmet.hidePoweredBy())
-    this.app.use(helmet.frameguard({ action: 'deny' }))
+    this.setupMiddlewares()
+
+    // Configuración de rutas
+    this.setupRoutes(repository)   
+
+  }
+  
+  private setupMiddlewares(): void {
+    // Middlware para medir el tiempo de respuesta
     this.app.use(responseTime())
-    this.app.use(compress())
-    this.app.use(cookieParser())
+    
+    // Middleware para logging con Morgan
     this.app.use(morgan('combined', {
       stream: {
         write: message => {
@@ -47,25 +50,53 @@ export class Server {
       }
     }))
 
+    // Middleware de seguridad con Helmet
+    this.app.use(helmet.xssFilter())
+    this.app.use(helmet.noSniff())
+    this.app.use(helmet.hidePoweredBy())
+    this.app.use(helmet.frameguard({ action: 'deny' }))
+
+    // Middleware para CORS
+    this.app.use(cors(options))
+
+    // Middleware para parsear JSON
+    this.app.use(json())
+
+    // Middleware para parsear URL-encoded
+    this.app.use(urlencoded({ extended: true }))
+
+    // Middleware para cookies firmadas
+    this.app.use(cookieParser())
+
+    // Middleware para comprimir las respuestas
+    this.app.use(compress())
+    
+    // Middleare para manejo de errores
     this.app.use((err: Error, req: Request, res: Response, next: NextFunction): void => {
       logger.error('Error;', err)
       next(err)
     })
 
+    // Middlewares opcionales de cache
     // this.app.use(cacheMiddleware)
     this.app.use(expiresMiddleware)
     this.app.use(lastModifiedMiddleware)
     this.app.use(etagMiddleware)
+  }
 
+  private setupRoutes(repository: Repository): void {
     const router = Router()
     router.use(errorHandler())
-
+    
+    // Configuración de rutas
     routerApi({ app: this.app, repository })
-
+    
+    // Manejo de errores global
     router.use((err: Error, req: Request, res: Response, _next: () => void) => {
       console.error(err)
       res.status(httpStatus.INTERNAL_SERVER_ERROR).send(err.message)
     })
+    this.app.use(router)
   }
 
   async listen(): Promise<void> {

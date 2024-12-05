@@ -1,5 +1,5 @@
 import { type NextFunction, type Request, type Response } from 'express'
-import httpStatus from 'http-status'
+import httpStatus from '../../../Shared/utils/http-status'
 import { ProcessorCreator } from '../../../../../../Contexts/Features/Processor/Processor/application/ProcessorCreator'
 import { ProcessorUpdater } from '../../../../../../Contexts/Features/Processor/Processor/application/ProcessorUpdater'
 import { type Repository } from '../../../../../../Contexts/Shared/domain/Repository'

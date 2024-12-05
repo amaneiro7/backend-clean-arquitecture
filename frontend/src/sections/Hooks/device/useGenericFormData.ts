@@ -11,6 +11,7 @@ export const initialState: DefaultProps = {
     id: undefined,
     statusId: '',
     categoryId: '',
+    mainCategoryId: '',
     brandId: '',
     modelId: '',
     genericModel: undefined,
@@ -43,6 +44,7 @@ export type Action =
     | { type: 'INIT_STATE', payload: { formData: DefaultProps } }
     | { type: 'reset', payload: { formData: DefaultProps } }
     | { type: 'statusId', payload: { value: string } }
+    | { type: 'mainCategoryId', payload: { value: string } }
     | { type: 'categoryId', payload: { value: string } }
     | { type: 'brandId', payload: { value: string } }
     | { type: 'modelId', payload: { value: string, memoryRamSlotQuantity: number, memoryRamType: string, generic?: boolean } }
@@ -115,6 +117,29 @@ const reducer = (state: DefaultProps, action: Action): DefaultProps => {
         return {
             ...state,
             categoryId: value,
+            brandId: '',
+            modelId: '',
+            computerName: '',
+            processorId: '',
+            memoryRamSlotQuantity: undefined,
+            memoryRamType: '',
+            memoryRamCapacity: 0,
+            memoryRam: [],
+            hardDriveCapacityId: '',
+            hardDriveTypeId: '',
+            operatingSystemArqId: '',
+            operatingSystemId: '',
+            ipAddress: '',
+            macAddress: '',
+            health: 100
+        }
+    }
+    if (action.type === 'mainCategoryId') {
+        const { value } = action.payload
+        return {
+            ...state,
+            mainCategoryId: value,
+            categoryId: '',
             brandId: '',
             modelId: '',
             computerName: '',

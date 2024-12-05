@@ -12,7 +12,11 @@ function App() {
   return (
     <Suspense fallback={<Loading />}>
       <ErrorBoundary>
-        <BrowserRouter>
+        <BrowserRouter 
+          future={{
+          v7_startTransition: true
+         }}
+        >
           <AppContextProvider repository={apiRepository}>
             <Suspense>
               <AppRoutes />

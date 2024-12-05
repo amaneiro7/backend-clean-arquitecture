@@ -1,5 +1,6 @@
 import { BrandModel } from '../../../../Brand/infrastructure/Sequelize/BrandSchema'
-import { CategoryModel } from '../../../../Category/infrastructure/Sequelize/CategorySchema'
+import { MainCategoryModel } from '../../../../Category/Category/infrastructure/Sequelize/MainCategorySchema'
+import { CategoryModel } from '../../../../Category/SubCategory/infrastructure/Sequelize/CategorySchema'
 import { DeviceModel } from '../../../../Device/Device/infrastructure/sequelize/DeviceSchema'
 import { StatusModel } from '../../../../Device/Status/infrastructure/sequelize/StatusSchema'
 import { DeviceComputerModel } from '../../../../Features/Computer/infraestructure/sequelize/DeviceComputerSchema'
@@ -22,8 +23,9 @@ import { TypeOfSiteModel } from '../../../../Location/TypeOfSite/infrastructure/
 import { InputTypeModel } from '../../../../ModelSeries/InputType/infrastructure/sequelize/InputTypeSchema'
 import { ComputerModelsModel } from '../../../../ModelSeries/ModelCharacteristics/Computers/Computer/infrastructure/sequelize/ComputerModelsSchema'
 import { LaptopModelsModel } from '../../../../ModelSeries/ModelCharacteristics/Computers/Laptops/infraestructure/sequelize/LaptopsModelsSchema'
-import { KeyboardModelsModel } from '../../../../ModelSeries/ModelCharacteristics/Keyboards/infraestructure/KeyboardModelSchema'
-import { MonitorModelsModel } from '../../../../ModelSeries/ModelCharacteristics/Monitors/infraestructure/MonitorModelSchema'
+import { KeyboardModelsModel } from '../../../../ModelSeries/ModelCharacteristics/Keyboards/infraestructure/sequelize/KeyboardModelSchema'
+import { MonitorModelsModel } from '../../../../ModelSeries/ModelCharacteristics/Monitors/infraestructure/sequelize/MonitorModelSchema'
+
 import { MouseModelsModel } from '../../../../ModelSeries/ModelCharacteristics/Mouses/infraestructure/MouseModelSchema'
 import { ModelPrinterModel } from '../../../../ModelSeries/ModelCharacteristics/Printers/infraestructure/sequelize/ModelPrinterSchema'
 import { ModelSeriesModel } from '../../../../ModelSeries/ModelSeries/infraestructure/Sequelize/ModelSeriesSchema'
@@ -41,7 +43,8 @@ import { type Models } from './SequelizeRepository'
 // Define associations between different Sequelize models
 export function InitSequelizeAssociation(): void {
   const models = sequelize.models as unknown as Models
-  CategoryModel.associate(models) // Category Associations
+  CategoryModel.associate(models) // Sub Category Associations
+  MainCategoryModel.associate(models) // Main Category Associations
   BrandModel.associate(models) // Brand Associations
   ModelSeriesModel.associate(models) // Model Associations
   ComputerModelsModel.associate(models) // Computer Models Associations

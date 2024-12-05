@@ -1,4 +1,5 @@
-import { utils, writeFileXLSX } from 'xlsx'
+import { set_fs, utils, write } from 'xlsx'
+import fs from 'node:fs'
 import { type Transaction } from 'sequelize'
 import { type DevicePrimitives } from '../../domain/Device'
 import { type DeviceRepository } from '../../domain/DeviceRepository'
@@ -15,6 +16,7 @@ import { DevicesApiResponse } from './DeviceResponse'
 import { DeviceHardDrive } from '../../../../Features/HardDrive/HardDrive/domain/HardDrive'
 import { MFP } from '../../../../Features/MFP/domain/MFP'
 import { CacheRepository } from '../../../../Shared/domain/CacheRepository'
+import { clearComputerDataset } from './clearComputerDataset'
 
 export class SequelizeDeviceRepository extends SequelizeCriteriaConverter implements DeviceRepository {
   private readonly models = sequelize.models as unknown as Models
@@ -22,11 +24,11 @@ export class SequelizeDeviceRepository extends SequelizeCriteriaConverter implem
   constructor(private readonly cache: CacheRepository) {
     super()
   }
-  async matching(criteria: Criteria): Promise<DevicePrimitives[]> {
+  async matching(criteria: Criteria): Promise<{ total: number, data: DevicePrimitives[] }> {
     const options = this.convert(criteria)
 
     const deviceOptions = new DeviceAssociation().convertFilterLocation(criteria, options)
-    const data = await DeviceModel.findAll(deviceOptions)
+    const { count: total, rows: data } = await DeviceModel.findAndCountAll(deviceOptions)
     let filtered: DevicesApiResponse[] | undefined
     ['regionId'].forEach(ele => {
       if (criteria.searchValueInArray(ele)) {
@@ -58,7 +60,11 @@ export class SequelizeDeviceRepository extends SequelizeCriteriaConverter implem
       }
     })
 
-    return filtered ?? data
+    const res = filtered ?? data
+    return {
+      total,
+      data: JSON.parse(JSON.stringify(res))
+    }
   }
 
   async searchById(id: string): Promise<DevicePrimitives | null> {
@@ -182,22 +188,22 @@ export class SequelizeDeviceRepository extends SequelizeCriteriaConverter implem
   }
 
   async donwload(criteria: Criteria): Promise<{}> {
+    set_fs(fs)
 
-    const data = await this.matching(criteria)
+    const { data } = await this.matching(criteria) as { total: number, data: DevicesApiResponse[] }
+
+    const wbData = clearComputerDataset({ devices: data })
     // Crear una nueva hoja de cálculo
-    const worksheet = utils.json_to_sheet(data)
+    const worksheet = utils.json_to_sheet(wbData)
     worksheet["!cols"] = [{ wch: 20 }]
     const workbook = utils.book_new()
     utils.book_append_sheet(workbook, worksheet, 'Inventario')
 
     // Generar un archivo buffer
-    const now = new Date()
-    const filename = `Reporte-Inventario${now.toLocaleString().replace(/[/:]/g, '-')}.xlsx`
-    return writeFileXLSX(workbook, filename, { compression: true })
-
-    // Establecer los encabezados para la descarga del archivo
-    // res.setHeader('Content-Disposition', 'attachment filename=report.xlsx')
-    // res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-
+    // const now = new Date()
+    // const filename = `Reporte-Inventario${now.toLocaleString().replace(/[/:]/g, '-')}.xlsx`
+    // return writeFile(workbook, filename, { compression: true })
+    const buf = write(workbook, { type: 'buffer', bookType: 'xlsx', compression: true, })
+    return buf
   }
 }

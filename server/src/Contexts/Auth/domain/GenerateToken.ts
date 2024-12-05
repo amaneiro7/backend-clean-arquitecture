@@ -1,9 +1,10 @@
 import { sign, type JwtPayload } from 'jsonwebtoken'
-import { config } from '../../Shared/infrastructure/config'
+
 import { type UserPrimitives } from '../../User/user/domain/User'
 import { type Primitives } from '../../Shared/domain/value-object/Primitives'
 import { type RoleId } from '../../User/Role/domain/RoleId'
 import { type UserEmail } from '../../User/user/domain/UserEmail'
+import { config } from '../../../../config/env.file'
 
 export interface Tokens {
   accessToken: string

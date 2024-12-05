@@ -1,13 +1,13 @@
 import { type NextFunction, type Request, type Response } from 'express'
 import { type Repository } from '../../../../../Contexts/Shared/domain/Repository'
-import httpStatus from 'http-status'
+import httpStatus from '../../Shared/utils/http-status'
 import { BrandsFinder } from '../../../../../Contexts/Brand/application/BrandFinder'
 import { BrandId } from '../../../../../Contexts/Brand/domain/BrandId'
 import { BrandName } from '../../../../../Contexts/Brand/domain/BrandName'
 import { SearchAllBrands } from '../../../../../Contexts/Brand/application/BrandFinderAll'
 
 export class BrandGetController {
-  constructor (private readonly repository: Repository) {}
+  constructor(private readonly repository: Repository) { }
 
   getAll = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {

@@ -1,6 +1,6 @@
 import Edit from './edit.svg?react'
 
-interface Props extends React.SVGProps<SVGSVGElement> {}
+type Props = React.SVGProps<SVGSVGElement>
 
 export function EditIcon({...props}:Props) {
   return (

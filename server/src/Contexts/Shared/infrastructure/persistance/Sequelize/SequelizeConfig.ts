@@ -3,8 +3,9 @@ import { config } from '../../../../../../config/env.file'
 import { setupModels } from './SequelizeSetupModels'
 import { InitSequelizeAssociation } from './SequelizeAssociations'
 
-const { postgres: { dbUrl }, isProd } = config
-export const sequelize = new Sequelize(dbUrl, {
+const { postgres: { user, password, dbName, host, port }, isProd } = config
+const url = `postgres://${user}:${password}@${host}:${port}/${dbName}`
+export const sequelize = new Sequelize(url, {
   dialect: 'postgres',
   logging: false,
   pool: {

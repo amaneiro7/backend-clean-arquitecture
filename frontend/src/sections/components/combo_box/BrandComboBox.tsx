@@ -41,6 +41,7 @@ export default function BrandComboBox({ value, onChange, error, isDisabled = fal
                 model.categoryId === categoryId)
             )
         }, [brands, categoryId])
+    
     const initialValue = useMemo(() => {
         return filterdBrand.find(brand => brand.id === value)
     }, [filterdBrand, value])

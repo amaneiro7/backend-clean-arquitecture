@@ -2,8 +2,8 @@ import { sequelize } from '../../../../Shared/infrastructure/persistance/Sequeli
 import { Criteria } from '../../../../Shared/domain/criteria/Criteria'
 import { CriteriaToSequelizeConverter } from '../../../../Shared/infrastructure/criteria/CriteriaToSequelizeConverter'
 import { type Transaction } from 'sequelize'
-import { type CategoryId } from '../../../../Category/domain/CategoryId'
 import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
+
 import { type Models } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
 import { type ModelSeriesPrimitives } from '../../domain/ModelSeries'
 import { type ModelSeriesId } from '../../domain/ModelSeriesId'
@@ -18,6 +18,7 @@ import { ModelSeriesModel } from './ModelSeriesSchema'
 import { KeyboardModels } from '../../../ModelCharacteristics/Keyboards/domain/KeyboadModels'
 import { MouseModels } from '../../../ModelCharacteristics/Mouses/domain/MouseModels'
 import { CacheService } from '../../../../Shared/domain/CacheService'
+import { CategoryId } from '../../../../Category/SubCategory/domain/CategoryId'
 
 export class SequelizeModelSeriesRepository extends CriteriaToSequelizeConverter implements ModelSeriesRepository {
   private readonly models = sequelize.models as unknown as Models

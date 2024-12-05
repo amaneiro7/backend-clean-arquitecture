@@ -17,9 +17,11 @@ import { type UseRegion, useRegion } from "../Hooks/locations/useRegion"
 import { type UseCities, useCity } from "../Hooks/locations/useCity"
 import { type UseStates,useCountryStates } from "../Hooks/locations/useCountryStates"
 import { type UseSites, useSite } from "../Hooks/locations/site/useSite"
+import { type UseMainCategory, useMainCategory } from "../Hooks/mainCategory/useMainCategory"
 
 export interface AppContextState {
     useCategory: UseCategory
+    useMainCategory: UseMainCategory
     useStatus: UseStatus
     useBrand: UseBrand
     useModel: UseModel
@@ -45,6 +47,7 @@ export const AppContextProvider = ({ children }: React.PropsWithChildren) => {
     return (
       <AppContext.Provider value={{
             useCategory: useCategory(),
+            useMainCategory: useMainCategory(),
             useStatus: useStatus(),
             useBrand: useBrand(),
             useModel: useModel(),

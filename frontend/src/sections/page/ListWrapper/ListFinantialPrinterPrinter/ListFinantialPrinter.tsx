@@ -6,28 +6,23 @@ import { type DevicesApiResponse } from "@/sections/../modules/shared/domain/typ
 
 const ListWrapper = lazy(() => import("@/sections/components/ListComponent/ListWrapper").then(m => ({ default: m.ListWrapper})))
 const MainComputerFilter = lazy(async () => import("@/sections/components/ListComponent/MainComputerFilter").then(m => ({ default: m.MainComputerFilter })))
-const DeviceTable = lazy(() => import("../DeviceTable").then(m => ({ default: m.DeviceTable })))
-
+const DeviceTable = lazy(() => import("../DeviceDefaultTable").then(m => ({ default: m.DefaultDeviceTable })))
+const FinantialPrinterDescription = lazy(() => import("./FinantialPrintersDescription").then(m => ({ default: m.FinantialPrinterDescription })))
 export default function ListFinantialPrinter() {        
   const { inputData: initialInputData, defaultInputData } = useDefaultInitialInputValue()
-  const { devices, loading, addFilter, cleanFilters } = useDeviceContext()
+  const { devices, total, loading, addFilter, cleanFilters, query } = useDeviceContext()
   const { inputData, handleChange, handleClear } = useInputsData({ initialInputData, defaultInputData, addFilter, cleanFilters })
   
-  const handleDownload = async () => {
-    const clearDataset = await import('@/sections/utils/clearDefaultDataset')
-    .then(m => m.clearDefaultDataset({devices: devices as DevicesApiResponse[]}))
-    await import('@/sections/utils/downloadJsonToExcel').then(m => m.jsonToExcel({clearDataset}))      
-  }
     return (    
       <Suspense>
         <ListWrapper
-          data={devices}
+          total={total}
           title='Lista de impresoras Financieras'
           url='/device/add'
           loading={loading}
           handleChange={handleChange}
           handleClear={handleClear}
-          handleDownload={handleDownload}
+          query={query}
           typeOfSiteId={inputData.typeOfSiteId}
           mainFilter={
             <Suspense>
@@ -42,7 +37,13 @@ export default function ListFinantialPrinter() {
               />  
             </Suspense>
           }
-          table={<Suspense><DeviceTable devices={devices as DevicesApiResponse[]} /></Suspense>}
+          table={
+            <Suspense>
+              <DeviceTable>
+                <FinantialPrinterDescription devices={devices as DevicesApiResponse[]} />
+              </DeviceTable>
+            </Suspense>
+            }
         />
       </Suspense>  
     )}

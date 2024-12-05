@@ -51,7 +51,7 @@ export const useInputsData = <T>({
       operator: operator ?? Operator.EQUAL,
       value
     }]
-    debounceGetDevices({ filters })
+    debounceGetDevices({ filters, limit: 25, offset: 0 })
 
     updateInputData(name, value)
   }, [debounceGetDevices, inputData, updateInputData])

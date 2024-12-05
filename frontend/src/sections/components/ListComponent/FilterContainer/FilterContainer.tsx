@@ -1,18 +1,19 @@
 import { lazy, useEffect, useImperativeHandle, forwardRef, useRef, useState, useCallback } from "react"
+import { createPortal } from "react-dom"
 import './filterContainerStyle.css'
 
 const CloseIcon = lazy(async () => import("../../icon/CloseIcon").then(m => ({ default: m.CloseIcon })))
 
-interface Props extends React.PropsWithChildren<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>> { }
+type Props = React.PropsWithChildren<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>>
 
 export type FilterContainerRef = {
   handleOpen: () => void
-} 
+}
 
 const Component = ({ children, ...props }: Props, ref: React.Ref<FilterContainerRef>) => {
   const filterContainerRef = useRef(null)
   const [open, setOpen] = useState(false)
-  
+
   const handleOpen = useCallback(() => {
     setOpen(!open)
   }, [open])
@@ -20,7 +21,7 @@ const Component = ({ children, ...props }: Props, ref: React.Ref<FilterContainer
   useImperativeHandle(ref, () => ({
     handleOpen
   }))
-  
+
   useEffect(() => {
     if (!open) return
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -28,8 +29,8 @@ const Component = ({ children, ...props }: Props, ref: React.Ref<FilterContainer
         closeAndRemoveListener()
       }
     }
-    
-    function closeAndRemoveListener () {
+
+    function closeAndRemoveListener() {
       document.removeEventListener('keydown', handleKeyDown)
       handleOpen()
     }
@@ -37,17 +38,15 @@ const Component = ({ children, ...props }: Props, ref: React.Ref<FilterContainer
     document.addEventListener('keydown', handleKeyDown)
 
     return () => {
-      document.removeEventListener('keydown', handleKeyDown)      
+      document.removeEventListener('keydown', handleKeyDown)
     }
   }, [handleOpen, open])
-  
-    return (
+
+  return (
+    createPortal(
       <aside
         ref={filterContainerRef}
-        style={{
-          maxHeight: '80vh'
-        }}
-        className={`filterContainerAside z-20 -top-20 w-[450px] flex flex-col gap-4 will-change-transform rounded-md mb-2 max-h-min bg-white pl-10 p-4 pb-8 overflow-hidden border drop-shadow-md shadow-lg absolute -right-[514px] transition-all duration-75 ease-in-out ${open ? '-translate-x-[450px] opacity-100' : 'none'}`}
+        className={`filterContainerAside drop-shadow-md shadow-lg ${open ? 'open' : 'close'}`}
         {...props}
       >
         <button
@@ -62,8 +61,8 @@ const Component = ({ children, ...props }: Props, ref: React.Ref<FilterContainer
         <div className='p-1 w-full flex flex-col gap-4 overflow-auto overscroll-contain pr-6'>
           {children}
         </div>
-      </aside>
-    )
+      </aside>, document.body)
+  )
 }
 
 export const FilterContainer = forwardRef(Component)

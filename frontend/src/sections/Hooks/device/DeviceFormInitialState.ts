@@ -11,6 +11,7 @@ const defaultInitialState: DefaultProps = {
   activo: '',
   statusId: '',
   modelId: '',
+  mainCategoryId: '',
   categoryId: '',
   brandId: '',
   employeeId: '',
@@ -50,8 +51,8 @@ export const useDeviceInitialState = (): {
   }, [location.pathname])
 
   const processDeviceState = useCallback((device: DevicePrimitives): void => {
-    const { serial, activo, statusId, model, modelId, categoryId, brandId, employeeId, locationId, observation, stockNumber, computer, hardDrive, history, updatedAt, location: { typeOfSiteId } } = device as DevicesApiResponse
-    setPreloadedDeviceState((prev) => ({ ...prev, id, serial, activo: activo ?? '', statusId, modelId, categoryId, brandId, employeeId, locationId, observation, stockNumber, history, updatedAt, typeOfSiteId: typeOfSiteId ?? '' }))
+    const { serial, activo, statusId, model, modelId, categoryId, brandId, employeeId, locationId, observation, stockNumber, computer, hardDrive, history, updatedAt, location: { typeOfSiteId }, category: { mainCategoryId } } = device as DevicesApiResponse
+    setPreloadedDeviceState((prev) => ({ ...prev, id, serial, activo: activo ?? '', statusId, modelId, categoryId, mainCategoryId, brandId, employeeId, locationId, observation, stockNumber, history, updatedAt, typeOfSiteId: typeOfSiteId ?? '' }))
     if (computer !== null) {
       const { computerName, processorId, memoryRamCapacity, hardDriveCapacityId, hardDriveTypeId, operatingSystemArqId, operatingSystemId, macAddress, ipAddress, memoryRam } = computer
       let memoryRamSlotQuantity: undefined | number

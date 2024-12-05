@@ -1,6 +1,6 @@
 import { type NextFunction, type Request, type Response } from 'express'
 import { type Repository } from '../../../../../Contexts/Shared/domain/Repository'
-import httpStatus from 'http-status'
+import httpStatus from '../../Shared/utils/http-status'
 import { SearchAllModelSeries } from '../../../../../Contexts/ModelSeries/ModelSeries/application/ModelSeriesFinderAll'
 import { ModelSeriesFinder } from '../../../../../Contexts/ModelSeries/ModelSeries/application/ModelSeriesFinder'
 import { ModelSeriesId } from '../../../../../Contexts/ModelSeries/ModelSeries/domain/ModelSeriesId'
@@ -10,7 +10,7 @@ import { ModelByCriteriaSearcher } from '../../../../../Contexts/ModelSeries/Mod
 import { FiltersPrimitives } from '../../../../../Contexts/Shared/domain/criteria/Filter'
 
 export class ModelSeriesGetController {
-  constructor (private readonly repository: Repository) {}
+  constructor(private readonly repository: Repository) { }
 
   getAll = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {

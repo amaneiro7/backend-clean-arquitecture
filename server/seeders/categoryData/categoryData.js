@@ -32,7 +32,6 @@ const categoryData = [
   { id: '13', name: 'Impresoras Multifuncionales' },
   { id: '14', name: 'Celulares' },
   { id: '15', name: 'Escaners' },
-
 ]
 
 module.exports = { categoryData, categoryOnlyNames }

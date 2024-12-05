@@ -1,7 +1,7 @@
 import { utils, writeFile } from 'xlsx'
 import { type ClearModelDataset, type ClearDataset } from '../../types/types'
 
-export function jsonToExcel({ clearDataset }: { clearDataset: ClearDataset[] | ClearModelDataset[] }) {
+export async function jsonToExcel({ clearDataset }: { clearDataset: ClearDataset[] | ClearModelDataset[] }) {
     const worksheet = utils.json_to_sheet(clearDataset)
     worksheet["!cols"] = [{ wch: 20 }]
     const workbook = utils.book_new()
@@ -9,4 +9,5 @@ export function jsonToExcel({ clearDataset }: { clearDataset: ClearDataset[] | C
     const now = new Date()
     const filename = `Reporte-Inventario${now.toLocaleString().replace(/[/:]/g, '-')}.xlsx`
     writeFile(workbook, filename, { compression: true })
+    
 }

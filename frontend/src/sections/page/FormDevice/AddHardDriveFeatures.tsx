@@ -1,5 +1,4 @@
 import { lazy, Suspense } from 'react'
-import { InputSkeletonLoading } from '@/sections/components/skeleton/inputSkeletonLoading'
 import { type OnHandleChange } from '@/modules/shared/domain/types/types'
 import { type HardDriveHealth } from '@/modules/devices/fetures/hardDrive/hardDrive/domain/HardDriveHealth'
 import { type HardDriveCapacityId } from '@/modules/devices/fetures/hardDrive/hardDriveCapacity/domain/HardDriveCapacityId'
@@ -30,36 +29,36 @@ export default function AddHardDriveFeatures({
   onChange 
 }: Props) {
   return (
-    <>
-      <Suspense fallback={<InputSkeletonLoading />}>
-        <HealthInput
-          onChange={onChange}
-          value={health}          
-          isRequired={required.health}
-          isDisabled={disabled.health}
-          error={errors.health}
-        />
-      </Suspense>
-      <Suspense fallback={<InputSkeletonLoading />}>
-        <HardDriveCapacityComboBox
-          onChange={onChange}
-          value={hardDriveCapacityId}
-          type='form'
-          isRequired={required.hardDriveCapacityId}
-          isDisabled={disabled.hardDriveCapacityId}
-          error={errors.hardDriveCapacityId}
-        />
-      </Suspense>
-      <Suspense fallback={<InputSkeletonLoading />}>
-        <HardDriveTypeComboBox
-          onChange={onChange}
-          value={hardDriveTypeId}
-          type='form'
-          isRequired={required.hardDriveTypeId}
-          isDisabled={disabled.hardDriveTypeId}
-          error={errors.hardDriveTypeId}
-        />
-      </Suspense>
-    </>
+    <Suspense>
+      
+      <HealthInput
+        onChange={onChange}
+        value={health}          
+        isRequired={required.health}
+        isDisabled={disabled.health}
+        error={errors.health}
+      />
+      
+      
+      <HardDriveCapacityComboBox
+        onChange={onChange}
+        value={hardDriveCapacityId}
+        type='form'
+        isRequired={required.hardDriveCapacityId}
+        isDisabled={disabled.hardDriveCapacityId}
+        error={errors.hardDriveCapacityId}
+      />
+      
+      
+      <HardDriveTypeComboBox
+        onChange={onChange}
+        value={hardDriveTypeId}
+        type='form'
+        isRequired={required.hardDriveTypeId}
+        isDisabled={disabled.hardDriveTypeId}
+        error={errors.hardDriveTypeId}
+      />
+      
+    </Suspense>
   )
 }

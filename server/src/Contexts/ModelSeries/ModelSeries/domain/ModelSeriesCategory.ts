@@ -1,10 +1,10 @@
-import { CategoryPrimitives } from "../../../Category/domain/Category";
-import { CategoryId } from "../../../Category/domain/CategoryId";
-import { CategoryRepository } from "../../../Category/domain/CategoryRepository";
+import { type CategoryPrimitives } from "../../../Category/SubCategory/domain/Category";
+import { type Primitives } from "../../../Shared/domain/value-object/Primitives";
+import { type ModelSeries } from "./ModelSeries";
+import { type CategoryRepository } from "../../../Category/SubCategory/domain/CategoryRepository";
+import { CategoryId } from "../../../Category/SubCategory/domain/CategoryId";
 import { InvalidArgumentError } from "../../../Shared/domain/value-object/InvalidArgumentError";
-import { Primitives } from "../../../Shared/domain/value-object/Primitives";
 import { ComputerModels } from "../../ModelCharacteristics/Computers/Computer/domain/ComputerModels";
-import { ModelSeries } from "./ModelSeries";
 
 export class ModelSeriesCategory extends CategoryId {
     static async updateCategoryField(params: { repository: CategoryRepository, categoryId: Primitives<CategoryId>, entity: ModelSeries }): Promise<void> {

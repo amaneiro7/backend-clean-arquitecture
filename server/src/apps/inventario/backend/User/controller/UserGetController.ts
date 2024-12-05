@@ -1,6 +1,6 @@
 import { type NextFunction, type Request, type Response } from 'express'
 import { type Repository } from '../../../../../Contexts/Shared/domain/Repository'
-import httpStatus from 'http-status'
+import httpStatus from '../../Shared/utils/http-status'
 import { UserFinder } from '../../../../../Contexts/User/user/application/UserFinder'
 import { JwtPayloadUser } from '../../../../../Contexts/Auth/domain/GenerateToken'
 import { SearchByCriteriaQuery } from '../../../../../Contexts/Shared/domain/SearchByCriteriaQuery'

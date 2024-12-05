@@ -8,8 +8,8 @@ import { type ProcessorName } from "../../../modules/devices/fetures/processor/d
 import { type IPAddress } from "../../../modules/devices/fetures/computer/domain/IPAddress"
 
 const Input = lazy(async () => import("../text-inputs/Input").then(m => ({ default: m.Input })))
-    const OperatingSystemComboBox = lazy(() => import('../combo_box/OperatingSystemComboBox').then(m => ({ default: m.OperatingSystemComboBox })))
-    const OperatingSystemArqComboBox = lazy(() => import('../combo_box/OperatingSystemArqComboBox').then(m => ({ default: m.OperatingSystemArqComboBox })))
+const OperatingSystemComboBox = lazy(() => import('../combo_box/OperatingSystemComboBox').then(m => ({ default: m.OperatingSystemComboBox })))
+const OperatingSystemArqComboBox = lazy(() => import('../combo_box/OperatingSystemArqComboBox').then(m => ({ default: m.OperatingSystemArqComboBox })))
 
 export function OtherComputerFilter ({
     handleChange,

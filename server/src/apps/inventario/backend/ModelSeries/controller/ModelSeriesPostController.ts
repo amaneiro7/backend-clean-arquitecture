@@ -1,11 +1,11 @@
 import { type NextFunction, type Request, type Response } from 'express'
 import { type Repository } from '../../../../../Contexts/Shared/domain/Repository'
-import httpStatus from 'http-status'
+import httpStatus from '../../Shared/utils/http-status'
 import { ModelSeriesCreator } from '../../../../../Contexts/ModelSeries/ModelSeries/application/ModelSeriesCreator'
 import { ModelSeriesUpdater } from '../../../../../Contexts/ModelSeries/ModelSeries/application/ModelSeriesUpdater'
 
 export class ModelSeriesPostController {
-  constructor (private readonly repository: Repository) {}
+  constructor(private readonly repository: Repository) { }
 
   create = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
@@ -17,7 +17,7 @@ export class ModelSeriesPostController {
   }
 
   update = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    try {      
+    try {
       const { id } = req.params
       await new ModelSeriesUpdater(this.repository).run({ id, params: req.body })
       res.status(httpStatus.CREATED).json({ message: 'Modelo actualizado exitosamente' })

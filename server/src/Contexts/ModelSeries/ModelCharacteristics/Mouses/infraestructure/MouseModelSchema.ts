@@ -1,11 +1,12 @@
 import { DataTypes, Model, type Sequelize } from 'sequelize'
 import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
 import { type ModelSeriesId } from '../../../ModelSeries/domain/ModelSeriesId'
-import { type CategoryId } from '../../../../Category/domain/CategoryId'
 import { type Models } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
 import { type MouseModelsPrimitives } from '../domain/MouseModels'
 import { type InputTypeId } from '../../../InputType/domain/InputTypeId'
-import { CategoryValues } from '../../../../Category/domain/Category'
+import { type CategoryId } from '../../../../Category/SubCategory/domain/CategoryId'
+import { CategoryValues } from '../../../../Category/SubCategory/domain/Category'
+
 
 interface MouseModelsCreationAttributes extends Omit<MouseModelsPrimitives, 'name' | 'brandId' | 'generic'> {
   modelSeriesId: Primitives<ModelSeriesId>

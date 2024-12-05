@@ -1,11 +1,11 @@
 import { DataTypes, Model, type Sequelize } from 'sequelize'
 import { type Primitives } from '../../../../../Shared/domain/value-object/Primitives'
-import { type CategoryId } from '../../../../../Category/domain/CategoryId'
 import { type ModelSeriesId } from '../../../../ModelSeries/domain/ModelSeriesId'
 import { type Models } from '../../../../../Shared/infrastructure/persistance/Sequelize/SequelizeRepository'
 import { type ModelPrintersPrimitives } from '../../domain/ModelPrinters'
 import { type CartridgeModel } from '../../domain/CartridgeModel'
-import { CategoryValues } from '../../../../../Category/domain/Category'
+import { CategoryId } from '../../../../../Category/SubCategory/domain/CategoryId'
+import { CategoryValues } from '../../../../../Category/SubCategory/domain/Category'
 
 interface ModelPrinterCreationAttributes extends Omit<ModelPrintersPrimitives, 'name' | 'brandId' | 'generic'> {
   modelSeriesId: Primitives<ModelSeriesId>

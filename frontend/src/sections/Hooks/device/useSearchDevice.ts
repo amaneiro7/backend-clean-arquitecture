@@ -7,6 +7,7 @@ import { DevicePrimitives } from '../../../modules/devices/devices/devices/domai
 
 export interface UseDevice {
   devices: DevicePrimitives[]
+  total: number
   loading: boolean
   error: string | null
   searchDevices: (filter: SearchByCriteriaQuery) => void
@@ -17,13 +18,15 @@ export const useSearchDevice = (): UseDevice => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [devices, setDevices] = useState<DevicesMappedApiResponse[]>([])
+  const [total, setTotal] = useState(0)
 
   const searchDevices = useCallback((filter: SearchByCriteriaQuery) => {
     setLoading(true)
     new DeviceGetterByCriteria(new ApiDeviceRepository())
       .get(filter)
       .then((devices) => {
-        setDevices(devices as DevicesMappedApiResponse[])
+        setDevices(devices.data as DevicesMappedApiResponse[])
+        setTotal(devices.total)
         setLoading(false)
       })
       .catch((error) => {
@@ -41,6 +44,7 @@ export const useSearchDevice = (): UseDevice => {
 
   return {
     devices,
+    total,
     loading,
     error,
     searchDevices,

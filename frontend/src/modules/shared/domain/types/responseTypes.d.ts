@@ -43,6 +43,7 @@ import { type Primitives } from '../value-object/Primitives'
 import { type HistoryPrimitives } from '../../../history/domain/history'
 import { type RoleId } from '../../../user/role/domain/RoleId'
 import { type DeviceStockNumber } from '../../../devices/devices/devices/domain/DeviceStockNumber'
+import { MFPPrimitives } from '@/modules/devices/fetures/multiFunctionalPrinter/MFP'
 
 interface UserApiResponse {
   user: UserApiResponsePrimitives
@@ -62,10 +63,14 @@ export interface UserApiResponsePrimitives extends UserPrimitives {
   }
 }
 
+export interface CategoryApiResponse extends CategoryPrimitives {
+  mainCategory: CategoryPrimitives
+}
+
 export interface DevicesApiResponse extends DevicePrimitives {
   createdAt: string
   updatedAt: string
-  category: CategoryPrimitives
+  category: CategoryApiResponse
   brand: BrandPrimitives
   model: ModelApiresponse
   location: LocationPrimitives
@@ -73,6 +78,7 @@ export interface DevicesApiResponse extends DevicePrimitives {
   status: StatusPrimitives
   computer: Computer | null
   hardDrive: HardDrive | null
+  mfp: MFP | null
   history: HistoryApiResponse[]
 }
 
@@ -151,9 +157,9 @@ export interface ModelLaptop extends ModelLaptopPrimitives {
   memoryRamType: MemoryRamTypePrimitives
 }
 
-export interface ModelPrinter extends ModelPrinterPrimitives { }
+export type ModelPrinter = ModelPrinterPrimitives
 
-export interface ModelMonitor extends ModelMonitorPrimitives { }
+export type ModelMonitor = ModelMonitorPrimitives
 export interface ModelKeyboard extends ModelKeyboardPrimitives {
   inputType: InputTypePrimitives
 }
@@ -215,3 +221,5 @@ export interface HardDrive extends HardDrivePrimitives {
   hardDriveCapacity: HardDriveCapacityPrimitives
   hardDriveType: HardDriveTypePrimitives
 }
+
+export type MFP = MFPPrimitives

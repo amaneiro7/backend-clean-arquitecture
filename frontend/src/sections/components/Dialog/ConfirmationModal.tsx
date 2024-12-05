@@ -7,10 +7,11 @@ interface Props {
     text: string
     strongText?: string
     handle?: () => void
+    formId?: string
     handleClose: () => void
 }
 
-export function ConfirmationModal ({ text, strongText, handle, handleClose }: Props) {
+export function ConfirmationModal ({ text, strongText, handle, handleClose, formId }: Props) {
     return (
       <>
         <div className='bg-secondary text-white p-4 rounded-t'>
@@ -20,6 +21,7 @@ export function ConfirmationModal ({ text, strongText, handle, handleClose }: Pr
           <p>{text}<strong>{strongText}</strong></p>
           <div className='mt-6 flex gap-4 justify-end'>
             <Button
+              form={formId}
               color='blue'
               type={!handle ? 'submit' : 'button'}
               onClick={handle}

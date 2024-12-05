@@ -37,44 +37,44 @@ export default function AppRoutes() {
       <Route path='/login' element={<Suspense><Login user={user} /></Suspense>} />
       <Route
         path='/'
-        element={<Suspense><ProtectedRoute user={user}><Layout /></ProtectedRoute></Suspense>}
+        element={<ProtectedRoute user={user}><Suspense><Layout /></Suspense></ProtectedRoute>}
       >
-        <Route path='/' element={<Suspense fallback={<main className='flex-1' />}><Home /></Suspense>} />
+        <Route path='/' element={<Suspense><Home /></Suspense>} />
 
-        <Route path='/dashboard' element={<Suspense fallback={<main className='flex-1' />}><Dashboard /></Suspense>} />
-        <Route path='/profile' element={<Suspense fallback={<main className='flex-1' />}><ProfilePage /></Suspense>} />
-        <Route path='/employee/add' element={<Suspense fallback={<main className='flex-1' />}><CreateEmployeeForm /></Suspense>} />
-        <Route path='/employee/edit/:id' element={<Suspense fallback={<main className='flex-1' />}><CreateEmployeeForm /></Suspense>} />
-        <Route path='/brand/add' element={<Suspense fallback={<main className='flex-1' />}><CreateBrandForm /></Suspense>} />
-        <Route path='/brand/edit/:id' element={<Suspense fallback={<main className='flex-1' />}><CreateBrandForm /></Suspense>} />
+        <Route path='/dashboard' element={<Suspense><Dashboard /></Suspense>} />
+        <Route path='/profile' element={<Suspense><ProfilePage /></Suspense>} />
+        <Route path='/employee/add' element={<Suspense><CreateEmployeeForm /></Suspense>} />
+        <Route path='/employee/edit/:id' element={<Suspense><CreateEmployeeForm /></Suspense>} />
+        <Route path='/brand/add' element={<Suspense><CreateBrandForm /></Suspense>} />
+        <Route path='/brand/edit/:id' element={<Suspense><CreateBrandForm /></Suspense>} />
 
-        <Route path='/processor/add' element={<Suspense fallback={<main className='flex-1' />}><CreateProcessorForm /></Suspense>} />
-        <Route path='/processor/edit/:id' element={<Suspense fallback={<main className='flex-1' />}><CreateProcessorForm /></Suspense>} />
+        <Route path='/processor/add' element={<Suspense><CreateProcessorForm /></Suspense>} />
+        <Route path='/processor/edit/:id' element={<Suspense><CreateProcessorForm /></Suspense>} />
 
-        <Route path='/site/add' element={<Suspense fallback={<main className='flex-1' />}><CreateSiteForm /></Suspense>} />
-        <Route path='/site/edit/:id' element={<Suspense fallback={<main className='flex-1' />}><CreateSiteForm /></Suspense>} />
+        <Route path='/site/add' element={<Suspense><CreateSiteForm /></Suspense>} />
+        <Route path='/site/edit/:id' element={<Suspense><CreateSiteForm /></Suspense>} />
 
         {/* Rutas para el manejo de listados de ubicaciones  */}
-        <Route path='/location' element={<Suspense fallback={<main className='flex-1' />}><LocationConsumer><ListadoSitios /></LocationConsumer></Suspense>} />
-        <Route path='/location/add' element={<Suspense fallback={<main className='flex-1' />}><LocationConsumer><CreateLocationForm /></LocationConsumer></Suspense>} />
-        <Route path='/location/edit/:id' element={<Suspense fallback={<main className='flex-1' />}><LocationConsumer><CreateLocationForm /></LocationConsumer></Suspense>} />
+        <Route path='/location' element={<Suspense><LocationConsumer><ListadoSitios /></LocationConsumer></Suspense>} />
+        <Route path='/location/add' element={<Suspense><LocationConsumer><CreateLocationForm /></LocationConsumer></Suspense>} />
+        <Route path='/location/edit/:id' element={<Suspense><LocationConsumer><CreateLocationForm /></LocationConsumer></Suspense>} />
 
         {/* Rutas para el manejo de listados de modelos  */}
-        <Route path='/model' element={<Suspense fallback={<main className='flex-1' />}><ModelConsumer><ListadoModelos /></ModelConsumer></Suspense>} />
-        <Route path='/model/add' element={<Suspense fallback={<main className='flex-1' />}><ModelConsumer><CreateModelForm /></ModelConsumer></Suspense>} />
-        <Route path='/model/edit/:id' element={<Suspense fallback={<main className='flex-1' />}><ModelConsumer><CreateModelForm /></ModelConsumer></Suspense>} />
+        <Route path='/model' element={<Suspense><ModelConsumer><ListadoModelos /></ModelConsumer></Suspense>} />
+        <Route path='/model/add' element={<Suspense><ModelConsumer><CreateModelForm /></ModelConsumer></Suspense>} />
+        <Route path='/model/edit/:id' element={<Suspense><ModelConsumer><CreateModelForm /></ModelConsumer></Suspense>} />
 
         {/* Rutas para el manejo de listados de dispositivos  */}
-        <Route path='/computer' element={<Suspense fallback={<main className='flex-1' />}><DeviceConsumer location='computer'><ListComputer /></DeviceConsumer></Suspense>} />
-        <Route path='/monitor' element={<Suspense fallback={<main className='flex-1' />}><DeviceConsumer location='monitor'><ListMonitor /></DeviceConsumer></Suspense>} />
-        <Route path='/finantialprinter' element={<Suspense fallback={<main className='flex-1' />}><DeviceConsumer location='finantialPrinter'><ListFinantialPrinter /></DeviceConsumer></Suspense>} />
-        <Route path='/printer' element={<Suspense fallback={<main className='flex-1' />}><DeviceConsumer location='printer'><ListPrinters /></DeviceConsumer></Suspense>} />
-        <Route path='/parts' element={<Suspense fallback={<main className='flex-1' />}><DeviceConsumer location='parts'><ListPartAndPieces /></DeviceConsumer></Suspense>} />
-        <Route path='/device/add' element={<Suspense fallback={<main className='flex-1' />}><DeviceConsumer><CreateDeviceForm /></DeviceConsumer></Suspense>} />
-        <Route path='/device/edit/:id' element={<Suspense fallback={<main className='flex-1' />}><DeviceConsumer><CreateDeviceForm /></DeviceConsumer></Suspense>} />
+        <Route path='/computer' element={<Suspense><DeviceConsumer location='computer'><ListComputer /></DeviceConsumer></Suspense>} />
+        <Route path='/monitor' element={<Suspense><DeviceConsumer location='monitor'><ListMonitor /></DeviceConsumer></Suspense>} />
+        <Route path='/finantialprinter' element={<Suspense><DeviceConsumer location='finantialPrinter'><ListFinantialPrinter /></DeviceConsumer></Suspense>} />
+        <Route path='/printer' element={<Suspense><DeviceConsumer location='printer'><ListPrinters /></DeviceConsumer></Suspense>} />
+        <Route path='/parts' element={<Suspense><DeviceConsumer location='parts'><ListPartAndPieces /></DeviceConsumer></Suspense>} />
+        <Route path='/device/add' element={<Suspense><DeviceConsumer><CreateDeviceForm /></DeviceConsumer></Suspense>} />
+        <Route path='/device/edit/:id' element={<Suspense><DeviceConsumer><CreateDeviceForm /></DeviceConsumer></Suspense>} />
 
         {/* Rutas para la gestion de usuario */}
-        <Route path='/user-management' element={<Suspense fallback={<main className='flex-1' />}><UserManagement /></Suspense>}>
+        <Route path='/user-management' element={<Suspense><UserManagement /></Suspense>}>
           <Route path='register' element={<Suspense><RegisterPage /></Suspense>} />
           <Route path='edit/:id' element={<Suspense><RegisterPage /></Suspense>} />
           <Route path='profile/:id' element={<Suspense><ManagementProfile /></Suspense>} />

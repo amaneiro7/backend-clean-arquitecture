@@ -33,7 +33,7 @@ export function MainComputerFilter({
     typeOfSiteId: Primitives<TypeOfSiteId>
     regionId: Primitives<RegionId>
 }) {
-    const { defaultCategoryList } = useDeviceContext()
+    const { defaultMainCategory } = useDeviceContext()
     return (
       <>
         <EmployeeComboBox
@@ -44,7 +44,7 @@ export function MainComputerFilter({
         <CategoryComboBox
           value={categoryId}
           onChange={handleChange}
-          filter={defaultCategoryList}
+          mainCategory={defaultMainCategory}
         />
         <Input
           value={serial}

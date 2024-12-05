@@ -22,6 +22,7 @@ export function useChangePassword(): {
     errors: ChangePasswordParams
     formData: ChangePasswordParams
     dialogRef: React.Ref<ModalRef>
+    formId: string
     valid: {
         password: boolean
         newPassword: boolean
@@ -29,6 +30,7 @@ export function useChangePassword(): {
     }
 } {
     const [errors, setErrors] = useState(initialState)
+    const formId = 'change-password-form'
     const [valid, setValid] = useState({ password: false, newPassword: false, reTypePassword: false })
     const isPasswordFirstInput = useRef(true)
     const isNewPasswordFirstInput = useRef(true)
@@ -114,6 +116,7 @@ export function useChangePassword(): {
         dialogRef,
         errors,
         valid,
-        formData
+        formData,
+        formId
     }
 }

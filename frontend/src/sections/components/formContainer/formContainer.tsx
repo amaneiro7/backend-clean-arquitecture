@@ -16,7 +16,7 @@ interface Props {
   searchInput?: JSX.Element
 }
 
-const Main = lazy(async () => import('../Main'))
+
 const PageTitle = lazy(async () => import("../Typography/PageTitle"))
 const DetailsWrapper = lazy(async () => import("../DetailsWrapper/DetailsWrapper").then(m => ({ default: m.DetailsWrapper })))
 const DetailsBoxWrapper = lazy(async () => import("../DetailsWrapper/DetailsBoxWrapper"))
@@ -31,8 +31,8 @@ const RegisterNewDeviceToFollow = lazy(() => import('../stepsToFollow/RegisterNe
 export default function FormContainer({ url, title, description, searchInput, isAddForm, children, isDisabled, handleSubmit, handleClose, reset, updatedBy, lastUpdated }: React.PropsWithChildren<Props>) {
   const location = useLocation()
   return (
-    <Suspense fallback={<main className='flex-1' />}>
-      <Main content='max' overflow={false} className='pr-8'>
+    <>
+      
       <PageTitle title={`Gestión de ${title}`} />
       <DetailsWrapper borderColor='blue'>
         <DetailsBoxWrapper>
@@ -45,7 +45,7 @@ export default function FormContainer({ url, title, description, searchInput, is
             <SearchSection
               key={location.key}
               searchInput={searchInput}
-              url={url}            
+              url={url}
               isEdit={!isAddForm}
             />
           </Suspense>
@@ -68,7 +68,7 @@ export default function FormContainer({ url, title, description, searchInput, is
       <StepsToFollow>
         <RegisterNewDeviceToFollow isEdit={!isAddForm} />
       </StepsToFollow>
-      </Main>
-    </Suspense>
+
+    </>
   )
 }

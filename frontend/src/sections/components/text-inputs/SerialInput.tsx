@@ -21,7 +21,7 @@ export default function SerialInput({ value, error, isDisabled, isRequired, onCh
   return (
     <>
       {!isAdd && type === "form" 
-       ? <ReadOnlyInputBox label='Serial' value={value ?? 'Sin Serial'} required={isRequired} />
+       ? <ReadOnlyInputBox label='Serial' defaultValue={value ?? 'Sin Serial'} required={isRequired} />
        : <Input
            id='serial'
            isRequired={isRequired}

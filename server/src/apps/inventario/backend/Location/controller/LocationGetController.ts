@@ -1,5 +1,5 @@
 import { type NextFunction, type Request, type Response } from 'express'
-import httpStatus from 'http-status'
+import httpStatus from '../../Shared/utils/http-status'
 import { SearchAllLocation } from '../../../../../Contexts/Location/Location/application/LocationFinderAll'
 import { type Repository } from '../../../../../Contexts/Shared/domain/Repository'
 import { SearchByCriteriaQuery } from '../../../../../Contexts/Shared/domain/SearchByCriteriaQuery'
@@ -8,7 +8,7 @@ import { LocationByCriteriaSearcher } from '../../../../../Contexts/Location/Loc
 import { LocationFinder } from '../../../../../Contexts/Location/Location/application/LocationFiner'
 
 export class LocationGetController {
-  constructor (private readonly repository: Repository) {}
+  constructor(private readonly repository: Repository) { }
 
   getAll = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {

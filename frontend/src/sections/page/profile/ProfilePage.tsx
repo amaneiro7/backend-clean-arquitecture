@@ -20,7 +20,8 @@ export default function ProfilePage() {
   const { useAuth: { user } } = useAppContext()
   const { user: { name, email, lastName, role } } = user as unknown as UserApiResponse
 
-  const { errors, formData, handleChange, handleSubmit, handleClose, dialogRef, handleCloseModal, handleOpenModal, isDisabled } = useChangePassword()
+  const { formId, errors, formData, handleChange, handleSubmit, handleClose, dialogRef, handleCloseModal, handleOpenModal, isDisabled } = useChangePassword()
+  
   return (
     <Suspense fallback={<main className='flex-1' />}>
       <Main content='max' overflow={false} className='pr-8'>
@@ -45,6 +46,7 @@ export default function ProfilePage() {
                 handleClose={handleClose}
                 handleOpenModal={handleOpenModal}
                 isDisabled={isDisabled}
+                formId={formId}
               />
             </Suspense>
 
@@ -61,6 +63,7 @@ export default function ProfilePage() {
           <Suspense>
             <ConfirmationModal
               handleClose={handleCloseModal}
+              formId={formId}
               text='¿Seguro que desea cambiar la contraseña?'
             />
           </Suspense>

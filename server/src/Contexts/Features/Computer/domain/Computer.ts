@@ -1,8 +1,8 @@
 import { Device, type DevicePrimitives } from '../../../Device/Device/domain/Device'
 import { type Primitives } from '../../../Shared/domain/value-object/Primitives'
-import { CategoryDefaultData, type CategoryValues } from '../../../Category/domain/CategoryDefaultData'
+import { CategoryId } from '../../../Category/SubCategory/domain/CategoryId'
+import { CategoryDefaultData, type CategoryValues } from '../../../Category/SubCategory/domain/CategoryDefaultData'
 import { BrandId } from '../../../Brand/domain/BrandId'
-import { CategoryId } from '../../../Category/domain/CategoryId'
 import { DeviceActivo } from '../../../Device/Device/domain/DeviceActivo'
 import { DeviceEmployee } from '../../../Device/Device/domain/DeviceEmployee'
 import { DeviceId } from '../../../Device/Device/domain/DeviceId'
@@ -24,7 +24,7 @@ import { ComputerMemoryRam } from './ComputerMemoryRam'
 import { InvalidArgumentError } from '../../../Shared/domain/value-object/InvalidArgumentError'
 import { MemoryRamValues } from '../../MemoryRam/MemoryRamCapacity/MemoryRamValues'
 import { DeviceStocknumber } from '../../../Device/Device/domain/DeviceStock'
-import { param } from 'express-validator'
+
 
 export interface DeviceComputerPrimitives extends DevicePrimitives {
   computerName: Primitives<ComputerName>

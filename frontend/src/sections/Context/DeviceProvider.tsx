@@ -1,15 +1,16 @@
-import { createContext, useContext, useEffect, useMemo } from "react"
+import { createContext, useContext, useEffect, useMemo, useRef } from "react"
 import { useSearchDevice } from "../Hooks/device/useSearchDevice"
 import { useCreateDevice } from "../Hooks/device/useCreateDevices"
-import { type DevicePrimitives } from "../../modules/devices/devices/devices/domain/Device"
-import { type SearchByCriteriaQuery } from "../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery"
 import { useSearchByCriteriaQuery } from "../Hooks/useQueryUpdate"
-import { CategoryId } from "../../modules/devices/category/domain/CategoryId"
-import { Operator } from "../../modules/shared/domain/criteria/FilterOperators"
-
+import { MainCategoryList } from "@/modules/devices/mainCategory/domain/MainCategoryList"
+import { Operator } from "@/modules/shared/domain/criteria/FilterOperators"
+import { type SearchByCriteriaQuery } from "@/modules/shared/infraestructure/criteria/SearchByCriteriaQuery"
+import { type DevicePrimitives } from "@/modules/devices/devices/devices/domain/Device"
+import { useEffectAfterMount } from "../Hooks/useEffectAfterMount"
 
 export interface DeviceContextState {
   devices: DevicePrimitives[]
+  total: number
   error: string
   loading: boolean
   createDevice: (formData: DevicePrimitives) => Promise<void>
@@ -17,7 +18,7 @@ export interface DeviceContextState {
   cleanFilters: () => void
   query: SearchByCriteriaQuery
   defaultCategoryQuery: SearchByCriteriaQuery
-  defaultCategoryList: Monitor | Computer | Parts | Printer | FinantialPrinter
+  defaultMainCategory: typeof MainCategoryList[keyof typeof MainCategoryList]
 }
 
 interface List {
@@ -30,78 +31,104 @@ interface List {
 
 export type LocationProps = 'computer' | 'monitor' | 'printer' | 'finantialPrinter' | 'parts'
 
-type Monitor = ('5')[]
-type Computer = ('1' | '2' | '3' | '4')[]
-type Parts = ('9' | '10' | '11' | '12' | '14' | '15' | '16' | '17' | '18' | '19' | '20' | '21' | '22' | '23' | '24' | '25')[]
-type Printer = ('13' | '7' | '8')[]
-type FinantialPrinter = ('6')[]
+type Computer = typeof MainCategoryList['COMPUTER']
+type Monitor = typeof MainCategoryList['SCREENS']
+type Parts = typeof MainCategoryList['PARTS']
+type Printer = typeof MainCategoryList['PRINTERS']
+type FinantialPrinter = typeof MainCategoryList['FINANTIALPRINTERS']
 
 
 export const DeviceContext = createContext({} as DeviceContextState)
 
 export const DeviceContextProvider = ({ children, location }: React.PropsWithChildren<{ location?: LocationProps }>) => {
+  // Keep track of the previous location in order to determine if the location has changed.
+  // This is necessary because the location is used to determine the default main category
+  // and we don't want to accidentally reset the filter when the location changes.
+  const previusLocation = useRef(location);
+
+  // Create an object with the different main categories as properties.
+  // This is necessary because we need to dynamically determine the default main category
+  // based on the location.
   const list: List = useMemo(() => {
     return {
-      computer: [CategoryId.categoryOptions.COMPUTER, CategoryId.categoryOptions.LAPTOP, CategoryId.categoryOptions.ALLINONE, CategoryId.categoryOptions.SERVER],
-      monitor: [CategoryId.categoryOptions.MONITOR],
-      parts: [
-        CategoryId.categoryOptions.HARDDRIVE,
-        CategoryId.categoryOptions.KEYBOARD,
-        CategoryId.categoryOptions.MOUSE,
-        CategoryId.categoryOptions.BAM,
-        CategoryId.categoryOptions.PHONE,
-        CategoryId.categoryOptions.SCANNER,
-        CategoryId.categoryOptions.ANTENAS,
-        CategoryId.categoryOptions.CABLEUSB,
-        CategoryId.categoryOptions.CAMARAS,
-        CategoryId.categoryOptions.IPAD,
-        CategoryId.categoryOptions.WEBCAM,
-        CategoryId.categoryOptions.CORNETAS,
-        CategoryId.categoryOptions.DOCKING,
-        CategoryId.categoryOptions.LAPIZOPTICO,
-        CategoryId.categoryOptions.CONVERTIDORVGAHDMI,
-        CategoryId.categoryOptions.MIC,
-      ],
-      printer: [CategoryId.categoryOptions.LASERPRINTER, CategoryId.categoryOptions.INKPRINTER, CategoryId.categoryOptions.MFP],
-      finantialPrinter: [CategoryId.categoryOptions.FINANTIALPRINTER]
+      computer: MainCategoryList.COMPUTER,
+      monitor: MainCategoryList.SCREENS,
+      parts: MainCategoryList.PARTS,
+      printer: MainCategoryList.PRINTERS,
+      finantialPrinter: MainCategoryList.FINANTIALPRINTERS
     }
-  }, [])
+  }, []);
 
-  const defaultCategoryList = useMemo(() => {
-    return list[location] ?? []
-  }, [list, location])
+  // Determine the default main category based on the location.
+  // This is necessary because we need to dynamically determine the default main category
+  // based on the location.
+  const defaultMainCategory = useMemo(() => {
+    return list[location];
+  }, [list, location]);
 
+  // Create a default query for the category based on the default main category.
+  // This is necessary because we need to search for devices based on the default main category
+  // when the component is mounted or when the query changes.
   const defaultCategoryQuery: SearchByCriteriaQuery = useMemo(() => {
-    return { filters: [...defaultCategoryList.map(id => ({ field: 'categoryId', operator: Operator.EQUAL, value: id }))] }
-  }, [defaultCategoryList])
-
-  const { devices, error, loading, searchDevices, resetDevices } = useSearchDevice()
-  const { addFilter, cleanFilters, query } = useSearchByCriteriaQuery(defaultCategoryQuery)
-  const { createDevice } = useCreateDevice()
-
-  const handleCreate = async (formData: DevicePrimitives) => {
-    const res = await createDevice(formData)
-    searchDevices(query)
-    return res
-  }
-
-  useEffect(() => {
-    searchDevices(query)
-    return () => {
-      resetDevices()
+    return {
+      filters: [{ field: 'mainCategoryId', operator: Operator.EQUAL, value: defaultMainCategory }],
+      limit: 25,
+      offset: 1
     }
-  }, [query, resetDevices, searchDevices])
+  }, [defaultMainCategory]);
+
+  // Get the devices, total number of devices, error, and loading state from the useSearchDevice hook.
+  // This is necessary because we need to search for devices based on the query when the component is mounted
+  // or when the query changes.
+  const { devices, total, error, loading, searchDevices, resetDevices } = useSearchDevice();
+
+  // Get the addFilter, cleanFilters, and query from the useSearchByCriteriaQuery hook.
+  // This is necessary because we need to be able to add filters and clean filters when the user interacts with
+  // the search form.
+  const { addFilter, cleanFilters, query } = useSearchByCriteriaQuery(defaultCategoryQuery);
+
+  // Get the createDevice function from the useCreateDevice hook.
+  // This is necessary because we need to be able to create a new device when the user submits the form.
+  const { createDevice } = useCreateDevice();
+
+  // Handle the creation of a new device.
+  // This is necessary because we need to be able to create a new device when the user submits the form.
+  const handleCreate = async (formData: DevicePrimitives) => {
+    const res = await createDevice(formData); // Create the device.
+    searchDevices(query); // Search for devices based on the current query.
+    return res; // Return the response.
+  };
+
+  // Handle the change in location.
+  // This is necessary because we need to reset the filter when the location changes.
+  useEffectAfterMount(() => {
+    if (location === undefined || previusLocation.current === null) return;
+    if (previusLocation.current !== location) {
+      resetDevices();
+      cleanFilters();
+      previusLocation.current = location ?? previusLocation.current;
+    }
+  }, [location]);
+
+  // Search for devices based on the query when the component is mounted or when the query changes.
+  useEffect(() => {
+    searchDevices(query);
+    return () => {
+      resetDevices();
+    }
+  }, [query, resetDevices, searchDevices]);
 
   return (
     <DeviceContext.Provider value={{
       devices,
+      total,
       error,
       loading,
       createDevice: handleCreate,
       addFilter,
       cleanFilters,
       query,
-      defaultCategoryList,
+      defaultMainCategory,
       defaultCategoryQuery
     }}
     >

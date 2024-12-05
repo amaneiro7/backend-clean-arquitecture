@@ -25,6 +25,7 @@ import { type MemoryRamSlotQuantity } from '../../../modules/devices/model/Model
 import { type MemoryRamTypeName } from '../../../modules/devices/fetures/memoryRam/memoryRamType/domain/MemoryRamTypeName'
 import { type DeviceStockNumber } from '../../../modules/devices/devices/devices/domain/DeviceStockNumber'
 import { type TypeOfSiteId } from '@/modules/location/typeofsites/domain/typeOfSiteId'
+import { type MainCategoryId } from '@/modules/devices/mainCategory/domain/MainCategoryId'
 
 export interface DefaultProps {
     id?: Primitives<DeviceId>
@@ -34,6 +35,7 @@ export interface DefaultProps {
     modelId: Primitives<ModelId>
     genericModel?: boolean
     categoryId: Primitives<CategoryId>
+    mainCategoryId: Primitives<MainCategoryId>
     brandId: Primitives<BrandId>
     employeeId: Primitives<EmployeeId>
     locationId: Primitives<LocationId>
@@ -60,6 +62,7 @@ export interface DefaultProps {
 export interface FormDeviceErrors {
     statusId: string
     categoryId: string
+    mainCategoryId: string
     brandId: string
     modelId: string
     serial: string
@@ -83,6 +86,7 @@ export interface FormDeviceErrors {
 
 export interface FormDeviceDisabled {
     statusId: boolean,
+    mainCategoryId: boolean,
     categoryId: boolean,
     brandId: boolean,
     modelId: boolean,
@@ -107,6 +111,7 @@ export interface FormDeviceDisabled {
 
 export interface FormDeviceRequired {
     statusId: boolean,
+    mainCategoryId: boolean,
     categoryId: boolean,
     brandId: boolean,
     modelId: boolean,

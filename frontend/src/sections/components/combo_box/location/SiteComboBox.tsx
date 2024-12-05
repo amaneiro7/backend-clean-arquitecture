@@ -53,7 +53,7 @@ export function SiteComboBox({ value, city, onChange, handleSite, type = 'search
       <>
         <Suspense>
           {!isAddForm && type === 'form'
-            ? <ReadOnlyInputBox label='Sitio' value={initialValue?.name} />
+            ? <ReadOnlyInputBox label='Sitio' defaultValue={initialValue?.name} />
             : <ComboBox
                 id='siteId'
                 initialValue={initialValue}

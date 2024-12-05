@@ -12,7 +12,7 @@ export abstract class DeviceRepository {
 
   abstract searchByActivo(activo: string): Promise<DevicePrimitives | null>
 
-  abstract matching(criteria: Criteria): Promise<DevicePrimitives[]>
+  abstract matching(criteria: Criteria): Promise<{ total: number; data: DevicePrimitives[] }>
 
   abstract donwload(criteria: Criteria): Promise<{}>
 

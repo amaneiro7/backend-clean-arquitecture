@@ -10,24 +10,19 @@ const ModelTable = lazy(async () => import("./ModelTable").then(m => ({ default:
 
 export default function ListadoModelos() {
   const { inputData: initialInputData, defaultInputData } = useDefaultInitialInputValue()
-  const { models, loading, addFilter, cleanFilters } = useModelContext()
+  const { models, query, loading, addFilter, cleanFilters } = useModelContext()
   const { inputData, handleChange, handleClear } = useInputsData({ addFilter, cleanFilters, defaultInputData, initialInputData })
 
-  const handleDownload = async () => {
-    const clearDataset = await import('@/sections/utils/clearModelDataset')
-      .then(m => m.clearModelDataset({ models: models as ModelApiresponse[] }))
-    await import('@/sections/utils/downloadJsonToExcel').then(m => m.jsonToExcel({ clearDataset }))
-  }
   return (
     <Suspense>
       <ListWrapper
-        data={models}
+        query={query}
+        total={models.length}        
         title='List de modelos'
         url='/model/add'
         loading={loading}
         handleChange={handleChange}
         handleClear={handleClear}
-        handleDownload={handleDownload}
         mainFilter={
           <Suspense>
             <MainModelFilter

@@ -1,4 +1,4 @@
-import httpStatus from 'http-status'
+import httpStatus from '../../Shared/utils/http-status'
 import { type Application, Router, type Request, type Response } from 'express'
 import { type Repository } from '../../../../../Contexts/Shared/domain/Repository'
 
@@ -34,6 +34,7 @@ import { createHistoryRouter } from '../../History/routes/history.routes'
 import { createUserRouter } from '../../User/routes/user.routes'
 import { createRolesRouter } from '../../Roles/routes/roles.routes'
 import { createDashboardRouter } from '../../DeviceDashboard/routes/dashboard.routes'
+import { createMainCategoryRouter } from '../../MainCategory/routes/mainCategory.routes'
 
 // import { createUserRouter } from './user.routes'
 // import { createAuthRouter } from './auth.routes'
@@ -52,6 +53,7 @@ export const routerApi = ({ app, repository }: Props): Router => {
   router.use('/roles', authenticate, createRolesRouter({ repository }))
   router.use('/check-token', authenticate, validateToken) //
   router.use('/categories', authenticate, createCategoryRouter({ repository }))
+  router.use('/maincategories', authenticate, createMainCategoryRouter({ repository }))
   router.use('/brands', authenticate, createBrandRouter({ repository })) //
   router.use('/models', authenticate, createModelSeriesRouter({ repository })) //
   router.use('/devices', authenticate, createDeviceRouter({ repository })) //

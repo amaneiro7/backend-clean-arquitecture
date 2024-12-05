@@ -4,9 +4,9 @@ import { type Models } from '../../../../Shared/infrastructure/persistance/Seque
 import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
 import { type ModelSeriesId } from '../../domain/ModelSeriesId'
 import { type ModelSeriesName } from '../../domain/ModelSeriesName'
-import { type CategoryId } from '../../../../Category/domain/CategoryId'
+import { type CategoryId } from '../../../../Category/SubCategory/domain/CategoryId'
 import { type BrandId } from '../../../../Brand/domain/BrandId'
-import { Generic } from '../../domain/Generic'
+import { type Generic } from '../../domain/Generic'
 
 export class ModelSeriesModel extends Model<ModelSeriesPrimitives> implements ModelSeriesPrimitives {
   readonly id!: Primitives<ModelSeriesId>

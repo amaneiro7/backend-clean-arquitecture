@@ -1,7 +1,7 @@
-import { Link, LinkProps } from 'react-router-dom'
+import { Link, type LinkProps } from 'react-router-dom'
 import { EditIcon } from '../icon/EditIcon'
-import { Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 import { TypeOfSiteId } from '../../../modules/location/typeofsites/domain/typeOfSiteId'
+import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
 
 interface Props extends React.DetailedHTMLProps<React.TdHTMLAttributes<HTMLTableCellElement>, HTMLTableCellElement> {
   state: LinkProps['state'],
@@ -21,7 +21,7 @@ export default function TableCellEditDeleteIcon({ state, url, stateId, typeOfSit
   return (
     <td
       {...props}
-      className={`min-h-9 h-9 min-w-20 text-xs text-ellipsis border-b-[3px] border-l-[3px] border-b-gray-300 p-2 text-transparent ${borderColor}`}
+      className={`min-h-9 h-9 max-w-20 text-[10px] text-ellipsis border-b-[3px] border-b-gray-300 border-l-[3px] p-2 text-transparent ${borderColor}`}
     >
       <span className='relative'>
         <Link
@@ -32,7 +32,7 @@ export default function TableCellEditDeleteIcon({ state, url, stateId, typeOfSit
           aria-description='enlace para editar el elemento'
           title={`Editar el elemento con el id ${stateId ?? url}`}
         />
-        <EditIcon width={16} className='ml-2 w-6 p-1 aspect-square bg-secondary text-white rounded-full' />
+        <EditIcon className='ml-2 w-6 p-1 aspect-square bg-secondary text-white rounded-full' />
       </span>
     </td>
   )

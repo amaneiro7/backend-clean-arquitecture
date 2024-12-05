@@ -1,32 +1,42 @@
 import { lazy, memo, Suspense } from "react"
 import { InputSkeletonLoading } from "../../skeleton/inputSkeletonLoading"
 
+
 interface Props {
   handleClear: () => void
   handleAdd: () => void
-  handleExportToExcel: () => void  
+  handleExportToExcel: () => void
+  loading?: boolean
   handleFilter?: () => void
 }
 
 const Button = lazy(async () => import("../../button/button"))
 const DownloadIcon = lazy(async () => import("../../icon/DownloadIcon").then((m) => ({ default: m.DownloadIcon })))
+const CircleSpinningIcon = lazy(() => import('../../icon/CircleSpinning').then(m => ({ default: m.CircleSpinningIcon })))
 const AddIcon = lazy(async () => import("../../icon/AddIcon").then((m) => ({ default: m.AddIcon })))
 const FilterIcon = lazy(async () => import("../../icon/FilterIcon").then((m) => ({ default: m.FilterIcon })))
 
-export const ButtonSection = memo(({handleFilter, handleAdd, handleClear, handleExportToExcel}: Props) => {
+export const ButtonSection = memo(({ loading, handleFilter, handleAdd, handleClear, handleExportToExcel }: Props) => {
   return (
     <section className='my-4 min-h-8 flex gap-2'>
       <Suspense fallback={<InputSkeletonLoading />}>
         <Button
           type='button'
           color='green'
-          size='content'
-          text='Descargar'
+          size='full'
+          text={loading ? 'Descargando' : `Descargar`}
           buttonSize='medium'
+          disabled={loading}
           icon={
-            <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>
-              <DownloadIcon width={20} className='aspect-square' />
-            </Suspense>
+            loading ? (
+              <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>
+                <CircleSpinningIcon width={20} />
+              </Suspense>
+            ) : (
+              <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>
+                <DownloadIcon width={20} className='aspect-square' />
+              </Suspense>
+            )
           }
           onClick={handleExportToExcel}
         />
@@ -48,7 +58,7 @@ export const ButtonSection = memo(({handleFilter, handleAdd, handleClear, handle
       </Suspense>
       <Suspense fallback={<InputSkeletonLoading />}>
         <Button
-          color='secondary'          
+          color='secondary'
           size='content'
           type='button'
           buttonSize='medium'
@@ -56,9 +66,9 @@ export const ButtonSection = memo(({handleFilter, handleAdd, handleClear, handle
           onClick={handleClear}
         />
       </Suspense>
-      {handleFilter ? 
+      {handleFilter ?
         <Suspense fallback={<InputSkeletonLoading />}>
-          <Button 
+          <Button
             type='button'
             color='secondary'
             size='content'
@@ -69,10 +79,10 @@ export const ButtonSection = memo(({handleFilter, handleAdd, handleClear, handle
               <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>
                 <FilterIcon width={14} className='aspect-square' />
               </Suspense>
-                  }
+            }
           />
         </Suspense>
-      : null}
+        : null}
     </section>
   )
 })

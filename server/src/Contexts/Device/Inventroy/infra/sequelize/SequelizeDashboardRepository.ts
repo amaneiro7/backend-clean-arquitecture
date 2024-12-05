@@ -1,5 +1,5 @@
 import { Sequelize } from "sequelize"
-import { CategoryModel } from "../../../../Category/infrastructure/Sequelize/CategorySchema"
+import { CategoryModel } from "../../../../Category/SubCategory/infrastructure/Sequelize/CategorySchema"
 import { DashboardRepository } from "../../domain/DashboardRepository"
 import { DeviceModel } from "../../../Device/infrastructure/sequelize/DeviceSchema"
 import { OperatingSystemModel } from "../../../../Features/OperatingSystem/OperatingSystem/infraesructure/sequelize/OperatingSystemSchema"
