@@ -27,6 +27,37 @@ export class AuthPostController {
     }
   }
 
+  login = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const user = req.user as UserPrimitives
+      if (user === undefined) throw new Error('User not found')
+      const [accessToken, refreshToken] = generateTokens(user)
+      const infoUser = SendUserWithoutPassowrd(user, refreshToken)
+      res
+        .status(httpStatus.OK)
+        .cookie('refreshToken', refreshToken, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: 'strict',
+        })
+        .json({
+          ...infoUser,
+          accessToken,
+          message: 'Usuario logeado exitosamente'
+        })
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  refreshToken = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      passport.authenticate(Strategy.JWT, { session: false })(req, res, next)
+    } catch (error) {
+      next(error)
+    }
+  }
+
   private setCookieForDomain(res: Response, domain: string, cookieName: string, cookieValue: string): void {
     const commonOptions: CookieOptions = {
       httpOnly: true,
