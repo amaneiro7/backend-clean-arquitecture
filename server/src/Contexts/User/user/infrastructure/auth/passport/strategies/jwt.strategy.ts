@@ -5,6 +5,7 @@ import { config } from '../../../../../../../../config/env.file'
 
 const jwtOptions: StrategyOptions = {
   jwtFromRequest: ExtractJwt.fromExtractors([(request: Request) => {
+    console.log('jwt.strategy', request?.cookies)
     return request?.cookies?.accessToken
   }
   ]),

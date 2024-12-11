@@ -1,3 +1,4 @@
+import { API_URL } from '@/modules/shared/infraestructure/config'
 import { type Criteria } from '../../../../shared/domain/criteria/Criteria'
 import { type DevicesApiResponse } from '../../../../shared/domain/types/responseTypes'
 import { makeRequest } from '../../../../shared/infraestructure/fetching'
@@ -26,7 +27,7 @@ export class ApiDeviceRepository implements DeviceRepository {
     const filename = `Reporte-Inventario${now.toLocaleString().replace(/[/:]/g, '-')}.xlsx`
     const criteriaPrimitives = criteria.toPrimitives()
     const queryParams = criteria.buildQuery(criteriaPrimitives)
-    return await fetch(`http://localhost:5000/api/v1/devices/download?${queryParams}`, {
+    return await fetch(`http://${API_URL}devices/download?${queryParams}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/vnc.ms-excel'

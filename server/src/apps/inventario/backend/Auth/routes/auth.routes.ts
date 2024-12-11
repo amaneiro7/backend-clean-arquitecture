@@ -13,6 +13,11 @@ export const createAuthRouter = (): Router => {
     authPostController.loginLocal
   )
 
+  router.post('/refresh-token',
+    passport.authenticate(Strategy.LOCAL, { session: false }),
+    authPostController.refreshToken
+  )
+
   router.delete('/logout',
     deleteTokenHttpOnly
   )

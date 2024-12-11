@@ -52,7 +52,7 @@ export class AuthPostController {
 
   refreshToken = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      passport.authenticate(Strategy.JWT, { session: false })(req, res, next)
+      console.log('refreshToken', req)
     } catch (error) {
       next(error)
     }
