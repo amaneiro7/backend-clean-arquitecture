@@ -48,7 +48,7 @@ interface Props {
 export const routerApi = ({ app, repository }: Props): Router => {
   const router = Router()
   app.use('/api/v1/', router)
-  router.use('/auth', createAuthRouter())
+  router.use('/auth', createAuthRouter({ repository }))
   router.use('/users', authenticate, createUserRouter({ repository }))
   router.use('/roles', authenticate, createRolesRouter({ repository }))
   router.use('/check-token', authenticate, validateToken) //

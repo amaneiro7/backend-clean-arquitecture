@@ -1,15 +1,13 @@
 import { JsonWebTokenError, type JwtPayload, NotBeforeError, verify, TokenExpiredError } from 'jsonwebtoken'
 
 import { InvalidArgumentError } from '../../Shared/domain/value-object/InvalidArgumentError'
-import { config } from '../../../../config/env.file'
+import { JwtPayloadUser } from './GenerateToken'
 
-export function validateToken(token: string): JwtPayload {
+export function validateToken(token: string, secret: string): JwtPayloadUser {
   try {
-    // Get the secret from the config
-    const secret = config.accessTokenSecret
 
     // Verify the refresh token using the secret
-    const decoded = verify(token, secret) as JwtPayload
+    const decoded = verify(token, secret) as JwtPayloadUser
 
     // Return the decoded token
     return decoded

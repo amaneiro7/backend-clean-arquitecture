@@ -3,10 +3,14 @@ import passport from 'passport'
 import { Strategy } from '../../../../../Contexts/User/user/infrastructure/auth/passport'
 import { AuthPostController } from '../controller/AuthPostController'
 import { deleteTokenHttpOnly } from '../../Shared/Middleware/deleteTokenHttpOnly'
+import { type Repository } from '../../../../../Contexts/Shared/domain/Repository'
 
-export const createAuthRouter = (): Router => {
+interface Props {
+  repository: Repository
+}
+export const createAuthRouter = ({ repository }: Props): Router => {
   const router = Router()
-  const authPostController = new AuthPostController()
+  const authPostController = new AuthPostController(repository)
 
   router.post('/login/local',
     passport.authenticate(Strategy.LOCAL, { session: false }),
@@ -14,7 +18,6 @@ export const createAuthRouter = (): Router => {
   )
 
   router.post('/refresh-token',
-    passport.authenticate(Strategy.LOCAL, { session: false }),
     authPostController.refreshToken
   )
 

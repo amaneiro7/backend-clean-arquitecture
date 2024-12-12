@@ -3,7 +3,7 @@ import { type UserPrimitives } from '../../User/user/domain/User'
 type UserWithoutPassowrd = Omit<UserProps, 'password'>
 interface Return {
   user: UserWithoutPassowrd
-  refreshToken: string
+  accessToken: string
 }
 interface UserProps extends UserPrimitives {
   role: {
@@ -12,7 +12,7 @@ interface UserProps extends UserPrimitives {
   }
 }
 
-export function SendUserWithoutPassowrd (user: UserPrimitives, refreshToken: string): Return {
+export function SendUserWithoutPassowrd(user: UserPrimitives, token: string): Return {
   const { id, lastName, name, email, roleId, role } = user as UserProps
 
   return {
@@ -25,6 +25,6 @@ export function SendUserWithoutPassowrd (user: UserPrimitives, refreshToken: str
       role
     },
 
-    refreshToken
+    accessToken: token
   }
 }

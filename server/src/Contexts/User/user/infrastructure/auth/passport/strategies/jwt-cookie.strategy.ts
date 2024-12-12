@@ -5,14 +5,14 @@ import { config } from '../../../../../../../../config/env.file'
 
 const jwtOptions: StrategyOptions = {
   jwtFromRequest: ExtractJwt.fromExtractors([(request: Request) => {
-    console.log('jwt.strategy', request?.cookies)
-    return request?.cookies?.accessToken
+    console.log('jwt-Cookie.strategy', request?.cookies)
+    return request?.cookies?.refreshToken
   }
   ]),
-  secretOrKey: config.accessTokenSecret
+  secretOrKey: config.refreshTokenSecret
 }
 
-export const jwtStrategy = new Strategy(jwtOptions, (jwtPayload, done) => {
+export const jwtCookieStrategy = new Strategy(jwtOptions, (jwtPayload, done) => {
   done(null, jwtPayload)
 })
 // This is the middleware that will be used to protect routes. If a request is made
