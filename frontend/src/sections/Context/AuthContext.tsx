@@ -1,6 +1,6 @@
 import { createContext, useContext, type PropsWithChildren } from 'react'
 import { type Repository } from '../../modules/shared/domain/repository'
-import { type UseAuth, useLogin } from '../Auth/useLogin'
+import { type UseAuth, useLogin } from '../Auth/useAuth'
 
 export interface ContextState {
   repository: Repository
@@ -8,27 +8,27 @@ export interface ContextState {
 }
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-export const AppContext = createContext({} as ContextState)
+export const AuthContext = createContext({} as ContextState)
 
-export const AppContextProvider = ({ children, repository }: PropsWithChildren<{ repository: Repository }>) => {
+export const AuthContextProvider = ({ children, repository }: PropsWithChildren<{ repository: Repository }>) => {
   const useAuth = useLogin(repository)
 
   return (
-    <AppContext.Provider value={{
+    <AuthContext.Provider value={{
       repository,
       useAuth
     }}
     >
       {children}
-    </AppContext.Provider>
+    </AuthContext.Provider>
   )
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
-export const useAppContext = () => {
-  const context = useContext(AppContext)
+export const useAuthContext = () => {
+  const context = useContext(AuthContext)
   if (context === undefined) {
-    throw new Error('useAppContext must be used within a AppContextProvider')
+    throw new Error('useAuthContext must be used within a AuthContextProvider')
   }
   return context
 }

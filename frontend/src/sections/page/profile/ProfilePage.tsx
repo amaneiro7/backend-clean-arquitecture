@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react"
-import { useAppContext } from "@/sections/Context/AppContext"
+import { useAuthContext } from "@/sections/Context/AuthContext"
 import { useChangePassword } from "./useChangePassword"
 import { type UserApiResponse } from "@/modules/shared/domain/types/responseTypes"
 
@@ -17,11 +17,11 @@ const ChangePassowrdForm = lazy(async () => import("./ChangePassowrdForm").then(
 
 
 export default function ProfilePage() {
-  const { useAuth: { user } } = useAppContext()
+  const { useAuth: { user } } = useAuthContext()
   const { user: { name, email, lastName, role } } = user as unknown as UserApiResponse
 
   const { formId, errors, formData, handleChange, handleSubmit, handleClose, dialogRef, handleCloseModal, handleOpenModal, isDisabled } = useChangePassword()
-  
+
   return (
     <Suspense fallback={<main className='flex-1' />}>
       <Main content='max' overflow={false} className='pr-8'>

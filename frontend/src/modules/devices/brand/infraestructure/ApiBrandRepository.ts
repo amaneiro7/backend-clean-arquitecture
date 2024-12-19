@@ -4,20 +4,20 @@ import { type BrandId } from '../domain/BrandId'
 import { type BrandRepository } from '../domain/BrandRepository'
 
 export class ApiBrandRepository implements BrandRepository {
-  private readonly endpoint: string = 'brands'
-  async save ({ brand }: { brand: Brand }): Promise<void> {
-    return await makeRequest({ method: 'POST', endpoint: this.endpoint, data: brand.toPrimitives() })    
+  private readonly url: string = 'brands'
+  async save({ brand }: { brand: Brand }): Promise<void> {
+    return await makeRequest({ method: 'POST', url: this.url, data: brand.toPrimitives() })
   }
-  
-  async update ({ id, brand }: { id: BrandId, brand: Brand }): Promise<void> {
-    return await makeRequest({ method: 'PATCH', endpoint: `${this.endpoint}/${id.value}`, data: brand.toPrimitives() })        
+
+  async update({ id, brand }: { id: BrandId, brand: Brand }): Promise<void> {
+    return await makeRequest({ method: 'PATCH', url: `${this.url}/${id.value}`, data: brand.toPrimitives() })
   }
-  
-  async getAll (): Promise<BrandPrimitives[]> {
-    return await makeRequest({ method: 'GET', endpoint: this.endpoint })    
+
+  async getAll(): Promise<BrandPrimitives[]> {
+    return await makeRequest({ method: 'GET', url: this.url })
   }
-  
-  async getById ({ id }: { id: BrandId }): Promise<BrandPrimitives | null> {
-    return await makeRequest({ method: 'GET', endpoint: `${this.endpoint}/${id.value}` })            
+
+  async getById({ id }: { id: BrandId }): Promise<BrandPrimitives | null> {
+    return await makeRequest({ method: 'GET', url: `${this.url}/${id.value}` })
   }
 }

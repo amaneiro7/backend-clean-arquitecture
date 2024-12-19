@@ -3,8 +3,8 @@ import { type VicepresidenciaPrimitives } from '../domain/Vicepresidencia'
 import { type VicepresidenciaRepository } from '../domain/VicepresidenciaRepository'
 
 export class ApiVicepresidenciaRepository implements VicepresidenciaRepository {
-  private readonly endpoint: string = 'vicepresidencias'
+  private readonly url: string = 'vicepresidencias'
   async getAll(): Promise<VicepresidenciaPrimitives[]> {
-    return await makeRequest({ method: 'GET', endpoint: this.endpoint })
+    return await makeRequest({ method: 'GET', url: this.url })
   }
 }

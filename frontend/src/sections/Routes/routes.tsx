@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react'
 import { Route, Routes } from 'react-router-dom'
-import { useAppContext } from '../Context/AppContext.tsx'
+import { useAuthContext } from '../Context/AuthContext.tsx'
 
 const ProtectedRoute = lazy(async () => import('./ProtectedRoute.tsx').then(m => ({ default: m.ProtectedRoute })))
 const Login = lazy(async () => import('../page/login/LoginPage.tsx'))
@@ -31,7 +31,7 @@ const RegisterPage = lazy(() => import('../page/user-management/register/Registe
 const ManagementProfile = lazy(() => import('../page/user-management/profile/ManagementProfile.tsx'))
 
 export default function AppRoutes() {
-  const { useAuth: { user } } = useAppContext()
+  const { useAuth: { user } } = useAuthContext()
   return (
     <Routes>
       <Route path='/login' element={<Suspense><Login user={user} /></Suspense>} />

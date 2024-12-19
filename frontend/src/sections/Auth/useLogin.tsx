@@ -28,7 +28,7 @@ export const useLogin = (repository: Repository): UseAuth => {
     return await new Login(repository)
       .run(email, password)
       .then(async (user) => {
-        if (await new CheckToken(repository).run()) {          
+        if (await new CheckToken(repository).run()) {
           await new SaveSession(repository).save(user)
           setUser(user)
           setIsSignin(true)
@@ -36,14 +36,14 @@ export const useLogin = (repository: Repository): UseAuth => {
         }
       })
       .finally(() => setLoading(false))
-    }
-    const logout = useCallback(async () => {
-      setUser(null)
-      setIsSignin(false)
-      await new LogOutSession(repository).run()
-      Cookie.remove('accessToken', { path: '/' })
-    },[repository])
-  
+  }
+  const logout = useCallback(async () => {
+    setUser(null)
+    setIsSignin(false)
+    await new LogOutSession(repository).run()
+    Cookie.remove('accessToken', { path: '/' })
+  }, [repository])
+
   const checkCookieAndUser = useCallback(async () => {
     return await new CheckToken(repository).run().then(async () => {
       const userFromSession = await new GetSession(repository).get()
@@ -52,12 +52,12 @@ export const useLogin = (repository: Repository): UseAuth => {
     }).catch(async () => {
       await logout()
     })
-  },[logout, repository])
+  }, [logout, repository])
 
   useLayoutEffect(() => {
     checkCookieAndUser()
   }, [checkCookieAndUser, location.pathname])
-  
+
   return {
     getLogin,
     logout,

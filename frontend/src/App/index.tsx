@@ -1,7 +1,7 @@
 import { Suspense, lazy } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import ErrorBoundary from './ErrorBoundary.tsx'
-import { AppContextProvider } from '../sections/Context/AppContext.tsx'
+import { AuthContextProvider } from '@/sections/Context/AuthContext.tsx'
 import { apiRepository } from '../modules/shared/infraestructure/ApiRepository.ts'
 import Loading from '../sections/components/Loading/index.tsx'
 
@@ -12,20 +12,20 @@ function App() {
   return (
     <Suspense fallback={<Loading />}>
       <ErrorBoundary>
-        <BrowserRouter 
+        <BrowserRouter
           future={{
-          v7_startTransition: true
-         }}
+            v7_startTransition: true,
+          }}
         >
-          <AppContextProvider repository={apiRepository}>
+          <AuthContextProvider repository={apiRepository}>
             <Suspense>
               <AppRoutes />
               <ToasterComponent />
             </Suspense>
-          </AppContextProvider>
+          </AuthContextProvider>
         </BrowserRouter>
       </ErrorBoundary>
-    </Suspense>          
+    </Suspense>
   )
 }
 

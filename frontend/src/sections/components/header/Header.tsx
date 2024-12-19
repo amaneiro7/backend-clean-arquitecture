@@ -1,6 +1,6 @@
 import { lazy, useEffect, useState, memo, Suspense, useRef } from "react"
 import { Link, useLocation } from "react-router-dom"
-import { useAppContext } from "../../Context/AppContext"
+import { useAppContext } from "../../Context/AuthContext"
 import { type UserApiResponse } from "../../../modules/shared/domain/types/responseTypes"
 import { type ModalRef } from "../Dialog/Modal"
 import { User } from "../../../modules/user/user/domain/User"

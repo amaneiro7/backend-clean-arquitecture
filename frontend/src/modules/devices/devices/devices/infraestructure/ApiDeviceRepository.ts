@@ -7,19 +7,19 @@ import { type DeviceId } from '../domain/DeviceId'
 import { type DeviceRepository } from '../domain/DeviceRepository'
 
 export class ApiDeviceRepository implements DeviceRepository {
-  private readonly endpoint: string = 'devices'
+  private readonly url: string = 'devices'
   async save({ device }: { device: Device }): Promise<void> {
-    return await makeRequest({ method: 'POST', endpoint: this.endpoint, data: device.toPrimitives() })
+    return await makeRequest({ method: 'POST', url: this.url, data: device.toPrimitives() })
   }
 
   async update({ id, device }: { id: DeviceId, device: Device }): Promise<void> {
-    return await makeRequest({ method: 'PATCH', endpoint: `${this.endpoint}/${id.value}`, data: device.toPrimitives() })
+    return await makeRequest({ method: 'PATCH', url: `${this.url}/${id.value}`, data: device.toPrimitives() })
   }
 
   async getByCriteria(criteria: Criteria): Promise<{ total: number, data: DevicePrimitives[] }> {
     const criteriaPrimitives = criteria.toPrimitives()
     const queryParams = criteria.buildQuery(criteriaPrimitives)
-    return await makeRequest<{ total: number, data: DevicesApiResponse[] }>({ method: 'GET', endpoint: `${this.endpoint}?${queryParams}` })
+    return await makeRequest<{ total: number, data: DevicesApiResponse[] }>({ method: 'GET', url: `${this.url}?${queryParams}` })
   }
 
   async download(criteria: Criteria): Promise<void> {
@@ -55,10 +55,10 @@ export class ApiDeviceRepository implements DeviceRepository {
   }
 
   async getAll(): Promise<DevicePrimitives[]> {
-    return await makeRequest<DevicesApiResponse[]>({ method: 'GET', endpoint: this.endpoint })
+    return await makeRequest<DevicesApiResponse[]>({ method: 'GET', url: this.url })
   }
 
   async getById({ id }: { id: DeviceId }): Promise<DevicePrimitives> {
-    return await makeRequest<DevicesApiResponse>({ method: 'GET', endpoint: `${this.endpoint}/${id.value}` })
+    return await makeRequest<DevicesApiResponse>({ method: 'GET', url: `${this.url}/${id.value}` })
   }
 }

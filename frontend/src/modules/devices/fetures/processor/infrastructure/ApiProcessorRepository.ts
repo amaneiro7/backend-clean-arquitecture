@@ -4,21 +4,21 @@ import { type ProcessorId } from '../domain/ProcessorId'
 import { type ProcessorRepository } from '../domain/ProcessorRepository'
 
 export class ApiProcessorRepository implements ProcessorRepository {
-  private readonly endpoint: string = 'processors'
+  private readonly url: string = 'processors'
   async save({ processor }: { processor: Processor }): Promise<void> {
-    return await makeRequest({ method: 'POST', endpoint: this.endpoint, data: processor.toPrimitives() })
+    return await makeRequest({ method: 'POST', url: this.url, data: processor.toPrimitives() })
 
   }
 
   async update({ id, processor }: { id: ProcessorId, processor: Processor }): Promise<void> {
-    return await makeRequest({ method: 'PATCH', endpoint: `${this.endpoint}/${id.value}`, data: processor.toPrimitives() })
+    return await makeRequest({ method: 'PATCH', url: `${this.url}/${id.value}`, data: processor.toPrimitives() })
   }
 
   async getAll(): Promise<ProcessorPrimitives[]> {
-    return await makeRequest({ method: 'GET', endpoint: this.endpoint })
+    return await makeRequest({ method: 'GET', url: this.url })
   }
 
   async getById({ id }: { id: ProcessorId }): Promise<ProcessorPrimitives | null> {
-    return await makeRequest({ method: 'GET', endpoint: `${this.endpoint}/${id.value}` })
+    return await makeRequest({ method: 'GET', url: `${this.url}/${id.value}` })
   }
 }

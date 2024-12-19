@@ -14,7 +14,7 @@ export const createAuthRouter = ({ repository }: Props): Router => {
 
   router.post('/login/local',
     passport.authenticate(Strategy.LOCAL, { session: false }),
-    authPostController.loginLocal
+    authPostController.login
   )
 
   router.post('/refresh-token',
