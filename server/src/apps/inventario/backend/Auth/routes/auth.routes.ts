@@ -2,7 +2,6 @@ import { Router } from 'express'
 import passport from 'passport'
 import { Strategy } from '../../../../../Contexts/User/user/infrastructure/auth/passport'
 import { AuthPostController } from '../controller/AuthPostController'
-import { deleteTokenHttpOnly } from '../../Shared/Middleware/deleteTokenHttpOnly'
 import { type Repository } from '../../../../../Contexts/Shared/domain/Repository'
 
 interface Props {
@@ -17,12 +16,12 @@ export const createAuthRouter = ({ repository }: Props): Router => {
     authPostController.login
   )
 
-  router.post('/refresh-token',
+  router.get('/refresh-token',
     authPostController.refreshToken
   )
 
   router.delete('/logout',
-    deleteTokenHttpOnly
+    authPostController.logout
   )
   return router
 }

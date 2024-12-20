@@ -84,8 +84,7 @@ export const routerApi = ({ app, repository }: Props): Router => {
   // router.use('/users', createUserRouter({ router, repository }))
   // router.use('/profiles', createProfileRouter({ router, repository }))
   router.use((err: Error, req: Request, res: Response, _next: () => void) => {
-    console.log(err)
-    res.status(httpStatus.INTERNAL_SERVER_ERROR).send(err.message)
+    res.status(httpStatus.BAD_REQUEST).send(err.message)
   })
   return router
 }

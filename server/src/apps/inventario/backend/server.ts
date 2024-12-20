@@ -9,16 +9,17 @@ import morgan from 'morgan'
 import type * as http from 'http'
 import httpStatus from './Shared/utils/http-status'
 import responseTime from 'response-time'
+import notifier from 'node-notifier'
 
 import { type Repository } from '../../../Contexts/Shared/domain/Repository'
 import { routerApi } from './Shared/Routes'
 import { options } from './Shared/Middleware/cors'
 import { logger } from './Shared/Middleware/winstonError'
-import { cacheMiddleware } from './Shared/Middleware/cacheMiddleware'
 import { etagMiddleware } from './Shared/Middleware/etagMiddleware'
 import { lastModifiedMiddleware } from './Shared/Middleware/lastModifiedMiddleware'
 import { expiresMiddleware } from './Shared/Middleware/expiresMiddleware'
 import { config } from '../../../../config/env.file'
+
 
 export class Server {
   private readonly app: express.Express
@@ -33,14 +34,14 @@ export class Server {
     this.setupMiddlewares()
 
     // Configuración de rutas
-    this.setupRoutes(repository)   
+    this.setupRoutes(repository)
 
   }
-  
+
   private setupMiddlewares(): void {
     // Middlware para medir el tiempo de respuesta
     this.app.use(responseTime())
-    
+
     // Middleware para logging con Morgan
     this.app.use(morgan('combined', {
       stream: {
@@ -70,10 +71,10 @@ export class Server {
 
     // Middleware para comprimir las respuestas
     this.app.use(compress())
-    
+
     // Middleare para manejo de errores
     this.app.use((err: Error, req: Request, res: Response, next: NextFunction): void => {
-      logger.error('Error;', err)
+      logger.error('Error;', err.message)
       next(err)
     })
 
@@ -86,15 +87,18 @@ export class Server {
 
   private setupRoutes(repository: Repository): void {
     const router = Router()
-    router.use(errorHandler())
-    
+    if (!config.isProd) {
+      router.use(errorHandler({
+        log: this.errorNotification
+      }))
+    }
+
     // Configuración de rutas
     routerApi({ app: this.app, repository })
-    
+
     // Manejo de errores global
     router.use((err: Error, req: Request, res: Response, _next: () => void) => {
-      console.error(err)
-      res.status(httpStatus.INTERNAL_SERVER_ERROR).send(err.message)
+      res.status(httpStatus.BAD_REQUEST).send(err.message)
     })
     this.app.use(router)
   }
@@ -107,6 +111,14 @@ export class Server {
         console.log('  Press CTRL-C to stop\n')
         resolve()
       })
+    })
+  }
+
+  errorNotification(err: Error, str: string, req: Request) {
+    const title = 'Error in ' + req.method + ' ' + req.url
+    notifier.notify({
+      title: title,
+      message: str
     })
   }
 

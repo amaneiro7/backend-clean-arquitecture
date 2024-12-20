@@ -1,9 +1,10 @@
 import { lazy, useEffect, useState, memo, Suspense, useRef } from "react"
 import { Link, useLocation } from "react-router-dom"
-import { useAppContext } from "../../Context/AuthContext"
-import { type UserApiResponse } from "../../../modules/shared/domain/types/responseTypes"
+import { useAuthContext } from "@/sections/Context/AuthContext"
+import { User } from "@/modules/user/user/domain/User"
+
+import { type UserApiResponse } from "@/modules/shared/domain/types/responseTypes"
 import { type ModalRef } from "../Dialog/Modal"
-import { User } from "../../../modules/user/user/domain/User"
 
 const ConfirmationModal = lazy(async () => import("../Dialog/ConfirmationModal").then(m => ({ default: m.ConfirmationModal })))
 const LogoutIcon = lazy(() => import("../icon/LogoutIcon").then(m => ({ default: m.LogoutIcon })))
@@ -20,7 +21,7 @@ export const Header = memo(function () {
   const location = useLocation()
   const dialogExitRef = useRef<ModalRef>(null)
 
-  const { useAuth: { logout, user: userDefault } } = useAppContext()
+  const { useAuth: { logout, user: userDefault } } = useAuthContext()
   const { user } = userDefault as unknown as UserApiResponse
 
   const handleState = () => {

@@ -12,12 +12,17 @@
     />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" as="style" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500,700&display=swap" rel="stylesheet" />
 
     <title>Inventario App</title>
   </head>
-  <body>
-    <div class="font-montserrat leading-5 min-h-dvh grid grid-rows-[auto_1fr_auto]" id="root"></div>
+  <body class="overflow-y-scroll">
+    <div class="leading-5 min-h-dvh grid grid-rows-[auto_1fr_auto]" id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
+  <style>
+    body {
+      font-family: "Montserrat", sans-serif;
+    }
+  </style>
 </html>

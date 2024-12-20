@@ -68,15 +68,29 @@ export class AuthPostController {
 
       // Validar si el token de refresco pertenece al mismo usuario
       const user = await this.repository.user.searchById(new UserId(id).value)
+      if (user === null) {
+        throw new Error('User not found')
+      }
       if (!user || user.email !== email || user.roleId !== roleId) {
         res.status(httpStatus.FORBIDDEN).json({ message: 'Token de refresco invalido' })
       }
 
       const accessToken = generateAceessTokens({ email, roleId, id })
+      const infoUser = SendUserWithoutPassowrd(user, accessToken)
       res.status(httpStatus.OK).json({
-        message: 'Token actualizado exitosamente',
-        accessToken
+        ...infoUser,
+        message: 'Token actualizado exitosamente'
       })
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  logout = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      res.clearCookie('refreshToken')
+      res.clearCookie('accessToken')
+      res.status(httpStatus.OK).json({ message: 'Sesion cerrada exitosamente' })
     } catch (error) {
       next(error)
     }

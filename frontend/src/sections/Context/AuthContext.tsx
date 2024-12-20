@@ -1,6 +1,6 @@
 import { createContext, useContext, type PropsWithChildren } from 'react'
 import { type Repository } from '../../modules/shared/domain/repository'
-import { type UseAuth, useLogin } from '../Auth/useAuth'
+import { type UseAuth, useLogin } from '../Hooks/Auth/useAuth'
 
 export interface ContextState {
   repository: Repository
