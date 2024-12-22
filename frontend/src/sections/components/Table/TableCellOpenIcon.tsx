@@ -4,7 +4,7 @@ type Props= React.DetailedHTMLProps<React.TdHTMLAttributes<HTMLTableCellElement>
   open: boolean,   
 }
 
-const ArrowBadgeIcon = lazy(async () => import("../icon/ArrowBadge").then(m => ({ default: m.ArrowBadgeIcon })))
+const ArrowRightBadgeIcon = lazy(async () => import("../icon/ArrowRightBadge").then(m => ({ default: m.ArrowRightBadgeIcon })))
 
 
 export function TableCellOpenIcon({ open, ...props }: React.PropsWithChildren<Props>) {
@@ -13,7 +13,7 @@ export function TableCellOpenIcon({ open, ...props }: React.PropsWithChildren<Pr
       className='min-w-min max-w-min w-8 border-b-2 border-b-gray-300 content-center'
       {...props}
     >
-      <Suspense><ArrowBadgeIcon className={`w-4 mx-0 my-auto text-center aspect-square transition-transform duration-500 ${open ? 'rotate-90' : '-rotate-90'} text-secondary-600 hover:text-secondary-700`} /></Suspense>
+      <Suspense><ArrowRightBadgeIcon className={`w-4 mx-0 my-auto text-center aspect-square transition-transform duration-500 ${open ? 'rotate-90' : '-rotate-90'} text-secondary-600 hover:text-secondary-700`} /></Suspense>
     </td>
   )
 }

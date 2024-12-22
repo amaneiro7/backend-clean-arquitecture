@@ -4,10 +4,10 @@ import { type HistoryApiResponse } from "@/modules/shared/domain/types/responseT
 
 
 export const UpdatedBy = memo(({ history }: { history: HistoryApiResponse[] }) => {
-    const sortHistroy = useMemo(() => (
-        lastHistoryUpdated(history)
-    ), [history])
-    return (
-      <span className='block'>Realizado por <strong>{sortHistroy?.user?.email ?? 'root'}</strong> </span>
-    )
+  const sortHistroy = useMemo(() => (
+    lastHistoryUpdated(history)
+  ), [history])
+  return (
+    <span className='block'>Realizado por <strong>{sortHistroy?.user?.email ?? 'root'}</strong> </span>
+  )
 })

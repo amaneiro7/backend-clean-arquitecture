@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { navigation } from "../../Routes/new.routes";
 import { lazy, Suspense } from "react";
-const ArrowBadge = lazy(async () => import("../icon/ArrowBadge").then((m) => ({ default: m.ArrowBadgeIcon })));
+const ArrowRightBadge = lazy(async () => import("../icon/ArrowRightBadge").then((m) => ({ default: m.ArrowRightBadgeIcon })));
 
 export function Nav({ isActive }: { isActive: boolean }) {
   return (
@@ -29,7 +29,7 @@ export function Nav({ isActive }: { isActive: boolean }) {
                     aria-description={item.desc}
                   >
                     <Suspense>
-                      <ArrowBadge className='text-primary' />
+                      <ArrowRightBadge className='text-primary' />
                     </Suspense>
                     {item.title}
                   </Link>

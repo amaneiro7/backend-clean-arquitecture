@@ -46,7 +46,7 @@ export class SequelizeCriteriaConverter {
         }
 
         if (criteria.limit !== undefined && criteria.offset !== undefined) {
-            query.offset = criteria.limit * (criteria.offset - 1)
+            query.offset = criteria.offset
         }
 
         return query

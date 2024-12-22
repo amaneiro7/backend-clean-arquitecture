@@ -7,6 +7,7 @@ import { type FilterContainerRef } from "./FilterContainer/FilterContainer"
 import { type TypeOfSiteId } from "../../../modules/location/typeofsites/domain/typeOfSiteId"
 import { type Primitives } from "../../../modules/shared/domain/value-object/Primitives"
 import { type SearchByCriteriaQuery } from "@/modules/shared/infraestructure/criteria/SearchByCriteriaQuery"
+import { PaginationBar } from "../Pagination/PaginationBar"
 
 const PageTitle = lazy(async () => import('../Typography/PageTitle'))
 const DetailsWrapper = lazy(async () => import("../DetailsWrapper/DetailsWrapper").then(m => ({ default: m.DetailsWrapper })))
@@ -32,7 +33,7 @@ export function ListWrapper({
   typeOfSiteId?: Primitives<TypeOfSiteId>
   title: string
   url: string
-  total: number
+  total: string
   loading: boolean
   handleChange: (name: string, value: string, operator?: Operator) => void
   handleClear: () => void
@@ -56,8 +57,8 @@ export function ListWrapper({
           <FilterSection>
             {mainFilter}
             {otherFilter
-                ? <FilterContainer ref={filterContainerRef}>{otherFilter}</FilterContainer>
-                : null}
+              ? <FilterContainer ref={filterContainerRef}>{otherFilter}</FilterContainer>
+              : null}
           </FilterSection>
           <ButtonSection
             handleExportToExcel={download}
@@ -73,12 +74,13 @@ export function ListWrapper({
             // <Suspense fallback={<div className='min-h-7 h-7' />}>
             <TypeOfSiteTabNav onChange={handleChange} value={typeOfSiteId} />
             // </Suspense>
-          : null}
+            : null}
 
           {loading && <SpinnerSKCircle />}
           {table}
         </div>
-      </DetailsWrapper> 
+        {!loading ? <PaginationBar /> : null}
+      </DetailsWrapper>
     </>
   )
 }
