@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react"
+import { useCallback, useMemo } from "react"
 import { type SearchByCriteriaQuery } from "@/modules/shared/infraestructure/criteria/SearchByCriteriaQuery"
 
 
@@ -21,7 +21,6 @@ export const useHandlePage = ({
     offset: number
     total: number
 }): HandlePage => {
-    // const [currentPage, setCurrentPage] = useState(offset / limit + 1)
     const currentPage = useMemo(() => offset / limit + 1, [offset, limit])
     // Handle the change in the limit.
     const handleLimitChange = useCallback((value: number) => {
