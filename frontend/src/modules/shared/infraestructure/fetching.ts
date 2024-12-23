@@ -24,9 +24,9 @@ export async function makeRequest<T>(config: AxiosRequestConfig & {
       if (axios.isAxiosError(error) && error.response) {
         throw new Error(error.response.data || 'Error desconocido')
       } else if (error instanceof Error) {
-        throw new Error('makeRequest: No se ha podido realizar la petición')
+        throw new Error('No se ha podido realizar la petición')
       } else {
-        throw new Error('makeRequest: No se ha podido realizar la petición')
+        throw new Error('No se ha podido realizar la petición')
       }
     }
     if (axios.isAxiosError(error) && error.response) {

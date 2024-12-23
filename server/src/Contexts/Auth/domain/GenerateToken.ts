@@ -18,8 +18,8 @@ export interface JwtPayloadUser extends JwtPayload {
   roleId: Primitives<RoleId>
 }
 
-const accessTokenExpiresIn: string = '1m'
-const refreshTokenExpiresIn: string = '1m'
+const accessTokenExpiresIn: string = '15m'
+const refreshTokenExpiresIn: string = '10h'
 
 export function generateAceessTokens(user: Pick<UserPrimitives, 'id' | 'email' | 'roleId'>): string {
   const { id, email, roleId } = user

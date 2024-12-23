@@ -6,7 +6,7 @@ const Header = lazy(async () => await import("./header/Header").then((m) => ({ d
 const Footer = lazy(async () => await import("./Footer"))
 const Main = lazy(async () => await import("./Main"))
 
-const Layout = memo(() => {
+function Layout () {
     return (
       <AppContextProvider>
         <Suspense fallback={<header className='min-h-16 h-16 bg-secondary' />}>
@@ -23,6 +23,5 @@ const Layout = memo(() => {
       </AppContextProvider>
     )
   }
-)
 
-export default Layout
+export default memo(Layout)

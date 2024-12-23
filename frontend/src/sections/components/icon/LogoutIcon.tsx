@@ -1,11 +1,11 @@
 import Logout from './logout.svg?react'
 
-interface Props extends React.SVGProps<SVGSVGElement> {}
+type Props = React.SVGProps<SVGSVGElement>
 
-export function LogoutIcon({...props}:Props) {
+export const LogoutIcon = (({...props}:Props) => {
   return (
     <i>
       <Logout {...props} />
     </i>
   )
-}
+})

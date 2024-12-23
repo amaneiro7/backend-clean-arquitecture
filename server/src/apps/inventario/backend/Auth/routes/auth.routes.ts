@@ -20,7 +20,7 @@ export const createAuthRouter = ({ repository }: Props): Router => {
     authPostController.refreshToken
   )
 
-  router.delete('/logout',
+  router.post('/logout',
     authPostController.logout
   )
   return router

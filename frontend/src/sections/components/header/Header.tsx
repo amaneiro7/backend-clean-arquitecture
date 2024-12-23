@@ -41,9 +41,7 @@ export const Header = memo(function () {
           </Link>
         </div>
 
-        <Suspense>
-          <WelcomeTitle user={user} />
-        </Suspense>
+        <WelcomeTitle user={user} />        
 
         <div className='flex flex-1 gap-8 items-center justify-end'>
           {User.isSuperAdmin({ roleId: user?.roleId }) &&
@@ -61,11 +59,7 @@ export const Header = memo(function () {
             onClick={() => dialogExitRef.current?.handleOpen()}
             type='button'
             buttonSize='medium'
-            icon={
-              <Suspense fallback={<div className='w-6 h-6 rounded-full bg-slate-200 animate-pulse' />}>
-                <LogoutIcon width={20} className='aspect-square' />
-              </Suspense>
-            }
+            icon={<LogoutIcon width={20} className='aspect-square' />}
           />
         </div>
         <HamburgerMenu onClick={handleState} isActive={isActive} />

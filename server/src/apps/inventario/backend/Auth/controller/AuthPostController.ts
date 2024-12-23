@@ -65,8 +65,7 @@ export class AuthPostController {
       const refreshToken = req?.cookies?.refreshToken as string
 
       if (refreshToken === undefined) {
-        res.sendStatus(httpStatus.FORBIDDEN)
-
+        res.sendStatus(httpStatus.FORBIDDEN).end()
       }
 
       const { email, roleId, sub: id } = validateToken(refreshToken, config.refreshTokenSecret)
@@ -77,8 +76,7 @@ export class AuthPostController {
         throw new Error('User not found')
       }
       if (!user || user.email !== email || user.roleId !== roleId) {
-        res.sendStatus(httpStatus.FORBIDDEN)
-        return
+        res.sendStatus(httpStatus.FORBIDDEN).end()
       }
 
       const accessToken = generateAceessTokens({ email, roleId, id })

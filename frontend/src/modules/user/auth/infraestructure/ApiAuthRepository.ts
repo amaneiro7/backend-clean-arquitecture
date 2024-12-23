@@ -54,7 +54,7 @@ export class ApiAuthRepository implements AuthRepository {
   }
 
   async logout(): Promise<void> {
-    await makeRequest({ url: 'auth/logout', method: 'DELETE' })
+    await makeRequest({ url: 'auth/logout', method: 'POST' })
   }
 
   async changePassword({ password, newPassword, reTypePassword }: { password: string, newPassword: string, reTypePassword: string }): Promise<void> {

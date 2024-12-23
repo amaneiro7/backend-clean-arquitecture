@@ -1,4 +1,4 @@
-import { JsonWebTokenError, type JwtPayload, NotBeforeError, verify, TokenExpiredError } from 'jsonwebtoken'
+import { JsonWebTokenError, NotBeforeError, verify, TokenExpiredError } from 'jsonwebtoken'
 
 import { InvalidArgumentError } from '../../Shared/domain/value-object/InvalidArgumentError'
 import { JwtPayloadUser } from './GenerateToken'
