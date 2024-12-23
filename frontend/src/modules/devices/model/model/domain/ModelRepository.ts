@@ -9,7 +9,7 @@ export abstract class ModelRepository {
 
   abstract getAll(): Promise<ModelPrimitives[]>
 
-  abstract getByCriteria(criteria: Criteria): Promise<ModelPrimitives[]>
+  abstract getByCriteria(criteria: Criteria): Promise<{ total: number; data: ModelPrimitives[] }>
 
   abstract getById({ id }: { id: ModelId }): Promise<ModelPrimitives | null>
 

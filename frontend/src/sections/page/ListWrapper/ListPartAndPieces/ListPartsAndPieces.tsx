@@ -12,13 +12,14 @@ const PartsAndpiecesDescription = lazy(() => import("./PartAndPiecesDescription"
 
 export default function ListPartsAndPieces() {
   const { inputData: initialInputData, defaultInputData } = useDefaultInitialInputValue()
-  const { devices, total, loading, addFilter, cleanFilters, query } = useDeviceContext()
+  const { devices, managePage, loading, addFilter, cleanFilters, query } = useDeviceContext()
   const { inputData, handleChange, handleClear } = useInputsData({ initialInputData, defaultInputData, addFilter, cleanFilters })
 
   return (
     <Suspense>
       <ListWrapper
-        total={total}
+        total={managePage.showingMessage}
+        managePage={managePage}
         title='Lista de partes y piezas'
         url='/device/add'
         loading={loading}

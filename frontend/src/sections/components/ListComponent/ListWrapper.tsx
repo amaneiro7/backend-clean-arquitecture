@@ -1,13 +1,13 @@
 import { lazy, useRef } from "react"
 import { useNavigate } from "react-router-dom"
-import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
+import { Operator } from "@/modules/shared/domain/criteria/FilterOperators"
 import { SpinnerSKCircle } from "../Loading/spinner-sk-circle"
 import { useDownloadExcelFromServer } from "@/sections/utils/downloadExcelfromServer"
 import { type FilterContainerRef } from "./FilterContainer/FilterContainer"
-import { type TypeOfSiteId } from "../../../modules/location/typeofsites/domain/typeOfSiteId"
-import { type Primitives } from "../../../modules/shared/domain/value-object/Primitives"
+import { type TypeOfSiteId } from "@/modules/location/typeofsites/domain/typeOfSiteId"
+import { type Primitives } from "@/modules/shared/domain/value-object/Primitives"
 import { type SearchByCriteriaQuery } from "@/modules/shared/infraestructure/criteria/SearchByCriteriaQuery"
-import { PaginationBar } from "../Pagination/PaginationBar"
+import { type useHandlePage } from "@/sections/Hooks/useHandlePage"
 
 const PageTitle = lazy(async () => import('../Typography/PageTitle'))
 const DetailsWrapper = lazy(async () => import("../DetailsWrapper/DetailsWrapper").then(m => ({ default: m.DetailsWrapper })))
@@ -16,6 +16,7 @@ const FilterSection = lazy(async () => import('./FilterSection').then(m => ({ de
 const FilterContainer = lazy(async () => import("./FilterContainer/FilterContainer").then(m => ({ default: m.FilterContainer })))
 const ButtonSection = lazy(async () => import("./buttonsection/ButtonSection").then((m) => ({ default: m.ButtonSection })))
 const TypeOfSiteTabNav = lazy(async () => import("../tabs/TypeOfSiteTabNav").then((m) => ({ default: m.TypeOfSiteTabNav })))
+const PaginationBar = lazy(async () => import("../Pagination/PaginationBar").then((m) => ({ default: m.PaginationBar })))
 
 export function ListWrapper({
   total,
@@ -28,7 +29,8 @@ export function ListWrapper({
   typeOfSiteId,
   mainFilter,
   otherFilter,
-  table
+  table,
+  managePage
 }: {
   typeOfSiteId?: Primitives<TypeOfSiteId>
   title: string
@@ -41,6 +43,7 @@ export function ListWrapper({
   mainFilter: React.ReactElement
   otherFilter?: React.ReactElement
   table: React.ReactElement
+  managePage?: ReturnType<typeof useHandlePage>
 }) {
   const navigate = useNavigate()
   const filterContainerRef = useRef<FilterContainerRef>(null)
@@ -79,7 +82,14 @@ export function ListWrapper({
           {loading && <SpinnerSKCircle />}
           {table}
         </div>
-        {!loading ? <PaginationBar /> : null}
+        {!loading ? 
+          <PaginationBar 
+            totalPages={managePage?.totalPages}
+            currentPage={managePage?.currentPage}
+            limit={managePage?.limit}
+            handlePageClick={managePage?.handlePageClick}
+            handleLimitChange={managePage?.handleLimitChange}
+          /> : null}
       </DetailsWrapper>
     </>
   )

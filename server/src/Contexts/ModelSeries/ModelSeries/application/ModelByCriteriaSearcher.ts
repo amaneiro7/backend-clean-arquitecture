@@ -10,9 +10,9 @@ import { type SearchByCriteriaQuery } from '../../../Shared/domain/SearchByCrite
 import { ModelSeriesPrimitives } from '../domain/ModelSeries'
 
 export class ModelByCriteriaSearcher {
-  constructor (private readonly repository: Repository) {}
+  constructor(private readonly repository: Repository) { }
 
-  async search (query: SearchByCriteriaQuery): Promise<ModelSeriesPrimitives[]> {
+  async search(query: SearchByCriteriaQuery): Promise<{ total: number, data: ModelSeriesPrimitives[] }> {
     const filters = query.filters.map((filter) => {
       return new Filter(
         new FilterField(filter.field),

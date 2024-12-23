@@ -19,7 +19,7 @@ export class ApiModelRepository implements ModelRepository {
     return await makeRequest<ModelApiresponse[]>({ method: 'GET', url: `${this.url}/all` })
   }
 
-  async getByCriteria(criteria: Criteria): Promise<ModelPrimitives[]> {
+  async getByCriteria(criteria: Criteria): Promise<{ total: number; data: ModelPrimitives[] }> {
     const criteriaPrimitives = criteria.toPrimitives()
 
     const queryParams = criteria.buildQuery(criteriaPrimitives)

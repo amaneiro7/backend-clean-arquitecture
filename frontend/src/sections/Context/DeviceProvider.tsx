@@ -4,10 +4,11 @@ import { useCreateDevice } from "../Hooks/device/useCreateDevices"
 import { useSearchByCriteriaQuery } from "../Hooks/useQueryUpdate"
 import { MainCategoryList } from "@/modules/devices/mainCategory/domain/MainCategoryList"
 import { Operator } from "@/modules/shared/domain/criteria/FilterOperators"
-import { type SearchByCriteriaQuery } from "@/modules/shared/infraestructure/criteria/SearchByCriteriaQuery"
-import { type DevicePrimitives } from "@/modules/devices/devices/devices/domain/Device"
 import { useEffectAfterMount } from "../Hooks/useEffectAfterMount"
 import { useHandlePage } from "../Hooks/useHandlePage"
+
+import { type SearchByCriteriaQuery } from "@/modules/shared/infraestructure/criteria/SearchByCriteriaQuery"
+import { type DevicePrimitives } from "@/modules/devices/devices/devices/domain/Device"
 
 export interface DeviceContextState {
   devices: DevicePrimitives[]
@@ -21,16 +22,6 @@ export interface DeviceContextState {
   defaultCategoryQuery: SearchByCriteriaQuery
   defaultMainCategory: typeof MainCategoryList[keyof typeof MainCategoryList]
   managePage: ReturnType<typeof useHandlePage>
-  limit: number
-  offset: number
-}
-
-interface List {
-  computer: Computer
-  monitor: Monitor
-  parts: Parts
-  printer: Printer
-  finantialPrinter: FinantialPrinter
 }
 
 export type LocationProps = 'computer' | 'monitor' | 'printer' | 'finantialPrinter' | 'parts'
@@ -43,19 +34,22 @@ type FinantialPrinter = typeof MainCategoryList['FINANTIALPRINTERS']
 
 export const DeviceContext = createContext({} as DeviceContextState)
 
-export type LimitOptions = 10 | 25 | 50 | 100
-
 export const DeviceContextProvider = ({ children, location }: React.PropsWithChildren<{ location?: LocationProps }>) => {
   // Keep track of the previous location in order to determine if the location has changed.
   // This is necessary because the location is used to determine the default main category
   // and we don't want to accidentally reset the filter when the location changes.
-  const previusLocation = useRef(location)    
-
+  const previusLocation = useRef(location)
   
   // Create an object with the different main categories as properties.
   // This is necessary because we need to dynamically determine the default main category
   // based on the location.
-  const list: List = useMemo(() => {
+  const list: {
+    computer: Computer
+    monitor: Monitor
+    parts: Parts
+    printer: Printer
+    finantialPrinter: FinantialPrinter
+  } = useMemo(() => {
     return {
       computer: MainCategoryList.COMPUTER,
       monitor: MainCategoryList.SCREENS,
@@ -145,9 +139,7 @@ export const DeviceContextProvider = ({ children, location }: React.PropsWithChi
       query,
       defaultMainCategory,
       defaultCategoryQuery,
-      managePage,
-      limit: query.limit,
-      offset: query.offset
+      managePage
     }}
     >
       {children}

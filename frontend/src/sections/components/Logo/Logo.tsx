@@ -1,8 +1,9 @@
-import { lazy } from "react"
+import { lazy, memo } from "react"
 import './Logo.css'
 
 const LazyLogoImage = lazy(async () => import("../lazyImages/LazyLogoImage").then((m) => ({ default: m.LazyLogoImage })))
-export default function Logo() {
+
+function Logo() {
   return (
     <div className='Logo flex gap-2 divide-x-2 divide-secondary-900 items-center'>
       <LazyLogoImage className='max-w-11 bg-contain mdlg:w-24 lg:w-28 clear-none' />
@@ -16,3 +17,5 @@ export default function Logo() {
     </div>
   )
 }
+
+export default memo(Logo)

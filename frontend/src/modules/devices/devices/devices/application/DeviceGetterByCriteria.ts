@@ -1,3 +1,4 @@
+import { Order } from '@/modules/shared/domain/criteria/Order'
 import { Criteria } from '../../../../shared/domain/criteria/Criteria'
 import { Filter } from '../../../../shared/domain/criteria/Filter'
 import { FilterField } from '../../../../shared/domain/criteria/FilterField'
@@ -5,7 +6,7 @@ import { FilterOperator } from '../../../../shared/domain/criteria/FilterOperato
 import { Filters } from '../../../../shared/domain/criteria/Filters'
 import { FilterValue } from '../../../../shared/domain/criteria/FilterValue'
 import { Limit } from '../../../../shared/domain/criteria/Limit'
-import { Order } from '../../../../shared/domain/criteria/Order'
+
 import { type SearchByCriteriaQuery } from '../../../../shared/infraestructure/criteria/SearchByCriteriaQuery'
 import { type DevicePrimitives } from '../domain/Device'
 import { DeviceRepository } from '../domain/DeviceRepository'

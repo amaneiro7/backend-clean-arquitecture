@@ -1,12 +1,12 @@
 import { useCallback, useState } from 'react'
-import { DeviceGetterByCriteria } from '../../../modules/devices/devices/devices/application/DeviceGetterByCriteria'
-import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
-import { DevicesMappedApiResponse } from '../../../modules/shared/domain/types/responseTypes'
-import { ApiDeviceRepository } from '../../../modules/devices/devices/devices/infraestructure/ApiDeviceRepository'
-import { DevicePrimitives } from '../../../modules/devices/devices/devices/domain/Device'
+import { DeviceGetterByCriteria } from '@/modules/devices/devices/devices/application/DeviceGetterByCriteria'
+import { type SearchByCriteriaQuery } from '@/modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
+import { type DevicesMappedApiResponse } from '@/modules/shared/domain/types/responseTypes'
+import { ApiDeviceRepository } from '@/modules/devices/devices/devices/infraestructure/ApiDeviceRepository'
+
 
 export interface UseDevice {
-  devices: DevicePrimitives[]
+  devices: DevicesMappedApiResponse[]
   total: number
   loading: boolean
   error: string | null
@@ -14,39 +14,56 @@ export interface UseDevice {
   resetDevices: () => void
 }
 
+const initialState: {
+  devices: DevicesMappedApiResponse[]
+  total: number
+  loading: boolean
+  error: string | null
+} = {
+  devices: [],
+  total: 0,
+  loading: false,
+  error: null
+}
+
 export const useSearchDevice = (): UseDevice => {
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
-  const [devices, setDevices] = useState<DevicesMappedApiResponse[]>([])
-  const [total, setTotal] = useState(0)
+  const [state, setState] = useState(initialState)
 
   const searchDevices = useCallback((filter: SearchByCriteriaQuery) => {
-    setLoading(true)
+    setState((prevState) => ({ ...prevState, loading: true, error: null }))
+
     new DeviceGetterByCriteria(new ApiDeviceRepository())
       .get(filter)
       .then((devices) => {
-        setDevices(devices.data as DevicesMappedApiResponse[])
-        setTotal(devices.total)
-        setLoading(false)
+        setState((prevState) => ({
+          ...prevState,
+          devices: devices.data as DevicesMappedApiResponse[],
+          total: devices.total,
+          error: null
+        }))
       })
       .catch((error) => {
-        setError(error)
+        setState((prevState) => ({
+          ...prevState,
+          // error: 'An unexpected error occurred while trying to search devices' 
+          error: error.message
+        }))
         console.error('searchDevices', error)
       })
       .finally(() => {
-        setLoading(false)
+        setState((prevState) => ({ ...prevState, loading: false }))
       })
   }, [])
 
   const resetDevices = useCallback(() => {
-    setDevices([])
+    setState(initialState)
   }, [])
 
   return {
-    devices,
-    total,
-    loading,
-    error,
+    devices: state.devices,
+    total: state.total,
+    loading: state.loading,
+    error: state.error,
     searchDevices,
     resetDevices
   }

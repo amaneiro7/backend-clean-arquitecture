@@ -1,13 +1,18 @@
-import { lazy } from "react"
+import { lazy, memo } from "react"
 import ReactPaginate from 'react-paginate'
-import { useDeviceContext } from "@/sections/Context/DeviceProvider"
 import './PaginationList.css'
 
 const ArrowRightBadgeIcon = lazy(async () => import("../icon/ArrowRightBadge").then(m => ({ default: m.ArrowRightBadgeIcon })))
 
-export function PaginationList() {
-   const { managePage: { handlePageClick, totalPages, currentPage}} = useDeviceContext()
-   
+export const PaginationList = memo(({
+  totalPages,
+  currentPage,
+  handlePageClick
+}: {
+  totalPages: number
+  currentPage: number
+  handlePageClick: ({ selected }: { selected: number }) => void
+}) => {
   return (
     <ReactPaginate
       pageCount={totalPages}
@@ -27,5 +32,5 @@ export function PaginationList() {
       nextClassName='page'
     />
   )
-
 }
+)

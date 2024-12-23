@@ -13,13 +13,13 @@ const DeviceTable = lazy(() => import("./TableDevice").then(m => ({ default: m.T
 
 export default function ListComputer() {
   const { inputData: initialInputData, defaultInputData } = useDefaultInitialInputValue()
-  const { devices,loading, addFilter, cleanFilters, query, managePage: { showingMessage } } = useDeviceContext()
+  const { devices,loading, addFilter, cleanFilters, query, managePage } = useDeviceContext()
   const { inputData, handleChange, handleClear } = useInputsData({ initialInputData, defaultInputData, addFilter, cleanFilters })
   
   return (
     <Suspense>
       <ListWrapper
-        total={showingMessage}
+        total={managePage.showingMessage}
         title='Lista de equipos de computación'
         url='/device/add'
         loading={loading}
@@ -27,6 +27,7 @@ export default function ListComputer() {
         handleClear={handleClear}
         query={query}
         typeOfSiteId={inputData.typeOfSiteId}
+        managePage={managePage}
         mainFilter={
           <Suspense>
             <MainComputerFilter

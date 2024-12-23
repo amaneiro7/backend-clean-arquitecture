@@ -4,22 +4,25 @@ import { type ModelPrimitives } from "../../modules/devices/model/model/domain/M
 import { useSearchByCriteriaQuery } from "../Hooks/useQueryUpdate"
 import { useModelByCriteria } from "../Hooks/model/useModelByCriteria"
 import { useCreateModel } from "../Hooks/model/useCreateModel"
+import { useHandlePage } from "../Hooks/useHandlePage"
 
 
 export interface ModelContextState {
     models: ModelPrimitives[]
+    total: number
     error: string
     loading: boolean
     createModel: (formData: ModelPrimitives) => Promise<void>    
     addFilter: (payload: SearchByCriteriaQuery) => void
     cleanFilters: () => void
     query: SearchByCriteriaQuery
+    managePage: ReturnType<typeof useHandlePage>
 }
 
 export const ModelContext = createContext({} as ModelContextState)
 
 export const ModelContextProvider = ({ children }: React.PropsWithChildren) => {
-    const { models, loading, error, searchModelsByCriteria } = useModelByCriteria()
+    const { models, total, loading, error, searchModelsByCriteria, reset } = useModelByCriteria()
     const { addFilter, cleanFilters, query } = useSearchByCriteriaQuery()
     const { createModel } = useCreateModel()
 
@@ -29,24 +32,37 @@ export const ModelContextProvider = ({ children }: React.PropsWithChildren) => {
       return res
     }
 
+    const managePage = useHandlePage({ 
+      addFilter,
+      limit: query.limit,
+      offset: query.offset,
+      total,
+     })
+
   useEffect(() => {
     searchModelsByCriteria(query)
-  }, [query, searchModelsByCriteria])
 
-        return(
-          <ModelContext.Provider value={{
-              models,
-              error,
-              loading,
-              createModel: handleCreate,
-              addFilter,
-              cleanFilters, 
-              query,
-            }}
-          >
-            {children}
-          </ModelContext.Provider>
-    )
+    return () => {
+      reset()
+    }
+  }, [query, reset, searchModelsByCriteria])
+
+  return (
+    <ModelContext.Provider value={{
+        models,
+        total,
+        error,
+        loading,
+        createModel: handleCreate,
+        addFilter,
+        cleanFilters, 
+        query,
+        managePage,
+      }}
+    >
+      {children}
+    </ModelContext.Provider>
+)
 }
 
 // eslint-disable-next-line react-refresh/only-export-components

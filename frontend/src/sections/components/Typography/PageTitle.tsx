@@ -1,4 +1,6 @@
-export default function PageTitle ({ title, optionalText }: { title: string, optionalText?: string }) {
+import { memo } from "react"
+
+function PageTitle ({ title, optionalText }: { title: string, optionalText?: string }) {
   return (
     <h1 className='min-h-fit mb-5 text-xl font-bold leading-tight tracking-tight text-secondary-950 md:text-2xl dark:text-white'>
       {title}
@@ -7,3 +9,4 @@ export default function PageTitle ({ title, optionalText }: { title: string, opt
   )
 }
 
+export default memo(PageTitle)

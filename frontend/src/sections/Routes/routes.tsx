@@ -31,13 +31,13 @@ const RegisterPage = lazy(() => import('../page/user-management/register/Registe
 const ManagementProfile = lazy(() => import('../page/user-management/profile/ManagementProfile.tsx'))
 
 export default function AppRoutes() {
-  const { useAuth: { user } } = useAuthContext()
+  const { useAuth: { isSignIn } } = useAuthContext()
   return (
     <Routes>
-      <Route path='/login' element={<Suspense><Login user={user} /></Suspense>} />
+      <Route path='/login' element={<Suspense><Login isSignIn={isSignIn} /></Suspense>} />
       <Route
         path='/'
-        element={<ProtectedRoute user={user}><Suspense><Layout /></Suspense></ProtectedRoute>}
+        element={<ProtectedRoute isSignIn={isSignIn}><Suspense><Layout /></Suspense></ProtectedRoute>}
       >
         <Route path='/' element={<Suspense><Home /></Suspense>} />
 

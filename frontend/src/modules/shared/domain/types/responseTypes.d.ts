@@ -43,7 +43,7 @@ import { type Primitives } from '../value-object/Primitives'
 import { type HistoryPrimitives } from '../../../history/domain/history'
 import { type RoleId } from '../../../user/role/domain/RoleId'
 import { type DeviceStockNumber } from '../../../devices/devices/devices/domain/DeviceStockNumber'
-import { MFPPrimitives } from '@/modules/devices/fetures/multiFunctionalPrinter/MFP'
+import { type MFPPrimitives } from '@/modules/devices/fetures/multiFunctionalPrinter/MFP'
 
 interface UserApiResponse {
   user: UserApiResponsePrimitives
@@ -163,16 +163,7 @@ export type ModelMonitor = ModelMonitorPrimitives
 export interface ModelKeyboard extends ModelKeyboardPrimitives {
   inputType: InputTypePrimitives
 }
-export interface ModelMappedApiResponse {
-  id: Primitives<ModelId>
-  name: Primitives<ModelName>
-  categoryId: Primitives<CategoryId>
-  categoryName: Primitives<CategoryName>
-  brandId: Primitives<BrandId>
-  brandName: Primitives<BrandName>
-  createdAt: string
-  updatedAt: string
-}
+
 
 export interface Computer extends ComputerPrimitives {
   deviceId: Primitives<DeviceId>

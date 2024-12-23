@@ -1,19 +1,27 @@
-import { lazy, Suspense } from 'react'
+import { lazy, memo, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-
-import { InputSkeletonLoading } from '../../components/skeleton/inputSkeletonLoading'
 import { useLogin } from './useLogin'
 
 const Logo = lazy(async () => await import('../../components/Logo/Logo'))
 const Input = lazy(async () => import('../../components/text-inputs/Input').then(m => ({ default: m.Input })))
 const PageTitle = lazy(async () => await import('../../components/Typography/PageTitle'))
 const Button = lazy(async () => await import('../../components/button/button'))
-const CircleSpinningIcon = lazy(() => import('../../components/icon/CircleSpinning').then(m => ({ default: m.CircleSpinningIcon })))
 const Copyright = lazy(async () => await import('../../components/Copyright').then(m => ({ default: m.Copyright })))
 
-export function FormLogin() {
+const CircleSpinningIcon = lazy(() => import('../../components/icon/CircleSpinning').then(m => ({ default: m.CircleSpinningIcon })))
+const LockIcon = lazy(async () => await import('../../components/icon/LockIcon').then(m => ({ default: m.LockIcon })))
+const UnlockIcon = lazy(async () => await import('../../components/icon/UnlockIcon').then(m => ({ default: m.UnlockIcon })))
+const MailIcon = lazy(async () => await import('../../components/icon/MailIcon').then(m => ({ default: m.MailIcon })))
+
+export const FormLogin = memo(() => {
   const navigate = useNavigate()
   const { formData, errors, loading, valid, handleChange, handleSubmit } = useLogin({ navigate })
+  const [toggleShowPassword, setToggleShowPassword] = useState(false)
+
+  const handleToggleShowPassowrd = () => {
+    setToggleShowPassword(!toggleShowPassword)
+  }
+
   return (
     <main className='bg-gray-300 dark:bg-gray-900'>
       <section className='flex flex-col items-center justify-center gap-2 px-6 py-8 mx-auto md:h-screen lg:py-0'>
@@ -27,32 +35,40 @@ export function FormLogin() {
 
           <form id='login' action='submit' onSubmit={handleSubmit}>
             <div className='space-y-6 md:space-y-8 mb-20'>
-              <Suspense fallback={<InputSkeletonLoading />}>
-                <Input
-                  label='Correo Electrónico'
-                  type='email'
-                  name='email'
-                  onChange={handleChange}
-                  value={formData.email}
-                  errorMessage={errors.email}
-                  error={errors.email ? true : false}
-                  valid={valid.email}
-                  isRequired
-                />
-              </Suspense>
-              <Suspense fallback={<InputSkeletonLoading />}>
-                <Input
-                  label='Contraseña'
-                  type='password'
-                  name='password'
-                  onChange={handleChange}
-                  value={formData.password}
-                  errorMessage={errors.password}
-                  error={errors.password ? true : false}
-                  valid={valid.password}
-                  isRequired
-                />
-              </Suspense>
+              
+              <Input
+                leftIcon={<MailIcon className='w-4 fill-black/60 aspect-square' />}
+                label='Correo Electrónico'
+                type='email'
+                name='email'
+                onChange={handleChange}
+                value={formData.email}
+                errorMessage={errors.email}
+                error={errors.email ? true : false}
+                valid={valid.email}
+                isRequired
+              />
+              
+              
+              <Input
+                leftIcon={<LockIcon className='w-4 fill-black/60 aspect-square' />}
+                label='Contraseña'
+                type={toggleShowPassword ? 'text' : 'password'}
+                name='password'
+                onChange={handleChange}
+                value={formData.password}
+                errorMessage={errors.password}
+                error={errors.password ? true : false}
+                valid={valid.password}
+                rightIcon={
+                    toggleShowPassword ? 
+                      <UnlockIcon className='w-4 fill-black/60 aspect-square' /> : 
+                      <LockIcon className='w-4 fill-black/60 aspect-square' />
+                  }
+                onRightIconClick={handleToggleShowPassowrd}
+                isRequired
+              />
+              
 
             </div>
 
@@ -78,4 +94,4 @@ export function FormLogin() {
       </section>
     </main>
   )
-}
+})

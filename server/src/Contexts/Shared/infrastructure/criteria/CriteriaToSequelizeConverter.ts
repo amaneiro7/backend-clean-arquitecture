@@ -23,7 +23,7 @@ export class CriteriaToSequelizeConverter {
     }
 
     if (criteria.limit !== undefined && criteria.offset !== undefined) {
-      query.offset = criteria.limit * (criteria.offset - 1)
+      query.offset = criteria.offset
     }
 
     return query
@@ -46,6 +46,6 @@ export class CriteriaToSequelizeConverter {
     }
 
     return { [field]: filter.value.value }
-    
+
   }
 }

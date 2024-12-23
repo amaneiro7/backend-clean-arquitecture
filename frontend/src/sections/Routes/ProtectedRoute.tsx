@@ -1,13 +1,12 @@
 import { Navigate, useLocation } from 'react-router-dom'
-import { UserPrimitives } from '../../modules/user/user/domain/User'
 
 interface Props {
-  user: UserPrimitives | null
+  isSignIn: boolean
 }
-export function ProtectedRoute({ children, user }: React.PropsWithChildren<Props>) {
+export function ProtectedRoute({ children, isSignIn }: React.PropsWithChildren<Props>) {
   const location = useLocation()
 
-  if (!user) {
+  if (!isSignIn) {
     return <Navigate to='/login' state={{ from: location }} replace />
   }
 

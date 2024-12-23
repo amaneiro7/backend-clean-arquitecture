@@ -1,6 +1,5 @@
 import { sequelize } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeConfig'
 import { Criteria } from '../../../../Shared/domain/criteria/Criteria'
-import { CriteriaToSequelizeConverter } from '../../../../Shared/infrastructure/criteria/CriteriaToSequelizeConverter'
 import { type Transaction } from 'sequelize'
 import { type Primitives } from '../../../../Shared/domain/value-object/Primitives'
 
@@ -19,8 +18,9 @@ import { KeyboardModels } from '../../../ModelCharacteristics/Keyboards/domain/K
 import { MouseModels } from '../../../ModelCharacteristics/Mouses/domain/MouseModels'
 import { CacheService } from '../../../../Shared/domain/CacheService'
 import { CategoryId } from '../../../../Category/SubCategory/domain/CategoryId'
+import { SequelizeCriteriaConverter } from '../../../../Shared/infrastructure/persistance/Sequelize/SequelizeCriteriaConverter'
 
-export class SequelizeModelSeriesRepository extends CriteriaToSequelizeConverter implements ModelSeriesRepository {
+export class SequelizeModelSeriesRepository extends SequelizeCriteriaConverter implements ModelSeriesRepository {
   private readonly models = sequelize.models as unknown as Models
   private readonly cacheKey: string = 'modelSeries'
   constructor(private readonly cache: CacheRepository) {
@@ -44,11 +44,17 @@ export class SequelizeModelSeriesRepository extends CriteriaToSequelizeConverter
 
   }
 
-  async matching(criteria: Criteria): Promise<ModelSeriesPrimitives[]> {
+  async matching(criteria: Criteria): Promise<{ total: number; data: ModelSeriesPrimitives[] }> {
     const options = this.convert(criteria)
+    console.log(options.offset)
     const locationOption = new ModelAssociation().convertFilterLocation(criteria, options)
 
-    return await ModelSeriesModel.findAll(locationOption)
+    const { count: total, rows: data } = await ModelSeriesModel.findAndCountAll(locationOption)
+
+    return {
+      total,
+      data: data.map((model) => model.get())
+    }
   }
 
   async searchById(id: string): Promise<ModelSeriesPrimitives | null> {

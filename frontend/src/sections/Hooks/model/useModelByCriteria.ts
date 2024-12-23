@@ -1,41 +1,66 @@
 import { useCallback, useState } from 'react'
-import { type SearchByCriteriaQuery } from '../../../modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
-import { type ModelPrimitives } from '../../../modules/devices/model/model/domain/Model'
-import { ModelGetterByCriteria } from '../../../modules/devices/model/model/application/ModelGetterByCriteria'
-import { ApiModelRepository } from '../../../modules/devices/model/model/infraestructure/ApiModelRepository'
+import { ModelGetterByCriteria } from '@/modules/devices/model/model/application/ModelGetterByCriteria'
+import { ApiModelRepository } from '@/modules/devices/model/model/infraestructure/ApiModelRepository'
+import { type SearchByCriteriaQuery } from '@/modules/shared/infraestructure/criteria/SearchByCriteriaQuery'
+import { type ModelApiresponse } from '@/modules/shared/domain/types/responseTypes'
 
 export interface UseModelByCriteria {
-  models: ModelPrimitives[]
+  models: ModelApiresponse[]
+  total: number
   loading: boolean
   error: string | null
   searchModelsByCriteria: (filter: SearchByCriteriaQuery) => void
+  reset: () => void
+}
+
+const initialState: {
+  models: ModelApiresponse[]
+  total: number
+  loading: boolean
+  error: string | null
+} = {
+  models: [],
+  total: 0,
+  loading: false,
+  error: null
 }
 
 export const useModelByCriteria = (): UseModelByCriteria => {
-  const [loading, setLoading] = useState<boolean>(true)
-  const [error, setError] = useState<string | null>(null)
-  const [models, setModels] = useState<ModelPrimitives[]>([])
+  const [state, setState] = useState(initialState)
 
   const searchModelsByCriteria = useCallback((filter: SearchByCriteriaQuery) => {
-    setLoading(true)
+    setState((prevState) => ({ ...prevState, loading: true, error: null }))
+
     new ModelGetterByCriteria(new ApiModelRepository())
       .get(filter)
       .then((model) => {
-        setModels(model)
+        setState({
+          models: model.data as ModelApiresponse[],
+          total: model.total,
+          loading: false,
+          error: null
+        })
       })
       .catch((error: Error) => {
-        console.error('searchModels', error)
-        setError('An unexpected error occurred while trying to search models')
-      })
-      .finally(() => {
-        setLoading(false)
+        setState((prevState) => ({
+          ...prevState,
+          loading: false,
+          // error: 'An unexpected error occurred while trying to search models' 
+          error: error.message
+        }))
       })
   }, [])
 
+  const reset = useCallback(() => {
+    setState(initialState)
+  }, [])
+
   return {
-    models,
-    loading,
-    error,
-    searchModelsByCriteria
+    models: state.models,
+    total: state.total,
+    loading: state.loading,
+    error: state.error,
+    searchModelsByCriteria,
+    reset
   }
 }

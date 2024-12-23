@@ -28,7 +28,10 @@ export class AuthPostController {
       res
         .status(httpStatus.OK)
         .cookie('accessToken', accessToken, { httpOnly: true, })
-        .json({ ...infoUser, message: 'Usuario logeado exitosamente' })
+        .json({
+          ...infoUser,
+          message: 'Sesión iniciada exitosamente'
+        })
     } catch (error) {
       next(error)
     }
@@ -45,12 +48,12 @@ export class AuthPostController {
         .status(httpStatus.OK)
         .cookie('refreshToken', refreshToken, {
           httpOnly: true,
-          secure: process.env.NODE_ENV === 'production',
+          // secure: process.env.NODE_ENV === 'production',
           sameSite: 'strict',
         })
         .json({
           ...infoUser,
-          message: 'Usuario logeado exitosamente'
+          message: 'Sesion iniciada exitosamente'
         })
     } catch (error) {
       next(error)
@@ -60,8 +63,10 @@ export class AuthPostController {
   refreshToken = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const refreshToken = req?.cookies?.refreshToken as string
+
       if (refreshToken === undefined) {
         res.sendStatus(httpStatus.FORBIDDEN)
+
       }
 
       const { email, roleId, sub: id } = validateToken(refreshToken, config.refreshTokenSecret)
@@ -72,7 +77,8 @@ export class AuthPostController {
         throw new Error('User not found')
       }
       if (!user || user.email !== email || user.roleId !== roleId) {
-        res.status(httpStatus.FORBIDDEN).json({ message: 'Token de refresco invalido' })
+        res.sendStatus(httpStatus.FORBIDDEN)
+        return
       }
 
       const accessToken = generateAceessTokens({ email, roleId, id })
@@ -88,9 +94,11 @@ export class AuthPostController {
 
   logout = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      res.clearCookie('refreshToken')
-      res.clearCookie('accessToken')
-      res.status(httpStatus.OK).json({ message: 'Sesion cerrada exitosamente' })
+      res
+        .status(httpStatus.OK)
+        .clearCookie('refreshToken')
+        .clearCookie('accessToken')
+        .json({ message: 'Sesion cerrada exitosamente' })
     } catch (error) {
       next(error)
     }

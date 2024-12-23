@@ -1,4 +1,4 @@
-import { lazy, PropsWithChildren } from 'react'
+import { lazy, memo, PropsWithChildren } from 'react'
 import { createFilterOptions } from '@mui/material'
 import parse from 'autosuggest-highlight/parse'
 import match from 'autosuggest-highlight/match'
@@ -29,7 +29,7 @@ interface Props<T, Multiple extends boolean, Disable extends boolean, FreeSolo e
 
 
 const filter = createFilterOptions()
-export default function ComboBox<T, Multiple extends boolean, Disable extends boolean, FreeSolo extends boolean>({
+function ComboBox<T, Multiple extends boolean, Disable extends boolean, FreeSolo extends boolean>({
   id,
   name,
   initialValue = null,
@@ -98,12 +98,12 @@ export default function ComboBox<T, Multiple extends boolean, Disable extends bo
         handleHomeEndKeys        
         clearIcon={<CloseIcon fontSize='small' />}
         renderInput={(params) => (
-            <TextField
-              {...params}
-              label={label}
-              name={name}              
-              required={isRequired}
-              InputProps={{
+          <TextField
+            {...params}
+            label={label}
+            name={name}              
+            required={isRequired}
+            InputProps={{
                 ...params.InputProps,
                 endAdornment: (
                   <>
@@ -112,10 +112,10 @@ export default function ComboBox<T, Multiple extends boolean, Disable extends bo
                   </>
                 ),
               }}
-              color={isError ? 'warning' : 'primary'}
-              error={isError}
-              helperText={errorMessage}
-            />          
+            color={isError ? 'warning' : 'primary'}
+            error={isError}
+            helperText={errorMessage}
+          />          
         )}
         renderOption={(props, option, { inputValue }) => {
           const matches = match(option.name, inputValue, { insideWords: true });
@@ -142,3 +142,5 @@ export default function ComboBox<T, Multiple extends boolean, Disable extends bo
     </>
   )
 }
+
+export default memo(ComboBox) as typeof ComboBox

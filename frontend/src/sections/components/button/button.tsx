@@ -1,3 +1,5 @@
+import { memo } from "react"
+
 interface Props extends React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
   text: string
   color: keyof typeof COLOR
@@ -28,7 +30,7 @@ const COLOR = {
   secondary: `text-secondary border border-secondary bg-white hover:text-white hover:bg-secondary disabled:bg-secondary`
 } as const
 
-export default function Button({ text, hoverTranslation, icon, className, buttonSize, size, color, ...props }: Props) {
+function Button({ text, hoverTranslation, icon, className, buttonSize, size, color, ...props }: Props) {
   return (
     <button      
       className={`flex justify-center items-center gap-2 ${BUTTONSIZE[buttonSize]} ${COLOR[color]} ${SIZE[size]} font-medium rounded-md cursor-pointer border border-solid transition-all duration-200 ease-in disabled:opacity-70 disabled:cursor-not-allowed ${hoverTranslation && 'hover:shadow-lg disabled:translate-y-0 hover:-translate-y-1'} ${className}`}
@@ -41,3 +43,5 @@ export default function Button({ text, hoverTranslation, icon, className, button
     </button>
   )
 }
+
+export default memo(Button)

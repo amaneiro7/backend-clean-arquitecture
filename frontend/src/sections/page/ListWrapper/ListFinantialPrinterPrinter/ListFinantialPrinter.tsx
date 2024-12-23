@@ -10,13 +10,13 @@ const DeviceTable = lazy(() => import("../DeviceDefaultTable").then(m => ({ defa
 const FinantialPrinterDescription = lazy(() => import("./FinantialPrintersDescription").then(m => ({ default: m.FinantialPrinterDescription })))
 export default function ListFinantialPrinter() {        
   const { inputData: initialInputData, defaultInputData } = useDefaultInitialInputValue()
-  const { devices, total, loading, addFilter, cleanFilters, query } = useDeviceContext()
+  const { devices, managePage, loading, addFilter, cleanFilters, query } = useDeviceContext()
   const { inputData, handleChange, handleClear } = useInputsData({ initialInputData, defaultInputData, addFilter, cleanFilters })
   
     return (    
       <Suspense>
         <ListWrapper
-          total={total}
+          total={managePage.showingMessage}
           title='Lista de impresoras Financieras'
           url='/device/add'
           loading={loading}
@@ -24,6 +24,7 @@ export default function ListFinantialPrinter() {
           handleClear={handleClear}
           query={query}
           typeOfSiteId={inputData.typeOfSiteId}
+          managePage={managePage}
           mainFilter={
             <Suspense>
               <MainComputerFilter 

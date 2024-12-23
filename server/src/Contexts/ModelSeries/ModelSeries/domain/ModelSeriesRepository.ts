@@ -10,7 +10,7 @@ export abstract class ModelSeriesRepository {
 
   abstract searchAll(): Promise<ModelSeriesPrimitives[]>
 
-  abstract matching(criteria: Criteria): Promise<ModelSeriesPrimitives[]>
+  abstract matching(criteria: Criteria): Promise<{ total: number; data: ModelSeriesPrimitives[] }>
 
   abstract searchById(id: Primitives<ModelSeriesId>): Promise<ModelSeriesPrimitives | null>
 

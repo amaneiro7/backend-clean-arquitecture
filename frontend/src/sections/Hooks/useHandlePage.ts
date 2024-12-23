@@ -8,19 +8,18 @@ export type HandlePage = {
     totalPages: number
     showingMessage: string
     currentPage: number
+    limit: number
+    offset: number
 }
 
-export const useHandlePage = ({
-    addFilter,
-    limit,
-    offset,
-    total
-}: {
+type Props = {
     addFilter: (filter: SearchByCriteriaQuery) => void
     limit: number
     offset: number
     total: number
-}): HandlePage => {
+}
+
+export const useHandlePage = ({ addFilter, limit, offset, total }: Props): HandlePage => {
     const currentPage = useMemo(() => offset / limit + 1, [offset, limit])
     // Handle the change in the limit.
     const handleLimitChange = useCallback((value: number) => {
@@ -49,6 +48,8 @@ export const useHandlePage = ({
         handlePageClick,
         totalPages,
         showingMessage,
-        currentPage
+        currentPage,
+        limit,
+        offset
     }
 }

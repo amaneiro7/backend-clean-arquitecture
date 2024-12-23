@@ -42,6 +42,7 @@ export function ChangePassowrdForm({
               label='Clave Actual'
               type='password'
               name='password'
+              autoComplete='current-password'
               onChange={handleChange}
               value={formData.password}
               errorMessage={errors.password}

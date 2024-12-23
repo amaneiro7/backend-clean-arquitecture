@@ -80,13 +80,14 @@ export class Server {
 
     // Middlewares opcionales de cache
     // this.app.use(cacheMiddleware)
-    this.app.use(expiresMiddleware)
-    this.app.use(lastModifiedMiddleware)
-    this.app.use(etagMiddleware)
+    // this.app.use(expiresMiddleware)
+    // this.app.use(lastModifiedMiddleware)
+    // this.app.use(etagMiddleware)
   }
 
   private setupRoutes(repository: Repository): void {
     const router = Router()
+
     if (!config.isProd) {
       router.use(errorHandler({
         log: this.errorNotification

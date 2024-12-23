@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react"
+import { lazy, memo, Suspense } from "react"
 
 const Table = lazy(async () => import("@/sections/components/Table/Table").then(m => ({ default: m.Table })))
 const TableHeader = lazy(async () => import("@/sections/components/Table/TableHeader").then(m => ({ default: m.TableHeader })))
@@ -10,7 +10,7 @@ interface Props<T> {
   children?: React.ReactElement<T>
 }
 
-export function DefaultDeviceTable<T>({ children }: Props<T>) {
+function DeviceTable<T>({ children }: Props<T>) {
   return (
     <Suspense>
       <Table>
@@ -33,3 +33,5 @@ export function DefaultDeviceTable<T>({ children }: Props<T>) {
     </Suspense>
   )
 }
+
+export const DefaultDeviceTable = memo(DeviceTable)

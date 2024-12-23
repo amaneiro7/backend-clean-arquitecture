@@ -1,7 +1,10 @@
+import { memo } from "react";
 import Img from "../../../assets/bnclogo.webp"
 
-interface Props extends React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> {}
+type Props = React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>
 
-export function LazyLogoImage({...props}: Props) {
+export function LogoImage({...props}: Props) {
   return <img {...props} src={Img} alt='Logo' />;
 }
+
+export const LazyLogoImage = memo(LogoImage)

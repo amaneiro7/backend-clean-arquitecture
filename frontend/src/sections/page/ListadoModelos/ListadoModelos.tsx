@@ -7,17 +7,19 @@ import { type ModelApiresponse } from "@/sections/../modules/shared/domain/types
 const ListWrapper = lazy(async () => import("@/sections/components/ListComponent/ListWrapper").then(m => ({ default: m.ListWrapper })))
 const MainModelFilter = lazy(async () => import("@/sections/components/ListComponent/MainModelFIlter").then(m => ({ default: m.MainModelFilter })))
 const ModelTable = lazy(async () => import("./ModelTable").then(m => ({ default: m.ModelTable })))
+const ModelDescription = lazy(async () => import("./ModelDescription").then(m => ({ default: m.ModelDescription })))
 
 export default function ListadoModelos() {
   const { inputData: initialInputData, defaultInputData } = useDefaultInitialInputValue()
-  const { models, query, loading, addFilter, cleanFilters } = useModelContext()
+  const { models, managePage, query, loading, addFilter, cleanFilters } = useModelContext()
   const { inputData, handleChange, handleClear } = useInputsData({ addFilter, cleanFilters, defaultInputData, initialInputData })
 
   return (
     <Suspense>
       <ListWrapper
         query={query}
-        total={models.length}        
+        total={managePage.showingMessage}
+        managePage={managePage}
         title='List de modelos'
         url='/model/add'
         loading={loading}
@@ -35,10 +37,9 @@ export default function ListadoModelos() {
         }
         table={
           <Suspense>
-            <ModelTable
-              models={models as ModelApiresponse[]}
-              categoryId={inputData.categoryId}
-            />
+            <ModelTable>
+              <ModelDescription models={models as ModelApiresponse[]} />
+            </ModelTable>            
           </Suspense>
         }
       />
