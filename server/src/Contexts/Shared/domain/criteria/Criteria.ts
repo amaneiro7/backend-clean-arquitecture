@@ -5,7 +5,7 @@ import { type Filters } from './Filters'
 import { type Order } from './Order'
 
 export class Criteria {
-  constructor (
+  constructor(
     public readonly filters: Filters,
     public readonly order: Order,
     public readonly limit?: number,
@@ -16,15 +16,22 @@ export class Criteria {
     }
   }
 
-  hasFilters (): boolean {
+  hasFilters(): boolean {
     return !this.filters.isEmpty()
   }
 
-  hasOrder (): boolean {
+  hasOrder(): boolean {
     return this.order.hasOrder()
   }
 
-  searchValueInArray (field: Primitives<FilterField>): boolean {
+  searchValueInArray(field: Primitives<FilterField>): boolean {
     return this.filters.value.some(filter => filter.field.value === field)
   }
+
+  obtainFilterValue(field: Primitives<FilterField>) {
+    return this.filters.value.map(filter => {
+      if (filter.field.value === field) return filter.value.value
+    })
+  }
+
 }

@@ -10,12 +10,12 @@ interface Props<T> extends React.DetailedHTMLProps<React.TdHTMLAttributes<HTMLTa
 }
 
 const SIZE = {
-  xxSmall: 'w-8', // 32px
-  xSmall: 'w-20', // 80px
-  small: 'w-28', // 112px
-  medium: 'w-36', // 144px
-  large: 'w-44', // 176px
-  xLarge: 'w-52' // 224px
+  xxSmall: 'max-w-8 min-w-8 w-8', // 32px
+  xSmall: 'max-w-20 min-w-20 w-20', // 80px
+  small: 'max-w-28 min-w-28 w-28', // 112px
+  medium: 'max-w-36 min-w-36 w-36', // 144px
+  large: 'max-w-44 min-w-44 w-44', // 176px
+  xLarge: 'max-w-52 min-w-52 w-52' // 224px
 } as const
 
 export function TableCell<T>({ value, url, state, size, ...props }: React.PropsWithChildren<Props<T>>) {
@@ -26,8 +26,8 @@ export function TableCell<T>({ value, url, state, size, ...props }: React.PropsW
       title={`${value}`}
       {...props}
     >
-      {url ? 
-        <Suspense><TableCellWithUrl value={value} url={url} state={state}  /></Suspense>
+      {url 
+      ? <Suspense><TableCellWithUrl value={value} url={url} state={state}  /></Suspense>
       : <Suspense><TableCellText value={value} /></Suspense>}
     </td>
   )

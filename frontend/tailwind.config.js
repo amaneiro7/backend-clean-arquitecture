@@ -73,6 +73,11 @@ export default {
         cancel: '#77838f'
       }
     },
+    animation: {
+      'pulse-fast': 'pulse 2s ease-in-out 0s infinite',
+      'pulse-medium': 'pulse 2s ease-in-out 1.5s infinite',
+      'pulse-slow': 'pulse 2s ease-in-out 3s infinite'
+    },
     fontFamily: {
       montserrat: [
         'Montserrat',

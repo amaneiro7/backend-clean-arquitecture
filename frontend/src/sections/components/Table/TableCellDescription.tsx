@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react"
+import { lazy } from "react"
 import { type LinkProps } from "react-router-dom"
 import { type TableCellDescInfo } from "./TableCellDescInfo"
 import './TableCellDescription.css'
@@ -21,7 +21,7 @@ export function TableCellDescription<T extends typeof TableCellDescInfo> ({colsp
             <div aria-description='Informacion' className='grid grid-cols-[repeat(auto-fit,_minmax(160px,_1fr))] gap-y-2 gap-x-2'>
               {children}
             </div>
-            <Suspense><TableCellDescEdit state={state} url={url} stateId={stateId} /></Suspense>
+            <TableCellDescEdit state={state} url={url} stateId={stateId} />
           </div>
 
         </td>

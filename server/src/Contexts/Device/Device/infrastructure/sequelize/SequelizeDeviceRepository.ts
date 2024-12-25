@@ -63,7 +63,7 @@ export class SequelizeDeviceRepository extends SequelizeCriteriaConverter implem
     const res = filtered ?? data
     return {
       total,
-      data: JSON.parse(JSON.stringify(res))
+      data
     }
   }
 
@@ -99,7 +99,7 @@ export class SequelizeDeviceRepository extends SequelizeCriteriaConverter implem
             },
             'employee'
           ],
-          order: ['createdAt', 'DESC']
+          order: [['createdAt', 'DESC']]
         }
       ]
     }) ?? null

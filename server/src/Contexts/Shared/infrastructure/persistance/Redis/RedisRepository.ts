@@ -17,7 +17,7 @@ export class RedisRepository implements CacheRepository {
         this.init()
     }
 
-    private async init() {
+    async init() {
         try {
             await this.client.connect()
             console.log('Connected to Redis')

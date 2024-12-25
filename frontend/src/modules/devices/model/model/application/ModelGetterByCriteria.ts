@@ -25,8 +25,6 @@ export class ModelGetterByCriteria {
     })
     const order = Order.fromValues(query.orderBy, query.orderType)
 
-    console.log('query.limit', query.limit)
-    console.log('query.offset', query.offset)
     const limit = new Limit(query.limit)
     const offset = new Limit(query.offset)
     const criteria = new Criteria(new Filters(filters), order, limit, offset)

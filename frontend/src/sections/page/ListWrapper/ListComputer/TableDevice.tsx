@@ -1,4 +1,5 @@
-import { lazy, Suspense, useState } from "react"
+import React, { lazy, Suspense, useState } from "react"
+import { LoadingTable } from "@/sections/components/Table/LodingTable"
 import { type DevicesApiResponse } from "@/modules/shared/domain/types/responseTypes"
 
 const Table = lazy(async () => import("@/sections/components/Table/Table").then(m => ({ default: m.Table })))
@@ -11,10 +12,12 @@ const TableCellOpenIcon = lazy(async () => import("@/sections/components/Table/T
 const ComputerDescription = lazy(async () => import("./ComputerDescription").then(m => ({ default: m.ComputerDescription })))
 
 interface Props {
-    devices: DevicesApiResponse[] 
+    devices: DevicesApiResponse[]
+    loading: boolean
+    limit?: number
 }
 
-export function TableWrapper({devices}: Props) {
+export function TableWrapper({ devices, loading = true, limit = 25 }: Props) {
     const [expandedRows, setExpandedRows] = useState([])    
     // This function handles the event when a row is clicked. It takes the ID of the clicked row as an argument.
     // It first creates a copy of the current expanded rows.
@@ -30,50 +33,47 @@ export function TableWrapper({devices}: Props) {
         : currentExpandedRows.concat(id) // If it's not expanded, add the ID to the list of expanded rows
       setExpandedRows(newExpandedRows) // Update the state with the new list of expanded rows
     }
-    return (
-      <Suspense>
-        <Table>
-          <TableHeader>        
-            <TableRow>
-              <TableHead size='small' name='Usuario' />
-              <TableHead size='large' name='Ubicación' />
-              <TableHead size='small' name='Dirección IP' />
-              <TableHead size='small' name='Serial' />          
-              <TableHead size='small' name='Categoria' />
-              <TableHead size='small' name='Marca' />
-              <TableHead size='xLarge' name='Modelo' />
-              <TableHead size='small' name='Nombre de Equipo' />              
-              <TableHead size='small' name='Observaciones' />
-              <TableHead size='xxSmall' name='' />
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {
-            devices?.map(device => (
-              <Suspense key={device.id}>
-                <TableRow className={`[&>td]:cursor-pointer ${expandedRows.includes(device.id) && '[&>td]:bg-slate-200 [&>td]:border-b-slate-200'}`} onClick={() => handleRowClick(device.id)}>                  
-                  <TableCell size='small' value={device.employee?.userName} />
-                  <TableCell size='large' value={device.location?.name} />
-                  <TableCell size='small' value={device.computer?.ipAddress} />
-                  <TableCell size='small' value={device.serial} />
-                  <TableCell size='small' value={device.category?.name} />
-                  <TableCell size='small' value={device.brand?.name} />
-                  <TableCell size='xLarge' value={device.model?.name} />
-                  <TableCell size='small' value={device.computer?.computerName} />
-                  <TableCell size='small' value={device.observation} />
-                  <TableCellOpenIcon open={expandedRows.includes(device.id)} />
-                </TableRow>
-                <Suspense>
-                  <ComputerDescription 
-                    open={expandedRows.includes(device.id)}
-                    device={device}
-                  />
-                </Suspense>
+    return (      
+      <Table>
+        <TableHeader>        
+          <TableRow>
+            <TableHead size='small' name='Usuario' />
+            <TableHead size='large' name='Ubicación' />
+            <TableHead size='small' name='Dirección IP' />
+            <TableHead size='small' name='Serial' />          
+            <TableHead size='small' name='Categoria' />
+            <TableHead size='small' name='Marca' />
+            <TableHead size='xLarge' name='Modelo' />
+            <TableHead size='small' name='Nombre de Equipo' />              
+            <TableHead size='small' name='Observaciones' />
+            <TableHead size='xxSmall' name='' />
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {loading 
+          ? <LoadingTable colspan={9} registerPerPage={limit} />
+          : devices?.map(device => (
+            <React.Fragment key={device.id}>
+              <TableRow className={`[&>td]:cursor-pointer ${expandedRows.includes(device.id) && '[&>td]:bg-slate-200 [&>td]:border-b-slate-200'}`} onClick={() => handleRowClick(device.id)}>                  
+                <TableCell size='small' value={device.employee?.userName} />
+                <TableCell size='large' value={device.location?.name} />
+                <TableCell size='small' value={device.computer?.ipAddress} />
+                <TableCell size='small' value={device.serial} />
+                <TableCell size='small' value={device.category?.name} />
+                <TableCell size='small' value={device.brand?.name} />
+                <TableCell size='xLarge' value={device.model?.name} />
+                <TableCell size='small' value={device.computer?.computerName} />
+                <TableCell size='small' value={device.observation} />
+                <TableCellOpenIcon open={expandedRows.includes(device.id)} />
+              </TableRow>
+              <Suspense>
+                <ComputerDescription 
+                  open={expandedRows.includes(device.id)}
+                  device={device}
+                />
               </Suspense>
-            ))
-        }
-          </TableBody>
-        </Table>
-      </Suspense>
-    )
-    }
+            </React.Fragment>
+            ))}
+        </TableBody>
+      </Table>
+    )}

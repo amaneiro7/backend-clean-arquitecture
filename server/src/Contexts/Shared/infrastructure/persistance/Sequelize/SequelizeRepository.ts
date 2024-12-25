@@ -76,7 +76,7 @@ export interface Models {
   InputType: ModelStatic<Model<any>>
 }
 
-export const sequelizeRepository = (cache: CacheRepository): Repository => ({
+export const sequelizeRepository = async (cache: CacheRepository): Promise<Repository> => ({
   user: new SequelizeUserRepository(cache),
   brand: new SequelizeBrandRepository(cache),
   mainCategory: new SequelizeMainCategoryRepository(cache),

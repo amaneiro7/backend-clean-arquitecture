@@ -46,7 +46,7 @@ export class SequelizeModelSeriesRepository extends SequelizeCriteriaConverter i
 
   async matching(criteria: Criteria): Promise<{ total: number; data: ModelSeriesPrimitives[] }> {
     const options = this.convert(criteria)
-    console.log(options.offset)
+
     const locationOption = new ModelAssociation().convertFilterLocation(criteria, options)
 
     const { count: total, rows: data } = await ModelSeriesModel.findAndCountAll(locationOption)

@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from "react"
+import { useCallback, useMemo, useState } from "react"
 import { type SearchByCriteriaQuery } from "@/modules/shared/infraestructure/criteria/SearchByCriteriaQuery"
 
 
@@ -20,10 +20,12 @@ type Props = {
 }
 
 export const useHandlePage = ({ addFilter, limit, offset, total }: Props): HandlePage => {
-    const currentPage = useMemo(() => offset / limit + 1, [offset, limit])
+    const initialPage = useMemo(() => offset / limit + 1, [limit, offset])
+    const [currentPage, setCurrentPage] = useState(initialPage)
     // Handle the change in the limit.
     const handleLimitChange = useCallback((value: number) => {
         addFilter({ limit: value })
+        setCurrentPage(1)
     }, [addFilter])
 
     // Handle the change in the page.    
@@ -32,15 +34,15 @@ export const useHandlePage = ({ addFilter, limit, offset, total }: Props): Handl
     const showingMessage = useMemo(() => {
         const start = offset + 1
         const end = Math.min(offset + limit, total)
-        return `Mostrando ${start} - ${end} de ${total}`
-    }, [offset, limit, total])
+        return `Página ${currentPage} - Mostrando ${start} - ${end} de ${total}`
+    }, [offset, limit, total, currentPage])
 
     const handlePageClick = (event: { selected: number }) => {
         const newOffset = (event.selected * limit) % total
-
-        console.log(`User requested page number ${event.selected}, which is offset ${newOffset}`)
-
+        const newPage = event.selected + 1
+        console.log(newOffset)
         addFilter({ offset: newOffset })
+        setCurrentPage(newPage)
     }
 
     return {

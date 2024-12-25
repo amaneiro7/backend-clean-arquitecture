@@ -13,24 +13,27 @@ export const PaginationList = memo(({
   currentPage: number
   handlePageClick: ({ selected }: { selected: number }) => void
 }) => {
-  return (
-    <ReactPaginate
-      pageCount={totalPages}
-      pageRangeDisplayed={5}
-      marginPagesDisplayed={1}
-      forcePage={currentPage - 1}
-      previousLabel={<ArrowRightBadgeIcon className='h-5 rotate-180' />}
-      nextLabel={<ArrowRightBadgeIcon className='h-5' />}      
-      breakClassName='page-break'
-      renderOnZeroPageCount={null}
-      onPageChange={handlePageClick}
-      containerClassName='pageList-container'
-      pageClassName='page'
-      pageLinkClassName='page-link'
-      activeClassName='active'
-      previousClassName='page'
-      nextClassName='page'
-    />
+  return (    
+    <>
+      {(totalPages > 1) ? 
+        <ReactPaginate
+          pageCount={totalPages}
+          pageRangeDisplayed={5}
+          marginPagesDisplayed={1}
+          forcePage={currentPage - 1}
+          previousLabel={<ArrowRightBadgeIcon className='h-5 rotate-180' />}
+          nextLabel={<ArrowRightBadgeIcon className='h-5' />}      
+          breakClassName='page-break'
+          renderOnZeroPageCount={null}
+          onPageChange={handlePageClick}
+          containerClassName='pageList-container'
+          pageClassName='page'
+          pageLinkClassName='page-link'
+          activeClassName='active'
+          previousClassName='page'
+          nextClassName='page'
+        />
+      : null}
+    </>
   )
-}
-)
+})

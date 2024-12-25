@@ -1,9 +1,9 @@
-import { FindOptions, Op } from "sequelize"
+import { type FindOptions, Op } from "sequelize"
 import { Operator } from "../../../domain/criteria/FilterOperator"
-import { Filter, FiltersPrimitives } from "../../../domain/criteria/Filter"
-import { Criteria } from "../../../domain/criteria/Criteria"
-import { Filters } from "../../../domain/criteria/Filters"
-import { Order } from "../../../domain/criteria/Order"
+import { type FiltersPrimitives } from "../../../domain/criteria/Filter"
+import { type Criteria } from "../../../domain/criteria/Criteria"
+import { type Filters } from "../../../domain/criteria/Filters"
+import { type Order } from "../../../domain/criteria/Order"
 
 
 //Una interface que provee una función anonima a la cuál tiene un parametro de tipo T y devuelve un valor de tipo K
