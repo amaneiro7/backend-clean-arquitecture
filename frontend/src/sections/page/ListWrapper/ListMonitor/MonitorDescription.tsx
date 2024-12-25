@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react"
+import React, { lazy, Suspense } from "react"
 import { useExpendedRows } from "@/sections/Hooks/useExpendedRows"
 import { type DevicesApiResponse } from "@/modules/shared/domain/types/responseTypes"
 
@@ -18,7 +18,7 @@ export function MonitorDescription({ devices }: Props) {
     <>
       {
         devices?.map(device => (
-          <Suspense key={device.id}>
+          <React.Fragment key={device.id}>
             <TableRow className={`[&>td]:cursor-pointer ${expandedRows.includes(device.id) && '[&>td]:bg-slate-200 [&>td]:border-b-slate-200'}`} onClick={() => handleRowClick(device.id)}>
               <TableCell size='small' value={device.employee?.userName} />
               <TableCell size='large' value={device.location?.name} />
@@ -67,7 +67,7 @@ export function MonitorDescription({ devices }: Props) {
                 />
               </TableCellDescription>
             </Suspense>
-          </Suspense>
+          </React.Fragment>
         ))
       }
     </>

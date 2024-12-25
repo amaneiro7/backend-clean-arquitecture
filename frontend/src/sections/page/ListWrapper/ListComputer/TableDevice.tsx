@@ -1,6 +1,7 @@
-import React, { lazy, Suspense, useState } from "react"
+import React, { lazy, Suspense } from "react"
 import { LoadingTable } from "@/sections/components/Table/LodingTable"
 import { type DevicesApiResponse } from "@/modules/shared/domain/types/responseTypes"
+import { useExpendedRows } from "@/sections/Hooks/useExpendedRows"
 
 const Table = lazy(async () => import("@/sections/components/Table/Table").then(m => ({ default: m.Table })))
 const TableHeader = lazy(async () => import("@/sections/components/Table/TableHeader").then(m => ({ default: m.TableHeader })))
@@ -18,21 +19,8 @@ interface Props {
 }
 
 export function TableWrapper({ devices, loading = true, limit = 25 }: Props) {
-    const [expandedRows, setExpandedRows] = useState([])    
-    // This function handles the event when a row is clicked. It takes the ID of the clicked row as an argument.
-    // It first creates a copy of the current expanded rows.
-    // Then, it checks if the clicked row is currently expanded.
-    // If it is expanded, it removes the ID from the list of expanded rows.
-    // If it's not expanded, it adds the ID to the list of expanded rows.
-    // Finally, it updates the state with the new list of expanded rows.
-    const handleRowClick = (id: DevicesApiResponse['id']) => { 
-      const currentExpandedRows = [...expandedRows] // Create a copy of the current expanded rows
-      const isRowCurrentlyExpanded = currentExpandedRows.includes(id) // Check if the clicked row is currently expanded
-      const newExpandedRows = isRowCurrentlyExpanded ? 
-        currentExpandedRows.filter(rowId => rowId !== id) // If it is expanded, remove the ID from the list of expanded rows
-        : currentExpandedRows.concat(id) // If it's not expanded, add the ID to the list of expanded rows
-      setExpandedRows(newExpandedRows) // Update the state with the new list of expanded rows
-    }
+    const { expandedRows, handleRowClick } = useExpendedRows()
+    
     return (      
       <Table>
         <TableHeader>        

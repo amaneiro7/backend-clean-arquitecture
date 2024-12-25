@@ -26,7 +26,7 @@ export class UserPassword {
     const errors: string[] = []
 
     // Check if the password length is less than the minimum required length
-    if (value.length < UserPassword.HAS_MIN_LENGTH) {
+    if (value?.length < UserPassword.HAS_MIN_LENGTH) {
       errors.push('La contraseña debe tener al menos 8 caracteres')
     }
 

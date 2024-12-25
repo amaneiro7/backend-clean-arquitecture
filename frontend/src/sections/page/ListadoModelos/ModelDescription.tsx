@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react"
+import React, { lazy, Suspense } from "react"
 import { useExpendedRows } from "@/sections/Hooks/useExpendedRows"
 import { type ModelApiresponse } from "@/modules/shared/domain/types/responseTypes"
 
@@ -19,7 +19,7 @@ export function ModelDescription({ models }: Props) {
     <>
       {
         models?.map(model => (
-          <Suspense key={model.id}>
+          <React.Fragment key={model.id}>
             <TableRow className={`[&>td]:cursor-pointer ${expandedRows.includes(model.id) && '[&>td]:bg-slate-200 [&>td]:border-b-slate-200'}`} onClick={() => handleRowClick(model.id)}>
               <TableCell size='small' value={model.category.name} />
               <TableCell size='large' value={model.brand.name} />
@@ -46,7 +46,7 @@ export function ModelDescription({ models }: Props) {
                 />
               </TableCellDescription>
             </Suspense>
-          </Suspense>
+          </React.Fragment>
         ))
       }
     </>

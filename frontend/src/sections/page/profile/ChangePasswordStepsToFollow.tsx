@@ -6,7 +6,7 @@ const StepsText = lazy(async () => import("../../components/stepsToFollow/StepsT
 
 export function ChangePasswordStepsToFollow() {
   return (
-    <Suspense>
+    <>
       <StepsText
         requisito='obligatorio'
         text='Ingrese su Clave Actual, su Nueva Clave y una Confirmación de la misma, si es correcto, oprima '
@@ -29,6 +29,6 @@ export function ChangePasswordStepsToFollow() {
         }
         backgroundColor='gray'
       />
-    </Suspense>
+    </>
   )
 }

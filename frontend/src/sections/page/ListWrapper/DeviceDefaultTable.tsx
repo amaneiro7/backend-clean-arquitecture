@@ -26,9 +26,7 @@ function DeviceTable<T>({ children }: Props<T>) {
             <TableHead size='xxSmall' name='' />
           </TableRow>
         </TableHeader>
-        <Suspense>
-          <TableBody>{children}</TableBody>
-        </Suspense>
+        <TableBody>{children}</TableBody>
       </Table>
     </Suspense>
   )

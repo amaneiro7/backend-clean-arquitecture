@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react"
 import { navigation } from "@/sections/Routes/new.routes"
+import Loading from "@/sections/components/Loading"
 
 const Banner = lazy(() => import("@/sections/components/Banner"))
 const TilesSection = lazy(() => import("@/sections/components/TilesSection/TilesSection").then((m) => ({ default: m.TilesSection })))
@@ -12,33 +13,31 @@ const TilesVisible = lazy(() => import("@/sections/components/TilesSection/Tiles
 
 export default function Home() {
   return (
-    <>
-      
+    <Suspense fallback={<Loading />}>
       <Suspense fallback={<section className='relative w-full min-w-full h-52 bg-secondary-900' />}>
         <Banner />
       </Suspense>
-
-      <Suspense>
-        <TilesSection>
-          <TilesContainer>
-            {navigation.map((nav, index) => (
-              <TilesBox img={nav.img} key={nav.label}>
-                <TilesInvisible>
-                  {nav.navs.map((info) => (
-                    <TilesInvisibleInfo
-                      key={info.path}
-                      label={info.title}
-                      url={info.path}
-                    />
+            
+      <TilesSection>
+        <TilesContainer>
+          {navigation.map((nav, index) => (
+            <TilesBox img={nav.img} key={nav.label}>
+              <TilesInvisible>
+                {nav.navs.map((info) => (
+                  <TilesInvisibleInfo
+                    key={info.path}
+                    label={info.title}
+                    url={info.path}
+                  />
                     ))}
-                </TilesInvisible>
-                <TilesVisible isPar={index} desc={nav.desc} title={nav.label} />
-              </TilesBox>
+              </TilesInvisible>
+              <TilesVisible isPar={index} desc={nav.desc} title={nav.label} />
+            </TilesBox>
               ))}
-          </TilesContainer>
-        </TilesSection>
-      </Suspense>
+        </TilesContainer>
+      </TilesSection>
       
-    </>
+      
+    </Suspense>
   )
 }

@@ -1,5 +1,4 @@
-import { lazy, memo, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { lazy, memo } from 'react'
 import { useLogin } from './useLogin'
 
 const Logo = lazy(async () => await import('../../components/Logo/Logo'))
@@ -14,22 +13,14 @@ const UnlockIcon = lazy(async () => await import('../../components/icon/UnlockIc
 const MailIcon = lazy(async () => await import('../../components/icon/MailIcon').then(m => ({ default: m.MailIcon })))
 
 export const FormLogin = memo(() => {
-  const navigate = useNavigate()
-  const { formData, errors, loading, valid, handleChange, handleSubmit } = useLogin({ navigate })
-  const [toggleShowPassword, setToggleShowPassword] = useState(false)
-
-  const handleToggleShowPassowrd = () => {
-    setToggleShowPassword(!toggleShowPassword)
-  }
-
+  const { formData, errors, loading, valid, handleChange, handleSubmit, handleToggleShowPassowrd, toggleShowPassword } = useLogin()
+  
   return (
     <main className='bg-gray-300 dark:bg-gray-900'>
       <section className='flex flex-col items-center justify-center gap-2 px-6 py-8 mx-auto md:h-screen lg:py-0'>
         <div className='w-full flex flex-col gap-4 md:gap-6 p-6 sm:p-8 bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md dark:bg-gray-800 dark:border-gray-700'>
-
-          <Link className='mx-auto' aria-label='Logo' aria-describedby='Logo y un enlace al inicio de la página' to='/'>
-            <Logo />
-          </Link>
+          
+          <Logo />
 
           <PageTitle title='Iniciar Sesión' />
 

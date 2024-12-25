@@ -4,6 +4,8 @@ import { useInputsData } from "@/sections/components/ListComponent/useInputData"
 import { useDefaultInitialInputValue } from "./defaultParams"
 import { type DevicesApiResponse } from "@/sections/../modules/shared/domain/types/responseTypes"
 import { useDeviceContext } from "@/sections/Context/DeviceProvider"
+import Loading from "@/sections/components/Loading"
+import { LoadingTable } from "@/sections/components/Table/LodingTable"
 
 const ListWrapper = lazy(() => import("@/sections/components/ListComponent/ListWrapper").then(m => ({ default: m.ListWrapper })))
 const MainComputerFilter = lazy(async () => import("@/sections/components/ListComponent/MainComputerFilter").then(m => ({ default: m.MainComputerFilter })))
@@ -16,7 +18,7 @@ export default function ListPartsAndPieces() {
   const { inputData, handleChange, handleClear } = useInputsData({ initialInputData, defaultInputData, addFilter, cleanFilters })
 
   return (
-    <Suspense>
+    <Suspense fallback={<Loading />}>
       <ListWrapper
         total={managePage.showingMessage}
         managePage={managePage}
@@ -39,13 +41,12 @@ export default function ListPartsAndPieces() {
           />
         }
         table={
-          <Suspense>
-            <DeviceTable>
-              <PartsAndpiecesDescription devices={devices as DevicesApiResponse[]} />
-            </DeviceTable>
-  
-          </Suspense>
-      }
+          <DeviceTable>
+            {loading
+              ? <LoadingTable registerPerPage={managePage.limit} colspan={7} />
+              : <PartsAndpiecesDescription devices={devices as DevicesApiResponse[]} />}
+          </DeviceTable>
+        }
       />
     </Suspense>
   )

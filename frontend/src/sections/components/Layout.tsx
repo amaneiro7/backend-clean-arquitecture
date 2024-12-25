@@ -9,14 +9,10 @@ const Main = lazy(async () => await import("./Main"))
 function Layout () {
     return (
       <AppContextProvider>
-        <Suspense fallback={<header className='min-h-16 h-16 bg-secondary' />}>
-          <Header />
-        </Suspense>
-        <Suspense fallback={<main className='min-h-screen h-screen bg-gray-100' />}>
-          <Main>
-            <Outlet />
-          </Main>
-        </Suspense>
+        <Header />        
+        <Main>
+          <Outlet />
+        </Main>        
         <Suspense fallback={<footer className='min-h-8 h-8 bg-slate-700' />}>
           <Footer />
         </Suspense>

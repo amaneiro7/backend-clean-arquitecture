@@ -36,9 +36,9 @@ export const Header = memo(function () {
     <>
       <header className='min-h-16 h-16 md:text-sm md:border-none gap-4 flex items-center justify-between md:top-0 md:sticky z-50 bg-secondary w-full shadow-lg pr-8 py-4 overflow-visible'>
         <div className='pl-8 pr-4 p-1 bg-white rounded-e-full'>
-          <Link aria-label='Logo' aria-describedby='Logo y un enlace al inicio de la página' to='/'>
-            <Logo />
-          </Link>
+          
+          <Logo />
+          
         </div>
 
         <WelcomeTitle user={user} />        
@@ -76,9 +76,7 @@ export const Header = memo(function () {
       </header>
       <Suspense>
         <Modal ref={dialogExitRef}>
-          <Suspense>
-            <ConfirmationModal handleClose={() => dialogExitRef.current?.handleClose()} handle={logout} text='¿Está seguro que desea ' strongText='Cerrar la Sesión?' />
-          </Suspense>
+          <ConfirmationModal handleClose={() => dialogExitRef.current?.handleClose()} handle={logout} text='¿Está seguro que desea ' strongText='Cerrar la Sesión?' />
         </Modal>
       </Suspense>
     </>

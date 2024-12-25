@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react"
+import { lazy, Suspense, useState } from "react"
 import { InputSkeletonLoading } from "@/sections/components/skeleton/inputSkeletonLoading"
 import { UserPassword } from "@/modules/user/user/domain/UserPassword"
 import { type ChangePasswordParams } from "@/modules/user/user/application/changePassoword"
@@ -18,6 +18,8 @@ const Input = lazy(async () => import('@/sections/components/text-inputs/Input')
 const Button = lazy(async () => await import('@/sections/components/button/button'))
 const CancelIcon = lazy(() => import('@/sections/components/icon/CancelIcon').then(m => ({ default: m.CancelIcon })))
 const RightArrowIcon = lazy(() => import('@/sections/components/icon/RightArrowIcon').then(m => ({ default: m.RightArrowIcon })))
+const LockIcon = lazy(async () => await import('../../components/icon/LockIcon').then(m => ({ default: m.LockIcon })))
+const UnlockIcon = lazy(async () => await import('../../components/icon/UnlockIcon').then(m => ({ default: m.UnlockIcon })))
 
 export function ChangePassowrdForm({
     errors,
@@ -29,6 +31,14 @@ export function ChangePassowrdForm({
     handleOpenModal,
     isDisabled
 }: Props) {
+  const [toogleInputs, setToogleInputs] = useState({
+    password: false,
+    newPassword: false,
+    reTypePassword: false
+  })
+  const handleToogleInputs = (name: 'password' | 'newPassword' | 'reTypePassword') => {
+    setToogleInputs(prevState => ({ ...prevState, [name]: !prevState[name] }))      
+  }
     return (
       <form
         className='p-4 rounded-2xl shadow bg-white grid md:grid-cols-2 gap-4'
@@ -40,7 +50,7 @@ export function ChangePassowrdForm({
           <Suspense fallback={<InputSkeletonLoading />}>
             <Input
               label='Clave Actual'
-              type='password'
+              type={toogleInputs.password ? 'text' : 'password'}
               name='password'
               autoComplete='current-password'
               onChange={handleChange}
@@ -48,30 +58,48 @@ export function ChangePassowrdForm({
               errorMessage={errors.password}
               error={errors.password ? true : false}
               isRequired
-            />
+              rightIcon={
+                toogleInputs.password ? 
+                  <UnlockIcon className='w-4 fill-black/60 aspect-square' /> : 
+                  <LockIcon className='w-4 fill-black/60 aspect-square' />
+                }
+              onRightIconClick={() => handleToogleInputs('password')}
+            />  
           </Suspense>
           <Suspense fallback={<InputSkeletonLoading />}>
             <Input
               label='Nueva Clave'
-              type='password'
+              type={toogleInputs.newPassword ? 'text' : 'password'}
               name='newPassword'
               onChange={handleChange}
               value={formData.newPassword}
               errorMessage={errors.newPassword}
               error={errors.newPassword ? true : false}
               isRequired
+              rightIcon={
+                toogleInputs.newPassword ? 
+                  <UnlockIcon className='w-4 fill-black/60 aspect-square' /> : 
+                  <LockIcon className='w-4 fill-black/60 aspect-square' />
+              }
+              onRightIconClick={() => handleToogleInputs('newPassword')}
             />
           </Suspense>
           <Suspense fallback={<InputSkeletonLoading />}>
             <Input
               label='Confirmación de Clave'
-              type='password'
+              type={toogleInputs.reTypePassword ? 'text' : 'password'}
               name='reTypePassword'
               onChange={handleChange}
               value={formData.reTypePassword}
               errorMessage={errors.reTypePassword}
               error={errors.reTypePassword ? true : false}
               isRequired
+              rightIcon={
+                toogleInputs.reTypePassword ? 
+                  <UnlockIcon className='w-4 fill-black/60 aspect-square' /> : 
+                  <LockIcon className='w-4 fill-black/60 aspect-square' />
+              }
+              onRightIconClick={() => handleToogleInputs('reTypePassword')}
             />
           </Suspense>
         </div>
