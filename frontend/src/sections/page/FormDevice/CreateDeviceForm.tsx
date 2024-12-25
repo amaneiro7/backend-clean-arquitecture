@@ -3,6 +3,7 @@ import { useFormDevice } from '@/sections/Hooks/device/useGenericFormData'
 import { Computer } from '@/modules/devices/fetures/computer/domain/Computer'
 import { HardDrive } from '@/modules/devices/fetures/hardDrive/hardDrive/domain/HardDrive'
 import { MFP } from '@/modules/devices/fetures/multiFunctionalPrinter/MFP'
+import Loading from '@/sections/components/Loading'
 
 const FormContainer = lazy(async () => await import('@/sections/components/formContainer/formContainer'))
 const DeviceSearchComboBox = lazy(async () => import('@/sections/components/combo_box/search/DeviceSearchComboBox'))
@@ -21,7 +22,7 @@ export default function CreateDeviceForm() {
 
   
   return (
-    <Suspense>
+    <Suspense fallback={<Loading />}>
       <FormContainer
         key='device-form'
         title='Dispositivo'
@@ -36,28 +37,28 @@ export default function CreateDeviceForm() {
         url='/device/add'
         searchInput={<DeviceSearchComboBox />}
       >
-        <Suspense>
-          <MainFormInputs 
-            handleChange={handleChange}
-            handleModel={handleModel}
-            handleLocation={handleLocation}
-            isAddForm={isAddForm}
-            disabled={disabled}
-            errors={error}
-            required={required}
-            statusId={formData.statusId}
-            categoryId={formData.categoryId}
-            mainCategoryId={formData.mainCategoryId}
-            brandId={formData.brandId}
-            modelId={formData.modelId}
-            serial={formData.serial}
-            activo={formData.activo}
-            employeeId={formData.employeeId}
-            locationId={formData.locationId}
-            stockNumber={formData.stockNumber}
-            observation={formData.observation}
-          />
-        </Suspense>
+        
+        <MainFormInputs 
+          handleChange={handleChange}
+          handleModel={handleModel}
+          handleLocation={handleLocation}
+          isAddForm={isAddForm}
+          disabled={disabled}
+          errors={error}
+          required={required}
+          statusId={formData.statusId}
+          categoryId={formData.categoryId}
+          mainCategoryId={formData.mainCategoryId}
+          brandId={formData.brandId}
+          modelId={formData.modelId}
+          serial={formData.serial}
+          activo={formData.activo}
+          employeeId={formData.employeeId}
+          locationId={formData.locationId}
+          stockNumber={formData.stockNumber}
+          observation={formData.observation}
+        />
+        
         <div className='grid grid-cols-[repeat(auto-fit,minmax(450px,1fr))] gap-4'>
           {(categoryType === 'computer' && formData.modelId) ?
             <Suspense>

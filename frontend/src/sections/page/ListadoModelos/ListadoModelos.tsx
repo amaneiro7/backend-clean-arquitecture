@@ -4,7 +4,7 @@ import { useModelContext } from "@/sections/Context/ModelProvider"
 import { useInputsData } from "@/sections/components/ListComponent/useInputData"
 import { type ModelApiresponse } from "@/sections/../modules/shared/domain/types/responseTypes"
 import Loading from "@/sections/components/Loading"
-import { LoadingTable } from "@/sections/components/Table/LodingTable"
+import { LoadingTable } from "@/sections/page/ListWrapper/ListComputer/LodingTable"
 
 const ListWrapper = lazy(async () => import("@/sections/components/ListComponent/ListWrapper").then(m => ({ default: m.ListWrapper })))
 const MainModelFilter = lazy(async () => import("@/sections/components/ListComponent/MainModelFIlter").then(m => ({ default: m.MainModelFilter })))

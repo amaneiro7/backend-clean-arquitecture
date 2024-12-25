@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from "react"
-import { LoadingTable } from "@/sections/components/Table/LodingTable"
+import { LoadingTable } from "@/sections/page/ListWrapper/ListComputer/LodingTable"
 import { type DevicesApiResponse } from "@/modules/shared/domain/types/responseTypes"
 import { useExpendedRows } from "@/sections/Hooks/useExpendedRows"
 

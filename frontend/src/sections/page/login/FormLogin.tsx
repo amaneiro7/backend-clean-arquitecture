@@ -1,16 +1,15 @@
-import { lazy, memo } from 'react'
+import { lazy, memo, Suspense } from 'react'
 import { useLogin } from './useLogin'
 
-const Logo = lazy(async () => await import('../../components/Logo/Logo'))
-const Input = lazy(async () => import('../../components/text-inputs/Input').then(m => ({ default: m.Input })))
-const PageTitle = lazy(async () => await import('../../components/Typography/PageTitle'))
-const Button = lazy(async () => await import('../../components/button/button'))
-const Copyright = lazy(async () => await import('../../components/Copyright').then(m => ({ default: m.Copyright })))
-
-const CircleSpinningIcon = lazy(() => import('../../components/icon/CircleSpinning').then(m => ({ default: m.CircleSpinningIcon })))
-const LockIcon = lazy(async () => await import('../../components/icon/LockIcon').then(m => ({ default: m.LockIcon })))
-const UnlockIcon = lazy(async () => await import('../../components/icon/UnlockIcon').then(m => ({ default: m.UnlockIcon })))
-const MailIcon = lazy(async () => await import('../../components/icon/MailIcon').then(m => ({ default: m.MailIcon })))
+const Logo = lazy(async () => await import('@/sections/components/Logo/Logo'))
+const Input = lazy(async () => import('@/sections/components/text-inputs/Input').then(m => ({ default: m.Input })))
+const PageTitle = lazy(async () => await import('@/sections/components/Typography/PageTitle'))
+const Button = lazy(async () => await import('@/sections/components/button/button'))
+const Copyright = lazy(async () => await import('@/sections/components/Copyright').then(m => ({ default: m.Copyright })))
+const CircleSpinningIcon = lazy(() => import('@/sections/components/icon/CircleSpinning').then(m => ({ default: m.CircleSpinningIcon })))
+const LockIcon = lazy(async () => await import('@/sections/components/icon/LockIcon').then(m => ({ default: m.LockIcon })))
+const UnlockIcon = lazy(async () => await import('@/sections/components/icon/UnlockIcon').then(m => ({ default: m.UnlockIcon })))
+const MailIcon = lazy(async () => await import('@/sections/components/icon/MailIcon').then(m => ({ default: m.MailIcon })))
 
 export const FormLogin = memo(() => {
   const { formData, errors, loading, valid, handleChange, handleSubmit, handleToggleShowPassowrd, toggleShowPassword } = useLogin()
@@ -32,6 +31,7 @@ export const FormLogin = memo(() => {
                 label='Correo Electrónico'
                 type='email'
                 name='email'
+                autoComplete='email'
                 onChange={handleChange}
                 value={formData.email}
                 errorMessage={errors.email}
@@ -46,15 +46,16 @@ export const FormLogin = memo(() => {
                 label='Contraseña'
                 type={toggleShowPassword ? 'text' : 'password'}
                 name='password'
+                autoComplete='current-password'
                 onChange={handleChange}
                 value={formData.password}
                 errorMessage={errors.password}
                 error={errors.password ? true : false}
                 valid={valid.password}
                 rightIcon={
-                    toggleShowPassword ? 
-                      <UnlockIcon className='w-4 fill-black/60 aspect-square' /> : 
-                      <LockIcon className='w-4 fill-black/60 aspect-square' />
+                    toggleShowPassword 
+                    ? <Suspense><UnlockIcon className='w-4 fill-black/60 aspect-square' /> </Suspense>
+                    : <Suspense><LockIcon className='w-4 fill-black/60 aspect-square' /></Suspense>
                   }
                 onRightIconClick={handleToggleShowPassowrd}
                 isRequired
@@ -72,7 +73,7 @@ export const FormLogin = memo(() => {
               type='submit'
               icon={
                 loading
-                  ? <CircleSpinningIcon width={20} />
+                  ? <Suspense><CircleSpinningIcon width={20} /></Suspense>
                   : null
               }
             />

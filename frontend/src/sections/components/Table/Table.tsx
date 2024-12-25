@@ -1,3 +1,4 @@
+import { memo } from "react"
 import { type TableBody } from "./TableBody"
 import { type TableHeader } from "./TableHeader"
 
@@ -5,7 +6,7 @@ type Props<T> = React.DetailedHTMLProps<React.TableHTMLAttributes<HTMLTableEleme
   children: React.ReactElement<T> | Array<React.ReactElement<T>>
 }
 
-export function Table<T extends typeof TableBody | typeof TableHeader>({ children, ...props }: Props<T>) {
+ function TableComponent<T extends typeof TableBody | typeof TableHeader>({ children, ...props }: Props<T>) {
   return (
     <table
       className={`clear-both relative min-w-full border-separate border-spacing-0 table rounded-e-lg overflow-hidden ${props.className}`}
@@ -15,3 +16,5 @@ export function Table<T extends typeof TableBody | typeof TableHeader>({ childre
     </table>
   )
 }
+
+export const Table = memo(TableComponent)

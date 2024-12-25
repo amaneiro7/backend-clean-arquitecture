@@ -25,13 +25,13 @@ function InputComponet<T extends string | number | readonly string[]>({ error, v
           {`${label} ${isRequired ? '*' : ''}`}
         </label>
         <div className='inputArea'>
-          {leftIcon && <span className='leftIcon'>{leftIcon}</span>}
+          {leftIcon ? <span className='leftIcon'>{leftIcon}</span> : null}
           <input 
             {...props} 
             value={value}
             required={isRequired}
           />
-          {rightIcon && <button type='button' onClick={onRightIconClick} className='rightIcon'>{rightIcon}</button>}
+          {rightIcon ? <button type='button' onClick={onRightIconClick} className='rightIcon'>{rightIcon}</button> : null}
           <fieldset
             aria-hidden
             className={`${error ? '!border-2 !border-error' : ''} ${valid ? '!border-2 !border-success' : ''} group-focus-within:border-focus group-focus-within:border-2`}

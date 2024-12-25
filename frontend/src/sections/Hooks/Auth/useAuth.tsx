@@ -9,6 +9,7 @@ import { Logout } from '@/modules/user/auth/application/logout'
 
 import { type Repository } from '@/modules/shared/domain/repository'
 import { type UserPrimitives } from '@/modules/user/user/domain/User'
+import { useLocation } from 'react-router-dom'
 
 export interface UseAuth {
     getLogin: ({ email, password }: Pick<UserPrimitives, 'email' | 'password'>) => Promise<UserPrimitives>
@@ -29,6 +30,7 @@ export const useLogin = (repository: Repository): UseAuth => {
         token: null
     })
     const [loading, setLoading] = useState<boolean>(false)
+    const location = useLocation()
 
     async function getLogin({ email, password }: Pick<UserPrimitives, 'email' | 'password'>) {
         setLoading(true)
@@ -123,8 +125,9 @@ export const useLogin = (repository: Repository): UseAuth => {
     }, [logout, repository])
 
     useLayoutEffect(() => {
+        if (location.pathname === '/login') return
         handleCheckToken()
-    }, [handleCheckToken])
+    }, [handleCheckToken, location.pathname])
 
 
     return {

@@ -5,7 +5,7 @@ import { useDeviceContext } from "@/sections/Context/DeviceProvider"
 import { type DevicesApiResponse } from "@/sections/../modules/shared/domain/types/responseTypes"
 
 import Loading from "@/sections/components/Loading"
-import { LoadingTable } from "@/sections/components/Table/LodingTable"
+import { LoadingTable } from "@/sections/page/ListWrapper/ListComputer/LodingTable"
 
 const ListWrapper = lazy(() => import("@/sections/components/ListComponent/ListWrapper").then(m => ({ default: m.ListWrapper})))
 const MainComputerFilter = lazy(async () => import("@/sections/components/ListComponent/MainComputerFilter").then(m => ({ default: m.MainComputerFilter })))
