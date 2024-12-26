@@ -1,4 +1,4 @@
-import { lazy, memo, Suspense } from "react"
+import { lazy, memo } from "react"
 
 const Table = lazy(async () => import("@/sections/components/Table/Table").then(m => ({ default: m.Table })))
 const TableHeader = lazy(async () => import("@/sections/components/Table/TableHeader").then(m => ({ default: m.TableHeader })))
@@ -11,24 +11,22 @@ interface Props<T> {
 }
 
 function DeviceTable<T>({ children }: Props<T>) {
-  return (
-    <Suspense>
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead size='small' name='Usuario' />
-            <TableHead size='large' name='Ubicación' />
-            <TableHead size='small' name='Serial' />
-            <TableHead size='small' name='Categoria' />
-            <TableHead size='small' name='Marca' />
-            <TableHead size='xLarge' name='Modelo' />
-            <TableHead size='small' name='Observaciones' />
-            <TableHead size='xxSmall' name='' />
-          </TableRow>
-        </TableHeader>
-        <TableBody>{children}</TableBody>
-      </Table>
-    </Suspense>
+  return (    
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead size='small' name='Usuario' />
+          <TableHead size='large' name='Ubicación' />
+          <TableHead size='small' name='Serial' />
+          <TableHead size='small' name='Categoria' />
+          <TableHead size='small' name='Marca' />
+          <TableHead size='xLarge' name='Modelo' />
+          <TableHead size='small' name='Observaciones' />
+          <TableHead size='xxSmall' name='' />
+        </TableRow>
+      </TableHeader>
+      <TableBody>{children}</TableBody>
+    </Table>    
   )
 }
 

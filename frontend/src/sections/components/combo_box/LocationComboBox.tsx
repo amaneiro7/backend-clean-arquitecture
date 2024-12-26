@@ -61,14 +61,13 @@ export default function LocationComboBox({ value, error, isDisabled = false, isR
 
   return (
     <>
-      <Suspense>
-        <ComboBox
-          id='locationId'
-          initialValue={initialValue}
-          label='Ubicación'
-          name='locationId'
-          type={type}
-          onChange={(_, newValue: LocationPrimitives & {
+      <ComboBox
+        id='locationId'
+        initialValue={initialValue}
+        label='Ubicación'
+        name='locationId'
+        type={type}
+        onChange={(_, newValue: LocationPrimitives & {
             inputValue: string
           }) => {
           if (typeof newValue === 'string') {
@@ -92,23 +91,21 @@ export default function LocationComboBox({ value, error, isDisabled = false, isR
             }
           }
         }}
-          options={filterLocation as LocationApiResponse[]}
-          isDisabled={isDisabled}
-          isRequired={isRequired}
-          loading={loading}
-          isError={!!error}
-          errorMessage={error}
-        />
-      </Suspense>
+        options={filterLocation as LocationApiResponse[]}
+        isDisabled={isDisabled}
+        isRequired={isRequired}
+        loading={loading}
+        isError={!!error}
+        errorMessage={error}
+      />
+      
       {type === 'form' ?
         <Suspense>
-          <DialogComponent open={open} handleClose={handleClose}>
-            <Suspense>
-              <LocationDialog
-                initialDialogValue={dialogValue}
-                handleClose={handleClose}
-              />
-            </Suspense>        
+          <DialogComponent open={open} handleClose={handleClose}>            
+            <LocationDialog
+              initialDialogValue={dialogValue}
+              handleClose={handleClose}
+            />   
           </DialogComponent>
         </Suspense>
         : null}

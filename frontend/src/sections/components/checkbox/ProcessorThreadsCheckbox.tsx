@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy } from "react";
 import { type OnHandleChange } from "@/modules/shared/domain/types/types";
 import { type ProcessorHasThreads } from "@/modules/devices/fetures/processor/domain/ProcessorHasThreads";
 import { type Primitives } from "@/modules/shared/domain/value-object/Primitives";
@@ -13,19 +13,17 @@ const Checkbox = lazy(async () => import("./Checbox").then(m => ({ default: m.Ch
 
 export function ProcessorThreadsCheckbox({ value, onChange, isDisabled, isRequired }: Props) {
     return (
-      <Suspense>
-        <Checkbox
-          label='Tiene Threads'
-          text='¿Tiene Threads?'
-          name='threads'
-          value={value}
-          disabled={isDisabled}
-          required={isRequired}
-          handle={(event) => {
+      <Checkbox
+        label='Tiene Threads'
+        text='¿Tiene Threads?'
+        name='threads'
+        value={value}
+        disabled={isDisabled}
+        required={isRequired}
+        handle={(event) => {
                     const { name, checked } = event.target
                     onChange(name, checked)
                 }}
-        />
-      </Suspense>
+      />
     )
 }

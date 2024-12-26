@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react'
+import { lazy } from 'react'
 import { type BrandName } from '../../../modules/devices/brand/domain/BrandName'
 import { type OnHandleChange } from '../../../modules/shared/domain/types/types'
 import { type Primitives } from '../../../modules/shared/domain/value-object/Primitives'
@@ -15,22 +15,20 @@ const Input = lazy(async () => import('./Input').then(m => ({ default: m.Input }
 
 export function BrandNameInput({ value, onChange, error, isDisabled, isRequired }: Props) {
   return (
-    <Suspense>
-      <Input
-        id='brand-name'
-        name='name'
-        type='text'
-        label='Name'
-        onChange={(event) => {
+    <Input
+      id='brand-name'
+      name='name'
+      type='text'
+      label='Name'
+      onChange={(event) => {
           const { name, value } = event.target
           onChange(name, value)
         }}
-        value={value}
-        isRequired={isRequired}
-        disabled={isDisabled}
-        error={!!error}
-        errorMessage={error}
-      />
-    </Suspense>
+      value={value}
+      isRequired={isRequired}
+      disabled={isDisabled}
+      error={!!error}
+      errorMessage={error}
+    />
   )
 }

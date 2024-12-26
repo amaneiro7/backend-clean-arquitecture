@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react'
+import { lazy } from 'react'
 import { type OnHandleChange } from '@/modules/shared/domain/types/types'
 import { type HardDriveHealth } from '@/modules/devices/fetures/hardDrive/hardDrive/domain/HardDriveHealth'
 import { type HardDriveCapacityId } from '@/modules/devices/fetures/hardDrive/hardDriveCapacity/domain/HardDriveCapacityId'
@@ -29,7 +29,7 @@ export default function AddHardDriveFeatures({
   onChange 
 }: Props) {
   return (
-    <Suspense>
+    <>
       
       <HealthInput
         onChange={onChange}
@@ -59,6 +59,6 @@ export default function AddHardDriveFeatures({
         error={errors.hardDriveTypeId}
       />
       
-    </Suspense>
+    </>
   )
 }

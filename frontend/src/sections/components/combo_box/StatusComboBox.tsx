@@ -1,4 +1,4 @@
-import { lazy, useMemo } from "react"
+import { lazy, memo, useMemo } from "react"
 import { useAppContext } from "@/sections/Context/AppProvider"
 import { Operator } from "@/modules/shared/domain/criteria/FilterOperators"
 import { type OnHandleChange } from "@/modules/shared/domain/types/types"
@@ -17,7 +17,7 @@ interface Props {
 
 const ComboBox = lazy(async () => import("./combo_box"))
 
-export default function StatusComboBox({ value, onChange, error, isDisabled = false, isRequired, type = 'search' }: Props) {
+function StatusComboBox({ value, onChange, error, isDisabled = false, isRequired, type = 'search' }: Props) {
     const { useStatus: { status, loading }} = useAppContext()
 
     const initialValue = useMemo(() => {
@@ -43,3 +43,5 @@ export default function StatusComboBox({ value, onChange, error, isDisabled = fa
       />
     )
 }
+
+export default memo(StatusComboBox)

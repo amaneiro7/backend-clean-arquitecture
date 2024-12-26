@@ -1,7 +1,6 @@
-import { lazy, Suspense, useMemo } from "react"
+import { lazy, useMemo } from "react"
 import { OnHandleChange } from "../../../modules/shared/domain/types/types"
 import { Operator } from "../../../modules/shared/domain/criteria/FilterOperators"
-import { InputSkeletonLoading } from "../skeleton/inputSkeletonLoading"
 import { useRole } from "../../Hooks/role/useRole"
 import { type Primitives } from "../../../modules/shared/domain/value-object/Primitives"
 import { type RolePrimitives } from "../../../modules/user/role/domain/Role"
@@ -22,22 +21,20 @@ export default function RolesComboBox({ value, onChange, type = 'search' }: Prop
         return roles.find(role => role.id === value)
     }, [roles, value])
 
-    return (
-      <Suspense fallback={<InputSkeletonLoading />}>
-        <ComboBox
-          id='roleId'
-          initialValue={initialValue}
-          label='Cargo'
-          name='roleId'
-          type={type}
-          onChange={(_, newValue: RolePrimitives) => {
+    return (      
+      <ComboBox
+        id='roleId'
+        initialValue={initialValue}
+        label='Cargo'
+        name='roleId'
+        type={type}
+        onChange={(_, newValue: RolePrimitives) => {
             onChange('roleId', newValue ? newValue.id : '', Operator.EQUAL)                    
           }}
-          options={roles}
-          isRequired={type === 'form'}
-          isDisabled={false}
-          loading={loading}
-        />
-      </Suspense>
+        options={roles}
+        isRequired={type === 'form'}
+        isDisabled={false}
+        loading={loading}
+      />
     )
 }

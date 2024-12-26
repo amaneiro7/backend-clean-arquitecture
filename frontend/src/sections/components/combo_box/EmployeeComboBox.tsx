@@ -47,14 +47,13 @@ export default function EmployeeComboBox({ value, error, isDisabled = false, isR
 
   return (
     <>
-      <Suspense>
-        <ComboBox
-          id={name}
-          initialValue={initialValue}
-          label='Usuarios'
-          name={name}
-          type={type}
-          onChange={(_, newValue: EmployeePrimitives & {
+      <ComboBox
+        id={name}
+        initialValue={initialValue}
+        label='Usuarios'
+        name={name}
+        type={type}
+        onChange={(_, newValue: EmployeePrimitives & {
           inputValue: string
         }) => {
           if (typeof newValue === 'string') {
@@ -75,23 +74,21 @@ export default function EmployeeComboBox({ value, error, isDisabled = false, isR
             onChange(name, hasNewValue, Operator.EQUAL)
           }
         }}
-          options={employeeOptions}
-          isDisabled={isDisabled}
-          isRequired={isRequired}
-          isError={!!error}
-          loading={loading}
-          errorMessage={error}
-        />
-      </Suspense>
+        options={employeeOptions}
+        isDisabled={isDisabled}
+        isRequired={isRequired}
+        isError={!!error}
+        loading={loading}
+        errorMessage={error}
+      />
+      
       {type === 'form' ?
         <Suspense>
-          <DialogComponent open={open} handleClose={handleClose}>        
-            <Suspense>
-              <EmployeeDialog 
-                initialDialogValue={dialogValue} 
-                handleClose={handleClose}
-              />
-            </Suspense>
+          <DialogComponent open={open} handleClose={handleClose}>            
+            <EmployeeDialog 
+              initialDialogValue={dialogValue} 
+              handleClose={handleClose}
+            />
           </DialogComponent>
         </Suspense>
           : null}

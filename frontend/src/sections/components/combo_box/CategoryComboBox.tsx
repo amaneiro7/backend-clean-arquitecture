@@ -25,11 +25,6 @@ const ReadOnlyInputBox = lazy(async () => import("../ReadOnlyInputBox").then(m =
 export default function CategoryComboBox({ value, mainCategory, error, isDisabled = false, isRequired, onChange, type = 'search', isAdd = false }: Props) {
     const { useCategory: { categories, loading } } = useAppContext()
 
-    // const filterCategory = useMemo(() => {
-    //   if (!filter) return categories
-    //   return categories.filter(cat =>  filter.includes(cat.id))
-      
-    // },[categories, filter])
     const filterCategory = useMemo(() => {
       if (!mainCategory) return categories
       
@@ -44,26 +39,28 @@ export default function CategoryComboBox({ value, mainCategory, error, isDisable
     }, [categories, value])
 
 
-    return (
-      <>
-        {(!isAdd && type === 'form') 
-          ? <ReadOnlyInputBox label='SubCategoria' required={isRequired} defaultValue={initialValue?.name} /> 
-          : <ComboBox
-              id='categoryId'
-              initialValue={initialValue}
-              label='SubCategoria'
-              name='categoryId'
-              type={type}
-              onChange={(_, newValue: CategoryPrimitives) => {
+    if (!isAdd && type === 'form') {
+      return (
+        <ReadOnlyInputBox label='SubCategoria' required={isRequired} defaultValue={initialValue?.name} />
+      )
+    } else {
+      return (
+        <ComboBox
+          id='categoryId'
+          initialValue={initialValue}
+          label='SubCategoria'
+          name='categoryId'
+          type={type}
+          onChange={(_, newValue: CategoryPrimitives) => {
                         onChange('categoryId', newValue ? newValue.id : '', Operator.EQUAL)
                     }}
-              options={filterCategory}
-              isRequired={isRequired}
-              isDisabled={isDisabled}
-              loading={loading}
-              isError={!!error}
-              errorMessage={error}
-            />}
-      </>
-    )
+          options={filterCategory}
+          isRequired={isRequired}
+          isDisabled={isDisabled}
+          loading={loading}
+          isError={!!error}
+          errorMessage={error}
+        />
+      )
+    }    
 }

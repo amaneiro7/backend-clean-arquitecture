@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react'
+import { lazy } from 'react'
 import { type OnHandleChange } from '@/modules/shared/domain/types/types'
 import { type Primitives } from '@/modules/shared/domain/value-object/Primitives'
 import { type ComputerName } from '@/modules/devices/fetures/computer/domain/ComputerName'
@@ -65,7 +65,7 @@ export default function AddComputerFeatures({
 }: Props) {
 
   return (
-    <Suspense>
+    <>
       
       <ComputerNameInput
         onChange={onChange}
@@ -186,6 +186,6 @@ export default function AddComputerFeatures({
         error={errors.macAddress}
       />
       
-    </Suspense>
+    </>
   )
 }

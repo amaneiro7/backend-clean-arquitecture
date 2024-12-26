@@ -1,6 +1,7 @@
 import React, { lazy, Suspense } from "react"
 import { useExpendedRows } from "@/sections/Hooks/useExpendedRows"
 import { type DevicesApiResponse } from "@/modules/shared/domain/types/responseTypes"
+import { CategoryId } from "@/modules/devices/category/domain/CategoryId"
 
 interface Props {
   devices: DevicesApiResponse[]
@@ -45,6 +46,19 @@ export function PartsAndpiecesDescription({ devices }: Props) {
                   title='Activo'
                   text={device.activo ?? "Sin Activo"}
                 />
+                {device.categoryId === CategoryId.categoryOptions.KEYBOARD
+                  ? 
+                    <>
+                      <TableCellDescInfo 
+                        title='Lector de Huella'
+                        text={device.model?.modelKeyboard?.hasFingerPrintReader ? 'Si' : 'No'}
+                      />
+                      <TableCellDescInfo 
+                        title='Tipo de entrada'
+                        text={device.model?.modelKeyboard?.inputType?.name}
+                      />
+                    </>
+                  : null}
                 <TableCellDescInfo
                   title='Última Actualización'
                   text={device.updatedAt ? new Date(device.updatedAt).toLocaleDateString() : ""}

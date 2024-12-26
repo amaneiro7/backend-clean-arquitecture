@@ -35,6 +35,7 @@ export default function ProfilePage() {
         </DetailsInfo>
           
         <ChangePassowrdForm
+          userEmail={email}
           errors={errors}
           formData={formData}
           handleChange={handleChange}
@@ -53,14 +54,12 @@ export default function ProfilePage() {
       
       
       <Suspense>
-        <Modal key='profilePageModal' ref={dialogRef}>
-          <Suspense>
-            <ConfirmationModal
-              handleClose={handleCloseModal}
-              formId={formId}
-              text='¿Seguro que desea cambiar la contraseña?'
-            />
-          </Suspense>
+        <Modal key='profilePageModal' ref={dialogRef}>          
+          <ConfirmationModal
+            handleClose={handleCloseModal}
+            formId={formId}
+            text='¿Seguro que desea cambiar la contraseña?'
+          />          
         </Modal>
       </Suspense>
     </Suspense>
